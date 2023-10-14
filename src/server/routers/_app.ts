@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { procedure, router } from '../trpc';
+import { procedure, router } from '../trpc';;
 
 export const appRouter = router({
   hello: procedure
@@ -8,7 +8,7 @@ export const appRouter = router({
         text: z.string(),
       }),
     )
-    .query((opts) => {
+    .query(async (opts) => {
       return {
         greeting: `hello ${opts.input.text}`,
       };
