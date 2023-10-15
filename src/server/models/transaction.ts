@@ -2,6 +2,7 @@ import { Schema, InferSchemaType, model } from 'mongoose';
 import { TagModel } from './tag';
 import { AccountModel } from './account';
 import { StakeholderModel } from './stakeholder';
+import { EntryType } from './utils';
 
 /**
  * Entry schema
@@ -28,7 +29,7 @@ const EntrySchema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ['Debit', 'Credit']
+    enum: Object.values(EntryType)
   },
   /**
    * The memo of the entry

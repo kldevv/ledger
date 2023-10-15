@@ -1,18 +1,21 @@
 import { Schema, InferSchemaType, model } from 'mongoose';
-import { SharedSchema } from './utils';
+import { BalanceSchema } from './utils';
 
 /**
  * Tag schema
  */
-const schema = new Schema({
+const TagSchema = new Schema({
   /**
-   * Name of the tag
+   * The name of the tag
    */
   name: { type: String, required: true },
   /**
    * The balance of the tag by each month
    */
-  balance: [SharedSchema.Balance]
+  balance: {
+    type: [BalanceSchema],
+    required: true
+  }
 }, {
   timestamps: true
 });
@@ -20,12 +23,9 @@ const schema = new Schema({
 /**
  * Tag type
  */
-export type Tag = InferSchemaType<typeof schema>
+export type Tag = InferSchemaType<typeof TagSchema>
 
 /**
- * Stakeholder model
+ * Tag model
  */
-export const TagModel = model('Tag', schema)
-
-
-
+export const TagModel = model('Tag', TagSchema)

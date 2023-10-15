@@ -1,4 +1,5 @@
 import { Schema, InferSchemaType, model } from 'mongoose';
+import { CategoryGroupType } from './utils';
 
 /**
  * Category schema
@@ -25,21 +26,24 @@ const CategorySchema = new Schema({
  */
 const CategoryGroupSchema = new Schema({
   /**
-   * Name of the category group
+   * The name of the category group
    */
   name: { type: String, required: true },
   /**
-   * Type of the category group
+   * The type of the category group
    */
   type: {
     type: String,
-    enum: ['Asset', 'Liabilities', 'Equity'],
+    enum: Object.values(CategoryGroupType),
     required: true,
   },
   /**
    * The list of categories under the category group
    */
-  categories: [CategorySchema]
+  categories: {
+    type: [CategorySchema],
+    required: true
+  }
 }, {
   timestamps: true
 });

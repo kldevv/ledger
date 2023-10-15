@@ -1,5 +1,5 @@
 import { Schema, InferSchemaType, model } from 'mongoose';
-import { SharedSchema } from './utils';
+import { BalanceSchema } from './utils';
 
 /**
  * Account schema
@@ -20,7 +20,7 @@ const AccountSchema = new Schema({
    * The balance of the account by each month
    */
   balance: {
-    type: [SharedSchema.Balance],
+    type: [BalanceSchema],
     required: true
   }
 }, {

@@ -1,18 +1,21 @@
 import { Schema, InferSchemaType, model } from 'mongoose';
-import { SharedSchema } from './utils';
+import { BalanceSchema } from './utils';
 
 /**
  * Stakeholder schema
  */
 const schema = new Schema({
   /**
-   * Name of the stakeholder
+   * The name of the stakeholder
    */
   name: { type: String, required: true },
   /**
    * The balance of the stakeholder by each month
    */
-  balance: [SharedSchema.Balance]
+  balance: {
+    type: [BalanceSchema],
+    required: true
+  }
 }, {
   timestamps: true
 });

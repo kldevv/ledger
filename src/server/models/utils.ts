@@ -1,9 +1,9 @@
-import { Schema, InferSchemaType } from 'mongoose';
+import { Schema } from 'mongoose';
 
 /**
- * Stakeholder schema
+ * Balance schema
  */
-const Balance = new Schema({
+export const BalanceSchema = new Schema({
   /**
    * The year of the balance
    */
@@ -40,11 +40,27 @@ const Balance = new Schema({
   }
 });
 
+/**
+ * Category group type
+ */
+export enum CategoryGroupType {
+  Asset = 'Asset',
+  Liabilities = 'Liabilities',
+  Equity = 'Equity',
+}
 
-export const SharedSchema = Object.freeze({
-  Balance,
-})
+/**
+ * Entry type
+ */
+export enum EntryType {
+  Debit = 'Debit',
+  Credit = 'Credit'
+}
 
-
-
-
+/**
+ * Entry status
+ */
+export enum EntryStatus {
+  Pending = 'Pending',
+  Complete = 'Complete'
+}
