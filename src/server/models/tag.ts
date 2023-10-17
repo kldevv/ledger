@@ -1,5 +1,27 @@
 import { Schema, InferSchemaType, model } from 'mongoose';
 import { BalanceSchema } from './utils';
+import { AccountModel } from '.';
+
+/**
+ * AccountBalance schema
+ */
+const AccountBalance = new Schema({
+  /**
+   * The account id of the account balance
+   */
+  accountId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: AccountModel.modelName
+  },
+  /**
+   * Tha balance of the account balance
+   */
+  balance: {
+    type: [BalanceSchema],
+    required: true,
+  }
+})
 
 /**
  * Tag schema
@@ -8,12 +30,12 @@ const TagSchema = new Schema({
   /**
    * The name of the tag
    */
-  name: { type: String, required: true },
+  name: { type: String, required: true, unqiue: true },
   /**
    * The balance of the tag by each month
    */
-  balance: {
-    type: [BalanceSchema],
+  accountBalance: {
+    type: [AccountBalance],
     required: true
   }
 }, {
