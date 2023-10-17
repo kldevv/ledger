@@ -30,7 +30,7 @@ const TagSchema = new Schema({
   /**
    * The name of the tag
    */
-  name: { type: String, required: true, unqiue: true },
+  name: { type: String, required: true, unique: true },
   /**
    * The balance of the tag by each month
    */

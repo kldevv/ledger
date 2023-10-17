@@ -17,7 +17,8 @@ const CategorySchema = new Schema({
    */
   name: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
   }
 })
 
@@ -28,7 +29,7 @@ const CategoryGroupSchema = new Schema({
   /**
    * The name of the category group
    */
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true },
   /**
    * The type of the category group
    */

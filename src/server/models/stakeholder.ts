@@ -8,7 +8,7 @@ const StakeholderSchema = new Schema({
   /**
    * The name of the stakeholder
    */
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true },
   /**
    * The balance of the stakeholder by each month
    */

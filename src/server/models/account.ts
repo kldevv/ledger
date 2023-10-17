@@ -8,7 +8,7 @@ const AccountSchema = new Schema({
   /**
    * The name of the account
    */
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true },
   /**
    * The category id of the account
    */
