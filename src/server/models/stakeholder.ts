@@ -4,7 +4,7 @@ import { BalanceSchema } from './utils';
 /**
  * Stakeholder schema
  */
-const schema = new Schema({
+const StakeholderSchema = new Schema({
   /**
    * The name of the stakeholder
    */
@@ -23,12 +23,12 @@ const schema = new Schema({
 /**
  * Stakeholder type
  */
-export type Stakeholder = InferSchemaType<typeof schema>
+export type Stakeholder = InferSchemaType<typeof StakeholderSchema>
 
 /**
  * Stakeholder model
  */
-export const StakeholderModel = model('Stakeholder', schema)
+export const StakeholderModel = model('Stakeholder', StakeholderSchema)
 
 
 
