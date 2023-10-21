@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NEXT_MANUAL_SIG_HANDLE=true next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "NEXT_MANUAL_SIG_HANDLE=true next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "@trpc/server": "^10.40.0",
     "mongoose": "^7.6.1",
     "next": "13.5.4",
+    "papr": "^15.0.0",
     "react": "^18",
     "react-dom": "^18",
     "zod": "^3.22.4"

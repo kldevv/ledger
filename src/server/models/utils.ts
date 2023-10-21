@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Model, Schema, model } from 'mongoose';
 
 /**
  * Balance schema
@@ -64,3 +64,15 @@ export enum EntryStatus {
   Pending = 'Pending',
   Complete = 'Complete'
 }
+
+interface ITest {
+  name: string
+  balance: number
+}
+
+const test = new Schema<ITest, Model<ITest>>({
+  name: String,
+  balance: Number
+})
+
+const testM = model<ITest>('Test', test)
