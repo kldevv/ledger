@@ -1,22 +1,20 @@
+import { Tag } from "@prisma/client"
 import prisma from "../../client"
 
 /**
- * Retrieves the names of all tags from the database.
+ * Query the names of all tags from the database.
  *
- * @returns A promise that resolves to an array of tag names.
- * @throws If an error occurs during the database query, it is logged and rethrown.
+ * @returns A promise that resolves to an array of tag objects.
+ * @throws If an error occurs during the database query, it is thrown.
  */
-const getAllTagNames = async (): Promise<string[]> => {
+const getAllTags = async (): Promise<Tag[]> => {
   try {
-    const tags = await prisma.tag.findMany({
-      select: {
-        name: true,
-      },
-    })
+    const tags = await prisma.tag.findMany()
 
-    return tags.map((tag) => tag.name)
+    return tags
   } catch (error) {
     console.log('Error in getAllTagNames')
+
     throw error
   }
 }
@@ -28,19 +26,22 @@ const getAllTagNames = async (): Promise<string[]> => {
  * @returns The created or updated tag object.
  * @throws If an error occurs during the database operation, it is thrown.
  */
-const upsertTag = async (name: string): Promise<void> => {
+const upsertTag = async (name: string): Promise<Tag> => {
   try {
     // Attempt to create the tag, or update it if it already exists based on the unique "name" constraint.
-    await prisma.tag.upsert({
+    const tag = await prisma.tag.upsert({
       where: { name },
       create: { name },
       update: { name },
     })
+
+    return tag
   } catch (error) {
     console.log('Error in upsertTag')
+    
     throw error
   }
 }
 
 
-export { getAllTagNames, upsertTag }
+export { getAllTags, upsertTag }
