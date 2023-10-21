@@ -14,7 +14,6 @@
     "@trpc/next": "^10.40.0",
     "@trpc/react-query": "^10.40.0",
     "@trpc/server": "^10.40.0",
-    "mongoose": "^7.6.1",
     "next": "13.5.4",
     "papr": "^15.0.0",
     "react": "^18",
