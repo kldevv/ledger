@@ -25,4 +25,4 @@ export const CatalogSchema = schema({
 
 export type CatalogDocument = typeof CatalogSchema[0]
 
-export const Catalog = () => mongodb.papr.model('catalogues', CatalogSchema)
+export const Catalog = mongodb.papr.model('catalogues', CatalogSchema)

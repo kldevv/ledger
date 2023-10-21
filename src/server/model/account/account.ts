@@ -11,7 +11,7 @@ export const AccountSchema = schema({
   /**
    * Object ID of the category of the account
    */
-  categoryID: types.objectId({ required: true }),
+  categoryId: types.objectId({ required: true }),
   /**
    * Is stakeholder involved in the account
    */
@@ -24,4 +24,4 @@ export const AccountSchema = schema({
 
 export type AccountDocument = typeof AccountSchema[0]
 
-export const Account = () => mongodb.papr.model('accounts', AccountSchema)
+export const Account = mongodb.papr.model('accounts', AccountSchema)

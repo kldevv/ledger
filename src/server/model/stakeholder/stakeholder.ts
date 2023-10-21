@@ -16,4 +16,4 @@ export const StakeholderSchema = schema({
 
 export type StakeholderDocument = typeof StakeholderSchema[0]
 
-export const Stakeholder = () => mongodb.papr.model('stakeholders', StakeholderSchema)
+export const Stakeholder = mongodb.papr.model('stakeholders', StakeholderSchema)

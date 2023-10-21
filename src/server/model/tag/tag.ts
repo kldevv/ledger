@@ -9,20 +9,15 @@ export const TagSchema = schema({
    */
   name: types.string({ required: true }),
   /**
+   * Object ID of the account of of the tag
+   */
+  accountId: types.objectId({ required: true }),
+  /**
    * Balance of the tag
    */
-  balance: types.array(types.object({
-    /**
-     * Object ID of the account of the balance of the tag
-     */
-    accountID: types.objectId({ required: true }),
-    /**
-     * Balance of the account balance of the tag
-     */
-    balance: types.array(balanceObjectType, { required: true })
-  }), { required: true })
+  balance: types.array(balanceObjectType, { required: true })
 }, schemaOptions)
 
 export type TagDocument = typeof TagSchema[0]
 
-export const Tag = () => mongodb.papr.model('tags', TagSchema)
+export const Tag = mongodb.papr.model('tags', TagSchema)

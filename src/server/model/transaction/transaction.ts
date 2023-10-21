@@ -11,7 +11,7 @@ const entryObjectType = types.object({
   /**
    * Object ID of the account of the entry of the transaction
    */
-  accountID: types.objectId({ required: true }),
+  accountId: types.objectId({ required: true }),
   /**
    * Type of the entry of the transaction
    */
@@ -32,7 +32,7 @@ const entryObjectType = types.object({
    * Object ID of the involved stakeholder of the entry of the transaction
    * , only required when the account is stakeholder involved
    */
-  stakeholderID: types.objectId()
+  stakeholderId: types.objectId()
 })
 
 export const TransactionSchema = schema({
@@ -47,7 +47,7 @@ export const TransactionSchema = schema({
   /**
    * Object ID of the tags of the transaction
    */
-  tagsID: types.array(types.objectId, { required: true }),
+  tagsId: types.array(types.objectId, { required: true }),
   /**
    * Entries of the transaction
    */
@@ -56,4 +56,4 @@ export const TransactionSchema = schema({
 
 export type TransactionDocument = typeof TransactionSchema[0]
 
-export const Transaction = () => mongodb.papr.model('transactions', TransactionSchema)
+export const Transaction = mongodb.papr.model('transactions', TransactionSchema)
