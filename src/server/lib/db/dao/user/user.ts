@@ -2,19 +2,45 @@ import { User } from "@prisma/client";
 import prisma from "../../client";
 
 /**
- * Query all users from the database.
+ * Query all user names from the database.
  *
- * @returns A promise that resolves to an array of user objects.
+ * @returns A promise that resolves to an array of user names.
  * @throws If an error occurs during the database query, it is thrown.
  */
-const getAllUsers = async (): Promise<User[]> => {
+const getAllUserNames = async (): Promise<string[]> => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      select: {
+        name: true
+      }
+    });
+
+    return users.map((user) => user.name)
+  } catch (error) {
+    console.error('Error in getAllUserNames');
+
+    throw error;
+  }
+};
+
+/**
+ * Query all users with entries from the database.
+ *
+ * @returns A promise that resolves to an array of user objects populated with entries.
+ * @throws If an error occurs during the database query, it is thrown.
+ */
+const getAllUsersWithEntries = async (): Promise<User[]> => {
+  try {
+    const users = await prisma.user.findMany({
+      include: {
+        entries: true
+      }
+    });
 
     return users
   } catch (error) {
-    console.error('Error in getAllUsers');
-    
+    console.error('Error in getAllUsersWithEntries');
+
     throw error;
   }
 };
@@ -42,4 +68,4 @@ const upsertUser = async (name: string): Promise<User> => {
   }
 };
 
-export { getAllUsers, upsertUser };
+export { getAllUsersWithEntries, getAllUserNames, upsertUser };
