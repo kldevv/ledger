@@ -7,15 +7,16 @@ import prisma from "../../client";
  * @returns A promise that resolves to an array of user names.
  * @throws If an error occurs during the database query, it is thrown.
  */
-const getAllUserNames = async (): Promise<string[]> => {
+const getAllUsersIdAndName = async (): Promise<{ id: number, name: string }[]> => {
   try {
     const users = await prisma.user.findMany({
       select: {
+        id: true,
         name: true
       }
     });
 
-    return users.map((user) => user.name)
+    return users
   } catch (error) {
     console.error('Error in getAllUserNames');
 
@@ -24,39 +25,17 @@ const getAllUserNames = async (): Promise<string[]> => {
 };
 
 /**
- * Query all users with entries from the database.
- *
- * @returns A promise that resolves to an array of user objects populated with entries.
- * @throws If an error occurs during the database query, it is thrown.
- */
-const getAllUsersWithEntries = async (): Promise<User[]> => {
-  try {
-    const users = await prisma.user.findMany({
-      include: {
-        entries: true
-      }
-    });
-
-    return users
-  } catch (error) {
-    console.error('Error in getAllUsersWithEntries');
-
-    throw error;
-  }
-};
-
-/**
  * Create or update a user in the database.
  *
+ * @param id - The ID of the tag to update, or `undefined` to create a new tag.
  * @param name - The name of the user to create or update.
  * @returns The created or updated user object.
  * @throws If an error occurs during the database operation, it is thrown.
  */
-const upsertUser = async (name: string): Promise<User> => {
+const upsertUser = async ({ id, name }: { id?: number, name: string }): Promise<User> => {
   try {
-    // Attempt to create the user, or update it if it already exists based on the unique "name" constraint.
     const user = await prisma.user.upsert({
-      where: { name },
+      where: { id },
       create: { name },
       update: { name },
     });
@@ -64,8 +43,9 @@ const upsertUser = async (name: string): Promise<User> => {
     return user;
   } catch (error) {
     console.error('Error in upsertUser');
+
     throw error;
   }
 };
 
-export { getAllUsersWithEntries, getAllUserNames, upsertUser };
+export { getAllUsersIdAndName, upsertUser };

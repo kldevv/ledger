@@ -7,9 +7,14 @@ import prisma from "../../client"
  * @returns A promise that resolves to an array of tag objects.
  * @throws If an error occurs during the database query, it is thrown.
  */
-const getAllTags = async (): Promise<Tag[]> => {
+const getAllTags = async (): Promise<{id: number, name: string}[]> => {
   try {
-    const tags = await prisma.tag.findMany()
+    const tags = await prisma.tag.findMany({
+      select: {
+        id: true,
+        name: true
+      }
+    })
 
     return tags
   } catch (error) {
@@ -21,16 +26,15 @@ const getAllTags = async (): Promise<Tag[]> => {
 
 /**
  * Create or update a tag in the database.
- *
+ * @param id - The ID of the tag to update, or `undefined` to create a new tag.
  * @param name - The name of the tag to create or update.
  * @returns The created or updated tag object.
  * @throws If an error occurs during the database operation, it is thrown.
  */
-const upsertTag = async (name: string): Promise<Tag> => {
+const upsertTag = async ({id, name}: {id?: number, name: string}): Promise<Tag> => {
   try {
-    // Attempt to create the tag, or update it if it already exists based on the unique "name" constraint.
     const tag = await prisma.tag.upsert({
-      where: { name },
+      where: { id },
       create: { name },
       update: { name },
     })

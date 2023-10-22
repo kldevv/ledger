@@ -22,14 +22,14 @@ model Group {
   accounts    Account[]
   createdDate DateTime  @default(now())
   updatedDate DateTime  @updatedAt
-  Category    Category? @relation(fields: [categoryId], references: [id])
-  categoryId  Int?
+  Category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId  Int
 }
 
 model Account {
   id          Int      @id @default(autoincrement())
   name        String   @unique
-  group       Group    @relation(fields: [groupId], references: [id])
+  groupTable  Group    @relation(fields: [groupId], references: [id])
   groupId     Int
   createdDate DateTime @default(now())
   updatedDate DateTime @updatedAt
@@ -37,8 +37,8 @@ model Account {
 }
 
 model Entry {
-  account       Account     @relation(fields: [accountId], references: [id])
-  accountId     Int
+  accountTable  Account     @relation(fields: [account], references: [name])
+  account       String
   credit        Decimal
   debit         Decimal
   id            Int         @id @default(autoincrement())
@@ -46,8 +46,8 @@ model Entry {
   settledDate   DateTime
   transaction   Transaction @relation(fields: [transactionId], references: [id])
   transactionId Int
-  user          User?       @relation(fields: [userId], references: [id])
-  userId        Int?
+  userTable     User?       @relation(fields: [user], references: [name])
+  user          String?
   status        EntryStatus @default(pending)
   createdDate   DateTime    @default(now())
   updatedDate   DateTime    @updatedAt
