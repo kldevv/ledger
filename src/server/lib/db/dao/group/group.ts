@@ -23,7 +23,7 @@ export const createGroup = async (ctx: SharedContextArgs, args: CreateGroupArgs)
 };
 
 
-export const getGroups = async (ctx: SharedContextArgs, args: GetGroupsArgs): Promise<GetGroupsReturns[]> => {
+export const getGroups = async (ctx: SharedContextArgs, args: GetGroupsArgs): Promise<GetGroupsReturns> => {
   const { id, name, categoryId } = args
 
   try {
@@ -39,6 +39,7 @@ export const getGroups = async (ctx: SharedContextArgs, args: GetGroupsArgs): Pr
         name: true,
         category: {
           select: {
+            id: true,
             name: true,
             type: true
           }

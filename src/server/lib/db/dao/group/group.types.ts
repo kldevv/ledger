@@ -10,9 +10,9 @@ export type CreateGroupArgs = Pick<Group, 'name' | 'categoryId'>
  * getGroups
  */
 export type GetGroupsArgs = Partial<Pick<Group, 'id' | 'name' | 'categoryId'>>
-export type GetGroupsReturns = Pick<Group, 'id' | 'name'> & {
-  'category': Pick<Category, 'name' | 'type'>
-}
+export type GetGroupsReturns = (Pick<Group, 'id' | 'name'> & {
+  'category': Pick<Category, 'name' | 'type' | 'id'>
+})[]
 
 /**
  * updateGroup
