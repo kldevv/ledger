@@ -1,60 +1,97 @@
 import { Group } from "@prisma/client";
 import prisma from "../../client";
+import { SharedContextArgs } from "../types";
+import { CreateGroupArgs, DeleteGroupArgs, GetGroupsArgs, GetGroupsReturns, UpdateGroupArgs } from "./group.types"
 
-/**
- * Query a list of groups with their IDs and names.
- *
- * @returns A promise that resolves to an array of objects, each containing the `id` and `name` of a group.
- * @throws If an error occurs during the database query, it is thrown.
- */
-const getAllGroupsIdAndName = async (): Promise<{ id: number; name: string }[]> => {
+export const createGroup = async (ctx: SharedContextArgs, args: CreateGroupArgs): Promise<Group> => {
+  const { name, categoryId } = args
+
   try {
-    const groups = await prisma.group.findMany({
-      select: {
-        id: true,
-        name: true,
-      },
-    });
-
-    return groups;
-  } catch (error) {
-    console.error('Error in getAllGroupsIdAndName');
-    throw error;
-  }
-};
-
-/**
- * Create or update a group in the database.
- *
- * @param id - The ID of the group to update, or `undefined` to create a new group.
- * @param name - The name of the group to create or update.
- * @param categoryId - The ID of the category to associate with the group.
- * @returns The created or updated group object.
- * @throws If an error occurs during the database operation, it is thrown.
- */
-const upsertGroup = async ({ id, name, categoryId }: {
-  id?: number,
-  name: string,
-  categoryId: number
-}): Promise<Group> => {
-  try {
-    const group = await prisma.group.upsert({
-      where: { id },
-      create: {
+    const group = await prisma.group.create({
+      data: {
+        currency: ctx.currency,
         name,
-        categoryId,
-      },
-      update: {
-        name,
-        categoryId,
+        categoryId
       },
     });
 
     return group;
   } catch (error) {
-    console.error('Error in upsertGroup');
+    console.error('Error in createGroup', ctx, args, error);
     throw error;
   }
 };
 
-export { getAllGroupsIdAndName, upsertGroup }
+
+export const getGroups = async (ctx: SharedContextArgs, args: GetGroupsArgs): Promise<GetGroupsReturns[]> => {
+  const { id, name, categoryId } = args
+
+  try {
+    const groups = await prisma.group.findMany({
+      where: {
+        currency: ctx.currency,
+        id,
+        name,
+        categoryId
+      },
+      select: {
+        id: true,
+        name: true,
+        category: {
+          select: {
+            name: true,
+            type: true
+          }
+        }
+      },
+    });
+
+    return groups;
+  } catch (error) {
+    console.error('Error in getGroups', ctx, args, error);
+    throw error;
+  }
+};
+
+export const updateGroup = async (ctx: SharedContextArgs, args: UpdateGroupArgs): Promise<Group> => {
+  const { id, name, categoryId } = args
+
+  if (name == null && categoryId == null) {
+    console.error('Error in updateGroup: Invalid Update Args', ctx, args);
+    throw new Error('Invalid Update Args');
+  }
+
+  try {
+    const groups = await prisma.group.update({
+      where: {
+        id
+      },
+      data: {
+        name,
+        categoryId
+      }
+    });
+
+    return groups;
+  } catch (error) {
+    console.error('Error in updateGroup', ctx, args, error);
+    throw error;
+  }
+};
+
+export const deleteGroup = async (ctx: SharedContextArgs, args: DeleteGroupArgs): Promise<Group> => {
+  const { id } = args
+
+  try {
+    const group = await prisma.group.delete({
+      where: {
+        id,
+      },
+    });
+
+    return group;
+  } catch (error) {
+    console.error('Error in deleteCategory', ctx, args, error);
+    throw error;
+  }
+}
