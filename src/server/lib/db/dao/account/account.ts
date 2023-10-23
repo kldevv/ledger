@@ -1,62 +1,97 @@
 import { Account } from "@prisma/client";
 import prisma from "../../client";
+import { SharedContextArgs } from "../types";
+import { CreateAccountArgs, DeleteAccountArgs, GetAccountArgs, GetAccountReturns, UpdateAccountArgs } from "./account.types";
 
-/**
- * Query a list of accounts with their IDs and names.
- *
- * @returns A promise that resolves to an array of objects, each containing the `id` and `name` of an account.
- * @throws If an error occurs during the database query, it is thrown.
- */
-const getAllAccountsIdAndName = async (): Promise<{ id: number; name: string }[]> => {
+export const createAccount = async (ctx: SharedContextArgs, args: CreateAccountArgs): Promise<Account> => {
+  const { name, groupId } = args
+
   try {
-    const accounts = await prisma.account.findMany({
-      select: {
-        id: true,
-        name: true,
-      },
-    });
-
-    return accounts;
-  } catch (error) {
-    console.error('Error in getAllAccountsIdAndName');
-    throw error;
-  }
-};
-
-/**
- * Create or update an account in the database.
- *
- * @param id - The ID of the account to update, or `undefined` to create a new account.
- * @param name - The name of the account to create or update.
- * @param groupId - The ID of the group to associate with the account.
- * @returns The created or updated account object.
- * @throws If an error occurs during the database operation, it is thrown.
- */
-const upsertAccount = async ({id, name, groupId}: {
-  id?: number,
-  name: string,
-  groupId: number
-}): Promise<Account> => {
-  try {
-    const account = await prisma.account.upsert({
-      where: { id },
-      create: {
+    const account = await prisma.account.create({
+      data: {
+        currency: ctx.currency,
         name,
-        groupId,
-      },
-      update: {
-        name,
-        groupId,
+        groupId
       },
     });
 
     return account;
   } catch (error) {
-    console.error('Error in upsertAccount');
-
+    console.error('Error in createAccount', ctx, args, error);
     throw error;
   }
 };
 
 
-export { getAllAccountsIdAndName, upsertAccount }
+export const getAccounts = async (ctx: SharedContextArgs, args: GetAccountArgs): Promise<GetAccountReturns> => {
+  const { id, name, groupId } = args
+
+  try {
+    const accounts = await prisma.account.findMany({
+      where: {
+        currency: ctx.currency,
+        id,
+        name,
+        groupId
+      },
+      select: {
+        id: true,
+        name: true,
+        group: {
+          select: {
+            id: true,
+            name: true,
+          }
+        }
+      },
+    });
+
+    return accounts;
+  } catch (error) {
+    console.error('Error in getAccounts', ctx, args, error);
+    throw error;
+  }
+};
+
+export const updateAccount = async (ctx: SharedContextArgs, args: UpdateAccountArgs): Promise<Account> => {
+  const { id, name, groupId } = args
+
+  if (name == null && groupId == null) {
+    console.error('Error in updateAccount: Invalid Update Args', ctx, args);
+    throw new Error('Invalid Update Args');
+  }
+
+  try {
+    const account = await prisma.account.update({
+      where: {
+        id
+      },
+      data: {
+        name,
+        groupId
+      }
+    });
+
+    return account;
+  } catch (error) {
+    console.error('Error in updateAccount', ctx, args, error);
+    throw error;
+  }
+};
+
+export const deleteAccount = async (ctx: SharedContextArgs, args: DeleteAccountArgs): Promise<Account> => {
+  const { id } = args
+
+  try {
+    const account = await prisma.account.delete({
+      where: {
+        id,
+      },
+    });
+
+    return account;
+  } catch (error) {
+    console.error('Error in deleteAccount', ctx, args, error);
+    throw error;
+  }
+}
