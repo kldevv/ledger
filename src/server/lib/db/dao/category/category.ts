@@ -4,12 +4,14 @@ import { CreateCategoryArgs, DeleteCategoryArgs, GetCategoriesArgs, GetCategorie
 import { SharedContextArgs } from "../types";
 
 export const createCategory = async (ctx: SharedContextArgs, args: CreateCategoryArgs): Promise<Category> => {
+  const { name, type } = args
+
   try {
     const category = await prisma.category.create({
       data: {
         currency: ctx.currency,
-        name: args.name,
-        type: args.type,
+        name,
+        type
       },
     });
 
@@ -22,6 +24,7 @@ export const createCategory = async (ctx: SharedContextArgs, args: CreateCategor
 
 export const getCategories = async (ctx: SharedContextArgs, args: GetCategoriesArgs): Promise<GetCategoriesReturns> => {
   const { id, name, type} = args
+
   try {
     const categories = await prisma.category.findMany({
       where: {
@@ -39,13 +42,13 @@ export const getCategories = async (ctx: SharedContextArgs, args: GetCategoriesA
 
     return categories;
   } catch (error) {
-    console.error('Error in getAllCategories', ctx, error);
+    console.error('Error in getCategories', ctx, args, error);
     throw error;
   }
 }
 
 export const updateCategory = async (ctx: SharedContextArgs, args: UpdateCategoryArgs): Promise<Category> => {
-  const { name, type } = args
+  const { id, name, type } = args
 
   if (name == null && type == null) {
     console.error('Error in updateCategory: Invalid Update Args', ctx, args);
@@ -53,9 +56,9 @@ export const updateCategory = async (ctx: SharedContextArgs, args: UpdateCategor
   }
 
   try {
-    const categories = await prisma.category.update({
+    const category = await prisma.category.update({
       where: {
-        id: args.id,
+        id
       },
       data: {
         name,
@@ -63,29 +66,26 @@ export const updateCategory = async (ctx: SharedContextArgs, args: UpdateCategor
       }
     });
 
-    return categories;
+    return category;
   } catch (error) {
-    console.error('Error in updateCategory', ctx, error);
+    console.error('Error in updateCategory', ctx, args, error);
     throw error;
   }
 }
 
-export const deleteCategory = async (ctx: SharedContextArgs, args: DeleteCategoryArgs) => {
+export const deleteCategory = async (ctx: SharedContextArgs, args: DeleteCategoryArgs): Promise<Category> => {
+  const { id } = args
+
   try {
-    const categories = await prisma.category.delete({
+    const category = await prisma.category.delete({
       where: {
-        id: args.id,
+        id,
       },
-      select: {
-        id: true,
-        name: true,
-        type: true,
-      }
     });
 
-    return categories;
+    return category;
   } catch (error) {
-    console.error('Error in updateCategory', ctx, error);
+    console.error('Error in deleteCategory', ctx, args, error);
     throw error;
   }
 }
