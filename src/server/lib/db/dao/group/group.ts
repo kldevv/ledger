@@ -63,7 +63,7 @@ export const updateGroup = async (ctx: SharedContextArgs, args: UpdateGroupArgs)
   }
 
   try {
-    const groups = await prisma.group.update({
+    const group = await prisma.group.update({
       where: {
         id
       },
@@ -73,7 +73,7 @@ export const updateGroup = async (ctx: SharedContextArgs, args: UpdateGroupArgs)
       }
     });
 
-    return groups;
+    return group;
   } catch (error) {
     console.error('Error in updateGroup', ctx, args, error);
     throw error;
@@ -92,7 +92,7 @@ export const deleteGroup = async (ctx: SharedContextArgs, args: DeleteGroupArgs)
 
     return group;
   } catch (error) {
-    console.error('Error in deleteCategory', ctx, args, error);
+    console.error('Error in deleteGroup', ctx, args, error);
     throw error;
   }
 }
