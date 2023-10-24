@@ -1,1 +1,6 @@
 export * as TagDao from './tag/tag'
+export * as AccountDao from './account/account'
+export * as UserDao from './user/user'
+export * as CategoryDao from './category/category'
+export * as GroupDao from './group/group'
+export * as TransactionDao from './transaction/transaction'
