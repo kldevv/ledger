@@ -1,51 +1,81 @@
 import { User } from "@prisma/client";
 import prisma from "../../client";
+import { SharedContextArgs } from "../types";
+import { CreateUserArgs, GetUsersReturns, GetUsersArgs, UpdateUserArgs, DeleteUserArgs } from "./user.types";
 
-/**
- * Query all user names from the database.
- *
- * @returns A promise that resolves to an array of user names.
- * @throws If an error occurs during the database query, it is thrown.
- */
-const getAllUsersIdAndName = async (): Promise<{ id: number, name: string }[]> => {
+export const createUser = async (ctx: SharedContextArgs, args: CreateUserArgs): Promise<User> => {
+  const { name } = args
+
   try {
-    const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        name: true
-      }
-    });
-
-    return users
-  } catch (error) {
-    console.error('Error in getAllUserNames');
-
-    throw error;
-  }
-};
-
-/**
- * Create or update a user in the database.
- *
- * @param id - The ID of the tag to update, or `undefined` to create a new tag.
- * @param name - The name of the user to create or update.
- * @returns The created or updated user object.
- * @throws If an error occurs during the database operation, it is thrown.
- */
-const upsertUser = async ({ id, name }: { id?: number, name: string }): Promise<User> => {
-  try {
-    const user = await prisma.user.upsert({
-      where: { id },
-      create: { name },
-      update: { name },
+    const user = await prisma.user.create({
+      data: {
+        name,
+      },
     });
 
     return user;
   } catch (error) {
-    console.error('Error in upsertUser');
-
+    console.error('Error in createUser', ctx, args, error);
     throw error;
   }
 };
 
-export { getAllUsersIdAndName, upsertUser };
+
+export const getUsers = async (ctx: SharedContextArgs, args: GetUsersArgs): Promise<GetUsersReturns> => {
+  const { id, name } = args
+
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        id,
+        name,
+      },
+      select: {
+        id: true,
+        name: true
+      },
+    });
+
+    return users;
+  } catch (error) {
+    console.error('Error in getUsers', ctx, args, error);
+    throw error;
+  }
+};
+
+export const updateUser = async (ctx: SharedContextArgs, args: UpdateUserArgs): Promise<User> => {
+  const { id, name } = args
+
+  try {
+    const account = await prisma.user.update({
+      where: {
+        id
+      },
+      data: {
+        name,
+      }
+    });
+
+    return account;
+  } catch (error) {
+    console.error('Error in updateUser', ctx, args, error);
+    throw error;
+  }
+};
+
+export const deleteUser = async (ctx: SharedContextArgs, args: DeleteUserArgs): Promise<User> => {
+  const { id } = args
+
+  try {
+    const user = await prisma.user.delete({
+      where: {
+        id,
+      },
+    });
+
+    return user;
+  } catch (error) {
+    console.error('Error in deleteUser', ctx, args, error);
+    throw error;
+  }
+}
