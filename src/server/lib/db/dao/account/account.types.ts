@@ -1,5 +1,5 @@
 import { Account, Group } from "@prisma/client";
-import { Optional } from "@prisma/client/runtime/library";
+import { Optional } from "@/types";
 
 /**
  * createAccount

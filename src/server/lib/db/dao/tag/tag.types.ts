@@ -1,5 +1,4 @@
 import { Tag } from "@prisma/client";
-import { Optional } from "@prisma/client/runtime/library";
 
 /**
  * createTag
