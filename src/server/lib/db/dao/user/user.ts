@@ -47,7 +47,7 @@ export const updateUser = async (ctx: SharedContextArgs, args: UpdateUserArgs): 
   const { id, name } = args
 
   try {
-    const account = await prisma.user.update({
+    const user = await prisma.user.update({
       where: {
         id
       },
@@ -56,7 +56,7 @@ export const updateUser = async (ctx: SharedContextArgs, args: UpdateUserArgs): 
       }
     });
 
-    return account;
+    return user;
   } catch (error) {
     console.error('Error in updateUser', ctx, args, error);
     throw error;
