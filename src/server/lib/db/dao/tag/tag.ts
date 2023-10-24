@@ -1,51 +1,83 @@
-import { Tag } from "@prisma/client"
-import prisma from "../../client"
+import { Tag } from "@prisma/client";
+import prisma from "../../client";
+import { SharedContextArgs } from "../types";
+import { CreateTagArgs, DeleteTagArgs, GetTagsArgs, GetTagsReturns, UpdateTagArgs } from "./tag.types";
 
-/**
- * Query the names of all tags from the database.
- *
- * @returns A promise that resolves to an array of tag objects.
- * @throws If an error occurs during the database query, it is thrown.
- */
-const getAllTags = async (): Promise<{id: number, name: string}[]> => {
+export const createTag = async (ctx: SharedContextArgs, args: CreateTagArgs): Promise<Tag> => {
+  const { name } = args
+
+  try {
+    const tag = await prisma.tag.create({
+      data: {
+        currency: ctx.currency,
+        name,
+      },
+    });
+
+    return tag;
+  } catch (error) {
+    console.error('Error in createTag', ctx, args, error);
+    throw error;
+  }
+};
+
+
+export const getTags = async (ctx: SharedContextArgs, args: GetTagsArgs): Promise<GetTagsReturns> => {
+  const { id, name } = args
+
   try {
     const tags = await prisma.tag.findMany({
+      where: {
+        currency: ctx.currency,
+        id,
+        name,
+      },
       select: {
         id: true,
         name: true
-      }
-    })
+      },
+    });
 
-    return tags
+    return tags;
   } catch (error) {
-    console.log('Error in getAllTagNames')
-
-    throw error
+    console.error('Error in getTags', ctx, args, error);
+    throw error;
   }
-}
+};
 
-/**
- * Create or update a tag in the database.
- * @param id - The ID of the tag to update, or `undefined` to create a new tag.
- * @param name - The name of the tag to create or update.
- * @returns The created or updated tag object.
- * @throws If an error occurs during the database operation, it is thrown.
- */
-const upsertTag = async ({id, name}: {id?: number, name: string}): Promise<Tag> => {
+export const updateTag = async (ctx: SharedContextArgs, args: UpdateTagArgs): Promise<Tag> => {
+  const { id, name } = args
+
   try {
-    const tag = await prisma.tag.upsert({
-      where: { id },
-      create: { name },
-      update: { name },
-    })
+    const tag = await prisma.tag.update({
+      where: {
+        id
+      },
+      data: {
+        name,
+      }
+    });
 
-    return tag
+    return tag;
   } catch (error) {
-    console.log('Error in upsertTag')
-    
-    throw error
+    console.error('Error in updateTag', ctx, args, error);
+    throw error;
+  }
+};
+
+export const deleteTag = async (ctx: SharedContextArgs, args: DeleteTagArgs): Promise<Tag> => {
+  const { id } = args
+
+  try {
+    const tag = await prisma.tag.delete({
+      where: {
+        id,
+      },
+    });
+
+    return tag;
+  } catch (error) {
+    console.error('Error in deleteTag', ctx, args, error);
+    throw error;
   }
 }
-
-
-export { getAllTags, upsertTag }
