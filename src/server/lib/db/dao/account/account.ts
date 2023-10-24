@@ -1,7 +1,7 @@
 import { Account } from "@prisma/client";
 import prisma from "../../client";
 import { SharedContextArgs } from "../types";
-import { CreateAccountArgs, DeleteAccountArgs, GetAccountArgs, GetAccountReturns, UpdateAccountArgs } from "./account.types";
+import { CreateAccountArgs, DeleteAccountArgs, GetAccountsArgs, GetAccountsReturns, UpdateAccountArgs } from "./account.types";
 
 export const createAccount = async (ctx: SharedContextArgs, args: CreateAccountArgs): Promise<Account> => {
   const { name, groupId } = args
@@ -23,7 +23,7 @@ export const createAccount = async (ctx: SharedContextArgs, args: CreateAccountA
 };
 
 
-export const getAccounts = async (ctx: SharedContextArgs, args: GetAccountArgs): Promise<GetAccountReturns> => {
+export const getAccounts = async (ctx: SharedContextArgs, args: GetAccountsArgs): Promise<GetAccountsReturns> => {
   const { id, name, groupId } = args
 
   try {
