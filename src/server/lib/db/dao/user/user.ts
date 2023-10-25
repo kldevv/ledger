@@ -43,7 +43,7 @@ export const getUsers = async (ctx: SharedContextArgs, args?: GetUsersArgs): Pro
   }
 };
 
-export const updateUser = async (ctx: SharedContextArgs, args: UpdateUserArgs): Promise<User> => {
+export const updateUser = async (args: UpdateUserArgs): Promise<User> => {
   const { id, name } = args
 
   try {
@@ -58,12 +58,12 @@ export const updateUser = async (ctx: SharedContextArgs, args: UpdateUserArgs): 
 
     return user;
   } catch (error) {
-    console.error('Error in updateUser', ctx, args, error);
+    console.error('Error in updateUser', args, error);
     throw error;
   }
 };
 
-export const deleteUser = async (ctx: SharedContextArgs, args: DeleteUserArgs): Promise<User> => {
+export const deleteUser = async (args: DeleteUserArgs): Promise<User> => {
   const { id } = args
 
   try {
@@ -75,7 +75,7 @@ export const deleteUser = async (ctx: SharedContextArgs, args: DeleteUserArgs): 
 
     return user;
   } catch (error) {
-    console.error('Error in deleteUser', ctx, args, error);
+    console.error('Error in deleteUser', args, error);
     throw error;
   }
 }

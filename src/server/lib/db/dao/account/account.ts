@@ -53,11 +53,11 @@ export const getAccounts = async (ctx: SharedContextArgs, args?: GetAccountsArgs
   }
 };
 
-export const updateAccount = async (ctx: SharedContextArgs, args: UpdateAccountArgs): Promise<Account> => {
+export const updateAccount = async (args: UpdateAccountArgs): Promise<Account> => {
   const { id, name, groupId } = args
 
   if (name == null && groupId == null) {
-    console.error('Error in updateAccount: Invalid Update Args', ctx, args);
+    console.error('Error in updateAccount: Invalid Update Args', args);
     throw new Error('Invalid Update Args');
   }
 
@@ -74,12 +74,12 @@ export const updateAccount = async (ctx: SharedContextArgs, args: UpdateAccountA
 
     return account;
   } catch (error) {
-    console.error('Error in updateAccount', ctx, args, error);
+    console.error('Error in updateAccount', args, error);
     throw error;
   }
 };
 
-export const deleteAccount = async (ctx: SharedContextArgs, args: DeleteAccountArgs): Promise<Account> => {
+export const deleteAccount = async (args: DeleteAccountArgs): Promise<Account> => {
   const { id } = args
 
   try {
@@ -91,7 +91,7 @@ export const deleteAccount = async (ctx: SharedContextArgs, args: DeleteAccountA
 
     return account;
   } catch (error) {
-    console.error('Error in deleteAccount', ctx, args, error);
+    console.error('Error in deleteAccount', args, error);
     throw error;
   }
 }

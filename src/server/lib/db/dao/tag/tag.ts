@@ -45,7 +45,7 @@ export const getTags = async (ctx: SharedContextArgs, args?: GetTagsArgs): Promi
   }
 };
 
-export const updateTag = async (ctx: SharedContextArgs, args: UpdateTagArgs): Promise<Tag> => {
+export const updateTag = async (args: UpdateTagArgs): Promise<Tag> => {
   const { id, name } = args
 
   try {
@@ -60,12 +60,12 @@ export const updateTag = async (ctx: SharedContextArgs, args: UpdateTagArgs): Pr
 
     return tag;
   } catch (error) {
-    console.error('Error in updateTag', ctx, args, error);
+    console.error('Error in updateTag', args, error);
     throw error;
   }
 };
 
-export const deleteTag = async (ctx: SharedContextArgs, args: DeleteTagArgs): Promise<Tag> => {
+export const deleteTag = async (args: DeleteTagArgs): Promise<Tag> => {
   const { id } = args
 
   try {
@@ -77,7 +77,7 @@ export const deleteTag = async (ctx: SharedContextArgs, args: DeleteTagArgs): Pr
 
     return tag;
   } catch (error) {
-    console.error('Error in deleteTag', ctx, args, error);
+    console.error('Error in deleteTag', args, error);
     throw error;
   }
 }

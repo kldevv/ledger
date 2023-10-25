@@ -47,11 +47,11 @@ export const getCategories = async (ctx: SharedContextArgs, args?: GetCategories
   }
 }
 
-export const updateCategory = async (ctx: SharedContextArgs, args: UpdateCategoryArgs): Promise<Category> => {
+export const updateCategory = async (args: UpdateCategoryArgs): Promise<Category> => {
   const { id, name, type } = args
 
   if (name == null && type == null) {
-    console.error('Error in updateCategory: Invalid Update Args', ctx, args);
+    console.error('Error in updateCategory: Invalid Update Args', args);
     throw new Error('Invalid Update Args');
   }
 
@@ -68,12 +68,12 @@ export const updateCategory = async (ctx: SharedContextArgs, args: UpdateCategor
 
     return category;
   } catch (error) {
-    console.error('Error in updateCategory', ctx, args, error);
+    console.error('Error in updateCategory', args, error);
     throw error;
   }
 }
 
-export const deleteCategory = async (ctx: SharedContextArgs, args: DeleteCategoryArgs): Promise<Category> => {
+export const deleteCategory = async (args: DeleteCategoryArgs): Promise<Category> => {
   const { id } = args
 
   try {
@@ -85,7 +85,7 @@ export const deleteCategory = async (ctx: SharedContextArgs, args: DeleteCategor
 
     return category;
   } catch (error) {
-    console.error('Error in deleteCategory', ctx, args, error);
+    console.error('Error in deleteCategory', args, error);
     throw error;
   }
 }

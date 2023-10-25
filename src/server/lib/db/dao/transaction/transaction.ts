@@ -80,11 +80,11 @@ export const getTransactions = async (ctx: SharedContextArgs, args?: GetTransact
   }
 };
 
-export const updateTransaction = async (ctx: SharedContextArgs, args: UpdateTransactionArgs): Promise<Transaction> => {
+export const updateTransaction = async (args: UpdateTransactionArgs): Promise<Transaction> => {
   const { id, title, accruedDate, entries } = args
 
   if (title == null && entries == null && accruedDate == null) {
-    console.error('Error in updateTransaction: Invalid Update Args', ctx, args);
+    console.error('Error in updateTransaction: Invalid Update Args', args);
     throw new Error('Invalid Update Args');
   }
 
@@ -107,12 +107,12 @@ export const updateTransaction = async (ctx: SharedContextArgs, args: UpdateTran
 
     return transaction;
   } catch (error) {
-    console.error('Error in updateTransaction', ctx, args, error);
+    console.error('Error in updateTransaction', args, error);
     throw error;
   }
 };
 
-export const deleteTransaction = async (ctx: SharedContextArgs, args: DeleteTransactionArgs): Promise<Transaction> => {
+export const deleteTransaction = async (args: DeleteTransactionArgs): Promise<Transaction> => {
   const { id } = args
 
   try {
@@ -131,7 +131,7 @@ export const deleteTransaction = async (ctx: SharedContextArgs, args: DeleteTran
 
     return result[1];
   } catch (error) {
-    console.error('Error in deleteTransaction', ctx, args, error);
+    console.error('Error in deleteTransaction', args, error);
     throw error;
   }
 }

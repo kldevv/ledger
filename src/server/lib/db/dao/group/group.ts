@@ -54,11 +54,11 @@ export const getGroups = async (ctx: SharedContextArgs, args?: GetGroupsArgs): P
   }
 };
 
-export const updateGroup = async (ctx: SharedContextArgs, args: UpdateGroupArgs): Promise<Group> => {
+export const updateGroup = async (args: UpdateGroupArgs): Promise<Group> => {
   const { id, name, categoryId } = args
 
   if (name == null && categoryId == null) {
-    console.error('Error in updateGroup: Invalid Update Args', ctx, args);
+    console.error('Error in updateGroup: Invalid Update Args', args);
     throw new Error('Invalid Update Args');
   }
 
@@ -75,12 +75,12 @@ export const updateGroup = async (ctx: SharedContextArgs, args: UpdateGroupArgs)
 
     return group;
   } catch (error) {
-    console.error('Error in updateGroup', ctx, args, error);
+    console.error('Error in updateGroup', args, error);
     throw error;
   }
 };
 
-export const deleteGroup = async (ctx: SharedContextArgs, args: DeleteGroupArgs): Promise<Group> => {
+export const deleteGroup = async (args: DeleteGroupArgs): Promise<Group> => {
   const { id } = args
 
   try {
@@ -92,7 +92,7 @@ export const deleteGroup = async (ctx: SharedContextArgs, args: DeleteGroupArgs)
 
     return group;
   } catch (error) {
-    console.error('Error in deleteGroup', ctx, args, error);
+    console.error('Error in deleteGroup', args, error);
     throw error;
   }
 }
