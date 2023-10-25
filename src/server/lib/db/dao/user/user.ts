@@ -21,8 +21,8 @@ export const createUser = async (ctx: SharedContextArgs, args: CreateUserArgs): 
 };
 
 
-export const getUsers = async (ctx: SharedContextArgs, args: GetUsersArgs): Promise<GetUsersReturns> => {
-  const { id, name } = args
+export const getUsers = async (ctx: SharedContextArgs, args?: GetUsersArgs): Promise<GetUsersReturns> => {
+  const { id, name } = args ?? {}
 
   try {
     const users = await prisma.user.findMany({

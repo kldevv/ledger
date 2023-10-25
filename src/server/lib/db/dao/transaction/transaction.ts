@@ -40,8 +40,8 @@ export const createTransaction = async (ctx: SharedContextArgs, args: CreateTran
 };
 
 
-export const getTransactions = async (ctx: SharedContextArgs, args: GetTransactionsArgs): Promise<GetTransactionsReturns> => {
-  const { id, title, accruedDate, entries } = args
+export const getTransactions = async (ctx: SharedContextArgs, args?: GetTransactionsArgs): Promise<GetTransactionsReturns> => {
+  const { id, title, accruedDate, entries } = args ?? {}
 
   try {
     const transactions = await prisma.transaction.findMany({

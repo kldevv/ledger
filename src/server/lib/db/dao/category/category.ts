@@ -22,8 +22,8 @@ export const createCategory = async (ctx: SharedContextArgs, args: CreateCategor
   }
 };
 
-export const getCategories = async (ctx: SharedContextArgs, args: GetCategoriesArgs): Promise<GetCategoriesReturns> => {
-  const { id, name, type} = args
+export const getCategories = async (ctx: SharedContextArgs, args?: GetCategoriesArgs): Promise<GetCategoriesReturns> => {
+  const { id, name, type} = args ?? {}
 
   try {
     const categories = await prisma.category.findMany({

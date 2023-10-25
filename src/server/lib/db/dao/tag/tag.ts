@@ -22,8 +22,8 @@ export const createTag = async (ctx: SharedContextArgs, args: CreateTagArgs): Pr
 };
 
 
-export const getTags = async (ctx: SharedContextArgs, args: GetTagsArgs): Promise<GetTagsReturns> => {
-  const { id, name } = args
+export const getTags = async (ctx: SharedContextArgs, args?: GetTagsArgs): Promise<GetTagsReturns> => {
+  const { id, name } = args ?? {}
 
   try {
     const tags = await prisma.tag.findMany({

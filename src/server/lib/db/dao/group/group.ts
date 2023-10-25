@@ -23,8 +23,8 @@ export const createGroup = async (ctx: SharedContextArgs, args: CreateGroupArgs)
 };
 
 
-export const getGroups = async (ctx: SharedContextArgs, args: GetGroupsArgs): Promise<GetGroupsReturns> => {
-  const { id, name, categoryId } = args
+export const getGroups = async (ctx: SharedContextArgs, args?: GetGroupsArgs): Promise<GetGroupsReturns> => {
+  const { id, name, categoryId } = args ?? {}
 
   try {
     const groups = await prisma.group.findMany({

@@ -23,8 +23,8 @@ export const createAccount = async (ctx: SharedContextArgs, args: CreateAccountA
 };
 
 
-export const getAccounts = async (ctx: SharedContextArgs, args: GetAccountsArgs): Promise<GetAccountsReturns> => {
-  const { id, name, groupId } = args
+export const getAccounts = async (ctx: SharedContextArgs, args?: GetAccountsArgs): Promise<GetAccountsReturns> => {
+  const { id, name, groupId } = args ?? {}
 
   try {
     const accounts = await prisma.account.findMany({
