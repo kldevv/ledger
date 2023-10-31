@@ -1,5 +1,1 @@
-import * as Category from './category/category'
-
-export const AccountController = {
-  ...Category
-}
+export * from './category/category'

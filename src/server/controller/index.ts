@@ -1,1 +1,1 @@
-export * as AccountController from './account/category/account'
+export * as AccountController from './account'

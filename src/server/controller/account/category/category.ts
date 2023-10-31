@@ -1,11 +1,11 @@
 import { CategoryDao } from "@/server/lib/db/dao";
-import { Currency } from "@prisma/client";
 import { ControllerError } from "../../error";
-import { CreateCategoryArgs, UpdateCategoryNameArgs, UpdateCategoryTypeArgs } from "./category.interface";
-import { Category } from "../types";
+import { AccountApi } from "@/server/routers/account/account.types";
 
-
-export const createCategory = async ({ currency, name, type }: CreateCategoryArgs): Promise<void> => {
+/**
+ * createCategory controller
+ */
+export const createCategory = async ({ currency, name, type }: AccountApi.CreateCategoryInput): Promise<void> => {
   try { 
     await CategoryDao.createCategory({ currency }, { name, type })
   } catch (error) {
@@ -13,7 +13,10 @@ export const createCategory = async ({ currency, name, type }: CreateCategoryArg
   }
 }
 
-export const updateCategoryName = async ({ id, name }: UpdateCategoryNameArgs): Promise<void> => {
+/**
+ * updateCategoryName controller
+ */
+export const updateCategoryName = async ({ id, name }: AccountApi.UpdateCategoryNameInput): Promise<void> => {
   try {
     await CategoryDao.updateCategory({ id, name })
   } catch (error) {
@@ -21,7 +24,10 @@ export const updateCategoryName = async ({ id, name }: UpdateCategoryNameArgs): 
   }  
 }
 
-export const updateCategoryType = async ({ id, type }: UpdateCategoryTypeArgs): Promise<void> => {
+/**
+ * updateCategoryType controller
+ */
+export const updateCategoryType = async ({ id, type }: AccountApi.UpdateCategoryTypeInput): Promise<void> => {
   try {
     await CategoryDao.updateCategory({ id, type })
   } catch (error) {
@@ -29,7 +35,10 @@ export const updateCategoryType = async ({ id, type }: UpdateCategoryTypeArgs): 
   }
 }
 
-export const getAllCategories = async (currency: Currency): Promise<Category[]> => {
+/**
+ * getAllCategories controller
+ */
+export const getAllCategories = async ({ currency }: AccountApi.GetAllCategoriesInput): Promise<AccountApi.GetAllCategoriesOutput> => {
   try {
     const categories = await CategoryDao.getCategories({ currency })
 
