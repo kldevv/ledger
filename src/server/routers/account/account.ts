@@ -30,3 +30,10 @@ export const GetAllCategories = procedure
   .input(AccountApi.GetAllCategoriesInputSchema)
   .output(AccountApi.GetAllCategoriesOutputSchema)
   .query(async (opts) => AccountController.getAllCategories(opts.input))
+
+/**
+ * CreateGroup route
+ */
+export const CreateGroup = procedure
+  .input(AccountApi.CreateGroupInputSchema)
+  .mutation(async (opts) => AccountController.createGroup(opts.input))

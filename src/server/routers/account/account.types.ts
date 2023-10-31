@@ -45,4 +45,14 @@ export namespace AccountApi {
     })
   )
   export type GetAllCategoriesOutput = z.infer<typeof GetAllCategoriesOutputSchema>
+
+  /**
+   * CreateGroup route
+   */
+  export const CreateGroupInputSchema = z.object({
+    currency: z.nativeEnum(Currency),
+    name: z.string(),
+    categoryId: z.number()
+  })
+  export type CreateGroupInput = z.infer<typeof CreateGroupInputSchema>
 }
