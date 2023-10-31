@@ -1,6 +1,7 @@
 import { CategoryType, Currency } from "@prisma/client"
 import { z } from "zod"
 
+// TODO: Order procedures by CRUD
 export namespace AccountApi {
   /**
    * CreateCategory route
@@ -55,4 +56,14 @@ export namespace AccountApi {
     categoryId: z.number()
   })
   export type CreateGroupInput = z.infer<typeof CreateGroupInputSchema>
+
+  /**
+   * CreateAccount route
+   */
+  export const CreateAccountInputSchema = z.object({
+    currency: z.nativeEnum(Currency),
+    name: z.string(),
+    groupId: z.number()
+  })
+  export type CreateAccountInput = z.infer<typeof CreateAccountInputSchema>
 }

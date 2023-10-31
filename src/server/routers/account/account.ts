@@ -2,6 +2,7 @@ import { procedure } from "@/server/trpc";
 import { AccountApi } from "./account.types";
 import { AccountController } from "@/server/controller";
 
+// TODO: Order procedures by CRUD
 /**
  * CreateCategory route
  */
@@ -37,3 +38,10 @@ export const GetAllCategories = procedure
 export const CreateGroup = procedure
   .input(AccountApi.CreateGroupInputSchema)
   .mutation(async (opts) => AccountController.createGroup(opts.input))
+
+/**
+ * CreateAccount route
+ */
+export const CreateAccount = procedure
+  .input(AccountApi.CreateAccountInputSchema)
+  .mutation(async (opts) => AccountController.createAccount(opts.input))
