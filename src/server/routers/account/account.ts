@@ -59,3 +59,11 @@ export const UpdateGroupName = procedure
 export const UpdateGroupCategory = procedure
   .input(AccountApi.UpdateGroupCategoryInputSchema)
   .mutation(async (opts) => AccountController.updateGroupCategory(opts.input))
+
+
+/**
+ * GetAllGroups route
+ */
+export const GetAllGroups = procedure
+  .input(AccountApi.GetAllGroupsInputSchema)
+  .mutation(async (opts) => AccountController.getAllGroups(opts.input))

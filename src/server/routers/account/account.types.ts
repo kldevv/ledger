@@ -84,4 +84,12 @@ export namespace AccountApi {
     categoryId: z.number()
   })
   export type UpdateGroupCategoryInput = z.infer<typeof UpdateGroupCategoryInputSchema>
+
+  /**
+   * GetAllGroups route
+   */
+  export const GetAllGroupsInputSchema = z.object({
+    currency: z.nativeEnum(Currency),
+  })
+  export type GetAllGroupsInput = z.infer<typeof GetAllGroupsInputSchema>
 }

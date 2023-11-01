@@ -34,3 +34,14 @@ export const updateGroupCategory = async ({ id, categoryId }: AccountApi.UpdateG
     throw ControllerError(error)
   }
 }
+
+/**
+ * getAllGroups controller
+ */
+export const getAllGroups = async ({ currency }: AccountApi.GetAllGroupsInput): Promise<void> => {
+  try {
+    await GroupDao.getGroups({ currency })
+  } catch (error) {
+    throw ControllerError(error)
+  }
+}
