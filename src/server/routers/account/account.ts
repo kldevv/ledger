@@ -52,3 +52,10 @@ export const CreateAccount = procedure
 export const UpdateGroupName = procedure
   .input(AccountApi.UpdateGroupNameInputSchema)
   .mutation(async (opts) => AccountController.updateGroupName(opts.input))
+
+/**
+ * UpdateGroupCategory route
+ */
+export const UpdateGroupCategory = procedure
+  .input(AccountApi.UpdateGroupCategoryInputSchema)
+  .mutation(async (opts) => AccountController.updateGroupCategory(opts.input))

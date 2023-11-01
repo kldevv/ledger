@@ -75,4 +75,13 @@ export namespace AccountApi {
     name: z.string()
   })
   export type UpdateGroupNameInput = z.infer<typeof UpdateGroupNameInputSchema>
+
+  /**
+   * UpdateGroupCategory route
+   */
+  export const UpdateGroupCategoryInputSchema = z.object({
+    id: z.number(),
+    categoryId: z.number()
+  })
+  export type UpdateGroupCategoryInput = z.infer<typeof UpdateGroupCategoryInputSchema>
 }
