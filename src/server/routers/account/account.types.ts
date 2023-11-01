@@ -92,4 +92,12 @@ export namespace AccountApi {
     currency: z.nativeEnum(Currency),
   })
   export type GetAllGroupsInput = z.infer<typeof GetAllGroupsInputSchema>
+
+  /**
+   * DeleteGroup route
+   */
+  export const DeleteGroupInputSchema = z.object({
+    id: z.number()
+  })
+  export type DeleteGroupInput = z.infer<typeof DeleteGroupInputSchema>
 }

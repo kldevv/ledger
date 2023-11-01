@@ -45,3 +45,14 @@ export const getAllGroups = async ({ currency }: AccountApi.GetAllGroupsInput): 
     throw ControllerError(error)
   }
 }
+
+/**
+ * deleteGroup controller
+ */
+export const deleteGroup = async ({ id }: AccountApi.DeleteGroupInput): Promise<void> => {
+  try {
+    await GroupDao.deleteGroup({ id })
+  } catch (error) {
+    throw ControllerError(error)
+  }
+}
