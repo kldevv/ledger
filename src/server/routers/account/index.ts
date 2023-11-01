@@ -1,5 +1,5 @@
 import { router } from "@/server/trpc";
-import { CreateCategory, UpdateCategoryName, UpdateCategoryType, GetAllCategories, CreateGroup } from "./account";
+import { CreateCategory, UpdateCategoryName, UpdateCategoryType, GetAllCategories, CreateGroup, UpdateGroupName, UpdateGroupCategory, GetAllGroups } from "./account";
 
 /**
  * Account router
@@ -10,4 +10,7 @@ export const AccountRouter = router({
   UpdateCategoryType,
   GetAllCategories,
   CreateGroup,
+  UpdateGroupName,
+  UpdateGroupCategory,
+  GetAllGroups,
 });
