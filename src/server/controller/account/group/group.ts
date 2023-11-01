@@ -12,3 +12,14 @@ export const createGroup = async ({ currency, name, categoryId }: AccountApi.Cre
     throw ControllerError(error)
   }
 }
+
+/**
+ * updateGroupName controller
+ */
+export const updateGroupName = async({ id, name }: AccountApi.UpdateGroupNameInput): Promise<void> => {
+  try {
+    await GroupDao.updateGroup({ id, name })
+  } catch (error) {
+    throw ControllerError(error)
+  }
+}

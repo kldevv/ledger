@@ -66,4 +66,13 @@ export namespace AccountApi {
     groupId: z.number()
   })
   export type CreateAccountInput = z.infer<typeof CreateAccountInputSchema>
+
+  /**
+   * UpdateGroupName route
+   */
+  export const UpdateGroupNameInputSchema = z.object({
+    id: z.number(),
+    name: z.string()
+  })
+  export type UpdateGroupNameInput = z.infer<typeof UpdateGroupNameInputSchema>
 }
