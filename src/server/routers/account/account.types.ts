@@ -108,4 +108,13 @@ export namespace AccountApi {
     id: z.number()
   })
   export type DeleteCategoryInput = z.infer<typeof DeleteCategoryInputSchema>
+
+  /**
+   * UpdateAccountName route
+   */
+  export const UpdateAccountNameInputSchema = z.object({
+    id: z.number(),
+    name: z.string()
+  })
+  export type UpdateAccountNameInput = z.infer<typeof UpdateAccountNameInputSchema>
 }

@@ -12,3 +12,14 @@ export const createAccount = async ({ currency, name, groupId }: AccountApi.Crea
     throw ControllerError(error)
   }
 }
+
+/**
+ * updateAccountName controller
+ */
+export const updateAccountName = async ({ id, name }: AccountApi.UpdateAccountNameInput): Promise<void> => {
+  try {
+    await AccountDao.updateAccount({ id, name })
+  } catch (error) {
+    throw ControllerError(error)
+  }
+}

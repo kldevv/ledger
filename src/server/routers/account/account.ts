@@ -82,3 +82,10 @@ export const DeleteGroup = procedure
 export const DeleteCategory = procedure
   .input(AccountApi.DeleteCategoryInputSchema)
   .mutation(async (opts) => AccountController.deleteCategory(opts.input))
+
+/**
+ * UpdateAccountName route
+ */
+export const UpdateAccountName = procedure
+  .input(AccountApi.UpdateAccountNameInputSchema)
+  .mutation(async (opts) => AccountController.updateAccountName(opts.input))
