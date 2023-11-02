@@ -100,4 +100,12 @@ export namespace AccountApi {
     id: z.number()
   })
   export type DeleteGroupInput = z.infer<typeof DeleteGroupInputSchema>
+
+  /**
+   * DeleteCategory route
+   */
+  export const DeleteCategoryInputSchema = z.object({
+    id: z.number()
+  })
+  export type DeleteCategoryInput = z.infer<typeof DeleteCategoryInputSchema>
 }

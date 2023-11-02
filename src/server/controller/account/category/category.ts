@@ -47,3 +47,14 @@ export const getAllCategories = async ({ currency }: AccountApi.GetAllCategories
     throw ControllerError(error)
   }
 }
+
+/**
+ * deleteCategory controller
+ */
+export const deleteCategory = async ({ id }: AccountApi.DeleteGroupInput): Promise<void> => {
+  try {
+    await CategoryDao.deleteCategory({ id })
+  } catch (error) {
+    throw ControllerError(error)
+  }
+}

@@ -75,3 +75,10 @@ export const GetAllGroups = procedure
 export const DeleteGroup = procedure
   .input(AccountApi.DeleteGroupInputSchema)
   .mutation(async (opts) => AccountController.deleteGroup(opts.input))
+
+/**
+ * DeleteCategory route
+ */
+export const DeleteCategory = procedure
+  .input(AccountApi.DeleteCategoryInputSchema)
+  .mutation(async (opts) => AccountController.deleteCategory(opts.input))
