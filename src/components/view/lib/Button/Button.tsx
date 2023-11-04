@@ -9,7 +9,7 @@ export interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
 
 export const Button: React.FC<ButtonProps> = ({ children, loading = false, disabled, onClick, ...props }) => {
   const isDisabled = useMemo(() => {
-    return loading && disabled;
+    return loading || disabled;
   }, [loading, disabled]);
 
   return (
