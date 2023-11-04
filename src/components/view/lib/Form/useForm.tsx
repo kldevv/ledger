@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm as useReactHookForm, UseFormProps } from "react-hook-form"
 import { z } from "zod";
 import { createForm } from "./Form/Form";
+import { SubmitButton } from "./Fields/SubmitButton/SubmitButton";
 
 
 export type useFormProps = {
@@ -12,7 +13,7 @@ export type useFormProps = {
   /**
    * Props for react-hook-form `useForm` hook
    */
-  props: UseFormProps;
+  props?: UseFormProps;
 };
 
 export const useForm = ({ schema, props }: useFormProps) => {
