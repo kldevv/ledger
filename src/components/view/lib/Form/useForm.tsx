@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm as useReactHookForm, UseFormProps } from "react-hook-form"
 import { z } from "zod";
-import { createForm } from "./_Form/_Form";
+import { createForm } from "./Form/Form";
 
 
 export type useFormProps = {
