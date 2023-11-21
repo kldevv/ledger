@@ -1,0 +1,11 @@
+{
+  "navItems": {
+    "label": {
+      "TRANSACTION": "Transactions",
+      "STATEMENT": "Statements",
+      "ACCOUNT": "Manage Accounts",
+      "PEOPLE": "Manage People",
+      "GROUP": "Groups"
+    }
+  }
+}
