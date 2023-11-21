@@ -1,5 +1,4 @@
-import { Button, SubmitButton, useForm } from '@/components/view';
-import { trpc } from '../utils/trpc';
+import { Button, SubmitButton, useForm } from '@/components/common';
 import { z } from 'zod';
 import { Layout } from '@/components/layout';
 

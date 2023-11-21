@@ -1,9 +1,10 @@
 import type { AppType } from 'next/app';
-import { trpc } from '@/utils/trpc';
+
+import { appWithI18Next } from 'ni18n';
+import { ni18nConfig } from '../../ni18n.config';
 
 const App: AppType = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
 };
 
-// TODO: Migrate to Nextjs 13 when tRPC is fully supported: https://github.com/trpc/trpc/discussions/3185
-export default trpc.withTRPC(App);
+export default appWithI18Next(App, ni18nConfig)
