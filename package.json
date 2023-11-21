@@ -13,6 +13,7 @@
     "@prisma/client": "^5.4.2",
     "@radix-ui/react-navigation-menu": "^1.1.4",
     "@tanstack/react-query": "^4.36.1",
+    "@tanstack/react-table": "^8.10.7",
     "@trpc/client": "^10.40.0",
     "@trpc/next": "^10.40.0",
     "@trpc/react-query": "^10.40.0",
