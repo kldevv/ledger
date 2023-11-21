@@ -17,11 +17,14 @@
     "@trpc/next": "^10.40.0",
     "@trpc/react-query": "^10.40.0",
     "@trpc/server": "^10.40.0",
+    "i18next": "^23.7.6",
     "next": "13.5.4",
+    "ni18n": "^1.1.0",
     "prisma": "^5.4.2",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.47.0",
+    "react-i18next": "^13.5.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
