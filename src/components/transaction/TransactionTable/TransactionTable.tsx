@@ -7,6 +7,7 @@ import {
 import { Transaction } from '@prisma/client';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
+import { TransactionTableRow } from './Row';
 
 const columnHelper = createColumnHelper<Transaction>();
 
@@ -18,22 +19,25 @@ export type TransactionTableProps = {
 }
 
 export const TransactionTable: React.FC<TransactionTableProps> = ({ data }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('transaction')
 
-  const columns = useMemo(() => [
-    columnHelper.accessor('title', {
-      header: 'Title',
-      cell: (info) => <span>{info.getValue()}</span>,
-    }),
-    columnHelper.accessor('accruedDate', {
-      header: 'Date',
-      cell: (info) => <span>{`${info.getValue()}`}</span>,
-    }),
-    columnHelper.accessor('id', {
-      header: 'Id',
-      cell: (info) => <span>{`${info.getValue()}`}</span>,
-    }),
-  ], []);
+  const columns = useMemo(
+    () => [
+      columnHelper.accessor('title', {
+        header: t('transactionTable.header.title'),
+        cell: (info) => <span>{info.getValue()}</span>,
+      }),
+      columnHelper.accessor('accruedDate', {
+        header: t('transactionTable.header.date'),
+        cell: (info) => <span>{`${info.getValue()}`}</span>,
+      }),
+      columnHelper.accessor('id', {
+        header: t('transactionTable.header.id'),
+        cell: (info) => <span>{`${info.getValue()}`}</span>,
+      }),
+    ],
+    []
+  );
 
   const table = useReactTable({
     data,
@@ -60,15 +64,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({ data }) => {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
+        {table.getRowModel().rows.map((row) => <TransactionTableRow row={row} />)}
       </tbody>
     </table>
   );
