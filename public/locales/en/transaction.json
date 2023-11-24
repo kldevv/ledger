@@ -1,10 +1,10 @@
 {
-  "transactionTable": {
+  "table": {
     "header": {
       "id": "ID",
       "title": "Title",
       "date": "Date",
-      "group": "Groups"
+      "group": "Group"
     }
   }
 }
