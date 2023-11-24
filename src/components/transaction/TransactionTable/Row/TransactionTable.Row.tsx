@@ -1,7 +1,6 @@
 import { Transaction } from "@prisma/client"
 import type { Row } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
-import * as Collapsible from '@radix-ui/react-collapsible';
 import { Button } from "@/components/common";
 import { useState } from "react";
 
@@ -25,6 +24,7 @@ export const TransactionTableRow: React.FC<TransactionTableRowProps> = ({ id, ti
         <tr>
           <td colSpan={2}></td>
           <td colSpan={4}>
+            <h1>Entries</h1>
             <table>
               <thead>
                 <tr>
