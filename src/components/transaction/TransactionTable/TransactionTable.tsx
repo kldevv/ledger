@@ -27,11 +27,12 @@ const data: Transaction[] = [
   },
 ];
 
+const columnHelper = createColumnHelper<Transaction>();
+
 
 export const TransactionTable: React.FC = () => {
   const { t } = useTranslation('transaction')
 
-  const columnHelper = createColumnHelper<Transaction>();
   const columns = [
     columnHelper.accessor('id', {
       header: t('table.header.id'),
