@@ -2,7 +2,7 @@
   "table": {
     "header": {
       "id": "ID",
-      "description": "Title",
+      "description": "Description",
       "date": "Date",
       "group": "Group"
     }

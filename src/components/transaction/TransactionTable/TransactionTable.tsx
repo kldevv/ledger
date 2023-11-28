@@ -7,6 +7,7 @@ import {
 import { Currency, Transaction } from '@prisma/client';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
+import { Button } from '@/components/common';
 
 const data: Transaction[] = [
   {
@@ -34,6 +35,12 @@ export const TransactionTable: React.FC = () => {
   const { t } = useTranslation('transaction')
 
   const columns = [
+    columnHelper.display({
+      id: 'detail',
+      cell: (info) => (
+        <Link href={`/transaction/${info.row.getValue('id')}`}>{'>'}</Link>
+      ),
+    }),
     columnHelper.accessor('id', {
       header: t('table.header.id'),
       cell: (info) => <span>{info.getValue()}</span>,
@@ -74,15 +81,13 @@ export const TransactionTable: React.FC = () => {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <Link href={`/transaction/${123}`}>
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          </Link>
+          <tr>
+            {row.getVisibleCells().map((cell) => (
+              <td key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </td>
+            ))}
+          </tr>
         ))}
       </tbody>
     </table>

@@ -22,9 +22,6 @@ export default function IndexPage() {
           <SubmitButton>{'hello'}</SubmitButton>
         </Form>
       </div>
-      <div className="p-2">
-        <TransactionTable />
-      </div>
     </Layout>
   );
 }
