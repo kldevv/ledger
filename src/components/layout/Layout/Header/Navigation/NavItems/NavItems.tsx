@@ -1,6 +1,6 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { NavLink } from './NavLink';
-import { route } from '@/utils/route';
+import { route } from '@/lib/route';
 
 import { useTranslation } from 'react-i18next';
 

@@ -6,5 +6,15 @@
       "date": "Date",
       "group": "Group"
     }
+  },
+  "detail": {
+    "infoSheet": {
+      "label": {
+        "id": "ID",
+        "description": "Description",
+        "date": "Date",
+        "tag": "Tags"
+      }
+    }
   }
 }
