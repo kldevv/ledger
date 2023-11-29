@@ -1,7 +1,8 @@
 import { SubmitButton, useForm } from '@/components/common';
 import { z } from 'zod';
 import { Layout } from '@/components/layout';
-import { TransactionTable } from '@/components/transaction/TransactionTable/TransactionTable';
+import { useQuery } from '@apollo/client'
+import GET_USERS from '@/lib/graphql/query/getUser.gql'
 
 const schema = z.object({
   name: z.string().optional()
@@ -9,6 +10,11 @@ const schema = z.object({
 
 export default function IndexPage() {
   const { Form, methods } = useForm({ schema });
+
+  const { data, loading, error } = useQuery(GET_USERS);
+
+  console.log(data)
+  console.log(error);
 
   return (
     <Layout>
