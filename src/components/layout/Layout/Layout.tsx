@@ -22,9 +22,11 @@ export const Layout: React.FC<LayoutProps> = ({ title, children }) => {
         </title>
         {/* Add any other meta tags or external stylesheets here */}
       </Head>
-      <Header />
-      <main>{children}</main>
-      <Footer />
+      <div className="min-h-screen flex">
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </div>
     </div>
   );
 };

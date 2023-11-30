@@ -51,9 +51,6 @@ export const NavItems: React.FC = () => {
 
   return (
     <>
-      <NavigationMenu.Item key={'/'}>
-        <NavLink href={'/'}>{'Home'}</NavLink>
-      </NavigationMenu.Item>
       {
         navItems.map(({key, path}) => {
           return (
