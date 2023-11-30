@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { Navigation } from "./Navigation";
 
 type LayoutProps = {
   /**
@@ -23,7 +24,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, children }) => {
         {/* Add any other meta tags or external stylesheets here */}
       </Head>
       <div className="min-h-screen flex">
-        <Header />
+        <Navigation />
         <main>{children}</main>
         <Footer />
       </div>
