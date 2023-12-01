@@ -1,4 +1,4 @@
-import { GroupDao } from "@/server/lib/db/dao"
+import { GroupDao } from "@/db/prisma/dao"
 import { ControllerError } from "../../error"
 import { AccountApi } from "@/server/routers/account/account.types"
 

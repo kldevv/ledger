@@ -1,4 +1,4 @@
-import { CategoryDao } from "@/server/lib/db/dao";
+import { CategoryDao } from "@/db/prisma/dao";
 import { ControllerError } from "../../error";
 import { AccountApi } from "@/server/routers/account/account.types";
 
