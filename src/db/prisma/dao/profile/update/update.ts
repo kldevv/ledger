@@ -1,6 +1,6 @@
 import prisma from "@/db/prisma/client"
 
-export namespace Update {
+export namespace UpdateOne {
   export type Args = {
     /**
      * Profile id
@@ -20,7 +20,7 @@ export namespace Update {
   }
 }
 
-export const update = async ({ id, data }: Update.Args) => {
+export const updateOne = async ({ id, data }: UpdateOne.Args) => {
   try {
     await prisma.profile.update({
       where: {

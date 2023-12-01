@@ -1,6 +1,6 @@
 import prisma from "@/db/prisma/client"
 
-export namespace Create {
+export namespace CreateOne {
   export type Args = {
     /**
      * Profile name
@@ -9,7 +9,7 @@ export namespace Create {
   }
 }
 
-export const create = async ({ name }: Create.Args) => {
+export const createOne = async ({ name }: CreateOne.Args) => {
   try {
     await prisma.profile.create({
       data: {
