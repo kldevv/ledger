@@ -27,10 +27,6 @@ export const readOne = async ({ id }: ReadOne.Args): Promise<ReadOne.Returns> =>
 export namespace ReadMany {
   export type Args = {
     /**
-     * Profile id
-     */
-    id?: string
-    /**
      * Profile name
      */
     name?: string
@@ -39,7 +35,7 @@ export namespace ReadMany {
   export type Returns = Profile[]
 }
 
-export const readMany = async ({ id, name }: ReadMany.Args): Promise<ReadMany.Returns> => {
+export const readMany = async ({ name }: ReadMany.Args): Promise<ReadMany.Returns> => {
   try {
     return await prisma.profile.findMany({
       where: {
