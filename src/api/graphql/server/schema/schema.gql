@@ -1,0 +1,29 @@
+input GetAllWallets {
+  ownerId: String
+}
+
+type Query {
+  getAllWallets(input: GetAllWallets): [Wallet]!
+}
+
+input AddWalletInput {
+  name: String!
+  currency: Currency!
+  ownerId: String!
+}
+
+type Mutation {
+  addWallet(input: AddWalletInput!): Wallet
+}
+
+type Wallet {
+  id: String!
+  name: String!
+  currency: Currency!
+  ownerId: String!
+}
+
+enum Currency {
+  USD
+  NTD
+}

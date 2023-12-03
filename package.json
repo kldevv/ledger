@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
@@ -33,9 +34,9 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.0",
-    "@graphql-codegen/typescript": "^4.0.1",
-    "@graphql-codegen/typescript-resolvers": "^4.0.1",
+    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/typescript": "4.0.1",
+    "@graphql-codegen/typescript-resolvers": "4.0.1",
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/addon-links": "^7.5.3",
@@ -54,6 +55,7 @@
     "postcss": "^8",
     "storybook": "^7.5.3",
     "tailwindcss": "^3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@graphql-codegen/introspection": "4.0.0"
   }
 }
