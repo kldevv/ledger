@@ -1,13 +1,8 @@
-import { Currency, QueryResolvers } from "@/api/graphql";
+import { QueryResolvers } from "@/api/graphql";
 
 const queries: QueryResolvers = {
-  getAllWallets: async() => {
-    return [{
-      id: '123',
-      name: '123',
-      currency: Currency.USD,
-      ownerId: '123'
-    }]
+  getAllWallets: async(_, { ownerId }, {dataSources: { prisma }}) => {
+    return await prisma.walletDS.readMany({ ownerId })
   },
 }
 

@@ -80,7 +80,7 @@ export const TransactionTable: React.FC = () => {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <tr>
+          <tr key={row.id}>
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -86,6 +86,12 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "EUR",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "NTD",
             "description": null,
             "isDeprecated": false,

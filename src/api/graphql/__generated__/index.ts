@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { ApolloServerContext } from '@/api/graphql/server/context';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
@@ -25,10 +26,10 @@ export type AddWalletInput = {
   ownerId: Scalars['String']['input'];
 };
 
-export enum Currency {
-  NTD = 'NTD',
-  USD = 'USD'
-}
+export type Currency =
+  | 'EUR'
+  | 'NTD'
+  | 'USD';
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -148,15 +149,15 @@ export type ResolversParentTypes = {
   Wallet: Wallet;
 };
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addWallet?: Resolver<Maybe<ResolversTypes['Wallet']>, ParentType, ContextType, RequireFields<MutationAddWalletArgs, 'input'>>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAllWallets?: Resolver<Array<Maybe<ResolversTypes['Wallet']>>, ParentType, ContextType, RequireFields<QueryGetAllWalletsArgs, 'ownerId'>>;
 };
 
-export type WalletResolvers<ContextType = any, ParentType extends ResolversParentTypes['Wallet'] = ResolversParentTypes['Wallet']> = {
+export type WalletResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Wallet'] = ResolversParentTypes['Wallet']> = {
   currency?: Resolver<ResolversTypes['Currency'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -164,7 +165,7 @@ export type WalletResolvers<ContextType = any, ParentType extends ResolversParen
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type Resolvers<ContextType = any> = {
+export type Resolvers<ContextType = ApolloServerContext> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Wallet?: WalletResolvers<ContextType>;
