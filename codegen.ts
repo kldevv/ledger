@@ -19,7 +19,7 @@ const config: CodegenConfig = {
     "src/api/graphql/__generated__/index.ts": {
       plugins: ["typescript", "typescript-resolvers", "typescript-operations", "typescript-react-apollo"],
     },
-    "src/api/graphql/__generated__/schema.introspection.json": {
+    "src/api/graphql/__generated__/introspection.json": {
       plugins: ["introspection"]
     }
   }

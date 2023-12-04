@@ -1,0 +1,6 @@
+type Wallet {
+  id: String!
+  name: String!
+  currency: Currency!
+  ownerId: String!
+}

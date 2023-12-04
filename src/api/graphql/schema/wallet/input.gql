@@ -1,0 +1,5 @@
+input AddWalletInput {
+  name: String!
+  currency: Currency!
+  ownerId: String!
+}
