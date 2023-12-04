@@ -1,0 +1,8 @@
+query getAllWallets($ownerId: String!) {
+  getAllWallets(ownerId: $ownerId) {
+    id
+    name
+    currency
+    ownerId
+  }
+}

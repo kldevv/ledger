@@ -2,7 +2,8 @@ import { SubmitButton, useForm } from '@/components/common';
 import { z } from 'zod';
 import { Layout } from '@/components/layout';
 import { useQuery } from '@apollo/client'
-import GET_USERS from '@/lib/graphql/query/getUser.gql'
+
+import GET_ALL_WALLETS from '@/api/graphql/client/query/getAllWallets.gql';
 
 const schema = z.object({
   name: z.string().optional()
@@ -11,10 +12,11 @@ const schema = z.object({
 export default function IndexPage() {
   const { Form, methods } = useForm({ schema });
 
-  const { data, loading, error } = useQuery(GET_USERS);
-
-  console.log(data)
-  console.log(error);
+  const { data, loading, error } = useQuery(GET_ALL_WALLETS, {
+    variables: {
+      ownerId: '123'
+    }
+  });
 
   return (
     <Layout>

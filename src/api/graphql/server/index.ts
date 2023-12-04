@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 import resolvers from "./resolver";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const typeDefs = readFileSync("@/api/graphql/server/schema/schema.gql", { encoding: "utf-8" });
+const typeDefs = readFileSync("src/api/graphql/server/schema/schema.gql", { encoding: "utf-8" });
 
 const server = new ApolloServer<{ req: NextApiRequest, res: NextApiResponse }>({
   typeDefs,

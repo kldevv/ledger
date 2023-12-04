@@ -27,8 +27,8 @@ export enum Currency {
   Usd = 'USD'
 }
 
-export type GetAllWallets = {
-  ownerId?: InputMaybe<Scalars['String']['input']>;
+export type GetAllWalletsInput = {
+  ownerId: Scalars['String']['input'];
 };
 
 export type Mutation = {
@@ -48,7 +48,7 @@ export type Query = {
 
 
 export type QueryGetAllWalletsArgs = {
-  input?: InputMaybe<GetAllWallets>;
+  input?: InputMaybe<GetAllWalletsInput>;
 };
 
 export type Wallet = {
@@ -133,7 +133,7 @@ export type ResolversTypes = {
   AddWalletInput: AddWalletInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Currency: Currency;
-  GetAllWallets: GetAllWallets;
+  GetAllWalletsInput: GetAllWalletsInput;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -144,7 +144,7 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   AddWalletInput: AddWalletInput;
   Boolean: Scalars['Boolean']['output'];
-  GetAllWallets: GetAllWallets;
+  GetAllWalletsInput: GetAllWalletsInput;
   Mutation: {};
   Query: {};
   String: Scalars['String']['output'];

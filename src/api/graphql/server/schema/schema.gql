@@ -1,9 +1,5 @@
-input GetAllWallets {
-  ownerId: String
-}
-
 type Query {
-  getAllWallets(input: GetAllWallets): [Wallet]!
+  getAllWallets(ownerId: String!): [Wallet]!
 }
 
 input AddWalletInput {
