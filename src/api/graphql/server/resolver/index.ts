@@ -1,7 +1,5 @@
-import { Resolvers } from "@/api/graphql/_codegen/schema";
+import { Resolvers } from "@/api/graphql";
 import Query from "./query";
 import Mutation from "./mutation";
 
-const resolvers: Resolvers = { Query, Mutation };
-
-export default resolvers;
+export const resolvers: Resolvers = { Query, Mutation };

@@ -1,4 +1,4 @@
-import { MutationResolvers } from "@/api/graphql/_codegen/schema";
+import { MutationResolvers } from "@/api/graphql";
 
 const mutations: MutationResolvers = {
   

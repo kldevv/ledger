@@ -1,4 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -7,6 +9,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Mayb
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -23,13 +26,9 @@ export type AddWalletInput = {
 };
 
 export enum Currency {
-  Ntd = 'NTD',
-  Usd = 'USD'
+  NTD = 'NTD',
+  USD = 'USD'
 }
-
-export type GetAllWalletsInput = {
-  ownerId: Scalars['String']['input'];
-};
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -48,7 +47,7 @@ export type Query = {
 
 
 export type QueryGetAllWalletsArgs = {
-  input?: InputMaybe<GetAllWalletsInput>;
+  ownerId: Scalars['String']['input'];
 };
 
 export type Wallet = {
@@ -133,7 +132,6 @@ export type ResolversTypes = {
   AddWalletInput: AddWalletInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Currency: Currency;
-  GetAllWalletsInput: GetAllWalletsInput;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -144,7 +142,6 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   AddWalletInput: AddWalletInput;
   Boolean: Scalars['Boolean']['output'];
-  GetAllWalletsInput: GetAllWalletsInput;
   Mutation: {};
   Query: {};
   String: Scalars['String']['output'];
@@ -156,7 +153,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getAllWallets?: Resolver<Array<Maybe<ResolversTypes['Wallet']>>, ParentType, ContextType, Partial<QueryGetAllWalletsArgs>>;
+  getAllWallets?: Resolver<Array<Maybe<ResolversTypes['Wallet']>>, ParentType, ContextType, RequireFields<QueryGetAllWalletsArgs, 'ownerId'>>;
 };
 
 export type WalletResolvers<ContextType = any, ParentType extends ResolversParentTypes['Wallet'] = ResolversParentTypes['Wallet']> = {
@@ -173,3 +170,55 @@ export type Resolvers<ContextType = any> = {
   Wallet?: WalletResolvers<ContextType>;
 };
 
+
+export type GetAllWalletsQueryVariables = Exact<{
+  ownerId: Scalars['String']['input'];
+}>;
+
+
+export type GetAllWalletsQuery = { __typename?: 'Query', getAllWallets: Array<{ __typename?: 'Wallet', id: string, name: string, currency: Currency, ownerId: string } | null> };
+
+
+export const GetAllWalletsDocument = gql`
+    query getAllWallets($ownerId: String!) {
+  getAllWallets(ownerId: $ownerId) {
+    id
+    name
+    currency
+    ownerId
+  }
+}
+    `;
+
+/**
+ * __useGetAllWalletsQuery__
+ *
+ * To run a query within a React component, call `useGetAllWalletsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllWalletsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllWalletsQuery({
+ *   variables: {
+ *      ownerId: // value for 'ownerId'
+ *   },
+ * });
+ */
+export function useGetAllWalletsQuery(baseOptions: Apollo.QueryHookOptions<GetAllWalletsQuery, GetAllWalletsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllWalletsQuery, GetAllWalletsQueryVariables>(GetAllWalletsDocument, options);
+      }
+export function useGetAllWalletsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllWalletsQuery, GetAllWalletsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllWalletsQuery, GetAllWalletsQueryVariables>(GetAllWalletsDocument, options);
+        }
+export function useGetAllWalletsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllWalletsQuery, GetAllWalletsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllWalletsQuery, GetAllWalletsQueryVariables>(GetAllWalletsDocument, options);
+        }
+export type GetAllWalletsQueryHookResult = ReturnType<typeof useGetAllWalletsQuery>;
+export type GetAllWalletsLazyQueryHookResult = ReturnType<typeof useGetAllWalletsLazyQuery>;
+export type GetAllWalletsSuspenseQueryHookResult = ReturnType<typeof useGetAllWalletsSuspenseQuery>;
+export type GetAllWalletsQueryResult = Apollo.QueryResult<GetAllWalletsQuery, GetAllWalletsQueryVariables>;

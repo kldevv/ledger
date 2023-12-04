@@ -1,11 +1,11 @@
-import { Currency, QueryResolvers } from "@/api/graphql/_codegen/schema";
+import { Currency, QueryResolvers } from "@/api/graphql";
 
 const queries: QueryResolvers = {
-  getAllWallets: async(_, { input }, { }) => {
+  getAllWallets: async() => {
     return [{
       id: '123',
       name: '123',
-      currency: Currency.Usd,
+      currency: Currency.USD,
       ownerId: '123'
     }]
   },
