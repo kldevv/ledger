@@ -1,5 +1,5 @@
 import prisma from "@/db/prisma/client"
-import { Currency } from "@prisma/client"
+import { Currency, Wallet } from "@prisma/client"
 
 export namespace CreateOne {
   export type Args = {
@@ -16,11 +16,13 @@ export namespace CreateOne {
      */
     ownerId: string
   }
+
+  export type Returns = Wallet
 }
 
-export const createOne = async ({ name, currency, ownerId }: CreateOne.Args) => {
+export const createOne = async ({ name, currency, ownerId }: CreateOne.Args): Promise<CreateOne.Returns> => {
   try {
-    await prisma.wallet.create({
+    return await prisma.wallet.create({
       data: {
         name,
         currency,
