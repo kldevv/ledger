@@ -20,11 +20,17 @@ const config: CodegenConfig = {
       plugins: ["typescript", "typescript-resolvers", "typescript-operations", "typescript-react-apollo"],
       config: {
         contextType: '@/api/graphql/server/context#ApolloServerContext',
-        enumsAsTypes: true
+        enumsAsTypes: true,
+        scalars: {
+          DateTime: 'Date'
+        }
       },
     },
     "src/api/graphql/__generated__/introspection.json": {
-      plugins: ["introspection"]
+      plugins: ["introspection"],
+      config: {
+        minify: true
+      }
     }
   }
 };

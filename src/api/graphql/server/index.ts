@@ -4,16 +4,17 @@ import { resolvers } from "./resolver";
 import { NextApiRequest } from "next";
 import { ApolloServerContext } from "./context";
 import { PrismaDataSource } from "@/db/prisma";
-import { loadSchemaSync } from "@graphql-tools/load";
-import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader"
+import { DateTimeResolver } from "graphql-scalars";
+import { loadFilesSync } from "@graphql-tools/load-files";
 
-const typeDefs = loadSchemaSync("src/api/graphql/schema/**/*.gql", {
-  loaders: [new GraphQLFileLoader()]
-});
+const typeDefs = loadFilesSync("src/api/graphql/schema/**/*.gql");
 
 const server = new ApolloServer<ApolloServerContext>({
   typeDefs,
-  resolvers,
+  resolvers: {
+    ...resolvers,
+    DateTime: DateTimeResolver
+  },
 });
 
 export default startServerAndCreateNextHandler<NextApiRequest, ApolloServerContext>(server, {

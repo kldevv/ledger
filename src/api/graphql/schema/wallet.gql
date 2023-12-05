@@ -1,0 +1,14 @@
+input AddWalletInput {
+  name: String!
+  currency: Currency!
+  ownerId: String!
+}
+
+type Wallet {
+  id: String!
+  name: String!
+  currency: Currency!
+  ownerId: String!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+}

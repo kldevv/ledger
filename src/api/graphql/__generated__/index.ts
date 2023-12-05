@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { ApolloServerContext } from '@/api/graphql/server/context';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
@@ -18,6 +18,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  DateTime: { input: Date; output: Date; }
 };
 
 export type AddWalletInput = {
@@ -53,10 +54,12 @@ export type QueryGetAllWalletsArgs = {
 
 export type Wallet = {
   __typename?: 'Wallet';
+  createdDate: Scalars['DateTime']['output'];
   currency: Currency;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   ownerId: Scalars['String']['output'];
+  updatedDate: Scalars['DateTime']['output'];
 };
 
 
@@ -133,6 +136,7 @@ export type ResolversTypes = {
   AddWalletInput: AddWalletInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Currency: Currency;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -143,11 +147,16 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   AddWalletInput: AddWalletInput;
   Boolean: Scalars['Boolean']['output'];
+  DateTime: Scalars['DateTime']['output'];
   Mutation: {};
   Query: {};
   String: Scalars['String']['output'];
   Wallet: Wallet;
 };
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
 
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addWallet?: Resolver<Maybe<ResolversTypes['Wallet']>, ParentType, ContextType, RequireFields<MutationAddWalletArgs, 'input'>>;
@@ -158,19 +167,29 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
 };
 
 export type WalletResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Wallet'] = ResolversParentTypes['Wallet']> = {
+  createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   currency?: Resolver<ResolversTypes['Currency'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   ownerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = ApolloServerContext> = {
+  DateTime?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Wallet?: WalletResolvers<ContextType>;
 };
 
+
+export type AddWalletMutationVariables = Exact<{
+  input: AddWalletInput;
+}>;
+
+
+export type AddWalletMutation = { __typename?: 'Mutation', addWallet?: { __typename?: 'Wallet', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date } | null };
 
 export type GetAllWalletsQueryVariables = Exact<{
   ownerId: Scalars['String']['input'];
@@ -180,6 +199,44 @@ export type GetAllWalletsQueryVariables = Exact<{
 export type GetAllWalletsQuery = { __typename?: 'Query', getAllWallets: Array<{ __typename?: 'Wallet', id: string, name: string, currency: Currency, ownerId: string } | null> };
 
 
+export const AddWalletDocument = gql`
+    mutation addWallet($input: AddWalletInput!) {
+  addWallet(input: $input) {
+    id
+    name
+    currency
+    ownerId
+    createdDate
+    updatedDate
+  }
+}
+    `;
+export type AddWalletMutationFn = Apollo.MutationFunction<AddWalletMutation, AddWalletMutationVariables>;
+
+/**
+ * __useAddWalletMutation__
+ *
+ * To run a mutation, you first call `useAddWalletMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddWalletMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addWalletMutation, { data, loading, error }] = useAddWalletMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddWalletMutation(baseOptions?: Apollo.MutationHookOptions<AddWalletMutation, AddWalletMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddWalletMutation, AddWalletMutationVariables>(AddWalletDocument, options);
+      }
+export type AddWalletMutationHookResult = ReturnType<typeof useAddWalletMutation>;
+export type AddWalletMutationResult = Apollo.MutationResult<AddWalletMutation>;
+export type AddWalletMutationOptions = Apollo.BaseMutationOptions<AddWalletMutation, AddWalletMutationVariables>;
 export const GetAllWalletsDocument = gql`
     query getAllWallets($ownerId: String!) {
   getAllWallets(ownerId: $ownerId) {

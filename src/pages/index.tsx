@@ -1,8 +1,7 @@
-import { SubmitButton, useForm } from '@/components/common';
+import { Button, SubmitButton, useForm } from '@/components/common';
 import { z } from 'zod';
 import { Layout } from '@/components/layout';
-import { useQuery } from '@apollo/client'
-import { useGetAllWalletsQuery } from '@/api/graphql';
+import { useAddWalletMutation } from '@/api/graphql';
 
 const schema = z.object({
   name: z.string().optional()
@@ -11,16 +10,27 @@ const schema = z.object({
 export default function IndexPage() {
   const { Form, methods } = useForm({ schema });
 
-  const { data, loading, error } = useGetAllWalletsQuery({
-    variables: {
-      ownerId: '123'
-    }
-  })
+  const [ addWallet, { data } ] = useAddWalletMutation()
 
   console.log(data);
 
   return (
     <Layout>
+      <Button
+        onClick={() =>
+          addWallet({
+            variables: {
+              input: {
+                ownerId: '123',
+                name: 'aaa',
+                currency: 'USD',
+              },
+            },
+          })
+        }
+      >
+        addWallet
+      </Button>
       <div>
         <Form
           onSubmit={(data) => {

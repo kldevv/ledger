@@ -1,0 +1,10 @@
+mutation addWallet($input: AddWalletInput!) {
+  addWallet(input: $input) {
+    id
+    name
+    currency
+    ownerId
+    createdDate
+    updatedDate
+  }
+}
