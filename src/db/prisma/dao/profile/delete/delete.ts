@@ -1,4 +1,5 @@
 import prisma from "@/db/prisma/client"
+import { Profile } from "@prisma/client"
 
 export namespace DeleteOne {
   export type Args = {
@@ -7,11 +8,13 @@ export namespace DeleteOne {
      */
     id: string
   }
+
+  export type Returns = Profile
 }
 
-export const deleteOne = async ({ id }: DeleteOne.Args) => {
+export const deleteOne = async ({ id }: DeleteOne.Args): Promise<DeleteOne.Returns> => {
   try {
-    await prisma.profile.delete({
+    return await prisma.profile.delete({
       where: {
         id,
       }
