@@ -1,20 +1,20 @@
 import prisma from "@/db/prisma/client"
-import { Wallet } from "@prisma/client"
+import { Entry } from "@prisma/client"
 
 export namespace DeleteOne {
   export type Args = {
     /**
-     * Wallet id
+     * Entry id
      */
     id: string
   }
 
-  export type Returns = Wallet
+  export type Returns = Entry
 }
 
 export const deleteOne = async ({ id }: DeleteOne.Args): Promise<DeleteOne.Returns> => {
   try {
-    return await prisma.wallet.delete({
+    return await prisma.entry.delete({
       where: {
         id,
       }

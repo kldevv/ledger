@@ -12,11 +12,11 @@ export namespace CreateOne {
      */
     accountId: string
     /**
-     * Entry debit, should be `0` if credit is not `0`
+     * Entry debit
      */
     debit: number
     /**
-     * Entry credit, should be `0` if debit is not `0`
+     * Entry credit
      */
     credit: number
     /**
@@ -44,18 +44,6 @@ export const createOne = async ({
   status = EntryStatus.PENDING,
  }: CreateOne.Args) => {
   try {
-    if (debit === 0 && credit === 0) {
-      throw Error('Debit and credit cannot be both zero')
-    }
-
-    if (debit < 0 || credit < 0) {
-      throw Error('Debit or credit cannot be less than zero')
-    }
-
-    if (debit * credit !== 0) {
-      throw Error('Either debit or credit should be zero')
-    }
-
     await prisma.entry.create({
       data: {
         transactionDate,
