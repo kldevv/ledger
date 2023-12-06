@@ -1,4 +1,5 @@
 import prisma from "@/db/prisma/client"
+import { Profile } from "@prisma/client"
 
 export namespace CreateOne {
   export type Args = {
@@ -7,11 +8,13 @@ export namespace CreateOne {
      */
     name: string
   }
+
+  export type Returns = Profile
 }
 
-export const createOne = async ({ name }: CreateOne.Args) => {
+export const createOne = async ({ name }: CreateOne.Args): Promise<CreateOne.Returns> => {
   try {
-    await prisma.profile.create({
+    return await prisma.profile.create({
       data: {
         name,
       }

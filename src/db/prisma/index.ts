@@ -1,9 +1,15 @@
-import { WalletDao } from './dao'
+import { CategoryDao, EntryDao, ProfileDao, WalletDao } from './dao'
 
 export class PrismaDataSource {
-  public walletDS: typeof WalletDao;
+  public category: typeof CategoryDao;
+  public entry: typeof EntryDao;
+  public wallet: typeof WalletDao;
+  public profile: typeof ProfileDao;
 
   constructor() {
-    this.walletDS = WalletDao
+    this.category = CategoryDao
+    this.entry = EntryDao
+    this.profile = ProfileDao
+    this.wallet = WalletDao
   }
 }
