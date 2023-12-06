@@ -1,6 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache, from } from "@apollo/client";
 import { withScalars } from "apollo-link-scalars";
-import { buildClientSchema } from "graphql";
+import { IntrospectionQuery, buildClientSchema } from "graphql";
 import { DateTimeResolver } from "graphql-scalars";
 
 import introspection from '@/api/graphql/__generated__/introspection.json'
