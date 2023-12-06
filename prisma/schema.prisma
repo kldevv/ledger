@@ -45,12 +45,13 @@ model Entry {
   transactionDate DateTime
   account         Account     @relation(fields: [accountId], references: [id])
   accountId       String
-  credit          Decimal
-  debit           Decimal
+  credit          Float
+  debit           Float
   memo            String?
   transaction     Transaction @relation(fields: [transactionId], references: [id])
   transactionId   String
   status          EntryStatus @default(PENDING)
+  createdDate     DateTime    @default(now())
   updatedDate     DateTime    @updatedAt
 }
 
