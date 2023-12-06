@@ -11,6 +11,7 @@ const apolloClient = new ApolloClient({
     withScalars({
       schema: buildClientSchema(introspection as unknown as IntrospectionQuery),
       typesMap: {
+        // Deserialize data to JS date
         DateTime: DateTimeResolver,
       },
     }),

@@ -13,6 +13,7 @@ const server = new ApolloServer<ApolloServerContext>({
   typeDefs,
   resolvers: {
     ...resolvers,
+    // Serialize JS date to transmit
     DateTime: DateTimeResolver
   },
 });
