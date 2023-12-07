@@ -31,7 +31,7 @@ export const NavigationBar: React.FC = () => {
                     <NavLink href="/report">Reports</NavLink>
                   </Item>
                   <Item>
-                    <NavLink href="/statement">Documents</NavLink>
+                    <NavLink href="/document">Documents</NavLink>
                   </Item>
                 </List>
               </Sub>

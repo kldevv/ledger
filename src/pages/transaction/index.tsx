@@ -12,6 +12,4 @@ const TransactionPage: React.FC = () => {
   );
 }
 
-TransactionPage
-
 export default TransactionPage
