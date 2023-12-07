@@ -15,11 +15,11 @@ export namespace UpdateOne {
 
   export type Data = {
     /**
-     * Account name
+     * New account name
      */
     name?: string
     /**
-     * Category id
+     * New category id
      */
     categoryId?: string
   }

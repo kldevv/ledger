@@ -15,7 +15,7 @@ export namespace UpdateOne {
 
   export type Data = {
     /**
-     * Tag name
+     * New tag name
      */
     name?: string
   }

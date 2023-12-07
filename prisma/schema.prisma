@@ -16,6 +16,8 @@ model Category {
   walletId    String
   createdDate DateTime     @default(now())
   updatedDate DateTime     @updatedAt
+
+  @@unique([walletId, name])
 }
 
 model Account {
@@ -26,6 +28,8 @@ model Account {
   entries     Entry[]
   createdDate DateTime @default(now())
   updatedDate DateTime @updatedAt
+
+  @@unique([categoryId, name])
 }
 
 model Transaction {
@@ -35,7 +39,7 @@ model Transaction {
   wallet      Wallet   @relation(fields: [walletId], references: [id])
   walletId    String
   entries     Entry[]
-  tags        Tag[]    @relation("TransactionsToTags")
+  tags        Tag[]
   createdDate DateTime @default(now())
   updatedDate DateTime @updatedAt
 }
@@ -48,7 +52,7 @@ model Entry {
   credit          Float
   debit           Float
   memo            String?
-  transaction     Transaction @relation(fields: [transactionId], references: [id])
+  transaction     Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   transactionId   String
   status          EntryStatus @default(PENDING)
   createdDate     DateTime    @default(now())
@@ -58,11 +62,13 @@ model Entry {
 model Tag {
   id           String        @id @default(uuid())
   name         String
-  transactions Transaction[] @relation("TransactionsToTags")
+  transactions Transaction[]
   wallet       Wallet        @relation(fields: [walletId], references: [id])
   walletId     String
   createdDate  DateTime      @default(now())
   updatedDate  DateTime      @updatedAt
+
+  @@unique([walletId, name])
 }
 
 model Wallet {
@@ -76,6 +82,8 @@ model Wallet {
   tags         Tag[]
   createdDate  DateTime      @default(now())
   updatedDate  DateTime      @updatedAt
+
+  @@unique([ownerId, name])
 }
 
 model Profile {
