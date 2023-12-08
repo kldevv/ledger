@@ -1,4 +1,5 @@
 import { Layout } from '@/components/layout';
+import { WalletRadioCards } from '@/components/wallet';
 
 const Page: React.FC = () => {
   return (
@@ -8,6 +9,9 @@ const Page: React.FC = () => {
         <p className="text-darkMidGray text-base">
           Switch to a different wallet or create a new one.
         </p>
+      </div>
+      <div>
+        <WalletRadioCards />
       </div>
     </Layout>
   );

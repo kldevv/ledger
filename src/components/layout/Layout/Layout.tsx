@@ -20,14 +20,12 @@ export const Layout: React.FC<LayoutProps> = ({ title, children }) => {
         <title>
           {title || process.env.DEFAULT_PAGE_TITLE || 'The Ledger Page'}
         </title>
-        {/* Add any other meta tags or external stylesheets here */}
       </Head>
       <div className="min-h-screen flex">
         <NavigationBar />
-        <main>
-          <div className="m-10 mt-14 flex flex-col gap-y-5">{children}</div>
+        <main className="grow">
+          <div className="my-14 mx-16 m flex flex-col gap-y-5">{children}</div>
         </main>
-        <Footer />
       </div>
     </div>
   );
