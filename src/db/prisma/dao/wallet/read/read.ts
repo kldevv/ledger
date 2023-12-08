@@ -45,13 +45,29 @@ export namespace ReadMany {
 
 export const readMany = async ({ name, ownerId, currency }: ReadMany.Args): Promise<ReadMany.Returns> => {
   try {
-    return await prisma.wallet.findMany({
-      where: {
-        name,
-        ownerId,
-        currency
-      }
-    })
+    return [{
+      id: '77',
+      name: 'USD Wallet',
+      ownerId: ownerId ?? '000',
+      currency: 'USD',
+      createdDate: new Date(Date.now()),
+      updatedDate: new Date(Date.now()),
+    }, {
+      id: '88',
+      name: 'NTD Wallet',
+      ownerId: ownerId ?? '000',
+      currency: 'NTD',
+      createdDate: new Date(Date.now()),
+      updatedDate: new Date(Date.now()),
+    }, {
+      id: '100',
+      name: 'USD Wallet 2',
+      ownerId: ownerId ?? '000',
+      currency: 'USD',
+      createdDate: new Date(Date.now()),
+      updatedDate: new Date(Date.now()),
+    }]
+
   } catch (e) {
     throw e
   }

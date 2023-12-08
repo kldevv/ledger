@@ -9,7 +9,7 @@ import { useWalletContext } from '@/hooks';
  * Navigation bar
  */
 export const NavigationBar: React.FC = () => {
-  const { loading, name } = useWalletContext()
+  const [{ currentWalletId, wallets }, ] = useWalletContext()
 
   return (
     <div className="flex flex-col bg-lightShades grow-0">
@@ -23,7 +23,7 @@ export const NavigationBar: React.FC = () => {
         <Link href="/wallet">
           <div className="flex gap-x-2 -mx-1 items-center font-semibold leading-6 text-xs hover:bg-main hover:text-lightShades border bg-lightShades text-main rounded-xl">
             <WalletIcon className="h-3 w-3 ml-2" />
-            {name}
+            {wallets?.find((wallet) => wallet.id === currentWalletId)?.name}
           </div>
         </Link>
 

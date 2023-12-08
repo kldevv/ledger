@@ -1,19 +1,16 @@
 import { Root } from '@radix-ui/react-radio-group';
 import { WalletRadioCard } from './WalletRadioCard';
 import { useCallback, useState } from 'react';
+import { useWalletContext } from '@/hooks';
 
 export const WalletRadioCards: React.FC = () => {
-  const wallets = [
-    { id: '1', name: 'My USD Wallet', currency: 'USD' },
-    { id: '2', name: 'My EUR Wallet', currency: 'EUR' },
-    { id: '3', name: 'My NTD Wallet', currency: 'NTD' },
-  ];
+  const [{ currentWalletId, wallets }, { setCurrentWalletId }] = useWalletContext();
 
-  const [selected, setSelected] = useState('1')
+  const [selected, setSelected] = useState(currentWalletId);
 
   const handleOnValueChange = useCallback((value: string) => {
-    console.log(value)
     setSelected(value)
+    setCurrentWalletId?.(value)
   }, [])
 
   return (
@@ -25,9 +22,9 @@ export const WalletRadioCards: React.FC = () => {
       className='w-96'
     >
       <div className="flex flex-col gap-y-2">
-        {wallets.map((prop) => {
+        {wallets?.map((prop) => {
           return (
-            <WalletRadioCard key={prop.id} selected={selected} {...prop} />
+            <WalletRadioCard key={prop.id} {...prop} />
           );
         })}
       </div>

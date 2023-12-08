@@ -14,10 +14,6 @@ export type WalletRadioCardProps = {
    * Wallet currency
    */
   currency: string;
-  /**
-   * Currently selected
-   */
-  selected: string;
 };
 
 export const WalletRadioCard: React.FC<WalletRadioCardProps> = ({

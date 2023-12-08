@@ -20,7 +20,8 @@ export const WalletContextProvider: React.FC<WalletContextProviderProps> = ({ ch
     },
   });
 
-  const [currentWalletId, setCurrentWalletId]= useState<WalletContextState['currentWalletId']>(undefined)
+  const [currentWalletId, setCurrentWalletId] =
+    useState<WalletContextState['currentWalletId']>(getAllWallets?.[0].id);
 
   const contextState = useMemo<WalletContextState>(
     () => ({
