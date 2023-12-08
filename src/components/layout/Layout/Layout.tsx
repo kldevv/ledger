@@ -24,7 +24,9 @@ export const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       </Head>
       <div className="min-h-screen flex">
         <NavigationBar />
-        <main>{children}</main>
+        <main>
+          <div className="m-10 mt-14 flex flex-col gap-y-5">{children}</div>
+        </main>
         <Footer />
       </div>
     </div>
