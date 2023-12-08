@@ -1,6 +1,6 @@
 import { useFormState } from "react-hook-form";
-import { Button, ButtonProps } from "../../../lib"
 import { forwardRef, useMemo } from "react";
+import { Button, ButtonProps } from "@/components/common";
 
 type SubmitButtonProps = Omit<ButtonProps, 'type'>
 

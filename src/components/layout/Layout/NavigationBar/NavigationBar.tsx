@@ -1,71 +1,119 @@
 import { Root, List, Item, Sub } from '@radix-ui/react-navigation-menu';
 import { NavLink } from './NavLink';
 import Link from 'next/link';
+import { ChartPieIcon, ClipboardDocumentListIcon, FolderOpenIcon, InboxStackIcon, ListBulletIcon, TableCellsIcon, TagIcon } from '@heroicons/react/24/outline';
+import { ChevronRightIcon, PaperClipIcon, WalletIcon } from '@heroicons/react/20/solid';
 
 /**
  * Navigation bar
  */
 export const NavigationBar: React.FC = () => {
   return (
-    <div className="flex flex-col w-64 bg-lightgray">
-      <div className="px-6 gap-y-5 border-r overflow-y-auto flex flex-col grow border-midgray">
-        <div className="flex shrink-0 h-8 items-center">
-          <Link href="/">Brand</Link>
+    <div className="flex flex-col w-56 bg-lightShades">
+      <div className="px-6 gap-y-5 border-r overflow-y-auto flex flex-col grow border-midGray">
+        <div className="mt-4 flex shrink-0 h-8 items-center">
+          <Link href="/">
+            <PaperClipIcon className="w-8 h-8 text-main" />
+          </Link>
         </div>
+
+        <Link href="/wallet">
+          <div className="flex gap-x-1 -mx-1 items-center font-medium leading-6 text-xs bg-main text-lightShades rounded-xl">
+            <WalletIcon className="h-3 w-3 ml-2" />
+            USD WALLET
+          </div>
+        </Link>
 
         <Root orientation={'vertical'} className="min-h-max">
           <List className="-mx-2 flex flex-col gap-y-7">
             <Item className="flex flex-col gap-y-1">
-              <div className="leading-6 font-semibold text-xs text-darkmidgray">
+              <div className="leading-6 font-semibold text-xs text-darkMidGray">
                 Ledger
               </div>
               <Sub>
                 <List className="flex flex-col gap-y-1">
                   <Item>
-                    <NavLink href="/transaction">Transactions</NavLink>
+                    <NavLink href="/transaction">
+                      <div className="flex gap-x-2 items-center">
+                        <ClipboardDocumentListIcon className="w-5 h-5" />
+                        Transactions
+                      </div>
+                    </NavLink>
                   </Item>
                   <Item>
-                    <NavLink href="/entry">Entries</NavLink>
+                    <NavLink href="/entry">
+                      <div className="flex gap-x-2 items-center">
+                        <ListBulletIcon className="w-5 h-5" />
+                        Entries
+                      </div>
+                    </NavLink>
                   </Item>
                   <Item>
-                    <NavLink href="/report">Reports</NavLink>
+                    <NavLink href="/report">
+                      <div className="flex gap-x-2 items-center">
+                        <ChartPieIcon className="w-5 h-5" />
+                        Reports
+                      </div>
+                    </NavLink>
                   </Item>
                   <Item>
-                    <NavLink href="/document">Documents</NavLink>
+                    <NavLink href="/document">
+                      <div className="flex gap-x-2 items-center">
+                        <TableCellsIcon className="w-5 h-5" />
+                        Documents
+                      </div>
+                    </NavLink>
                   </Item>
                 </List>
               </Sub>
             </Item>
 
             <Item className="flex flex-col gap-y-1">
-              <div className="leading-6 font-semibold text-xs text-darkmidgray">
-                Settings
+              <div className="leading-6 font-semibold text-xs text-darkMidGray">
+                Tools
               </div>
               <Sub>
                 <List className="flex flex-col gap-y-1">
                   <Item>
-                    <NavLink href="/wallet">Wallets</NavLink>
+                    <NavLink href="/account">
+                      <div className="flex gap-x-2 items-center">
+                        <InboxStackIcon className="w-5 h-5" />
+                        Accounts
+                      </div>
+                    </NavLink>
                   </Item>
                   <Item>
-                    <NavLink href="/account">Accounts</NavLink>
+                    <NavLink href="/category">
+                      <div className="flex gap-x-2 items-center">
+                        <FolderOpenIcon className="w-5 h-5" />
+                        Categories
+                      </div>
+                    </NavLink>
                   </Item>
                   <Item>
-                    <NavLink href="/category">Categories</NavLink>
-                  </Item>
-                  <Item>
-                    <NavLink href="/tag">Tags</NavLink>
+                    <NavLink href="/tag">
+                      <div className="flex gap-x-2 items-center">
+                        <TagIcon className="w-5 h-5" />
+                        Tags
+                      </div>
+                    </NavLink>
                   </Item>
                 </List>
               </Sub>
             </Item>
           </List>
         </Root>
-      </div>
 
-      <div className="mt-auto">
-        <Link href="/" className="flex py-3 px-6 hover:bg-midgray">
-          Profile
-        </Link>
+        <div className="mt-auto">
+          <Link
+            href="/profile"
+            className="flex py-3 px-6 -mx-6 mt-1 hover:bg-midGray"
+          >
+            <div className="font-semibold leading-6 text-sm flex text-darkShades">
+              Profile
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );

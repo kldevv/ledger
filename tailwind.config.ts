@@ -10,9 +10,17 @@ const config: Config = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      lightgray: '#f9fafb',
-      midgray: '#e5e7eb',
-      darkmidgray: '#9ca3af'
+      
+      white: '#FFFFFF',
+      lightGray: '#f9fafb',
+      midGray: '#e5e7eb',
+      darkMidGray: '#9ca3af',
+
+      main: '#AC5850',
+      lightAccent: '#E27E61',
+      lightShades: '#FAF9F8',
+      darkAccent: '#B0879E',
+      darkShades: '#333047',
     },
     extend: {
       backgroundImage: {
