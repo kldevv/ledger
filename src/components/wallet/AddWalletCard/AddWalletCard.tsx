@@ -1,7 +1,8 @@
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link"
 
-export const AddWalletCard = () => {
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
+
+export const AddWalletCard: React.FC = () => {
   return (
     <Link
       href="/wallet/add"

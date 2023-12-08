@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { Item, Link as MenuLink} from '@radix-ui/react-navigation-menu';
 import classNames from 'classnames';
+import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 
 export type WalletLinkProps = {
   /**
@@ -37,6 +38,20 @@ export const WalletLink: React.FC<WalletLinkProps> = ({ active = false, loading 
     // Active
     'data-[active]:bg-main data-[active]:text-lightShades'
   );
+
+  if (loading) {
+    return (
+      <div
+        className={classNames(
+          cn,
+          'bg-midGray text-lightShades',
+          'hover:bg-midGray hover:text-lightShades'
+        )}
+      >
+        <EllipsisHorizontalIcon className="w-5 h-5 mx-auto" />
+      </div>
+    );
+  }
 
   return (
     <Item>

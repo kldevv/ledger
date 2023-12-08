@@ -10,6 +10,9 @@ export type WalletContextProviderProps = {
 };
 
 export const WalletContextProvider: React.FC<WalletContextProviderProps> = ({ children }) => {
+  const [curWalletId, setCurWalletId] =
+      useState<WalletContextState['curWalletId']>(undefined);
+      
   const {
     data: { getAllWallets } = {},
     loading,
@@ -18,11 +21,10 @@ export const WalletContextProvider: React.FC<WalletContextProviderProps> = ({ ch
     variables: {
       ownerId: '000',
     },
+    onCompleted: (data) => {
+      setCurWalletId(data.getAllWallets?.[0].id);
+    }
   });
-
-  const [curWalletId, setCurWalletId] = useState<
-    WalletContextState['curWalletId']
-  >(getAllWallets?.[0].id);
 
   const contextState = useMemo<WalletContextState>(
     () => ({
@@ -33,7 +35,6 @@ export const WalletContextProvider: React.FC<WalletContextProviderProps> = ({ ch
     }),
     [getAllWallets, curWalletId, loading, error]
   );
-
   const setContextState = useMemo<SetWalletContextState>(
     () => ({
       setCurWalletId,
