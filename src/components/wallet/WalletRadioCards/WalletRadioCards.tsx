@@ -4,28 +4,28 @@ import { useCallback, useState } from 'react';
 import { useWalletContext } from '@/hooks';
 
 export const WalletRadioCards: React.FC = () => {
-  const [{ currentWalletId, wallets }, { setCurrentWalletId }] = useWalletContext();
+  const [{ curWalletId, wallets }, { setCurWalletId }] = useWalletContext();
 
-  const [selected, setSelected] = useState(currentWalletId);
+  const [selected, setSelected] = useState(curWalletId);
 
-  const handleOnValueChange = useCallback((value: string) => {
-    setSelected(value)
-    setCurrentWalletId?.(value)
-  }, [])
+  const handleOnValueChange = useCallback(
+    (value: string) => {
+      setSelected(value);
+      setCurWalletId?.(value);
+    },
+    [setCurWalletId]
+  );
 
   return (
     <Root
       orientation="vertical"
       value={selected}
       onValueChange={handleOnValueChange}
-      aria-label="Wallet"
-      className='w-96'
+      className="max-w-sm"
     >
       <div className="flex flex-col gap-y-2">
         {wallets?.map((prop) => {
-          return (
-            <WalletRadioCard key={prop.id} {...prop} />
-          );
+          return <WalletRadioCard key={prop.id} {...prop} />;
         })}
       </div>
     </Root>

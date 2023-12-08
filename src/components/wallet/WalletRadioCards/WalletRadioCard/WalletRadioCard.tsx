@@ -29,7 +29,7 @@ export const WalletRadioCard: React.FC<WalletRadioCardProps> = ({
       <div className="mx-3 flex items-center">
         <div className="flex flex-col text-darkShades items-start">
           <p className="text-base font-bold">
-            {name}
+            <span className="whitespace-nowrap">{name}</span>
             <span className="ml-3 text-xs font-normal text-darkMidGray">
               {id}
             </span>

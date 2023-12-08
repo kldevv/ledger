@@ -6,7 +6,7 @@ export type WalletContextState = {
   /**
    * Current wallet id
    */
-  currentWalletId?: string;
+  curWalletId?: string;
   /**
    * All wallets
    */
@@ -22,7 +22,7 @@ export type WalletContextState = {
 };
 
 export type SetWalletContextState = {
-  setCurrentWalletId?: Dispatch<SetStateAction<WalletContextState['currentWalletId']>>;
+  setCurWalletId?: Dispatch<SetStateAction<WalletContextState['curWalletId']>>;
 };
 
 const defaultWalletContextState: WalletContextState = {

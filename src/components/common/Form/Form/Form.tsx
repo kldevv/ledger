@@ -18,7 +18,7 @@ export type createFormProps<TFieldValues extends FieldValues> = {
 export interface FormProps<TFieldValues extends FieldValues>
   extends Omit<React.ComponentPropsWithRef<'form'>, 'onSubmit'> {
   /**
-   * Form children components
+   * Children component
    */
   children: React.ReactNode;
   /**

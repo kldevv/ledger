@@ -1,6 +1,8 @@
 import Head from "next/head";
-import { Footer } from "./Footer";
 import { NavigationBar } from './NavigationBar';
+import { BackLink } from "./BackLink";
+import classNames from "classnames";
+import { UrlObject } from "url";
 
 type LayoutProps = {
   /**
@@ -8,12 +10,16 @@ type LayoutProps = {
    */
   title?: string;
   /**
-   * Children elements
+   * Route to go back to
+   */
+  prev?: string | UrlObject;
+  /**
+   * Children component
    */
   children: React.ReactNode;
 };
 
-export const Layout: React.FC<LayoutProps> = ({ title, children }) => {
+export const Layout: React.FC<LayoutProps> = ({ title, children, prev }) => {
   return (
     <div>
       <Head>
@@ -24,7 +30,16 @@ export const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       <div className="min-h-screen flex">
         <NavigationBar />
         <main className="grow">
-          <div className="my-14 mx-16 m flex flex-col gap-y-5">{children}</div>
+          <div
+            className={classNames(
+              'mx-16',
+              prev != null ? 'mt-5 mb-14' : 'my-14',
+              'flex flex-col gap-y-5'
+            )}
+          >
+            {prev != null && <BackLink href={prev} />}
+            {children}
+          </div>
         </main>
       </div>
     </div>

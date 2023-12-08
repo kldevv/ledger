@@ -4,10 +4,10 @@ import { useGetAllWalletsQuery } from '@/api/graphql'
 
 export type WalletContextProviderProps = {
   /**
-   * Children
+   * Children component
    */
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 export const WalletContextProvider: React.FC<WalletContextProviderProps> = ({ children }) => {
   const {
@@ -20,24 +20,25 @@ export const WalletContextProvider: React.FC<WalletContextProviderProps> = ({ ch
     },
   });
 
-  const [currentWalletId, setCurrentWalletId] =
-    useState<WalletContextState['currentWalletId']>(getAllWallets?.[0].id);
+  const [curWalletId, setCurWalletId] = useState<
+    WalletContextState['curWalletId']
+  >(getAllWallets?.[0].id);
 
   const contextState = useMemo<WalletContextState>(
     () => ({
       wallets: getAllWallets,
-      currentWalletId,
+      curWalletId,
       loading,
       error,
     }),
-    [getAllWallets, currentWalletId, loading, error]
+    [getAllWallets, curWalletId, loading, error]
   );
 
   const setContextState = useMemo<SetWalletContextState>(
     () => ({
-      setCurrentWalletId,
+      setCurWalletId,
     }),
-    [setCurrentWalletId]
+    [setCurWalletId]
   );
 
   return (

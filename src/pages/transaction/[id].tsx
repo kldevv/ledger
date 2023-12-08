@@ -3,7 +3,7 @@ import { TransactionDetail } from "@/components/transaction";
 
 const TransactionDetailPage: React.FC = () => {
   return (
-    <Layout>
+    <Layout prev="/transaction">
       <div><TransactionDetail /></div>
     </Layout>
   );
