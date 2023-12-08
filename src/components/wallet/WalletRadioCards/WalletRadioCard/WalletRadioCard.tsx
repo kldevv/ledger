@@ -41,7 +41,7 @@ export const WalletRadioCard: React.FC<WalletRadioCardProps> = ({
           <p className="text-darkShades text-xs font-normal">{currency}</p>
         </div>
         <Indicator className="text-lightAccent ml-auto">
-          <CheckCircleIcon className="w-4 h-4" />
+          <CheckCircleIcon className="w-6 h-6" />
         </Indicator>
       </div>
     </Item>

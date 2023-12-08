@@ -2,12 +2,15 @@ import { Root, List, Item, Sub } from '@radix-ui/react-navigation-menu';
 import { NavLink } from './NavLink';
 import Link from 'next/link';
 import { ChartPieIcon, ClipboardDocumentListIcon, FolderOpenIcon, InboxStackIcon, ListBulletIcon, TableCellsIcon, TagIcon } from '@heroicons/react/24/outline';
-import { ChevronRightIcon, PaperClipIcon, WalletIcon } from '@heroicons/react/20/solid';
+import { PaperClipIcon, WalletIcon } from '@heroicons/react/20/solid';
+import { useWalletContext } from '@/hooks';
 
 /**
  * Navigation bar
  */
 export const NavigationBar: React.FC = () => {
+  const { loading, name } = useWalletContext()
+
   return (
     <div className="flex flex-col bg-lightShades grow-0">
       <div className="px-6 gap-y-4 w-56 border-r overflow-y-auto h-full flex flex-col border-midGray">
@@ -20,7 +23,7 @@ export const NavigationBar: React.FC = () => {
         <Link href="/wallet">
           <div className="flex gap-x-2 -mx-1 items-center font-semibold leading-6 text-xs hover:bg-main hover:text-lightShades border bg-lightShades text-main rounded-xl">
             <WalletIcon className="h-3 w-3 ml-2" />
-            USD WALLET
+            {name}
           </div>
         </Link>
 

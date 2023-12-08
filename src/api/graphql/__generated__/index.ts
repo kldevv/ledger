@@ -44,7 +44,7 @@ export type MutationAddWalletArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  getAllWallets: Array<Maybe<Wallet>>;
+  getAllWallets: Array<Wallet>;
 };
 
 
@@ -163,7 +163,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 };
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getAllWallets?: Resolver<Array<Maybe<ResolversTypes['Wallet']>>, ParentType, ContextType, RequireFields<QueryGetAllWalletsArgs, 'ownerId'>>;
+  getAllWallets?: Resolver<Array<ResolversTypes['Wallet']>, ParentType, ContextType, RequireFields<QueryGetAllWalletsArgs, 'ownerId'>>;
 };
 
 export type WalletResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Wallet'] = ResolversParentTypes['Wallet']> = {
@@ -196,7 +196,7 @@ export type GetAllWalletsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllWalletsQuery = { __typename?: 'Query', getAllWallets: Array<{ __typename?: 'Wallet', id: string, name: string, currency: Currency, ownerId: string } | null> };
+export type GetAllWalletsQuery = { __typename?: 'Query', getAllWallets: Array<{ __typename?: 'Wallet', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date }> };
 
 
 export const AddWalletDocument = gql`
@@ -244,6 +244,8 @@ export const GetAllWalletsDocument = gql`
     name
     currency
     ownerId
+    createdDate
+    updatedDate
   }
 }
     `;

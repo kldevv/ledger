@@ -4,5 +4,7 @@ query getAllWallets($ownerId: String!) {
     name
     currency
     ownerId
+    createdDate
+    updatedDate
   }
 }

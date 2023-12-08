@@ -7,11 +7,14 @@ import { ni18nConfig } from '../../ni18n.config';
 import { ApolloProvider } from '@apollo/client';
 
 import apolloClient from '@/api/graphql/client';
+import { WalletContextProvider } from '@/hooks';
 
 const App: AppType = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={apolloClient}>
-      <Component {...pageProps} />
+      <WalletContextProvider>
+        <Component {...pageProps} />
+      </WalletContextProvider>
     </ApolloProvider>
   );
 };
