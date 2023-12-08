@@ -10,7 +10,7 @@ import { ChevronRightIcon, PaperClipIcon, WalletIcon } from '@heroicons/react/20
 export const NavigationBar: React.FC = () => {
   return (
     <div className="flex flex-col w-56 bg-lightShades">
-      <div className="px-6 gap-y-5 border-r overflow-y-auto flex flex-col grow border-midGray">
+      <div className="px-6 gap-y-4 border-r overflow-y-auto flex flex-col grow border-midGray">
         <div className="mt-4 flex shrink-0 h-8 items-center">
           <Link href="/">
             <PaperClipIcon className="w-8 h-8 text-main" />
