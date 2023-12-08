@@ -18,7 +18,7 @@ export const NavigationBar: React.FC = () => {
         </div>
 
         <Link href="/wallet">
-          <div className="flex gap-x-2 -mx-1 items-center font-semibold leading-6 text-xs bg-main text-lightShades rounded-xl">
+          <div className="flex gap-x-2 -mx-1 items-center font-semibold leading-6 text-xs hover:bg-main hover:text-lightShades border bg-lightShades text-main rounded-xl">
             <WalletIcon className="h-3 w-3 ml-2" />
             USD WALLET
           </div>

@@ -28,7 +28,7 @@ export const WalletRadioCard: React.FC<WalletRadioCardProps> = ({
   return (
     <Item
       value={id}
-      className="ring-1 data-[state=checked]:ring-2 data-[state=checked]:ring-lightAccent ring-darkMidGray rounded-md h-16"
+      className="ring-1 data-[state=checked]:ring-2 hover:ring-2 data-[state=checked]:ring-lightAccent hover:ring-lightAccent ring-darkMidGray rounded-md h-16"
     >
       <div className="mx-3 flex items-center">
         <div className="flex flex-col text-darkShades items-start">

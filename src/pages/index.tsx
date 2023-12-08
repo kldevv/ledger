@@ -8,39 +8,8 @@ const schema = z.object({
 })
 
 export default function IndexPage() {
-  const { Form, methods } = useForm({ schema });
-
-  const [ addWallet, { data } ] = useAddWalletMutation()
-
-  console.log(data);
-
   return (
     <Layout>
-      <Button
-        onClick={() =>
-          addWallet({
-            variables: {
-              input: {
-                ownerId: '123',
-                name: 'aaa',
-                currency: 'USD',
-              },
-            },
-          })
-        }
-      >
-        addWallet
-      </Button>
-      <div>
-        <Form
-          onSubmit={(data) => {
-            console.log(data);
-          }}
-        >
-          <input name="name" {...methods.register} />
-          <SubmitButton>{'hello'}</SubmitButton>
-        </Form>
-      </div>
     </Layout>
   );
 }
