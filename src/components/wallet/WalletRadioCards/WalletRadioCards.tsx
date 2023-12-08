@@ -1,5 +1,5 @@
 import { Root } from '@radix-ui/react-radio-group';
-import { WalletCard } from './WalletCard';
+import { WalletRadioCard } from './WalletRadioCard';
 import { useCallback, useState } from 'react';
 
 export const WalletRadioCards: React.FC = () => {
@@ -26,7 +26,9 @@ export const WalletRadioCards: React.FC = () => {
     >
       <div className="flex flex-col gap-y-2">
         {wallets.map((prop) => {
-          return <WalletCard key={prop.id} selected={selected} {...prop} />;
+          return (
+            <WalletRadioCard key={prop.id} selected={selected} {...prop} />
+          );
         })}
       </div>
     </Root>

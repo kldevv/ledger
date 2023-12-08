@@ -1,34 +1,34 @@
 import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import { Item, Indicator } from '@radix-ui/react-radio-group';
 
-export type WalletCardProps = {
+export type WalletRadioCardProps = {
   /**
    * Wallet name
    */
-  name: string
+  name: string;
   /**
    * Wallet id
    */
-  id: string
+  id: string;
   /**
    * Wallet currency
    */
-  currency: string
+  currency: string;
   /**
    * Currently selected
    */
-  selected: string
+  selected: string;
 };
 
-export const WalletCard: React.FC<WalletCardProps> = ({
+export const WalletRadioCard: React.FC<WalletRadioCardProps> = ({
   name,
   id,
-  currency
+  currency,
 }) => {
   return (
     <Item
       value={id}
-      className="ring-1 data-[state=checked]:ring-2 data-[state=checked]:ring-lightAccent ring-darkMidGray rounded-md py-3"
+      className="ring-1 data-[state=checked]:ring-2 data-[state=checked]:ring-lightAccent ring-darkMidGray rounded-md h-16"
     >
       <div className="mx-3 flex items-center">
         <div className="flex flex-col text-darkShades items-start">
