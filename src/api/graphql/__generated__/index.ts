@@ -27,7 +27,7 @@ export type Account = {
   name: Scalars['String']['output'];
 };
 
-export type AddWalletInput = {
+export type AddVaultInput = {
   currency: Currency;
   name: Scalars['String']['input'];
   ownerId: Scalars['String']['input'];
@@ -50,27 +50,27 @@ export type Entry = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addWallet?: Maybe<Wallet>;
+  addVault?: Maybe<Vault>;
 };
 
 
-export type MutationAddWalletArgs = {
-  input: AddWalletInput;
+export type MutationAddVaultArgs = {
+  input: AddVaultInput;
 };
 
 export type Query = {
   __typename?: 'Query';
   getAllTransactions: Array<Transaction>;
-  getAllWallets: Array<Wallet>;
+  getAllVaults: Array<Vault>;
 };
 
 
 export type QueryGetAllTransactionsArgs = {
-  walletId: Scalars['String']['input'];
+  vaultId: Scalars['String']['input'];
 };
 
 
-export type QueryGetAllWalletsArgs = {
+export type QueryGetAllVaultsArgs = {
   ownerId: Scalars['String']['input'];
 };
 
@@ -97,8 +97,8 @@ export type Transaction = {
   tags: Array<Tag>;
 };
 
-export type Wallet = {
-  __typename?: 'Wallet';
+export type Vault = {
+  __typename?: 'Vault';
   createdDate: Scalars['DateTime']['output'];
   currency: Currency;
   id: Scalars['String']['output'];
@@ -179,7 +179,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
-  AddWalletInput: AddWalletInput;
+  AddVaultInput: AddVaultInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Currency: Currency;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
@@ -192,13 +192,13 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Tag: ResolverTypeWrapper<Tag>;
   Transaction: ResolverTypeWrapper<Transaction>;
-  Wallet: ResolverTypeWrapper<Wallet>;
+  Vault: ResolverTypeWrapper<Vault>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Account: Account;
-  AddWalletInput: AddWalletInput;
+  AddVaultInput: AddVaultInput;
   Boolean: Scalars['Boolean']['output'];
   DateTime: Scalars['DateTime']['output'];
   Entry: Entry;
@@ -209,7 +209,7 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output'];
   Tag: Tag;
   Transaction: Transaction;
-  Wallet: Wallet;
+  Vault: Vault;
 };
 
 export type AccountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
@@ -233,12 +233,12 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
 };
 
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addWallet?: Resolver<Maybe<ResolversTypes['Wallet']>, ParentType, ContextType, RequireFields<MutationAddWalletArgs, 'input'>>;
+  addVault?: Resolver<Maybe<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<MutationAddVaultArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getAllTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetAllTransactionsArgs, 'walletId'>>;
-  getAllWallets?: Resolver<Array<ResolversTypes['Wallet']>, ParentType, ContextType, RequireFields<QueryGetAllWalletsArgs, 'ownerId'>>;
+  getAllTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetAllTransactionsArgs, 'vaultId'>>;
+  getAllVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetAllVaultsArgs, 'ownerId'>>;
 };
 
 export type TagResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
@@ -260,7 +260,7 @@ export type TransactionResolvers<ContextType = ApolloServerContext, ParentType e
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type WalletResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Wallet'] = ResolversParentTypes['Wallet']> = {
+export type VaultResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Vault'] = ResolversParentTypes['Vault']> = {
   createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   currency?: Resolver<ResolversTypes['Currency'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -278,35 +278,35 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   Query?: QueryResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
   Transaction?: TransactionResolvers<ContextType>;
-  Wallet?: WalletResolvers<ContextType>;
+  Vault?: VaultResolvers<ContextType>;
 };
 
 
-export type AddWalletMutationVariables = Exact<{
-  input: AddWalletInput;
+export type AddVaultMutationVariables = Exact<{
+  input: AddVaultInput;
 }>;
 
 
-export type AddWalletMutation = { __typename?: 'Mutation', addWallet?: { __typename?: 'Wallet', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date } | null };
+export type AddVaultMutation = { __typename?: 'Mutation', addVault?: { __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date } | null };
 
 export type GetAllTransactionsQueryVariables = Exact<{
-  walletId: Scalars['String']['input'];
+  vaultId: Scalars['String']['input'];
 }>;
 
 
 export type GetAllTransactionsQuery = { __typename?: 'Query', getAllTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, subject: string, description?: string | null, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
-export type GetAllWalletsQueryVariables = Exact<{
+export type GetAllVaultsQueryVariables = Exact<{
   ownerId: Scalars['String']['input'];
 }>;
 
 
-export type GetAllWalletsQuery = { __typename?: 'Query', getAllWallets: Array<{ __typename?: 'Wallet', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date }> };
+export type GetAllVaultsQuery = { __typename?: 'Query', getAllVaults: Array<{ __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date }> };
 
 
-export const AddWalletDocument = gql`
-    mutation addWallet($input: AddWalletInput!) {
-  addWallet(input: $input) {
+export const AddVaultDocument = gql`
+    mutation addVault($input: AddVaultInput!) {
+  addVault(input: $input) {
     id
     name
     currency
@@ -316,35 +316,35 @@ export const AddWalletDocument = gql`
   }
 }
     `;
-export type AddWalletMutationFn = Apollo.MutationFunction<AddWalletMutation, AddWalletMutationVariables>;
+export type AddVaultMutationFn = Apollo.MutationFunction<AddVaultMutation, AddVaultMutationVariables>;
 
 /**
- * __useAddWalletMutation__
+ * __useAddVaultMutation__
  *
- * To run a mutation, you first call `useAddWalletMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddWalletMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAddVaultMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddVaultMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [addWalletMutation, { data, loading, error }] = useAddWalletMutation({
+ * const [addVaultMutation, { data, loading, error }] = useAddVaultMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useAddWalletMutation(baseOptions?: Apollo.MutationHookOptions<AddWalletMutation, AddWalletMutationVariables>) {
+export function useAddVaultMutation(baseOptions?: Apollo.MutationHookOptions<AddVaultMutation, AddVaultMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddWalletMutation, AddWalletMutationVariables>(AddWalletDocument, options);
+        return Apollo.useMutation<AddVaultMutation, AddVaultMutationVariables>(AddVaultDocument, options);
       }
-export type AddWalletMutationHookResult = ReturnType<typeof useAddWalletMutation>;
-export type AddWalletMutationResult = Apollo.MutationResult<AddWalletMutation>;
-export type AddWalletMutationOptions = Apollo.BaseMutationOptions<AddWalletMutation, AddWalletMutationVariables>;
+export type AddVaultMutationHookResult = ReturnType<typeof useAddVaultMutation>;
+export type AddVaultMutationResult = Apollo.MutationResult<AddVaultMutation>;
+export type AddVaultMutationOptions = Apollo.BaseMutationOptions<AddVaultMutation, AddVaultMutationVariables>;
 export const GetAllTransactionsDocument = gql`
-    query getAllTransactions($walletId: String!) {
-  getAllTransactions(walletId: $walletId) {
+    query getAllTransactions($vaultId: String!) {
+  getAllTransactions(vaultId: $vaultId) {
     id
     accrualDate
     subject
@@ -372,7 +372,7 @@ export const GetAllTransactionsDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllTransactionsQuery({
  *   variables: {
- *      walletId: // value for 'walletId'
+ *      vaultId: // value for 'vaultId'
  *   },
  * });
  */
@@ -392,9 +392,9 @@ export type GetAllTransactionsQueryHookResult = ReturnType<typeof useGetAllTrans
 export type GetAllTransactionsLazyQueryHookResult = ReturnType<typeof useGetAllTransactionsLazyQuery>;
 export type GetAllTransactionsSuspenseQueryHookResult = ReturnType<typeof useGetAllTransactionsSuspenseQuery>;
 export type GetAllTransactionsQueryResult = Apollo.QueryResult<GetAllTransactionsQuery, GetAllTransactionsQueryVariables>;
-export const GetAllWalletsDocument = gql`
-    query getAllWallets($ownerId: String!) {
-  getAllWallets(ownerId: $ownerId) {
+export const GetAllVaultsDocument = gql`
+    query getAllVaults($ownerId: String!) {
+  getAllVaults(ownerId: $ownerId) {
     id
     name
     currency
@@ -406,34 +406,34 @@ export const GetAllWalletsDocument = gql`
     `;
 
 /**
- * __useGetAllWalletsQuery__
+ * __useGetAllVaultsQuery__
  *
- * To run a query within a React component, call `useGetAllWalletsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllWalletsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAllVaultsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllVaultsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAllWalletsQuery({
+ * const { data, loading, error } = useGetAllVaultsQuery({
  *   variables: {
  *      ownerId: // value for 'ownerId'
  *   },
  * });
  */
-export function useGetAllWalletsQuery(baseOptions: Apollo.QueryHookOptions<GetAllWalletsQuery, GetAllWalletsQueryVariables>) {
+export function useGetAllVaultsQuery(baseOptions: Apollo.QueryHookOptions<GetAllVaultsQuery, GetAllVaultsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllWalletsQuery, GetAllWalletsQueryVariables>(GetAllWalletsDocument, options);
+        return Apollo.useQuery<GetAllVaultsQuery, GetAllVaultsQueryVariables>(GetAllVaultsDocument, options);
       }
-export function useGetAllWalletsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllWalletsQuery, GetAllWalletsQueryVariables>) {
+export function useGetAllVaultsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllVaultsQuery, GetAllVaultsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllWalletsQuery, GetAllWalletsQueryVariables>(GetAllWalletsDocument, options);
+          return Apollo.useLazyQuery<GetAllVaultsQuery, GetAllVaultsQueryVariables>(GetAllVaultsDocument, options);
         }
-export function useGetAllWalletsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllWalletsQuery, GetAllWalletsQueryVariables>) {
+export function useGetAllVaultsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllVaultsQuery, GetAllVaultsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllWalletsQuery, GetAllWalletsQueryVariables>(GetAllWalletsDocument, options);
+          return Apollo.useSuspenseQuery<GetAllVaultsQuery, GetAllVaultsQueryVariables>(GetAllVaultsDocument, options);
         }
-export type GetAllWalletsQueryHookResult = ReturnType<typeof useGetAllWalletsQuery>;
-export type GetAllWalletsLazyQueryHookResult = ReturnType<typeof useGetAllWalletsLazyQuery>;
-export type GetAllWalletsSuspenseQueryHookResult = ReturnType<typeof useGetAllWalletsSuspenseQuery>;
-export type GetAllWalletsQueryResult = Apollo.QueryResult<GetAllWalletsQuery, GetAllWalletsQueryVariables>;
+export type GetAllVaultsQueryHookResult = ReturnType<typeof useGetAllVaultsQuery>;
+export type GetAllVaultsLazyQueryHookResult = ReturnType<typeof useGetAllVaultsLazyQuery>;
+export type GetAllVaultsSuspenseQueryHookResult = ReturnType<typeof useGetAllVaultsSuspenseQuery>;
+export type GetAllVaultsQueryResult = Apollo.QueryResult<GetAllVaultsQuery, GetAllVaultsQueryVariables>;

@@ -42,9 +42,9 @@ export namespace ReadMany {
      */
     description?: string
     /**
-     * Wallet id
+     * Vault id
      */
-    walletId?: string
+    vaultId?: string
   }
 
   export type Returns = TransactionWithDetail[]
@@ -52,7 +52,7 @@ export namespace ReadMany {
 
 export const readMany = async ({
   accrualDate,
-  walletId,
+  vaultId,
   subject,
   description
 }: ReadMany.Args): Promise<ReadMany.Returns> => {
@@ -60,7 +60,7 @@ export const readMany = async ({
     return await prisma.transaction.findMany({
       where: {
         accrualDate,
-        walletId,
+        vaultId,
         subject,
         description
       },

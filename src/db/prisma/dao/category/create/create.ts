@@ -12,9 +12,9 @@ export namespace CreateOne {
      */
     name: string
     /**
-     * Wallet id
+     * Vault id
      */
-    walletId: string
+    vaultId: string
   }
 
   export type Returns = Category
@@ -23,14 +23,14 @@ export namespace CreateOne {
 export const createOne = async ({
   type,
   name,
-  walletId
+  vaultId
 }: CreateOne.Args): Promise<CreateOne.Returns> => {
   try {
     return await prisma.category.create({
       data: {
         type,
         name,
-        walletId
+        vaultId
       }
     })
   } catch (e) {

@@ -1,0 +1,14 @@
+input AddVaultInput {
+  name: String!
+  currency: Currency!
+  ownerId: String!
+}
+
+type Vault {
+  id: String!
+  name: String!
+  currency: Currency!
+  ownerId: String!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+}

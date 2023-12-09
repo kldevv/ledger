@@ -8,9 +8,9 @@ export namespace CreateOne {
      */
     name: string
     /**
-     * Wallet id
+     * Vault id
      */
-    walletId: string
+    vaultId: string
   }
 
   export type Returns = Tag
@@ -18,13 +18,13 @@ export namespace CreateOne {
 
 export const createOne = async ({
   name,
-  walletId
+  vaultId
 }: CreateOne.Args): Promise<CreateOne.Returns> => {
   try {
     return await prisma.tag.create({
       data: {
         name,
-        walletId
+        vaultId
       }
     })
   } catch (e) {

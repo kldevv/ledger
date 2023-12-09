@@ -12,12 +12,12 @@ model Category {
   type        CategoryType
   name        String
   accounts    Account[]
-  wallet      Wallet       @relation(fields: [walletId], references: [id])
-  walletId    String
+  vault       Vault        @relation(fields: [vaultId], references: [id])
+  vaultId     String
   createdDate DateTime     @default(now())
   updatedDate DateTime     @updatedAt
 
-  @@unique([walletId, name])
+  @@unique([vaultId, name])
 }
 
 model Account {
@@ -37,8 +37,8 @@ model Transaction {
   accrualDate DateTime
   subject     String
   description String?
-  wallet      Wallet   @relation(fields: [walletId], references: [id])
-  walletId    String
+  vault       Vault    @relation(fields: [vaultId], references: [id])
+  vaultId     String
   entries     Entry[]
   tags        Tag[]
   createdDate DateTime @default(now())
@@ -64,15 +64,15 @@ model Tag {
   id           String        @id @default(uuid())
   name         String
   transactions Transaction[]
-  wallet       Wallet        @relation(fields: [walletId], references: [id])
-  walletId     String
+  vault        Vault         @relation(fields: [vaultId], references: [id])
+  vaultId      String
   createdDate  DateTime      @default(now())
   updatedDate  DateTime      @updatedAt
 
-  @@unique([walletId, name])
+  @@unique([vaultId, name])
 }
 
-model Wallet {
+model Vault {
   id           String        @id @default(uuid())
   name         String
   currency     Currency
@@ -90,7 +90,7 @@ model Wallet {
 model Profile {
   id          String   @id @default(uuid())
   name        String
-  wallets     Wallet[]
+  vaults      Vault[]
   createdDate DateTime @default(now())
   updatedDate DateTime @updatedAt
 }

@@ -1,1 +1,1 @@
-export * from './useWalletContext'
+export * from './useVaultContext'

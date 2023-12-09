@@ -1,0 +1,10 @@
+query getAllVaults($ownerId: String!) {
+  getAllVaults(ownerId: $ownerId) {
+    id
+    name
+    currency
+    ownerId
+    createdDate
+    updatedDate
+  }
+}

@@ -5,7 +5,7 @@ import {
   ProfileDao,
   TagDao,
   TransactionDao,
-  WalletDao
+  VaultDao
 } from './dao'
 
 export class PrismaDataSource {
@@ -15,7 +15,7 @@ export class PrismaDataSource {
   public profile: typeof ProfileDao;
   public tag: typeof TagDao
   public transaction: typeof TransactionDao
-  public wallet: typeof WalletDao;
+  public vault: typeof VaultDao;
 
   constructor() {
     this.account = AccountDao
@@ -24,6 +24,6 @@ export class PrismaDataSource {
     this.profile = ProfileDao
     this.tag = TagDao
     this.transaction = TransactionDao
-    this.wallet = WalletDao
+    this.vault = VaultDao
   }
 }

@@ -1,4 +1,4 @@
 type Mutation {
-  # Wallet
-  addWallet(input: AddWalletInput!): Wallet
+  # Vault
+  addVault(input: AddVaultInput!): Vault
 }

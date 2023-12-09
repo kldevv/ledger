@@ -17,9 +17,9 @@ export namespace CreateOne {
      */
     description?: string
     /**
-     * Wallet id
+     * Vault id
      */
-    walletId: string
+    vaultId: string
     /**
      * List of tag ids to connect to
      */
@@ -37,7 +37,7 @@ export const createOne = async ({
   accrualDate,
   subject,
   description,
-  walletId,
+  vaultId,
   tagIds,
   entries
 }: CreateOne.Args): Promise<CreateOne.Returns> => {
@@ -47,7 +47,7 @@ export const createOne = async ({
         accrualDate,
         subject,
         description,
-        walletId,
+        vaultId,
         tags: {
           connect: tagIds.map((id) => ({ id }))
         },

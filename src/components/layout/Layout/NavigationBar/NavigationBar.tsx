@@ -16,7 +16,7 @@ export const NavigationBar: React.FC = () => {
 
         <Root orientation={'vertical'} className="min-h-max">
           <List className="-mx-2 flex flex-col">
-            <NavItem.WalletStatus />
+            <NavItem.VaultStatus />
             
             <NavItem.NavSubList
               title={'Ledger'}

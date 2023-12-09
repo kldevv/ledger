@@ -31,9 +31,9 @@ export namespace ReadMany {
      */
     name?: string
     /**
-     * Wallet id
+     * Vault id
      */
-    walletId?: string
+    vaultId?: string
   }
 
   export type Returns = Tag[]
@@ -41,13 +41,13 @@ export namespace ReadMany {
 
 export const readMany = async ({
   name,
-  walletId
+  vaultId
 }: ReadMany.Args): Promise<ReadMany.Returns> => {
   try {
     return await prisma.tag.findMany({
       where: {
         name,
-        walletId
+        vaultId
       }
     })
   } catch (e) {

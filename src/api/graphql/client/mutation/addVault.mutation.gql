@@ -1,0 +1,10 @@
+mutation addVault($input: AddVaultInput!) {
+  addVault(input: $input) {
+    id
+    name
+    currency
+    ownerId
+    createdDate
+    updatedDate
+  }
+}
