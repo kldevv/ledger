@@ -1,4 +1,10 @@
 {
+  "back-link": {
+    "label": {
+      "home": "Home",
+      "back": "Back"
+    }
+  },
   "nav-bar": {
     "label": {
       "main": "Ledger",
