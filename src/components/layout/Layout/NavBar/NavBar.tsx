@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { PaperClipIcon } from '@heroicons/react/20/solid';
 import { NavRoutes } from './NavRoutes';
 
-export const NavigationBar: React.FC = () => {
+export const NavBar: React.FC = () => {
   return (
     <div className="flex flex-col bg-lightShades grow-0">
       <div className="px-6 gap-y-4 w-56 border-r overflow-y-auto h-full flex flex-col border-midGray">

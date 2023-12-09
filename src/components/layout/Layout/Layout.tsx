@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { NavigationBar } from './NavigationBar';
+import { NavBar } from './NavBar';
 import { BackLink } from "./BackLink";
 import classNames from "classnames";
 import { UrlObject } from "url";
@@ -28,7 +28,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, children, prev }) => {
         </title>
       </Head>
       <div className="min-h-screen flex min-w-full">
-        <NavigationBar />
+        <NavBar />
         <main className="w-full">
           <div
             className={classNames(
