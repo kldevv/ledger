@@ -19,7 +19,7 @@ export const VaultStatus: React.FC = () => {
   return (
     <VaultLink
       route={vaultRoute}
-      active={router.asPath === vaultRoute}
+      active={router.asPath.startsWith(vaultRoute)}
       loading={loading}
       error={error != null || currentVaultName == null}
     >

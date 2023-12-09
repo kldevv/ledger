@@ -35,7 +35,7 @@ export const NavSubList: React.FC<NavSubList> = ({
       <Sub>
         <List className="flex flex-col gap-y-1">
           {navRoutes.map(({ route, icon }) => (
-            <NavItem key={route} href={route} active={router.asPath === route}>
+            <NavItem key={route} href={route} active={router.asPath.startsWith(route)}>
               <div className="flex gap-x-2 items-center">
                 {icon}
                 {route}
