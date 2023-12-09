@@ -1,20 +1,13 @@
 {
-  "table": {
+  "transaction-table": {
     "header": {
-      "id": "ID",
       "description": "Description",
       "date": "Date",
-      "group": "Group"
-    }
-  },
-  "detail": {
-    "infoSheet": {
-      "label": {
-        "id": "ID",
-        "description": "Description",
-        "date": "Date",
-        "tag": "Tags"
-      }
+      "amount": "Amount",
+      "count": "Count",
+      "status": "Status",
+      "tags": "Tags",
+      "id": "ID"
     }
   }
 }

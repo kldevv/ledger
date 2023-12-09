@@ -9,6 +9,8 @@ import Link from 'next/link';
 import { GetAllTransactionsQuery } from '@/api/graphql';
 import React from 'react';
 import { StatusChip } from '@/components/common';
+import { Cell } from './Cell';
+import { Header } from './Header';
 
 type TransactionTableDataModel = GetAllTransactionsQuery['getAllTransactions'][0]
 
@@ -158,78 +160,53 @@ export const TransactionTable: React.FC = () => {
   const columns = [
     columnHelper.accessor('description', {
       header: () => (
-        <div className="text-darkShades text-left font-semibold text-sm pr-3 py-3.5">
-          {t('table.header.description')}
-        </div>
+        <Header variant="start">
+          {t('transaction-table.header.description')}
+        </Header>
       ),
       cell: (props) => (
-        <td className="pr-3 py-3 text-sm w-28">
-          <div className="w-24 font-medium text-darkShades overflow-hidden overflow-ellipsis whitespace-nowrap">
+        <Cell variant="start">
+          <div className="font-medium text-darkShades overflow-hidden overflow-ellipsis whitespace-nowrap">
             SubjectSubjectSubjectSubjectSubjectSubject Subject
           </div>
-          <div className="w-24 text-xs font-normal text-darkMidGray mt-1 overflow-hidden overflow-ellipsis whitespace-nowrap">
+          <div className="text-xs font-normal text-darkMidGray mt-1 overflow-hidden overflow-ellipsis whitespace-nowrap">
             {props.getValue()}
           </div>
-        </td>
+        </Cell>
       ),
     }),
     columnHelper.accessor('accrualDate', {
-      header: () => (
-        <div className="text-darkShades text-right font-semibold text-sm py-3.5 px-3">
-          Date
-        </div>
-      ),
-      cell: (props) => (
-        <td className="p-3 text-sm text-right text-darkMidGray">
-          {props.getValue().toLocaleDateString()}
-        </td>
-      ),
+      header: () => <Header>{t('transaction-table.header.date')}</Header>,
+      cell: (props) => {
+        const data = props.getValue();
+        return (
+          <Cell>
+            <div className="whitespace-nowrap">{`${data.getFullYear()}-${data.getMonth()}-${data.getDay()}`}</div>
+          </Cell>
+        );
+      },
     }),
     columnHelper.accessor('amount', {
-      header: () => (
-        <div className="text-darkShades text-right font-semibold text-sm py-3.5 px-3">
-          Amount
-        </div>
-      ),
-      cell: (props) => (
-        <td className="p-3 text-sm text-right text-darkMidGray">
-          {props.getValue()}
-        </td>
-      ),
+      header: () => <Header>{t('transaction-table.header.amount')}</Header>,
+      cell: (props) => <Cell>{props.getValue()}</Cell>,
     }),
     columnHelper.accessor('count', {
-      header: () => (
-        <div className="text-darkShades text-right font-semibold text-sm py-3.5 px-3">
-          Count
-        </div>
-      ),
-      cell: (props) => (
-        <td className="p-3 text-sm text-right text-darkMidGray">
-          {props.getValue()}
-        </td>
-      ),
+      header: () => <Header>{t('transaction-table.header.count')}</Header>,
+      cell: (props) => <Cell>{props.getValue()}</Cell>,
     }),
     columnHelper.accessor('status', {
-      header: () => (
-        <div className="text-darkShades text-right font-semibold text-sm py-3.5 px-3">
-          Status
-        </div>
-      ),
+      header: () => <Header>{t('transaction-table.header.status')}</Header>,
       cell: (props) => (
-        <td className="p-3 text-sm text-right text-darkMidGray">
-          <StatusChip status={props.getValue()}/>
-        </td>
+        <Cell>
+          <StatusChip status={props.getValue()} />
+        </Cell>
       ),
     }),
     columnHelper.accessor('tags', {
-      header: () => (
-        <div className="text-darkShades text-right font-semibold text-sm py-3.5 px-3">
-          Tags
-        </div>
-      ),
+      header: () => <Header>{t('transaction-table.header.tags')}</Header>,
       cell: (props) => (
         <td className="p-3 text-sm text-right text-darkMidGray">
-          <div className="flex gap-1 text-xs text-left flex-col items-end">
+          <div className="flex gap-1 text-xs text-left flex-col">
             {props.getValue().map((tag) => (
               <Link href={`/tag/${tag.id}`}>
                 <div className="max-w-fit rounded-xl bg-lightAccent py-1 px-3 text-lightShades">
@@ -242,26 +219,21 @@ export const TransactionTable: React.FC = () => {
       ),
     }),
     columnHelper.accessor('id', {
-      header: () => (
-        <div className="text-darkShades text-right font-semibold text-sm py-3.5 px-3">
-          ID
-        </div>
-      ),
-      cell: (props) => (
-        <td className="p-3 text-sm text-right text-darkMidGray">
-          {props.getValue()}
-        </td>
-      ),
+      header: () => <Header>{t('transaction-table.header.id')}</Header>,
+      cell: (props) => <Cell>{props.getValue()}</Cell>,
     }),
     columnHelper.display({
       id: 'view',
-      header: () => (
-        <div className="text-darkShades text-right font-semibold text-sm pr-3 py-3.5 px-3" />
-      ),
+      header: () => <Header />,
       cell: (props) => (
-        <td className="pr-3 py-3 text-sm text-right text-lightAccent">
-          <Link href={`/transaction/${props.row.getValue('id')}`}>View</Link>
-        </td>
+        <Cell>
+          <Link
+            className={'text-lightAccent'}
+            href={`/transaction/${props.row.getValue('id')}`}
+          >
+            View
+          </Link>
+        </Cell>
       ),
     }),
   ];
@@ -274,20 +246,20 @@ export const TransactionTable: React.FC = () => {
 
   return (
     <div className="flow-root">
-      <div className="max-w-screen-lg max-h-screen overflow-y-auto">
+      <div className="max-w-screen-lg">
         <table>
           <thead className="border-b border-midGray">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
+                  <React.Fragment key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
                           header.getContext()
                         )}
-                  </th>
+                  </React.Fragment>
                 ))}
               </tr>
             ))}
