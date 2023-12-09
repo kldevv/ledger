@@ -1,8 +1,8 @@
 import Head from "next/head";
-import { NavBar } from './NavBar';
-import { BackLink } from "./BackLink";
 import classNames from "classnames";
-import { UrlObject } from "url";
+import { UrlObject } from "url"
+
+import { NavBar, BackLink } from "@/components/layout";
 
 type LayoutProps = {
   /**
