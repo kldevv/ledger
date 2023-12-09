@@ -1,20 +1,18 @@
 {
-  "layout": {
-    "nav-bar": {
+  "nav-bar": {
+    "label": {
+      "main": "Ledger",
+      "settings": "Settings"
+    },
+    "nav-sub-list": {
       "label": {
-        "main": "Ledger",
-        "settings": "Settings"
-      },
-      "nav-sub-list": {
-        "label": {
-          "/transaction": "Transactions",
-          "/entry": "Entries",
-          "/report": "Reports",
-          "/document": "Documents",
-          "/account": "Accounts",
-          "/category": "Category",
-          "/tag": "Tags"
-        }
+        "/transaction": "Transactions",
+        "/entry": "Entries",
+        "/report": "Reports",
+        "/document": "Documents",
+        "/account": "Accounts",
+        "/category": "Category",
+        "/tag": "Tags"
       }
     }
   }

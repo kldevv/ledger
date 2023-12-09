@@ -22,13 +22,13 @@ export const NavBar: React.FC = () => {
             <NavItem.VaultStatus />
 
             <NavItem.NavSubList
-              title={t('layout.nav-bar.label.main')}
+              title={t('nav-bar.label.main')}
               navRoutes={NavRoutes.Ledger}
               className="mt-2"
             />
 
             <NavItem.NavSubList
-              title={t('layout.nav-bar.label.settings')}
+              title={t('nav-bar.label.settings')}
               navRoutes={NavRoutes.Settings}
               className="mt-7"
             />

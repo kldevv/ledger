@@ -44,7 +44,7 @@ export const NavSubList: React.FC<NavSubList> = ({
             >
               <div className="flex gap-x-2 items-center">
                 {icon}
-                {t(`layout.nav-bar.nav-sub-list.label.${route}`)}
+                {t(`nav-bar.nav-sub-list.label.${route}`)}
               </div>
             </NavItem>
           ))}
