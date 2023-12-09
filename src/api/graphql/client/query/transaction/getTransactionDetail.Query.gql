@@ -11,5 +11,17 @@ query getTransactionDetail($transactionId: String!) {
       id
       name
     }
+    entries {
+      id
+      transactionDate
+      debit
+      credit
+      memo
+      account {
+        id
+        name
+      }
+      status
+    }
   }
 }

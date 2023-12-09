@@ -27,6 +27,12 @@ export type Account = {
   name: Scalars['String']['output'];
 };
 
+export type AccountInfo = {
+  __typename?: 'AccountInfo';
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type AddVaultInput = {
   currency: Currency;
   name: Scalars['String']['input'];
@@ -40,7 +46,7 @@ export type Currency =
 
 export type Entry = {
   __typename?: 'Entry';
-  account: Account;
+  account: AccountInfo;
   credit: Scalars['Float']['output'];
   debit: Scalars['Float']['output'];
   id: Scalars['String']['output'];
@@ -187,6 +193,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
+  AccountInfo: ResolverTypeWrapper<AccountInfo>;
   AddVaultInput: AddVaultInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Currency: Currency;
@@ -206,6 +213,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Account: Account;
+  AccountInfo: AccountInfo;
   AddVaultInput: AddVaultInput;
   Boolean: Scalars['Boolean']['output'];
   DateTime: Scalars['DateTime']['output'];
@@ -226,12 +234,18 @@ export type AccountResolvers<ContextType = ApolloServerContext, ParentType exten
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type AccountInfoResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AccountInfo'] = ResolversParentTypes['AccountInfo']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
 
 export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Entry'] = ResolversParentTypes['Entry']> = {
-  account?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
+  account?: Resolver<ResolversTypes['AccountInfo'], ParentType, ContextType>;
   credit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -283,6 +297,7 @@ export type VaultResolvers<ContextType = ApolloServerContext, ParentType extends
 
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
+  AccountInfo?: AccountInfoResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Entry?: EntryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
@@ -305,14 +320,14 @@ export type GetAllTransactionsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllTransactionsQuery = { __typename?: 'Query', getAllTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, subject: string, description?: string | null, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account: { __typename?: 'Account', id: string, name: string } }> }> };
+export type GetAllTransactionsQuery = { __typename?: 'Query', getAllTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, subject: string, description?: string | null, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
 export type GetTransactionDetailQueryVariables = Exact<{
   transactionId: Scalars['String']['input'];
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, subject: string, description?: string | null, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null };
+export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, subject: string, description?: string | null, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account: { __typename?: 'AccountInfo', id: string, name: string } }> } | null };
 
 export type GetAllVaultsQueryVariables = Exact<{
   ownerId: Scalars['String']['input'];
@@ -374,18 +389,6 @@ export const GetAllTransactionsDocument = gql`
       id
       name
     }
-    entries {
-      id
-      transactionDate
-      debit
-      credit
-      memo
-      account {
-        id
-        name
-      }
-      status
-    }
   }
 }
     `;
@@ -435,6 +438,18 @@ export const GetTransactionDetailDocument = gql`
     tags {
       id
       name
+    }
+    entries {
+      id
+      transactionDate
+      debit
+      credit
+      memo
+      account {
+        id
+        name
+      }
+      status
     }
   }
 }

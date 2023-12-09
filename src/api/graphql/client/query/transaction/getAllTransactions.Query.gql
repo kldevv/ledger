@@ -11,17 +11,5 @@ query getAllTransactions($vaultId: String!) {
       id
       name
     }
-    entries {
-      id
-      transactionDate
-      debit
-      credit
-      memo
-      account {
-        id
-        name
-      }
-      status
-    }
   }
 }
