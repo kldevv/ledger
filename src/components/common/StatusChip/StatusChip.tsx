@@ -1,4 +1,7 @@
 import { Status } from "@/api/graphql"
+import classNames from "classnames"
+import { useMemo } from "react"
+import { useTranslation } from "react-i18next"
 
 export type StatusChipProps = {
   /**
@@ -7,15 +10,30 @@ export type StatusChipProps = {
   status: Status
 }
 
-export const StatusChip: React.FC<StatusChipProps> = () => {
+export const StatusChip: React.FC<StatusChipProps> = ({ status }) => {
+  const { t } = useTranslation('common');
 
+  const [ haloColor, coreColor ] = useMemo(
+    () =>
+      (() => {
+        switch (status) {
+          case 'COMPLETED':
+            return ['bg-green-halo', 'bg-green'];
+          case 'PENDING':
+            return ['bg-yellow-halo', 'bg-yellow'];
+          default:
+            return ['bg-red-halo', 'bg-red'];
+        }
+      })(),
+    []
+  );
 
   return (
     <div className="flex gap-x-2 items-center">
-      <div className="p-1 rounded-full flex-none bg-[rgb(74,222,128,0.1)]">
-        <div className="w-1.5 h-1.5 rounded-full text-current bg-[#4ade80]" />
+      <div className={classNames('p-1', 'rounded-full', 'flex-none', haloColor)}>
+        <div className={classNames('w-1.5 h-1.5', 'rounded-full', coreColor)} />
       </div>
-      Complete
+      {t(`status-chip.label.${status}`)}
     </div>
   );
 }

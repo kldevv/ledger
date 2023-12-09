@@ -22,7 +22,7 @@ const data: TransactionTableDataModel[] = [
     description: 'Buy a Ferrari',
     amount: 100,
     count: 2,
-    status: 'PENDING',
+    status: 'COMPLETED',
     tags: [],
   },
   {
@@ -217,7 +217,7 @@ export const TransactionTable: React.FC = () => {
       ),
       cell: (props) => (
         <td className="p-3 text-sm text-right text-darkMidGray">
-          <StatusChip status='COMPLETED'/>
+          <StatusChip status={props.getValue()}/>
         </td>
       ),
     }),

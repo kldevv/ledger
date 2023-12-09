@@ -1,0 +1,9 @@
+{
+  "status-chip": {
+    "label": {
+      "COMPLETED": "Completed",
+      "PENDING": "Pending",
+      "UNKNOWN": "Unknown"
+    }
+  }
+}
