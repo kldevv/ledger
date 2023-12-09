@@ -4,4 +4,5 @@ type Query {
 
   # Transaction
   getAllTransactions(vaultId: String!): [Transaction!]!
+  getTransactionDetail(transactionId: String!): Transaction
 }

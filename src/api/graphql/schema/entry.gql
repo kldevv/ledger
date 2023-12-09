@@ -3,6 +3,8 @@ type Entry {
   transactionDate: DateTime!
   debit: Float!
   credit: Float!
-  memo: String!
+  memo: String
   account: Account!
+  transactionId: String!
+  status: Status!
 }

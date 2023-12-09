@@ -1,0 +1,27 @@
+query getAllTransactions($vaultId: String!) {
+  getAllTransactions(vaultId: $vaultId) {
+    id
+    accrualDate
+    subject
+    description
+    amount
+    count
+    status
+    tags {
+      id
+      name
+    }
+    entries {
+      id
+      transactionDate
+      debit
+      credit
+      memo
+      account {
+        id
+        name
+      }
+      status
+    }
+  }
+}

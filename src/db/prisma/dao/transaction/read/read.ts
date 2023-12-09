@@ -18,7 +18,18 @@ export const readOne = async ({ id }: ReadOne.Args): Promise<ReadOne.Returns> =>
       where: {
         id
       },
-      include: { tags: true, entries: true }
+      include: {
+        tags: true, entries: {
+          include: {
+            account: {
+              select: {
+                id: true,
+                name: true
+              }
+            }
+          }
+        }
+      }
     })
   } catch (e) {
     throw e

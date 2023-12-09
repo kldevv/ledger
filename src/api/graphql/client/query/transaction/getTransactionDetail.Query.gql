@@ -1,5 +1,5 @@
-query getAllTransactions($vaultId: String!) {
-  getAllTransactions(vaultId: $vaultId) {
+query getTransactionDetail($transactionId: String!) {
+  getTransactionDetail(transactionId: $transactionId) {
     id
     accrualDate
     subject
