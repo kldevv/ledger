@@ -1,11 +1,21 @@
 {
-  "navItems": {
-    "label": {
-      "TRANSACTION": "Transactions",
-      "STATEMENT": "Statements",
-      "ACCOUNT": "Manage Accounts",
-      "PEOPLE": "Manage People",
-      "GROUP": "Groups"
+  "layout": {
+    "nav-bar": {
+      "label": {
+        "main": "Ledger",
+        "settings": "Settings"
+      },
+      "nav-sub-list": {
+        "label": {
+          "/transaction": "Transactions",
+          "/entry": "Entries",
+          "/report": "Reports",
+          "/document": "Documents",
+          "/account": "Accounts",
+          "/category": "Category",
+          "/tag": "Tags"
+        }
+      }
     }
   }
 }
