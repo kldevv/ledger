@@ -35,7 +35,8 @@ model Account {
 model Transaction {
   id          String   @id @default(uuid())
   accrualDate DateTime
-  description String
+  subject     String
+  description String?
   wallet      Wallet   @relation(fields: [walletId], references: [id])
   walletId    String
   entries     Entry[]
@@ -96,7 +97,7 @@ model Profile {
 
 enum EntryStatus {
   PENDING
-  COMPLETE
+  COMPLETED
 }
 
 enum CategoryType {

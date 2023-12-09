@@ -3,3 +3,8 @@ enum Currency {
   NTD
   EUR
 }
+
+enum Status {
+  PENDING
+  COMPLETED
+}

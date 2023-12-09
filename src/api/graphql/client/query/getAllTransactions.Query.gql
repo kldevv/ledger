@@ -1,0 +1,15 @@
+query getAllTransactions($walletId: String!) {
+  getAllTransactions(walletId: $walletId) {
+    id
+    accrualDate
+    subject
+    description
+    amount
+    count
+    status
+    tags {
+      id
+      name
+    }
+  }
+}

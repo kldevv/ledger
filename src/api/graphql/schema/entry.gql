@@ -1,0 +1,8 @@
+type Entry {
+  id: String!
+  transactionDate: DateTime!
+  debit: Float!
+  credit: Float!
+  memo: String!
+  account: Account!
+}

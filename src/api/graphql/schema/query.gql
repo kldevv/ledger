@@ -1,4 +1,7 @@
 type Query {
   # Wallet
   getAllWallets(ownerId: String!): [Wallet!]!
+
+  # Transaction
+  getAllTransactions(walletId: String!): [Transaction!]!
 }
