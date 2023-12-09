@@ -27,9 +27,9 @@ export const Layout: React.FC<LayoutProps> = ({ title, children, prev }) => {
           {title || process.env.DEFAULT_PAGE_TITLE || 'The Ledger Page'}
         </title>
       </Head>
-      <div className="min-h-screen flex">
+      <div className="min-h-screen flex min-w-full">
         <NavigationBar />
-        <main className="grow">
+        <main className="w-full">
           <div
             className={classNames(
               'mx-16',

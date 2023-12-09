@@ -9,9 +9,13 @@ export namespace CreateOne {
      */
     accrualDate: Date
     /**
+     * Transaction subject
+     */
+    subject: string
+    /**
      * Transaction description
      */
-    description: string
+    description?: string
     /**
      * Wallet id
      */
@@ -31,6 +35,7 @@ export namespace CreateOne {
 
 export const createOne = async ({
   accrualDate,
+  subject,
   description,
   walletId,
   tagIds,
@@ -40,6 +45,7 @@ export const createOne = async ({
     return await prisma.transaction.create({
       data: {
         accrualDate,
+        subject,
         description,
         walletId,
         tags: {

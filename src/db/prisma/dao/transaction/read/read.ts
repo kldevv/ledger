@@ -34,6 +34,10 @@ export namespace ReadMany {
     accrualDate?: Date
     // TODO: Support query by text
     /**
+     * Transaction subject
+     */
+    subject?: string
+    /**
      * Transaction description
      */
     description?: string
@@ -49,6 +53,7 @@ export namespace ReadMany {
 export const readMany = async ({
   accrualDate,
   walletId,
+  subject,
   description
 }: ReadMany.Args): Promise<ReadMany.Returns> => {
   try {
@@ -56,6 +61,7 @@ export const readMany = async ({
       where: {
         accrualDate,
         walletId,
+        subject,
         description
       },
       include: { tags: true, entries: true }

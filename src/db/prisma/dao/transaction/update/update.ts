@@ -20,6 +20,10 @@ export namespace UpdateOne {
      */
     accrualDate?: Date
     /**
+     * New transaction subject
+     */
+    subject: string
+    /**
      * New transaction description
      */
     description?: string
@@ -38,6 +42,7 @@ export namespace UpdateOne {
 
 export const updateOne = async ({ id, data: {
   accrualDate,
+  subject,
   description, 
   tagIds,
   entries
@@ -49,6 +54,7 @@ export const updateOne = async ({ id, data: {
       },
       data: {
         accrualDate,
+        subject,
         description, 
         tags: tagIds ? {
           set: [],
