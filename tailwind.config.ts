@@ -21,6 +21,8 @@ const config: Config = {
       lightShades: '#FAF9F8',
       darkAccent: '#B0879E',
       darkShades: '#333047',
+
+      greenlight: 'rgb(74,222,128,0.1)'
     },
     extend: {
       backgroundImage: {

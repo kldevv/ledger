@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { GetAllTransactionsQuery } from '@/api/graphql';
 import React from 'react';
+import { StatusChip } from '@/components/common';
 
 type TransactionTableDataModel = GetAllTransactionsQuery['getAllTransactions'][0]
 
@@ -216,7 +217,7 @@ export const TransactionTable: React.FC = () => {
       ),
       cell: (props) => (
         <td className="p-3 text-sm text-right text-darkMidGray">
-          {props.getValue()}
+          <StatusChip status='COMPLETED'/>
         </td>
       ),
     }),
@@ -273,7 +274,7 @@ export const TransactionTable: React.FC = () => {
 
   return (
     <div className="flow-root">
-      <div className="max-w-screen-md max-h-screen overflow-auto">
+      <div className="max-w-screen-lg max-h-screen overflow-y-auto">
         <table>
           <thead className="border-b border-midGray">
             {table.getHeaderGroups().map((headerGroup) => (
