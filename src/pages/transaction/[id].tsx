@@ -1,12 +1,16 @@
-import { Layout } from "@/components/layout"
-import { TransactionDetail } from "@/components/transaction";
+import { Hero, Layout } from "@/components/layout"
+import { TransactionDescriptionList } from "@/components/transaction";
 
-const TransactionDetailPage: React.FC = () => {
+const Page: React.FC = () => {
   return (
     <Layout prev="/transaction">
-      <div><TransactionDetail /></div>
+      <Hero
+        header="Transaction Detail"
+        subheader="View and edit the information of transaction."
+      />
+      <TransactionDescriptionList />
     </Layout>
   );
 }
 
-export default TransactionDetailPage;
+export default Page;
