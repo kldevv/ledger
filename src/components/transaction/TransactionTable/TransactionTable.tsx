@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { GetAllTransactionsQuery } from '@/api/graphql';
 import React from 'react';
-import { StatusChip } from '@/components/common';
+import { Card, StatusChip } from '@/components/common';
 import { Cell } from './Cell';
 import { Header } from './Header';
 
@@ -245,38 +245,43 @@ export const TransactionTable: React.FC = () => {
   });
 
   return (
-    <div className="flow-root">
-      <div className="max-w-screen-lg">
-        <table>
-          <thead className="border-b border-midGray">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <React.Fragment key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </React.Fragment>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="border-b border-midGray">
-                {row.getVisibleCells().map((cell) => (
-                  <React.Fragment key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </React.Fragment>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <Card variant='xl'>
+      <div className="flow-root">
+        <div className="max-h-full max-w-screen-lg overflow-auto">
+          <table>
+            <thead className="border-b border-midGray">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <React.Fragment key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </React.Fragment>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr key={row.id} className="border-b border-midGray">
+                  {row.getVisibleCells().map((cell) => (
+                    <React.Fragment key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </React.Fragment>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </Card>
   );
 };
