@@ -21,7 +21,7 @@ export const VaultRadioCards: React.FC = () => {
       orientation="vertical"
       value={selected}
       onValueChange={handleOnValueChange}
-      className="max-w-sm"
+      className="max-w-sm mt-3"
     >
       <div className="flex flex-col gap-y-2">
         {vaults?.map((prop) => {

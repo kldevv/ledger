@@ -30,7 +30,7 @@ export const Card: React.FC<CardProps> = ({ children, variant = 'md' }) => {
     );
 
   const cn = classNames(
-    '-mx-4 mt-6',
+    '-mx-5 mt-6',
     'rounded-lg shadow box-shadow shadow-darkMidGray',
     'overflow-auto',
      maxWidth
@@ -38,7 +38,7 @@ export const Card: React.FC<CardProps> = ({ children, variant = 'md' }) => {
 
   return (
     <div className={cn}>
-      <div className="px-4 py-3">{children}</div>
+      <div className="px-5 py-3">{children}</div>
     </div>
   );
 };
