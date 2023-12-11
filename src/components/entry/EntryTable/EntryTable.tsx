@@ -3,17 +3,29 @@ import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { GetEntriesQuery, useGetEntriesQuery } from '@/api/graphql';
 import { StatusChip, Table } from '@/components/common';
-import { useVaultContext } from '@/hooks';
+import { useFormatter, useVaultContext } from '@/hooks';
 
 type EntryTableData = GetEntriesQuery['getEntries'][0]
 
 const columnHelper = createColumnHelper<EntryTableData>();
 
-export const EntryTable: React.FC = () => {
-  const { t } = useTranslation('entry');
-  const [{ curVaultId }] = useVaultContext()
+export type EntryTableProps = {
+  /**
+   * Omit transaction id column
+   */
+  omitTransactionId?: boolean
+};
 
-  const { data: _, loading, error } = useGetEntriesQuery({
+export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = false }) => {
+  const { t } = useTranslation('entry');
+  const [{ curVaultId }] = useVaultContext();
+  const { formatDate } = useFormatter();
+
+  const {
+    data: _,
+    loading,
+    error,
+  } = useGetEntriesQuery({
     variables: {
       input: {
         vaultId: curVaultId ?? '',
@@ -25,7 +37,11 @@ export const EntryTable: React.FC = () => {
   const columns = [
     columnHelper.accessor('transactionDate', {
       header: t('entry-table.header.date'),
-      cell: (props) => props.getValue().getFullYear()
+      cell: (props) => (
+        <div className="whitespace-nowrap text-darkShades">
+          {formatDate(props.getValue())}
+        </div>
+      ),
     }),
     columnHelper.accessor('debit', {
       header: t('entry-table.header.debit'),
@@ -41,15 +57,20 @@ export const EntryTable: React.FC = () => {
     }),
     columnHelper.accessor('status', {
       header: t('entry-table.header.status'),
+      cell: (props) => <StatusChip status={props.getValue()} />,
     }),
     columnHelper.accessor('id', {
       header: t('entry-table.header.id'),
     }),
-    columnHelper.accessor('transactionId', {
-      header: t('entry-table.header.transaction'),
-    }),
-  ]
-  
+    ...(omitTransactionId
+      ? []
+      : [
+          columnHelper.accessor('transactionId', {
+            header: t('entry-table.header.transaction'),
+          }),
+        ]),
+  ];
+
   return <Table data={data} colDefs={columns} />;
 };
 

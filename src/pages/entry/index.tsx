@@ -8,7 +8,7 @@ const Page: React.FC = () => {
         header="Entries"
         subheader="All entries for the currently selected vault."
       />
-      <EntryTable />
+      <EntryTable/>
     </Layout>
   );
 };
