@@ -9,7 +9,7 @@ export type CardProps = {
   /**
    * Variant
    */
-  variant?: 'sm' | 'md' | 'xl'
+  variant?: 'sm' | 'md' | '2xl'
 };
 
 export const Card: React.FC<CardProps> = ({ children, variant = 'md' }) => {
@@ -19,8 +19,8 @@ export const Card: React.FC<CardProps> = ({ children, variant = 'md' }) => {
           switch (variant) {
             case 'sm':
               return 'max-w-sm';
-            case 'xl':
-              return 'max-w-xl';
+            case '2xl':
+              return 'max-w-2xl';
             case 'md':
             default:
               return 'max-w-md';
@@ -33,12 +33,13 @@ export const Card: React.FC<CardProps> = ({ children, variant = 'md' }) => {
     '-mx-5 mt-6',
     'rounded-lg shadow box-shadow shadow-darkMidGray',
     'overflow-auto',
-     maxWidth
-  )
+    'max-h-screen',
+    maxWidth
+  );
 
   return (
     <div className={cn}>
-      <div className="px-5 py-3">{children}</div>
+      <div className="px-5 py-3 w-full overflow-auto">{children}</div>
     </div>
   );
 };
