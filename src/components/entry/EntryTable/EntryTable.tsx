@@ -1,69 +1,78 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
-import { GetAllTransactionsQuery } from '@/api/graphql';
-import React from 'react';
+import { GetEntriesQuery, useGetEntriesQuery } from '@/api/graphql';
 import { StatusChip, Table } from '@/components/common';
+import { useVaultContext } from '@/hooks';
 
-type TransactionTableDataModel =
-  GetAllTransactionsQuery['getAllTransactions'][0];
+type EntryTableData = GetEntriesQuery['getEntries'][0]
 
-const columnHelper = createColumnHelper<TransactionTableDataModel>();
+const columnHelper = createColumnHelper<EntryTableData>();
 
-export const TransactionTable: React.FC = () => {
-  const { t } = useTranslation('transaction');
+export const EntryTable: React.FC = () => {
+  const { t } = useTranslation('entry');
+  const [{ curVaultId }] = useVaultContext()
+
+  const { data: _, loading, error } = useGetEntriesQuery({
+    variables: {
+      input: {
+        vaultId: curVaultId ?? '',
+      },
+    },
+    skip: curVaultId == null,
+  });
 
   const columns = [
-    columnHelper.accessor('id', {
-      header: t('transaction-table.header.id'),
+    columnHelper.accessor('transactionDate', {
+      header: t('entry-table.header.date'),
+      cell: (props) => props.getValue().getFullYear()
     }),
-    columnHelper.accessor('accrualDate', {
-      header: t('transaction-table.header.date'),
-      cell: (props) => {
-        const data = props.getValue();
-        return (
-          <div className="whitespace-nowrap text-darkShades">{`${data.getFullYear()}-${
-            data.getMonth() + 1
-          }-${data.getDate()}`}</div>
-        );
-      },
+    columnHelper.accessor('debit', {
+      header: t('entry-table.header.debit'),
     }),
-    columnHelper.accessor('count', {
-      header: t('transaction-table.header.count'),
+    columnHelper.accessor('credit', {
+      header: t('entry-table.header.credit'),
     }),
-    columnHelper.accessor('description', {
-      header: t('transaction-table.header.description'),
+    columnHelper.accessor('account.name', {
+      header: t('entry-table.header.account'),
+    }),
+    columnHelper.accessor('memo', {
+      header: t('entry-table.header.memo'),
     }),
     columnHelper.accessor('status', {
-      header: t('transaction-table.header.status'),
-      cell: (props) => <StatusChip status={props.getValue()} />,
+      header: t('entry-table.header.status'),
     }),
-    // columnHelper.accessor('tags', {
-    //   header: () => t('transaction-table.header.tags'),
-    //   cell: (props) => (
-    //     <div className="flex gap-1 text-xs text-left flex-col">
-    //       {props.getValue().map((tag) => (
-    //         <Link href={`/tag/${tag.id}`}>
-    //           <div className="max-w-fit rounded-xl bg-lightAccent py-1 px-1 text-lightShades">
-    //             {tag.name}
-    //           </div>
-    //         </Link>
-    //       ))}
-    //     </div>
-    //   ),
-    // }),
-    columnHelper.display({
-      id: 'view',
-      cell: (props) => (
-        <Link
-          className="text-lightAccent"
-          href={`/transaction/${props.row.getValue('id')}`}
-        >
-          View
-        </Link>
-      ),
+    columnHelper.accessor('id', {
+      header: t('entry-table.header.id'),
     }),
-  ];
-
+    columnHelper.accessor('transactionId', {
+      header: t('entry-table.header.transaction'),
+    }),
+  ]
+  
   return <Table data={data} colDefs={columns} />;
 };
+
+
+const data: EntryTableData[] = [
+  {  
+    __typename: "Entry",
+    id: '0',
+    vaultId: '0',
+    transactionDate: new Date(Date.now()),
+    debit: 100.4,
+    credit: 200.32,
+    memo: 'hello mom',
+    transactionId: '0',
+    status: 'COMPLETED',
+    account: {
+      id: '0',
+      name: 'Bank account',
+      category: {
+        id: '100',
+        name: '12',
+        type: 'ASSET',
+      }
+    }
+  }
+]

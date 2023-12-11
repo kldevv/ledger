@@ -1,9 +1,14 @@
-import { Layout } from '@/components/layout';
+import { EntryTable } from '@/components/entry';
+import { Hero, Layout } from '@/components/layout';
 
 const Page: React.FC = () => {
   return (
     <Layout>
-      <h1 className="text-darkShades font-extrabold text-3xl">Entries</h1>
+      <Hero
+        header="Entries"
+        subheader="All entries for the currently selected vault."
+      />
+      <EntryTable />
     </Layout>
   );
 };

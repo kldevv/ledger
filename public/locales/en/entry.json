@@ -1,0 +1,14 @@
+{
+  "entry-table": {
+    "header": {
+      "id": "ID",
+      "date": "Date",
+      "debit": "Debit",
+      "credit": "Credit",
+      "memo": "Memo",
+      "transaction": "Transaction",
+      "account": "Account",
+      "status": "Status"
+    }
+  }
+}

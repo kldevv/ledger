@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { GetAllTransactionsQuery } from '@/api/graphql';
 import React from 'react';
 import { StatusChip, Table } from '@/components/common';
+import { formatter } from '@/lib';
+import { useFormatter } from '@/hooks';
 
 type TransactionTableDataModel = GetAllTransactionsQuery['getAllTransactions'][0]
 
@@ -149,6 +151,7 @@ const data: TransactionTableDataModel[] = [
 
 export const TransactionTable: React.FC = () => {
   const { t } = useTranslation('transaction')
+  const { formatDate } = useFormatter()
 
   const columns = [
     columnHelper.accessor('id', {
@@ -156,14 +159,9 @@ export const TransactionTable: React.FC = () => {
     }),
     columnHelper.accessor('accrualDate', {
       header: t('transaction-table.header.date'),
-      cell: (props) => {
-        const data = props.getValue();
-        return (
-          <div className="whitespace-nowrap text-darkShades">{`${data.getFullYear()}-${
-            data.getMonth() + 1
-          }-${data.getDate()}`}</div>
-        );
-      },
+      cell: (props) => (
+        <div className="whitespace-nowrap">{formatDate(props.getValue())}</div>
+      ),
     }),
     columnHelper.accessor('count', {
       header: t('transaction-table.header.count'),
@@ -192,7 +190,12 @@ export const TransactionTable: React.FC = () => {
     columnHelper.display({
       id: 'view',
       cell: (props) => (
-        <Link className="text-lightAccent" href={`/transaction/${props.row.getValue('id')}`}>View</Link>
+        <Link
+          className="text-lightAccent"
+          href={`/transaction/${props.row.getValue('id')}`}
+        >
+          View
+        </Link>
       ),
     }),
   ];
