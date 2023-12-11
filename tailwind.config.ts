@@ -18,7 +18,7 @@ const config: Config = {
       darkMidGray: 'rgb(156,163,175)',  // #9CA3AF
 
       // main color palette
-      main: 'rgb(172,88,80)',  // #AC5850
+      "main": 'rgb(172,88,80)',  // #AC5850
       "light-accent": 'rgb(226,126,97)',  // #E27E61
       "light-shades": 'rgb(250,249,248)',  // #FAF9F8
       "dark-accent": 'rgb(176,135,158)',  // #B0879E
