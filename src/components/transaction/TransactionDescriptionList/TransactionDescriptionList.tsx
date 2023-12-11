@@ -10,7 +10,7 @@ export const TransactionDescriptionList: React.FC = () => {
               <div className="text-sm text-dark-shades">Accrual Date</div>
             </dt>
             <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
+              <div className="max-w-xs text-sm font-light leading-6 text-gray">
                 John
               </div>
             </dd>
@@ -20,7 +20,7 @@ export const TransactionDescriptionList: React.FC = () => {
               <div className="text-sm text-dark-shades">Balance Changes</div>
             </dt>
             <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
+              <div className="max-w-xs text-sm font-light leading-6 text-gray">
                 A -100 L +80 E +20
               </div>
             </dd>
@@ -30,7 +30,7 @@ export const TransactionDescriptionList: React.FC = () => {
               <div className="text-sm text-dark-shades">ID</div>
             </dt>
             <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
+              <div className="max-w-xs text-sm font-light leading-6 text-gray">
                 #1258405
               </div>
             </dd>
@@ -40,7 +40,7 @@ export const TransactionDescriptionList: React.FC = () => {
               <div className="text-sm text-dark-shades">Number of entries</div>
             </dt>
             <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
+              <div className="max-w-xs text-sm font-light leading-6 text-gray">
                 3
               </div>
             </dd>
@@ -50,7 +50,7 @@ export const TransactionDescriptionList: React.FC = () => {
               <div className="text-sm text-dark-shades">Status</div>
             </dt>
             <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
+              <div className="max-w-xs text-sm font-light leading-6 text-gray">
                 <StatusChip status="COMPLETED" />
               </div>
             </dd>
@@ -60,7 +60,7 @@ export const TransactionDescriptionList: React.FC = () => {
               <div className="text-sm text-dark-shades">Note</div>
             </dt>
             <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
+              <div className="max-w-xs text-sm font-light leading-6 text-gray">
                 NYC Subway
               </div>
             </dd>

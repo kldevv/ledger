@@ -14,7 +14,7 @@ const config: Config = {
       // base color palette
       "white": 'rgb(255,255,255)',  // #FFFFFF
       "mid-gray": 'rgb(229,231,235)',  // #E5E7EB
-      darkMidGray: 'rgb(156,163,175)',  // #9CA3AF
+      "gray": 'rgb(156,163,175)',  // #9CA3AF
 
       // main color palette
       "main": 'rgb(172,88,80)',  // #AC5850

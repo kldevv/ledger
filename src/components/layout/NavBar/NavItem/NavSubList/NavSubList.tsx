@@ -31,7 +31,7 @@ export const NavSubList: React.FC<NavSubList> = ({
 
   return (
     <Item className={classNames('flex flex-col gap-y-1', className)}>
-      <div className="leading-6 font-semibold text-xs text-darkMidGray">
+      <div className="leading-6 font-semibold text-xs text-gray">
         {title}
       </div>
       <Sub>

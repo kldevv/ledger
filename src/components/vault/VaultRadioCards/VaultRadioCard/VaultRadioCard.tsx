@@ -24,13 +24,13 @@ export const VaultRadioCard: React.FC<VaultRadioCardProps> = ({
   return (
     <Item
       value={id}
-      className="ring-1 data-[state=checked]:ring-2 hover:ring-2 data-[state=checked]:ring-light-accent hover:ring-light-accent ring-darkMidGray rounded-md h-16"
+      className="ring-1 data-[state=checked]:ring-2 hover:ring-2 data-[state=checked]:ring-light-accent hover:ring-light-accent ring-gray rounded-md h-16"
     >
       <div className="mx-3 flex items-center">
         <div className="flex flex-col text-dark-shades items-start">
           <p className="text-base font-bold">
             <span className="whitespace-nowrap">{name}</span>
-            <span className="ml-3 text-xs font-normal text-darkMidGray">
+            <span className="ml-3 text-xs font-normal text-gray">
               {id}
             </span>
           </p>

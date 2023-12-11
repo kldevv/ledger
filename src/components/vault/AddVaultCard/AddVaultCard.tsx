@@ -6,7 +6,7 @@ export const AddVaultCard: React.FC = () => {
   return (
     <Link
       href="/vault/add"
-      className="bg-mid-gray text-darkMidGray rounded-md h-16 max-w-sm flex items-center hover:bg-darkMidGray hover:text-dark-shades"
+      className="bg-mid-gray text-gray rounded-md h-16 max-w-sm flex items-center hover:bg-gray hover:text-dark-shades"
     >
       <PlusCircleIcon className="w-8 h-8 mx-auto" />
     </Link>

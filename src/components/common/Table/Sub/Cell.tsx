@@ -11,7 +11,7 @@ export const Cell: React.FC<CellProps> = ({ children }) => {
   return (
     <td
       className={classNames(
-        'text-left text-sm text-darkMidGray min-w-fit',
+        'text-left text-sm text-gray min-w-fit',
         'p-3',
         'first:pl-0',
         'last:pr-0'
