@@ -22,7 +22,7 @@ const config: Config = {
       "light-accent": 'rgb(226,126,97)',  // #E27E61
       "light-shades": 'rgb(250,249,248)',  // #FAF9F8
       "dark-accent": 'rgb(176,135,158)',  // #B0879E
-      darkShades: 'rgb(51,48,71)',  // #333047
+      "dark-shades": 'rgb(51,48,71)',  // #333047
       
       // rainbow color palette
       'red': 'rgb(255,96,92)',  // #FF605C

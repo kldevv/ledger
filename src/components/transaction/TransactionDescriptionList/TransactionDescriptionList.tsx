@@ -7,7 +7,7 @@ export const TransactionDescriptionList: React.FC = () => {
         <dl>
           <div className="py-2 items-center grid grid-cols-2 gap-x-8">
             <dt>
-              <div className="text-sm text-darkShades">Accrual Date</div>
+              <div className="text-sm text-dark-shades">Accrual Date</div>
             </dt>
             <dd>
               <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
@@ -17,7 +17,7 @@ export const TransactionDescriptionList: React.FC = () => {
           </div>
           <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-midGray">
             <dt>
-              <div className="text-sm text-darkShades">Balance Changes</div>
+              <div className="text-sm text-dark-shades">Balance Changes</div>
             </dt>
             <dd>
               <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
@@ -27,7 +27,7 @@ export const TransactionDescriptionList: React.FC = () => {
           </div>
           <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-midGray">
             <dt>
-              <div className="text-sm text-darkShades">ID</div>
+              <div className="text-sm text-dark-shades">ID</div>
             </dt>
             <dd>
               <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
@@ -37,7 +37,7 @@ export const TransactionDescriptionList: React.FC = () => {
           </div>
           <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-midGray">
             <dt>
-              <div className="text-sm text-darkShades">Number of entries</div>
+              <div className="text-sm text-dark-shades">Number of entries</div>
             </dt>
             <dd>
               <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
@@ -47,7 +47,7 @@ export const TransactionDescriptionList: React.FC = () => {
           </div>
           <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-midGray">
             <dt>
-              <div className="text-sm text-darkShades">Status</div>
+              <div className="text-sm text-dark-shades">Status</div>
             </dt>
             <dd>
               <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">
@@ -57,7 +57,7 @@ export const TransactionDescriptionList: React.FC = () => {
           </div>
           <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-midGray">
             <dt>
-              <div className="text-sm text-darkShades">Note</div>
+              <div className="text-sm text-dark-shades">Note</div>
             </dt>
             <dd>
               <div className="max-w-xs text-sm font-light leading-6 text-darkMidGray">

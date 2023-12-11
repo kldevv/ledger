@@ -13,7 +13,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <th
       className={classNames(
-        'text-left text-sm font-semibold text-darkShades ',
+        'text-left text-sm font-semibold text-dark-shades ',
         'p-3',
         'first:pl-0',
         'last:pr-0'

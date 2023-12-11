@@ -40,7 +40,7 @@ export const NavBar: React.FC = () => {
             href="/profile"
             className="flex py-3 px-6 -mx-6 mt-1 hover:bg-midGray"
           >
-            <div className="font-semibold leading-6 text-sm flex text-darkShades">
+            <div className="font-semibold leading-6 text-sm flex text-dark-shades">
               Profile
             </div>
           </Link>

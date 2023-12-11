@@ -160,7 +160,7 @@ export const TransactionTable: React.FC = () => {
     columnHelper.accessor('accrualDate', {
       header: t('transaction-table.header.date'),
       cell: (props) => (
-        <div className="whitespace-nowrap text-darkShades">{formatDate(props.getValue())}</div>
+        <div className="whitespace-nowrap text-dark-shades">{formatDate(props.getValue())}</div>
       ),
     }),
     columnHelper.accessor('count', {

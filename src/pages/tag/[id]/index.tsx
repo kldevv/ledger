@@ -8,7 +8,7 @@ const Page: React.FC = () => {
 
   return (
     <Layout prev="/tag">
-      <h1 className="text-darkShades font-extrabold text-3xl">{id}</h1>
+      <h1 className="text-dark-shades font-extrabold text-3xl">{id}</h1>
     </Layout>
   );
 };

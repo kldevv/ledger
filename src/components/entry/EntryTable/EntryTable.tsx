@@ -38,7 +38,7 @@ export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = fals
     columnHelper.accessor('transactionDate', {
       header: t('entry-table.header.date'),
       cell: (props) => (
-        <div className="whitespace-nowrap text-darkShades">
+        <div className="whitespace-nowrap text-dark-shades">
           {formatDate(props.getValue())}
         </div>
       ),

@@ -12,7 +12,7 @@ export type HeroProps = {
 export const Hero: React.FC<HeroProps> = ({ header, subheader}) => {
   return (
     <>
-      <h1 className="text-darkShades font-extrabold text-3xl">{header}</h1>
+      <h1 className="text-dark-shades font-extrabold text-3xl">{header}</h1>
       <p className="text-darkMidGray text-base">{subheader}</p>
     </>
   );
