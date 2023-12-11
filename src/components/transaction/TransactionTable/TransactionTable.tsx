@@ -179,7 +179,7 @@ export const TransactionTable: React.FC = () => {
     //     <div className="flex gap-1 text-xs text-left flex-col">
     //       {props.getValue().map((tag) => (
     //         <Link href={`/tag/${tag.id}`}>
-    //           <div className="max-w-fit rounded-xl bg-light-accent py-1 px-1 text-lightShades">
+    //           <div className="max-w-fit rounded-xl bg-light-accent py-1 px-1 text-light-shades">
     //             {tag.name}
     //           </div>
     //         </Link>

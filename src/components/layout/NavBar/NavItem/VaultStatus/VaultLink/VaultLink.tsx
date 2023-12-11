@@ -32,11 +32,11 @@ export const VaultLink: React.FC<VaultLinkProps> = ({ active = false, loading = 
     'mx-1',
     'flex gap-x-2 items-center',
     'font-semibold leading-6 text-xs text-main',
-    'border rounded-xl bg-lightShades',
+    'border rounded-xl bg-light-shades',
     // Hover
-    'hover:bg-main hover:text-lightShades',
+    'hover:bg-main hover:text-light-shades',
     // Active
-    'data-[active]:bg-main data-[active]:text-lightShades'
+    'data-[active]:bg-main data-[active]:text-light-shades'
   );
 
   if (loading) {
@@ -44,8 +44,8 @@ export const VaultLink: React.FC<VaultLinkProps> = ({ active = false, loading = 
       <div
         className={classNames(
           cn,
-          'bg-midGray text-lightShades',
-          'hover:bg-midGray hover:text-lightShades'
+          'bg-midGray text-light-shades',
+          'hover:bg-midGray hover:text-light-shades'
         )}
       >
         <EllipsisHorizontalIcon className="w-5 h-5 mx-auto" />
