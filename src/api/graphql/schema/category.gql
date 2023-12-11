@@ -2,4 +2,5 @@ type Category {
   id: String!
   name: String!
   type: CategoryType!
+  vaultId: String!
 }

@@ -50,6 +50,8 @@ model Entry {
   transactionDate DateTime
   account         Account     @relation(fields: [accountId], references: [id])
   accountId       String
+  vault           Vault       @relation(fields: [vaultId], references: [id])
+  vaultId         String
   credit          Float
   debit           Float
   memo            String?
@@ -78,6 +80,7 @@ model Vault {
   currency     Currency
   profile      Profile       @relation(fields: [ownerId], references: [id])
   ownerId      String
+  entries      Entry[]
   categories   Category[]
   transactions Transaction[]
   tags         Tag[]

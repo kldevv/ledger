@@ -31,6 +31,10 @@ export namespace CreateOne {
      * Optional status, default is `PENDING`
      */
     status?: EntryStatus
+    /**
+     * Vault id
+     */
+    vaultId: string
   }
 }
 
@@ -42,6 +46,7 @@ export const createOne = async ({
   transactionId,
   memo,
   status = EntryStatus.PENDING,
+  vaultId,
  }: CreateOne.Args) => {
   try {
     await prisma.entry.create({
@@ -52,7 +57,8 @@ export const createOne = async ({
         credit,
         transactionId,
         memo,
-        status
+        status,
+        vaultId,
       }
     })
   } catch (e) {

@@ -1,5 +1,6 @@
 import prisma from "@/db/prisma/client"
-import { Entry, EntryStatus } from "@prisma/client"
+import { EntryStatus } from "@prisma/client"
+import { EntryDetail } from "../type"
 
 export namespace ReadOne {
   export type Args = {
@@ -9,7 +10,7 @@ export namespace ReadOne {
     id: string
   }
 
-  export type Returns = Entry | null
+  export type Returns = EntryDetail | null
 }
 
 export const readOne = async ({ id }: ReadOne.Args): Promise<ReadOne.Returns> => {
@@ -17,6 +18,13 @@ export const readOne = async ({ id }: ReadOne.Args): Promise<ReadOne.Returns> =>
     return await prisma.entry.findUnique({
       where: {
         id
+      },
+      include: {
+        account: {
+          include: {
+            category: true
+          }
+        }
       }
     })
   } catch (e) {
@@ -42,16 +50,21 @@ export namespace ReadMany {
      * Entry status
      */
     status?: EntryStatus
+    /**
+     * Vault id
+     */
+    vaultId?: string
   }
 
-  export type Returns = Entry[]
+  export type Returns = EntryDetail[]
 }
 
 export const readMany = async ({ 
   transactionDate,
   accountId,
   transactionId,
-  status
+  status,
+  vaultId
  }: ReadMany.Args): Promise<ReadMany.Returns> => {
   try {
     return await prisma.entry.findMany({
@@ -59,7 +72,15 @@ export const readMany = async ({
         transactionDate,
         accountId,
         transactionId,
-        status
+        status,
+        vaultId,
+      },
+      include: {
+        account: {
+          include: {
+            category: true
+          }
+        }
       }
     })
   } catch (e) {

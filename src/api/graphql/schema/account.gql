@@ -2,4 +2,5 @@ type Account {
   id: String!
   name: String!
   category: Category!
+  vaultId: String!
 }

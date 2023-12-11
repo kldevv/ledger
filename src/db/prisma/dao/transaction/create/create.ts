@@ -57,7 +57,15 @@ export const createOne = async ({
           }
         }
       },
-      include: { tags: true, entries: true}
+      include: { tags: true, entries: {
+        include: {
+          account: {
+            include: {
+              category: true
+            }
+          }
+        }
+      }}
     })
   } catch (e) {
     throw e
