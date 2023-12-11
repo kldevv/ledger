@@ -24,7 +24,7 @@ export const NavItem: React.FC<NavItemProps> = ({ active, href, children }) => {
       <Link href={href} passHref legacyBehavior>
         <MenuLink
           active={active}
-          className="font-semibold leading-6 text-sm py-1 px-3 flex gap-x-3 rounded-md text-dark-shades hover:bg-midGray data-[active]:bg-midGray data-[active]:text-main"
+          className="font-semibold leading-6 text-sm py-1 px-3 flex gap-x-3 rounded-md text-dark-shades hover:bg-mid-gray data-[active]:bg-mid-gray data-[active]:text-main"
         >
           {children}
         </MenuLink>

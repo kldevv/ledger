@@ -15,7 +15,7 @@ export const TransactionDescriptionList: React.FC = () => {
               </div>
             </dd>
           </div>
-          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-midGray">
+          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-mid-gray">
             <dt>
               <div className="text-sm text-dark-shades">Balance Changes</div>
             </dt>
@@ -25,7 +25,7 @@ export const TransactionDescriptionList: React.FC = () => {
               </div>
             </dd>
           </div>
-          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-midGray">
+          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-mid-gray">
             <dt>
               <div className="text-sm text-dark-shades">ID</div>
             </dt>
@@ -35,7 +35,7 @@ export const TransactionDescriptionList: React.FC = () => {
               </div>
             </dd>
           </div>
-          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-midGray">
+          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-mid-gray">
             <dt>
               <div className="text-sm text-dark-shades">Number of entries</div>
             </dt>
@@ -45,7 +45,7 @@ export const TransactionDescriptionList: React.FC = () => {
               </div>
             </dd>
           </div>
-          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-midGray">
+          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-mid-gray">
             <dt>
               <div className="text-sm text-dark-shades">Status</div>
             </dt>
@@ -55,7 +55,7 @@ export const TransactionDescriptionList: React.FC = () => {
               </div>
             </dd>
           </div>
-          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-midGray">
+          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-mid-gray">
             <dt>
               <div className="text-sm text-dark-shades">Note</div>
             </dt>

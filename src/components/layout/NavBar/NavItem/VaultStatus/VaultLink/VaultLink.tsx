@@ -44,8 +44,8 @@ export const VaultLink: React.FC<VaultLinkProps> = ({ active = false, loading = 
       <div
         className={classNames(
           cn,
-          'bg-midGray text-light-shades',
-          'hover:bg-midGray hover:text-light-shades'
+          'bg-mid-gray text-light-shades',
+          'hover:bg-mid-gray hover:text-light-shades'
         )}
       >
         <EllipsisHorizontalIcon className="w-5 h-5 mx-auto" />

@@ -10,7 +10,7 @@ export const NavBar: React.FC = () => {
 
   return (
     <div className="flex flex-col bg-light-shades grow-0">
-      <div className="px-6 gap-y-4 w-56 border-r overflow-y-auto h-full flex flex-col border-midGray">
+      <div className="px-6 gap-y-4 w-56 border-r overflow-y-auto h-full flex flex-col border-mid-gray">
         <div className="mt-4 flex shrink-0 h-8 items-center">
           <Link href="/">
             <PaperClipIcon className="w-8 h-8 text-main" />
@@ -38,7 +38,7 @@ export const NavBar: React.FC = () => {
         <div className="mt-auto">
           <Link
             href="/profile"
-            className="flex py-3 px-6 -mx-6 mt-1 hover:bg-midGray"
+            className="flex py-3 px-6 -mx-6 mt-1 hover:bg-mid-gray"
           >
             <div className="font-semibold leading-6 text-sm flex text-dark-shades">
               Profile
