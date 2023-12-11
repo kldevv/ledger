@@ -1,45 +1,69 @@
-import { Entry, Prisma } from "@prisma/client";
-import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { createColumnHelper } from '@tanstack/react-table';
+import { useTranslation } from 'react-i18next';
+import Link from 'next/link';
+import { GetAllTransactionsQuery } from '@/api/graphql';
+import React from 'react';
+import { StatusChip, Table } from '@/components/common';
 
-const columnHelper = createColumnHelper<Entry>();
+type TransactionTableDataModel =
+  GetAllTransactionsQuery['getAllTransactions'][0];
 
-export const EntryTable: React.FC = () => {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+const columnHelper = createColumnHelper<TransactionTableDataModel>();
 
-  return (
-    <table>
-      <thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <Link href={`/transaction/${123}`}>
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          </Link>
-        ))}
-      </tbody>
-    </table>
-}
+export const TransactionTable: React.FC = () => {
+  const { t } = useTranslation('transaction');
+
+  const columns = [
+    columnHelper.accessor('id', {
+      header: t('transaction-table.header.id'),
+    }),
+    columnHelper.accessor('accrualDate', {
+      header: t('transaction-table.header.date'),
+      cell: (props) => {
+        const data = props.getValue();
+        return (
+          <div className="whitespace-nowrap text-darkShades">{`${data.getFullYear()}-${
+            data.getMonth() + 1
+          }-${data.getDate()}`}</div>
+        );
+      },
+    }),
+    columnHelper.accessor('count', {
+      header: t('transaction-table.header.count'),
+    }),
+    columnHelper.accessor('description', {
+      header: t('transaction-table.header.description'),
+    }),
+    columnHelper.accessor('status', {
+      header: t('transaction-table.header.status'),
+      cell: (props) => <StatusChip status={props.getValue()} />,
+    }),
+    // columnHelper.accessor('tags', {
+    //   header: () => t('transaction-table.header.tags'),
+    //   cell: (props) => (
+    //     <div className="flex gap-1 text-xs text-left flex-col">
+    //       {props.getValue().map((tag) => (
+    //         <Link href={`/tag/${tag.id}`}>
+    //           <div className="max-w-fit rounded-xl bg-lightAccent py-1 px-1 text-lightShades">
+    //             {tag.name}
+    //           </div>
+    //         </Link>
+    //       ))}
+    //     </div>
+    //   ),
+    // }),
+    columnHelper.display({
+      id: 'view',
+      cell: (props) => (
+        <Link
+          className="text-lightAccent"
+          href={`/transaction/${props.row.getValue('id')}`}
+        >
+          View
+        </Link>
+      ),
+    }),
+  ];
+
+  return <Table data={data} colDefs={columns} />;
+};

@@ -23,12 +23,7 @@ export type Scalars = {
 
 export type Account = {
   __typename?: 'Account';
-  id: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-};
-
-export type AccountInfo = {
-  __typename?: 'AccountInfo';
+  category: Category;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
 };
@@ -39,6 +34,18 @@ export type AddVaultInput = {
   ownerId: Scalars['String']['input'];
 };
 
+export type Category = {
+  __typename?: 'Category';
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  type: CategoryType;
+};
+
+export type CategoryType =
+  | 'ASSET'
+  | 'EQUITY'
+  | 'LIABILITIES';
+
 export type Currency =
   | 'EUR'
   | 'NTD'
@@ -46,7 +53,7 @@ export type Currency =
 
 export type Entry = {
   __typename?: 'Entry';
-  account: AccountInfo;
+  account: Account;
   credit: Scalars['Float']['output'];
   debit: Scalars['Float']['output'];
   id: Scalars['String']['output'];
@@ -54,6 +61,21 @@ export type Entry = {
   status: Status;
   transactionDate: Scalars['DateTime']['output'];
   transactionId: Scalars['String']['output'];
+  vaultId: Scalars['String']['output'];
+};
+
+export type GetEntriesInput = {
+  accountId?: InputMaybe<Array<Scalars['String']['input']>>;
+  creditAtLeast?: InputMaybe<Scalars['Float']['input']>;
+  creditNoMore?: InputMaybe<Scalars['Float']['input']>;
+  debitAtLeast?: InputMaybe<Scalars['Float']['input']>;
+  debitNoMore?: InputMaybe<Scalars['Float']['input']>;
+  endDate?: InputMaybe<Scalars['DateTime']['input']>;
+  memoSearch?: InputMaybe<Scalars['String']['input']>;
+  startDate?: InputMaybe<Scalars['DateTime']['input']>;
+  status?: InputMaybe<Array<Status>>;
+  transactionId?: InputMaybe<Array<Scalars['String']['input']>>;
+  vaultId: Scalars['String']['input'];
 };
 
 export type Mutation = {
@@ -70,6 +92,7 @@ export type Query = {
   __typename?: 'Query';
   getAllTransactions: Array<Transaction>;
   getAllVaults: Array<Vault>;
+  getEntries: Array<Entry>;
   getTransactionDetail?: Maybe<Transaction>;
 };
 
@@ -81,6 +104,11 @@ export type QueryGetAllTransactionsArgs = {
 
 export type QueryGetAllVaultsArgs = {
   ownerId: Scalars['String']['input'];
+};
+
+
+export type QueryGetEntriesArgs = {
+  input: GetEntriesInput;
 };
 
 
@@ -193,13 +221,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
-  AccountInfo: ResolverTypeWrapper<AccountInfo>;
   AddVaultInput: AddVaultInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Category: ResolverTypeWrapper<Category>;
+  CategoryType: CategoryType;
   Currency: Currency;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Entry: ResolverTypeWrapper<Entry>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  GetEntriesInput: GetEntriesInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
@@ -213,12 +243,13 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Account: Account;
-  AccountInfo: AccountInfo;
   AddVaultInput: AddVaultInput;
   Boolean: Scalars['Boolean']['output'];
+  Category: Category;
   DateTime: Scalars['DateTime']['output'];
   Entry: Entry;
   Float: Scalars['Float']['output'];
+  GetEntriesInput: GetEntriesInput;
   Int: Scalars['Int']['output'];
   Mutation: {};
   Query: {};
@@ -229,14 +260,16 @@ export type ResolversParentTypes = {
 };
 
 export type AccountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
+  category?: Resolver<ResolversTypes['Category'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type AccountInfoResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AccountInfo'] = ResolversParentTypes['AccountInfo']> = {
+export type CategoryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['CategoryType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -245,7 +278,7 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Entry'] = ResolversParentTypes['Entry']> = {
-  account?: Resolver<ResolversTypes['AccountInfo'], ParentType, ContextType>;
+  account?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
   credit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -253,6 +286,7 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
   status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
   transactionDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   transactionId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -263,6 +297,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAllTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetAllTransactionsArgs, 'vaultId'>>;
   getAllVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetAllVaultsArgs, 'ownerId'>>;
+  getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
   getTransactionDetail?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionDetailArgs, 'transactionId'>>;
 };
 
@@ -297,7 +332,7 @@ export type VaultResolvers<ContextType = ApolloServerContext, ParentType extends
 
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
-  AccountInfo?: AccountInfoResolvers<ContextType>;
+  Category?: CategoryResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Entry?: EntryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
@@ -315,6 +350,13 @@ export type AddVaultMutationVariables = Exact<{
 
 export type AddVaultMutation = { __typename?: 'Mutation', addVault?: { __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date } | null };
 
+export type GetEntriesQueryVariables = Exact<{
+  input: GetEntriesInput;
+}>;
+
+
+export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: Status, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
+
 export type GetAllTransactionsQueryVariables = Exact<{
   vaultId: Scalars['String']['input'];
 }>;
@@ -327,7 +369,7 @@ export type GetTransactionDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, subject: string, description?: string | null, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account: { __typename?: 'AccountInfo', id: string, name: string } }> } | null };
+export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, subject: string, description?: string | null, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account: { __typename?: 'Account', id: string, name: string } }> } | null };
 
 export type GetAllVaultsQueryVariables = Exact<{
   ownerId: Scalars['String']['input'];
@@ -375,6 +417,62 @@ export function useAddVaultMutation(baseOptions?: Apollo.MutationHookOptions<Add
 export type AddVaultMutationHookResult = ReturnType<typeof useAddVaultMutation>;
 export type AddVaultMutationResult = Apollo.MutationResult<AddVaultMutation>;
 export type AddVaultMutationOptions = Apollo.BaseMutationOptions<AddVaultMutation, AddVaultMutationVariables>;
+export const GetEntriesDocument = gql`
+    query getEntries($input: GetEntriesInput!) {
+  getEntries(input: $input) {
+    id
+    vaultId
+    transactionDate
+    debit
+    credit
+    memo
+    account {
+      id
+      name
+      category {
+        id
+        name
+        type
+      }
+    }
+    transactionId
+    status
+  }
+}
+    `;
+
+/**
+ * __useGetEntriesQuery__
+ *
+ * To run a query within a React component, call `useGetEntriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetEntriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetEntriesQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetEntriesQuery(baseOptions: Apollo.QueryHookOptions<GetEntriesQuery, GetEntriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetEntriesQuery, GetEntriesQueryVariables>(GetEntriesDocument, options);
+      }
+export function useGetEntriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetEntriesQuery, GetEntriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetEntriesQuery, GetEntriesQueryVariables>(GetEntriesDocument, options);
+        }
+export function useGetEntriesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetEntriesQuery, GetEntriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetEntriesQuery, GetEntriesQueryVariables>(GetEntriesDocument, options);
+        }
+export type GetEntriesQueryHookResult = ReturnType<typeof useGetEntriesQuery>;
+export type GetEntriesLazyQueryHookResult = ReturnType<typeof useGetEntriesLazyQuery>;
+export type GetEntriesSuspenseQueryHookResult = ReturnType<typeof useGetEntriesSuspenseQuery>;
+export type GetEntriesQueryResult = Apollo.QueryResult<GetEntriesQuery, GetEntriesQueryVariables>;
 export const GetAllTransactionsDocument = gql`
     query getAllTransactions($vaultId: String!) {
   getAllTransactions(vaultId: $vaultId) {

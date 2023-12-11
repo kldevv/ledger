@@ -1,10 +1,4 @@
-import {
-  ColumnDef,
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { GetAllTransactionsQuery } from '@/api/graphql';

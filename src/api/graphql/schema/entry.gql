@@ -1,10 +1,25 @@
 type Entry {
   id: String!
+  vaultId: String!
   transactionDate: DateTime!
   debit: Float!
   credit: Float!
   memo: String
-  account: AccountInfo!
+  account: Account!
   transactionId: String!
   status: Status!
+}
+
+input GetEntriesInput {
+  vaultId: String!
+  startDate: DateTime
+  endDate: DateTime
+  transactionId: [String!]
+  status: [Status!]
+  memoSearch: String
+  accountId: [String!]
+  debitAtLeast: Float
+  debitNoMore: Float
+  creditAtLeast: Float
+  creditNoMore: Float
 }
