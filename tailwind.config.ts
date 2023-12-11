@@ -12,7 +12,7 @@ const config: Config = {
       current: 'currentColor',
       
       // base color palette
-      white: 'rgb(255,255,255)',  // #FFFFFF
+      "white": 'rgb(255,255,255)',  // #FFFFFF
       lightGray: 'rgb(249,250,251)',  // #F9FAFB
       midGray: 'rgb(229,231,235)',  // #E5E7EB
       darkMidGray: 'rgb(156,163,175)',  // #9CA3AF
