@@ -19,7 +19,7 @@ const config: Config = {
 
       // main color palette
       main: 'rgb(172,88,80)',  // #AC5850
-      lightAccent: 'rgb(226,126,97)',  // #E27E61
+      "light-accent": 'rgb(226,126,97)',  // #E27E61
       lightShades: 'rgb(250,249,248)',  // #FAF9F8
       darkAccent: 'rgb(176,135,158)',  // #B0879E
       darkShades: 'rgb(51,48,71)',  // #333047
