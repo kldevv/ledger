@@ -1,11 +1,52 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
-import Link from 'next/link';
-import { GetEntriesQuery, useGetEntriesQuery } from '@/api/graphql';
+import { Status, useGetEntriesQuery } from '@/api/graphql';
 import { StatusChip, Table } from '@/components/common';
 import { useFormatter, useVaultContext } from '@/hooks';
 
-type EntryTableData = GetEntriesQuery['getEntries'][0]
+export type EntryTableData = {
+  /**
+   * Entry id
+   */
+  id: string
+  /**
+   * Transaction date
+   */
+  transactionDate: Date
+  /**
+   * Entry debit
+   */
+  debit: number
+  /**
+   * Entry credit
+   */
+  credit: number
+  /**
+   * Entry status
+   */
+  status: Status
+  /**
+   * Entry account
+   */
+  account: {
+    /**
+     * Account id
+     */
+    id: string
+    /**
+     * Account name
+     */
+    name: string
+  }
+  /**
+   * Transaction id
+   */
+  transactionId: string
+  /**
+   * Entry memo
+   */
+  memo?: string | null
+}
 
 const columnHelper = createColumnHelper<EntryTableData>();
 
@@ -13,10 +54,14 @@ export type EntryTableProps = {
   /**
    * Omit transaction id column
    */
-  omitTransactionId?: boolean
+  omitTransactionId?: boolean;
+  /**
+   * Table data
+   */
+  data: EntryTableData[];
 };
 
-export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = false }) => {
+export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = false, data }) => {
   const { t } = useTranslation('entry');
   const [{ curVaultId }] = useVaultContext();
   const { formatDate } = useFormatter();
@@ -76,10 +121,8 @@ export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = fals
 
 
 const data: EntryTableData[] = [
-  {  
-    __typename: "Entry",
+  { 
     id: '0',
-    vaultId: '0',
     transactionDate: new Date(Date.now()),
     debit: 100.4,
     credit: 200.32,
@@ -89,11 +132,6 @@ const data: EntryTableData[] = [
     account: {
       id: '0',
       name: 'Bank account',
-      category: {
-        id: '100',
-        name: '12',
-        type: 'ASSETS',
-      }
     }
   }
 ]

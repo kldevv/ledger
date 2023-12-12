@@ -177,12 +177,13 @@ export type Transaction = {
   accrualDate: Scalars['DateTime']['output'];
   amount: Scalars['Float']['output'];
   count: Scalars['Int']['output'];
-  description?: Maybe<Scalars['String']['output']>;
+  createdDate: Scalars['DateTime']['output'];
   entries: Array<Entry>;
   id: Scalars['String']['output'];
+  note: Scalars['String']['output'];
   status: Status;
-  subject: Scalars['String']['output'];
   tags: Array<Tag>;
+  updatedDate: Scalars['DateTime']['output'];
 };
 
 export type Vault = {
@@ -375,12 +376,13 @@ export type TransactionResolvers<ContextType = ApolloServerContext, ParentType e
   accrualDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   amount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  note?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
-  subject?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
+  updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -447,14 +449,14 @@ export type GetAllTransactionsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllTransactionsQuery = { __typename?: 'Query', getAllTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, subject: string, description?: string | null, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetAllTransactionsQuery = { __typename?: 'Query', getAllTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
 export type GetTransactionDetailQueryVariables = Exact<{
   transactionId: Scalars['String']['input'];
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, subject: string, description?: string | null, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account: { __typename?: 'Account', id: string, name: string } }> } | null };
+export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, amount: number, count: number, status: Status, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, vaultId: string, transactionId: string, status: Status, account: { __typename?: 'Account', id: string, name: string } }> } | null };
 
 export type GetAllVaultsQueryVariables = Exact<{
   ownerId: Scalars['String']['input'];
@@ -700,8 +702,7 @@ export const GetAllTransactionsDocument = gql`
   getAllTransactions(vaultId: $vaultId) {
     id
     accrualDate
-    subject
-    description
+    note
     amount
     count
     status
@@ -750,8 +751,7 @@ export const GetTransactionDetailDocument = gql`
   getTransactionDetail(transactionId: $transactionId) {
     id
     accrualDate
-    subject
-    description
+    note
     amount
     count
     status
@@ -765,12 +765,16 @@ export const GetTransactionDetailDocument = gql`
       debit
       credit
       memo
+      vaultId
+      transactionId
       account {
         id
         name
       }
       status
     }
+    createdDate
+    updatedDate
   }
 }
     `;

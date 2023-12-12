@@ -1,5 +1,4 @@
 import prisma from "@/db/prisma/client"
-import { TransactionWithDetail } from "../type"
 
 export namespace ReadOne {
   export type Args = {
@@ -8,24 +7,64 @@ export namespace ReadOne {
      */
     id: string
   }
-
-  export type Returns = TransactionWithDetail | null
 }
 
-export const readOne = async ({ id }: ReadOne.Args): Promise<ReadOne.Returns> => {
+export const readOne = async ({ id }: ReadOne.Args) => {
   try {
-    return await prisma.transaction.findUnique({
-      where: {
-        id
-      },
-      include: {
-        tags: true, entries: {
-          include: {
-            account: true
+    return {
+      id,
+      note: 'Some random note',
+      tags: [{ id: '12', name: 'tag A' }, { id: '13', name: 'tag B' }],
+      accrualDate: new Date(),
+      createdDate: new Date(),
+      updatedDate: new Date(),
+      vaultId: '111',
+      entries: [
+        {
+          id: '0',
+          transactionDate: new Date(Date.now()),
+          debit: 100.4,
+          credit: 200.32,
+          memo: 'hello mom',
+          transactionId: '0',
+          status: 'COMPLETED',
+          createdDate: new Date(),
+          updatedDate: new Date(),
+          vaultId: '111',
+          account: {
+            id: '0',
+            name: 'Bank account',
+            createdDate: new Date(),
+            updatedDate: new Date(),
+            vaultId: '111',
+            category: {
+              id: '12',
+              name: 'Some category',
+              type: 'ASSETS',
+              vaultId: '111',
+              createdDate: new Date(),
+              updatedDate: new Date(),
+            }
           }
         }
-      }
-    })
+      ]
+    }
+    // return await prisma.transaction.findUnique({
+    //   where: {
+    //     id
+    //   },
+    //   include: {
+    //     tags: true, entries: {
+    //       include: {
+    //         account: {
+    //           include: {
+    //             category: true
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // })
   } catch (e) {
     throw e
   }
@@ -40,35 +79,27 @@ export namespace ReadMany {
     accrualDate?: Date
     // TODO: Support query by text
     /**
-     * Transaction subject
+     * Transaction note
      */
-    subject?: string
-    /**
-     * Transaction description
-     */
-    description?: string
+    note: string
     /**
      * Vault id
      */
     vaultId?: string
   }
-
-  export type Returns = TransactionWithDetail[]
 }
 
 export const readMany = async ({
   accrualDate,
   vaultId,
-  subject,
-  description
-}: ReadMany.Args): Promise<ReadMany.Returns> => {
+  note
+}: ReadMany.Args) => {
   try {
     return await prisma.transaction.findMany({
       where: {
         accrualDate,
         vaultId,
-        subject,
-        description
+        note
       },
       include: {
         tags: true, entries: {

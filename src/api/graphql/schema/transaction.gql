@@ -1,11 +1,12 @@
 type Transaction {
   id: String!
   accrualDate: DateTime!
-  subject: String!
-  description: String
+  note: String!
   amount: Float!
   count: Int!
   status: Status!
   tags: [Tag!]!
   entries: [Entry!]!
+  createdDate: DateTime!
+  updatedDate: DateTime!
 }

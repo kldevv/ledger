@@ -9,5 +9,17 @@
       "tags": "Tags",
       "id": "ID"
     }
+  },
+  "transaction-description-list": {
+    "title": {
+      "id": "ID",
+      "accrualDate": "Accrual Date",
+      "note": "Note",
+      "status": "Status",
+      "tags": "Tags",
+      "entryCount": "Number of Entries",
+      "createdDate": "Created Date",
+      "updatedDate": "Last Updated Date"
+    }
   }
 }

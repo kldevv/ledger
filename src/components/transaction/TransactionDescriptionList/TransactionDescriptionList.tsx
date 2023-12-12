@@ -1,72 +1,91 @@
-import { Card, StatusChip } from "@/components/common"
+import { Status } from "@/api/graphql";
+import { DescriptionList, DescriptionListItem, StatusChip, Tag } from "@/components/common"
+import { useFormatter } from "@/hooks";
+import { useTranslation } from "react-i18next";
 
-export const TransactionDescriptionList: React.FC = () => {
-  return (
-    <Card>
-      <div className="w-full">
-        <dl>
-          <div className="py-2 items-center grid grid-cols-2 gap-x-8">
-            <dt>
-              <div className="text-sm text-dark-shades">Accrual Date</div>
-            </dt>
-            <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-gray">
-                John
-              </div>
-            </dd>
-          </div>
-          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-mid-gray">
-            <dt>
-              <div className="text-sm text-dark-shades">Balance Changes</div>
-            </dt>
-            <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-gray">
-                A -100 L +80 E +20
-              </div>
-            </dd>
-          </div>
-          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-mid-gray">
-            <dt>
-              <div className="text-sm text-dark-shades">ID</div>
-            </dt>
-            <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-gray">
-                #1258405
-              </div>
-            </dd>
-          </div>
-          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-mid-gray">
-            <dt>
-              <div className="text-sm text-dark-shades">Number of entries</div>
-            </dt>
-            <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-gray">
-                3
-              </div>
-            </dd>
-          </div>
-          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-mid-gray">
-            <dt>
-              <div className="text-sm text-dark-shades">Status</div>
-            </dt>
-            <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-gray">
-                <StatusChip status="COMPLETED" />
-              </div>
-            </dd>
-          </div>
-          <div className="py-2 border-t items-center grid grid-cols-2 gap-x-8 border-t-mid-gray">
-            <dt>
-              <div className="text-sm text-dark-shades">Note</div>
-            </dt>
-            <dd>
-              <div className="max-w-xs text-sm font-light leading-6 text-gray">
-                NYC Subway
-              </div>
-            </dd>
-          </div>
-        </dl>
-      </div>
-    </Card>
-  );
-}
+type Data = {
+  /**
+   * Id
+   */
+  id: string;
+  /**
+   * Note
+   */
+  note: string;
+  /**
+   * Status
+   */
+  status: Status
+  /**
+   * Tags
+   */
+  tags: {
+    /**
+     * Tag id
+     */
+    id: string
+    /**
+     * Tag name
+     */
+    name: string
+  }[]
+  /**
+   * Accrual date
+   */
+  accrualDate: Date;
+  /**
+   * Updated date
+   */
+  updatedDate: Date;
+  /**
+   * Created date
+   */
+  createdDate: Date;
+};
+
+export interface TransactionDescriptionListProps {
+  /**
+   * Transaction detail
+   */
+  data: Data
+} 
+
+export const TransactionDescriptionList: React.FC<TransactionDescriptionListProps> = ({
+  data: { id, accrualDate, note, status, createdDate, updatedDate, tags },
+}) => {
+  const { t } = useTranslation('transaction');
+  const { formatDate } = useFormatter();
+
+  const items: DescriptionListItem[] = [
+    {
+      title: t('transaction-description-list.title.id'),
+      description: id,
+    },
+    {
+      title: t('transaction-description-list.title.accrualDate'),
+      description: formatDate(accrualDate),
+    },
+    {
+      title: t('transaction-description-list.title.note'),
+      description: note,
+    },
+    {
+      title: t('transaction-description-list.title.status'),
+      description: <StatusChip status={status} />,
+    },
+    {
+      title: t('transaction-description-list.title.tags'),
+      description: <div>{tags.map((tag) => <Tag {...tag} />)}</div>
+    },
+    {
+      title: t('transaction-description-list.title.createdDate'),
+      description: formatDate(createdDate),
+    },
+    {
+      title: t('transaction-description-list.title.updatedDate'),
+      description: formatDate(updatedDate),
+    },
+  ];
+
+  return <DescriptionList items={items} />;
+};

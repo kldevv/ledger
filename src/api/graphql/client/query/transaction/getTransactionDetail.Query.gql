@@ -2,8 +2,7 @@ query getTransactionDetail($transactionId: String!) {
   getTransactionDetail(transactionId: $transactionId) {
     id
     accrualDate
-    subject
-    description
+    note
     amount
     count
     status
@@ -23,5 +22,7 @@ query getTransactionDetail($transactionId: String!) {
       }
       status
     }
+    createdDate
+    updatedDate
   }
 }

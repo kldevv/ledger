@@ -2,8 +2,7 @@ query getAllTransactions($vaultId: String!) {
   getAllTransactions(vaultId: $vaultId) {
     id
     accrualDate
-    subject
-    description
+    note
     amount
     count
     status

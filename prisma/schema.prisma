@@ -37,8 +37,7 @@ model Account {
 model Transaction {
   id          String   @id @default(uuid())
   accrualDate DateTime
-  subject     String
-  description String?
+  note        String
   vault       Vault    @relation(fields: [vaultId], references: [id])
   vaultId     String
   entries     Entry[]

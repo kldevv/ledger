@@ -15,8 +15,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0001',
     accrualDate: new Date(Date.now()),
-    subject: 'Ferrari',
-    description: 'Buy a Ferrari',
+    note: 'Buy a Ferrari',
     amount: 100,
     count: 2,
     status: 'COMPLETED',
@@ -25,8 +24,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long description',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -35,8 +33,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long description',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -45,8 +42,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long description',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -55,8 +51,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long description',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -65,8 +60,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long description',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -75,8 +69,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long description',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -85,8 +78,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long description',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -98,8 +90,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long description',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -111,8 +102,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long description',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -124,8 +114,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long description',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -137,8 +126,7 @@ const data: TransactionTableDataModel[] = [
   {
     id: '0002',
     accrualDate: new Date(Date.now()),
-    subject: 'McClaren',
-    description: 'A very very very very very very very very long description',
+    note: 'A very very very very very very very very long note',
     amount: 200,
     count: 3,
     status: 'PENDING',
@@ -168,27 +156,13 @@ export const TransactionTable: React.FC = () => {
     columnHelper.accessor('count', {
       header: t('transaction-table.header.count'),
     }),
-    columnHelper.accessor('description', {
-      header: t('transaction-table.header.description'),
+    columnHelper.accessor('note', {
+      header: t('transaction-table.header.note'),
     }),
     columnHelper.accessor('status', {
       header: t('transaction-table.header.status'),
       cell: (props) => <StatusChip status={props.getValue()} />,
     }),
-    // columnHelper.accessor('tags', {
-    //   header: () => t('transaction-table.header.tags'),
-    //   cell: (props) => (
-    //     <div className="flex gap-1 text-xs text-left flex-col">
-    //       {props.getValue().map((tag) => (
-    //         <Link href={`/tag/${tag.id}`}>
-    //           <div className="max-w-fit rounded-xl bg-light-accent py-1 px-1 text-light-shades">
-    //             {tag.name}
-    //           </div>
-    //         </Link>
-    //       ))}
-    //     </div>
-    //   ),
-    // }),
     columnHelper.display({
       id: 'view',
       cell: (props) => (
