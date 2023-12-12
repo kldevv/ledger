@@ -5,13 +5,16 @@ type Query {
   # Category
   getCategories(input: GetCategoriesInput!): [Category!]!
 
-  # Vault
-  getAllVaults(ownerId: String!): [Vault!]!
+  # Entry
+  getEntries(input: GetEntriesInput!): [Entry!]!
+
+  # Tag
+  getTags(input: GetTagsInput!): [Tag!]!
 
   # Transaction
   getAllTransactions(vaultId: String!): [Transaction!]!
   getTransactionDetail(transactionId: String!): Transaction
 
-  # Entry
-  getEntries(input: GetEntriesInput!): [Entry!]!
+  # Vault
+  getAllVaults(ownerId: String!): [Vault!]!
 }

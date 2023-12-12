@@ -1,9 +1,9 @@
-import { Layout } from '@/components/layout';
+import { Hero, Layout } from '@/components/layout';
 
 const Page: React.FC = () => {
   return (
-    <Layout>
-      <h1 className="text-dark-shades font-extrabold text-3xl">Tags</h1>
+    <Layout prev={"/"}>
+      <Hero title='Tags' subtitle='All the tags of the current vault.'/>
     </Layout>
   );
 };
