@@ -3,7 +3,7 @@ import { Hero, Layout } from '@/components/layout';
 
 const Page: React.FC = () => {
   return (
-    <Layout>
+    <Layout prev="/">
       <Hero header="Accounts" subheader={"All accounts of the currently selecte vault."}/>
       <AccountTable />
     </Layout>
