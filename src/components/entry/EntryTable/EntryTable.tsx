@@ -34,7 +34,7 @@ export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = fals
     skip: curVaultId == null,
   });
 
-  const columns = [
+  const colDefs = [
     columnHelper.accessor('transactionDate', {
       header: t('entry-table.header.date'),
       cell: (props) => (
@@ -71,7 +71,7 @@ export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = fals
         ]),
   ];
 
-  return <Table data={data} colDefs={columns} />;
+  return <Table data={data} colDefs={colDefs} />;
 };
 
 

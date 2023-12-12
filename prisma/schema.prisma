@@ -25,6 +25,8 @@ model Account {
   name        String
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  String
+  vault       Vault    @relation(fields: [vaultId], references: [id])
+  vaultId     String
   entries     Entry[]
   createdDate DateTime @default(now())
   updatedDate DateTime @updatedAt
@@ -82,6 +84,7 @@ model Vault {
   ownerId      String
   entries      Entry[]
   categories   Category[]
+  accounts     Account[]
   transactions Transaction[]
   tags         Tag[]
   createdDate  DateTime      @default(now())

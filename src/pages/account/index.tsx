@@ -1,9 +1,11 @@
-import { Layout } from '@/components/layout';
+import { AccountTable } from '@/components/account';
+import { Hero, Layout } from '@/components/layout';
 
 const Page: React.FC = () => {
   return (
     <Layout>
-      <h1 className="text-dark-shades font-extrabold text-3xl">Accounts</h1>
+      <Hero header="Accounts" subheader={"All accounts of the currently selecte vault."}/>
+      <AccountTable />
     </Layout>
   );
 };

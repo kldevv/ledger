@@ -11,6 +11,10 @@ export namespace CreateOne {
      * Category id
      */
     categoryId: string
+    /**
+     * Vault id
+     */
+    vaultId: string
   }
 
   export type Returns = Account
@@ -18,13 +22,15 @@ export namespace CreateOne {
 
 export const createOne = async ({
   name,
-  categoryId
+  categoryId,
+  vaultId
 }: CreateOne.Args): Promise<CreateOne.Returns> => {
   try {
     return await prisma.account.create({
       data: {
         name,
-        categoryId
+        categoryId,
+        vaultId,
       }
     })
   } catch (e) {

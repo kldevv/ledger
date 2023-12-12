@@ -1,4 +1,7 @@
 type Query {
+  # Account
+  getAccounts(input: GetAccountsInput!): [Account!]!
+
   # Vault
   getAllVaults(ownerId: String!): [Vault!]!
 

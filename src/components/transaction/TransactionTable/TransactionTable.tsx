@@ -153,14 +153,16 @@ export const TransactionTable: React.FC = () => {
   const { t } = useTranslation('transaction')
   const { formatDate } = useFormatter()
 
-  const columns = [
+  const colDefs = [
     columnHelper.accessor('id', {
       header: t('transaction-table.header.id'),
     }),
     columnHelper.accessor('accrualDate', {
       header: t('transaction-table.header.date'),
       cell: (props) => (
-        <div className="whitespace-nowrap text-dark-shades">{formatDate(props.getValue())}</div>
+        <div className="whitespace-nowrap text-dark-shades">
+          {formatDate(props.getValue())}
+        </div>
       ),
     }),
     columnHelper.accessor('count', {
@@ -200,7 +202,5 @@ export const TransactionTable: React.FC = () => {
     }),
   ];
 
-  return (
-    <Table data={data} colDefs={columns}/>
-  );
+  return <Table data={data} colDefs={colDefs} />;
 };

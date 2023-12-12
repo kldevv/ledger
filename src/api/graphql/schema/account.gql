@@ -3,4 +3,14 @@ type Account {
   name: String!
   category: Category!
   vaultId: String!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+}
+
+input GetAccountsInput {
+  vaultId: String!
+  startDate: DateTime
+  endDate: DateTime
+  categoryId: [String!]
+  nameSearch: String
 }

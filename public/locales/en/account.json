@@ -1,0 +1,9 @@
+{
+  "account-table": {
+    "header": {
+      "name": "Name",
+      "category": "Category",
+      "id": "ID"
+    }
+  }
+}

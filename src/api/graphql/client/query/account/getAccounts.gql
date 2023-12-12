@@ -1,0 +1,13 @@
+query getAccounts($input: GetAccountsInput!) {
+  getAccounts(input: $input) {
+    id
+    category {
+      id
+      name
+    }
+    name
+    vaultId
+    createdDate
+    updatedDate
+  }
+}
