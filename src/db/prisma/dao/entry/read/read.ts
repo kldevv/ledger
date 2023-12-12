@@ -1,5 +1,5 @@
 import prisma from "@/db/prisma/client"
-import { EntryStatus } from "@prisma/client"
+import { CategoryType, EntryStatus } from "@prisma/client"
 import { EntryDetail } from "../type"
 
 export namespace ReadOne {
@@ -55,8 +55,6 @@ export namespace ReadMany {
      */
     vaultId?: string
   }
-
-  export type Returns = EntryDetail[]
 }
 
 export const readMany = async ({ 
@@ -65,24 +63,53 @@ export const readMany = async ({
   transactionId,
   status,
   vaultId
- }: ReadMany.Args): Promise<ReadMany.Returns> => {
+ }: ReadMany.Args) => {
   try {
-    return await prisma.entry.findMany({
-      where: {
-        transactionDate,
-        accountId,
-        transactionId,
-        status,
-        vaultId,
-      },
-      include: {
+    return [
+      {
+        id: '0',
+        transactionDate: new Date(Date.now()),
+        debit: 100.4,
+        credit: 200.32,
+        memo: 'hello mom',
+        transactionId: '0',
+        status: EntryStatus.COMPLETED,
+        createdDate: new Date(),
+        updatedDate: new Date(),
+        vaultId: '111',
         account: {
-          include: {
-            category: true
+          id: '0',
+          name: 'Bank account',
+          createdDate: new Date(),
+          updatedDate: new Date(),
+          vaultId: '111',
+          category: {
+            id: '12',
+            name: 'Some category',
+            type: CategoryType.ASSETS,
+            vaultId: '111',
+            createdDate: new Date(),
+            updatedDate: new Date(),
           }
         }
       }
-    })
+    ]
+    // return await prisma.entry.findMany({
+    //   where: {
+    //     transactionDate,
+    //     accountId,
+    //     transactionId,
+    //     status,
+    //     vaultId,
+    //   },
+    //   include: {
+    //     account: {
+    //       include: {
+    //         category: true
+    //       }
+    //     }
+    //   }
+    // })
   } catch (e) {
     throw e
   }

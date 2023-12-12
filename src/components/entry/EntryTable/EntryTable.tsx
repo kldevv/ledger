@@ -58,7 +58,7 @@ export type EntryTableProps = {
   /**
    * Table data
    */
-  data: EntryTableData[];
+  data?: EntryTableData[];
 };
 
 export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = false, data }) => {
@@ -67,7 +67,7 @@ export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = fals
   const { formatDate } = useFormatter();
 
   const {
-    data: _,
+    data: { getEntries } = {},
     loading,
     error,
   } = useGetEntriesQuery({
@@ -76,7 +76,7 @@ export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = fals
         vaultId: curVaultId ?? '',
       },
     },
-    skip: curVaultId == null,
+    skip: curVaultId == null || data != null,
   });
 
   const colDefs = [
@@ -116,22 +116,5 @@ export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = fals
         ]),
   ];
 
-  return <Table data={data} colDefs={colDefs} />;
+  return <Table data={data ?? getEntries ?? []} colDefs={colDefs} />;
 };
-
-
-const data: EntryTableData[] = [
-  { 
-    id: '0',
-    transactionDate: new Date(Date.now()),
-    debit: 100.4,
-    credit: 200.32,
-    memo: 'hello mom',
-    transactionId: '0',
-    status: 'COMPLETED',
-    account: {
-      id: '0',
-      name: 'Bank account',
-    }
-  }
-]

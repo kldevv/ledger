@@ -1,7 +1,7 @@
 {
   "transaction-table": {
     "header": {
-      "description": "Description",
+      "note": "Note",
       "date": "Date",
       "amount": "Amount",
       "count": "Count",
