@@ -27,8 +27,6 @@ export const AccountTable: React.FC = () => {
     skip: curVaultId == null,
   });
 
-  console.log(data);
-
   const colDefs = [
     columnHelper.accessor('id', {
       header: t('account-table.header.id'),

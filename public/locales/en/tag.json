@@ -1,0 +1,12 @@
+{
+  "tag-table": {
+    "header": {
+      "id": "ID",
+      "name": "Name"
+    }
+  },
+  "page": {
+    "title": "Tags",
+    "subtitle": "All the tags of the current vault."
+  }
+}
