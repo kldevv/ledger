@@ -2,6 +2,9 @@ type Query {
   # Account
   getAccounts(input: GetAccountsInput!): [Account!]!
 
+  # Category
+  getCategories(input: GetCategoriesInput!): [Category!]!
+
   # Vault
   getAllVaults(ownerId: String!): [Vault!]!
 

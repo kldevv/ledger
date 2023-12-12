@@ -39,14 +39,16 @@ export type AddVaultInput = {
 
 export type Category = {
   __typename?: 'Category';
+  createdDate: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   type: CategoryType;
+  updatedDate: Scalars['DateTime']['output'];
   vaultId: Scalars['String']['output'];
 };
 
 export type CategoryType =
-  | 'ASSET'
+  | 'ASSETS'
   | 'EQUITY'
   | 'LIABILITIES';
 
@@ -73,6 +75,12 @@ export type GetAccountsInput = {
   endDate?: InputMaybe<Scalars['DateTime']['input']>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
+  vaultId: Scalars['String']['input'];
+};
+
+export type GetCategoriesInput = {
+  nameSearch?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<CategoryType>;
   vaultId: Scalars['String']['input'];
 };
 
@@ -105,6 +113,7 @@ export type Query = {
   getAccounts: Array<Account>;
   getAllTransactions: Array<Transaction>;
   getAllVaults: Array<Vault>;
+  getCategories: Array<Category>;
   getEntries: Array<Entry>;
   getTransactionDetail?: Maybe<Transaction>;
 };
@@ -122,6 +131,11 @@ export type QueryGetAllTransactionsArgs = {
 
 export type QueryGetAllVaultsArgs = {
   ownerId: Scalars['String']['input'];
+};
+
+
+export type QueryGetCategoriesArgs = {
+  input: GetCategoriesInput;
 };
 
 
@@ -248,6 +262,7 @@ export type ResolversTypes = {
   Entry: ResolverTypeWrapper<Entry>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   GetAccountsInput: GetAccountsInput;
+  GetCategoriesInput: GetCategoriesInput;
   GetEntriesInput: GetEntriesInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -269,6 +284,7 @@ export type ResolversParentTypes = {
   Entry: Entry;
   Float: Scalars['Float']['output'];
   GetAccountsInput: GetAccountsInput;
+  GetCategoriesInput: GetCategoriesInput;
   GetEntriesInput: GetEntriesInput;
   Int: Scalars['Int']['output'];
   Mutation: {};
@@ -290,9 +306,11 @@ export type AccountResolvers<ContextType = ApolloServerContext, ParentType exten
 };
 
 export type CategoryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
+  createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['CategoryType'], ParentType, ContextType>;
+  updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -322,6 +340,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountsArgs, 'input'>>;
   getAllTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetAllTransactionsArgs, 'vaultId'>>;
   getAllVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetAllVaultsArgs, 'ownerId'>>;
+  getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoriesArgs, 'input'>>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
   getTransactionDetail?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionDetailArgs, 'transactionId'>>;
 };
@@ -381,6 +400,13 @@ export type GetAccountsQueryVariables = Exact<{
 
 
 export type GetAccountsQuery = { __typename?: 'Query', getAccounts: Array<{ __typename?: 'Account', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string } }> };
+
+export type GetCategoriesQueryVariables = Exact<{
+  input: GetCategoriesInput;
+}>;
+
+
+export type GetCategoriesQuery = { __typename?: 'Query', getCategories: Array<{ __typename?: 'Category', id: string, name: string, type: CategoryType, vaultId: string, createdDate: Date, updatedDate: Date }> };
 
 export type GetEntriesQueryVariables = Exact<{
   input: GetEntriesInput;
@@ -497,6 +523,51 @@ export type GetAccountsQueryHookResult = ReturnType<typeof useGetAccountsQuery>;
 export type GetAccountsLazyQueryHookResult = ReturnType<typeof useGetAccountsLazyQuery>;
 export type GetAccountsSuspenseQueryHookResult = ReturnType<typeof useGetAccountsSuspenseQuery>;
 export type GetAccountsQueryResult = Apollo.QueryResult<GetAccountsQuery, GetAccountsQueryVariables>;
+export const GetCategoriesDocument = gql`
+    query getCategories($input: GetCategoriesInput!) {
+  getCategories(input: $input) {
+    id
+    name
+    type
+    vaultId
+    createdDate
+    updatedDate
+  }
+}
+    `;
+
+/**
+ * __useGetCategoriesQuery__
+ *
+ * To run a query within a React component, call `useGetCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCategoriesQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetCategoriesQuery(baseOptions: Apollo.QueryHookOptions<GetCategoriesQuery, GetCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, options);
+      }
+export function useGetCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoriesQuery, GetCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, options);
+        }
+export function useGetCategoriesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetCategoriesQuery, GetCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, options);
+        }
+export type GetCategoriesQueryHookResult = ReturnType<typeof useGetCategoriesQuery>;
+export type GetCategoriesLazyQueryHookResult = ReturnType<typeof useGetCategoriesLazyQuery>;
+export type GetCategoriesSuspenseQueryHookResult = ReturnType<typeof useGetCategoriesSuspenseQuery>;
+export type GetCategoriesQueryResult = Apollo.QueryResult<GetCategoriesQuery, GetCategoriesQueryVariables>;
 export const GetEntriesDocument = gql`
     query getEntries($input: GetEntriesInput!) {
   getEntries(input: $input) {

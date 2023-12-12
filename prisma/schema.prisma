@@ -107,7 +107,7 @@ enum EntryStatus {
 }
 
 enum CategoryType {
-  ASSET
+  ASSETS
   LIABILITIES
   EQUITY
 }

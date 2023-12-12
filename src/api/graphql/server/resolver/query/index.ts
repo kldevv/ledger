@@ -1,4 +1,5 @@
 export * from './account'
+export * from './category'
 export * from './entry'
 export * from './transaction'
 export * from './vault'

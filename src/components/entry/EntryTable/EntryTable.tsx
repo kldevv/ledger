@@ -92,7 +92,7 @@ const data: EntryTableData[] = [
       category: {
         id: '100',
         name: '12',
-        type: 'ASSET',
+        type: 'ASSETS',
       }
     }
   }

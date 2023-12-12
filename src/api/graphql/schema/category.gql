@@ -3,4 +3,12 @@ type Category {
   name: String!
   type: CategoryType!
   vaultId: String!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+}
+
+input GetCategoriesInput {
+  vaultId: String!
+  nameSearch: String
+  type: CategoryType
 }

@@ -1,0 +1,14 @@
+{
+  "category-table": {
+    "header": {
+      "id": "ID",
+      "name": "Name",
+      "type": "Accounting term"
+    },
+    "type": {
+      "ASSETS": "Assets",
+      "EQUITY": "Equity",
+      "LIABILITIES": "Liabilities"
+    }
+  }
+}

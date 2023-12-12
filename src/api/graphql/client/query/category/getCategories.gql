@@ -1,0 +1,10 @@
+query getCategories($input: GetCategoriesInput!) {
+  getCategories(input: $input) {
+    id
+    name
+    type
+    vaultId
+    createdDate
+    updatedDate
+  }
+}
