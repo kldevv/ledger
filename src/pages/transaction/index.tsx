@@ -5,8 +5,8 @@ const Page: React.FC = () => {
   return (
     <Layout prev="/">
       <Hero
-        header="Transactions"
-        subheader="All transactions for the currently selected vault."
+        title="Transactions"
+        subtitle="All transactions for the currently selected vault."
       />
       <TransactionTable />
     </Layout>

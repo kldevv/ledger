@@ -6,8 +6,8 @@ const Page: React.FC = () => {
   return (
     <Layout prev="/transaction">
       <Hero
-        header="Transaction Detail"
-        subheader="View and edit the information of transaction."
+        title="Transaction Detail"
+        subtitle="View and edit the information of transaction."
       />
       <TransactionDescriptionList />
       <EntryTable omitTransactionId />

@@ -1,19 +1,19 @@
 export type HeroProps = {
   /**
-   * Header
+   * Title
    */
-  header: string
+  title: string
   /**
    * Sub header
    */
-  subheader: string
+  subtitle: string
 }
 
-export const Hero: React.FC<HeroProps> = ({ header, subheader}) => {
+export const Hero: React.FC<HeroProps> = ({ title, subtitle }) => {
   return (
     <>
-      <h1 className="text-dark-shades font-extrabold text-3xl">{header}</h1>
-      <p className="text-gray text-base">{subheader}</p>
+      <h1 className="text-dark-shades font-extrabold text-3xl">{title}</h1>
+      <p className="text-gray text-base">{subtitle}</p>
     </>
   );
-}
+};
