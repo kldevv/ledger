@@ -18,6 +18,6 @@ export const SubmitButton: React.FC<SubmitButtonProps> = forwardRef(({ loading, 
   }, [loading, isSubmitting]);
 
   return (
-    <Button disabled={isDisabled} loading={isLoading} {...props} type="submit" />
+    <Button className="max-w-xs text-sm leading-6 font-medium bg-light-accent text-light-shades py-1 px-3 rounded-md my-2 disabled:bg-mid-gray" disabled={isDisabled} loading={isLoading} {...props} type="submit" />
   );
 });

@@ -1,4 +1,5 @@
 import { Layout } from '@/components/layout';
+import { CreateVaultForm } from '@/components/vault';
 
 const Page: React.FC = () => {
   return (
@@ -8,6 +9,7 @@ const Page: React.FC = () => {
         <p className="text-gray text-base">
           Create a new vault to help you manage transactions, categories, accounts, and tags in your chosen currency, isolated from other vaults.
         </p>
+        <CreateVaultForm />
       </div>
     </Layout>
   );
