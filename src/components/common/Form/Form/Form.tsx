@@ -1,16 +1,17 @@
-import { forwardRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import type {
   FieldValues,
   SubmitHandler,
   UseFormReturn,
 } from 'react-hook-form';
 import { FormProvider } from 'react-hook-form';
+import { InputProps, createFormInput } from '..';
 
-export type createFormProps<TFieldValues extends FieldValues> = {
+export interface createFormProps<TFieldValues extends FieldValues> {
   /**
-   * Set of methods returned by the react-hook-form `useForm` hook
+   * React hook form returns
    */
-  reactHookFormMethods: UseFormReturn<TFieldValues>;
+  useFormReturns: UseFormReturn<TFieldValues>;
   /**
    * Is default form behavior enabled?
    *
@@ -31,38 +32,38 @@ export interface FormProps<TFieldValues extends FieldValues>
   onSubmit: SubmitHandler<TFieldValues>;
 }
 
-/**
- * A helper method to manufacture a new form with a context provider
- */
+export type Form<TFieldValues extends FieldValues> = React.FC<
+  FormProps<TFieldValues>
+> & {
+  Input: React.FC<InputProps<TFieldValues>>;
+};
+
 export const createForm = <TFieldValues extends FieldValues>({
-  reactHookFormMethods,
+  useFormReturns,
   enableDefault = false,
 }: createFormProps<TFieldValues>) => {
-  const Form: React.FC<FormProps<TFieldValues>> = forwardRef(
-    useCallback(
-      ({ children, onSubmit, ...props }, ref) => {
-        const handleOnSubmit = useCallback(
-          (event: React.FormEvent<HTMLFormElement>) => {
-            if (!enableDefault) {
-              event.preventDefault();
-            }
+  const Form: Form<TFieldValues> = ({ children, onSubmit, ...props }) => {
+    const handleOnSubmit = useCallback(
+      (event: React.FormEvent<HTMLFormElement>) => {
+        if (!enableDefault) {
+          event.preventDefault();
+        }
 
-            void reactHookFormMethods.handleSubmit(onSubmit)(event);
-          },
-          [onSubmit]
-        );
-
-        return (
-          <FormProvider {...reactHookFormMethods}>
-            <form {...props} ref={ref} onSubmit={handleOnSubmit}>
-              {children}
-            </form>
-          </FormProvider>
-        );
+        void useFormReturns.handleSubmit(onSubmit)(event);
       },
-      [reactHookFormMethods, enableDefault]
-    )
-  );
+      [onSubmit]
+    );
+
+    return (
+      <FormProvider {...useFormReturns}>
+        <form {...props} onSubmit={handleOnSubmit}>
+          {children}
+        </form>
+      </FormProvider>
+    );
+  };
+
+  Form.Input = createFormInput<TFieldValues>();
 
   return Form;
 };

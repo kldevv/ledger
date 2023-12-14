@@ -16,7 +16,7 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({ items }) => {
       <div className="w-full">
         <dl>
           {items.map((item) => (
-            <Item {...item}/>
+            <Item key={item.title} {...item}/>
           ))}
         </dl>
       </div>

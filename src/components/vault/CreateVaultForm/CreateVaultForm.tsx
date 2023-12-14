@@ -1,5 +1,5 @@
-import { Card, useForm } from "@/components/common"
-import { Input, SubmitButton } from "@/components/common/Form/Fields"
+import { Card, useForm, SubmitButton, createFormInput } from '@/components/common';
+import { ErrorMessage } from '@hookform/error-message';
 import { useCallback } from "react"
 import { z } from "zod"
 
@@ -17,7 +17,7 @@ const schema = z.object({
 type FieldValues = z.infer<typeof schema>
 
 export const CreateVaultForm = () => {
-  const { Form, methods: { watch } } = useForm<FieldValues>({
+  const [ Form ] = useForm<FieldValues>({
     schema,
   });
 
@@ -29,13 +29,9 @@ export const CreateVaultForm = () => {
     <Card variant="sm">
       <Form onSubmit={handleOnSubmit}>
         <div className="flex flex-col">
-          <Input label="Name" name="name" placeholder="Vault name" />
-          <Input
-            label="Currency"
-            name="currency"
-            placeholder="Vault currency"
-          />
-          <SubmitButton>Create</SubmitButton>
+          <Form.Input name="name" label="Name" />
+          <Form.Input name="currency" label="Currency" />
+          <SubmitButton>CREATE</SubmitButton>
         </div>
       </Form>
     </Card>
