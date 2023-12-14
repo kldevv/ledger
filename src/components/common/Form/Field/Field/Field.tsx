@@ -39,7 +39,7 @@ export const Field: React.FC<FieldProps> = ({ name, inputId, label, children }) 
         name={name}
         errors={errors}
         render={({ message }) => (
-          <p className="text-xs font-normal text-red">{message}</p>
+          <span role='alert' className="text-xs font-normal text-red">{message}</span>
         )}
       />
     </div>
