@@ -1,7 +1,6 @@
-import { Card, useForm, SubmitButton, createFormInput } from '@/components/common';
-import { ErrorMessage } from '@hookform/error-message';
-import { useCallback } from "react"
-import { z } from "zod"
+import { Card, useForm, SubmitButton } from '@/components/common';
+import { useCallback } from 'react';
+import { z } from 'zod';
 
 const schema = z.object({
   /**
@@ -11,13 +10,13 @@ const schema = z.object({
   /**
    * Vault currency
    */
-  currency: z.enum(['NTD', 'USD'] as const)
-})
+  currency: z.enum(['NTD', 'USD'] as const),
+});
 
-type FieldValues = z.infer<typeof schema>
+type FieldValues = z.infer<typeof schema>;
 
 export const CreateVaultForm = () => {
-  const [ Form ] = useForm<FieldValues>({
+  const [Form] = useForm<FieldValues>({
     schema,
   });
 
@@ -29,11 +28,44 @@ export const CreateVaultForm = () => {
     <Card variant="sm">
       <Form onSubmit={handleOnSubmit}>
         <div className="flex flex-col">
-          <Form.Input name="name" label="Name" />
-          <Form.Input name="currency" label="Currency" />
+          <Form.Input name="name" label="Name" placeholder="Vault name..." />
+          <Form.Select
+            name="currency"
+            label="Currency"
+            items={[
+              {
+                value: 'USD',
+                label: 'USD',
+              },
+              {
+                value: 'NTD',
+                label: 'NTD',
+              },
+              {
+                value: 'EUR',
+                label: 'EUR',
+              },
+              {
+                value: 'A',
+                label: 'A',
+              },
+              {
+                value: 'B',
+                label: 'B',
+              },
+              {
+                value: 'C',
+                label: 'C',
+              },
+              {
+                value: 'D',
+                label: 'D',
+              },
+            ]}
+          />
           <SubmitButton>CREATE</SubmitButton>
         </div>
       </Form>
     </Card>
-  ); 
-}
+  );
+};

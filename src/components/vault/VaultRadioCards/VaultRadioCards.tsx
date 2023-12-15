@@ -23,7 +23,7 @@ export const VaultRadioCards: React.FC = () => {
       onValueChange={handleOnValueChange}
       className="max-w-sm mt-3"
     >
-      <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-2 min-w-max">
         {vaults?.map((prop) => {
           return <VaultRadioCard key={prop.id} {...prop} />;
         })}

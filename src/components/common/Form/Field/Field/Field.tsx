@@ -4,9 +4,9 @@ import { useFormContext } from 'react-hook-form';
 
 export interface FieldProps {
   /**
-   * Field input id
+   * Field for id
    */
-  inputId: string;
+  htmlFor: string;
   /**
    * Field input name
    */
@@ -21,7 +21,7 @@ export interface FieldProps {
   children: React.ReactNode;
 }
 
-export const Field: React.FC<FieldProps> = ({ name, inputId, label, children }) => {
+export const Field: React.FC<FieldProps> = ({ name, htmlFor, label, children }) => {
   const {
     formState: { errors },
   } = useFormContext();
@@ -30,7 +30,7 @@ export const Field: React.FC<FieldProps> = ({ name, inputId, label, children }) 
     <div className="max-w-xs flex flex-col my-2">
       <Label.Root
         className="w-full text-xs leading-6 font-medium text-dark-shades"
-        htmlFor={inputId}
+        htmlFor={htmlFor}
       >
         {label}
       </Label.Root>
@@ -39,7 +39,9 @@ export const Field: React.FC<FieldProps> = ({ name, inputId, label, children }) 
         name={name}
         errors={errors}
         render={({ message }) => (
-          <span role='alert' className="text-xs font-normal text-red">{message}</span>
+          <span role="alert" className="text-xs font-normal text-red">{`${
+            message.split('.')[0]
+          }.`}</span>
         )}
       />
     </div>

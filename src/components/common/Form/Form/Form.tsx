@@ -5,7 +5,7 @@ import type {
   UseFormReturn,
 } from 'react-hook-form';
 import { FormProvider } from 'react-hook-form';
-import { InputProps, createFormInput } from '..';
+import { InputProps, SelectProps, createFormInput, createFormSelect } from '../Field';
 
 export interface createFormProps<TFieldValues extends FieldValues> {
   /**
@@ -36,6 +36,7 @@ export type Form<TFieldValues extends FieldValues> = React.FC<
   FormProps<TFieldValues>
 > & {
   Input: React.FC<InputProps<TFieldValues>>;
+  Select: React.FC<SelectProps<TFieldValues>>;
 };
 
 export const createForm = <TFieldValues extends FieldValues>({
@@ -64,6 +65,7 @@ export const createForm = <TFieldValues extends FieldValues>({
   };
 
   Form.Input = createFormInput<TFieldValues>();
+  Form.Select = createFormSelect<TFieldValues>();
 
   return Form;
 };

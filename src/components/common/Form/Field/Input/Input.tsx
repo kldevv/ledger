@@ -1,7 +1,7 @@
 import { FieldValues, Path, useController } from 'react-hook-form';
 import classNames from 'classnames';
-import { useMemo } from 'react';
 import { Field } from '../Field';
+import { useMemo } from 'react';
 
 export interface InputProps<TFieldValues extends FieldValues>
   extends Omit<
@@ -32,27 +32,33 @@ export const createFormInput = <TFieldValues extends FieldValues>() => {
       name,
     });
 
-    const inputId = `id-${name}`;
-    const cn = classNames(
-      'mt-1, py-1.5 px-3',
-      'w-full',
-      'hadow-sm rounded-md shadow-mid-gray border border-mid-gray border-dark-gray',
-      'font-normal text-sm leading-6 text-dark-shades',
-      'focus:outline-light-accent focus:bg-light-accent-halo',
-      className
+    const htmlFor = useMemo(() => `input-id-${name}`, [name]);
+
+    const cn = useMemo(() =>
+       classNames(
+        'py-1.5 px-3',
+        'w-full',
+        'rounded-md border border-mid-gray',
+        'font-normal text-sm leading-6 text-dark-shades',
+        'focus:outline-light-accent focus:bg-light-accent-halo',
+        className
+      ),
+      [className]
     );
 
     return (
-      <Field inputId={inputId} label={label} name={name}>
+      <Field htmlFor={htmlFor} label={label} name={name}>
         <input
+          {...props}
           type={type}
-          id={inputId}
           className={cn}
-          defaultValue={value ?? ''}
+          id={htmlFor}
+          autoComplete="on"
+          name={name}
+          value={value ?? ''}
           onChange={onChange}
           onBlur={onBlur}
           ref={ref}
-          {...props}
         />
       </Field>
     );

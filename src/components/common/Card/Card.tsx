@@ -34,6 +34,7 @@ export const Card: React.FC<CardProps> = ({ children, variant = 'md' }) => {
     'rounded-lg shadow box-shadow shadow-gray',
     'overflow-auto',
     'max-h-screen',
+    'min-w-fit',
     maxWidth
   );
 

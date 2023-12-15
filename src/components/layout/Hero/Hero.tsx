@@ -13,7 +13,7 @@ export const Hero: React.FC<HeroProps> = ({ title, subtitle }) => {
   return (
     <>
       <h1 className="text-dark-shades font-extrabold text-3xl">{title}</h1>
-      <p className="text-gray text-base">{subtitle}</p>
+      <p className="text-gray text-base max-w-md">{subtitle}</p>
     </>
   );
 };
