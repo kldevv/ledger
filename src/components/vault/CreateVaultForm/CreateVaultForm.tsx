@@ -59,7 +59,7 @@ export const CreateVaultForm = () => {
               },
               {
                 value: 'D',
-                label: 'D',
+                label: '',
               },
             ]}
           />
