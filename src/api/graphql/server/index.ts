@@ -6,6 +6,7 @@ import { ApolloServerContext } from "./context";
 import { PrismaDataSource } from "@/db/prisma";
 import { DateTimeResolver } from "graphql-scalars";
 import { loadFilesSync } from "@graphql-tools/load-files";
+import { StaticDataSource } from "@/db/static";
 
 const typeDefs = loadFilesSync("src/api/graphql/schema/**/*.gql");
 
@@ -20,7 +21,8 @@ const server = new ApolloServer<ApolloServerContext>({
 
 export default startServerAndCreateNextHandler<NextApiRequest, ApolloServerContext>(server, {
   context: async (req, res) => ({ req, res, dataSources: {
-      prisma: new PrismaDataSource()
+      prisma: new PrismaDataSource(),
+      static: new StaticDataSource(),
     }
   }),
 })

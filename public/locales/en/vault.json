@@ -1,0 +1,13 @@
+{
+  "create-vault-form": {
+    "label": {
+      "name": "Vault Name",
+      "currency": "Vault Currency"
+    },
+    "placeholder": {
+      "name": "Choose a name",
+      "currency": "Choose a currency"
+    },
+    "submit": "CREATE"
+  }
+}

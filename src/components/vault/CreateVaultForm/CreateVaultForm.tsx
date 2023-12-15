@@ -1,5 +1,7 @@
+import { useGetCurrencyMetaQuery } from '@/api/graphql';
 import { Card, useForm, SubmitButton } from '@/components/common';
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 const schema = z.object({
@@ -10,15 +12,19 @@ const schema = z.object({
   /**
    * Vault currency
    */
-  currency: z.enum(['NTD', 'USD'] as const),
-});
+  currency: z.string(),
+})
 
 type FieldValues = z.infer<typeof schema>;
 
 export const CreateVaultForm = () => {
+  const {data: { getCurrencyMeta } = {}, loading, error} = useGetCurrencyMetaQuery()
+  const { t } = useTranslation('vault')
+
   const [Form] = useForm<FieldValues>({
     schema,
   });
+
 
   const handleOnSubmit = useCallback((value: FieldValues) => {
     console.log(value);
@@ -28,42 +34,20 @@ export const CreateVaultForm = () => {
     <Card variant="sm">
       <Form onSubmit={handleOnSubmit}>
         <div className="flex flex-col">
-          <Form.Input name="name" label="Name" placeholder="Vault name..." />
+          <Form.Input
+            name="name"
+            label={t('create-vault-form.label.name')}
+            placeholder={t('create-vault-form.placeholder.name')}
+          />
           <Form.Select
             name="currency"
-            label="Currency"
-            items={[
-              {
-                value: 'USD',
-                label: 'USD',
-              },
-              {
-                value: 'NTD',
-                label: 'NTD',
-              },
-              {
-                value: 'EUR',
-                label: 'EUR',
-              },
-              {
-                value: 'A',
-                label: 'A',
-              },
-              {
-                value: 'B',
-                label: 'B',
-              },
-              {
-                value: 'C',
-                label: 'C',
-              },
-              {
-                value: 'D',
-                label: '',
-              },
-            ]}
+            label={t('create-vault-form.label.currency')}
+            placeholder={t('create-vault-form.placeholder.currency')}
+            items={getCurrencyMeta ?? []}
           />
-          <SubmitButton>CREATE</SubmitButton>
+          <SubmitButton>
+            {t('create-vault-form.submit')}
+          </SubmitButton>
         </div>
       </Form>
     </Card>
