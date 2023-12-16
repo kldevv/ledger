@@ -1,0 +1,10 @@
+query getVaults($input: GetVaultsInput!) {
+  getVaults(input: $input) {
+    id
+    name
+    currency
+    ownerId
+    createdDate
+    updatedDate
+  }
+}

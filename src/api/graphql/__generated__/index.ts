@@ -110,6 +110,12 @@ export type GetTagsInput = {
   vaultId: Scalars['String']['input'];
 };
 
+export type GetVaultsInput = {
+  currency?: InputMaybe<Currency>;
+  nameSearch?: InputMaybe<Scalars['String']['input']>;
+  ownerId: Scalars['String']['input'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addVault?: Maybe<Vault>;
@@ -130,6 +136,7 @@ export type Query = {
   getEntries: Array<Entry>;
   getTags: Array<Tag>;
   getTransactionDetail?: Maybe<Transaction>;
+  getVaults: Array<Vault>;
 };
 
 
@@ -165,6 +172,11 @@ export type QueryGetTagsArgs = {
 
 export type QueryGetTransactionDetailArgs = {
   transactionId: Scalars['String']['input'];
+};
+
+
+export type QueryGetVaultsArgs = {
+  input: GetVaultsInput;
 };
 
 export type Status =
@@ -289,6 +301,7 @@ export type ResolversTypes = {
   GetCategoriesInput: GetCategoriesInput;
   GetEntriesInput: GetEntriesInput;
   GetTagsInput: GetTagsInput;
+  GetVaultsInput: GetVaultsInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
@@ -313,6 +326,7 @@ export type ResolversParentTypes = {
   GetCategoriesInput: GetCategoriesInput;
   GetEntriesInput: GetEntriesInput;
   GetTagsInput: GetTagsInput;
+  GetVaultsInput: GetVaultsInput;
   Int: Scalars['Int']['output'];
   Mutation: {};
   Query: {};
@@ -379,6 +393,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
   getTags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagsArgs, 'input'>>;
   getTransactionDetail?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionDetailArgs, 'transactionId'>>;
+  getVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetVaultsArgs, 'input'>>;
 };
 
 export type TagResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
@@ -488,6 +503,13 @@ export type GetAllVaultsQueryVariables = Exact<{
 
 
 export type GetAllVaultsQuery = { __typename?: 'Query', getAllVaults: Array<{ __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date }> };
+
+export type GetVaultsQueryVariables = Exact<{
+  input: GetVaultsInput;
+}>;
+
+
+export type GetVaultsQuery = { __typename?: 'Query', getVaults: Array<{ __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date }> };
 
 
 export const AddVaultDocument = gql`
@@ -919,3 +941,48 @@ export type GetAllVaultsQueryHookResult = ReturnType<typeof useGetAllVaultsQuery
 export type GetAllVaultsLazyQueryHookResult = ReturnType<typeof useGetAllVaultsLazyQuery>;
 export type GetAllVaultsSuspenseQueryHookResult = ReturnType<typeof useGetAllVaultsSuspenseQuery>;
 export type GetAllVaultsQueryResult = Apollo.QueryResult<GetAllVaultsQuery, GetAllVaultsQueryVariables>;
+export const GetVaultsDocument = gql`
+    query getVaults($input: GetVaultsInput!) {
+  getVaults(input: $input) {
+    id
+    name
+    currency
+    ownerId
+    createdDate
+    updatedDate
+  }
+}
+    `;
+
+/**
+ * __useGetVaultsQuery__
+ *
+ * To run a query within a React component, call `useGetVaultsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVaultsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVaultsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetVaultsQuery(baseOptions: Apollo.QueryHookOptions<GetVaultsQuery, GetVaultsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetVaultsQuery, GetVaultsQueryVariables>(GetVaultsDocument, options);
+      }
+export function useGetVaultsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVaultsQuery, GetVaultsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetVaultsQuery, GetVaultsQueryVariables>(GetVaultsDocument, options);
+        }
+export function useGetVaultsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVaultsQuery, GetVaultsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetVaultsQuery, GetVaultsQueryVariables>(GetVaultsDocument, options);
+        }
+export type GetVaultsQueryHookResult = ReturnType<typeof useGetVaultsQuery>;
+export type GetVaultsLazyQueryHookResult = ReturnType<typeof useGetVaultsLazyQuery>;
+export type GetVaultsSuspenseQueryHookResult = ReturnType<typeof useGetVaultsSuspenseQuery>;
+export type GetVaultsQueryResult = Apollo.QueryResult<GetVaultsQuery, GetVaultsQueryVariables>;

@@ -1,5 +1,5 @@
 import { Layout } from '@/components/layout';
-import { AddVaultCard, VaultRadioCards } from '@/components/vault';
+import { VaultTable } from '@/components/vault';
 
 const Page: React.FC = () => {
   return (
@@ -10,10 +10,7 @@ const Page: React.FC = () => {
           Switch to a different vault or create a new one.
         </p>
       </div>
-      <div className="flex flex-col gap-y-2">
-        <VaultRadioCards />
-        <AddVaultCard />
-      </div>
+      <VaultTable />
     </Layout>
   );
 };

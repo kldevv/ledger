@@ -9,5 +9,18 @@
       "currency": "Choose a currency"
     },
     "submit": "CREATE"
+  },
+  "vault-table": {
+    "header": {
+      "id": "ID",
+      "name": "Name",
+      "currency": "Currency",
+      "createdDate": "Created Date",
+      "updatedDate": "Updated Date"
+    },
+    "button": {
+      "switch": "Switch",
+      "selected": "SELECTED"
+    }
   }
 }

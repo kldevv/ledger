@@ -7,6 +7,12 @@ type Vault {
   updatedDate: DateTime!
 }
 
+input GetVaultsInput {
+  ownerId: String!
+  nameSearch: String
+  currency: Currency
+}
+
 input AddVaultInput {
   name: String!
   currency: Currency!
