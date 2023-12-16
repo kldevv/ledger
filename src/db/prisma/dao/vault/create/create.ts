@@ -16,19 +16,25 @@ export namespace CreateOne {
      */
     ownerId: string
   }
-
-  export type Returns = Vault
 }
 
-export const createOne = async ({ name, currency, ownerId }: CreateOne.Args): Promise<CreateOne.Returns> => {
+export const createOne = async ({ name, currency, ownerId }: CreateOne.Args) => {
   try {
-    return await prisma.vault.create({
-      data: {
-        name,
-        currency,
-        ownerId
-      },
-    })
+    return {
+      id: '000',
+      name,
+      currency,
+      ownerId,
+      createdDate: new Date(),
+      updatedDate: new Date()
+    }
+    // return await prisma.vault.create({
+    //   data: {
+    //     name,
+    //     currency,
+    //     ownerId
+    //   },
+    // })
   } catch (e) {
     throw e
   }

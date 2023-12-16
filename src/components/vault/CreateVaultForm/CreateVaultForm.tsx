@@ -1,5 +1,6 @@
-import { useGetCurrencyMetaQuery } from '@/api/graphql';
+import { useAddVaultMutation, useGetCurrencyMetaQuery } from '@/api/graphql';
 import { Card, useForm, SubmitButton } from '@/components/common';
+import { Currency } from '@prisma/client';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -12,22 +13,31 @@ const schema = z.object({
   /**
    * Vault currency
    */
-  currency: z.string(),
+  currency: z.nativeEnum(Currency),
 })
 
 type FieldValues = z.infer<typeof schema>;
 
 export const CreateVaultForm = () => {
-  const {data: { getCurrencyMeta } = {}, loading, error} = useGetCurrencyMetaQuery()
+  const { data: { getCurrencyMeta } = {}, loading, error } = useGetCurrencyMetaQuery()
+  const [ addVault ] = useAddVaultMutation({
+    onCompleted: (data) => {console.log(data)}
+  })
   const { t } = useTranslation('vault')
 
   const [Form] = useForm<FieldValues>({
     schema,
   });
 
-
   const handleOnSubmit = useCallback((value: FieldValues) => {
-    console.log(value);
+    addVault({
+      variables: {
+        input: {
+          ...value,
+          ownerId: '000'
+        }
+      }
+    })
   }, []);
 
   return (

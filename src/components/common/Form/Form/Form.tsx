@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type {
   FieldValues,
   SubmitHandler,
@@ -44,16 +44,26 @@ export const createForm = <TFieldValues extends FieldValues>({
   enableDefault = false,
 }: createFormProps<TFieldValues>) => {
   const Form: Form<TFieldValues> = ({ children, onSubmit, ...props }) => {
+    const [isSubmitted, setIsSubmitted] = useState(false)
+
     const handleOnSubmit = useCallback(
-      (event: React.FormEvent<HTMLFormElement>) => {
+      async (event: React.FormEvent<HTMLFormElement>) => {
         if (!enableDefault) {
           event.preventDefault();
         }
 
-        void useFormReturns.handleSubmit(onSubmit)(event);
+        await useFormReturns.handleSubmit(onSubmit)(event);
+
+        setIsSubmitted(true)
       },
       [onSubmit]
     );
+
+    useEffect(() => {
+      if (isSubmitted) {
+        useFormReturns.reset();
+      }
+    }, [isSubmitted]);
 
     return (
       <FormProvider {...useFormReturns}>
