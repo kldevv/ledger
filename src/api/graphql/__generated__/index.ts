@@ -130,7 +130,6 @@ export type Query = {
   __typename?: 'Query';
   getAccounts: Array<Account>;
   getAllTransactions: Array<Transaction>;
-  getAllVaults: Array<Vault>;
   getCategories: Array<Category>;
   getCurrencyMeta: Array<CurrencyMeta>;
   getEntries: Array<Entry>;
@@ -147,11 +146,6 @@ export type QueryGetAccountsArgs = {
 
 export type QueryGetAllTransactionsArgs = {
   vaultId: Scalars['String']['input'];
-};
-
-
-export type QueryGetAllVaultsArgs = {
-  ownerId: Scalars['String']['input'];
 };
 
 
@@ -387,7 +381,6 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountsArgs, 'input'>>;
   getAllTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetAllTransactionsArgs, 'vaultId'>>;
-  getAllVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetAllVaultsArgs, 'ownerId'>>;
   getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoriesArgs, 'input'>>;
   getCurrencyMeta?: Resolver<Array<ResolversTypes['CurrencyMeta']>, ParentType, ContextType>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
@@ -496,13 +489,6 @@ export type GetTransactionDetailQueryVariables = Exact<{
 
 
 export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, amount: number, count: number, status: Status, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account: { __typename?: 'Account', id: string, name: string } }> } | null };
-
-export type GetAllVaultsQueryVariables = Exact<{
-  ownerId: Scalars['String']['input'];
-}>;
-
-
-export type GetAllVaultsQuery = { __typename?: 'Query', getAllVaults: Array<{ __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date }> };
 
 export type GetVaultsQueryVariables = Exact<{
   input: GetVaultsInput;
@@ -896,51 +882,6 @@ export type GetTransactionDetailQueryHookResult = ReturnType<typeof useGetTransa
 export type GetTransactionDetailLazyQueryHookResult = ReturnType<typeof useGetTransactionDetailLazyQuery>;
 export type GetTransactionDetailSuspenseQueryHookResult = ReturnType<typeof useGetTransactionDetailSuspenseQuery>;
 export type GetTransactionDetailQueryResult = Apollo.QueryResult<GetTransactionDetailQuery, GetTransactionDetailQueryVariables>;
-export const GetAllVaultsDocument = gql`
-    query getAllVaults($ownerId: String!) {
-  getAllVaults(ownerId: $ownerId) {
-    id
-    name
-    currency
-    ownerId
-    createdDate
-    updatedDate
-  }
-}
-    `;
-
-/**
- * __useGetAllVaultsQuery__
- *
- * To run a query within a React component, call `useGetAllVaultsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllVaultsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllVaultsQuery({
- *   variables: {
- *      ownerId: // value for 'ownerId'
- *   },
- * });
- */
-export function useGetAllVaultsQuery(baseOptions: Apollo.QueryHookOptions<GetAllVaultsQuery, GetAllVaultsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllVaultsQuery, GetAllVaultsQueryVariables>(GetAllVaultsDocument, options);
-      }
-export function useGetAllVaultsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllVaultsQuery, GetAllVaultsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllVaultsQuery, GetAllVaultsQueryVariables>(GetAllVaultsDocument, options);
-        }
-export function useGetAllVaultsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllVaultsQuery, GetAllVaultsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllVaultsQuery, GetAllVaultsQueryVariables>(GetAllVaultsDocument, options);
-        }
-export type GetAllVaultsQueryHookResult = ReturnType<typeof useGetAllVaultsQuery>;
-export type GetAllVaultsLazyQueryHookResult = ReturnType<typeof useGetAllVaultsLazyQuery>;
-export type GetAllVaultsSuspenseQueryHookResult = ReturnType<typeof useGetAllVaultsSuspenseQuery>;
-export type GetAllVaultsQueryResult = Apollo.QueryResult<GetAllVaultsQuery, GetAllVaultsQueryVariables>;
 export const GetVaultsDocument = gql`
     query getVaults($input: GetVaultsInput!) {
   getVaults(input: $input) {

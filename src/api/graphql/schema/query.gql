@@ -17,7 +17,6 @@ type Query {
 
   # Vault
   getVaults(input: GetVaultsInput!): [Vault!]!
-  getAllVaults(ownerId: String!): [Vault!]!
 
   # Static
   getCurrencyMeta: [CurrencyMeta!]!
