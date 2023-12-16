@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react"
 import { SetVaultContextState, VaultContext, VaultContextState } from "./Context"
-import { useGetAllVaultsQuery } from '@/api/graphql'
+import { useGetVaultsQuery } from "@/api/graphql";
 
 export type VaultContextProviderProps = {
   /**
@@ -14,27 +14,30 @@ export const VaultContextProvider: React.FC<VaultContextProviderProps> = ({ chil
       useState<VaultContextState['curVaultId']>(undefined);
       
   const {
-    data: { getAllVaults } = {},
+    data,
     loading,
     error,
-  } = useGetAllVaultsQuery({
+  } = useGetVaultsQuery({
     variables: {
-      ownerId: '000',
+      input: {
+        ownerId: '000',
+      }
     },
     onCompleted: (data) => {
-      setCurVaultId(data.getAllVaults?.[0].id);
+      setCurVaultId(data.getVaults?.[0].id);
     }
   });
 
   const contextState = useMemo<VaultContextState>(
     () => ({
-      vaults: getAllVaults,
+      vaults: data?.getVaults ?? [],
       curVaultId,
       loading,
       error,
     }),
-    [getAllVaults, curVaultId, loading, error]
+    [data?.getVaults, curVaultId, loading, error]
   );
+  
   const setContextState = useMemo<SetVaultContextState>(
     () => ({
       setCurVaultId,
