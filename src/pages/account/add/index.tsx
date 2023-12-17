@@ -1,4 +1,4 @@
-import { AccountTable } from '@/components/account';
+import { AddAccountForm } from '@/components/account';
 import { PageHeader, Layout } from '@/components/layout';
 import { useTranslation } from 'react-i18next';
 
@@ -11,6 +11,7 @@ const Page: React.FC = () => {
         title={t('page.add.index.title')}
         subtitle={t('page.add.index.subtitle')}
       />
+      <AddAccountForm />
     </Layout>
   );
 };

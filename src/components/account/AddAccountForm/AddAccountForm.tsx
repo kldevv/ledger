@@ -1,66 +1,91 @@
-import { Currency, useAddVaultMutation, useGetCurrencyMetaQuery } from '@/api/graphql';
+import { useGetCategoriesQuery } from '@/api/graphql';
 import { Card, useForm, SubmitButton } from '@/components/common';
-import { useCallback } from 'react';
+import { useVaultContext } from '@/hooks';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 const schema = z.object({
   /**
-   * Vault name
+   * Account category
+   */
+  category: z.string(),
+  /**
+   * Account name
    */
   name: z.string().min(3).max(50),
-  /**
-   * Vault currency
-   */
-  currency: z.nativeEnum(Currency),
 });
 
 type FieldValues = z.infer<typeof schema>;
 
-export const CreateVaultForm = () => {
-  const {
-    data: { getCurrencyMeta } = {},
-    loading,
-    error,
-  } = useGetCurrencyMetaQuery();
-  const [addVault] = useAddVaultMutation({
-    onCompleted: (data) => {
-      console.log(data);
-    },
-  });
-  const { t } = useTranslation('vault');
-
-  const [Form] = useForm<FieldValues>({
+export const AddAccountForm = () => {
+  const { t } = useTranslation('account');
+  const [Form, { watch }] = useForm<FieldValues>({
     schema,
   });
-
-  const handleOnSubmit = useCallback((value: FieldValues) => {
-    addVault({
-      variables: {
-        input: {
-          ...value,
-          ownerId: '000',
-        },
+  
+  const [{ curVaultId }] = useVaultContext()
+  
+  const {
+    data: { getCategories } = {},
+  } = useGetCategoriesQuery({
+    variables: {
+      input: {
+        vaultId: curVaultId ?? '',
       },
-    });
-  }, []);
+    },
+    skip: curVaultId == null,
+  });
+
+  const categorySelectItems = useMemo(
+    () =>
+      getCategories?.map(({ id, name }) => ({
+        value: id,
+        label: name,
+      })) ?? [],
+    [getCategories]
+  );
+
+  const selectedCategoryId = watch('category');
+
+  const categoryType = useMemo(() => {
+    return getCategories?.find(({ id }) => id === selectedCategoryId)?.type;
+  }, [selectedCategoryId, getCategories]);
+
+  // const [addVault] = useAddVaultMutation({
+  //   onCompleted: (data) => {
+  //     console.log(data);
+  //   },
+  // });
+
+  // const handleOnSubmit = useCallback((value: FieldValues) => {
+  //   addVault({
+  //     variables: {
+  //       input: {
+  //         ...value,
+  //         ownerId: '000',
+  //       },
+  //     },
+  //   });
+  // }, []);
 
   return (
     <Card variant="sm">
-      <Form onSubmit={handleOnSubmit}>
+      <Form onSubmit={() => null}>
         <div className="flex flex-col">
+          <Form.Select
+            name="category"
+            label={t('add-account-form.label.category')}
+            placeholder={t('add-account-form.placeholder.category')}
+            items={categorySelectItems}
+          />
+          {categoryType && <div className="text-xs text-gray">{categoryType}</div>}
           <Form.Input
             name="name"
-            label={t('create-vault-form.label.name')}
-            placeholder={t('create-vault-form.placeholder.name')}
+            label={t('add-account-form.label.name')}
+            placeholder={t('add-account-form.placeholder.name')}
           />
-          <Form.Select
-            name="currency"
-            label={t('create-vault-form.label.currency')}
-            placeholder={t('create-vault-form.placeholder.currency')}
-            items={getCurrencyMeta ?? []}
-          />
-          <SubmitButton>{t('create-vault-form.submit')}</SubmitButton>
+          <SubmitButton>{t('add-account-form.submit')}</SubmitButton>
         </div>
       </Form>
     </Card>

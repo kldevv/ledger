@@ -6,6 +6,17 @@
       "id": "ID"
     }
   },
+  "add-account-form": {
+    "label": {
+      "category": "Category",
+      "name": "Account Name"
+    },
+    "placeholder": {
+      "category": "Choose a category",
+      "name": "Enter a name"
+    },
+    "submit": "Add"
+  },
   "page": {
     "index": {
       "title": "Accounts",
