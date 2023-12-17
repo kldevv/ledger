@@ -1,4 +1,13 @@
 {
+  "account-description-list": {
+    "title": {
+      "id": "ID",
+      "name": "Name",
+      "updatedDate": "Updated Date",
+      "createdDate": "Created Date",
+      "category": "Category"
+    }
+  },
   "account-table": {
     "header": {
       "name": "Name",

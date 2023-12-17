@@ -1,5 +1,5 @@
+import { AccountDetail } from '@/components/account';
 import { PageHeader, Layout } from '@/components/layout';
-import { TransactionDetail } from '@/components/transaction';
 import { useTranslation } from 'react-i18next';
 
 const Page: React.FC = () => {
@@ -11,6 +11,7 @@ const Page: React.FC = () => {
         title={t('page.[id].index.title')}
         subtitle={t('page.[id].index.subtitle')}
       />
+      <AccountDetail />
     </Layout>
   );
 };

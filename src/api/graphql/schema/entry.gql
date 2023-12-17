@@ -5,7 +5,7 @@ type Entry {
   debit: Float!
   credit: Float!
   memo: String
-  account: Account!
+  account: Account
   transactionId: String!
   status: Status!
 }

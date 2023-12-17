@@ -31,6 +31,17 @@ export type Account = {
   vaultId: Scalars['String']['output'];
 };
 
+export type AccountDetail = {
+  __typename?: 'AccountDetail';
+  category: Category;
+  createdDate: Scalars['DateTime']['output'];
+  entries: Array<Entry>;
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  updatedDate: Scalars['DateTime']['output'];
+  vaultId: Scalars['String']['output'];
+};
+
 export type AddAccountInput = {
   categoryId: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -76,7 +87,7 @@ export type CurrencyMeta = {
 
 export type Entry = {
   __typename?: 'Entry';
-  account: Account;
+  account?: Maybe<Account>;
   credit: Scalars['Float']['output'];
   debit: Scalars['Float']['output'];
   id: Scalars['String']['output'];
@@ -144,6 +155,7 @@ export type MutationAddVaultArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  getAccountDetail?: Maybe<AccountDetail>;
   getAccounts: Array<Account>;
   getAllTransactions: Array<Transaction>;
   getCategories: Array<Category>;
@@ -152,6 +164,11 @@ export type Query = {
   getTags: Array<Tag>;
   getTransactionDetail?: Maybe<Transaction>;
   getVaults: Array<Vault>;
+};
+
+
+export type QueryGetAccountDetailArgs = {
+  accountId: Scalars['String']['input'];
 };
 
 
@@ -300,6 +317,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
+  AccountDetail: ResolverTypeWrapper<AccountDetail>;
   AddAccountInput: AddAccountInput;
   AddVaultInput: AddVaultInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
@@ -328,6 +346,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Account: Account;
+  AccountDetail: AccountDetail;
   AddAccountInput: AddAccountInput;
   AddVaultInput: AddVaultInput;
   Boolean: Scalars['Boolean']['output'];
@@ -360,6 +379,17 @@ export type AccountResolvers<ContextType = ApolloServerContext, ParentType exten
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type AccountDetailResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AccountDetail'] = ResolversParentTypes['AccountDetail']> = {
+  category?: Resolver<ResolversTypes['Category'], ParentType, ContextType>;
+  createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type CategoryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
   createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -382,7 +412,7 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Entry'] = ResolversParentTypes['Entry']> = {
-  account?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
+  account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
   credit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -400,6 +430,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 };
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getAccountDetail?: Resolver<Maybe<ResolversTypes['AccountDetail']>, ParentType, ContextType, RequireFields<QueryGetAccountDetailArgs, 'accountId'>>;
   getAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountsArgs, 'input'>>;
   getAllTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetAllTransactionsArgs, 'vaultId'>>;
   getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoriesArgs, 'input'>>;
@@ -445,6 +476,7 @@ export type VaultResolvers<ContextType = ApolloServerContext, ParentType extends
 
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
+  AccountDetail?: AccountDetailResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   CurrencyMeta?: CurrencyMetaResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
@@ -462,7 +494,7 @@ export type AddAccountMutationVariables = Exact<{
 }>;
 
 
-export type AddAccountMutation = { __typename?: 'Mutation', addAccount: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string } } };
+export type AddAccountMutation = { __typename?: 'Mutation', addAccount: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string } } };
 
 export type AddVaultMutationVariables = Exact<{
   input: AddVaultInput;
@@ -470,6 +502,13 @@ export type AddVaultMutationVariables = Exact<{
 
 
 export type AddVaultMutation = { __typename?: 'Mutation', addVault: { __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date } };
+
+export type GetAccountDetailQueryVariables = Exact<{
+  accountId: Scalars['String']['input'];
+}>;
+
+
+export type GetAccountDetailQuery = { __typename?: 'Query', getAccountDetail?: { __typename?: 'AccountDetail', id: string, name: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string }, entries: Array<{ __typename?: 'Entry', id: string, debit: number, credit: number, memo?: string | null, transactionDate: Date, status: Status }> } | null };
 
 export type GetAccountsQueryVariables = Exact<{
   input: GetAccountsInput;
@@ -490,7 +529,7 @@ export type GetEntriesQueryVariables = Exact<{
 }>;
 
 
-export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: Status, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
+export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: Status, account?: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } | null }> };
 
 export type GetCurrencyMetaQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -516,7 +555,7 @@ export type GetTransactionDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, amount: number, count: number, status: Status, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account: { __typename?: 'Account', id: string, name: string } }> } | null };
+export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, amount: number, count: number, status: Status, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account?: { __typename?: 'Account', id: string, name: string } | null }> } | null };
 
 export type GetVaultsQueryVariables = Exact<{
   input: GetVaultsInput;
@@ -533,6 +572,7 @@ export const AddAccountDocument = gql`
     name
     category {
       id
+      name
     }
     createdDate
     updatedDate
@@ -603,6 +643,61 @@ export function useAddVaultMutation(baseOptions?: Apollo.MutationHookOptions<Add
 export type AddVaultMutationHookResult = ReturnType<typeof useAddVaultMutation>;
 export type AddVaultMutationResult = Apollo.MutationResult<AddVaultMutation>;
 export type AddVaultMutationOptions = Apollo.BaseMutationOptions<AddVaultMutation, AddVaultMutationVariables>;
+export const GetAccountDetailDocument = gql`
+    query getAccountDetail($accountId: String!) {
+  getAccountDetail(accountId: $accountId) {
+    id
+    name
+    category {
+      id
+      name
+    }
+    entries {
+      id
+      debit
+      credit
+      memo
+      transactionDate
+      status
+    }
+    createdDate
+    updatedDate
+  }
+}
+    `;
+
+/**
+ * __useGetAccountDetailQuery__
+ *
+ * To run a query within a React component, call `useGetAccountDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccountDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAccountDetailQuery({
+ *   variables: {
+ *      accountId: // value for 'accountId'
+ *   },
+ * });
+ */
+export function useGetAccountDetailQuery(baseOptions: Apollo.QueryHookOptions<GetAccountDetailQuery, GetAccountDetailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAccountDetailQuery, GetAccountDetailQueryVariables>(GetAccountDetailDocument, options);
+      }
+export function useGetAccountDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccountDetailQuery, GetAccountDetailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAccountDetailQuery, GetAccountDetailQueryVariables>(GetAccountDetailDocument, options);
+        }
+export function useGetAccountDetailSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAccountDetailQuery, GetAccountDetailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAccountDetailQuery, GetAccountDetailQueryVariables>(GetAccountDetailDocument, options);
+        }
+export type GetAccountDetailQueryHookResult = ReturnType<typeof useGetAccountDetailQuery>;
+export type GetAccountDetailLazyQueryHookResult = ReturnType<typeof useGetAccountDetailLazyQuery>;
+export type GetAccountDetailSuspenseQueryHookResult = ReturnType<typeof useGetAccountDetailSuspenseQuery>;
+export type GetAccountDetailQueryResult = Apollo.QueryResult<GetAccountDetailQuery, GetAccountDetailQueryVariables>;
 export const GetAccountsDocument = gql`
     query getAccounts($input: GetAccountsInput!) {
   getAccounts(input: $input) {

@@ -7,6 +7,16 @@ type Account {
   updatedDate: DateTime!
 }
 
+type AccountDetail {
+  id: String!
+  name: String!
+  category: Category!
+  vaultId: String!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+  entries: [Entry!]!
+}
+
 input GetAccountsInput {
   vaultId: String!
   startDate: DateTime

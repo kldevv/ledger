@@ -8,23 +8,23 @@ export type EntryTableData = {
   /**
    * Entry id
    */
-  id: string
+  id: string;
   /**
    * Transaction date
    */
-  transactionDate: Date
+  transactionDate: Date;
   /**
    * Entry debit
    */
-  debit: number
+  debit: number;
   /**
    * Entry credit
    */
-  credit: number
+  credit: number;
   /**
    * Entry status
    */
-  status: Status
+  status: Status;
   /**
    * Entry account
    */
@@ -32,36 +32,32 @@ export type EntryTableData = {
     /**
      * Account id
      */
-    id: string
+    id: string;
     /**
      * Account name
      */
-    name: string
-  }
+    name: string;
+  };
   /**
    * Transaction id
    */
-  transactionId: string
+  transactionId: string;
   /**
    * Entry memo
    */
-  memo?: string | null
-}
+  memo?: string | null;
+};
 
 const columnHelper = createColumnHelper<EntryTableData>();
 
 export type EntryTableProps = {
-  /**
-   * Omit transaction id column
-   */
-  omitTransactionId?: boolean;
   /**
    * Table data
    */
   data?: EntryTableData[];
 };
 
-export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = false, data }) => {
+export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
   const { t } = useTranslation('entry');
   const [{ curVaultId }] = useVaultContext();
   const { formatDate } = useFormatter();
@@ -107,13 +103,9 @@ export const EntryTable: React.FC<EntryTableProps> = ({ omitTransactionId = fals
     columnHelper.accessor('id', {
       header: t('entry-table.header.id'),
     }),
-    ...(omitTransactionId
-      ? []
-      : [
-          columnHelper.accessor('transactionId', {
-            header: t('entry-table.header.transaction'),
-          }),
-        ]),
+    columnHelper.accessor('transactionId', {
+      header: t('entry-table.header.transaction'),
+    }),
   ];
 
   return <Table data={data ?? getEntries ?? []} colDefs={colDefs} />;

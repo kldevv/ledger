@@ -8,18 +8,17 @@ export namespace ReadOne {
      */
     id: string
   }
-
-  export type Returns = AccountDetail | null
 }
 
-export const readOne = async ({ id }: ReadOne.Args): Promise<ReadOne.Returns> => {
+export const readOne = async ({ id }: ReadOne.Args) => {
   try {
     return await prisma.account.findUnique({
       where: {
         id
       },
       include: {
-        category: true
+        category: true,
+        entries: true
       }
     })
   } catch (e) {

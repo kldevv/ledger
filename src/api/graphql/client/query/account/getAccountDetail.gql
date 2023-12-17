@@ -1,0 +1,20 @@
+query getAccountDetail($accountId: String!) {
+  getAccountDetail(accountId: $accountId) {
+    id
+    name
+    category {
+      id
+      name
+    }
+    entries {
+      id
+      debit
+      credit
+      memo
+      transactionDate
+      status
+    }
+    createdDate
+    updatedDate
+  }
+}

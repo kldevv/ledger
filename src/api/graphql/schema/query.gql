@@ -1,6 +1,7 @@
 type Query {
   # Account
   getAccounts(input: GetAccountsInput!): [Account!]!
+  getAccountDetail(accountId: String!): AccountDetail
 
   # Category
   getCategories(input: GetCategoriesInput!): [Category!]!
