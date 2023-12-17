@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { UrlObject } from "url";
 
 export type PageHeaderProps = {
   /**
@@ -16,7 +17,7 @@ export type PageHeaderProps = {
     /**
      * Page header link href
      */
-    href: string;
+    href: string | UrlObject;
     /**
      * Page header link label
      */

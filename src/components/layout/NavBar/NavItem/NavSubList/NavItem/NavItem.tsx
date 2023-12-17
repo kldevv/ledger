@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Item, Link as MenuLink } from '@radix-ui/react-navigation-menu';
+import { UrlObject } from 'url';
 
 export type NavItemProps = {
   /**
@@ -10,7 +11,7 @@ export type NavItemProps = {
   /**
    * Client-side routing link
    */
-  href: string;
+  href: string | UrlObject;
   /**
    * Children component
    */

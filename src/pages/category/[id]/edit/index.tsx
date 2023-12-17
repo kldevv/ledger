@@ -8,19 +8,17 @@ const Page: React.FC = () => {
   const router = useRouter();
 
   return (
-    <Layout prev={'/category'}>
+    <Layout
+      prev={{
+        pathname: '/category/[id]',
+        query: {
+          id: router.query.id,
+        },
+      }}
+    >
       <PageHeader
-        title={t('page.[id].index.title')}
-        subtitle={t('page.[id].index.subtitle')}
-        link={{
-          label: t('page.[id].index.link'),
-          href: {
-            pathname: '/category/[id]/edit',
-            query: {
-              id: router.query.id
-            }
-          }
-        }}
+        title={t('page.[id].edit.index.title')}
+        subtitle={t('page.[id].edit.index.subtitle')}
       />
     </Layout>
   );

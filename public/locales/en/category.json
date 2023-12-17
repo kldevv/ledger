@@ -10,5 +10,31 @@
       "EQUITY": "Equity",
       "LIABILITIES": "Liabilities"
     }
+  },
+  "page": {
+    "index": {
+      "title": "Categories",
+      "subtitle": "All categories of the currently selected vault.",
+      "link": "Add Category"
+    },
+    "add": {
+      "index": {
+        "title": "Add Category",
+        "subtitle": "Add a new category to the selected vault."
+      }
+    },
+    "[id]": {
+      "index": {
+        "title": "Add Category",
+        "subtitle": "Add a new category to the selected vault.",
+        "link": "Edit"
+      },
+      "edit": {
+        "index": {
+          "title": "Edit Category",
+          "subtitle": "Edit or delete a category."
+        }
+      }
+    }
   }
 }
