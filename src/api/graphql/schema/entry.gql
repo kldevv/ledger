@@ -7,7 +7,7 @@ type Entry {
   memo: String
   account: Account!
   transactionId: String!
-  status: Status!
+  status: EntryStatus!
 }
 
 input GetEntriesInput {
@@ -15,7 +15,7 @@ input GetEntriesInput {
   startDate: DateTime
   endDate: DateTime
   transactionId: String
-  status: [Status!]
+  status: EntryStatus
   memoSearch: String
   accountId: String
   debitAtLeast: Float

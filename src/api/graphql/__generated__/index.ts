@@ -81,12 +81,18 @@ export type Entry = {
   debit: Scalars['Float']['output'];
   id: Scalars['String']['output'];
   memo?: Maybe<Scalars['String']['output']>;
-  status: Status;
+  status: EntryStatus;
   transactionDate: Scalars['DateTime']['output'];
   transactionId: Scalars['String']['output'];
   vaultId: Scalars['String']['output'];
 };
 
+export const EntryStatus = {
+  COMPLETED: 'COMPLETED',
+  PENDING: 'PENDING'
+} as const;
+
+export type EntryStatus = typeof EntryStatus[keyof typeof EntryStatus];
 export type GetAccountInput = {
   id: Scalars['String']['input'];
 };
@@ -114,7 +120,7 @@ export type GetEntriesInput = {
   endDate?: InputMaybe<Scalars['DateTime']['input']>;
   memoSearch?: InputMaybe<Scalars['String']['input']>;
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<Array<Status>>;
+  status?: InputMaybe<EntryStatus>;
   transactionId?: InputMaybe<Scalars['String']['input']>;
   vaultId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -122,6 +128,10 @@ export type GetEntriesInput = {
 export type GetTagsInput = {
   nameSearch?: InputMaybe<Scalars['String']['input']>;
   vaultId: Scalars['String']['input'];
+};
+
+export type GetTransactionInput = {
+  id: Scalars['String']['input'];
 };
 
 export type GetVaultsInput = {
@@ -155,6 +165,7 @@ export type Query = {
   getCurrencyMeta: Array<CurrencyMeta>;
   getEntries: Array<Entry>;
   getTags: Array<Tag>;
+  getTransaction?: Maybe<Transaction>;
   getTransactionDetail?: Maybe<Transaction>;
   getVaults: Array<Vault>;
 };
@@ -190,6 +201,11 @@ export type QueryGetTagsArgs = {
 };
 
 
+export type QueryGetTransactionArgs = {
+  input: GetTransactionInput;
+};
+
+
 export type QueryGetTransactionDetailArgs = {
   transactionId: Scalars['String']['input'];
 };
@@ -199,12 +215,6 @@ export type QueryGetVaultsArgs = {
   input: GetVaultsInput;
 };
 
-export const Status = {
-  COMPLETED: 'COMPLETED',
-  PENDING: 'PENDING'
-} as const;
-
-export type Status = typeof Status[keyof typeof Status];
 export type Tag = {
   __typename?: 'Tag';
   createdDate: Scalars['DateTime']['output'];
@@ -217,13 +227,9 @@ export type Tag = {
 export type Transaction = {
   __typename?: 'Transaction';
   accrualDate: Scalars['DateTime']['output'];
-  amount: Scalars['Float']['output'];
-  count: Scalars['Int']['output'];
   createdDate: Scalars['DateTime']['output'];
-  entries: Array<Entry>;
   id: Scalars['String']['output'];
   note: Scalars['String']['output'];
-  status: Status;
   tags: Array<Tag>;
   updatedDate: Scalars['DateTime']['output'];
 };
@@ -319,17 +325,17 @@ export type ResolversTypes = {
   CurrencyMeta: ResolverTypeWrapper<CurrencyMeta>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Entry: ResolverTypeWrapper<Entry>;
+  EntryStatus: EntryStatus;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   GetAccountInput: GetAccountInput;
   GetAccountsInput: GetAccountsInput;
   GetCategoriesInput: GetCategoriesInput;
   GetEntriesInput: GetEntriesInput;
   GetTagsInput: GetTagsInput;
+  GetTransactionInput: GetTransactionInput;
   GetVaultsInput: GetVaultsInput;
-  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  Status: Status;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Tag: ResolverTypeWrapper<Tag>;
   Transaction: ResolverTypeWrapper<Transaction>;
@@ -352,8 +358,8 @@ export type ResolversParentTypes = {
   GetCategoriesInput: GetCategoriesInput;
   GetEntriesInput: GetEntriesInput;
   GetTagsInput: GetTagsInput;
+  GetTransactionInput: GetTransactionInput;
   GetVaultsInput: GetVaultsInput;
-  Int: Scalars['Int']['output'];
   Mutation: {};
   Query: {};
   String: Scalars['String']['output'];
@@ -399,7 +405,7 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
   debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   memo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['EntryStatus'], ParentType, ContextType>;
   transactionDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   transactionId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -419,6 +425,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getCurrencyMeta?: Resolver<Array<ResolversTypes['CurrencyMeta']>, ParentType, ContextType>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
   getTags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagsArgs, 'input'>>;
+  getTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'input'>>;
   getTransactionDetail?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionDetailArgs, 'transactionId'>>;
   getVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetVaultsArgs, 'input'>>;
 };
@@ -434,13 +441,9 @@ export type TagResolvers<ContextType = ApolloServerContext, ParentType extends R
 
 export type TransactionResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Transaction'] = ResolversParentTypes['Transaction']> = {
   accrualDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  amount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   note?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
   updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -497,7 +500,7 @@ export type GetAccountDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetAccountDetailQuery = { __typename?: 'Query', getAccount?: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string } } | null, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: Status, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
+export type GetAccountDetailQuery = { __typename?: 'Query', getAccount?: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string } } | null, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: EntryStatus, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
 
 export type GetAccountsQueryVariables = Exact<{
   input: GetAccountsInput;
@@ -518,7 +521,7 @@ export type GetEntriesQueryVariables = Exact<{
 }>;
 
 
-export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: Status, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
+export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: EntryStatus, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
 
 export type GetCurrencyMetaQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -537,14 +540,22 @@ export type GetAllTransactionsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllTransactionsQuery = { __typename?: 'Query', getAllTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, amount: number, count: number, status: Status, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetAllTransactionsQuery = { __typename?: 'Query', getAllTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
-export type GetTransactionDetailQueryVariables = Exact<{
-  transactionId: Scalars['String']['input'];
+export type GetTransactionQueryVariables = Exact<{
+  input: GetTransactionInput;
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, amount: number, count: number, status: Status, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account: { __typename?: 'Account', id: string, name: string } }> } | null };
+export type GetTransactionQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null };
+
+export type GetTransactionDetailQueryVariables = Exact<{
+  getTransactionInput: GetTransactionInput;
+  getEntriesInput: GetEntriesInput;
+}>;
+
+
+export type GetTransactionDetailQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: EntryStatus, transactionId: string, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
 
 export type GetVaultsQueryVariables = Exact<{
   input: GetVaultsInput;
@@ -986,9 +997,6 @@ export const GetAllTransactionsDocument = gql`
     id
     accrualDate
     note
-    amount
-    count
-    status
     tags {
       id
       name
@@ -1029,33 +1037,85 @@ export type GetAllTransactionsQueryHookResult = ReturnType<typeof useGetAllTrans
 export type GetAllTransactionsLazyQueryHookResult = ReturnType<typeof useGetAllTransactionsLazyQuery>;
 export type GetAllTransactionsSuspenseQueryHookResult = ReturnType<typeof useGetAllTransactionsSuspenseQuery>;
 export type GetAllTransactionsQueryResult = Apollo.QueryResult<GetAllTransactionsQuery, GetAllTransactionsQueryVariables>;
-export const GetTransactionDetailDocument = gql`
-    query getTransactionDetail($transactionId: String!) {
-  getTransactionDetail(transactionId: $transactionId) {
+export const GetTransactionDocument = gql`
+    query getTransaction($input: GetTransactionInput!) {
+  getTransaction(input: $input) {
     id
     accrualDate
     note
-    amount
-    count
-    status
     tags {
       id
       name
     }
-    entries {
-      id
-      transactionDate
-      debit
-      credit
-      memo
-      account {
-        id
-        name
+    createdDate
+    updatedDate
+  }
+}
+    `;
+
+/**
+ * __useGetTransactionQuery__
+ *
+ * To run a query within a React component, call `useGetTransactionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTransactionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTransactionQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetTransactionQuery(baseOptions: Apollo.QueryHookOptions<GetTransactionQuery, GetTransactionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTransactionQuery, GetTransactionQueryVariables>(GetTransactionDocument, options);
       }
-      status
+export function useGetTransactionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTransactionQuery, GetTransactionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTransactionQuery, GetTransactionQueryVariables>(GetTransactionDocument, options);
+        }
+export function useGetTransactionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTransactionQuery, GetTransactionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTransactionQuery, GetTransactionQueryVariables>(GetTransactionDocument, options);
+        }
+export type GetTransactionQueryHookResult = ReturnType<typeof useGetTransactionQuery>;
+export type GetTransactionLazyQueryHookResult = ReturnType<typeof useGetTransactionLazyQuery>;
+export type GetTransactionSuspenseQueryHookResult = ReturnType<typeof useGetTransactionSuspenseQuery>;
+export type GetTransactionQueryResult = Apollo.QueryResult<GetTransactionQuery, GetTransactionQueryVariables>;
+export const GetTransactionDetailDocument = gql`
+    query getTransactionDetail($getTransactionInput: GetTransactionInput!, $getEntriesInput: GetEntriesInput!) {
+  getTransaction(input: $getTransactionInput) {
+    id
+    accrualDate
+    note
+    tags {
+      id
+      name
     }
     createdDate
     updatedDate
+  }
+  getEntries(input: $getEntriesInput) {
+    id
+    vaultId
+    transactionDate
+    debit
+    credit
+    memo
+    account {
+      id
+      name
+      category {
+        id
+        name
+        type
+      }
+    }
+    status
+    transactionId
   }
 }
     `;
@@ -1072,7 +1132,8 @@ export const GetTransactionDetailDocument = gql`
  * @example
  * const { data, loading, error } = useGetTransactionDetailQuery({
  *   variables: {
- *      transactionId: // value for 'transactionId'
+ *      getTransactionInput: // value for 'getTransactionInput'
+ *      getEntriesInput: // value for 'getEntriesInput'
  *   },
  * });
  */

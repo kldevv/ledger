@@ -1,4 +1,4 @@
-import { Status } from "@/api/graphql";
+import { EntryStatus } from "@/api/graphql";
 import { DescriptionList, DescriptionListItem, StatusChip, Tag } from "@/components/common"
 import { useFormatter } from "@/hooks";
 import { useTranslation } from "react-i18next";
@@ -15,7 +15,7 @@ type Data = {
   /**
    * Status
    */
-  status: Status
+  status: EntryStatus;
   /**
    * Tags
    */
@@ -23,12 +23,12 @@ type Data = {
     /**
      * Tag id
      */
-    id: string
+    id: string;
     /**
      * Tag name
      */
-    name: string
-  }[]
+    name: string;
+  }[];
   /**
    * Accrual date
    */
@@ -75,7 +75,7 @@ export const TransactionDescriptionList: React.FC<TransactionDescriptionListProp
     },
     {
       title: t('transaction-description-list.title.tags'),
-      description: <div>{tags.map((tag) => <Tag {...tag} />)}</div>
+      description: <div className="flex gap-1 max-w-full flex-wrap">{tags.map((tag) => <Tag {...tag} />)}</div>
     },
     {
       title: t('transaction-description-list.title.createdDate'),

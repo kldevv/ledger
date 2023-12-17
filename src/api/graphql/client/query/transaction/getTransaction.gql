@@ -1,0 +1,13 @@
+query getTransaction($input: GetTransactionInput!) {
+  getTransaction(input: $input) {
+    id
+    accrualDate
+    note
+    tags {
+      id
+      name
+    }
+    createdDate
+    updatedDate
+  }
+}

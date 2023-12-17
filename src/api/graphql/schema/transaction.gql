@@ -2,11 +2,11 @@ type Transaction {
   id: String!
   accrualDate: DateTime!
   note: String!
-  amount: Float!
-  count: Int!
-  status: Status!
   tags: [Tag!]!
-  entries: [Entry!]!
   createdDate: DateTime!
   updatedDate: DateTime!
+}
+
+input GetTransactionInput {
+  id: String!
 }

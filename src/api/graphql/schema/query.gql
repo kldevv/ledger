@@ -15,6 +15,7 @@ type Query {
   # Transaction
   getAllTransactions(vaultId: String!): [Transaction!]!
   getTransactionDetail(transactionId: String!): Transaction
+  getTransaction(input: GetTransactionInput!): Transaction
 
   # Vault
   getVaults(input: GetVaultsInput!): [Vault!]!

@@ -1,28 +1,35 @@
-query getTransactionDetail($transactionId: String!) {
-  getTransactionDetail(transactionId: $transactionId) {
+query getTransactionDetail(
+  $getTransactionInput: GetTransactionInput!
+  $getEntriesInput: GetEntriesInput!
+) {
+  getTransaction(input: $getTransactionInput) {
     id
     accrualDate
     note
-    amount
-    count
-    status
     tags {
       id
       name
     }
-    entries {
-      id
-      transactionDate
-      debit
-      credit
-      memo
-      account {
-        id
-        name
-      }
-      status
-    }
     createdDate
     updatedDate
+  }
+  getEntries(input: $getEntriesInput) {
+    id
+    vaultId
+    transactionDate
+    debit
+    credit
+    memo
+    account {
+      id
+      name
+      category {
+        id
+        name
+        type
+      }
+    }
+    status
+    transactionId
   }
 }

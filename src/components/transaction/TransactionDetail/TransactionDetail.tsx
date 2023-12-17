@@ -1,4 +1,4 @@
-import { useGetTransactionDetailQuery } from "@/api/graphql"
+import { EntryStatus, useGetTransactionDetailQuery } from "@/api/graphql"
 import { useRouter } from "next/router"
 import { useMemo } from "react"
 import { TransactionDescriptionList } from ".."
@@ -14,22 +14,34 @@ export const TransactionDetail: React.FC = () => {
 
   const { data, loading, error } = useGetTransactionDetailQuery({
     variables: {
-      transactionId: transactionId ?? '',
+      getTransactionInput: {
+        id: transactionId ?? ''
+      },
+      getEntriesInput: {
+        transactionId
+      }
     },
     skip: transactionId == null,
   });
   
 
   return (
-    data?.getTransactionDetail && (
+    data?.getTransaction && (
       <div>
         <TransactionDescriptionList
           data={{
-            ...data.getTransactionDetail,
+            ...data.getTransaction,
+            status: data.getEntries.some(
+              ({ status }) => status === EntryStatus.PENDING
+            )
+              ? EntryStatus.PENDING
+              : EntryStatus.COMPLETED,
           }}
         />
-        <h3 className="mt-12 font-semibold text-dark-shades">Transaction Entries</h3>
-        <EntryTable data={data.getTransactionDetail.entries} omitTransactionId/>
+        <h3 className="mt-12 font-semibold text-dark-shades">
+          Transaction Entries
+        </h3>
+        <EntryTable data={data.getEntries} />
       </div>
     )
   );

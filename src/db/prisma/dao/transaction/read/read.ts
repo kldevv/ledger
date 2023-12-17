@@ -11,58 +11,73 @@ export namespace ReadOne {
 
 export const readOne = async ({ id }: ReadOne.Args) => {
   try {
+    const tags = [
+      {
+        name: 'Super longlonglonglonglonglonglonglonglong name',
+        vaultId: '00',
+        id: '1',
+        createdDate: new Date(),
+        updatedDate: new Date(),
+      },
+      {
+        name: '99',
+        vaultId: '00',
+        id: '3',
+        createdDate: new Date(),
+        updatedDate: new Date(),
+      },
+      {
+        name: '4',
+        vaultId: '00',
+        id: '2',
+        createdDate: new Date(),
+        updatedDate: new Date(),
+      },
+      {
+        name: 'Groceries',
+        vaultId: '00',
+        id: '3',
+        createdDate: new Date(),
+        updatedDate: new Date(),
+      },
+      {
+        name: 'Food',
+        vaultId: '00',
+        id: '4',
+        createdDate: new Date(),
+        updatedDate: new Date(),
+      },
+      {
+        name: 'Denver',
+        vaultId: '00',
+        id: '6',
+        createdDate: new Date(),
+        updatedDate: new Date(),
+      },
+      {
+        name: 'Hawaii',
+        vaultId: '00',
+        id: '100',
+        createdDate: new Date(),
+        updatedDate: new Date(),
+      },
+    ]
+    
     return {
       id,
       note: 'Some random note',
-      tags: [{ id: '12', name: 'tag A' }, { id: '13', name: 'tag B' }],
+      tags,
       accrualDate: new Date(),
       createdDate: new Date(),
       updatedDate: new Date(),
       vaultId: '111',
-      entries: [
-        {
-          id: '0',
-          transactionDate: new Date(Date.now()),
-          debit: 100.4,
-          credit: 200.32,
-          memo: 'hello mom',
-          transactionId: '0',
-          status: 'COMPLETED',
-          createdDate: new Date(),
-          updatedDate: new Date(),
-          vaultId: '111',
-          account: {
-            id: '0',
-            name: 'Bank account',
-            createdDate: new Date(),
-            updatedDate: new Date(),
-            vaultId: '111',
-            category: {
-              id: '12',
-              name: 'Some category',
-              type: 'ASSETS',
-              vaultId: '111',
-              createdDate: new Date(),
-              updatedDate: new Date(),
-            }
-          }
-        }
-      ]
     }
     // return await prisma.transaction.findUnique({
     //   where: {
     //     id
     //   },
     //   include: {
-    //     tags: true, entries: {
-    //       include: {
-    //         account: {
-    //           include: {
-    //             category: true
-    //           }
-    //         }
-    //       }
-    //     }
+    //     tags: true
     //   }
     // })
   } catch (e) {

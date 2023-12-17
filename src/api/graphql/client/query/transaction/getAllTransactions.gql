@@ -3,9 +3,6 @@ query getAllTransactions($vaultId: String!) {
     id
     accrualDate
     note
-    amount
-    count
-    status
     tags {
       id
       name

@@ -1,8 +1,8 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
-import { Status, useGetEntriesQuery } from '@/api/graphql';
+import { EntryStatus } from '@/api/graphql';
 import { StatusChip, Table } from '@/components/common';
-import { useFormatter, useVaultContext } from '@/hooks';
+import { useFormatter } from '@/hooks';
 
 export type EntryTableData = {
   /**
@@ -24,7 +24,7 @@ export type EntryTableData = {
   /**
    * Entry status
    */
-  status: Status;
+  status: EntryStatus;
   /**
    * Entry account
    */
@@ -54,26 +54,12 @@ export type EntryTableProps = {
   /**
    * Table data
    */
-  data?: EntryTableData[];
+  data: EntryTableData[];
 };
 
 export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
   const { t } = useTranslation('entry');
-  const [{ curVaultId }] = useVaultContext();
   const { formatDate } = useFormatter();
-
-  const {
-    data: { getEntries } = {},
-    loading,
-    error,
-  } = useGetEntriesQuery({
-    variables: {
-      input: {
-        vaultId: curVaultId ?? '',
-      },
-    },
-    skip: curVaultId == null || data != null,
-  });
 
   const colDefs = [
     columnHelper.accessor('transactionDate', {
@@ -108,5 +94,5 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
     }),
   ];
 
-  return <Table data={data ?? getEntries ?? []} colDefs={colDefs} />;
+  return <Table data={data} colDefs={colDefs} />;
 };

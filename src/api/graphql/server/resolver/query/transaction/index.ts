@@ -1,2 +1,1 @@
-export * from './getAllTransactions'
-export * from './getTransactionDetail'
+export * from './getTransaction'
