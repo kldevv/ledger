@@ -7,6 +7,12 @@ type Category {
   updatedDate: DateTime!
 }
 
+input AddCategoryInput {
+  name: String!
+  type: CategoryType!
+  vaultId: String!
+}
+
 input GetCategoriesInput {
   vaultId: String!
   nameSearch: String

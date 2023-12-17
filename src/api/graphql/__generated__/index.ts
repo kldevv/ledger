@@ -37,6 +37,12 @@ export type AddAccountInput = {
   vaultId: Scalars['String']['input'];
 };
 
+export type AddCategoryInput = {
+  name: Scalars['String']['input'];
+  type: CategoryType;
+  vaultId: Scalars['String']['input'];
+};
+
 export type AddVaultInput = {
   currency: Currency;
   name: Scalars['String']['input'];
@@ -143,12 +149,18 @@ export type GetVaultsInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addAccount: Account;
+  addCategory: Category;
   addVault: Vault;
 };
 
 
 export type MutationAddAccountArgs = {
   input: AddAccountInput;
+};
+
+
+export type MutationAddCategoryArgs = {
+  input: AddCategoryInput;
 };
 
 
@@ -317,6 +329,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
   AddAccountInput: AddAccountInput;
+  AddCategoryInput: AddCategoryInput;
   AddVaultInput: AddVaultInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Category: ResolverTypeWrapper<Category>;
@@ -346,6 +359,7 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Account: Account;
   AddAccountInput: AddAccountInput;
+  AddCategoryInput: AddCategoryInput;
   AddVaultInput: AddVaultInput;
   Boolean: Scalars['Boolean']['output'];
   Category: Category;
@@ -414,6 +428,7 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
 
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
+  addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
   addVault?: Resolver<ResolversTypes['Vault'], ParentType, ContextType, RequireFields<MutationAddVaultArgs, 'input'>>;
 };
 
@@ -479,6 +494,13 @@ export type AddAccountMutationVariables = Exact<{
 
 
 export type AddAccountMutation = { __typename?: 'Mutation', addAccount: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string } } };
+
+export type AddCategoryMutationVariables = Exact<{
+  input: AddCategoryInput;
+}>;
+
+
+export type AddCategoryMutation = { __typename?: 'Mutation', addCategory: { __typename?: 'Category', id: string, name: string, type: CategoryType, vaultId: string, createdDate: Date, updatedDate: Date } };
 
 export type AddVaultMutationVariables = Exact<{
   input: AddVaultInput;
@@ -605,6 +627,44 @@ export function useAddAccountMutation(baseOptions?: Apollo.MutationHookOptions<A
 export type AddAccountMutationHookResult = ReturnType<typeof useAddAccountMutation>;
 export type AddAccountMutationResult = Apollo.MutationResult<AddAccountMutation>;
 export type AddAccountMutationOptions = Apollo.BaseMutationOptions<AddAccountMutation, AddAccountMutationVariables>;
+export const AddCategoryDocument = gql`
+    mutation addCategory($input: AddCategoryInput!) {
+  addCategory(input: $input) {
+    id
+    name
+    type
+    vaultId
+    createdDate
+    updatedDate
+  }
+}
+    `;
+export type AddCategoryMutationFn = Apollo.MutationFunction<AddCategoryMutation, AddCategoryMutationVariables>;
+
+/**
+ * __useAddCategoryMutation__
+ *
+ * To run a mutation, you first call `useAddCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCategoryMutation, { data, loading, error }] = useAddCategoryMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddCategoryMutation(baseOptions?: Apollo.MutationHookOptions<AddCategoryMutation, AddCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddCategoryMutation, AddCategoryMutationVariables>(AddCategoryDocument, options);
+      }
+export type AddCategoryMutationHookResult = ReturnType<typeof useAddCategoryMutation>;
+export type AddCategoryMutationResult = Apollo.MutationResult<AddCategoryMutation>;
+export type AddCategoryMutationOptions = Apollo.BaseMutationOptions<AddCategoryMutation, AddCategoryMutationVariables>;
 export const AddVaultDocument = gql`
     mutation addVault($input: AddVaultInput!) {
   addVault(input: $input) {

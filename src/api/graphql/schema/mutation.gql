@@ -2,6 +2,9 @@ type Mutation {
   # Account
   addAccount(input: AddAccountInput!): Account!
 
+  # Category
+  addCategory(input: AddCategoryInput!): Category!
+
   # Vault
   addVault(input: AddVaultInput!): Vault!
 }
