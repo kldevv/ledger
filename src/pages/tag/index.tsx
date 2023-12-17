@@ -1,4 +1,4 @@
-import { Hero, Layout } from '@/components/layout';
+import { PageHeader, Layout } from '@/components/layout';
 import { TagTable } from '@/components/tag/TagTable';
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +7,7 @@ const Page: React.FC = () => {
 
   return (
     <Layout prev={'/'}>
-      <Hero title={t('page.title')} subtitle={t('page.subtitle')} />
+      <PageHeader title={t('page.title')} subtitle={t('page.subtitle')} />
       <TagTable />
     </Layout>
   );

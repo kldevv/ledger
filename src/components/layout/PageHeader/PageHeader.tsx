@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export type HeroProps = {
+export type PageHeaderProps = {
   /**
    * Title
    */
@@ -10,21 +10,21 @@ export type HeroProps = {
    */
   subtitle: string;
   /**
-   * Hero link
+   * Page header link
    */
   link?: {
     /**
-     * Hero link href
+     * Page header link href
      */
     href: string;
     /**
-     * Hero link label
+     * Page header link label
      */
     label: string;
   };
 };
 
-export const Hero: React.FC<HeroProps> = ({ title, subtitle, link }) => {
+export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle, link }) => {
   return (
     <div className="grid grid-cols-3">
       <div className="col-span-2 flex flex-col gap-y-3">

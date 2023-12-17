@@ -1,10 +1,10 @@
 import { EntryTable } from '@/components/entry';
-import { Hero, Layout } from '@/components/layout';
+import { PageHeader, Layout } from '@/components/layout';
 
 const Page: React.FC = () => {
   return (
     <Layout>
-      <Hero
+      <PageHeader
         title="Entries"
         subtitle="All entries for the currently selected vault."
       />

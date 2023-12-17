@@ -1,5 +1,5 @@
 export * from './BackLink'
 export * from './Footer'
-export * from './Hero'
 export * from './Layout'
 export * from './NavBar'
+export * from './PageHeader'

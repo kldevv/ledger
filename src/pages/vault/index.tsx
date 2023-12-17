@@ -1,4 +1,4 @@
-import { Hero, Layout } from '@/components/layout';
+import { PageHeader, Layout } from '@/components/layout';
 import { VaultTable } from '@/components/vault';
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +7,7 @@ const Page: React.FC = () => {
 
   return (
     <Layout prev="/">
-      <Hero title={t('page.index.title')} subtitle={t('page.index.subtitle')} link={{
+      <PageHeader title={t('page.index.title')} subtitle={t('page.index.subtitle')} link={{
         href: "/vault/create",
         label: t('page.index.link')
       }} />

@@ -1,8 +1,8 @@
-import { Hero, Layout } from "@/components/layout"
+import { PageHeader, Layout } from "@/components/layout"
 
 const Page: React.FC = () => {
   return <Layout>
-    <Hero title="Category Detail" subtitle="Detail."/>
+    <PageHeader title="Category Detail" subtitle="Detail."/>
   </Layout>
 
 }
