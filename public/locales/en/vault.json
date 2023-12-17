@@ -5,7 +5,7 @@
       "currency": "Vault Currency"
     },
     "placeholder": {
-      "name": "Choose a name",
+      "name": "Enter a name",
       "currency": "Choose a currency"
     },
     "submit": "CREATE"
@@ -28,6 +28,12 @@
       "title": "Vaults",
       "subtitle": "Switch to a different vault or create a new one.",
       "link": "Create Vault"
+    },
+    "create": {
+      "index": {
+        "title": "Create Vault",
+        "subtitle": "Create a new vault."
+      }
     }
   }
 }

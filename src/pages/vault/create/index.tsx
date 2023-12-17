@@ -1,15 +1,16 @@
 import { PageHeader, Layout } from '@/components/layout';
 import { CreateVaultForm } from '@/components/vault';
+import { useTranslation } from 'react-i18next';
 
 const Page: React.FC = () => {
+  const { t }= useTranslation('vault')
+
   return (
     <Layout prev={'/vault'}>
       <div className="flex flex-col gap-y-4">
         <PageHeader
-          title="Create Vault"
-          subtitle="Create a new vault to help you manage transactions, categories,
-          accounts, and tags in your chosen currency, isolated from other
-          vaults."
+          title={t('page.create.index.title')}
+          subtitle={t('page.create.index.subtitle')}
         />
         <CreateVaultForm />
       </div>
