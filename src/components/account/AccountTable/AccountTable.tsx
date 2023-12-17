@@ -1,6 +1,6 @@
 import { GetAccountsQuery, useGetAccountsQuery } from "@/api/graphql";
 import { Table } from "@/components/common"
-import { useVaultContext } from "@/hooks";
+import { useFormatter, useVaultContext } from "@/hooks";
 import { createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,7 @@ const columnHelper = createColumnHelper<AccountTableData>();
 export const AccountTable: React.FC = () => {
   const { t } = useTranslation('account');
   const [{ curVaultId }] = useVaultContext();
+  const { formatDate } = useFormatter()
 
   const {
     data,
@@ -33,10 +34,16 @@ export const AccountTable: React.FC = () => {
     }),
     columnHelper.accessor('name', {
       header: t('account-table.header.name'),
-      cell: (props) => <span className="text-dark-shades">{props.getValue()}</span>
+      cell: (props) => (
+        <span className="text-dark-shades">{props.getValue()}</span>
+      ),
     }),
     columnHelper.accessor('category.name', {
       header: t('account-table.header.category'),
+    }),
+    columnHelper.accessor('createdDate', {
+      header: t('account-table.header.createdDate'),
+      cell: (props) => <span>{formatDate(props.getValue())}</span>
     }),
     columnHelper.display({
       id: 'detail',

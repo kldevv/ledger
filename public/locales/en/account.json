@@ -12,7 +12,8 @@
     "header": {
       "name": "Name",
       "category": "Category",
-      "id": "ID"
+      "id": "ID",
+      "createdDate": "Created Date"
     }
   },
   "add-account-form": {
