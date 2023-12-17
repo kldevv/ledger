@@ -1,6 +1,5 @@
 import { PageHeader, Layout } from '@/components/layout';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const Page: React.FC = () => {

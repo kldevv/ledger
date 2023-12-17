@@ -6,7 +6,7 @@ const Page: React.FC = () => {
   const { t } = useTranslation('category')
 
   return (
-    <Layout>
+    <Layout prev="/">
       <PageHeader
         title={t('page.index.title')}
         subtitle={t('page.index.subtitle')}

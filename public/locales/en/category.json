@@ -36,8 +36,8 @@
     },
     "[id]": {
       "index": {
-        "title": "Add Category",
-        "subtitle": "Add a new category to the selected vault.",
+        "title": "Category Detail",
+        "subtitle": "View and edit information of the category.",
         "link": "Edit"
       },
       "edit": {
