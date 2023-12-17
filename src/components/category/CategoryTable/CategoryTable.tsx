@@ -1,30 +1,22 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
-import { GetCategoriesQuery, useGetCategoriesQuery, useGetEntriesQuery } from '@/api/graphql';
-import { StatusChip, Table } from '@/components/common';
-import { useVaultContext } from '@/hooks';
+import { GetCategoriesQuery } from '@/api/graphql';
+import { Table } from '@/components/common';
 import Link from 'next/link';
 
-type CategoryTableData = GetCategoriesQuery['getCategories'][0]
+export type CategoryTableData = GetCategoriesQuery['getCategories'][0]
+
+export interface CategoryTableProps {
+  /**
+   * Data
+   */
+  data: CategoryTableData[]
+}
 
 const columnHelper = createColumnHelper<CategoryTableData>();
 
-export const CategoryTable: React.FC = () => {
+export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
   const { t } = useTranslation('category');
-  const [{ curVaultId }] = useVaultContext();
-
-  const {
-    data,
-    loading,
-    error,
-  } = useGetCategoriesQuery({
-    variables: {
-      input: {
-        vaultId: curVaultId ?? '',
-      },
-    },
-    skip: curVaultId == null,
-  });
 
   const colDefs = [
     columnHelper.accessor('id', {
@@ -53,9 +45,5 @@ export const CategoryTable: React.FC = () => {
     }),
   ];
 
-  if (data == null) {
-    return null
-  }
-
-  return <Table data={data.getCategories} colDefs={colDefs} />;
+  return <Table data={data} colDefs={colDefs} />;
 };

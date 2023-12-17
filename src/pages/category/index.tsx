@@ -1,4 +1,4 @@
-import { CategoryTable } from '@/components/category';
+import { CategoryDashboard } from '@/components/category';
 import { PageHeader, Layout } from '@/components/layout';
 import { useTranslation } from 'react-i18next';
 
@@ -12,10 +12,10 @@ const Page: React.FC = () => {
         subtitle={t('page.index.subtitle')}
         link={{
           label: t('page.index.link'),
-          href: '/category/add'
+          href: '/category/add',
         }}
       />
-      <CategoryTable />
+      <CategoryDashboard />
     </Layout>
   );
 };
