@@ -1,7 +1,7 @@
-import { useGetCategoriesQuery } from '@/api/graphql';
+import { useAddAccountMutation, useGetCategoriesQuery } from '@/api/graphql';
 import { Card, useForm, SubmitButton } from '@/components/common';
 import { useVaultContext } from '@/hooks';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
@@ -25,7 +25,7 @@ export const AddAccountForm = () => {
   });
   
   const [{ curVaultId }] = useVaultContext()
-  
+
   const {
     data: { getCategories } = {},
   } = useGetCategoriesQuery({
@@ -52,26 +52,30 @@ export const AddAccountForm = () => {
     return getCategories?.find(({ id }) => id === selectedCategoryId)?.type;
   }, [selectedCategoryId, getCategories]);
 
-  // const [addVault] = useAddVaultMutation({
-  //   onCompleted: (data) => {
-  //     console.log(data);
-  //   },
-  // });
+  const [addAccount] = useAddAccountMutation({
+    onCompleted: (data) => {
+      console.log(data);
+    },
+  });
 
-  // const handleOnSubmit = useCallback((value: FieldValues) => {
-  //   addVault({
-  //     variables: {
-  //       input: {
-  //         ...value,
-  //         ownerId: '000',
-  //       },
-  //     },
-  //   });
-  // }, []);
+  const handleOnSubmit = useCallback(
+    ({ name, category }: FieldValues) => {
+      addAccount({
+        variables: {
+          input: {
+            name,
+            categoryId: category,
+            vaultId: curVaultId ?? '',
+          },
+        },
+      });
+    },
+    [curVaultId]
+  );
 
   return (
     <Card variant="sm">
-      <Form onSubmit={() => null}>
+      <Form onSubmit={handleOnSubmit}>
         <div className="flex flex-col">
           <Form.Select
             name="category"
@@ -79,7 +83,9 @@ export const AddAccountForm = () => {
             placeholder={t('add-account-form.placeholder.category')}
             items={categorySelectItems}
           />
-          {categoryType && <div className="text-xs text-gray">{categoryType}</div>}
+          {categoryType && (
+            <div className="text-xs text-gray">{categoryType}</div>
+          )}
           <Form.Input
             name="name"
             label={t('add-account-form.label.name')}

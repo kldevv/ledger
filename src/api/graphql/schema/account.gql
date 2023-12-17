@@ -14,3 +14,9 @@ input GetAccountsInput {
   categoryId: [String!]
   nameSearch: String
 }
+
+input AddAccountInput {
+  name: String!
+  categoryId: String!
+  vaultId: String!
+}

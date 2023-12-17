@@ -1,0 +1,12 @@
+mutation addAccount($input: AddAccountInput!) {
+  addAccount(input: $input) {
+    id
+    name
+    category {
+      id
+      name
+    }
+    createdDate
+    updatedDate
+  }
+}

@@ -31,6 +31,12 @@ export type Account = {
   vaultId: Scalars['String']['output'];
 };
 
+export type AddAccountInput = {
+  categoryId: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  vaultId: Scalars['String']['input'];
+};
+
 export type AddVaultInput = {
   currency: Currency;
   name: Scalars['String']['input'];
@@ -122,7 +128,13 @@ export type GetVaultsInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addVault?: Maybe<Vault>;
+  addAccount: Account;
+  addVault: Vault;
+};
+
+
+export type MutationAddAccountArgs = {
+  input: AddAccountInput;
 };
 
 
@@ -288,6 +300,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
+  AddAccountInput: AddAccountInput;
   AddVaultInput: AddVaultInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Category: ResolverTypeWrapper<Category>;
@@ -315,6 +328,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Account: Account;
+  AddAccountInput: AddAccountInput;
   AddVaultInput: AddVaultInput;
   Boolean: Scalars['Boolean']['output'];
   Category: Category;
@@ -381,7 +395,8 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
 };
 
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addVault?: Resolver<Maybe<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<MutationAddVaultArgs, 'input'>>;
+  addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
+  addVault?: Resolver<ResolversTypes['Vault'], ParentType, ContextType, RequireFields<MutationAddVaultArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -442,12 +457,19 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 };
 
 
+export type AddAccountMutationVariables = Exact<{
+  input: AddAccountInput;
+}>;
+
+
+export type AddAccountMutation = { __typename?: 'Mutation', addAccount: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string } } };
+
 export type AddVaultMutationVariables = Exact<{
   input: AddVaultInput;
 }>;
 
 
-export type AddVaultMutation = { __typename?: 'Mutation', addVault?: { __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date } | null };
+export type AddVaultMutation = { __typename?: 'Mutation', addVault: { __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date } };
 
 export type GetAccountsQueryVariables = Exact<{
   input: GetAccountsInput;
@@ -504,6 +526,45 @@ export type GetVaultsQueryVariables = Exact<{
 export type GetVaultsQuery = { __typename?: 'Query', getVaults: Array<{ __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date }> };
 
 
+export const AddAccountDocument = gql`
+    mutation addAccount($input: AddAccountInput!) {
+  addAccount(input: $input) {
+    id
+    name
+    category {
+      id
+    }
+    createdDate
+    updatedDate
+  }
+}
+    `;
+export type AddAccountMutationFn = Apollo.MutationFunction<AddAccountMutation, AddAccountMutationVariables>;
+
+/**
+ * __useAddAccountMutation__
+ *
+ * To run a mutation, you first call `useAddAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addAccountMutation, { data, loading, error }] = useAddAccountMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddAccountMutation(baseOptions?: Apollo.MutationHookOptions<AddAccountMutation, AddAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddAccountMutation, AddAccountMutationVariables>(AddAccountDocument, options);
+      }
+export type AddAccountMutationHookResult = ReturnType<typeof useAddAccountMutation>;
+export type AddAccountMutationResult = Apollo.MutationResult<AddAccountMutation>;
+export type AddAccountMutationOptions = Apollo.BaseMutationOptions<AddAccountMutation, AddAccountMutationVariables>;
 export const AddVaultDocument = gql`
     mutation addVault($input: AddVaultInput!) {
   addVault(input: $input) {
