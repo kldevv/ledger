@@ -6,6 +6,9 @@
       "UNKNOWN": "Unknown"
     }
   },
+  "view-link": {
+    "label": "View"
+  },
   "enum": {
     "categoryType": {
       "ASSETS": "Assets",

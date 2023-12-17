@@ -1,10 +1,8 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
-import Link from 'next/link';
 import { GetAllTransactionsQuery } from '@/api/graphql';
 import React from 'react';
 import { StatusChip, Table } from '@/components/common';
-import { formatter } from '@/lib';
 import { useFormatter } from '@/hooks';
 
 type TransactionTableDataModel = GetAllTransactionsQuery['getAllTransactions'][0]
@@ -166,12 +164,9 @@ export const TransactionTable: React.FC = () => {
     columnHelper.display({
       id: 'view',
       cell: (props) => (
-        <Link
-          className="text-light-accent"
+        <ViewLink
           href={`/transaction/${props.row.getValue('id')}`}
-        >
-          View
-        </Link>
+        />
       ),
     }),
   ];

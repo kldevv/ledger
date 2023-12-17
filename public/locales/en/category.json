@@ -3,7 +3,8 @@
     "header": {
       "id": "ID",
       "name": "Name",
-      "type": "Accounting Term"
+      "type": "Accounting Term",
+      "created-date": "Created Date"
     },
     "type": {
       "ASSETS": "Assets",

@@ -1,8 +1,7 @@
 import { GetAccountsQuery, useGetAccountsQuery } from "@/api/graphql";
-import { Table } from "@/components/common"
+import { Table, ViewLink } from "@/components/common"
 import { useFormatter, useVaultContext } from "@/hooks";
 import { createColumnHelper } from "@tanstack/react-table";
-import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 type AccountTableData = GetAccountsQuery['getAccounts'][0]
@@ -48,12 +47,9 @@ export const AccountTable: React.FC = () => {
     columnHelper.display({
       id: 'detail',
       cell: (props) => (
-        <Link
+        <ViewLink
           href={`/account/${props.row.getValue('id')}`}
-          className="text-light-accent"
-        >
-          View
-        </Link>
+        />
       ),
     }),
   ];

@@ -4,9 +4,8 @@ import {
   GetTagsQuery,
   useGetTagsQuery,
 } from '@/api/graphql';
-import { Table } from '@/components/common';
+import { Table, ViewLink } from '@/components/common';
 import { useVaultContext } from '@/hooks';
-import Link from 'next/link';
 
 type TagTableData = GetTagsQuery['getTags'][0]
 
@@ -39,12 +38,9 @@ export const TagTable: React.FC = () => {
     columnHelper.display({
       id: 'detail',
       cell: (props) => (
-        <Link
+        <ViewLink
           href={`/tag/${props.row.getValue('id')}`}
-          className="text-light-accent"
-        >
-          View
-        </Link>
+        />
       ),
     }),
   ];

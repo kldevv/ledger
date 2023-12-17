@@ -1,8 +1,9 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import { GetCategoriesQuery } from '@/api/graphql';
-import { Table } from '@/components/common';
+import { Table, ViewLink } from '@/components/common';
 import Link from 'next/link';
+import { useFormatter } from '@/hooks';
 
 export type CategoryTableData = GetCategoriesQuery['getCategories'][0]
 
@@ -17,6 +18,7 @@ const columnHelper = createColumnHelper<CategoryTableData>();
 
 export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
   const { t } = useTranslation('category');
+  const { formatDate } = useFormatter()
 
   const colDefs = [
     columnHelper.accessor('id', {
@@ -32,15 +34,14 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
       header: t('category-table.header.type'),
       cell: (props) => t(`category-table.type.${props.getValue()}`),
     }),
+    columnHelper.accessor('createdDate', {
+      header: t('category-table.header.created-date'),
+      cell: (props) => <span className="whitespace-nowrap">{formatDate(props.getValue())}</span>,
+    }),
     columnHelper.display({
       id: 'detail',
       cell: (props) => (
-        <Link
-          href={`/category/${props.row.getValue('id')}`}
-          className="text-light-accent"
-        >
-          View
-        </Link>
+        <ViewLink href={`/category/${props.row.getValue('id')}`} />
       ),
     }),
   ];
