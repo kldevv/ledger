@@ -6,16 +6,11 @@ const Page: React.FC = () => {
   const { t } = useTranslation('account');
 
   return (
-    <Layout prev="/">
+    <Layout prev="/account">
       <PageHeader
-        title={t('page.index.title')}
-        subtitle={t('page.index.subtitle')}
-        link={{
-          href: '/account/add',
-          label: t('page.index.link'),
-        }}
+        title={t('page.add.index.title')}
+        subtitle={t('page.add.index.subtitle')}
       />
-      <AccountTable />
     </Layout>
   );
 };

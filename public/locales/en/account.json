@@ -5,5 +5,18 @@
       "category": "Category",
       "id": "ID"
     }
+  },
+  "page": {
+    "index": {
+      "title": "Accounts",
+      "subtitle": "All accounts of the currently selected vault.",
+      "link": "Add Account"
+    },
+    "add": {
+      "index": {
+        "title": "Add Account",
+        "subtitle": "Add a new account to the selected vault."
+      }
+    }
   }
 }
