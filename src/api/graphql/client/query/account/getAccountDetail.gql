@@ -1,20 +1,34 @@
-query getAccountDetail($accountId: String!) {
-  getAccountDetail(accountId: $accountId) {
+query getAccountDetail(
+  $getAccountInput: GetAccountInput!
+  $getEntriesInput: GetEntriesInput!
+) {
+  getAccount(input: $getAccountInput) {
     id
     name
     category {
       id
       name
     }
-    entries {
-      id
-      debit
-      credit
-      memo
-      transactionDate
-      status
-    }
     createdDate
     updatedDate
+  }
+  getEntries(input: $getEntriesInput) {
+    id
+    vaultId
+    transactionDate
+    debit
+    credit
+    memo
+    account {
+      id
+      name
+      category {
+        id
+        name
+        type
+      }
+    }
+    transactionId
+    status
   }
 }

@@ -11,10 +11,10 @@ type Entry {
 }
 
 input GetEntriesInput {
-  vaultId: String!
+  vaultId: String
   startDate: DateTime
   endDate: DateTime
-  transactionId: [String!]
+  transactionIds: [String!]
   status: [Status!]
   memoSearch: String
   accountId: [String!]
