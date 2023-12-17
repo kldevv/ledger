@@ -22,5 +22,12 @@
       "switch": "Switch",
       "selected": "SELECTED"
     }
+  },
+  "page": {
+    "index": {
+      "title": "Vaults",
+      "subtitle": "Switch to a different vault or create a new one.",
+      "link": "Create Vault"
+    }
   }
 }

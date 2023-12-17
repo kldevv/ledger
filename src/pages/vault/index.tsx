@@ -1,15 +1,16 @@
-import { Layout } from '@/components/layout';
+import { Hero, Layout } from '@/components/layout';
 import { VaultTable } from '@/components/vault';
+import { useTranslation } from 'react-i18next';
 
 const Page: React.FC = () => {
+  const { t } = useTranslation('vault');
+
   return (
     <Layout prev="/">
-      <div className="flex flex-col gap-y-4">
-        <h1 className="text-dark-shades font-extrabold text-3xl">Vaults</h1>
-        <p className="text-gray text-base">
-          Switch to a different vault or create a new one.
-        </p>
-      </div>
+      <Hero title={t('page.index.title')} subtitle={t('page.index.subtitle')} link={{
+        href: "/vault/create",
+        label: t('page.index.link')
+      }} />
       <VaultTable />
     </Layout>
   );

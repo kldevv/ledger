@@ -52,6 +52,13 @@ export const VaultTable: React.FC = () => {
     columnHelper.accessor('id', {
       header: t('vault-table.header.id'),
     }),
+    columnHelper.display({
+      id: 'is-selected',
+      cell: (props) =>
+        props.row.getValue('id') === curVaultId ? (
+          <CheckCircleIcon className="w-5 h-5 text-light-accent" />
+        ) : null,
+    }),
     columnHelper.accessor('name', {
       header: t('vault-table.header.name'),
       cell: (props) => (
@@ -78,16 +85,10 @@ export const VaultTable: React.FC = () => {
       cell: (props) => (
         <Button
           onClick={createHandleOnVaultSwitch(props.row.getValue('id'))}
-          className='text-light-accent'
+          className="text-light-accent"
         >
           {t('vault-table.button.switch')}
         </Button>
-      ),
-    }),
-    columnHelper.display({
-      id: 'is-selected',
-      cell: (props) => (
-        props.row.getValue('id') === curVaultId ? <CheckCircleIcon className='w-5 h-5 text-light-accent'/> : null
       ),
     }),
   ];
