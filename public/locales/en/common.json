@@ -5,5 +5,12 @@
       "PENDING": "Pending",
       "UNKNOWN": "Unknown"
     }
+  },
+  "enum": {
+    "categoryType": {
+      "ASSETS": "Assets",
+      "EQUITY": "Equity",
+      "LIABILITIES": "Liabilities"
+    }
   }
 }

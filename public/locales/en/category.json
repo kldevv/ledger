@@ -11,6 +11,17 @@
       "LIABILITIES": "Liabilities"
     }
   },
+  "add-category-form": {
+    "label": {
+      "name": "Name",
+      "type": "Accounting Term"
+    },
+    "placeholder": {
+      "name": "Enter a name",
+      "type": "Choose an accounting term"
+    },
+    "submit": "Add"
+  },
   "page": {
     "index": {
       "title": "Categories",

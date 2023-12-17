@@ -1,3 +1,4 @@
+import { AddCategoryForm } from '@/components/category';
 import { PageHeader, Layout } from '@/components/layout';
 import { useTranslation } from 'react-i18next';
 
@@ -10,6 +11,7 @@ const Page: React.FC = () => {
         title={t('page.add.index.title')}
         subtitle={t('page.add.index.subtitle')}
       />
+      <AddCategoryForm />
     </Layout>
   );
 };

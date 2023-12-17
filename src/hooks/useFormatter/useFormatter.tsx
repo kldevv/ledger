@@ -1,7 +1,7 @@
-import { formatDate } from "./lib"
+import { formatDate } from './lib';
 
 export const useFormatter = () => {
-  return  {
-    formatDate
-  }
-}
+  return {
+    formatDate,
+  } as const;
+};
