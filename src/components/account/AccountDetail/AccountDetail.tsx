@@ -1,4 +1,4 @@
-import { useGetAccountDetailQuery, useGetTransactionDetailQuery } from '@/api/graphql';
+import { useGetAccountDetailQuery } from '@/api/graphql';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { EntryTable } from '@/components/entry';
@@ -14,25 +14,29 @@ export const AccountDetail: React.FC = () => {
 
   const { data, loading, error } = useGetAccountDetailQuery({
     variables: {
-      accountId: accountId ?? '',
+      getAccountInput: {
+        id: accountId ?? '',
+      },
+      getEntriesInput: {
+        accountId: accountId,
+      },
     },
     skip: accountId == null,
   });
 
   return (
-    data?.getAccountDetail && (
+    data?.getAccount &&
+    data?.getEntries && (
       <div>
         <AccountDescriptionList
           data={{
-            ...data?.getAccountDetail,
+            ...data?.getAccount,
           }}
         />
         <h3 className="mt-12 font-semibold text-dark-shades">
           Account Entries
         </h3>
-        <EntryTable
-          data={data?.getAccountDetail.entries}
-        />
+        <EntryTable data={data?.getEntries} />
       </div>
     )
   );

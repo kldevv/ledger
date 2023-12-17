@@ -1,5 +1,6 @@
 import prisma from "@/db/prisma/client"
 import { AccountDetail } from ".."
+import { CategoryType } from "@prisma/client"
 
 export namespace ReadOne {
   export type Args = {
@@ -12,15 +13,30 @@ export namespace ReadOne {
 
 export const readOne = async ({ id }: ReadOne.Args) => {
   try {
-    return await prisma.account.findUnique({
-      where: {
-        id
-      },
-      include: {
-        category: true,
-        entries: true
+    return {
+      name: 'Expense',
+      id: id,
+      updatedDate: new Date(Date.now()),
+      createdDate: new Date(Date.now()),
+      vaultId: '0',
+      categoryId: '72',
+      category: {
+        id: '72',
+        name: 'Master Expense',
+        type: CategoryType.LIABILITIES,
+        vaultId: '0',
+        updatedDate: new Date(Date.now()),
+        createdDate: new Date(Date.now()),
       }
-    })
+    }
+    // return await prisma.account.findUnique({
+    //   where: {
+    //     id
+    //   },
+    //   include: {
+    //     category: true,
+    //   }
+    // })
   } catch (e) {
     throw e
   }

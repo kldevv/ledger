@@ -76,7 +76,7 @@ export type CurrencyMeta = {
 
 export type Entry = {
   __typename?: 'Entry';
-  account?: Maybe<Account>;
+  account: Account;
   credit: Scalars['Float']['output'];
   debit: Scalars['Float']['output'];
   id: Scalars['String']['output'];
@@ -88,7 +88,7 @@ export type Entry = {
 };
 
 export type GetAccountInput = {
-  transactionId: Scalars['String']['input'];
+  id: Scalars['String']['input'];
 };
 
 export type GetAccountsInput = {
@@ -106,7 +106,7 @@ export type GetCategoriesInput = {
 };
 
 export type GetEntriesInput = {
-  accountId?: InputMaybe<Array<Scalars['String']['input']>>;
+  accountId?: InputMaybe<Scalars['String']['input']>;
   creditAtLeast?: InputMaybe<Scalars['Float']['input']>;
   creditNoMore?: InputMaybe<Scalars['Float']['input']>;
   debitAtLeast?: InputMaybe<Scalars['Float']['input']>;
@@ -115,7 +115,7 @@ export type GetEntriesInput = {
   memoSearch?: InputMaybe<Scalars['String']['input']>;
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<Array<Status>>;
-  transactionIds?: InputMaybe<Array<Scalars['String']['input']>>;
+  transactionId?: InputMaybe<Scalars['String']['input']>;
   vaultId?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -394,7 +394,7 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Entry'] = ResolversParentTypes['Entry']> = {
-  account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
+  account?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
   credit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -497,7 +497,7 @@ export type GetAccountDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetAccountDetailQuery = { __typename?: 'Query', getAccount?: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string } } | null, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: Status, account?: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } | null }> };
+export type GetAccountDetailQuery = { __typename?: 'Query', getAccount?: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string } } | null, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: Status, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
 
 export type GetAccountsQueryVariables = Exact<{
   input: GetAccountsInput;
@@ -518,7 +518,7 @@ export type GetEntriesQueryVariables = Exact<{
 }>;
 
 
-export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: Status, account?: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } | null }> };
+export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: Status, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
 
 export type GetCurrencyMetaQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -544,7 +544,7 @@ export type GetTransactionDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, amount: number, count: number, status: Status, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account?: { __typename?: 'Account', id: string, name: string } | null }> } | null };
+export type GetTransactionDetailQuery = { __typename?: 'Query', getTransactionDetail?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, amount: number, count: number, status: Status, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, status: Status, account: { __typename?: 'Account', id: string, name: string } }> } | null };
 
 export type GetVaultsQueryVariables = Exact<{
   input: GetVaultsInput;

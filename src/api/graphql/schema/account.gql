@@ -8,7 +8,7 @@ type Account {
 }
 
 input GetAccountInput {
-  transactionId: String!
+  id: String!
 }
 
 input GetAccountsInput {

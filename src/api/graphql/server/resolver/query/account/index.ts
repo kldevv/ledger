@@ -1,2 +1,2 @@
-export * from './getAccountDetail'
+export * from './getAccount'
 export * from './getAccounts'
