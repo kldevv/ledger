@@ -17,6 +17,12 @@
         "title": "Add Account",
         "subtitle": "Add a new account to the selected vault."
       }
+    },
+    "[id]": {
+      "index": {
+        "title": "Account Detail",
+        "subtitle": "View and edit information of the account."
+      }
     }
   }
 }
