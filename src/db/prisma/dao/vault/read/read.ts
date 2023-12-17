@@ -39,35 +39,39 @@ export namespace ReadMany {
      */
     currency?: Currency
   }
-
-  export type Returns = Vault[]
 }
 
-export const readMany = async ({ name, ownerId, currency }: ReadMany.Args): Promise<ReadMany.Returns> => {
+export const readMany = async ({ name, ownerId, currency }: ReadMany.Args) => {
   try {
-    return [{
-      id: '77',
-      name: 'USD Vault',
-      ownerId: ownerId ?? '000',
-      currency: 'USD',
-      createdDate: new Date(Date.now()),
-      updatedDate: new Date(Date.now()),
-    }, {
-      id: '88',
-      name: 'NTD Vault',
-      ownerId: ownerId ?? '000',
-      currency: 'NTD',
-      createdDate: new Date(Date.now()),
-      updatedDate: new Date(Date.now()),
-    }, {
-      id: '100',
-      name: 'USD Vault 2',
-      ownerId: ownerId ?? '000',
-      currency: 'USD',
-      createdDate: new Date(Date.now()),
-      updatedDate: new Date(Date.now()),
-    }]
-
+    // return [{
+    //   id: '77',
+    //   name: 'USD Vault',
+    //   ownerId: ownerId ?? '000',
+    //   currency: 'USD',
+    //   createdDate: new Date(Date.now()),
+    //   updatedDate: new Date(Date.now()),
+    // }, {
+    //   id: '88',
+    //   name: 'NTD Vault',
+    //   ownerId: ownerId ?? '000',
+    //   currency: 'NTD',
+    //   createdDate: new Date(Date.now()),
+    //   updatedDate: new Date(Date.now()),
+    // }, {
+    //   id: '100',
+    //   name: 'USD Vault 2',
+    //   ownerId: ownerId ?? '000',
+    //   currency: 'USD',
+    //   createdDate: new Date(Date.now()),
+    //   updatedDate: new Date(Date.now()),
+    // }]
+    return await prisma.vault.findMany({
+      where: {
+        name,
+        ownerId, 
+        currency
+      }
+    })
   } catch (e) {
     throw e
   }

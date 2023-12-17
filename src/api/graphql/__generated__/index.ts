@@ -47,16 +47,20 @@ export type Category = {
   vaultId: Scalars['String']['output'];
 };
 
-export type CategoryType =
-  | 'ASSETS'
-  | 'EQUITY'
-  | 'LIABILITIES';
+export const CategoryType = {
+  ASSETS: 'ASSETS',
+  EQUITY: 'EQUITY',
+  LIABILITIES: 'LIABILITIES'
+} as const;
 
-export type Currency =
-  | 'EUR'
-  | 'NTD'
-  | 'USD';
+export type CategoryType = typeof CategoryType[keyof typeof CategoryType];
+export const Currency = {
+  EUR: 'EUR',
+  NTD: 'NTD',
+  USD: 'USD'
+} as const;
 
+export type Currency = typeof Currency[keyof typeof Currency];
 export type CurrencyMeta = {
   __typename?: 'CurrencyMeta';
   icon?: Maybe<Scalars['String']['output']>;
@@ -173,10 +177,12 @@ export type QueryGetVaultsArgs = {
   input: GetVaultsInput;
 };
 
-export type Status =
-  | 'COMPLETED'
-  | 'PENDING';
+export const Status = {
+  COMPLETED: 'COMPLETED',
+  PENDING: 'PENDING'
+} as const;
 
+export type Status = typeof Status[keyof typeof Status];
 export type Tag = {
   __typename?: 'Tag';
   createdDate: Scalars['DateTime']['output'];

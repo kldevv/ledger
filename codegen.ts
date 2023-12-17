@@ -20,7 +20,7 @@ const config: CodegenConfig = {
       plugins: ["typescript", "typescript-resolvers", "typescript-operations", "typescript-react-apollo"],
       config: {
         contextType: '@/api/graphql/server/context#ApolloServerContext',
-        enumsAsTypes: true,
+        enumsAsConst: true,
         scalars: {
           DateTime: 'Date'
         }
