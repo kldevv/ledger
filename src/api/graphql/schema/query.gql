@@ -11,6 +11,7 @@ type Query {
   getEntries(input: GetEntriesInput!): [Entry!]!
 
   # Tag
+  getTag(input: GetTagInput!): Tag
   getTags(input: GetTagsInput!): [Tag!]!
 
   # Transaction

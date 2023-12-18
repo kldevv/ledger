@@ -137,9 +137,13 @@ export type GetEntriesInput = {
   vaultId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type GetTagInput = {
+  id: Scalars['String']['input'];
+};
+
 export type GetTagsInput = {
   nameSearch?: InputMaybe<Scalars['String']['input']>;
-  vaultId: Scalars['String']['input'];
+  vaultId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type GetTransactionInput = {
@@ -183,6 +187,7 @@ export type Query = {
   getCategory?: Maybe<Category>;
   getCurrencyMeta: Array<CurrencyMeta>;
   getEntries: Array<Entry>;
+  getTag?: Maybe<Tag>;
   getTags: Array<Tag>;
   getTransaction?: Maybe<Transaction>;
   getTransactionDetail?: Maybe<Transaction>;
@@ -217,6 +222,11 @@ export type QueryGetCategoryArgs = {
 
 export type QueryGetEntriesArgs = {
   input: GetEntriesInput;
+};
+
+
+export type QueryGetTagArgs = {
+  input: GetTagInput;
 };
 
 
@@ -357,6 +367,7 @@ export type ResolversTypes = {
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
+  GetTagInput: GetTagInput;
   GetTagsInput: GetTagsInput;
   GetTransactionInput: GetTransactionInput;
   GetVaultsInput: GetVaultsInput;
@@ -385,6 +396,7 @@ export type ResolversParentTypes = {
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
+  GetTagInput: GetTagInput;
   GetTagsInput: GetTagsInput;
   GetTransactionInput: GetTransactionInput;
   GetVaultsInput: GetVaultsInput;
@@ -454,6 +466,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoryArgs, 'input'>>;
   getCurrencyMeta?: Resolver<Array<ResolversTypes['CurrencyMeta']>, ParentType, ContextType>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
+  getTag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagArgs, 'input'>>;
   getTags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagsArgs, 'input'>>;
   getTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'input'>>;
   getTransactionDetail?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionDetailArgs, 'transactionId'>>;
@@ -580,6 +593,13 @@ export type GetCurrencyMetaQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCurrencyMetaQuery = { __typename?: 'Query', getCurrencyMeta: Array<{ __typename?: 'CurrencyMeta', value: Currency, label: string, icon?: string | null }> };
+
+export type GetTagQueryVariables = Exact<{
+  input: GetTagInput;
+}>;
+
+
+export type GetTagQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } | null };
 
 export type GetTagsQueryVariables = Exact<{
   input: GetTagsInput;
@@ -1158,6 +1178,50 @@ export type GetCurrencyMetaQueryHookResult = ReturnType<typeof useGetCurrencyMet
 export type GetCurrencyMetaLazyQueryHookResult = ReturnType<typeof useGetCurrencyMetaLazyQuery>;
 export type GetCurrencyMetaSuspenseQueryHookResult = ReturnType<typeof useGetCurrencyMetaSuspenseQuery>;
 export type GetCurrencyMetaQueryResult = Apollo.QueryResult<GetCurrencyMetaQuery, GetCurrencyMetaQueryVariables>;
+export const GetTagDocument = gql`
+    query getTag($input: GetTagInput!) {
+  getTag(input: $input) {
+    id
+    name
+    vaultId
+    createdDate
+    updatedDate
+  }
+}
+    `;
+
+/**
+ * __useGetTagQuery__
+ *
+ * To run a query within a React component, call `useGetTagQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTagQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTagQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetTagQuery(baseOptions: Apollo.QueryHookOptions<GetTagQuery, GetTagQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTagQuery, GetTagQueryVariables>(GetTagDocument, options);
+      }
+export function useGetTagLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTagQuery, GetTagQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTagQuery, GetTagQueryVariables>(GetTagDocument, options);
+        }
+export function useGetTagSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTagQuery, GetTagQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTagQuery, GetTagQueryVariables>(GetTagDocument, options);
+        }
+export type GetTagQueryHookResult = ReturnType<typeof useGetTagQuery>;
+export type GetTagLazyQueryHookResult = ReturnType<typeof useGetTagLazyQuery>;
+export type GetTagSuspenseQueryHookResult = ReturnType<typeof useGetTagSuspenseQuery>;
+export type GetTagQueryResult = Apollo.QueryResult<GetTagQuery, GetTagQueryVariables>;
 export const GetTagsDocument = gql`
     query getTags($input: GetTagsInput!) {
   getTags(input: $input) {

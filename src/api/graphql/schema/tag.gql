@@ -6,7 +6,11 @@ type Tag {
   updatedDate: DateTime!
 }
 
+input GetTagInput {
+  id: String!
+}
+
 input GetTagsInput {
-  vaultId: String!
+  vaultId: String
   nameSearch: String
 }
