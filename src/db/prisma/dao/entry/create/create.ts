@@ -20,9 +20,9 @@ export namespace CreateOne {
      */
     credit: number
     /**
-     * Optional memorandum, default is `undefined`
+     * Optional memorandum
      */
-    memo?: string
+    memo?: string | null
     /**
      * Transaction id
      */

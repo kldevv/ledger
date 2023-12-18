@@ -212,7 +212,7 @@ export type MutationAddTagArgs = {
 
 
 export type MutationAddTransactionArgs = {
-  input?: InputMaybe<AddTransactionInput>;
+  input: AddTransactionInput;
 };
 
 
@@ -509,7 +509,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
   addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
-  addTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, Partial<MutationAddTransactionArgs>>;
+  addTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
   addVault?: Resolver<ResolversTypes['Vault'], ParentType, ContextType, RequireFields<MutationAddVaultArgs, 'input'>>;
 };
 

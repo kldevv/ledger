@@ -1,6 +1,5 @@
 import prisma from "@/db/prisma/client"
 import { EntryDao } from "../.."
-import { TransactionWithDetail } from "../type"
 
 export namespace CreateOne {
   export type Args = {
@@ -9,13 +8,9 @@ export namespace CreateOne {
      */
     accrualDate: Date
     /**
-     * Transaction subject
+     * Transaction note
      */
-    subject: string
-    /**
-     * Transaction description
-     */
-    description?: string
+    note: string
     /**
      * Vault id
      */
@@ -27,27 +22,23 @@ export namespace CreateOne {
     /**
      * List of entries of the transaction
      */
-    entries: EntryDao.CreateOne.Args[]
+    entries: Omit<EntryDao.CreateOne.Args, 'transactionId'>[]
   }
-
-  export type Returns = TransactionWithDetail
 }
 
 export const createOne = async ({
   accrualDate,
-  subject,
-  description,
   vaultId,
   tagIds,
-  entries
-}: CreateOne.Args): Promise<CreateOne.Returns> => {
+  note,
+  entries,
+}: CreateOne.Args) => {
   try {
     return await prisma.transaction.create({
       data: {
         accrualDate,
-        subject,
-        description,
         vaultId,
+        note,
         tags: {
           connect: tagIds.map((id) => ({ id }))
         },

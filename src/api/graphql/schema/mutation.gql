@@ -9,7 +9,7 @@ type Mutation {
   addTag(input: AddTagInput!): Tag!
 
   # Transaction
-  addTransaction(input: AddTransactionInput): Transaction
+  addTransaction(input: AddTransactionInput!): Transaction
 
   # Vault
   addVault(input: AddVaultInput!): Vault!
