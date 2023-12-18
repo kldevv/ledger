@@ -47,7 +47,14 @@
     "[id]": {
       "index": {
         "title": "Account Detail",
-        "subtitle": "View and edit information of the account."
+        "subtitle": "View and edit information of the account.",
+        "link": "Edit"
+      },
+      "edit": {
+        "index": {
+          "title": "Edit Account",
+          "subtitle": "Edit information of the account or delete it."
+        }
       }
     }
   }

@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('category');
+  const { t } = useTranslation('account');
   const router = useRouter();
 
   return (
     <Layout
       prev={{
-        pathname: '/category/[id]',
+        pathname: '/account/[id]',
         query: {
           id: router.query.id,
         },
