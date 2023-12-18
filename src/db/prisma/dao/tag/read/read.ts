@@ -8,17 +8,22 @@ export namespace ReadOne {
      */
     id: string
   }
-
-  export type Returns = Tag | null
 }
 
-export const readOne = async ({ id }: ReadOne.Args): Promise<ReadOne.Returns> => {
+export const readOne = async ({ id }: ReadOne.Args) => {
   try {
-    return await prisma.tag.findUnique({
-      where: {
-        id
-      }
-    })
+    // return await prisma.tag.findUnique({
+    //   where: {
+    //     id
+    //   }
+    // })
+    return {
+      name: 'Hawaii',
+      vaultId: '00',
+      id: '100',
+      createdDate: new Date(),
+      updatedDate: new Date(),
+    }
   } catch (e) {
     throw e
   }

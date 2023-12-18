@@ -1,141 +1,23 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
-import { GetAllTransactionsQuery } from '@/api/graphql';
 import React from 'react';
-import { StatusChip, Table, ViewLink } from '@/components/common';
+import { Table, ViewLink } from '@/components/common';
 import { useFormatter } from '@/hooks';
+import { GetTransactionsQuery } from '@/api/graphql';
 
-type TransactionTableDataModel = GetAllTransactionsQuery['getAllTransactions'][number]
+export type TransactionTableDataModel =
+  GetTransactionsQuery['getTransactions'][number];
 
 const columnHelper = createColumnHelper<TransactionTableDataModel>();
 
-const data: TransactionTableDataModel[] = [
-  {
-    id: '0001',
-    accrualDate: new Date(Date.now()),
-    note: 'Buy a Ferrari',
-    amount: 100,
-    count: 2,
-    status: 'COMPLETED',
-    tags: [],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long description',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [{ id: '1', name: 'Car' }],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long description',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [{ id: '1', name: 'Car' }],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long description',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [{ id: '1', name: 'Car' }],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long description',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [{ id: '1', name: 'Car' }],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long description',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [{ id: '1', name: 'Car' }],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long description',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [{ id: '1', name: 'Car' }],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long description',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [
-      { id: '1', name: 'Car' },
-      { id: '1', name: 'Expensive' },
-    ],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long description',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [
-      { id: '1', name: 'Car' },
-      { id: '1', name: 'Expensive' },
-    ],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long description',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [
-      { id: '1', name: 'Car' },
-      { id: '1', name: 'Expensive' },
-    ],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long description',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [
-      { id: '1', name: 'Car' },
-      { id: '1', name: 'Expensive' },
-    ],
-  },
-  {
-    id: '0002',
-    accrualDate: new Date(Date.now()),
-    note: 'A very very very very very very very very long note',
-    amount: 200,
-    count: 3,
-    status: 'PENDING',
-    tags: [
-      { id: '1', name: 'Car' },
-      { id: '1', name: 'Expensive' },
-    ],
-  },
-];
+export interface TransactionTable {
+  /**
+   * Data
+   */
+  data: TransactionTableDataModel[];
+}
 
-export const TransactionTable: React.FC = () => {
+export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
   const { t } = useTranslation('transaction')
   const { formatDate } = useFormatter()
 
@@ -151,15 +33,8 @@ export const TransactionTable: React.FC = () => {
         </div>
       ),
     }),
-    columnHelper.accessor('count', {
-      header: t('transaction-table.header.count'),
-    }),
     columnHelper.accessor('note', {
       header: t('transaction-table.header.note'),
-    }),
-    columnHelper.accessor('status', {
-      header: t('transaction-table.header.status'),
-      cell: (props) => <StatusChip status={props.getValue()} />,
     }),
     columnHelper.display({
       id: 'view',

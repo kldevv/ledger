@@ -1,14 +1,21 @@
-import { Layout } from '@/components/layout';
-import { useRouter } from 'next/router';
+import { Layout, PageHeader } from '@/components/layout';
+import { TagDetail } from '@/components/tag';
+import { useTranslation } from 'react-i18next';
 
 const Page: React.FC = () => {
-  const router = useRouter()
-
-  const { id } = router.query
+  const { t } = useTranslation('tag')
 
   return (
     <Layout prev="/tag">
-      <h1 className="text-dark-shades font-extrabold text-3xl">{id}</h1>
+      <PageHeader
+        title={t('page.[id].index.title')}
+        subtitle={t('page.[id].index.subtitle')}
+        link={{
+          href: '/tag/create',
+          label: t('page.[id].index.link')
+        }}
+      />
+      <TagDetail />
     </Layout>
   );
 };

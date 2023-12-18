@@ -46,7 +46,7 @@ export const VaultContextProvider: React.FC<VaultContextProviderProps> = ({ chil
   );
 
   return (
-    <VaultContext.Provider value={[contextState, setContextState]}>
+    <VaultContext.Provider value={[contextState, setContextState] as const}>
       {children}
     </VaultContext.Provider>
   );

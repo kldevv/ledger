@@ -7,6 +7,11 @@
       "created-date": "Created Date"
     }
   },
+  "tag-detail": {
+    "header": {
+      "transactions": "Tag Transactions"
+    }
+  },
   "tag-table": {
     "header": {
       "id": "ID",
@@ -15,7 +20,16 @@
     }
   },
   "page": {
-    "title": "Tags",
-    "subtitle": "All the tags of the current vault."
+    "index": {
+      "title": "Tags",
+      "subtitle": "All the tags of the current vault."
+    },
+    "[id]": {
+      "index": {
+        "title": "Tags",
+        "subtitle": "All the tags of the current vault.",
+        "link": "Create Tag"
+      }
+    }
   }
 }

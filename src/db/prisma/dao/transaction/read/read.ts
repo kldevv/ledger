@@ -11,58 +11,6 @@ export namespace ReadOne {
 
 export const readOne = async ({ id }: ReadOne.Args) => {
   try {
-    const tags = [
-      {
-        name: 'Super longlonglonglonglonglonglonglonglong name',
-        vaultId: '00',
-        id: '1',
-        createdDate: new Date(),
-        updatedDate: new Date(),
-      },
-      {
-        name: '99',
-        vaultId: '00',
-        id: '3',
-        createdDate: new Date(),
-        updatedDate: new Date(),
-      },
-      {
-        name: '4',
-        vaultId: '00',
-        id: '2',
-        createdDate: new Date(),
-        updatedDate: new Date(),
-      },
-      {
-        name: 'Groceries',
-        vaultId: '00',
-        id: '3',
-        createdDate: new Date(),
-        updatedDate: new Date(),
-      },
-      {
-        name: 'Food',
-        vaultId: '00',
-        id: '4',
-        createdDate: new Date(),
-        updatedDate: new Date(),
-      },
-      {
-        name: 'Denver',
-        vaultId: '00',
-        id: '6',
-        createdDate: new Date(),
-        updatedDate: new Date(),
-      },
-      {
-        name: 'Hawaii',
-        vaultId: '00',
-        id: '100',
-        createdDate: new Date(),
-        updatedDate: new Date(),
-      },
-    ]
-    
     return {
       id,
       note: 'Some random note',
@@ -115,25 +63,63 @@ export const readMany = async ({
   tagId
 }: ReadMany.Args) => {
   try {
-    return await prisma.transaction.findMany({
-      where: {
-        accrualDate,
+    return [
+      {
+        id: '0001',
+        accrualDate: new Date(Date.now()),
+        note: 'Buy a Ferrari',
+        tags: [],
         vaultId,
-        note,
-        tags: {
-          some: {
-            id: tagId
-          }
-        }
+        createdDate: new Date(),
+        updatedDate: new Date(),
       },
-      include: {
-        tags: true, entries: {
-          include: {
-            account: true
-          }
-        }
-      }
-    })
+      {
+        id: '0002',
+        accrualDate: new Date(Date.now()),
+        note: 'A very very very very very very very very long description',
+        tags: tags,
+        vaultId,
+        createdDate: new Date(),
+        updatedDate: new Date(),
+      },
+      {
+        id: '0003',
+        accrualDate: new Date(Date.now()),
+        note: 'Another trans',
+        tags: tags,
+        vaultId,
+        createdDate: new Date(),
+        updatedDate: new Date(),
+      },
+      {
+        id: '0004',
+        accrualDate: new Date(Date.now()),
+        note: 'One tags',
+        tags: [tags[0]],
+        vaultId,
+        createdDate: new Date(),
+        updatedDate: new Date(),
+      },
+    ];
+    // return await prisma.transaction.findMany({
+    //   where: {
+    //     accrualDate,
+    //     vaultId,
+    //     note,
+    //     tags: {
+    //       some: {
+    //         id: tagId
+    //       }
+    //     }
+    //   },
+    //   include: {
+    //     tags: true, entries: {
+    //       include: {
+    //         account: true
+    //       }
+    //     }
+    //   }
+    // })
   } catch (e) {
     throw e
   }
@@ -141,3 +127,57 @@ export const readMany = async ({
 
 // TODO: Support query by Tag and Entry
 // TODO: Support pagination
+
+
+
+const tags = [
+  {
+    name: 'Super longlonglonglonglonglonglonglonglong name',
+    vaultId: '00',
+    id: '1',
+    createdDate: new Date(),
+    updatedDate: new Date(),
+  },
+  {
+    name: '99',
+    vaultId: '00',
+    id: '3',
+    createdDate: new Date(),
+    updatedDate: new Date(),
+  },
+  {
+    name: '4',
+    vaultId: '00',
+    id: '2',
+    createdDate: new Date(),
+    updatedDate: new Date(),
+  },
+  {
+    name: 'Groceries',
+    vaultId: '00',
+    id: '3',
+    createdDate: new Date(),
+    updatedDate: new Date(),
+  },
+  {
+    name: 'Food',
+    vaultId: '00',
+    id: '4',
+    createdDate: new Date(),
+    updatedDate: new Date(),
+  },
+  {
+    name: 'Denver',
+    vaultId: '00',
+    id: '6',
+    createdDate: new Date(),
+    updatedDate: new Date(),
+  },
+  {
+    name: 'Hawaii',
+    vaultId: '00',
+    id: '100',
+    createdDate: new Date(),
+    updatedDate: new Date(),
+  },
+]

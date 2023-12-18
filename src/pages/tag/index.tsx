@@ -7,7 +7,7 @@ const Page: React.FC = () => {
 
   return (
     <Layout prev={'/'}>
-      <PageHeader title={t('page.title')} subtitle={t('page.subtitle')} />
+      <PageHeader title={t('page.index.title')} subtitle={t('page.index.subtitle')} />
       <TagDashboard />
     </Layout>
   );

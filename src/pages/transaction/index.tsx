@@ -1,5 +1,5 @@
 import { PageHeader, Layout } from "@/components/layout"
-import { TransactionTable } from "@/components/transaction"
+import { TransactionDashboard } from "@/components/transaction"
 
 const Page: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const Page: React.FC = () => {
         title="Transactions"
         subtitle="All transactions for the currently selected vault."
       />
-      <TransactionTable />
+      <TransactionDashboard />
     </Layout>
   );
 };
