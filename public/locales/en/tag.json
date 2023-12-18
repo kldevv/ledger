@@ -1,4 +1,13 @@
 {
+  "add-tag-form": {
+    "label": {
+      "name": "Name"
+    },
+    "placeholder": {
+      "name": "Enter a name"
+    },
+    "submit": "Create"
+  },
   "tag-description-list": {
     "title": {
       "id": "ID",

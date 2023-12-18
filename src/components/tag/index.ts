@@ -1,3 +1,4 @@
+export * from './AddTagForm'
 export * from './TagDashboard'
 export * from './TagDescriptionList'
 export * from './TagDetail'
