@@ -5,7 +5,7 @@ import React from 'react';
 import { StatusChip, Table, ViewLink } from '@/components/common';
 import { useFormatter } from '@/hooks';
 
-type TransactionTableDataModel = GetAllTransactionsQuery['getAllTransactions'][0]
+type TransactionTableDataModel = GetAllTransactionsQuery['getAllTransactions'][number]
 
 const columnHelper = createColumnHelper<TransactionTableDataModel>();
 

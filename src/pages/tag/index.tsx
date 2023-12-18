@@ -1,5 +1,5 @@
 import { PageHeader, Layout } from '@/components/layout';
-import { TagTable } from '@/components/tag/TagTable';
+import { TagDashboard } from '@/components/tag';
 import { useTranslation } from 'react-i18next';
 
 const Page: React.FC = () => {
@@ -8,7 +8,7 @@ const Page: React.FC = () => {
   return (
     <Layout prev={'/'}>
       <PageHeader title={t('page.title')} subtitle={t('page.subtitle')} />
-      <TagTable />
+      <TagDashboard />
     </Layout>
   );
 };

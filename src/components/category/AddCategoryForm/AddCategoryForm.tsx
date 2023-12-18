@@ -36,7 +36,7 @@ export const AddCategoryForm = () => {
     () =>
       Object.keys(CategoryType).map((value) => ({
         value,
-        label: t(`common:enum.categoryType.${value}`),
+        label: value,
       })),
     [t]
   );

@@ -2,7 +2,8 @@
   "tag-table": {
     "header": {
       "id": "ID",
-      "name": "Name"
+      "name": "Name",
+      "created-date": "Created Date"
     }
   },
   "page": {

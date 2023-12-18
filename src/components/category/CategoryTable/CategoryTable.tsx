@@ -2,10 +2,9 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import { GetCategoriesQuery } from '@/api/graphql';
 import { Table, ViewLink } from '@/components/common';
-import Link from 'next/link';
 import { useFormatter } from '@/hooks';
 
-export type CategoryTableData = GetCategoriesQuery['getCategories'][0]
+export type CategoryTableData = GetCategoriesQuery['getCategories'][number]
 
 export interface CategoryTableProps {
   /**

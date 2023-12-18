@@ -4,7 +4,7 @@ import { useFormatter } from "@/hooks";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 
-export type AccountTableData = GetAccountsQuery['getAccounts'][0]
+export type AccountTableData = GetAccountsQuery['getAccounts'][number]
 
 export interface AccountTableProps {
   /**

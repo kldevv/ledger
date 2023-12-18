@@ -2,28 +2,22 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import {
   GetTagsQuery,
-  useGetTagsQuery,
 } from '@/api/graphql';
-import { Table, ViewLink } from '@/components/common';
-import { useVaultContext } from '@/hooks';
+import { FormattedDate, Table, ViewLink } from '@/components/common';
 
-type TagTableData = GetTagsQuery['getTags'][0]
+export type TagTableData = GetTagsQuery['getTags'][number]
+
+export interface TagTableProps {
+  /**
+   * Data
+   */
+  data: TagTableData[];
+}
 
 const columnHelper = createColumnHelper<TagTableData>();
 
-export const TagTable: React.FC = () => {
+export const TagTable: React.FC<TagTableProps> = ({ data }) => {
   const { t } = useTranslation('tag');
-  const [{ curVaultId }] = useVaultContext();
-
-  const { data, loading, error } = useGetTagsQuery({
-    variables: {
-      input: {
-        vaultId: curVaultId ?? '',
-      },
-    },
-    skip: curVaultId == null,
-    fetchPolicy: 'cache-and-network'
-  });
 
   const colDefs = [
     columnHelper.accessor('id', {
@@ -35,19 +29,15 @@ export const TagTable: React.FC = () => {
         <span className="text-dark-shades">{props.getValue()}</span>
       ),
     }),
+    columnHelper.accessor('createdDate', {
+      header: t('tag-table.header.created-date'),
+      cell: (props) => <FormattedDate dateTime={props.getValue()}/>
+    }),
     columnHelper.display({
-      id: 'detail',
-      cell: (props) => (
-        <ViewLink
-          href={`/tag/${props.row.getValue('id')}`}
-        />
-      ),
+      id: 'view',
+      cell: (props) => <ViewLink href={`/tag/${props.row.getValue('id')}`} />,
     }),
   ];
 
-  if (data == null) {
-    return null;
-  }
-
-  return <Table data={data.getTags} colDefs={colDefs} />;
+  return <Table data={data} colDefs={colDefs} />;
 };

@@ -9,11 +9,5 @@
   "view-link": {
     "label": "View"
   },
-  "enum": {
-    "categoryType": {
-      "ASSETS": "Assets",
-      "EQUITY": "Equity",
-      "LIABILITIES": "Liabilities"
-    }
-  }
+  "formatted-date": "{{ year }}-{{ month }}-{{ date }}"
 }
