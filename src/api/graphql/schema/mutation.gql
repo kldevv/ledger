@@ -5,9 +5,13 @@ type Mutation {
   # Category
   addCategory(input: AddCategoryInput!): Category!
 
+  # Tag
+  addTag(input: AddTagInput!): Tag!
+
+  # Transaction
+  addTransaction(input: AddTransactionInput): Transaction
+
   # Vault
   addVault(input: AddVaultInput!): Vault!
 
-  # Tag
-  addTag(input: AddTagInput!): Tag!
 }

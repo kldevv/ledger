@@ -9,6 +9,16 @@ type Transaction {
   # status is not part of the prisma schema but a calculated field from the entries table
   # we need this field to show the status of transactions in a table without doing another query
   status: EntryStatus
+  # entries is returned when adding a new transaction to confirm the result
+  entries: [Entry!]!
+}
+
+input AddTransactionInput {
+  accrualDate: DateTime!
+  note: String!
+  tagIds: [String!]!
+  vaultId: String!
+  entries: [AddEntryInput!]!
 }
 
 input GetTransactionInput {

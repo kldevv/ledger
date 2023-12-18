@@ -10,6 +10,15 @@ type Entry {
   status: EntryStatus!
 }
 
+input AddEntryInput {
+  transactionDate: DateTime!
+  debit: Float!
+  credit: Float!
+  accountId: String!
+  status: EntryStatus!
+  memo: String
+}
+
 input GetEntriesInput {
   vaultId: String
   startDate: DateTime

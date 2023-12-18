@@ -1,0 +1,33 @@
+mutation addTransaction($input: AddTransactionInput!) {
+  addTransaction(input: $input) {
+    id
+    accrualDate
+    note
+    vaultId
+    tags {
+      id
+      name
+    }
+    entries {
+      id
+      vaultId
+      transactionDate
+      debit
+      credit
+      memo
+      account {
+        id
+        name
+        category {
+          id
+          name
+          type
+        }
+      }
+      transactionId
+      status
+    }
+    createdDate
+    updatedDate
+  }
+}
