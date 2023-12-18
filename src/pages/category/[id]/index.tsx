@@ -1,3 +1,4 @@
+import { CategoryDetail } from '@/components/category';
 import { PageHeader, Layout } from '@/components/layout';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +22,7 @@ const Page: React.FC = () => {
           }
         }}
       />
+      <CategoryDetail />
     </Layout>
   );
 };

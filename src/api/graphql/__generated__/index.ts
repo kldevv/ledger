@@ -104,11 +104,11 @@ export type GetAccountInput = {
 };
 
 export type GetAccountsInput = {
-  categoryId?: InputMaybe<Array<Scalars['String']['input']>>;
+  categoryId?: InputMaybe<Scalars['String']['input']>;
   endDate?: InputMaybe<Scalars['DateTime']['input']>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  vaultId: Scalars['String']['input'];
+  vaultId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type GetCategoriesInput = {
@@ -562,12 +562,12 @@ export type GetCategoryQuery = { __typename?: 'Query', getCategory?: { __typenam
 
 export type GetCategoryDetailQueryVariables = Exact<{
   getCategoryInput: GetCategoryInput;
-  getAccountInput: GetAccountInput;
+  getAccountsInput: GetAccountsInput;
   getEntriesInput: GetEntriesInput;
 }>;
 
 
-export type GetCategoryDetailQuery = { __typename?: 'Query', getCategory?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdDate: Date, updatedDate: Date } | null, getAccount?: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string } } | null, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: EntryStatus, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
+export type GetCategoryDetailQuery = { __typename?: 'Query', getCategory?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdDate: Date, updatedDate: Date } | null, getAccounts: Array<{ __typename?: 'Account', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string } }>, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo?: string | null, transactionId: string, status: EntryStatus, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
 
 export type GetEntriesQueryVariables = Exact<{
   input: GetEntriesInput;
@@ -986,7 +986,7 @@ export type GetCategoryLazyQueryHookResult = ReturnType<typeof useGetCategoryLaz
 export type GetCategorySuspenseQueryHookResult = ReturnType<typeof useGetCategorySuspenseQuery>;
 export type GetCategoryQueryResult = Apollo.QueryResult<GetCategoryQuery, GetCategoryQueryVariables>;
 export const GetCategoryDetailDocument = gql`
-    query getCategoryDetail($getCategoryInput: GetCategoryInput!, $getAccountInput: GetAccountInput!, $getEntriesInput: GetEntriesInput!) {
+    query getCategoryDetail($getCategoryInput: GetCategoryInput!, $getAccountsInput: GetAccountsInput!, $getEntriesInput: GetEntriesInput!) {
   getCategory(input: $getCategoryInput) {
     id
     name
@@ -994,13 +994,14 @@ export const GetCategoryDetailDocument = gql`
     createdDate
     updatedDate
   }
-  getAccount(input: $getAccountInput) {
+  getAccounts(input: $getAccountsInput) {
     id
-    name
     category {
       id
       name
     }
+    name
+    vaultId
     createdDate
     updatedDate
   }
@@ -1039,7 +1040,7 @@ export const GetCategoryDetailDocument = gql`
  * const { data, loading, error } = useGetCategoryDetailQuery({
  *   variables: {
  *      getCategoryInput: // value for 'getCategoryInput'
- *      getAccountInput: // value for 'getAccountInput'
+ *      getAccountsInput: // value for 'getAccountsInput'
  *      getEntriesInput: // value for 'getEntriesInput'
  *   },
  * });

@@ -3,16 +3,16 @@ import { DescriptionList, DescriptionListItem } from '@/components/common';
 import { useFormatter } from '@/hooks';
 import { useTranslation } from 'react-i18next';
 
-export type AccountDescriptionListData = Exclude<GetCategoryQuery['getCategory'], null | undefined>
+export type CategoryDescriptionListData = Exclude<GetCategoryQuery['getCategory'], null | undefined>
 
-export interface AccountDescriptionListProps {
+export interface CategoryDescriptionListProps {
   /**
    * Data
    */
-  data: AccountDescriptionListData;
+  data: CategoryDescriptionListData;
 }
 
-export const CategoryDescriptionList: React.FC<AccountDescriptionListProps> = ({
+export const CategoryDescriptionList: React.FC<CategoryDescriptionListProps> = ({
   data: { id, name, type, createdDate, updatedDate },
 }) => {
   const { t } = useTranslation('category');

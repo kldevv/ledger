@@ -19,6 +19,12 @@
       "created-date": "Created Date"
     }
   },
+  "category-detail": {
+    "header": {
+      "accounts": "Category Accounts",
+      "entries": "Category Entries"
+    }
+  },
   "category-table": {
     "header": {
       "id": "ID",

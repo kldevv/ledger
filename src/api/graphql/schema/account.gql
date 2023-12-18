@@ -12,10 +12,10 @@ input GetAccountInput {
 }
 
 input GetAccountsInput {
-  vaultId: String!
+  vaultId: String
   startDate: DateTime
   endDate: DateTime
-  categoryId: [String!]
+  categoryId: String
   nameSearch: String
 }
 

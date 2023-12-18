@@ -1,6 +1,6 @@
 query getCategoryDetail(
   $getCategoryInput: GetCategoryInput!
-  $getAccountInput: GetAccountInput!
+  $getAccountsInput: GetAccountsInput!
   $getEntriesInput: GetEntriesInput!
 ) {
   getCategory(input: $getCategoryInput) {
@@ -10,13 +10,14 @@ query getCategoryDetail(
     createdDate
     updatedDate
   }
-  getAccount(input: $getAccountInput) {
+  getAccounts(input: $getAccountsInput) {
     id
-    name
     category {
       id
       name
     }
+    name
+    vaultId
     createdDate
     updatedDate
   }
