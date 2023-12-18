@@ -1,4 +1,12 @@
 {
+  "tag-description-list": {
+    "title": {
+      "id": "ID",
+      "name": "Name",
+      "updated-date": "Updated Date",
+      "created-date": "Created Date"
+    }
+  },
   "tag-table": {
     "header": {
       "id": "ID",
