@@ -7,7 +7,14 @@ const Page: React.FC = () => {
 
   return (
     <Layout prev={'/'}>
-      <PageHeader title={t('page.index.title')} subtitle={t('page.index.subtitle')} />
+      <PageHeader
+        title={t('page.index.title')}
+        subtitle={t('page.index.subtitle')}
+        link={{
+          href: '/tag/create',
+          label: t('page.index.link'),
+        }}
+      />
       <TagDashboard />
     </Layout>
   );
