@@ -1,3 +1,4 @@
+import { GetAccountQuery } from '@/api/graphql';
 import {
   DescriptionList,
   DescriptionListItem,
@@ -5,43 +6,13 @@ import {
 import { useFormatter } from '@/hooks';
 import { useTranslation } from 'react-i18next';
 
-type Data = {
-  /**
-   * Id
-   */
-  id: string;
-  /**
-   * Status
-   */
-  name: string;
-  /**
-   * Category
-   */
-  category: {
-    /**
-     * Category id
-     */
-    id: string;
-    /**
-     * Category name
-     */
-    name: string;
-  };
-  /**
-   * Updated date
-   */
-  updatedDate: Date;
-  /**
-   * Created date
-   */
-  createdDate: Date;
-};
+export type AccountDescriptionListData = Exclude<GetAccountQuery['getAccount'], null | undefined>
 
 export interface AccountDescriptionListProps {
   /**
    * Transaction detail
    */
-  data: Data;
+  data: AccountDescriptionListData;
 }
 
 export const AccountDescriptionList: React.FC<AccountDescriptionListProps> = ({
