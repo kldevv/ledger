@@ -190,7 +190,6 @@ export type Query = {
   __typename?: 'Query';
   getAccount?: Maybe<Account>;
   getAccounts: Array<Account>;
-  getAllTransactions: Array<Transaction>;
   getCategories: Array<Category>;
   getCategory?: Maybe<Category>;
   getCurrencyMeta: Array<CurrencyMeta>;
@@ -211,11 +210,6 @@ export type QueryGetAccountArgs = {
 
 export type QueryGetAccountsArgs = {
   input: GetAccountsInput;
-};
-
-
-export type QueryGetAllTransactionsArgs = {
-  vaultId: Scalars['String']['input'];
 };
 
 
@@ -478,7 +472,6 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountArgs, 'input'>>;
   getAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountsArgs, 'input'>>;
-  getAllTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetAllTransactionsArgs, 'vaultId'>>;
   getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoriesArgs, 'input'>>;
   getCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoryArgs, 'input'>>;
   getCurrencyMeta?: Resolver<Array<ResolversTypes['CurrencyMeta']>, ParentType, ContextType>;
@@ -622,10 +615,11 @@ export type GetTagQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag',
 
 export type GetTagDetailQueryVariables = Exact<{
   getTagInput: GetTagInput;
+  getTransactionsInput: GetTransactionsInput;
 }>;
 
 
-export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } | null };
+export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } | null, getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
 export type GetTagsQueryVariables = Exact<{
   input: GetTagsInput;
@@ -633,13 +627,6 @@ export type GetTagsQueryVariables = Exact<{
 
 
 export type GetTagsQuery = { __typename?: 'Query', getTags: Array<{ __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date }> };
-
-export type GetAllTransactionsQueryVariables = Exact<{
-  vaultId: Scalars['String']['input'];
-}>;
-
-
-export type GetAllTransactionsQuery = { __typename?: 'Query', getAllTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
 export type GetTransactionQueryVariables = Exact<{
   input: GetTransactionInput;
@@ -1256,10 +1243,22 @@ export type GetTagLazyQueryHookResult = ReturnType<typeof useGetTagLazyQuery>;
 export type GetTagSuspenseQueryHookResult = ReturnType<typeof useGetTagSuspenseQuery>;
 export type GetTagQueryResult = Apollo.QueryResult<GetTagQuery, GetTagQueryVariables>;
 export const GetTagDetailDocument = gql`
-    query getTagDetail($getTagInput: GetTagInput!) {
+    query getTagDetail($getTagInput: GetTagInput!, $getTransactionsInput: GetTransactionsInput!) {
   getTag(input: $getTagInput) {
     id
     name
+    vaultId
+    createdDate
+    updatedDate
+  }
+  getTransactions(input: $getTransactionsInput) {
+    id
+    accrualDate
+    note
+    tags {
+      id
+      name
+    }
     vaultId
     createdDate
     updatedDate
@@ -1280,6 +1279,7 @@ export const GetTagDetailDocument = gql`
  * const { data, loading, error } = useGetTagDetailQuery({
  *   variables: {
  *      getTagInput: // value for 'getTagInput'
+ *      getTransactionsInput: // value for 'getTransactionsInput'
  *   },
  * });
  */
@@ -1343,52 +1343,6 @@ export type GetTagsQueryHookResult = ReturnType<typeof useGetTagsQuery>;
 export type GetTagsLazyQueryHookResult = ReturnType<typeof useGetTagsLazyQuery>;
 export type GetTagsSuspenseQueryHookResult = ReturnType<typeof useGetTagsSuspenseQuery>;
 export type GetTagsQueryResult = Apollo.QueryResult<GetTagsQuery, GetTagsQueryVariables>;
-export const GetAllTransactionsDocument = gql`
-    query getAllTransactions($vaultId: String!) {
-  getAllTransactions(vaultId: $vaultId) {
-    id
-    accrualDate
-    note
-    tags {
-      id
-      name
-    }
-  }
-}
-    `;
-
-/**
- * __useGetAllTransactionsQuery__
- *
- * To run a query within a React component, call `useGetAllTransactionsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllTransactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllTransactionsQuery({
- *   variables: {
- *      vaultId: // value for 'vaultId'
- *   },
- * });
- */
-export function useGetAllTransactionsQuery(baseOptions: Apollo.QueryHookOptions<GetAllTransactionsQuery, GetAllTransactionsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllTransactionsQuery, GetAllTransactionsQueryVariables>(GetAllTransactionsDocument, options);
-      }
-export function useGetAllTransactionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTransactionsQuery, GetAllTransactionsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllTransactionsQuery, GetAllTransactionsQueryVariables>(GetAllTransactionsDocument, options);
-        }
-export function useGetAllTransactionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllTransactionsQuery, GetAllTransactionsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllTransactionsQuery, GetAllTransactionsQueryVariables>(GetAllTransactionsDocument, options);
-        }
-export type GetAllTransactionsQueryHookResult = ReturnType<typeof useGetAllTransactionsQuery>;
-export type GetAllTransactionsLazyQueryHookResult = ReturnType<typeof useGetAllTransactionsLazyQuery>;
-export type GetAllTransactionsSuspenseQueryHookResult = ReturnType<typeof useGetAllTransactionsSuspenseQuery>;
-export type GetAllTransactionsQueryResult = Apollo.QueryResult<GetAllTransactionsQuery, GetAllTransactionsQueryVariables>;
 export const GetTransactionDocument = gql`
     query getTransaction($input: GetTransactionInput!) {
   getTransaction(input: $input) {

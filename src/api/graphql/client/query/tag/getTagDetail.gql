@@ -1,7 +1,22 @@
-query getTagDetail($getTagInput: GetTagInput!) {
+query getTagDetail(
+  $getTagInput: GetTagInput!
+  $getTransactionsInput: GetTransactionsInput!
+) {
   getTag(input: $getTagInput) {
     id
     name
+    vaultId
+    createdDate
+    updatedDate
+  }
+  getTransactions(input: $getTransactionsInput) {
+    id
+    accrualDate
+    note
+    tags {
+      id
+      name
+    }
     vaultId
     createdDate
     updatedDate

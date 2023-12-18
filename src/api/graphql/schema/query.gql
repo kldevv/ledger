@@ -15,9 +15,8 @@ type Query {
   getTags(input: GetTagsInput!): [Tag!]!
 
   # Transaction
-  getAllTransactions(vaultId: String!): [Transaction!]!
-  getTransactionDetail(transactionId: String!): Transaction
   getTransaction(input: GetTransactionInput!): Transaction
+  getTransactionDetail(transactionId: String!): Transaction
   getTransactions(input: GetTransactionsInput!): [Transaction!]!
 
   # Vault
