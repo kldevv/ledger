@@ -54,6 +54,14 @@ export namespace ReadMany {
      * Vault id
      */
     vaultId?: string
+    /**
+     * Category id
+     */
+    categoryId?: string
+    /**
+     * Category type
+     */
+    categoryType?: CategoryType
   }
 }
 
@@ -62,54 +70,62 @@ export const readMany = async ({
   accountId,
   transactionId,
   status,
-  vaultId
+  vaultId,
+  categoryId,
+  categoryType,
  }: ReadMany.Args) => {
   try {
-    return [
-      {
-        id: '0',
-        transactionDate: new Date(Date.now()),
-        debit: 100.4,
-        credit: 200.32,
-        memo: 'hello mom',
-        transactionId: '0',
-        status: EntryStatus.COMPLETED,
-        createdDate: new Date(),
-        updatedDate: new Date(),
-        vaultId: '111',
-        account: {
-          id: '0',
-          name: 'Bank account',
-          createdDate: new Date(),
-          updatedDate: new Date(),
-          vaultId: '111',
-          category: {
-            id: '12',
-            name: 'Some category',
-            type: CategoryType.ASSETS,
-            vaultId: '111',
-            createdDate: new Date(),
-            updatedDate: new Date(),
-          }
-        }
-      }
-    ]
-    // return await prisma.entry.findMany({
-    //   where: {
-    //     transactionDate,
-    //     accountId,
-    //     transactionId,
-    //     status,
-    //     vaultId,
-    //   },
-    //   include: {
+    // return [
+    //   {
+    //     id: '0',
+    //     transactionDate: new Date(Date.now()),
+    //     debit: 100.4,
+    //     credit: 200.32,
+    //     memo: 'hello mom',
+    //     transactionId: '0',
+    //     status: EntryStatus.COMPLETED,
+    //     createdDate: new Date(),
+    //     updatedDate: new Date(),
+    //     vaultId: '111',
     //     account: {
-    //       include: {
-    //         category: true
+    //       id: '0',
+    //       name: 'Bank account',
+    //       createdDate: new Date(),
+    //       updatedDate: new Date(),
+    //       vaultId: '111',
+    //       category: {
+    //         id: '12',
+    //         name: 'Some category',
+    //         type: CategoryType.ASSETS,
+    //         vaultId: '111',
+    //         createdDate: new Date(),
+    //         updatedDate: new Date(),
     //       }
     //     }
     //   }
-    // })
+    // ]
+    return await prisma.entry.findMany({
+      where: {
+        transactionDate,
+        accountId,
+        transactionId,
+        status,
+        vaultId,
+        account: {
+          categoryId,
+          category: {
+            type: categoryType
+          }
+        }
+      },
+      include: {
+        account: {
+          include: {
+            category: true
+          }
+        }
+      }
+    })
   } catch (e) {
     throw e
   }

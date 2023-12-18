@@ -1,0 +1,9 @@
+query getCategory($input: GetCategoryInput!) {
+  getCategory(input: $input) {
+    id
+    name
+    type
+    createdDate
+    updatedDate
+  }
+}

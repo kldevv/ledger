@@ -18,6 +18,8 @@ input GetEntriesInput {
   status: EntryStatus
   memoSearch: String
   accountId: String
+  categoryType: String
+  categoryId: String
   debitAtLeast: Float
   debitNoMore: Float
   creditAtLeast: Float

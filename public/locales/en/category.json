@@ -1,4 +1,24 @@
 {
+  "add-category-form": {
+    "label": {
+      "name": "Name",
+      "type": "Accounting Term"
+    },
+    "placeholder": {
+      "name": "Enter a name",
+      "type": "Choose an accounting term"
+    },
+    "submit": "Add"
+  },
+  "category-description-list": {
+    "title": {
+      "id": "ID",
+      "name": "Name",
+      "type": "Accounting Term",
+      "updated-date": "Updated Date",
+      "created-date": "Created Date"
+    }
+  },
   "category-table": {
     "header": {
       "id": "ID",
@@ -11,17 +31,6 @@
       "EQUITY": "Equity",
       "LIABILITIES": "Liabilities"
     }
-  },
-  "add-category-form": {
-    "label": {
-      "name": "Name",
-      "type": "Accounting Term"
-    },
-    "placeholder": {
-      "name": "Enter a name",
-      "type": "Choose an accounting term"
-    },
-    "submit": "Add"
   },
   "page": {
     "index": {

@@ -64,11 +64,11 @@ export const AccountDescriptionList: React.FC<AccountDescriptionListProps> = ({
       description: category.name,
     },
     {
-      title: t('account-description-list.title.createdDate'),
+      title: t('account-description-list.title.created-date'),
       description: formatDate(createdDate),
     },
     {
-      title: t('account-description-list.title.updatedDate'),
+      title: t('account-description-list.title.updated-date'),
       description: formatDate(updatedDate),
     },
   ];

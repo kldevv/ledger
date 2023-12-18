@@ -1,10 +1,11 @@
 type Query {
   # Account
-  getAccounts(input: GetAccountsInput!): [Account!]!
   getAccount(input: GetAccountInput!): Account
+  getAccounts(input: GetAccountsInput!): [Account!]!
 
   # Category
   getCategories(input: GetCategoriesInput!): [Category!]!
+  getCategory(input: GetCategoryInput!): Category
 
   # Entry
   getEntries(input: GetEntriesInput!): [Entry!]!

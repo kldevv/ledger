@@ -1,0 +1,42 @@
+query getCategoryDetail(
+  $getCategoryInput: GetCategoryInput!
+  $getAccountInput: GetAccountInput!
+  $getEntriesInput: GetEntriesInput!
+) {
+  getCategory(input: $getCategoryInput) {
+    id
+    name
+    type
+    createdDate
+    updatedDate
+  }
+  getAccount(input: $getAccountInput) {
+    id
+    name
+    category {
+      id
+      name
+    }
+    createdDate
+    updatedDate
+  }
+  getEntries(input: $getEntriesInput) {
+    id
+    vaultId
+    transactionDate
+    debit
+    credit
+    memo
+    account {
+      id
+      name
+      category {
+        id
+        name
+        type
+      }
+    }
+    transactionId
+    status
+  }
+}
