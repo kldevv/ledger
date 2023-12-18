@@ -21,5 +21,31 @@
       "createdDate": "Created Date",
       "updatedDate": "Last Updated Date"
     }
+  },
+  "page": {
+    "index": {
+      "title": "Transactions",
+      "subtitle": "All transactions of the currently selected vault.",
+      "link": "Record Transaction"
+    },
+    "record": {
+      "index": {
+        "title": "Record Transaction",
+        "subtitle": "Add a new transaction to the selected vault."
+      }
+    },
+    "[id]": {
+      "index": {
+        "title": "Transaction Detail",
+        "subtitle": "View and edit information of the transaction.",
+        "link": "Edit"
+      },
+      "edit": {
+        "index": {
+          "title": "Edit Transaction",
+          "subtitle": "Edit or delete a transaction."
+        }
+      }
+    }
   }
 }

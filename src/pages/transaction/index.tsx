@@ -1,12 +1,19 @@
 import { PageHeader, Layout } from "@/components/layout"
 import { TransactionDashboard } from "@/components/transaction"
+import { useTranslation } from "react-i18next";
 
 const Page: React.FC = () => {
+  const { t } = useTranslation('transaction')
+
   return (
     <Layout prev="/">
       <PageHeader
-        title="Transactions"
-        subtitle="All transactions for the currently selected vault."
+        title={t('page.index.title')}
+        subtitle={t('page.index.subtitle')}
+        link={{
+          href: '/transaction/record',
+          label: t('page.index.link'),
+        }}
       />
       <TransactionDashboard />
     </Layout>
