@@ -1,31 +1,23 @@
-import { GetAccountsQuery, useGetAccountsQuery } from "@/api/graphql";
+import { GetAccountsQuery } from "@/api/graphql";
 import { Table, ViewLink } from "@/components/common"
-import { useFormatter, useVaultContext } from "@/hooks";
+import { useFormatter } from "@/hooks";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 
-type AccountTableData = GetAccountsQuery['getAccounts'][0]
+export type AccountTableData = GetAccountsQuery['getAccounts'][0]
+
+export interface AccountTableProps {
+  /**
+   * Data
+   */
+  data: AccountTableData[]
+}
 
 const columnHelper = createColumnHelper<AccountTableData>();
 
-export const AccountTable: React.FC = () => {
+export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
   const { t } = useTranslation('account');
-  const [{ curVaultId }] = useVaultContext();
   const { formatDate } = useFormatter()
-
-  const {
-    data,
-    loading,
-    error,
-  } = useGetAccountsQuery({
-    variables: {
-      input: {
-        vaultId: curVaultId ?? '',
-      },
-    },
-    fetchPolicy: "cache-and-network",
-    skip: curVaultId == null,
-  });
 
   const colDefs = [
     columnHelper.accessor('id', {
@@ -54,11 +46,7 @@ export const AccountTable: React.FC = () => {
     }),
   ];
 
-  if (data == null) {
-    return null
-  }
-  
   return (
-    <Table data={data.getAccounts} colDefs={colDefs} />
+    <Table data={data} colDefs={colDefs} />
   );
 }
