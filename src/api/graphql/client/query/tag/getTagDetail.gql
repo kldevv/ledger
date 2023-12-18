@@ -1,0 +1,9 @@
+query getTagDetail($getTagInput: GetTagInput!) {
+  getTag(input: $getTagInput) {
+    id
+    name
+    vaultId
+    createdDate
+    updatedDate
+  }
+}

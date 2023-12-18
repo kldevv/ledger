@@ -3,10 +3,19 @@ type Transaction {
   accrualDate: DateTime!
   note: String!
   tags: [Tag!]!
+  vaultId: String!
   createdDate: DateTime!
   updatedDate: DateTime!
 }
 
 input GetTransactionInput {
   id: String!
+}
+
+input GetTransactionsInput {
+  vaultId: String!
+  tagId: String
+  startDate: DateTime
+  endDate: DateTime
+  noteSearch: String
 }

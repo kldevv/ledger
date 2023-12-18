@@ -96,25 +96,35 @@ export namespace ReadMany {
     /**
      * Transaction note
      */
-    note: string
+    note?: string
     /**
      * Vault id
      */
-    vaultId?: string
+    vaultId: string
+    /**
+     * Tag id
+     */
+    tagId?: string
   }
 }
 
 export const readMany = async ({
   accrualDate,
   vaultId,
-  note
+  note,
+  tagId
 }: ReadMany.Args) => {
   try {
     return await prisma.transaction.findMany({
       where: {
         accrualDate,
         vaultId,
-        note
+        note,
+        tags: {
+          some: {
+            id: tagId
+          }
+        }
       },
       include: {
         tags: true, entries: {
