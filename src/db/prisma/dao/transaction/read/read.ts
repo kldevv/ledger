@@ -1,4 +1,5 @@
 import prisma from "@/db/prisma/client"
+import { CategoryType, EntryStatus } from "@prisma/client"
 
 export namespace ReadOne {
   export type Args = {
@@ -72,6 +73,35 @@ export const readMany = async ({
         vaultId,
         createdDate: new Date(),
         updatedDate: new Date(),
+        entries: [
+          {
+            id: '0',
+            transactionDate: new Date(Date.now()),
+            debit: 100.4,
+            credit: 200.32,
+            memo: 'hello mom',
+            transactionId: '0',
+            status: EntryStatus.COMPLETED,
+            createdDate: new Date(),
+            updatedDate: new Date(),
+            vaultId: '111',
+            account: {
+              id: '0',
+              name: 'Bank account',
+              createdDate: new Date(),
+              updatedDate: new Date(),
+              vaultId: '111',
+              category: {
+                id: '12',
+                name: 'Some category',
+                type: CategoryType.ASSETS,
+                vaultId: '111',
+                createdDate: new Date(),
+                updatedDate: new Date(),
+              }
+            }
+          }
+        ]
       },
       {
         id: '0002',
@@ -81,6 +111,35 @@ export const readMany = async ({
         vaultId,
         createdDate: new Date(),
         updatedDate: new Date(),
+        entries: [
+          {
+            id: '0',
+            transactionDate: new Date(Date.now()),
+            debit: 100.4,
+            credit: 200.32,
+            memo: 'hello mom',
+            transactionId: '0',
+            status: EntryStatus.PENDING,
+            createdDate: new Date(),
+            updatedDate: new Date(),
+            vaultId: '111',
+            account: {
+              id: '0',
+              name: 'Bank account',
+              createdDate: new Date(),
+              updatedDate: new Date(),
+              vaultId: '111',
+              category: {
+                id: '12',
+                name: 'Some category',
+                type: CategoryType.ASSETS,
+                vaultId: '111',
+                createdDate: new Date(),
+                updatedDate: new Date(),
+              }
+            }
+          }
+        ]
       },
       {
         id: '0003',

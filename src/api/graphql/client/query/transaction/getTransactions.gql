@@ -8,6 +8,7 @@ query getTransactions($input: GetTransactionsInput!) {
       name
     }
     vaultId
+    status
     createdDate
     updatedDate
   }

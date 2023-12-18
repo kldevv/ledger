@@ -272,6 +272,7 @@ export type Transaction = {
   createdDate: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   note: Scalars['String']['output'];
+  status?: Maybe<EntryStatus>;
   tags: Array<Tag>;
   updatedDate: Scalars['DateTime']['output'];
   vaultId: Scalars['String']['output'];
@@ -498,6 +499,7 @@ export type TransactionResolvers<ContextType = ApolloServerContext, ParentType e
   createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   note?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['EntryStatus']>, ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
   updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -648,7 +650,7 @@ export type GetTransactionsQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionsQuery = { __typename?: 'Query', getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetTransactionsQuery = { __typename?: 'Query', getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, status?: EntryStatus | null, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
 export type GetVaultsQueryVariables = Exact<{
   input: GetVaultsInput;
@@ -1471,6 +1473,7 @@ export const GetTransactionsDocument = gql`
       name
     }
     vaultId
+    status
     createdDate
     updatedDate
   }

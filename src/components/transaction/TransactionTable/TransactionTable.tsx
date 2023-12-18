@@ -1,7 +1,7 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
-import { Table, ViewLink } from '@/components/common';
+import { StatusChip, Table, ViewLink } from '@/components/common';
 import { useFormatter } from '@/hooks';
 import { GetTransactionsQuery } from '@/api/graphql';
 
@@ -33,15 +33,17 @@ export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
         </div>
       ),
     }),
+    columnHelper.accessor('status', {
+      header: t('transaction-table.header.status'),
+      cell: (props) => <StatusChip status={props.getValue()} />,
+    }),
     columnHelper.accessor('note', {
       header: t('transaction-table.header.note'),
     }),
     columnHelper.display({
       id: 'view',
       cell: (props) => (
-        <ViewLink
-          href={`/transaction/${props.row.getValue('id')}`}
-        />
+        <ViewLink href={`/transaction/${props.row.getValue('id')}`} />
       ),
     }),
   ];

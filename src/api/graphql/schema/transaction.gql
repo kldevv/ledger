@@ -4,6 +4,7 @@ type Transaction {
   note: String!
   tags: [Tag!]!
   vaultId: String!
+  status: EntryStatus
   createdDate: DateTime!
   updatedDate: DateTime!
 }
