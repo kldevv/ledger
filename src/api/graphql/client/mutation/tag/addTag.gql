@@ -1,0 +1,9 @@
+mutation addTag($input: AddTagInput!) {
+  addTag(input: $input) {
+    id
+    name
+    vaultId
+    createdDate
+    updatedDate
+  }
+}

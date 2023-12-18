@@ -43,6 +43,11 @@ export type AddCategoryInput = {
   vaultId: Scalars['String']['input'];
 };
 
+export type AddTagInput = {
+  name: Scalars['String']['input'];
+  vaultId: Scalars['String']['input'];
+};
+
 export type AddVaultInput = {
   currency: Currency;
   name: Scalars['String']['input'];
@@ -168,6 +173,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addAccount: Account;
   addCategory: Category;
+  addTag: Tag;
   addVault: Vault;
 };
 
@@ -179,6 +185,11 @@ export type MutationAddAccountArgs = {
 
 export type MutationAddCategoryArgs = {
   input: AddCategoryInput;
+};
+
+
+export type MutationAddTagArgs = {
+  input: AddTagInput;
 };
 
 
@@ -362,6 +373,7 @@ export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
+  AddTagInput: AddTagInput;
   AddVaultInput: AddVaultInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Category: ResolverTypeWrapper<Category>;
@@ -395,6 +407,7 @@ export type ResolversParentTypes = {
   Account: Account;
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
+  AddTagInput: AddTagInput;
   AddVaultInput: AddVaultInput;
   Boolean: Scalars['Boolean']['output'];
   Category: Category;
@@ -467,6 +480,7 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
   addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
+  addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
   addVault?: Resolver<ResolversTypes['Vault'], ParentType, ContextType, RequireFields<MutationAddVaultArgs, 'input'>>;
 };
 
@@ -543,6 +557,13 @@ export type AddCategoryMutationVariables = Exact<{
 
 
 export type AddCategoryMutation = { __typename?: 'Mutation', addCategory: { __typename?: 'Category', id: string, name: string, type: CategoryType, vaultId: string, createdDate: Date, updatedDate: Date } };
+
+export type AddTagMutationVariables = Exact<{
+  input: AddTagInput;
+}>;
+
+
+export type AddTagMutation = { __typename?: 'Mutation', addTag: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } };
 
 export type AddVaultMutationVariables = Exact<{
   input: AddVaultInput;
@@ -738,6 +759,43 @@ export function useAddCategoryMutation(baseOptions?: Apollo.MutationHookOptions<
 export type AddCategoryMutationHookResult = ReturnType<typeof useAddCategoryMutation>;
 export type AddCategoryMutationResult = Apollo.MutationResult<AddCategoryMutation>;
 export type AddCategoryMutationOptions = Apollo.BaseMutationOptions<AddCategoryMutation, AddCategoryMutationVariables>;
+export const AddTagDocument = gql`
+    mutation addTag($input: AddTagInput!) {
+  addTag(input: $input) {
+    id
+    name
+    vaultId
+    createdDate
+    updatedDate
+  }
+}
+    `;
+export type AddTagMutationFn = Apollo.MutationFunction<AddTagMutation, AddTagMutationVariables>;
+
+/**
+ * __useAddTagMutation__
+ *
+ * To run a mutation, you first call `useAddTagMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddTagMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addTagMutation, { data, loading, error }] = useAddTagMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddTagMutation(baseOptions?: Apollo.MutationHookOptions<AddTagMutation, AddTagMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddTagMutation, AddTagMutationVariables>(AddTagDocument, options);
+      }
+export type AddTagMutationHookResult = ReturnType<typeof useAddTagMutation>;
+export type AddTagMutationResult = Apollo.MutationResult<AddTagMutation>;
+export type AddTagMutationOptions = Apollo.BaseMutationOptions<AddTagMutation, AddTagMutationVariables>;
 export const AddVaultDocument = gql`
     mutation addVault($input: AddVaultInput!) {
   addVault(input: $input) {

@@ -7,6 +7,12 @@ type Account {
   updatedDate: DateTime!
 }
 
+input AddAccountInput {
+  name: String!
+  categoryId: String!
+  vaultId: String!
+}
+
 input GetAccountInput {
   id: String!
 }
@@ -17,10 +23,4 @@ input GetAccountsInput {
   endDate: DateTime
   categoryId: String
   nameSearch: String
-}
-
-input AddAccountInput {
-  name: String!
-  categoryId: String!
-  vaultId: String!
 }

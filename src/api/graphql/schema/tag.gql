@@ -6,6 +6,11 @@ type Tag {
   updatedDate: DateTime!
 }
 
+input AddTagInput {
+  name: String!
+  vaultId: String!
+}
+
 input GetTagInput {
   id: String!
 }
