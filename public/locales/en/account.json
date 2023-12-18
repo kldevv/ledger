@@ -3,7 +3,7 @@
     "title": {
       "id": "ID",
       "name": "Name",
-      "updated-date": "Updated Date",
+      "updated-date": "Last Updated Date",
       "created-date": "Created Date",
       "category": "Category"
     }

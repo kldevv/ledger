@@ -16,7 +16,7 @@
       "name": "Name",
       "currency": "Currency",
       "created-date": "Created Date",
-      "updated-date": "Updated Date"
+      "updated-date": "Last Updated Date"
     },
     "button": {
       "switch": "Switch",
