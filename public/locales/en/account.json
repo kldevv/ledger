@@ -3,9 +3,14 @@
     "title": {
       "id": "ID",
       "name": "Name",
-      "updatedDate": "Updated Date",
-      "createdDate": "Created Date",
+      "updated-date": "Updated Date",
+      "created-date": "Created Date",
       "category": "Category"
+    }
+  },
+  "account-detail": {
+    "header": {
+      "entries": "Account Entries"
     }
   },
   "account-table": {

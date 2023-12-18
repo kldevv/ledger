@@ -69,13 +69,13 @@ export const VaultTable: React.FC = () => {
       header: t('vault-table.header.currency'),
     }),
     columnHelper.accessor('createdDate', {
-      header: t('vault-table.header.createdDate'),
+      header: t('vault-table.header.created-date'),
       cell: (props) => (
         <div className="whitespace-nowrap">{formatDate(props.getValue())}</div>
       ),
     }),
     columnHelper.accessor('updatedDate', {
-      header: t('vault-table.header.updatedDate'),
+      header: t('vault-table.header.updated-date'),
       cell: (props) => (
         <div className="whitespace-nowrap">{formatDate(props.getValue())}</div>
       ),

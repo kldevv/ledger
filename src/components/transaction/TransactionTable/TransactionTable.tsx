@@ -2,7 +2,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 import { GetAllTransactionsQuery } from '@/api/graphql';
 import React from 'react';
-import { StatusChip, Table } from '@/components/common';
+import { StatusChip, Table, ViewLink } from '@/components/common';
 import { useFormatter } from '@/hooks';
 
 type TransactionTableDataModel = GetAllTransactionsQuery['getAllTransactions'][0]

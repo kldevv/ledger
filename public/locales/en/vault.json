@@ -15,8 +15,8 @@
       "id": "ID",
       "name": "Name",
       "currency": "Currency",
-      "createdDate": "Created Date",
-      "updatedDate": "Updated Date"
+      "created-date": "Created Date",
+      "updated-date": "Updated Date"
     },
     "button": {
       "switch": "Switch",
