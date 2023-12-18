@@ -31,11 +31,6 @@
       "name": "Name",
       "type": "Accounting Term",
       "created-date": "Created Date"
-    },
-    "type": {
-      "ASSETS": "Assets",
-      "EQUITY": "Equity",
-      "LIABILITIES": "Liabilities"
     }
   },
   "page": {
