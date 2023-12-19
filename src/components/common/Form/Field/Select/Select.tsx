@@ -93,7 +93,7 @@ export const createFormSelect = <TFieldValues extends FieldValues>() => {
         >
           <Trigger className={triggerCn} id={htmlFor}>
             <div className="min-h-[30px] flex items-center relative w-full gap-2">
-              <span className='mr-[1.75rem]'>
+              <span className="mr-[1.75rem] whitespace-nowrap overflow-hidden overflow-ellipsis text-left">
                 <Value placeholder={placeholder} />
               </span>
               <Icon className="absolute right-1">

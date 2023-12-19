@@ -99,6 +99,22 @@ export const readMany = async ({
           updatedDate: new Date(Date.now()),
           createdDate: new Date(Date.now()),
         }
+      },
+      {
+        name: 'Super longgggggggggggggg account',
+        id: '999',
+        updatedDate: new Date(Date.now()),
+        createdDate: new Date(Date.now()),
+        vaultId: vaultId ?? '0',
+        categoryId: '73',
+        category: {
+          id: '73',
+          name: 'Master Revenue',
+          type: "LIABILITIES",
+          vaultId: vaultId ?? '0',
+          updatedDate: new Date(Date.now()),
+          createdDate: new Date(Date.now()),
+        }
       }
     ]
     // return await prisma.account.findMany({

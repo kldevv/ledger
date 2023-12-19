@@ -4,7 +4,7 @@ import {
 } from '@/api/graphql';
 import { Card, useForm, SubmitButton } from '@/components/common';
 import { useVaultContext } from '@/hooks';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { EntryFields } from './EntriesField/EntryFields';
@@ -102,6 +102,7 @@ export const AddTransactionForm = () => {
           <Form.Input
             name={`accrualDate`}
             type="date"
+            max="2999-12-31"
             label={t('add-transaction-form.label.accrual-date')}
             // placeholder={t('add-transaction-form.placeholder.accrual-date')}
           />
