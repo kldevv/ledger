@@ -11,6 +11,7 @@ import {
   createFormInput,
   createFormSelect,
 } from '../Field';
+import { DateInputProps, createFormDateInput } from '../Field/DateInput';
 
 export interface createFormProps<TFieldValues extends FieldValues> {
   /**
@@ -42,7 +43,8 @@ export type Form<TFieldValues extends FieldValues> = React.FC<
 > & {
   Input: React.FC<InputProps<TFieldValues>>;
   Select: React.FC<SelectProps<TFieldValues>>;
-};
+  DateInput: React.FC<DateInputProps<TFieldValues>>
+}
 
 export const createForm = <TFieldValues extends FieldValues>({
   useFormReturns,
@@ -79,6 +81,7 @@ export const createForm = <TFieldValues extends FieldValues>({
     );
   };
 
+  Form.DateInput = createFormDateInput<TFieldValues>()
   Form.Input = createFormInput<TFieldValues>();
   Form.Select = createFormSelect<TFieldValues>();
 

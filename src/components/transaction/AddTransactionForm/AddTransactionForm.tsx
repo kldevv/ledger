@@ -99,10 +99,8 @@ export const AddTransactionForm = () => {
     <Card variant="2xl">
       <Form onSubmit={handleOnSubmit}>
         <div className="flex flex-col">
-          <Form.Input
+          <Form.DateInput
             name={`accrualDate`}
-            type="date"
-            max="2999-12-31"
             label={t('add-transaction-form.label.accrual-date')}
             // placeholder={t('add-transaction-form.placeholder.accrual-date')}
           />
@@ -111,7 +109,6 @@ export const AddTransactionForm = () => {
             label={t('add-transaction-form.label.note')}
             // placeholder={t('add-transaction-form.placeholder.name')}
           />
-          <EntryFields index={0} />
           <SubmitButton>{t('add-transaction-form.submit')}</SubmitButton>
         </div>
       </Form>
