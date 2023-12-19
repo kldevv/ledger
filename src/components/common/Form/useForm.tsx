@@ -27,6 +27,7 @@ export const useForm = <TFieldValues extends FieldValues>({
     criteriaMode: 'all',
     // Validation is triggered on both blur and change events.
     mode: 'all',
+    shouldUnregister: true,
     resolver: zodResolver(schema),
   });
 

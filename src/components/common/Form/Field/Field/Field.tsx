@@ -29,7 +29,7 @@ export const Field: React.FC<FieldProps> = ({ name, htmlFor, label, children }) 
   return (
     <div className="max-w-xs flex flex-col my-2">
       <Label.Root
-        className="w-full text-xs leading-6 font-medium text-dark-shades"
+        className="w-full text-xs leading-6 font-medium text-dark-shades whitespace-nowrap"
         htmlFor={htmlFor}
       >
         {label}
