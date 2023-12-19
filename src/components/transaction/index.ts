@@ -1,3 +1,4 @@
+export * from './AddTransactionForm'
 export * from './TransactionDashboard'
 export * from './TransactionDescriptionList'
 export * from './TransactionDetail'
