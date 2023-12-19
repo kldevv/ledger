@@ -14,7 +14,7 @@ const entrySchema = z
     /**
      * Entry transaction date
      */
-    transactionDate: z.date(),
+    transactionDate: z.coerce.date(),
     /**
      * Entry optional memo
      */
@@ -26,15 +26,15 @@ const entrySchema = z
     /**
      * Entry debit
      */
-    debit: z.number().nonnegative(),
+    debit: z.coerce.number().nonnegative(),
     /**
      * Entry credit
      */
-    credit: z.number().nonnegative(),
+    credit: z.coerce.number().nonnegative(),
     /**
      * Account id
      */
-    accountId: z.string()
+    accountId: z.string(),
   })
   .refine(
     (data) =>
@@ -50,7 +50,7 @@ const schema = z.object({
   /**
    * Transaction accrual date
    */
-  accrualDate: z.date(),
+  accrualDate: z.coerce.date(),
   /**
    * Transaction note
    */
@@ -62,7 +62,7 @@ const schema = z.object({
   /**
    * Transaction entries
    */
-  entries: entrySchema.array().nonempty(),
+  entries: entrySchema.array().nonempty()
 });
 
 export type AddTransactionFormFieldValues = z.infer<typeof schema>;
