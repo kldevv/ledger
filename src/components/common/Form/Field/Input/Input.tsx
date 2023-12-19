@@ -34,15 +34,16 @@ export const createFormInput = <TFieldValues extends FieldValues>() => {
 
     const htmlFor = useMemo(() => `input-id-${name}`, [name]);
 
-    const cn = useMemo(() =>
-       classNames(
-        'py-1.5 px-3',
-        'w-full',
-        'rounded-md border border-mid-gray',
-        'font-normal text-sm leading-6 text-dark-shades',
-        'focus:outline-light-accent focus:bg-light-accent-halo',
-        className
-      ),
+    const cn = useMemo(
+      () =>
+        classNames(
+          'py-1.5 px-3',
+          'w-full min-w-[10rem]',
+          'rounded-md border border-mid-gray',
+          'font-normal text-sm leading-6 text-dark-shades',
+          'focus:outline-light-accent focus:bg-light-accent-halo',
+          className
+        ),
       [className]
     );
 

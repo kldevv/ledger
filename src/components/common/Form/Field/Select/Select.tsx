@@ -64,7 +64,7 @@ export const createFormSelect = <TFieldValues extends FieldValues>() => {
       () =>
         classNames(
           'py-1.5 px-3',
-          'w-full',
+          'w-full min-w-[10rem]',
           'flex items-center',
           'rounded-md border border-mid-gray text-dark-shades',
           'font-normal text-sm leading-6',
@@ -92,8 +92,10 @@ export const createFormSelect = <TFieldValues extends FieldValues>() => {
           value={value ?? ''}
         >
           <Trigger className={triggerCn} id={htmlFor}>
-            <div className="min-h-[30px] flex items-center relative w-full">
-              <Value placeholder={placeholder} />
+            <div className="min-h-[30px] flex items-center relative w-full gap-2">
+              <span className='mr-[1.75rem]'>
+                <Value placeholder={placeholder} />
+              </span>
               <Icon className="absolute right-1">
                 {open ? (
                   <ChevronUpIcon className="w-3 h-3" />
