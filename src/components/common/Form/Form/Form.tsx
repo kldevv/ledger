@@ -19,7 +19,7 @@ export interface FormProps<TFieldValues extends FieldValues>
   /**
    * React hook form returns
    */
-  formContext: UseFormReturn<TFieldValues>;
+  context: UseFormReturn<TFieldValues>;
   /**
    * Is default form behavior enabled?
    *
@@ -31,7 +31,7 @@ export interface FormProps<TFieldValues extends FieldValues>
 export const Form = <TFieldValues extends FieldValues>({
   children,
   onSubmit,
-  formContext,
+  context,
   enableDefault,
   ...props
 }: FormProps<TFieldValues>) => {
@@ -43,7 +43,7 @@ export const Form = <TFieldValues extends FieldValues>({
         event.preventDefault();
       }
 
-      await formContext.handleSubmit(onSubmit)(event);
+      await context.handleSubmit(onSubmit)(event);
 
       setIsSubmitted(true);
     },
@@ -52,13 +52,13 @@ export const Form = <TFieldValues extends FieldValues>({
 
   useEffect(() => {
     if (isSubmitted) {
-      formContext.reset();
+      context.reset();
     }
   }, [isSubmitted]);
 
   return (
-    <FormProvider {...formContext}>
-      <form {...props} onSubmit={handleOnSubmit}>
+    <FormProvider {...context}>
+      <form {...props} className="w-fit" onSubmit={handleOnSubmit}>
         {children}
       </form>
     </FormProvider>

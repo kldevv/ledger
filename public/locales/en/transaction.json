@@ -41,6 +41,15 @@
       "updatedDate": "Last Updated Date"
     }
   },
+  "RecordTransaction": {
+    "submit": "Record"
+  },
+  "UpsertTransactionForm": {
+    "label": {
+      "note": "Note",
+      "accrualDate": "Accrual Date"
+    }
+  },
   "page": {
     "index": {
       "title": "Transactions",

@@ -14,7 +14,7 @@ export interface useFormArgs<TFieldValues extends FieldValues> {
   /**
    * Props for `useForm` of the react-hook-form library.
    */
-  props?: Omit<UseFormProps<TFieldValues>, 'resolver'>;
+  props?: Omit<UseFormProps<TFieldValues>, 'resolver' | 'defaultValues'>;
 };
 
 export const useForm = <TFieldValues extends FieldValues>({

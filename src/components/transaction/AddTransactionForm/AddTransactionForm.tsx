@@ -1,5 +1,11 @@
 import { EntryStatus, useAddTransactionMutation } from '@/api/graphql';
-import { Card, SubmitButton, Form, Input, DatePicker } from '@/components/common';
+import {
+  Card,
+  SubmitButton,
+  Form,
+  Input,
+  DatePicker,
+} from '@/components/common';
 import { useForm, useVaultContext } from '@/hooks';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -67,26 +73,23 @@ export type AddTransactionFormFieldValues = z.infer<typeof schema>;
 export const AddTransactionForm = () => {
   const { t } = useTranslation('transaction');
   const [{ curVaultId }] = useVaultContext();
-  const formProps = useForm<AddTransactionFormFieldValues>({
+  const formContext = useForm<AddTransactionFormFieldValues>({
     schema,
-    props: {
-      defaultValues: {
-        note: '',
-        accrualDate: new Date(),
-        entries: [
-          {
-            transactionDate: new Date(Date.now()),
-            debit: 0,
-            credit: 0,
-            status: EntryStatus.PENDING,
-            memo: '4',
-            accountId: '',
-          },
-        ],
-      },
+    defaultValues: {
+      accrualDate: new Date(),
+      note: '',
+      entries: [
+        {
+          transactionDate: new Date(Date.now()),
+          debit: 0,
+          credit: 0,
+          status: EntryStatus.PENDING,
+          memo: '4',
+          accountId: '',
+        },
+      ],
     },
   });
-
 
   const [addTransaction] = useAddTransactionMutation({
     onCompleted: (data) => {
@@ -110,7 +113,7 @@ export const AddTransactionForm = () => {
 
   return (
     <Card variant="2xl">
-      <Form onSubmit={handleOnSubmit} formContext={formProps} className="w-fit">
+      <Form onSubmit={handleOnSubmit} formContext={formContext} className="w-fit">
         <Input label="my" name="note" />
         <DatePicker
           name={'accrualDate'}
