@@ -1,6 +1,5 @@
 import { Control, FieldValues, Path, useController } from 'react-hook-form';
 import classNames from 'classnames';
-import { Field } from '../Field/Field';
 import {
   Root,
   Trigger,
@@ -17,6 +16,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import { SelectItem, SelectItemProps } from './SelectItem';
 import { useMemo, useState } from 'react';
 import React from 'react';
+import { Field } from '../Field';
 
 export interface SelectProps<TFieldValues extends FieldValues>
   extends Omit<RadixSelectProps, 'children' | 'required' | 'value'> {

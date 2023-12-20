@@ -1,7 +1,7 @@
 import { Control, FieldValues, Path, useController } from 'react-hook-form';
 import classNames from 'classnames';
-import { Field } from '../Field/Field';
 import { useMemo } from 'react';
+import { Field } from '../Field';
 
 export interface InputProps<TFieldValues extends FieldValues>
   extends Omit<
