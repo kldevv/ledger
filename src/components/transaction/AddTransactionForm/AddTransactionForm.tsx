@@ -5,7 +5,8 @@ import { useCallback } from 'react';
 import { useFieldArray } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { Temp } from './Temp';
+import { EntryRowManager } from './EntryRowManager/EntryRowManager';
+import { EntryFields } from './EntryFields';
 
 const entrySchema = z
   .object({
@@ -72,6 +73,8 @@ export const AddTransactionForm = () => {
     schema,
     props: {
       defaultValues: {
+        note: '',
+        accrualDate: new Date(),
         entries: [
           {
             transactionDate: new Date(Date.now()),
@@ -81,17 +84,11 @@ export const AddTransactionForm = () => {
             memo: '4',
             accountId: '',
           },
-          {
-            transactionDate: new Date(Date.now()),
-            debit: 0,
-            credit: 0,
-            status: EntryStatus.PENDING,
-            memo: '13',
-          },
         ],
       },
     },
   });
+
 
   const [addTransaction] = useAddTransactionMutation({
     onCompleted: (data) => {
@@ -116,18 +113,14 @@ export const AddTransactionForm = () => {
   return (
     <Card variant="2xl">
       <Form onSubmit={handleOnSubmit} context={formProps} className="w-fit">
-        <Input
-          name={'note'}
-          label={t('add-transaction-form.label.note')}
-          // placeholder={t('add-transaction-form.placeholder.name')}
-        />
-        <DatePicker
+        <Input label="my" name="accrualDate" type="date"/>
+        <input {...formProps.register('note')} className='border'/>
+        {/* <DatePicker
           name={'accrualDate'}
           label={t('add-transaction-form.label.accrual-date')}
-          control={formProps.control}
           // placeholder={t('add-transaction-form.placeholder.name')}
-        />
-        <Temp control={formProps.control} name="entries"/>
+        /> */}
+        <EntryRowManager />
         {/* <SubmitButton>{t('add-transaction-form.submit')}</SubmitButton> */}
       </Form>
     </Card>

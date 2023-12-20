@@ -1,11 +1,9 @@
-import { Button, useFormInput } from '@/components/common';
+import { Button, DatePicker, Input } from '@/components/common';
 import { AddTransactionFormFieldValues } from '@/components/transaction';
 import { useTranslation } from 'react-i18next';
 import { AccountSelect } from './AccountSelect';
-import { useFormDateInput } from '@/components/common/Form/useFormDateInput';
 import { PlusCircleIcon } from '@heroicons/react/20/solid';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
-import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
 import { EntryStatus } from '@prisma/client';
 
 export interface EntryFieldsProps {
@@ -16,18 +14,15 @@ export interface EntryFieldsProps {
 }
 
 export const EntryFields: React.FC<EntryFieldsProps> = ({ index }) => {
-  const { t } = useTranslation('transaction');
-
-  const Input = useFormInput<AddTransactionFormFieldValues>();
-  const DateInput = useFormDateInput<AddTransactionFormFieldValues>();
+  const { t } = useTranslation('transaction')
 
   return (
     <div className="flex gap-x-1 items-start">
       <div className="grid grid-cols-6 w-max gap-x-1 max-w-5xl">
-        <DateInput
+        {/* <DatePicker
           label={t('add-transaction-form.label.entries.transaction-date')}
           name={`entries.${index}.transactionDate` as const}
-        />
+        /> */}
         <Input
           label={t('add-transaction-form.label.entries.debit')}
           type="number"
@@ -38,7 +33,7 @@ export const EntryFields: React.FC<EntryFieldsProps> = ({ index }) => {
           type="number"
           name={`entries.${index}.credit` as const}
         />
-        <AccountSelect index={index} />
+        {/* <AccountSelect index={index} /> */}
         <Input
           label={t('add-transaction-form.label.entries.memo')}
           name={`entries.${index}.memo` as const}

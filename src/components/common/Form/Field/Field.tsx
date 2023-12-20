@@ -1,8 +1,6 @@
 import * as Label from '@radix-ui/react-label';
 
-import { FieldValues } from 'react-hook-form';
-
-export interface FieldProps<TFieldValues extends FieldValues> {
+export interface FieldProps {
   /**
    * Field for id
    */
@@ -21,12 +19,12 @@ export interface FieldProps<TFieldValues extends FieldValues> {
   error?: string;
 }
 
-export const Field = <TFieldValues extends FieldValues>({
+export const Field: React.FC<FieldProps> = ({
   htmlFor,
   label,
   children,
   error,
-}: FieldProps<TFieldValues>) => {
+}) => {
   return (
     <div className="max-w-xs flex flex-col my-2">
       <Label.Root

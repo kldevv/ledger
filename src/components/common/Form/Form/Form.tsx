@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import type {
   FieldValues,
   SubmitHandler,
@@ -41,7 +41,9 @@ export interface FormProps<TFieldValues extends FieldValues>
   enableDefault?: boolean;
 }
 
-export const Form = <TFieldValues extends FieldValues>({
+let count = 0
+
+export const Form = memo(<TFieldValues extends FieldValues>({
   children,
   onSubmit,
   context,
@@ -63,6 +65,8 @@ export const Form = <TFieldValues extends FieldValues>({
     [onSubmit]
   );
 
+  count++
+
   useEffect(() => {
     if (isSubmitted) {
       context.reset();
@@ -72,8 +76,9 @@ export const Form = <TFieldValues extends FieldValues>({
   return (
     <FormProvider {...context}>
       <form {...props} onSubmit={handleOnSubmit}>
+        <span>render: {count}</span>
         {children}
       </form>
     </FormProvider>
   );
-};
+})
