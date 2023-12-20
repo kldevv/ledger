@@ -33,7 +33,7 @@ export const EntryFields: React.FC<EntryFieldsProps> = ({ index }) => {
           type="number"
           name={`entries.${index}.credit` as const}
         />
-        {/* <AccountSelect index={index} /> */}
+        <AccountSelect index={index} />
         <Input
           label={t('add-transaction-form.label.entries.memo')}
           name={`entries.${index}.memo` as const}

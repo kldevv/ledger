@@ -1,5 +1,6 @@
 import { useAddVaultMutation, useGetCurrencyMetaQuery } from '@/api/graphql';
-import { Card, useForm, SubmitButton } from '@/components/common';
+import { Card, Form, Input, ListBox, SubmitButton } from '@/components/common';
+import { useForm } from '@/hooks';
 import { Currency } from '@prisma/client';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,8 +26,12 @@ export const CreateVaultForm = () => {
   })
   const { t } = useTranslation('vault')
 
-  const [Form] = useForm<FieldValues>({
+  const formContext = useForm<FieldValues>({
     schema,
+    defaultValues: {
+      name: '',
+      currency: 'USD'
+    }
   });
 
   const handleOnSubmit = useCallback((value: FieldValues) => {
@@ -41,23 +46,20 @@ export const CreateVaultForm = () => {
   }, []);
 
   return (
-    <Card variant="sm">
-      <Form onSubmit={handleOnSubmit}>
+    <Card variant="2xl">
+      <Form onSubmit={handleOnSubmit} formContext={formContext} className='w-fit'>
         <div className="flex flex-col">
-          <Form.Input
+          <Input
             name="name"
             label={t('create-vault-form.label.name')}
             placeholder={t('create-vault-form.placeholder.name')}
           />
-          <Form.Select
+          <ListBox
             name="currency"
             label={t('create-vault-form.label.currency')}
-            placeholder={t('create-vault-form.placeholder.currency')}
-            items={getCurrencyMeta ?? []}
+            options={getCurrencyMeta ?? []}
           />
-          <SubmitButton>
-            {t('create-vault-form.submit')}
-          </SubmitButton>
+          <SubmitButton>{t('create-vault-form.submit')}</SubmitButton>
         </div>
       </Form>
     </Card>

@@ -1,12 +1,10 @@
 import { EntryStatus, useAddTransactionMutation } from '@/api/graphql';
-import { Card, SubmitButton, Form, Input, Button, DatePicker } from '@/components/common';
+import { Card, SubmitButton, Form, Input, DatePicker } from '@/components/common';
 import { useForm, useVaultContext } from '@/hooks';
 import { useCallback } from 'react';
-import { useFieldArray } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { EntryRowManager } from './EntryRowManager/EntryRowManager';
-import { EntryFields } from './EntryFields';
 
 const entrySchema = z
   .object({

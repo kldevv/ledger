@@ -1,13 +1,12 @@
 import {
   Control,
-  Controller,
   FieldValues,
   Path,
   useController,
 } from 'react-hook-form';
 import classNames from 'classnames';
 import { useMemo } from 'react';
-import { Field } from '../Field';
+import { Label } from '../Label';
 
 export interface InputProps<TFieldValues extends FieldValues>
   extends Omit<
@@ -57,15 +56,16 @@ export const Input = <TFieldValues extends FieldValues>({
   );
 
   return (
-    <Field htmlFor={htmlFor} label={label} error={error?.message}>
+    <div className="max-w-xs flex flex-col my-2">
+      <Label htmlFor={`input-${name}`}>{label}</Label>
       <input
         {...props}
         {...field}
         type={type}
         className={cn}
-        id={htmlFor}
+        id={`input-${name}`}
         autoComplete="on"
       />
-    </Field>
+    </div>
   );
 };

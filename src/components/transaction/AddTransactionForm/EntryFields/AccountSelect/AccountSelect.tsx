@@ -1,6 +1,5 @@
 import { useGetAccountsQuery } from '@/api/graphql';
-import { useFormSelect } from '@/components/common';
-import { AddTransactionFormFieldValues } from '@/components/transaction';
+import { Select } from '@/components/common';
 import { useVaultContext } from '@/hooks';
 import { useTranslation } from 'react-i18next';
 
@@ -14,7 +13,6 @@ export interface AccountSelectProps {
 export const AccountSelect: React.FC<AccountSelectProps> = ({ index }) => {
   const { t } = useTranslation('transaction');
   const [{ curVaultId }] = useVaultContext();
-  const Select = useFormSelect<AddTransactionFormFieldValues>();
 
   const { data } = useGetAccountsQuery({
     variables: {
@@ -28,7 +26,7 @@ export const AccountSelect: React.FC<AccountSelectProps> = ({ index }) => {
   return (
     <Select
       label={t('add-transaction-form.label.entries.account')}
-      name={`entries.${index}.accountId`}
+      name={`entries.${index}.accountId` as const}
       items={
         data?.getAccounts.map(({ id, name }) => ({ value: id, label: name })) ??
         []

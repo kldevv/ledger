@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm as useReactHookForm, UseFormProps, FieldValues } from "react-hook-form"
+import { useForm as useReactHookForm, UseFormProps, FieldValues, DefaultValues } from "react-hook-form"
 import { z } from "zod";
 
 export interface useFormArgs<TFieldValues extends FieldValues> {
@@ -8,6 +8,10 @@ export interface useFormArgs<TFieldValues extends FieldValues> {
    */
   schema: z.Schema;
   /**
+   * Default values for the form
+   */
+  defaultValues: DefaultValues<TFieldValues>
+  /**
    * Props for `useForm` of the react-hook-form library.
    */
   props?: Omit<UseFormProps<TFieldValues>, 'resolver'>;
@@ -15,6 +19,7 @@ export interface useFormArgs<TFieldValues extends FieldValues> {
 
 export const useForm = <TFieldValues extends FieldValues>({
   schema,
+  defaultValues,
   props,
 }: useFormArgs<TFieldValues>) => {
   const methods = useReactHookForm<TFieldValues>({
@@ -23,7 +28,10 @@ export const useForm = <TFieldValues extends FieldValues>({
     // Validation is triggered on both blur and change events.
     mode: 'all',
     shouldUnregister: true,
+    
     ...props,
+
+    defaultValues,
     resolver: zodResolver(schema),
   });
 
