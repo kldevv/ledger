@@ -1,16 +1,12 @@
-import { ErrorMessage } from '@hookform/error-message';
 import * as Label from '@radix-ui/react-label';
-import { useFormContext } from 'react-hook-form';
 
-export interface FieldProps {
+import { FieldValues } from 'react-hook-form';
+
+export interface FieldProps<TFieldValues extends FieldValues> {
   /**
    * Field for id
    */
   htmlFor: string;
-  /**
-   * Field input name
-   */
-  name: string
   /**
    * Field label
    */
@@ -19,13 +15,18 @@ export interface FieldProps {
    * Field controller
    */
   children: React.ReactNode;
+  /**
+   * Field errors
+   */
+  error?: string;
 }
 
-export const Field: React.FC<FieldProps> = ({ name, htmlFor, label, children }) => {
-  const {
-    formState: { errors },
-  } = useFormContext();
-
+export const Field = <TFieldValues extends FieldValues>({
+  htmlFor,
+  label,
+  children,
+  error,
+}: FieldProps<TFieldValues>) => {
   return (
     <div className="max-w-xs flex flex-col my-2">
       <Label.Root
@@ -35,15 +36,11 @@ export const Field: React.FC<FieldProps> = ({ name, htmlFor, label, children }) 
         {label}
       </Label.Root>
       {children}
-      <ErrorMessage
-        name={name}
-        errors={errors}
-        render={({ message }) => (
-          <span role="alert" className="text-xs font-normal text-red">{`${
-            message.split('.')[0]
-          }.`}</span>
-        )}
-      />
+      {error && (
+        <span role="alert" className="text-xs font-normal text-red">{`${
+          error.split('.')[0]
+        }.`}</span>
+      )}
     </div>
   );
 };

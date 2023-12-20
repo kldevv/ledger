@@ -1,6 +1,6 @@
-import { Control, FieldValues, Path, useController } from 'react-hook-form';
+import { Control, Controller, FieldValues, Path, useController } from 'react-hook-form';
 import classNames from 'classnames';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Field } from '../Field';
 
 export interface InputProps<TFieldValues extends FieldValues>
@@ -22,7 +22,7 @@ export interface InputProps<TFieldValues extends FieldValues>
   control?: Control<TFieldValues>;
 }
 
-export const Input = <TFieldValues extends FieldValues>({
+export const Input = memo(<TFieldValues extends FieldValues>({
   name,
   label,
   type = 'text',
@@ -30,13 +30,6 @@ export const Input = <TFieldValues extends FieldValues>({
   control,
   ...props
 }: InputProps<TFieldValues>) => {
-  const {
-    field: { value, onChange, onBlur, ref },
-  } = useController<TFieldValues>({
-    name,
-    control,
-  });
-
   const htmlFor = useMemo(() => `input-id-${name}`, [name]);
 
   const cn = useMemo(
@@ -53,19 +46,27 @@ export const Input = <TFieldValues extends FieldValues>({
   );
 
   return (
-    <Field htmlFor={htmlFor} label={label} name={name}>
-      <input
-        {...props}
-        type={type}
-        className={cn}
-        id={htmlFor}
-        autoComplete="on"
-        name={name}
-        value={value ?? ''}
-        onChange={onChange}
-        onBlur={onBlur}
-        ref={ref}
-      />
-    </Field>
+    <Controller
+      render={({ field, fieldState: { error } }) => {
+        return (
+          <Field
+            htmlFor={htmlFor}
+            label={label}
+            error={error?.message}
+          >
+            <input
+              {...props}
+              {...field}
+              type={type}
+              className={cn}
+              id={htmlFor}
+              autoComplete="on"
+            />
+          </Field>
+        );
+      }}
+      name={name}
+      control={control}
+    />
   );
-};
+})

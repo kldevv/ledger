@@ -1,9 +1,11 @@
 import { EntryStatus, useAddTransactionMutation } from '@/api/graphql';
-import { Card, SubmitButton, Form, Input } from '@/components/common';
+import { Card, SubmitButton, Form, Input, Button, DatePicker } from '@/components/common';
 import { useForm, useVaultContext } from '@/hooks';
 import { useCallback } from 'react';
+import { useFieldArray } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+import { Temp } from './Temp';
 
 const entrySchema = z
   .object({
@@ -76,7 +78,7 @@ export const AddTransactionForm = () => {
             debit: 0,
             credit: 0,
             status: EntryStatus.PENDING,
-            memo: '',
+            memo: '4',
             accountId: '',
           },
           {
@@ -84,7 +86,7 @@ export const AddTransactionForm = () => {
             debit: 0,
             credit: 0,
             status: EntryStatus.PENDING,
-            memo: '',
+            memo: '13',
           },
         ],
       },
@@ -117,27 +119,16 @@ export const AddTransactionForm = () => {
         <Input
           name={'note'}
           label={t('add-transaction-form.label.note')}
+          // placeholder={t('add-transaction-form.placeholder.name')}
+        />
+        <DatePicker
+          name={'accrualDate'}
+          label={t('add-transaction-form.label.accrual-date')}
           control={formProps.control}
           // placeholder={t('add-transaction-form.placeholder.name')}
         />
-        {/* <Button
-          onClick={() =>
-            append(
-              {
-                transactionDate: new Date(Date.now()),
-                debit: 0,
-                credit: 0,
-                status: EntryStatus.PENDING,
-                accountId: '',
-                memo: '121',
-              },
-              { focusName: 'entries.1.memo' }
-            )
-          }
-        >
-          +++
-        </Button> */}
-        <SubmitButton>{t('add-transaction-form.submit')}</SubmitButton>
+        <Temp control={formProps.control} name="entries"/>
+        {/* <SubmitButton>{t('add-transaction-form.submit')}</SubmitButton> */}
       </Form>
     </Card>
   );
