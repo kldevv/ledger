@@ -1,4 +1,4 @@
-import { forwardRef, useMemo } from "react"
+import { forwardRef, useMemo } from 'react';
 
 export interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
   /**
@@ -7,14 +7,22 @@ export interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
   loading?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = forwardRef(({ children, loading = false, disabled, onClick, ...props }, ref) => {
-  const isDisabled = useMemo(() => {
-    return loading || disabled;
-  }, [loading, disabled]);
+export const Button: React.FC<ButtonProps> = forwardRef(
+  ({ children, loading = false, disabled, onClick, ...props }, ref) => {
+    const isDisabled = useMemo(() => {
+      return loading || disabled;
+    }, [loading, disabled]);
 
-  return (
-    <button ref={ref} disabled={isDisabled} onClick={isDisabled ? undefined : onClick} {...props}>
-      {loading ? <span>loading</span> : <span>{children}</span>}
-    </button>
-  );
-});
+    return (
+      <button
+        ref={ref}
+        disabled={isDisabled}
+        onClick={isDisabled ? undefined : onClick}
+        type="button"
+        {...props}
+      >
+        {loading ? <span>loading</span> : <span>{children}</span>}
+      </button>
+    );
+  }
+);

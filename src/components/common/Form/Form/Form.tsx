@@ -1,23 +1,10 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type {
   FieldValues,
   SubmitHandler,
   UseFormReturn,
 } from 'react-hook-form';
 import { FormProvider } from 'react-hook-form';
-
-export interface createFormProps<TFieldValues extends FieldValues> {
-  /**
-   * React hook form returns
-   */
-  useFormReturns: UseFormReturn<TFieldValues>;
-  /**
-   * Is default form behavior enabled?
-   *
-   * By default, `false`
-   */
-  enableDefault?: boolean;
-}
 
 export interface FormProps<TFieldValues extends FieldValues>
   extends Omit<React.ComponentPropsWithRef<'form'>, 'onSubmit'> {
@@ -32,7 +19,7 @@ export interface FormProps<TFieldValues extends FieldValues>
   /**
    * React hook form returns
    */
-  context: UseFormReturn<TFieldValues>;
+  formContext: UseFormReturn<TFieldValues>;
   /**
    * Is default form behavior enabled?
    *
@@ -41,12 +28,10 @@ export interface FormProps<TFieldValues extends FieldValues>
   enableDefault?: boolean;
 }
 
-let count = 0
-
-export const Form = memo(<TFieldValues extends FieldValues>({
+export const Form = <TFieldValues extends FieldValues>({
   children,
   onSubmit,
-  context,
+  formContext,
   enableDefault,
   ...props
 }: FormProps<TFieldValues>) => {
@@ -58,27 +43,24 @@ export const Form = memo(<TFieldValues extends FieldValues>({
         event.preventDefault();
       }
 
-      await context.handleSubmit(onSubmit)(event);
+      await formContext.handleSubmit(onSubmit)(event);
 
       setIsSubmitted(true);
     },
     [onSubmit]
   );
 
-  count++
-
   useEffect(() => {
     if (isSubmitted) {
-      context.reset();
+      formContext.reset();
     }
   }, [isSubmitted]);
 
   return (
-    <FormProvider {...context}>
+    <FormProvider {...formContext}>
       <form {...props} onSubmit={handleOnSubmit}>
-        <span>render: {count}</span>
         {children}
       </form>
     </FormProvider>
   );
-})
+};

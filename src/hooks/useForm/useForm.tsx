@@ -17,15 +17,15 @@ export const useForm = <TFieldValues extends FieldValues>({
   schema,
   props,
 }: useFormArgs<TFieldValues>) => {
-  const context = useReactHookForm<TFieldValues>({
-    ...props,
+  const methods = useReactHookForm<TFieldValues>({
     // When set to all, all errors from each field will be gathered.
     criteriaMode: 'all',
     // Validation is triggered on both blur and change events.
     mode: 'all',
     shouldUnregister: true,
+    ...props,
     resolver: zodResolver(schema),
   });
 
-  return context;
+  return methods;
 };

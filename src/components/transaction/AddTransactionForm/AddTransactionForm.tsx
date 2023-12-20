@@ -112,16 +112,14 @@ export const AddTransactionForm = () => {
 
   return (
     <Card variant="2xl">
-      <Form onSubmit={handleOnSubmit} context={formProps} className="w-fit">
-        <Input label="my" name="accrualDate" type="date"/>
-        <input {...formProps.register('note')} className='border'/>
-        {/* <DatePicker
+      <Form onSubmit={handleOnSubmit} formContext={formProps} className="w-fit">
+        <Input label="my" name="note" />
+        <DatePicker
           name={'accrualDate'}
           label={t('add-transaction-form.label.accrual-date')}
-          // placeholder={t('add-transaction-form.placeholder.name')}
-        /> */}
+        />
         <EntryRowManager />
-        {/* <SubmitButton>{t('add-transaction-form.submit')}</SubmitButton> */}
+        <SubmitButton>{t('add-transaction-form.submit')}</SubmitButton>
       </Form>
     </Card>
   );
