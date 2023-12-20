@@ -2,8 +2,8 @@ import { GetAccountQuery } from '@/api/graphql';
 import {
   DescriptionList,
   DescriptionListItem,
+  FormattedDate,
 } from '@/components/common';
-import { useFormatter } from '@/hooks';
 import { useTranslation } from 'next-i18next';
 
 export type AccountDescriptionListData = Exclude<GetAccountQuery['getAccount'], null | undefined>
@@ -19,7 +19,6 @@ export const AccountDescriptionList: React.FC<AccountDescriptionListProps> = ({
   data: { id, name, createdDate, updatedDate, category },
 }) => {
   const { t } = useTranslation('account');
-  const { formatDate } = useFormatter();
 
   const items: DescriptionListItem[] = [
     {
@@ -36,11 +35,11 @@ export const AccountDescriptionList: React.FC<AccountDescriptionListProps> = ({
     },
     {
       title: t('account-description-list.title.created-date'),
-      description: formatDate(createdDate),
+      description: <FormattedDate dateTime={createdDate} />,
     },
     {
       title: t('account-description-list.title.updated-date'),
-      description: formatDate(updatedDate),
+      description: <FormattedDate dateTime={updatedDate} />,
     },
   ];
 

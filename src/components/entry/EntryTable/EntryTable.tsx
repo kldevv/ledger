@@ -1,8 +1,7 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'next-i18next';
 import { EntryStatus } from '@/api/graphql';
-import { StatusChip, Table } from '@/components/common';
-import { useFormatter } from '@/hooks';
+import { FormattedDate, StatusChip, Table } from '@/components/common';
 
 export type EntryTableData = {
   /**
@@ -59,14 +58,13 @@ export type EntryTableProps = {
 
 export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
   const { t } = useTranslation('entry');
-  const { formatDate } = useFormatter();
 
   const colDefs = [
     columnHelper.accessor('transactionDate', {
       header: t('entry-table.header.date'),
       cell: (props) => (
         <div className="whitespace-nowrap text-dark-shades">
-          {formatDate(props.getValue())}
+          <FormattedDate dateTime={props.getValue()} />
         </div>
       ),
     }),

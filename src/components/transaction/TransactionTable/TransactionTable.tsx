@@ -1,8 +1,7 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { StatusChip, Table, ViewLink } from '@/components/common';
-import { useFormatter } from '@/hooks';
+import { FormattedDate, StatusChip, Table, ViewLink } from '@/components/common';
 import { GetTransactionsQuery } from '@/api/graphql';
 
 export type TransactionTableDataModel =
@@ -19,7 +18,6 @@ export interface TransactionTable {
 
 export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
   const { t } = useTranslation('transaction')
-  const { formatDate } = useFormatter()
 
   const colDefs = [
     columnHelper.accessor('id', {
@@ -29,7 +27,7 @@ export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
       header: t('transaction-table.header.date'),
       cell: (props) => (
         <div className="whitespace-nowrap text-dark-shades">
-          {formatDate(props.getValue())}
+          <FormattedDate dateTime={props.getValue()} />
         </div>
       ),
     }),

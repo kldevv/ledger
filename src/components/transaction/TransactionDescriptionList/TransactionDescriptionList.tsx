@@ -1,6 +1,5 @@
 import { EntryStatus } from "@/api/graphql";
-import { DescriptionList, DescriptionListItem, StatusChip, Tag } from "@/components/common"
-import { useFormatter } from "@/hooks";
+import { DescriptionList, DescriptionListItem, FormattedDate, StatusChip, Tag } from "@/components/common"
 import { useTranslation } from "next-i18next";
 
 type Data = {
@@ -54,7 +53,6 @@ export const TransactionDescriptionList: React.FC<TransactionDescriptionListProp
   data: { id, accrualDate, note, status, createdDate, updatedDate, tags },
 }) => {
   const { t } = useTranslation('transaction');
-  const { formatDate } = useFormatter();
 
   const items: DescriptionListItem[] = [
     {
@@ -63,7 +61,7 @@ export const TransactionDescriptionList: React.FC<TransactionDescriptionListProp
     },
     {
       title: t('transaction-description-list.title.accrualDate'),
-      description: formatDate(accrualDate),
+      description: <FormattedDate dateTime={accrualDate} />,
     },
     {
       title: t('transaction-description-list.title.note'),
@@ -75,15 +73,21 @@ export const TransactionDescriptionList: React.FC<TransactionDescriptionListProp
     },
     {
       title: t('transaction-description-list.title.tags'),
-      description: <div className="flex gap-1 max-w-full flex-wrap">{tags.map((tag) => <Tag {...tag} />)}</div>
+      description: (
+        <div className="flex gap-1 max-w-full flex-wrap">
+          {tags.map((tag) => (
+            <Tag {...tag} />
+          ))}
+        </div>
+      ),
     },
     {
       title: t('transaction-description-list.title.createdDate'),
-      description: formatDate(createdDate),
+      description: <FormattedDate dateTime={createdDate} />,
     },
     {
       title: t('transaction-description-list.title.updatedDate'),
-      description: formatDate(updatedDate),
+      description: <FormattedDate dateTime={updatedDate} />,
     },
   ];
 

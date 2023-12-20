@@ -1,6 +1,6 @@
 import { Currency, useGetVaultsQuery } from '@/api/graphql';
-import { Button, Table } from '@/components/common';
-import { useFormatter, useVaultContext } from '@/hooks';
+import { Button, FormattedDate, Table } from '@/components/common';
+import { useVaultContext } from '@/hooks';
 import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useCallback } from 'react';
@@ -34,7 +34,6 @@ const columnHelper = createColumnHelper<VaultTableData>();
 export const VaultTable: React.FC = () => {
   const { t } = useTranslation('vault');
   const [{ curVaultId }, { setCurVaultId }] = useVaultContext();
-  const { formatDate } = useFormatter();
   
   const { data, loading, error } = useGetVaultsQuery({
     variables: {
@@ -70,15 +69,11 @@ export const VaultTable: React.FC = () => {
     }),
     columnHelper.accessor('createdDate', {
       header: t('vault-table.header.created-date'),
-      cell: (props) => (
-        <div className="whitespace-nowrap">{formatDate(props.getValue())}</div>
-      ),
+      cell: (props) => <FormattedDate dateTime={props.getValue()} />,
     }),
     columnHelper.accessor('updatedDate', {
       header: t('vault-table.header.updated-date'),
-      cell: (props) => (
-        <div className="whitespace-nowrap">{formatDate(props.getValue())}</div>
-      ),
+      cell: (props) => <FormattedDate dateTime={props.getValue()} />,
     }),
     columnHelper.display({
       id: 'select-vault',

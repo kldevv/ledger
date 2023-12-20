@@ -1,6 +1,5 @@
 import { GetAccountsQuery } from "@/api/graphql";
-import { Table, ViewLink } from "@/components/common"
-import { useFormatter } from "@/hooks";
+import { FormattedDate, Table, ViewLink } from "@/components/common"
 import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslation } from "next-i18next";
 
@@ -17,7 +16,6 @@ const columnHelper = createColumnHelper<AccountTableData>();
 
 export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
   const { t } = useTranslation('account');
-  const { formatDate } = useFormatter()
 
   const colDefs = [
     columnHelper.accessor('id', {
@@ -34,7 +32,7 @@ export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
     }),
     columnHelper.accessor('createdDate', {
       header: t('account-table.header.createdDate'),
-      cell: (props) => <span>{formatDate(props.getValue())}</span>
+      cell: (props) => <FormattedDate dateTime={props.getValue()}/>
     }),
     columnHelper.display({
       id: 'detail',
