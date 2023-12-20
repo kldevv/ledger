@@ -2,10 +2,10 @@ import { useTranslation } from "next-i18next"
 import { UpsertTransactionForm } from "../UpsertTransactionForm/UpsertTransactionForm"
 
 const defaultValues = {
-  accrualDate: new Date(Date.now()),
+  accrualDate: new Date(),
   note: '',
-  tagsId: []
-}
+  tagsId: [],
+};
 
 export const RecordTransaction: React.FC = () => {
   const { t } = useTranslation('transaction')

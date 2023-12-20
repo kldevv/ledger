@@ -1,2 +1,2 @@
 export * from './route'
-export * as formatter from './formatter'
+export * from './formatter'

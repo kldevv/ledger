@@ -39,9 +39,7 @@ export const Input = <TFieldValues extends FieldValues>({
     name,
     control,
   });
-
-  const htmlFor = useMemo(() => `input-id-${name}`, [name]);
-
+  
   const cn = useMemo(
     () =>
       classNames(
