@@ -3,7 +3,7 @@ import * as NavItem from './NavItem';
 import Link from 'next/link';
 import { PaperClipIcon } from '@heroicons/react/20/solid';
 import { NavRoutes } from './NavRoutes';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 export const NavBar: React.FC = () => {
   const { t } = useTranslation('layout')

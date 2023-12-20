@@ -1,6 +1,6 @@
 import { PageHeader, Layout } from '@/components/layout';
 import { VaultTable } from '@/components/vault';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('vault');

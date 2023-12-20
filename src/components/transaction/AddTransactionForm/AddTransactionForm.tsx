@@ -8,7 +8,7 @@ import {
 } from '@/components/common';
 import { useForm, useVaultContext } from '@/hooks';
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { z } from 'zod';
 import { EntryRowManager } from './EntryRowManager/EntryRowManager';
 

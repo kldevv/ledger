@@ -1,7 +1,7 @@
 import { Card, DatePicker, Form, Input, SubmitButton } from '@/components/common';
 import { useForm } from '@/hooks';
 import { DefaultValues, SubmitHandler } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { z } from 'zod';
 
 const schema = z.object({

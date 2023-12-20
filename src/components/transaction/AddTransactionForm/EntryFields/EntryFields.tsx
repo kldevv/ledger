@@ -1,5 +1,5 @@
 import { Button, DatePicker, Input, ListBox } from '@/components/common';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { PlusCircleIcon } from '@heroicons/react/20/solid';
 import { MinusCircleIcon } from '@heroicons/react/24/outline';
 

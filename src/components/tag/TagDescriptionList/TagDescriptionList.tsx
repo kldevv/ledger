@@ -1,6 +1,6 @@
 import { GetTagQuery } from '@/api/graphql';
 import { DescriptionList, DescriptionListItem, FormattedDate } from '@/components/common';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 export type TagDescriptionListData = Exclude<
   GetTagQuery['getTag'],

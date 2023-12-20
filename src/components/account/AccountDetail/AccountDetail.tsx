@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { EntryTable } from '@/components/entry';
 import { AccountDescriptionList } from '../AccountDescriptionList/AccountDescriptionList';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 export const AccountDetail: React.FC = () => {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { UrlObject } from "url";
 
 export type BackButtonProps = {

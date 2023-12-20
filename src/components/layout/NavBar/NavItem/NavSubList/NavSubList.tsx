@@ -4,7 +4,7 @@ import { NavItem } from "./NavItem";
 import { NavRoute } from '../../NavRoutes';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 export type NavSubList = {
   /**

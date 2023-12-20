@@ -4,7 +4,7 @@ import { useFormatter, useVaultContext } from '@/hooks';
 import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 export type VaultTableData = {
   /**

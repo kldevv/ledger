@@ -3,7 +3,7 @@ import { useVaultContext } from '@/hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { TagDescriptionList } from '..';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { TransactionTable } from '@/components/transaction';
 
 export const TagDetail: React.FC = () => {

@@ -1,7 +1,7 @@
 import { Status } from "@/api/graphql"
 import classNames from "classnames"
 import { useMemo } from "react"
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "next-i18next"
 
 export type StatusChipProps = {
   /**

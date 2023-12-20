@@ -2,7 +2,7 @@ import { CategoryType, useAddCategoryMutation } from '@/api/graphql';
 import { Card, useForm, SubmitButton } from '@/components/common';
 import { useFormatter, useVaultContext } from '@/hooks';
 import { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { z } from 'zod';
 
 const schema = z.object({

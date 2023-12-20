@@ -2,7 +2,7 @@ import { GetAccountsQuery } from "@/api/graphql";
 import { Table, ViewLink } from "@/components/common"
 import { useFormatter } from "@/hooks";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 export type AccountTableData = GetAccountsQuery['getAccounts'][number]
 

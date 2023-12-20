@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { EntryTable } from '@/components/entry';
 import { CategoryDescriptionList } from '..';
 import { AccountTable } from '@/components/account';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 export const CategoryDetail: React.FC = () => {
   const router = useRouter();

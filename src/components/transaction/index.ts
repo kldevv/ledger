@@ -1,5 +1,7 @@
 export * from './AddTransactionForm'
+export * from './RecordTransaction'
 export * from './TransactionDashboard'
 export * from './TransactionDescriptionList'
 export * from './TransactionDetail'
 export * from './TransactionTable'
+export * from './UpsertTransactionForm'

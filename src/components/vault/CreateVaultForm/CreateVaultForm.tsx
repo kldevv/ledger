@@ -3,7 +3,7 @@ import { Card, Form, Input, ListBox, SubmitButton } from '@/components/common';
 import { useForm } from '@/hooks';
 import { Currency } from '@prisma/client';
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { z } from 'zod';
 
 const schema = z.object({

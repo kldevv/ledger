@@ -1,6 +1,6 @@
 import { AccountDashboard } from '@/components/account';
 import { PageHeader, Layout } from '@/components/layout';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('account');
