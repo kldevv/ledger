@@ -1,12 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm as useReactHookForm, UseFormProps, FieldValues } from "react-hook-form"
 import { z } from "zod";
-import { createForm, createFormProps } from "./Form/Form";
-import { useMemo } from "react";
 
-
-export interface useFormArgs<TFieldValues extends FieldValues>
-  extends Omit<createFormProps<TFieldValues>, 'useFormReturns'> {
+export interface useFormArgs<TFieldValues extends FieldValues> {
   /**
    * Zod schema of the form fields.
    */
@@ -14,15 +10,15 @@ export interface useFormArgs<TFieldValues extends FieldValues>
   /**
    * Props for `useForm` of the react-hook-form library.
    */
-  useFormProps?: UseFormProps<TFieldValues>;
+  props?: Omit<UseFormProps<TFieldValues>, 'resolver'>;
 };
 
 export const useForm = <TFieldValues extends FieldValues>({
   schema,
-  useFormProps,
+  props,
 }: useFormArgs<TFieldValues>) => {
-  const useFormReturns = useReactHookForm<TFieldValues>({
-    ...useFormProps,
+  const context = useReactHookForm<TFieldValues>({
+    ...props,
     // When set to all, all errors from each field will be gathered.
     criteriaMode: 'all',
     // Validation is triggered on both blur and change events.
@@ -31,10 +27,5 @@ export const useForm = <TFieldValues extends FieldValues>({
     resolver: zodResolver(schema),
   });
 
-  const Form = useMemo(
-    () => createForm<TFieldValues>({ useFormReturns }),
-    [useFormReturns]
-  );
-
-  return [Form, useFormReturns] as const;
+  return context;
 };

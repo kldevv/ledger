@@ -1,11 +1,9 @@
 import { EntryStatus, useAddTransactionMutation } from '@/api/graphql';
-import { Card, useForm, SubmitButton, Button } from '@/components/common';
-import { useVaultContext } from '@/hooks';
+import { Card, SubmitButton, Form, Input } from '@/components/common';
+import { useForm, useVaultContext } from '@/hooks';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { EntryFields } from './EntryFields';
-import { useFieldArray } from 'react-hook-form';
 
 const entrySchema = z
   .object({
@@ -68,9 +66,9 @@ export type AddTransactionFormFieldValues = z.infer<typeof schema>;
 export const AddTransactionForm = () => {
   const { t } = useTranslation('transaction');
   const [{ curVaultId }] = useVaultContext();
-  const [Form, { control }] = useForm<AddTransactionFormFieldValues>({
+  const formProps = useForm<AddTransactionFormFieldValues>({
     schema,
-    useFormProps: {
+    props: {
       defaultValues: {
         entries: [
           {
@@ -91,11 +89,6 @@ export const AddTransactionForm = () => {
         ],
       },
     },
-  });
-
-  const { fields, append } = useFieldArray({
-    control,
-    name: 'entries',
   });
 
   const [addTransaction] = useAddTransactionMutation({
@@ -120,34 +113,30 @@ export const AddTransactionForm = () => {
 
   return (
     <Card variant="2xl">
-      <Form onSubmit={handleOnSubmit} className="w-fit">
-        <Form.DateInput
-          name={`accrualDate`}
-          label={t('add-transaction-form.label.accrual-date')}
-          // placeholder={t('add-transaction-form.placeholder.accrual-date')}
-        />
-        <Form.Input
+      <Form onSubmit={handleOnSubmit} context={formProps} className="w-fit">
+        <Input
           name={'note'}
           label={t('add-transaction-form.label.note')}
+          control={formProps.control}
           // placeholder={t('add-transaction-form.placeholder.name')}
         />
-        {fields.map((field, index) => (
-          <Form.Input label="1" name={`entries.${index}.memo`} />
-        ))}
-        <Button
+        {/* <Button
           onClick={() =>
-            append({
-              transactionDate: new Date(Date.now()),
-              debit: 0,
-              credit: 0,
-              status: EntryStatus.PENDING,
-              accountId: '',
-              memo: '121',
-            }, { focusName: 'entries.1.memo'})
+            append(
+              {
+                transactionDate: new Date(Date.now()),
+                debit: 0,
+                credit: 0,
+                status: EntryStatus.PENDING,
+                accountId: '',
+                memo: '121',
+              },
+              { focusName: 'entries.1.memo' }
+            )
           }
         >
           +++
-        </Button>
+        </Button> */}
         <SubmitButton>{t('add-transaction-form.submit')}</SubmitButton>
       </Form>
     </Card>

@@ -5,13 +5,6 @@ import type {
   UseFormReturn,
 } from 'react-hook-form';
 import { FormProvider } from 'react-hook-form';
-import {
-  InputProps,
-  SelectProps,
-  createFormInput,
-  createFormSelect,
-} from '../Field';
-import { DateInputProps, createFormDateInput } from '../Field/DateInput';
 
 export interface createFormProps<TFieldValues extends FieldValues> {
   /**
@@ -24,7 +17,7 @@ export interface createFormProps<TFieldValues extends FieldValues> {
    * By default, `false`
    */
   enableDefault?: boolean;
-};
+}
 
 export interface FormProps<TFieldValues extends FieldValues>
   extends Omit<React.ComponentPropsWithRef<'form'>, 'onSubmit'> {
@@ -36,54 +29,51 @@ export interface FormProps<TFieldValues extends FieldValues>
    * Callback on submit event
    */
   onSubmit: SubmitHandler<TFieldValues>;
+  /**
+   * React hook form returns
+   */
+  context: UseFormReturn<TFieldValues>;
+  /**
+   * Is default form behavior enabled?
+   *
+   * By default, `false`
+   */
+  enableDefault?: boolean;
 }
 
-export type Form<TFieldValues extends FieldValues> = React.FC<
-  FormProps<TFieldValues>
-> & {
-  Input: React.FC<InputProps<TFieldValues>>;
-  Select: React.FC<SelectProps<TFieldValues>>;
-  DateInput: React.FC<DateInputProps<TFieldValues>>
-}
+export const Form = <TFieldValues extends FieldValues>({
+  children,
+  onSubmit,
+  context,
+  enableDefault,
+  ...props
+}: FormProps<TFieldValues>) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-export const createForm = <TFieldValues extends FieldValues>({
-  useFormReturns,
-  enableDefault = false,
-}: createFormProps<TFieldValues>) => {
-  const Form: Form<TFieldValues> = ({ children, onSubmit, ...props }) => {
-    const [isSubmitted, setIsSubmitted] = useState(false)
-
-    const handleOnSubmit = useCallback(
-      async (event: React.FormEvent<HTMLFormElement>) => {
-        if (!enableDefault) {
-          event.preventDefault();
-        }
-
-        await useFormReturns.handleSubmit(onSubmit)(event);
-
-        setIsSubmitted(true)
-      },
-      [onSubmit]
-    );
-
-    useEffect(() => {
-      if (isSubmitted) {
-        useFormReturns.reset();
+  const handleOnSubmit = useCallback(
+    async (event: React.FormEvent<HTMLFormElement>) => {
+      if (!enableDefault) {
+        event.preventDefault();
       }
-    }, [isSubmitted]);
 
-    return (
-      <FormProvider {...useFormReturns}>
-        <form {...props} onSubmit={handleOnSubmit}>
-          {children}
-        </form>
-      </FormProvider>
-    );
-  };
+      await context.handleSubmit(onSubmit)(event);
 
-  Form.DateInput = createFormDateInput<TFieldValues>()
-  Form.Input = createFormInput<TFieldValues>();
-  Form.Select = createFormSelect<TFieldValues>();
+      setIsSubmitted(true);
+    },
+    [onSubmit]
+  );
 
-  return Form;
+  useEffect(() => {
+    if (isSubmitted) {
+      context.reset();
+    }
+  }, [isSubmitted]);
+
+  return (
+    <FormProvider {...context}>
+      <form {...props} onSubmit={handleOnSubmit}>
+        {children}
+      </form>
+    </FormProvider>
+  );
 };

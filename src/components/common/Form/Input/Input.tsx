@@ -1,6 +1,6 @@
-import { FieldValues, Path, useController } from 'react-hook-form';
+import { Control, FieldValues, Path, useController } from 'react-hook-form';
 import classNames from 'classnames';
-import { Field } from '../Field';
+import { Field } from '../Field/Field';
 import { useMemo } from 'react';
 
 export interface InputProps<TFieldValues extends FieldValues>
@@ -16,20 +16,25 @@ export interface InputProps<TFieldValues extends FieldValues>
    * Input name
    */
   name: Path<TFieldValues>;
+  /**
+   * Optional control to explicitly set `react-hook-form` control
+   */
+  control?: Control<TFieldValues>;
 }
 
-export const createFormInput = <TFieldValues extends FieldValues>() => {
-  const Input: React.FC<InputProps<TFieldValues>> = ({
+  export const Input = <TFieldValues extends FieldValues>({
     name,
     label,
     type = 'text',
     className,
+    control,
     ...props
-  }) => {
+  }: InputProps<TFieldValues>) => {
     const {
       field: { value, onChange, onBlur, ref },
     } = useController<TFieldValues>({
       name,
+      control,
     });
 
     const htmlFor = useMemo(() => `input-id-${name}`, [name]);
@@ -64,6 +69,3 @@ export const createFormInput = <TFieldValues extends FieldValues>() => {
       </Field>
     );
   };
-
-  return Input;
-};
