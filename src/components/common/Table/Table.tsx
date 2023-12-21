@@ -26,10 +26,10 @@ export const Table = <TData extends RowData>({
   return (
     <Card variant="2xl">
       <div className="w-full h-full overflow-auto">
-        <table className="w-full h-full">
-          <thead className="border-b border-b-mid-gray">
+        <table className="w-full h-full table-auto">
+          <thead className="">
             {table.getHeaderGroups().map(({ id, headers }) => (
-              <Row key={id}>
+              <Row key={id} index={1}>
                 {headers.map((header) => (
                   <Header key={header.id}>
                     {header.isPlaceholder
@@ -44,8 +44,8 @@ export const Table = <TData extends RowData>({
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <Row key={row.id}>
+            {table.getRowModel().rows.map((row, index) => (
+              <Row key={row.id} index={index}>
                 {row.getVisibleCells().map((cell) => (
                   <Cell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

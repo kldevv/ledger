@@ -13,7 +13,7 @@ export const UpsertEntryTable: React.FC = () => {
   return (
     <div className="flex flex-col gap-y-3">
       {fields.map((field, index) => (
-        <div>
+        <div key={field.id}>
           <span className="leading-6 text-light-accent text-[0.5rem] font-semibold -mb-3">
             {t('UpsertTransactionForm.title', {
               index,
@@ -21,7 +21,6 @@ export const UpsertEntryTable: React.FC = () => {
           </span>
           <Row
             index={index}
-            key={field.id}
             // The last table row will be have a button to append more
             append={index === fields.length - 1 ? append : null}
             // We will maintain at least two rows

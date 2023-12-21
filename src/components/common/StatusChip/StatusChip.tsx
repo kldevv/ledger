@@ -1,4 +1,3 @@
-import { Status } from "@/api/graphql"
 import classNames from "classnames"
 import { useMemo } from "react"
 import { useTranslation } from "next-i18next"
@@ -7,8 +6,8 @@ export type StatusChipProps = {
   /**
    * Status
    */
-  status: Status
-}
+  status: string;
+};
 
 export const StatusChip: React.FC<StatusChipProps> = ({ status }) => {
   const { t } = useTranslation('common');

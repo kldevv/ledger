@@ -61,7 +61,7 @@ export const UpsertVaultForm: React.FC<UpsertVaultFormProps> = ({ onSubmit, onSu
   );
 };
 
-const currencyOptions = Object.values(Currency).map((value) => ({
+const currencyOptions = Object.keys(Currency).map((value) => ({
   value,
   label: value,
 }));

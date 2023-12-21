@@ -6,8 +6,8 @@
       "undefined": "Unknown"
     }
   },
-  "view-link": {
-    "label": "View"
+  "ViewLink": {
+    "label": "VIEW"
   },
   "formatted-date": "{{ year }}-{{ month }}-{{ date }}"
 }

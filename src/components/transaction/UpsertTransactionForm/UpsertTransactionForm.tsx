@@ -116,20 +116,26 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
 
   return (
     <AccountsContextProvider>
-      <Card variant="2xl">
-        <Form onSubmit={onSubmit} context={context}>
-          <Input<FieldValues>
-            label={t('UpsertTransactionForm.label.note')}
-            name="note"
-          />
-          <DatePicker<FieldValues>
-            label={t('UpsertTransactionForm.label.accrualDate')}
-            name="accrualDate"
-          />
-          <UpsertEntryTable />
-          <SubmitButton>{onSubmitText}</SubmitButton>
-        </Form>
-      </Card>
+        <div className="mr-4">
+          <Form onSubmit={onSubmit} context={context}>
+            <DatePicker<FieldValues>
+              label={t('UpsertTransactionForm.label.accrualDate')}
+              name="accrualDate"
+            />
+            <Input<FieldValues>
+              label={t('UpsertTransactionForm.label.note')}
+              name="note"
+            />
+            <Input<FieldValues>
+              label={t('UpsertTransactionForm.label.note')}
+              name="tagIds"
+            />
+            <div className="mt-6">
+              <UpsertEntryTable />
+            </div>
+            <SubmitButton>{onSubmitText}</SubmitButton>
+          </Form>
+        </div>
     </AccountsContextProvider>
   );
 };

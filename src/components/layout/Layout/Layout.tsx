@@ -29,11 +29,12 @@ export const Layout: React.FC<LayoutProps> = ({ title, children, prev }) => {
       </Head>
       <div className="min-h-screen flex min-w-full">
         <NavBar />
-        <main className="w-full max-h-screen overflow-auto">
+        <main className="w-full max-h-screen overflow-auto bg-light-shades">
           <div
             className={classNames(
               'mx-16',
-              prev != null ? 'mt-5 mb-14' : 'my-14',
+              prev != null ? 'mt-5' : 'mt-14',
+              'mb-32',
               'flex flex-col gap-y-5',
               'min-w-min'
             )}

@@ -13,8 +13,6 @@ export const Cell: React.FC<CellProps> = ({ children }) => {
       className={classNames(
         'text-left text-sm text-gray min-w-fit',
         'p-3',
-        'first:pl-0',
-        'last:pr-0'
       )}
     >
       {children}

@@ -1,6 +1,6 @@
 import { Control, FieldValues, Path, useController } from 'react-hook-form';
 import { Listbox } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, useMemo } from 'react';
 import classNames from 'classnames';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { Label } from '../Label';
@@ -13,7 +13,7 @@ export interface ListBoxProps<TFieldValues extends FieldValues> {
   /**
    * Select items
    */
-  options: {value: string, label: string}[];
+  options: {value: string, label: React.ReactNode}[];
   /**
    * Select label
    */
@@ -26,12 +26,21 @@ export interface ListBoxProps<TFieldValues extends FieldValues> {
 
 const BUTTON_CN = classNames(
   'py-1.5 px-3',
-  'w-full min-w-[10rem]',
+  'w-full',
   'flex items-center',
-  'rounded-md border border-mid-gray text-dark-shades',
+  'bg-white rounded-md border border-mid-gray text-dark-shades',
   'font-normal text-sm leading-6',
-  'data-[placeholder]:text-gray',
   'focus:outline-light-accent focus:outline focus:bg-light-accent-halo'
+);
+
+const OPTIONS_CN = classNames(
+  'w-full',
+  'max-h-[15rem]',
+  'overflow-auto',
+  'absolute',
+  'mt-1 py-1',
+  'bg-white shadow-md shadow-gray rounded-md',
+  'z-10'
 );
 
 const OPTION_CN = classNames(
@@ -55,8 +64,12 @@ export const ListBox = <TFieldValues extends FieldValues>({
     control,
   });
 
+  const displayValue = useMemo(() => {
+    return options.find(({ value }) => value === field.value)?.label;
+  }, [options, field.value]);
+
   return (
-    <div className="max-w-xs flex flex-col relative my-1">
+    <div className="w-[12rem] flex flex-col relative my-1">
       <Listbox {...field} as="div">
         {({ open }) => (
           <>
@@ -66,7 +79,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
             <Listbox.Button className={BUTTON_CN} id={`listbox-${name}`}>
               <div className="min-h-[30px] flex items-center relative w-full gap-2">
                 <span className="mr-[1.75rem] whitespace-nowrap overflow-hidden overflow-ellipsis text-left">
-                  {options.find(({ value }) => value === field.value)?.label}
+                  {displayValue}
                 </span>
                 <div className="absolute right-1 text-gray">
                   {open ? (
@@ -77,7 +90,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
                 </div>
               </div>
             </Listbox.Button>
-            <Listbox.Options className="shadow-md shadow-gray rounded-md p-1 absolute bg-white min-w-[10rem] w-fit z-50">
+            <Listbox.Options className={OPTIONS_CN}>
               {options.map(({ value, label }) => (
                 <Listbox.Option
                   key={`${value}:${label}`}
@@ -88,7 +101,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
                     <li
                       className={classNames(
                         OPTION_CN,
-                        active ? 'bg-light-accent text-light-shades' : undefined
+                        active ? 'bg-mid-gray' : undefined
                       )}
                     >
                       {label}

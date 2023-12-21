@@ -1,4 +1,4 @@
-import { Button, DatePicker, Input, ListBox } from '@/components/common';
+import { Button, DatePicker, Input, ListBox, StatusChip } from '@/components/common';
 import { useTranslation } from 'next-i18next';
 import { PlusIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { DefaultValues, UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
@@ -42,7 +42,9 @@ export const Row: React.FC<RowProps> = ({
   const { t } = useTranslation('transaction');
 
   const handleOnAppend = useCallback(() => {
-    void append?.(defaultEntryFieldValue);
+    void append?.(defaultEntryFieldValue, {
+      shouldFocus: false
+    });
   }, [append])
 
   const handleRemove = useCallback(() => {
@@ -62,9 +64,13 @@ export const Row: React.FC<RowProps> = ({
           label={t('add-transaction-form.label.entries.memo')}
           name={`entries.${index}.memo` as const}
         />
-        <Input<FieldValues>
+        <ListBox<FieldValues>
           label={t('add-transaction-form.label.entries.status')}
           name={`entries.${index}.status` as const}
+          options={Object.keys(EntryStatus).map((value) => ({
+            value,
+            label: <StatusChip status={value} key={value}/>
+          }))}
         />
         <Input<FieldValues>
           label={t('add-transaction-form.label.entries.debit')}
@@ -80,7 +86,10 @@ export const Row: React.FC<RowProps> = ({
           label={t('add-transaction-form.label.entries.account')}
           name={`entries.${index}.accountId` as const}
           options={
-            data?.getAccounts.map(({ id, name }) => ({ value: id, label: name })) ?? []
+            data?.getAccounts.map(({ id, name }) => ({
+              value: id,
+              label: name,
+            })) ?? []
           }
         />
       </div>
