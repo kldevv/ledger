@@ -5,7 +5,7 @@ import { FormattedDate, StatusChip, Table, ViewLink } from '@/components/common'
 import { GetTransactionsQuery } from '@/api/graphql';
 
 export type TransactionTableDataModel =
-  GetTransactionsQuery['getTransactions'][number];
+  GetTransactionsQuery['getTransactions'][number]
 
 const columnHelper = createColumnHelper<TransactionTableDataModel>();
 
@@ -33,7 +33,7 @@ export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
     }),
     columnHelper.accessor('status', {
       header: t('transaction-table.header.status'),
-      cell: (props) => <StatusChip status={props.getValue()} />,
+      cell: (props) => <StatusChip status={props.getValue() ?? ''} />,
     }),
     columnHelper.accessor('note', {
       header: t('transaction-table.header.note'),

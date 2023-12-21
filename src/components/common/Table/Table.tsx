@@ -57,5 +57,5 @@ export const Table = <TData extends RowData>({
         </table>
       </div>
     </Card>
-  );
-};;
+  )
+}
