@@ -10,13 +10,13 @@
     },
     "submit": "CREATE"
   },
-  "vault-table": {
+  "VaultTable": {
     "header": {
       "id": "ID",
       "name": "Name",
       "currency": "Currency",
-      "created-date": "Created Date",
-      "updated-date": "Last Updated Date"
+      "createdDate": "Created Date",
+      "updatedDate": "Last Updated Date"
     },
     "button": {
       "switch": "Switch",

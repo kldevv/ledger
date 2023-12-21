@@ -49,7 +49,7 @@ export const VaultTable: React.FC = () => {
 
   const colDefs = [
     columnHelper.accessor('id', {
-      header: t('vault-table.header.id'),
+      header: t('VaultTable.header.id'),
     }),
     columnHelper.display({
       id: 'is-selected',
@@ -59,20 +59,20 @@ export const VaultTable: React.FC = () => {
         ) : null,
     }),
     columnHelper.accessor('name', {
-      header: t('vault-table.header.name'),
+      header: t('VaultTable.header.name'),
       cell: (props) => (
         <div className="text-dark-shades">{props.getValue()}</div>
       ),
     }),
     columnHelper.accessor('currency', {
-      header: t('vault-table.header.currency'),
+      header: t('VaultTable.header.currency'),
     }),
     columnHelper.accessor('createdDate', {
-      header: t('vault-table.header.created-date'),
+      header: t('VaultTable.header.createdDate'),
       cell: (props) => <FormattedDate dateTime={props.getValue()} />,
     }),
     columnHelper.accessor('updatedDate', {
-      header: t('vault-table.header.updated-date'),
+      header: t('VaultTable.header.updatedDate'),
       cell: (props) => <FormattedDate dateTime={props.getValue()} />,
     }),
     columnHelper.display({
@@ -82,7 +82,7 @@ export const VaultTable: React.FC = () => {
           onClick={createHandleOnVaultSwitch(props.row.getValue('id'))}
           className="text-light-accent"
         >
-          {t('vault-table.button.switch')}
+          {t('VaultTable.button.switch')}
         </Button>
       ),
     }),
