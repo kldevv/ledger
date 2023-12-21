@@ -1,4 +1,3 @@
-export * from './AddTransactionForm'
 export * from './RecordTransactionForm'
 export * from './TransactionDashboard'
 export * from './TransactionDescriptionList'

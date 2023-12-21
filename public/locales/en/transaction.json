@@ -1,23 +1,4 @@
 {
-  "add-transaction-form": {
-    "label": {
-      "accrual-date": "Accrual Date",
-      "note": "Note",
-      "tags": "Tags",
-      "entries": {
-        "memo": "Memo",
-        "transaction-date": "Transaction Date",
-        "debit": "Debit",
-        "credit": "Credit",
-        "account": "Account",
-        "status": "Status"
-      }
-    },
-    "placeholder": {
-      
-    },
-    "submit": "Record"
-  },
   "transaction-table": {
     "header": {
       "note": "Note",
