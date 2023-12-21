@@ -64,7 +64,7 @@ export const UpsertVaultForm: React.FC<UpsertVaultFormProps> = ({
           options={currencyOptions}
         />
       </div>
-      <SubmitButton className='mt-4'>{onSubmitText}</SubmitButton>
+      <SubmitButton className="mt-4">{onSubmitText}</SubmitButton>
     </Form>
   );
 };

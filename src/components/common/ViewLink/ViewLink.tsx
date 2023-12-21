@@ -10,8 +10,10 @@ export const ViewLink: React.FC<ViewLinkProps> = ({ href }) => {
   const { t } = useTranslation('common')
 
   return (
-    <Link href={href} className="text-light-accent text-xs font-medium">
-      {t('ViewLink.label')}
-    </Link>
+    <div className="w-full text-right">
+      <Link href={href} className="text-light-accent text-xs font-medium">
+        {t('ViewLink.label')}
+      </Link>
+    </div>
   );
 }

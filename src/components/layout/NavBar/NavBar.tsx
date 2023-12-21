@@ -9,7 +9,7 @@ export const NavBar: React.FC = () => {
   const { t } = useTranslation('layout')
 
   return (
-    <div className="flex flex-col bg-light-shades grow-0">
+    <div className="flex flex-col bg-white grow-0">
       <div className="px-6 gap-y-4 w-56 border-r overflow-y-auto h-full flex flex-col border-mid-gray">
         <div className="mt-4 flex shrink-0 h-8 items-center">
           <Link href="/">

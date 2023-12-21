@@ -13,7 +13,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <th
       className={classNames(
-        'text-left text-sm font-normal text-dark-shades ',
+        'text-left text-xs font-medium text-dark-shades ',
         'p-3',
         'text-gray'
       )}

@@ -16,7 +16,7 @@ export const UpsertEntryTable: React.FC = () => {
         <div key={field.id}>
           <span className="leading-6 text-light-accent text-[0.5rem] font-semibold -mb-3">
             {t('UpsertTransactionForm.title', {
-              index,
+              index: index + 1,
             })}
           </span>
           <Row
