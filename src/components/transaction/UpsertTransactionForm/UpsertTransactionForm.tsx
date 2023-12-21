@@ -1,6 +1,5 @@
-import { Card, Form, Input, DatePicker, SubmitButton } from '@/components/common';
-import { useForm } from '@/hooks';
-import { DefaultValues, SubmitHandler } from 'react-hook-form';
+import { Card, Form, Input, DatePicker, SubmitButton, FormProps } from '@/components/common';
+import { UseFormProps, useForm } from '@/hooks';
 import { useTranslation } from 'next-i18next';
 import { z } from 'zod';
 
@@ -29,15 +28,15 @@ export interface UpsertTransactionFormProps {
   /**
    * On submit
    */
-  onSubmit: SubmitHandler<FieldValues>;
+  onSubmit: FormProps<FieldValues>['onSubmit'];
   /**
    * On submit text
    */
-  onSubmitText: string
+  onSubmitText: string;
   /**
    * Default form values
    */
-  defaultValues: DefaultValues<FieldValues>;
+  defaultValues: UseFormProps<FieldValues>['defaultValues'];
 }
 
 export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({

@@ -1,6 +1,6 @@
 import { Control, FieldValues, Path, useController } from 'react-hook-form';
 import classNames from 'classnames';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Label } from '../Label';
 import { formatDate } from '@/lib';
 
@@ -51,13 +51,19 @@ export const DatePicker = <TFieldValues extends FieldValues>({
     [className]
   );
 
+  const convertValue = useCallback((value: Date | string) => {
+    if (typeof value === 'string') return value
+
+    return formatDate(value);
+  }, [])
+
   return (
     <div className="max-w-xs flex flex-col my-2">
       <Label htmlFor={`input-${name}`}>{label}</Label>
       <input
         {...props}
         {...rest}
-        value={formatDate(value)}
+        value={convertValue(value)}
         type="date"
         max="2999-12-31"
         className={cn}
