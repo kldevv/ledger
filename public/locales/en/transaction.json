@@ -41,7 +41,7 @@
       "updatedDate": "Last Updated Date"
     }
   },
-  "RecordTransaction": {
+  "RecordTransactionForm": {
     "submit": "Record"
   },
   "UpsertTransactionForm": {

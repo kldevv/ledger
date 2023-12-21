@@ -54,7 +54,7 @@ export const Input = <TFieldValues extends FieldValues>({
   );
 
   return (
-    <div className="max-w-xs flex flex-col my-2">
+    <div className="max-w-xs flex flex-col my-1">
       <Label htmlFor={`input-${name}`}>{label}</Label>
       <input
         {...props}
@@ -63,6 +63,7 @@ export const Input = <TFieldValues extends FieldValues>({
         className={cn}
         id={`input-${name}`}
         autoComplete="on"
+        pattern="[0-9]*"
       />
     </div>
   );

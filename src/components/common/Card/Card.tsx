@@ -33,7 +33,6 @@ export const Card: React.FC<CardProps> = ({ children, variant = 'md' }) => {
     '-mx-5 mt-6',
     'rounded-lg shadow box-shadow shadow-gray',
     'overflow-auto',
-    'max-h-screen',
     'w-fit',
     maxWidth
   );

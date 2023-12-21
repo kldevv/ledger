@@ -58,7 +58,7 @@ export const DatePicker = <TFieldValues extends FieldValues>({
   }, [])
 
   return (
-    <div className="max-w-xs flex flex-col my-2">
+    <div className="max-w-xs flex flex-col my-1">
       <Label htmlFor={`input-${name}`}>{label}</Label>
       <input
         {...props}

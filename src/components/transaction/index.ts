@@ -1,5 +1,5 @@
 export * from './AddTransactionForm'
-export * from './RecordTransaction'
+export * from './RecordTransactionForm'
 export * from './TransactionDashboard'
 export * from './TransactionDescriptionList'
 export * from './TransactionDetail'

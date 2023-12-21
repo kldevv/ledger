@@ -2,7 +2,7 @@ import { useMemo, useState } from "react"
 import { SetVaultContextState, VaultContext, VaultContextState } from "./Context"
 import { useGetVaultsQuery } from "@/api/graphql";
 
-export type VaultContextProviderProps = {
+export interface VaultContextProviderProps {
   /**
    * Children component
    */
