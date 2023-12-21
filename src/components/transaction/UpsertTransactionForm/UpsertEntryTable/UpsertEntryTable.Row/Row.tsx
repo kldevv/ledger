@@ -57,33 +57,33 @@ export const Row: React.FC<RowProps> = ({
     <div className="flex gap-x-1 items-start">
       <div className="grid grid-cols-3 w-max gap-x-1 max-w-5xl">
         <DatePicker<FieldValues>
-          label={t`add-transaction-form.label.entries.transaction-date`}
+          label={t`UpsertTransactionForm.label.entries.transactionDate`}
           name={`entries.${index}.transactionDate` as const}
         />
         <Input<FieldValues>
-          label={t('add-transaction-form.label.entries.memo')}
+          label={t('UpsertTransactionForm.label.entries.memo')}
           name={`entries.${index}.memo` as const}
         />
         <ListBox<FieldValues>
-          label={t('add-transaction-form.label.entries.status')}
+          label={t('UpsertTransactionForm.label.entries.status')}
           name={`entries.${index}.status` as const}
           options={Object.keys(EntryStatus).map((value) => ({
             value,
-            label: <StatusChip status={value} key={value}/>
+            label: <StatusChip status={value} key={value} />,
           }))}
         />
         <Input<FieldValues>
-          label={t('add-transaction-form.label.entries.debit')}
+          label={t('UpsertTransactionForm.label.entries.debit')}
           type="number"
           name={`entries.${index}.debit` as const}
         />
         <Input<FieldValues>
-          label={t('add-transaction-form.label.entries.credit')}
+          label={t('UpsertTransactionForm.label.entries.credit')}
           type="number"
           name={`entries.${index}.credit` as const}
         />
         <ListBox<FieldValues>
-          label={t('add-transaction-form.label.entries.account')}
+          label={t('UpsertTransactionForm.label.entries.account')}
           name={`entries.${index}.accountId` as const}
           options={
             data?.getAccounts.map(({ id, name }) => ({

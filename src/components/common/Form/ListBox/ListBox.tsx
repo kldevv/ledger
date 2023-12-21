@@ -25,8 +25,8 @@ export interface ListBoxProps<TFieldValues extends FieldValues> {
 }
 
 const BUTTON_CN = classNames(
-  'py-1.5 px-3',
-  'w-full',
+  'py-1.5 px-3 mt-[0.125rem]',
+  'w-full h-[2.5rem]',
   'flex items-center',
   'bg-white rounded-md border border-mid-gray text-dark-shades',
   'font-normal text-sm leading-6',
@@ -38,7 +38,7 @@ const OPTIONS_CN = classNames(
   'max-h-[15rem]',
   'overflow-auto',
   'absolute',
-  'mt-1 py-1',
+  'mt-1 p-1',
   'bg-white shadow-md shadow-gray rounded-md',
   'z-10'
 );
@@ -69,7 +69,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
   }, [options, field.value]);
 
   return (
-    <div className="w-[12rem] flex flex-col relative my-1">
+    <div className="w-[12rem] flex flex-col relative mt-[0.125rem]">
       <Listbox {...field} as="div">
         {({ open }) => (
           <>

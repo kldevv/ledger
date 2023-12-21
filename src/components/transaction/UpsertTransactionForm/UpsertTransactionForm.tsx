@@ -1,5 +1,5 @@
 import {
-  Card,
+
   Form,
   Input,
   DatePicker,
@@ -127,7 +127,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
               name="note"
             />
             <Input<FieldValues>
-              label={t('UpsertTransactionForm.label.note')}
+              label={t('UpsertTransactionForm.label.tags')}
               name="tagIds"
             />
             <div className="mt-6">

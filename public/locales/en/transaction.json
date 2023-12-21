@@ -47,8 +47,17 @@
   "UpsertTransactionForm": {
     "title": "ENTRY #${{ index }}",
     "label": {
+      "accrualDate": "Accrual Date",
       "note": "Note",
-      "accrualDate": "Accrual Date"
+      "tags": "Tags",
+      "entries": {
+        "memo": "Memo",
+        "transactionDate": "Transaction Date",
+        "debit": "Debit",
+        "credit": "Credit",
+        "account": "Account",
+        "status": "Status"
+      }
     }
   },
   "page": {
