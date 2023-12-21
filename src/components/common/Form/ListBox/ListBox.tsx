@@ -56,7 +56,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
   });
 
   return (
-    <div className="max-w-xs flex flex-col my-1">
+    <div className="max-w-xs flex flex-col relative my-1">
       <Listbox {...field} as="div">
         {({ open }) => (
           <>
@@ -66,7 +66,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
             <Listbox.Button className={BUTTON_CN} id={`listbox-${name}`}>
               <div className="min-h-[30px] flex items-center relative w-full gap-2">
                 <span className="mr-[1.75rem] whitespace-nowrap overflow-hidden overflow-ellipsis text-left">
-                  {field.value}
+                  {options.find(({ value }) => value === field.value)?.label}
                 </span>
                 <div className="absolute right-1 text-gray">
                   {open ? (
@@ -77,7 +77,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
                 </div>
               </div>
             </Listbox.Button>
-            <Listbox.Options className="shadow-md shadow-gray rounded-md p-1 absolute bg-white min-w-[10rem] w-fit">
+            <Listbox.Options className="shadow-md shadow-gray rounded-md p-1 absolute bg-white min-w-[10rem] w-fit z-50">
               {options.map(({ value, label }) => (
                 <Listbox.Option
                   key={`${value}:${label}`}

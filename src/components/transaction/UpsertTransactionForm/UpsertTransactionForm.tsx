@@ -1,9 +1,15 @@
-import { EntryStatus } from '@/api/graphql';
-import { Card, Form, Input, DatePicker, SubmitButton, FormProps } from '@/components/common';
-import { UseFormProps, useForm } from '@/hooks';
+import {
+  Card,
+  Form,
+  Input,
+  DatePicker,
+  SubmitButton,
+  FormProps,
+} from '@/components/common';
+import { AccountsContextProvider, UseFormProps, useForm } from '@/hooks';
 import { useTranslation } from 'next-i18next';
 import { z } from 'zod';
-import { EntryField } from './EntryField';
+import { UpsertEntryTable } from './UpsertEntryTable';
 
 const entrySchema = z
   .object({
@@ -109,19 +115,21 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   });
 
   return (
-    <Card variant="2xl">
-      <Form onSubmit={onSubmit} context={context}>
-        <Input<FieldValues>
-          label={t('UpsertTransactionForm.label.note')}
-          name="note"
-        />
-        <DatePicker<FieldValues>
-          label={t('UpsertTransactionForm.label.accrualDate')}
-          name="accrualDate"
-        />
-        <EntryField />
-        <SubmitButton>{onSubmitText}</SubmitButton>
-      </Form>
-    </Card>
+    <AccountsContextProvider>
+      <Card variant="2xl">
+        <Form onSubmit={onSubmit} context={context}>
+          <Input<FieldValues>
+            label={t('UpsertTransactionForm.label.note')}
+            name="note"
+          />
+          <DatePicker<FieldValues>
+            label={t('UpsertTransactionForm.label.accrualDate')}
+            name="accrualDate"
+          />
+          <UpsertEntryTable />
+          <SubmitButton>{onSubmitText}</SubmitButton>
+        </Form>
+      </Card>
+    </AccountsContextProvider>
   );
 };

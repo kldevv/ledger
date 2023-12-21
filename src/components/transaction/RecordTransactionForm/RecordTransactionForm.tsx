@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next"
 import { UpsertTransactionForm } from "../UpsertTransactionForm/UpsertTransactionForm"
-import { defaultEntryFieldValue } from "../UpsertTransactionForm/EntryField/Row";
+import { defaultEntryFieldValue } from "../UpsertTransactionForm/UpsertEntryTable/UpsertEntryTable.Row";
 
 const defaultValues = {
   accrualDate: new Date(),

@@ -45,6 +45,7 @@
     "submit": "Record"
   },
   "UpsertTransactionForm": {
+    "title": "ENTRY #${{ index }}",
     "label": {
       "note": "Note",
       "accrualDate": "Accrual Date"

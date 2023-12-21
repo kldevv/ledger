@@ -1,10 +1,11 @@
 import { useFieldArray } from 'react-hook-form';
 import { FieldValues } from '..';
-import { Row } from './Row';
-import { MinusIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { Button } from '@/components/common';
+import { Row } from './UpsertEntryTable.Row';
+import { useTranslation } from 'next-i18next';
 
-export const EntryField: React.FC = () => {
+export const UpsertEntryTable: React.FC = () => {
+  const { t } = useTranslation('transaction')
+
   const { fields, append, remove } = useFieldArray<FieldValues>({
     name: 'entries',
   });
@@ -14,12 +15,16 @@ export const EntryField: React.FC = () => {
       {fields.map((field, index) => (
         <div>
           <span className="leading-6 text-light-accent text-[0.5rem] font-semibold -mb-3">
-            {`ENTRY #${index + 1}`}
+            {t('UpsertTransactionForm.title', {
+              index,
+            })}
           </span>
           <Row
             index={index}
             key={field.id}
+            // The last table row will be have a button to append more
             append={index === fields.length - 1 ? append : null}
+            // We will maintain at least two rows
             remove={fields.length > 2 ? remove : null}
           />
         </div>

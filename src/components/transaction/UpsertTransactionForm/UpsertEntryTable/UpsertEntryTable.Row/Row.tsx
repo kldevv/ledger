@@ -1,11 +1,11 @@
 import { Button, DatePicker, Input, ListBox } from '@/components/common';
 import { useTranslation } from 'next-i18next';
-import { MinusIcon, PlusCircleIcon, PlusIcon, TrashIcon } from '@heroicons/react/20/solid';
-import { MinusCircleIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { DefaultValues, UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
 import { FieldValues } from '../..';
 import { useCallback } from 'react';
 import { EntryStatus } from '@prisma/client';
+import { useAccountsContext } from '@/hooks/useAccountsContext/useAccountsContext';
 
 export const defaultEntryFieldValue: Required<Exclude<
   DefaultValues<FieldValues>['entries'],
@@ -48,36 +48,40 @@ export const Row: React.FC<RowProps> = ({
   const handleRemove = useCallback(() => {
     void remove?.(index);
   }, [remove, index]);
+
+  const { result: { data, loading, error } } = useAccountsContext()
  
   return (
     <div className="flex gap-x-1 items-start">
       <div className="grid grid-cols-3 w-max gap-x-1 max-w-5xl">
-        <DatePicker
+        <DatePicker<FieldValues>
           label={t`add-transaction-form.label.entries.transaction-date`}
           name={`entries.${index}.transactionDate` as const}
         />
-        <Input
+        <Input<FieldValues>
           label={t('add-transaction-form.label.entries.memo')}
           name={`entries.${index}.memo` as const}
         />
-        <Input
+        <Input<FieldValues>
           label={t('add-transaction-form.label.entries.status')}
           name={`entries.${index}.status` as const}
         />
-        <Input
+        <Input<FieldValues>
           label={t('add-transaction-form.label.entries.debit')}
           type="number"
           name={`entries.${index}.debit` as const}
         />
-        <Input
+        <Input<FieldValues>
           label={t('add-transaction-form.label.entries.credit')}
           type="number"
           name={`entries.${index}.credit` as const}
         />
-        <ListBox
+        <ListBox<FieldValues>
           label={t('add-transaction-form.label.entries.account')}
           name={`entries.${index}.accountId` as const}
-          options={[]}
+          options={
+            data?.getAccounts.map(({ id, name }) => ({ value: id, label: name })) ?? []
+          }
         />
       </div>
       <div className="mt-20 flex gap-x-1 w-10 relative">
