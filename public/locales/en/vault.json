@@ -23,6 +23,15 @@
       "selected": "SELECTED"
     }
   },
+  "UpsertVaultForm": {
+    "label": {
+      "name": "Vault Name",
+      "currency": "Vault Currency"
+    }
+  },
+  "InsertVaultForm": {
+    "submit": "Create"
+  },
   "page": {
     "index": {
       "title": "Vaults",
