@@ -1,5 +1,5 @@
 import { PageHeader, Layout } from '@/components/layout';
-import { RecordTransactionForm } from '@/components/transaction';
+import { InsertTransactionForm } from '@/components/transaction';
 import { useTranslation } from 'next-i18next';
 
 const Page: React.FC = () => {
@@ -11,7 +11,7 @@ const Page: React.FC = () => {
         title={t('page.record.index.title')}
         subtitle={t('page.record.index.subtitle')}
       />
-      <RecordTransactionForm />
+      <InsertTransactionForm />
     </Layout>
   );
 };

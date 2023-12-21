@@ -9,10 +9,14 @@ const defaultValues = {
   entries: [defaultEntryFieldValue, defaultEntryFieldValue],
 };
 
-export const RecordTransactionForm: React.FC = () => {
+export const InsertTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')
 
   return (
-    <UpsertTransactionForm onSubmit={(value) => console.log(value) } onSubmitText={t`RecordTransactionForm.submit`} defaultValues={defaultValues}/>
+    <UpsertTransactionForm
+      onSubmit={(value) => console.log(value)}
+      onSubmitText={t`InsertTransactionForm.submit`}
+      defaultValues={defaultValues}
+    />
   );
 }

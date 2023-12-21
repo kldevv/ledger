@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({
       className={classNames(
         'text-left text-xs font-medium text-dark-shades ',
         'p-3',
-        'text-gray'
+        'text-gray whitespace-nowrap'
       )}
     >
       {children}

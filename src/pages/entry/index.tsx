@@ -3,7 +3,7 @@ import { PageHeader, Layout } from '@/components/layout';
 
 const Page: React.FC = () => {
   return (
-    <Layout>
+    <Layout prev="/">
       <PageHeader
         title="Entries"
         subtitle="All entries for the currently selected vault."

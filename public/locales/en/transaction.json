@@ -22,8 +22,11 @@
       "updatedDate": "Last Updated Date"
     }
   },
-  "RecordTransactionForm": {
+  "InsertTransactionForm": {
     "submit": "Record"
+  },
+  "UpdateTransactionForm": {
+    "submit": "Submit"
   },
   "UpsertTransactionForm": {
     "title": "ENTRY #{{ index }}",
