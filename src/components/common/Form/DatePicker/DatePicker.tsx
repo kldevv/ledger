@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { useCallback, useMemo } from 'react';
 import { Label } from '../Label';
 import { formatDate } from '@/lib';
+import { ErrorMessage } from '../ErrorMessage';
 
 export interface DatePickerProps<TFieldValues extends FieldValues>
   extends Omit<
@@ -70,6 +71,7 @@ export const DatePicker = <TFieldValues extends FieldValues>({
         id={`input-${name}`}
         autoComplete="on"
       />
+      <ErrorMessage error={error?.message} />
     </div>
   );
 };

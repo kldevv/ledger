@@ -4,6 +4,7 @@ import { Fragment, useMemo } from 'react';
 import classNames from 'classnames';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { Label } from '../Label';
+import { ErrorMessage } from '../ErrorMessage';
 
 export interface ListBoxProps<TFieldValues extends FieldValues> {
   /**
@@ -113,6 +114,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
           </>
         )}
       </Listbox>
+      <ErrorMessage error={error?.message} />
     </div>
   );
 };
