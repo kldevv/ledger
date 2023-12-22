@@ -1,5 +1,6 @@
 export * from './DatePicker'
 export * from './Form'
-export * from './Input'
+export * from './InputNumber'
+export * from './InputText'
 export * from './ListBox'
 export * from './SubmitButton'

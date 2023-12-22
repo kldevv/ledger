@@ -1,4 +1,4 @@
-import { Button, DatePicker, Input, ListBox, StatusChip } from '@/components/common';
+import { Button, DatePicker, InputText, InputNumber, ListBox, StatusChip } from '@/components/common';
 import { useTranslation } from 'next-i18next';
 import { PlusIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { DefaultValues, UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
@@ -60,7 +60,7 @@ export const Row: React.FC<RowProps> = ({
           label={t`UpsertTransactionForm.label.entries.transactionDate`}
           name={`entries.${index}.transactionDate` as const}
         />
-        <Input<FieldValues>
+        <InputText<FieldValues>
           label={t('UpsertTransactionForm.label.entries.memo')}
           name={`entries.${index}.memo` as const}
         />
@@ -72,14 +72,12 @@ export const Row: React.FC<RowProps> = ({
             label: <StatusChip status={value} key={value} />,
           }))}
         />
-        <Input<FieldValues>
+        <InputNumber<FieldValues>
           label={t('UpsertTransactionForm.label.entries.debit')}
-          type="number"
           name={`entries.${index}.debit` as const}
         />
-        <Input<FieldValues>
+        <InputNumber<FieldValues>
           label={t('UpsertTransactionForm.label.entries.credit')}
-          type="number"
           name={`entries.${index}.credit` as const}
         />
         <ListBox<FieldValues>

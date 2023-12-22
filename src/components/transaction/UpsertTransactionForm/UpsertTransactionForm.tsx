@@ -1,7 +1,6 @@
 import {
-
   Form,
-  Input,
+  InputText,
   DatePicker,
   SubmitButton,
   FormProps,
@@ -122,11 +121,11 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
               label={t('UpsertTransactionForm.label.accrualDate')}
               name="accrualDate"
             />
-            <Input<FieldValues>
+            <InputText<FieldValues>
               label={t('UpsertTransactionForm.label.note')}
               name="note"
             />
-            <Input<FieldValues>
+            <InputText<FieldValues>
               label={t('UpsertTransactionForm.label.tags')}
               name="tagIds"
             />
