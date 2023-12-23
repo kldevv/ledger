@@ -17,6 +17,7 @@ import { UpsertEntryTable } from './UpsertEntryTable';
 import { InputDate } from '@/components/common/Form/InputDate';
 import { useGetTagsQuery } from '@/api/graphql';
 import { useMemo } from 'react';
+import { numberSchema } from '@/lib';
 
 const entrySchema = z
   .object({
@@ -35,11 +36,11 @@ const entrySchema = z
     /**
      * Entry debit
      */
-    debit: z.coerce.number().nonnegative(),
+    debit: numberSchema,
     /**
      * Entry credit
      */
-    credit: z.coerce.number().nonnegative(),
+    credit: numberSchema,
     /**
      * Account id
      */
