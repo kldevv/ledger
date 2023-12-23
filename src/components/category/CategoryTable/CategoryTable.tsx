@@ -19,19 +19,19 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
 
   const colDefs = [
     columnHelper.accessor('id', {
-      header: t('category-table.header.id'),
+      header: t('CategoryTable.header.id'),
     }),
     columnHelper.accessor('name', {
-      header: t('category-table.header.name'),
+      header: t('CategoryTable.header.name'),
       cell: (props) => (
         <span className="text-dark-shades">{props.getValue()}</span>
       ),
     }),
     columnHelper.accessor('type', {
-      header: t('category-table.header.type'),
+      header: t('CategoryTable.header.type'),
     }),
     columnHelper.accessor('createdDate', {
-      header: t('category-table.header.created-date'),
+      header: t('CategoryTable.header.createdDate'),
       cell: (props) => <FormattedDate dateTime={props.getValue()} />,
     }),
     columnHelper.display({

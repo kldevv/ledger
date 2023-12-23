@@ -39,11 +39,11 @@ export const CategoryDetail: React.FC = () => {
           }}
         />
         <h3 className="mt-12 font-semibold text-dark-shades">
-          {t('category-detail.header.accounts')}
+          {t('CategoryDetail.title.accounts')}
         </h3>
         <AccountTable data={data?.getAccounts} />
         <h3 className="mt-12 font-semibold text-dark-shades">
-          {t('category-detail.header.entries')}
+          {t('CategoryDetail.title.entries')}
         </h3>
         <EntryTable data={data?.getEntries} />
       </div>

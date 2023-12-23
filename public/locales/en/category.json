@@ -10,27 +10,27 @@
     },
     "submit": "Add"
   },
-  "category-description-list": {
+  "CategoryDescriptionList": {
     "title": {
       "id": "ID",
       "name": "Name",
       "type": "Accounting Term",
-      "updated-date": "Last Updated Date",
-      "created-date": "Created Date"
+      "updatedDate": "Last Updated Date",
+      "createdDate": "Created Date"
     }
   },
-  "category-detail": {
-    "header": {
+  "CategoryDetail": {
+    "title": {
       "accounts": "Category Accounts",
       "entries": "Category Entries"
     }
   },
-  "category-table": {
+  "CategoryTable": {
     "header": {
       "id": "ID",
       "name": "Name",
       "type": "Accounting Term",
-      "created-date": "Created Date"
+      "createdDate": "Created Date"
     }
   },
   "page": {

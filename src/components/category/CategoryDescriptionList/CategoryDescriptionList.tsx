@@ -18,23 +18,23 @@ export const CategoryDescriptionList: React.FC<CategoryDescriptionListProps> = (
 
   const items: DescriptionListItem[] = [
     {
-      title: t('category-description-list.title.id'),
+      title: t('CategoryDescriptionList.title.id'),
       description: id,
     },
     {
-      title: t('category-description-list.title.name'),
+      title: t('CategoryDescriptionList.title.name'),
       description: name,
     },
     {
-      title: t('category-description-list.title.type'),
+      title: t('CategoryDescriptionList.title.type'),
       description: type,
     },
     {
-      title: t('category-description-list.title.created-date'),
+      title: t('CategoryDescriptionList.title.createdDate'),
       description: <FormattedDate dateTime={createdDate} />,
     },
     {
-      title: t('category-description-list.title.updated-date'),
+      title: t('CategoryDescriptionList.title.updatedDate'),
       description: <FormattedDate dateTime={updatedDate} />,
     },
   ];
