@@ -1,5 +1,5 @@
 {
-  "entry-table": {
+  "EntryTable": {
     "header": {
       "id": "ID",
       "date": "Date",

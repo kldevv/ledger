@@ -1,51 +1,9 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useTranslation } from 'next-i18next';
-import { EntryStatus } from '@/api/graphql';
+import { GetEntriesQuery } from '@/api/graphql';
 import { FormattedDate, StatusChip, Table } from '@/components/common';
 
-export type EntryTableData = {
-  /**
-   * Entry id
-   */
-  id: string;
-  /**
-   * Transaction date
-   */
-  transactionDate: Date;
-  /**
-   * Entry debit
-   */
-  debit: number;
-  /**
-   * Entry credit
-   */
-  credit: number;
-  /**
-   * Entry status
-   */
-  status: EntryStatus;
-  /**
-   * Entry account
-   */
-  account: {
-    /**
-     * Account id
-     */
-    id: string;
-    /**
-     * Account name
-     */
-    name: string;
-  };
-  /**
-   * Transaction id
-   */
-  transactionId: string;
-  /**
-   * Entry memo
-   */
-  memo?: string | null;
-};
+export type EntryTableData = GetEntriesQuery['getEntries'][number]
 
 const columnHelper = createColumnHelper<EntryTableData>();
 
@@ -61,34 +19,32 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
 
   const colDefs = [
     columnHelper.accessor('transactionDate', {
-      header: t('entry-table.header.date'),
+      header: t('EntryTable.header.date'),
       cell: (props) => (
-        <div className="whitespace-nowrap text-dark-shades">
-          <FormattedDate dateTime={props.getValue()} />
-        </div>
+          <FormattedDate dateTime={props.getValue()} className='text-dark-shades'/>
       ),
     }),
     columnHelper.accessor('debit', {
-      header: t('entry-table.header.debit'),
+      header: t('EntryTable.header.debit'),
     }),
     columnHelper.accessor('credit', {
-      header: t('entry-table.header.credit'),
+      header: t('EntryTable.header.credit'),
     }),
     columnHelper.accessor('account.name', {
-      header: t('entry-table.header.account'),
+      header: t('EntryTable.header.account'),
     }),
     columnHelper.accessor('memo', {
-      header: t('entry-table.header.memo'),
+      header: t('EntryTable.header.memo'),
     }),
     columnHelper.accessor('status', {
-      header: t('entry-table.header.status'),
+      header: t('EntryTable.header.status'),
       cell: (props) => <StatusChip status={props.getValue()} />,
     }),
     columnHelper.accessor('id', {
-      header: t('entry-table.header.id'),
+      header: t('EntryTable.header.id'),
     }),
     columnHelper.accessor('transactionId', {
-      header: t('entry-table.header.transaction'),
+      header: t('EntryTable.header.transaction'),
     }),
   ];
 
