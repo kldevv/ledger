@@ -1,15 +1,4 @@
 {
-  "add-category-form": {
-    "label": {
-      "name": "Name",
-      "type": "Accounting Term"
-    },
-    "placeholder": {
-      "name": "Enter a name",
-      "type": "Choose an accounting term"
-    },
-    "submit": "Add"
-  },
   "CategoryDescriptionList": {
     "title": {
       "id": "ID",
@@ -31,6 +20,15 @@
       "name": "Name",
       "type": "Accounting Term",
       "createdDate": "Created Date"
+    }
+  },
+  "InsertCategoryFrom": {
+    "submit": "Create"
+  },
+  "UpsertCategoryForm": {
+    "label": {
+      "name": "Name",
+      "type": "Accounting Term"
     }
   },
   "page": {

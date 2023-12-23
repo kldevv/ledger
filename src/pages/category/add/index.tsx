@@ -1,4 +1,4 @@
-import { AddCategoryForm } from '@/components/category';
+import { InsertCategoryFrom } from '@/components/category';
 import { PageHeader, Layout } from '@/components/layout';
 import { useTranslation } from 'next-i18next';
 
@@ -11,7 +11,7 @@ const Page: React.FC = () => {
         title={t('page.add.index.title')}
         subtitle={t('page.add.index.subtitle')}
       />
-      <AddCategoryForm />
+      <InsertCategoryFrom />
     </Layout>
   );
 };

@@ -1,4 +1,4 @@
-import { useGetCategoriesQuery } from '@/api/graphql';
+import { CategoryType } from '@/api/graphql';
 import {
   Form,
   FormProps,
@@ -6,25 +6,25 @@ import {
   ListBox,
   SubmitButton,
 } from '@/components/common';
-import { UseFormProps, useForm, useVaultContext } from '@/hooks';
+import { UseFormProps, useForm } from '@/hooks';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import { z } from 'zod';
 
-export const schema = z.object({
+const schema = z.object({
   /**
-   * Account category
-   */
-  categoryId: z.string(),
-  /**
-   * Account name
+   * Category name
    */
   name: z.string().min(1).max(50),
+  /**
+   * Category type
+   */
+  type: z.nativeEnum(CategoryType),
 });
 
 export type FieldValues = z.infer<typeof schema>;
 
-export interface UpsertAccountFormProps {
+export interface UpsertCategoryFormProps {
   /**
    * On submit
    */
@@ -39,33 +39,21 @@ export interface UpsertAccountFormProps {
   defaultValues: UseFormProps<FieldValues>['defaultValues'];
 }
 
-export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
+export const UpsertCategoryForm: React.FC<UpsertCategoryFormProps> = ({
   onSubmit,
   onSubmitText,
   defaultValues,
 }) => {
-  const { t } = useTranslation('account');
+  const { t } = useTranslation('category');
 
   const context = useForm<FieldValues>({
     schema,
     defaultValues,
   });
 
-  const [{ curVaultId }] = useVaultContext();
-  const { data } = useGetCategoriesQuery({
-    variables: {
-      input: {
-        vaultId: curVaultId ?? '',
-      },
-    },
-    skip: curVaultId == null,
-  });
-
-  const categoryOptions = useMemo(
-    () =>
-      data?.getCategories.map(({ id, name }) => ({ value: id, label: name })) ??
-      [],
-    [data]
+  const typeOptions = useMemo(
+    () => Object.values(CategoryType).map((value) => ({ value, label: value })),
+    []
   );
 
   return (
@@ -73,12 +61,12 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
       <div className="flex flex-col">
         <InputText<FieldValues>
           name="name"
-          label={t('UpsertAccountForm.label.name')}
+          label={t('UpsertCategoryForm.label.name')}
         />
         <ListBox<FieldValues>
-          name="categoryId"
-          label={t('UpsertAccountForm.label.categoryId')}
-          options={categoryOptions}
+          name="type"
+          label={t('UpsertCategoryForm.label.type')}
+          options={typeOptions}
         />
       </div>
       <SubmitButton className="mt-4">{onSubmitText}</SubmitButton>

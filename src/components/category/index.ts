@@ -1,5 +1,6 @@
-export * from './AddCategoryForm'
 export * from './CategoryDashboard'
 export * from './CategoryDescriptionList'
 export * from './CategoryDetail'
 export * from './CategoryTable'
+export * from './InsertCategoryForm'
+export * from './UpsertCategoryForm'
