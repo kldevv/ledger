@@ -15,7 +15,7 @@ export const schema = z.object({
   /**
    * Account category
    */
-  category: z.string(),
+  categoryId: z.string(),
   /**
    * Account name
    */
@@ -76,8 +76,8 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
           label={t('UpsertAccountForm.label.name')}
         />
         <ListBox<FieldValues>
-          name="category"
-          label={t('UpsertAccountForm.label.currency')}
+          name="categoryId"
+          label={t('UpsertAccountForm.label.categoryId')}
           options={categoryOptions}
         />
       </div>

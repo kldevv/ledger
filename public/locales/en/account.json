@@ -24,8 +24,10 @@
   "UpsertAccountForm": {
     "label": {
       "name": "Account Name",
-      "category": "Account Category"
-    },
+      "categoryId": "Account Category"
+    }
+  },
+  "InsertAccountFrom": {
     "submit": "Create"
   },
   "page": {
