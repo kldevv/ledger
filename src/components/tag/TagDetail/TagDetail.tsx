@@ -29,9 +29,9 @@ export const TagDetail: React.FC = () => {
       <div>
         <TagDescriptionList data={data?.getTag} />
         <h3 className="mt-12 font-semibold text-dark-shades">
-          {t('tag-detail.header.transactions')}
+          {t('TagDetail.title.transactions')}
         </h3>
-        <TransactionTable data={data.getTransactions ?? []}/>
+        <TransactionTable data={data.getTransactions ?? []} />
       </div>
     )
   );

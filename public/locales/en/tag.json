@@ -8,24 +8,24 @@
     },
     "submit": "Create"
   },
-  "tag-description-list": {
+  "TagDescriptionList": {
     "title": {
       "id": "ID",
       "name": "Name",
-      "updated-date": "Last Updated Date",
-      "created-date": "Created Date"
+      "updatedDate": "Last Updated Date",
+      "createdDate": "Created Date"
     }
   },
-  "tag-detail": {
-    "header": {
+  "TagDetail": {
+    "title": {
       "transactions": "Tag Transactions"
     }
   },
-  "tag-table": {
+  "TagTable": {
     "header": {
       "id": "ID",
       "name": "Name",
-      "created-date": "Created Date"
+      "createdDate": "Created Date"
     }
   },
   "page": {
