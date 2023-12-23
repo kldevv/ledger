@@ -21,14 +21,17 @@
       "createdDate": "Created Date"
     }
   },
+  "InsertAccountFrom": {
+    "submit": "Create"
+  },
+  "UpdateAccountForm": {
+    "submit": "Confirm"
+  },
   "UpsertAccountForm": {
     "label": {
       "name": "Account Name",
       "categoryId": "Account Category"
     }
-  },
-  "InsertAccountFrom": {
-    "submit": "Create"
   },
   "page": {
     "index": {

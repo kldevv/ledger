@@ -1,6 +1,7 @@
 import { PageHeader, Layout } from '@/components/layout';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { UpdateAccountForm } from '@/components/account';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('account');
@@ -19,6 +20,7 @@ const Page: React.FC = () => {
         title={t('page.[id].edit.index.title')}
         subtitle={t('page.[id].edit.index.subtitle')}
       />
+      <UpdateAccountForm />
     </Layout>
   );
 };
