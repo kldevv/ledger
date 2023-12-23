@@ -1,56 +1,23 @@
-import { EntryStatus } from "@/api/graphql";
+import { EntryStatus, GetTransactionDetailQuery } from "@/api/graphql";
 import { DescriptionList, DescriptionListItem, FormattedDate, StatusChip, Tag } from "@/components/common"
 import { useTranslation } from "next-i18next";
 
-type Data = {
+type TransactionDescriptionListData = Exclude<GetTransactionDetailQuery['getTransaction'], null> & {
   /**
-   * Id
+   * Summary of the entries status
    */
-  id: string;
-  /**
-   * Note
-   */
-  note: string;
-  /**
-   * Status
-   */
-  status: EntryStatus;
-  /**
-   * Tags
-   */
-  tags: {
-    /**
-     * Tag id
-     */
-    id: string;
-    /**
-     * Tag name
-     */
-    name: string;
-  }[];
-  /**
-   * Accrual date
-   */
-  accrualDate: Date;
-  /**
-   * Updated date
-   */
-  updatedDate: Date;
-  /**
-   * Created date
-   */
-  createdDate: Date;
+  status: EntryStatus
 };
 
 export interface TransactionDescriptionListProps {
   /**
    * Transaction detail
    */
-  data: Data
+  data: TransactionDescriptionListData;
 } 
 
 export const TransactionDescriptionList: React.FC<TransactionDescriptionListProps> = ({
-  data: { id, accrualDate, note, status, createdDate, updatedDate, tags },
+  data: { id, accrualDate, note, status, createdDate, updatedDate, tags } = {},
 }) => {
   const { t } = useTranslation('transaction');
 
@@ -75,7 +42,7 @@ export const TransactionDescriptionList: React.FC<TransactionDescriptionListProp
       title: t('transaction-description-list.title.tags'),
       description: (
         <div className="flex gap-1 max-w-full flex-wrap">
-          {tags.map((tag) => (
+          {tags?.map((tag) => (
             <Tag {...tag} />
           ))}
         </div>

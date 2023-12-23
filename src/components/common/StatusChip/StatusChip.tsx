@@ -6,13 +6,13 @@ export type StatusChipProps = {
   /**
    * Status
    */
-  status: string;
+  status?: string;
 };
 
 export const StatusChip: React.FC<StatusChipProps> = ({ status }) => {
   const { t } = useTranslation('common');
 
-  const [ haloColor, coreColor ] = useMemo(
+  const [haloColor, coreColor] = useMemo(
     () =>
       (() => {
         switch (status) {
@@ -24,7 +24,7 @@ export const StatusChip: React.FC<StatusChipProps> = ({ status }) => {
             return ['bg-red-halo', 'bg-red'];
         }
       })(),
-    []
+    [status]
   );
 
   return (

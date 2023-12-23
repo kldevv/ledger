@@ -5,7 +5,7 @@ export interface FormattedDateProps {
   /**
    * Date time
    */
-  dateTime: Date
+  dateTime?: Date
   /**
    * Customized class name
    */
@@ -18,9 +18,6 @@ export const FormattedDate: React.FC<FormattedDateProps> = ({
 }) => {
   const cn = classNames('whitespace-nowrap', className);
 
-  if (dateTime == null) {
-    return null
-  }
   return (
     <span className={cn}>{formatDate(dateTime)}</span>
   );
