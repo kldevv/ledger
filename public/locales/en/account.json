@@ -21,16 +21,12 @@
       "createdDate": "Created Date"
     }
   },
-  "add-account-form": {
+  "UpsertAccountForm": {
     "label": {
-      "category": "Category",
-      "name": "Account Name"
+      "name": "Account Name",
+      "category": "Account Category"
     },
-    "placeholder": {
-      "category": "Choose a category",
-      "name": "Enter a name"
-    },
-    "submit": "Add"
+    "submit": "Create"
   },
   "page": {
     "index": {
