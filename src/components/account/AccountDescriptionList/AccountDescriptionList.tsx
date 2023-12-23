@@ -6,7 +6,7 @@ import {
 } from '@/components/common';
 import { useTranslation } from 'next-i18next';
 
-export type AccountDescriptionListData = Exclude<GetAccountQuery['getAccount'], null | undefined>
+export type AccountDescriptionListData = Exclude<GetAccountQuery['getAccount'], null>
 
 export interface AccountDescriptionListProps {
   /**
@@ -16,29 +16,29 @@ export interface AccountDescriptionListProps {
 }
 
 export const AccountDescriptionList: React.FC<AccountDescriptionListProps> = ({
-  data: { id, name, createdDate, updatedDate, category },
+  data: { id, name, createdDate, updatedDate, category } = {},
 }) => {
   const { t } = useTranslation('account');
 
   const items: DescriptionListItem[] = [
     {
-      title: t('account-description-list.title.id'),
+      title: t('AccountDescriptionList.title.id'),
       description: id,
     },
     {
-      title: t('account-description-list.title.name'),
+      title: t('AccountDescriptionList.title.name'),
       description: name,
     },
     {
-      title: t('account-description-list.title.category'),
-      description: category.name,
+      title: t('AccountDescriptionList.title.category'),
+      description: category?.name,
     },
     {
-      title: t('account-description-list.title.created-date'),
+      title: t('AccountDescriptionList.title.createdDate'),
       description: <FormattedDate dateTime={createdDate} />,
     },
     {
-      title: t('account-description-list.title.updated-date'),
+      title: t('AccountDescriptionList.title.updatedDate'),
       description: <FormattedDate dateTime={updatedDate} />,
     },
   ];

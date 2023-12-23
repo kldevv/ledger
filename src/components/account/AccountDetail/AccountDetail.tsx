@@ -34,7 +34,9 @@ export const AccountDetail: React.FC = () => {
             ...data?.getAccount,
           }}
         />
-        <h3 className="mt-12 font-semibold text-dark-shades">{t('account-detail.header.entries')}</h3>
+        <h3 className="mt-12 font-semibold text-dark-shades">
+          {t('AccountDetail.title.entries')}
+        </h3>
         <EntryTable data={data?.getEntries} />
       </div>
     )

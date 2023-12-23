@@ -1,19 +1,19 @@
 {
-  "account-description-list": {
+  "AccountDescriptionList": {
     "title": {
       "id": "ID",
       "name": "Name",
-      "updated-date": "Last Updated Date",
-      "created-date": "Created Date",
+      "updatedDate": "Last Updated Date",
+      "createdDate": "Created Date",
       "category": "Category"
     }
   },
-  "account-detail": {
-    "header": {
+  "AccountDetail": {
+    "title": {
       "entries": "Account Entries"
     }
   },
-  "account-table": {
+  "AccountTable": {
     "header": {
       "name": "Name",
       "category": "Category",
