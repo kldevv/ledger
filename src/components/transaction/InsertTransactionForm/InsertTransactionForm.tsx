@@ -1,11 +1,11 @@
 import { useTranslation } from "next-i18next"
-import { UpsertTransactionForm } from "../UpsertTransactionForm/UpsertTransactionForm"
+import { FieldValues, UpsertTransactionForm } from ".."
 import { defaultEntryFieldValue } from "../UpsertTransactionForm/UpsertEntryTable/UpsertEntryTable.Row";
 
-const defaultValues = {
+const defaultValues: FieldValues = {
   accrualDate: new Date(),
   note: '',
-  tagsId: [],
+  tagIds: [],
   entries: [defaultEntryFieldValue, defaultEntryFieldValue],
 };
 

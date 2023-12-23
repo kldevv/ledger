@@ -2,7 +2,7 @@ import { Control, FieldValues, Path, useController } from 'react-hook-form';
 import { Listbox } from '@headlessui/react';
 import { Fragment, useMemo } from 'react';
 import classNames from 'classnames';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { Label } from '../Label';
 import { ErrorMessage } from '../ErrorMessage';
 
@@ -14,11 +14,15 @@ export interface ListBoxProps<TFieldValues extends FieldValues> {
   /**
    * Select items
    */
-  options: {value: string, label: React.ReactNode}[];
+  options: { value: string; label: React.ReactNode }[];
   /**
    * Select label
    */
   label: string;
+  /**
+   * Is multiple selectable?
+   */
+  multiple?: boolean;
   /**
    * Optional control to explicitly set `react-hook-form` control
    */
@@ -56,6 +60,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
   control,
   options,
   label,
+  multiple = false,
 }: ListBoxProps<TFieldValues>) => {
   const {
     field,
@@ -66,12 +71,17 @@ export const ListBox = <TFieldValues extends FieldValues>({
   });
 
   const displayValue = useMemo(() => {
-    return options.find(({ value }) => value === field.value)?.label;
+    return multiple
+      ? options
+          .filter(({ value }) => field.value.includes(value))
+          .map(({ label }) => label)
+          .join(', ')
+      : options.find(({ value }) => value === field.value)?.label;
   }, [options, field.value]);
 
   return (
     <div className="w-[12rem] flex flex-col relative mt-[0.125rem]">
-      <Listbox {...field} as="div">
+      <Listbox {...field} as="div" multiple={multiple}>
         {({ open }) => (
           <>
             <Listbox.Label as={Fragment}>
@@ -98,14 +108,15 @@ export const ListBox = <TFieldValues extends FieldValues>({
                   value={value}
                   as={Fragment}
                 >
-                  {({ active }) => (
+                  {({ active, selected }) => (
                     <li
                       className={classNames(
                         OPTION_CN,
-                        active ? 'bg-mid-gray' : undefined
+                        active ? 'bg-mid-gray' : undefined,
                       )}
                     >
                       {label}
+                      {selected && multiple && <CheckIcon className='w-3 h-3 font-bold text-light-accent'/>}
                     </li>
                   )}
                 </Listbox.Option>

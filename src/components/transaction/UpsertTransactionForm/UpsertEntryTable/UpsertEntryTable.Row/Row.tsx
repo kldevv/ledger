@@ -1,16 +1,13 @@
 import { Button, DatePicker, InputText, InputNumber, ListBox, StatusChip } from '@/components/common';
 import { useTranslation } from 'next-i18next';
 import { PlusIcon, TrashIcon } from '@heroicons/react/20/solid';
-import { DefaultValues, UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
+import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
 import { FieldValues } from '../..';
 import { useCallback } from 'react';
 import { EntryStatus } from '@prisma/client';
 import { useAccountsContext } from '@/hooks/useAccountsContext/useAccountsContext';
 
-export const defaultEntryFieldValue: Required<Exclude<
-  DefaultValues<FieldValues>['entries'],
-  undefined
->[number]> = {
+export const defaultEntryFieldValue: FieldValues['entries'][number] = {
   transactionDate: new Date(),
   accountId: '',
   memo: '',

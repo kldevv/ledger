@@ -3,12 +3,20 @@ import {
   InputText,
   SubmitButton,
   FormProps,
+  ListBox,
 } from '@/components/common';
-import { AccountsContextProvider, UseFormProps, useForm } from '@/hooks';
+import {
+  AccountsContextProvider,
+  UseFormProps,
+  useForm,
+  useVaultContext,
+} from '@/hooks';
 import { useTranslation } from 'next-i18next';
 import { z } from 'zod';
 import { UpsertEntryTable } from './UpsertEntryTable';
 import { InputDate } from '@/components/common/Form/InputDate';
+import { useGetTagsQuery } from '@/api/graphql';
+import { useMemo } from 'react';
 
 const entrySchema = z
   .object({
@@ -60,7 +68,7 @@ const schema = z
     /**
      * Transaction tags
      */
-    tagIds: z.string().array().optional(),
+    tagIds: z.string().array(),
     /**
      * Transaction entries
      */
@@ -107,6 +115,22 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   defaultValues,
 }) => {
   const { t } = useTranslation('transaction');
+  const [{ curVaultId }] = useVaultContext();
+
+  const { data, loading, error } = useGetTagsQuery({
+    variables: {
+      input: {
+        vaultId: curVaultId ?? null,
+      },
+    },
+    skip: curVaultId == null,
+  });
+
+  const tagOptions = useMemo(
+    () =>
+      data?.getTags.map(({ id, name }) => ({ value: id, label: name })) ?? [],
+    [data]
+  );
 
   const context = useForm<FieldValues>({
     schema,
@@ -125,9 +149,11 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
             label={t('UpsertTransactionForm.label.note')}
             name="note"
           />
-          <InputText<FieldValues>
+          <ListBox<FieldValues>
             label={t('UpsertTransactionForm.label.tags')}
             name="tagIds"
+            multiple
+            options={tagOptions}
           />
           <div className="mt-6">
             <UpsertEntryTable />
