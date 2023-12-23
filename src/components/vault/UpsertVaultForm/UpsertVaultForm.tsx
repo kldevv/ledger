@@ -3,7 +3,7 @@ import {
   Card,
   Form,
   FormProps,
-  Input,
+  InputText,
   ListBox,
   SubmitButton,
 } from '@/components/common';
@@ -54,7 +54,7 @@ export const UpsertVaultForm: React.FC<UpsertVaultFormProps> = ({
   return (
     <Form onSubmit={onSubmit} context={context}>
       <div className="flex flex-col">
-        <Input<FieldValues>
+        <InputText<FieldValues>
           name="name"
           label={t('UpsertVaultForm.label.name')}
         />

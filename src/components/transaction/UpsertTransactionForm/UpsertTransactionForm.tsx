@@ -1,7 +1,6 @@
 import {
   Form,
   InputText,
-  DatePicker,
   SubmitButton,
   FormProps,
 } from '@/components/common';
@@ -9,6 +8,7 @@ import { AccountsContextProvider, UseFormProps, useForm } from '@/hooks';
 import { useTranslation } from 'next-i18next';
 import { z } from 'zod';
 import { UpsertEntryTable } from './UpsertEntryTable';
+import { InputDate } from '@/components/common/Form/InputDate';
 
 const entrySchema = z
   .object({
@@ -115,26 +115,26 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
 
   return (
     <AccountsContextProvider>
-        <div className="mr-4">
-          <Form onSubmit={onSubmit} context={context}>
-            <DatePicker<FieldValues>
-              label={t('UpsertTransactionForm.label.accrualDate')}
-              name="accrualDate"
-            />
-            <InputText<FieldValues>
-              label={t('UpsertTransactionForm.label.note')}
-              name="note"
-            />
-            <InputText<FieldValues>
-              label={t('UpsertTransactionForm.label.tags')}
-              name="tagIds"
-            />
-            <div className="mt-6">
-              <UpsertEntryTable />
-            </div>
-            <SubmitButton>{onSubmitText}</SubmitButton>
-          </Form>
-        </div>
+      <div className="mr-4">
+        <Form onSubmit={onSubmit} context={context}>
+          <InputDate<FieldValues>
+            label={t('UpsertTransactionForm.label.accrualDate')}
+            name="accrualDate"
+          />
+          <InputText<FieldValues>
+            label={t('UpsertTransactionForm.label.note')}
+            name="note"
+          />
+          <InputText<FieldValues>
+            label={t('UpsertTransactionForm.label.tags')}
+            name="tagIds"
+          />
+          <div className="mt-6">
+            <UpsertEntryTable />
+          </div>
+          <SubmitButton>{onSubmitText}</SubmitButton>
+        </Form>
+      </div>
     </AccountsContextProvider>
   );
 };

@@ -1,15 +1,4 @@
 {
-  "create-vault-form": {
-    "label": {
-      "name": "Vault Name",
-      "currency": "Vault Currency"
-    },
-    "placeholder": {
-      "name": "Enter a name",
-      "currency": "Choose a currency"
-    },
-    "submit": "CREATE"
-  },
   "VaultTable": {
     "header": {
       "id": "ID",
@@ -19,7 +8,7 @@
       "updatedDate": "Last Updated Date"
     },
     "button": {
-      "switch": "Switch",
+      "switch": "SWITCH",
       "selected": "SELECTED"
     }
   },

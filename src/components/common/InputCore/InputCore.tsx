@@ -17,5 +17,5 @@ export const InputCore: React.FC<InputCoreProps> = forwardRef(({ className, ...p
       [className]
     );
 
-  return <input className={cn} ref={ref} {...props} />;
+  return <input className={cn} ref={ref} autoComplete="on" {...props} />;
 })
