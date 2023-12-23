@@ -23,23 +23,23 @@ export const TransactionDescriptionList: React.FC<TransactionDescriptionListProp
 
   const items: DescriptionListItem[] = [
     {
-      title: t('transaction-description-list.title.id'),
+      title: t('TransactionDescriptionList.title.id'),
       description: id,
     },
     {
-      title: t('transaction-description-list.title.accrualDate'),
+      title: t('TransactionDescriptionList.title.accrualDate'),
       description: <FormattedDate dateTime={accrualDate} />,
     },
     {
-      title: t('transaction-description-list.title.note'),
+      title: t('TransactionDescriptionList.title.note'),
       description: note,
     },
     {
-      title: t('transaction-description-list.title.status'),
+      title: t('TransactionDescriptionList.title.status'),
       description: <StatusChip status={status} />,
     },
     {
-      title: t('transaction-description-list.title.tags'),
+      title: t('TransactionDescriptionList.title.tags'),
       description: (
         <div className="flex gap-1 max-w-full flex-wrap">
           {tags?.map((tag) => (
@@ -49,11 +49,11 @@ export const TransactionDescriptionList: React.FC<TransactionDescriptionListProp
       ),
     },
     {
-      title: t('transaction-description-list.title.createdDate'),
+      title: t('TransactionDescriptionList.title.createdDate'),
       description: <FormattedDate dateTime={createdDate} />,
     },
     {
-      title: t('transaction-description-list.title.updatedDate'),
+      title: t('TransactionDescriptionList.title.updatedDate'),
       description: <FormattedDate dateTime={updatedDate} />,
     },
   ];

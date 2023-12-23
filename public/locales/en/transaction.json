@@ -10,7 +10,7 @@
       "id": "ID"
     }
   },
-  "transaction-description-list": {
+  "TransactionDescriptionList": {
     "title": {
       "id": "ID",
       "accrualDate": "Accrual Date",
@@ -20,6 +20,11 @@
       "entryCount": "Number of Entries",
       "createdDate": "Created Date",
       "updatedDate": "Last Updated Date"
+    }
+  },
+  "TransactionDetail": {
+    "title": {
+      "entries": "Transaction Entries"
     }
   },
   "InsertTransactionForm": {

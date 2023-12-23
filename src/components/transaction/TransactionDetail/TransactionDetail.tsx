@@ -3,8 +3,10 @@ import { useRouter } from "next/router"
 import { useMemo } from "react"
 import { TransactionDescriptionList } from ".."
 import { EntryTable } from "@/components/entry"
+import { useTranslation } from "next-i18next"
 
 export const TransactionDetail: React.FC = () => {
+  const { t } = useTranslation('transaction')
   const router = useRouter()
   const { id } = router.query
 
@@ -38,9 +40,7 @@ export const TransactionDetail: React.FC = () => {
               : EntryStatus.COMPLETED,
           }}
         />
-        <h3 className="mt-12 font-semibold text-dark-shades">
-          Transaction Entries
-        </h3>
+        <h3 className="mt-12 font-semibold text-dark-shades">{t`TransactionDetail.title.entries`}</h3>
         <EntryTable data={data.getEntries} />
       </div>
     )
