@@ -28,6 +28,17 @@
       "createdDate": "Created Date"
     }
   },
+  "UpdateTagForm": {
+    "submit": "Confirm"
+  },
+  "InsertTagForm": {
+    "submit": "Create"
+  },
+  "UpsertTagForm": {
+    "label": {
+      "name": "Name"
+    }
+  },
   "page": {
     "index": {
       "title": "Tags",

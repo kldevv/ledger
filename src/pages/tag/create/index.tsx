@@ -1,5 +1,5 @@
 import { PageHeader, Layout } from '@/components/layout';
-import { AddTagForm } from '@/components/tag';
+import { InsertTagForm } from '@/components/tag';
 import { useTranslation } from 'next-i18next';
 
 const Page: React.FC = () => {
@@ -11,7 +11,7 @@ const Page: React.FC = () => {
         title={t('page.create.index.title')}
         subtitle={t('page.create.index.subtitle')}
       />
-      <AddTagForm />
+      <InsertTagForm />
     </Layout>
   );
 };

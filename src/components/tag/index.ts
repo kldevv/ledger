@@ -1,5 +1,6 @@
-export * from './AddTagForm'
+export * from './InsertTagForm'
 export * from './TagDashboard'
 export * from './TagDescriptionList'
 export * from './TagDetail'
 export * from './TagTable'
+export * from './UpsertTagForm'

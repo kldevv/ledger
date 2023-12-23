@@ -1,19 +1,18 @@
-import { CategoryType, useAddCategoryMutation } from '@/api/graphql';
-import { FieldValues, UpsertCategoryForm } from '..';
+import { useAddTagMutation } from '@/api/graphql';
+import { FieldValues, UpsertTagForm } from '..';
 import { useCallback } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useVaultContext } from '@/hooks';
 
 const defaultValues: FieldValues = {
   name: '',
-  type: CategoryType.ASSETS,
 };
 
-export const InsertCategoryFrom: React.FC = () => {
-  const { t } = useTranslation('category');
+export const InsertTagForm: React.FC = () => {
+  const { t } = useTranslation('tag');
   const [{ curVaultId }] = useVaultContext();
 
-  const [addCategory] = useAddCategoryMutation({
+  const [addTag] = useAddTagMutation({
     onCompleted: (data) => console.log(data),
   });
 
@@ -23,7 +22,7 @@ export const InsertCategoryFrom: React.FC = () => {
         return;
       }
 
-      addCategory({
+      addTag({
         variables: {
           input: {
             ...values,
@@ -32,12 +31,12 @@ export const InsertCategoryFrom: React.FC = () => {
         },
       });
     },
-    [curVaultId, addCategory]
+    [curVaultId, addTag]
   );
 
   return (
-    <UpsertCategoryForm
-      onSubmitText={t`InsertCategoryFrom.submit`}
+    <UpsertTagForm
+      onSubmitText={t`InsertTagForm.submit`}
       onSubmit={handleOnSubmit}
       defaultValues={defaultValues}
     />

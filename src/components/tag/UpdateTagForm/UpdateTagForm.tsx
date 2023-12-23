@@ -1,43 +1,42 @@
-import { useGetCategoryQuery } from '@/api/graphql';
+import { useGetTagQuery } from '@/api/graphql';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
-import { FieldValues, UpsertCategoryForm } from '..';
+import { FieldValues, UpsertTagForm } from '..';
 import { useTranslation } from 'next-i18next';
 
-export const UpdateCategoryForm: React.FC = () => {
-  const { t } = useTranslation('category');
+export const UpdateTagForm: React.FC = () => {
+  const { t } = useTranslation('tag');
   const router = useRouter();
   const { id } = router.query;
 
-  const categoryId = useMemo(() => {
+  const tagId = useMemo(() => {
     return id == null || Array.isArray(id) ? null : id;
   }, [id]);
 
-  const { data, loading, error } = useGetCategoryQuery({
+  const { data, loading, error } = useGetTagQuery({
     variables: {
       input: {
-        id: categoryId ?? '',
+        id: tagId ?? '',
       },
     },
-    skip: categoryId == null,
+    skip: tagId == null,
   });
 
   const defaultValues: Partial<FieldValues> = useMemo(() => {
-    const { name, type } = data?.getCategory ?? {};
+    const { name } = data?.getTag ?? {};
 
     return {
       name,
-      type,
     };
   }, [data]);
 
   if (data == null) return null;
 
   return (
-    <UpsertCategoryForm
+    <UpsertTagForm
       onSubmit={(value) => console.log(value)}
-      onSubmitText={t`UpdateCategoryForm.submit`}
+      onSubmitText={t`UpdateTagForm.submit`}
       defaultValues={defaultValues}
     />
-  );
-};
+  )
+}
