@@ -1,5 +1,5 @@
 {
-  "transaction-table": {
+  "TransactionTable": {
     "header": {
       "note": "Note",
       "date": "Date",

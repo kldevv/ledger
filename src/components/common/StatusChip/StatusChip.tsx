@@ -6,7 +6,7 @@ export type StatusChipProps = {
   /**
    * Status
    */
-  status?: string;
+  status?: string | null;
 };
 
 export const StatusChip: React.FC<StatusChipProps> = ({ status }) => {
