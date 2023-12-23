@@ -1,6 +1,7 @@
 import { PageHeader, Layout } from '@/components/layout';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { UpdateCategoryForm } from '@/components/category';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('category');
@@ -19,6 +20,7 @@ const Page: React.FC = () => {
         title={t('page.[id].edit.index.title')}
         subtitle={t('page.[id].edit.index.subtitle')}
       />
+      <UpdateCategoryForm />
     </Layout>
   );
 };

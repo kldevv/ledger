@@ -25,6 +25,9 @@
   "InsertCategoryFrom": {
     "submit": "Create"
   },
+  "UpdateCategoryForm": {
+    "submit": "Confirm"
+  },
   "UpsertCategoryForm": {
     "label": {
       "name": "Name",
