@@ -18,6 +18,7 @@ query getTagDetail(
       name
     }
     vaultId
+    status
     createdDate
     updatedDate
   }

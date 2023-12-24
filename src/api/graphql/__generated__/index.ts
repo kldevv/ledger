@@ -679,7 +679,7 @@ export type GetTagDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } | null, getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } | null, getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, status?: EntryStatus | null, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
 export type GetTagsQueryVariables = Exact<{
   input: GetTagsInput;
@@ -1418,6 +1418,7 @@ export const GetTagDetailDocument = gql`
       name
     }
     vaultId
+    status
     createdDate
     updatedDate
   }

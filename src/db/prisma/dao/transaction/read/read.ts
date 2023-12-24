@@ -1,5 +1,4 @@
 import prisma from "@/db/prisma/client"
-import { CategoryType, EntryStatus } from "@prisma/client"
 
 export namespace ReadOne {
   export type Args = {
@@ -12,23 +11,14 @@ export namespace ReadOne {
 
 export const readOne = async ({ id }: ReadOne.Args) => {
   try {
-    return {
-      id,
-      note: 'Some random note',
-      tags,
-      accrualDate: new Date(),
-      createdDate: new Date(),
-      updatedDate: new Date(),
-      vaultId: '111',
-    }
-    // return await prisma.transaction.findUnique({
-    //   where: {
-    //     id
-    //   },
-    //   include: {
-    //     tags: true
-    //   }
-    // })
+    return await prisma.transaction.findUnique({
+      where: {
+        id
+      },
+      include: {
+        tags: true
+      }
+    })
   } catch (e) {
     throw e
   }
@@ -64,121 +54,29 @@ export const readMany = async ({
   tagId
 }: ReadMany.Args) => {
   try {
-    return [
-      {
-        id: '0001',
-        accrualDate: new Date(Date.now()),
-        note: 'Buy a Ferrari',
-        tags: [],
+    return await prisma.transaction.findMany({
+      where: {
+        accrualDate,
         vaultId,
-        createdDate: new Date(),
-        updatedDate: new Date(),
-        entries: [
-          {
-            id: '0',
-            transactionDate: new Date(Date.now()),
-            debit: 100.4,
-            credit: 200.32,
-            memo: 'hello mom',
-            transactionId: '0',
-            status: EntryStatus.COMPLETED,
-            createdDate: new Date(),
-            updatedDate: new Date(),
-            vaultId: '111',
+        note,
+        tags: tagId ? {
+          some: {
+            id: tagId
+          }
+        } : undefined
+      },
+      include: {
+        tags: true, entries: {
+          include: {
             account: {
-              id: '0',
-              name: 'Bank account',
-              createdDate: new Date(),
-              updatedDate: new Date(),
-              vaultId: '111',
-              category: {
-                id: '12',
-                name: 'Some category',
-                type: CategoryType.ASSETS,
-                vaultId: '111',
-                createdDate: new Date(),
-                updatedDate: new Date(),
+              include: {
+                category: true
               }
             }
           }
-        ]
-      },
-      {
-        id: '0002',
-        accrualDate: new Date(Date.now()),
-        note: 'A very very very very very very very very long description',
-        tags: tags,
-        vaultId,
-        createdDate: new Date(),
-        updatedDate: new Date(),
-        entries: [
-          {
-            id: '0',
-            transactionDate: new Date(Date.now()),
-            debit: 100.4,
-            credit: 200.32,
-            memo: 'hello mom',
-            transactionId: '0',
-            status: EntryStatus.PENDING,
-            createdDate: new Date(),
-            updatedDate: new Date(),
-            vaultId: '111',
-            account: {
-              id: '0',
-              name: 'Bank account',
-              createdDate: new Date(),
-              updatedDate: new Date(),
-              vaultId: '111',
-              category: {
-                id: '12',
-                name: 'Some category',
-                type: CategoryType.ASSETS,
-                vaultId: '111',
-                createdDate: new Date(),
-                updatedDate: new Date(),
-              }
-            }
-          }
-        ]
-      },
-      {
-        id: '0003',
-        accrualDate: new Date(Date.now()),
-        note: 'Another trans',
-        tags: tags,
-        vaultId,
-        createdDate: new Date(),
-        updatedDate: new Date(),
-      },
-      {
-        id: '0004',
-        accrualDate: new Date(Date.now()),
-        note: 'One tags',
-        tags: [tags[0]],
-        vaultId,
-        createdDate: new Date(),
-        updatedDate: new Date(),
-      },
-    ];
-    // return await prisma.transaction.findMany({
-    //   where: {
-    //     accrualDate,
-    //     vaultId,
-    //     note,
-    //     tags: {
-    //       some: {
-    //         id: tagId
-    //       }
-    //     }
-    //   },
-    //   include: {
-    //     tags: true, entries: {
-    //       include: {
-    //         account: true
-    //       }
-    //     }
-    //   }
-    // })
+        }
+      }
+    })
   } catch (e) {
     throw e
   }
