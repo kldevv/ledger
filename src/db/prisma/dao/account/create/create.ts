@@ -24,31 +24,16 @@ export const createOne = async ({
   vaultId
 }: CreateOne.Args) => {
   try {
-    return {
-      id: '000',
-      name,
-      vaultId,
-      category: {
+    return await prisma.account.create({
+      data: {
+        name,
+        categoryId,
         vaultId,
-        id: categoryId,
-        name: 'Test category',
-        createdDate: new Date(),
-        updatedDate: new Date(),
-        type: CategoryType.ASSETS
       },
-      createdDate: new Date(),
-      updatedDate: new Date(),
-    }
-    // return await prisma.account.create({
-    //   data: {
-    //     name,
-    //     categoryId,
-    //     vaultId,
-    //   },
-    //   include: {
-    //     category: true
-    //   }
-    // })
+      include: {
+        category: true
+      }
+    })
   } catch (e) {
     throw e
   }
