@@ -16,6 +16,6 @@ input GetTagInput {
 }
 
 input GetTagsInput {
-  vaultId: String
+  vaultId: String!
   nameSearch: String
 }

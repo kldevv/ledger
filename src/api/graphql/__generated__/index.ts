@@ -165,7 +165,7 @@ export type GetTagInput = {
 
 export type GetTagsInput = {
   nameSearch?: InputMaybe<Scalars['String']['input']>;
-  vaultId?: InputMaybe<Scalars['String']['input']>;
+  vaultId: Scalars['String']['input'];
 };
 
 export type GetTransactionInput = {

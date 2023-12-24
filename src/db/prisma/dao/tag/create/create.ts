@@ -1,5 +1,4 @@
 import prisma from "@/db/prisma/client"
-import { Tag } from "@prisma/client"
 
 export namespace CreateOne {
   export type Args = {
@@ -12,14 +11,12 @@ export namespace CreateOne {
      */
     vaultId: string
   }
-
-  export type Returns = Tag
 }
 
 export const createOne = async ({
   name,
   vaultId
-}: CreateOne.Args): Promise<CreateOne.Returns> => {
+}: CreateOne.Args) => {
   try {
     return await prisma.tag.create({
       data: {
