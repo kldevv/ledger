@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 import { AccountsContext } from './Context';
 
 export const useAccountsContext = () => useContext(AccountsContext)

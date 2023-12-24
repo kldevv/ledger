@@ -15,7 +15,7 @@ import { useTranslation } from 'next-i18next';
 import { z } from 'zod';
 import { UpsertEntryTable } from './UpsertEntryTable';
 import { InputDate } from '@/components/common/Form/InputDate';
-import { useGetTagsQuery } from '@/api/graphql';
+import { EntryStatus, useGetTagsQuery } from '@/api/graphql';
 import { useMemo } from 'react';
 import { numberSchema } from '@/lib';
 
@@ -32,7 +32,7 @@ const entrySchema = z
     /**
      * Entry status
      */
-    status: z.string(),
+    status: z.nativeEnum(EntryStatus),
     /**
      * Entry debit
      */
@@ -131,7 +131,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
     () =>
       data?.getTags.map(({ id, name }) => ({ value: id, label: name })) ?? [],
     [data]
-  );
+  )
 
   const context = useForm<FieldValues>({
     schema,

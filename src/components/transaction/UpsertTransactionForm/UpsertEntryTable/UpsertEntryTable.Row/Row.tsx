@@ -5,7 +5,7 @@ import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
 import { FieldValues } from '../..';
 import { useCallback } from 'react';
 import { EntryStatus } from '@prisma/client';
-import { useAccountsContext } from '@/hooks/useAccountsContext/useAccountsContext';
+import { useAccountsContext } from '@/hooks';
 
 export const defaultEntryFieldValue: FieldValues['entries'][number] = {
   transactionDate: new Date(),

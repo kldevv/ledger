@@ -35,7 +35,11 @@ export const Form = <TFieldValues extends FieldValues>({
   enableDefault,
   ...props
 }: FormProps<TFieldValues>) => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const {
+    formState: { isSubmitSuccessful },
+    reset,
+    handleSubmit,
+  } = context;
 
   const handleOnSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
@@ -43,18 +47,16 @@ export const Form = <TFieldValues extends FieldValues>({
         event.preventDefault();
       }
 
-      await context.handleSubmit(onSubmit)(event);
-
-      setIsSubmitted(true);
+      handleSubmit(onSubmit)(event);
     },
-    [onSubmit]
+    [onSubmit, handleSubmit]
   );
 
   useEffect(() => {
-    if (isSubmitted) {
-      context.reset();
+    if (isSubmitSuccessful) {
+      reset();
     }
-  }, [isSubmitted]);
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <FormProvider {...context}>

@@ -34,31 +34,46 @@ export const createOne = async ({
   entries,
 }: CreateOne.Args) => {
   try {
-    return await prisma.transaction.create({
-      data: {
-        accrualDate,
-        vaultId,
-        note,
-        tags: {
-          connect: tagIds.map((id) => ({ id }))
-        },
-        entries: {
-          createMany: {
-            data: entries
-          }
-        }
-      },
-      include: { tags: true, entries: {
-        include: {
-          account: {
-            include: {
-              category: true
-            }
-          }
-        }
-      }}
-    })
-  } catch (e) {
-    throw e
-  }
+    console.log(accrualDate,
+      vaultId,
+      tagIds,
+      note,
+      entries,)
+
+    return {
+      id: '131',
+      note: 'Some random note',
+      tags: [],
+      accrualDate: new Date(),
+      createdDate: new Date(),
+      updatedDate: new Date(),
+      vaultId: '111',
+    }
+    // return await prisma.transaction.create({
+    //   data: {
+    //     accrualDate,
+    //     vaultId,
+    //     note,
+    //     tags: {
+    //       connect: tagIds.map((id) => ({ id }))
+    //     },
+    //     entries: {
+    //       createMany: {
+    //         data: entries
+    //       }
+    //     }
+    //   },
+    //   include: { tags: true, entries: {
+    //     include: {
+    //       account: {
+    //         include: {
+    //           category: true
+    //         }
+    //       }
+    //     }
+    //   }}
+  // })
+} catch (e) {
+  throw e
+}
 }
