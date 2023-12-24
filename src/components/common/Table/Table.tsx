@@ -27,7 +27,7 @@ export const Table = <TData extends RowData>({
     <Card variant="2xl">
       <div className="w-full h-full overflow-auto">
         <table className="w-full h-full table-auto">
-          <thead className="">
+          <thead>
             {table.getHeaderGroups().map(({ id, headers }) => (
               <Row key={id} index={1}>
                 {headers.map((header) => (

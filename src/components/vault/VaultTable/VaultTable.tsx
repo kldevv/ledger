@@ -1,4 +1,4 @@
-import { Currency, useGetVaultsQuery } from '@/api/graphql';
+import { GetVaultsQuery, useGetVaultsQuery } from '@/api/graphql';
 import { Button, FormattedDate, Table } from '@/components/common';
 import { useVaultContext } from '@/hooks';
 import { CheckCircleIcon } from '@heroicons/react/20/solid';
@@ -6,28 +6,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { useCallback } from 'react';
 import { useTranslation } from 'next-i18next';
 
-export type VaultTableData = {
-  /**
-   * Vault id
-   */
-  id: string;
-  /**
-   * Vault name
-   */
-  name: string;
-  /**
-   * Vault currency
-   */
-  currency: Currency;
-  /**
-   * Vault updated date
-   */
-  updatedDate: Date;
-  /**
-   * Vault created date
-   */
-  createdDate: Date;
-};
+export type VaultTableData = GetVaultsQuery['getVaults'][number]
 
 const columnHelper = createColumnHelper<VaultTableData>();
 
@@ -38,10 +17,10 @@ export const VaultTable: React.FC = () => {
   const { data, loading, error } = useGetVaultsQuery({
     variables: {
       input: {
-        ownerId: '000'
-      }
-    }
-  })
+        ownerId: '153c3272-2b3d-476a-b522-313a97d36c69',
+      },
+    },
+  });
 
   const createHandleOnVaultSwitch = useCallback((id: string) => {
     return () => setCurVaultId?.(id);
@@ -50,6 +29,7 @@ export const VaultTable: React.FC = () => {
   const colDefs = [
     columnHelper.accessor('id', {
       header: t('VaultTable.header.id'),
+      cell: (props) => <div className='overflow-hidden overflow-ellipsis whitespace-nowrap w-[7rem]'>{props.getValue()}</div>
     }),
     columnHelper.display({
       id: 'is-selected',
