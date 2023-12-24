@@ -20,8 +20,6 @@ export const InsertTransactionForm: React.FC = () => {
       onCompleted: (data) => console.log(data)
     });
 
-    console.log(error)
-
     const handleOnSubmit = useCallback(
       (values: FieldValues) => {
         console.log(values);

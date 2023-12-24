@@ -131,7 +131,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
     () =>
       data?.getTags.map(({ id, name }) => ({ value: id, label: name })) ?? [],
     [data]
-  )
+  );
 
   const context = useForm<FieldValues>({
     schema,
