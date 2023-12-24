@@ -16,7 +16,7 @@ export const InsertTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')
   const [{ curVaultId }] = useVaultContext()
 
-    const [addTransaction, { loading, error }] = useAddTransactionMutation({
+    const [ addTransaction, { loading, error } ] = useAddTransactionMutation({
       onCompleted: (data) => console.log(data)
     });
 

@@ -28,7 +28,7 @@ const entrySchema = z
     /**
      * Entry optional memo
      */
-    memo: z.string().optional(),
+    memo: z.string(),
     /**
      * Entry status
      */

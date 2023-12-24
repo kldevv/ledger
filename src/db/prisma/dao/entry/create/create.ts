@@ -22,7 +22,7 @@ export namespace CreateOne {
     /**
      * Optional memorandum
      */
-    memo?: string | null
+    memo: string
     /**
      * Transaction id
      */
