@@ -26,7 +26,7 @@ export const InsertTransactionForm: React.FC = () => {
   });
 
   const values = useMemo(() => {
-    if (data?.getAccounts == null) {
+    if (data?.getAccounts[0] == null) {
       return undefined;
     }
 

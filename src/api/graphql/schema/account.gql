@@ -13,6 +13,12 @@ input AddAccountInput {
   vaultId: String!
 }
 
+input UpdateAccountInput {
+  id: String!
+  name: String!
+  categoryId: String!
+}
+
 input GetAccountInput {
   id: String!
 }

@@ -1,21 +1,36 @@
-import { useAddAccountMutation } from '@/api/graphql';
+import { useAddAccountMutation, useGetCategoriesQuery } from '@/api/graphql';
 import { FieldValues, UpsertAccountForm } from '..';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useVaultContext } from '@/hooks';
 
-const defaultValues: FieldValues = {
-  name: '',
-  categoryId: '',
-};
-
 export const InsertAccountFrom: React.FC = () => {
   const { t } = useTranslation('account');
-  const [{ curVaultId }] = useVaultContext()
+  const [{ curVaultId }] = useVaultContext();
 
   const [addAccount] = useAddAccountMutation({
     onCompleted: (data) => console.log(data),
   });
+
+  const { data } = useGetCategoriesQuery({
+    variables: {
+      input: {
+        vaultId: curVaultId ?? '',
+      },
+    },
+    skip: curVaultId == null,
+  });
+
+  const values = useMemo(() => {
+    if (data?.getCategories[0] == null) {
+      return undefined;
+    }
+
+    return {
+      name: '',
+      categoryId: data?.getCategories[0]?.id,
+    };
+  }, [data?.getCategories]);
 
   const handleOnSubmit = useCallback(
     (values: FieldValues) => {
@@ -39,7 +54,7 @@ export const InsertAccountFrom: React.FC = () => {
     <UpsertAccountForm
       onSubmitText={t`InsertAccountFrom.submit`}
       onSubmit={handleOnSubmit}
-      defaultValues={defaultValues}
+      values={values}
     />
   );
 };

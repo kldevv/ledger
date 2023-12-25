@@ -1,0 +1,12 @@
+mutation updateAccount($input: UpdateAccountInput!) {
+  updateAccount(input: $input) {
+    id
+    name
+    category {
+      id
+      name
+    }
+    createdDate
+    updatedDate
+  }
+}

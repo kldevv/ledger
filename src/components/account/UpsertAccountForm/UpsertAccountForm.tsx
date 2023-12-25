@@ -36,19 +36,23 @@ export interface UpsertAccountFormProps {
   /**
    * Default form values
    */
-  defaultValues: UseFormProps<FieldValues>['defaultValues'];
+  values: UseFormProps<FieldValues>['values'];
 }
 
 export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
   onSubmit,
   onSubmitText,
-  defaultValues,
+  values,
 }) => {
   const { t } = useTranslation('account');
 
   const context = useForm<FieldValues>({
     schema,
-    defaultValues,
+    defaultValues: {
+      name: '',
+      categoryId: '',
+    },
+    values,
   });
 
   const [{ curVaultId }] = useVaultContext();

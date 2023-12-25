@@ -1,6 +1,6 @@
-import { useGetAccountQuery } from '@/api/graphql';
+import { useGetAccountQuery, useUpdateAccountMutation } from '@/api/graphql';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { FieldValues, UpsertAccountForm } from '..';
 import { useTranslation } from 'next-i18next';
 
@@ -22,22 +22,42 @@ export const UpdateAccountForm: React.FC = () => {
     skip: accountId == null,
   });
 
-  const defaultValues: Partial<FieldValues> = useMemo(() => {
-    const { name, category } = data?.getAccount ?? {};
+  const [updateAccount] = useUpdateAccountMutation();
+
+  const values = useMemo(() => {
+    if (data?.getAccount == null) {
+      return undefined;
+    }
 
     return {
-      name,
-      categoryId: category?.id,
+      name: data.getAccount.name,
+      categoryId: data.getAccount.category.id,
     };
-  }, [data]);
+  }, [data?.getAccount]);
 
-  if (data == null) return null;
+  const handleOnSubmit = useCallback(
+    (values: FieldValues) => {
+      if (data?.getAccount == null) {
+        return;
+      }
+
+      updateAccount({
+        variables: {
+          input: {
+            id: data.getAccount.id,
+            ...values,
+          },
+        },
+      });
+    },
+    [updateAccount, data?.getAccount]
+  );
 
   return (
     <UpsertAccountForm
-      onSubmit={(value) => console.log(value)}
+      onSubmit={handleOnSubmit}
       onSubmitText={t`UpdateAccountForm.submit`}
-      defaultValues={defaultValues}
+      values={values}
     />
   );
 };

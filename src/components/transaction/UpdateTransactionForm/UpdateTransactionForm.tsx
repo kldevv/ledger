@@ -66,7 +66,7 @@ export const UpdateTransactionForm: React.FC = () => {
   const handleOnSubmit = useCallback(
     (values: FieldValues) => {
       if (data?.getTransaction == null) {
-        return null;
+        return
       }
 
       void updateTransaction({

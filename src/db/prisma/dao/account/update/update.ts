@@ -1,5 +1,4 @@
 import prisma from "@/db/prisma/client"
-import { Account, Category, CategoryType } from "@prisma/client"
 
 export namespace UpdateOne {
   export type Args = {
@@ -23,20 +22,21 @@ export namespace UpdateOne {
      */
     categoryId?: string
   }
-
-  export type Returns = Account
 }
 
 export const updateOne = async ({
   id,
   data
-}: UpdateOne.Args): Promise<UpdateOne.Returns> => {
+}: UpdateOne.Args) => {
   try {
     return await prisma.account.update({
       where: {
         id
       },
       data,
+      include: {
+        category: true
+      }
     })
   } catch (e) {
     throw e
