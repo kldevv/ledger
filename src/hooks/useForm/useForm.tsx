@@ -3,7 +3,11 @@ import { useEffect } from "react";
 import { useForm as useReactHookForm, UseFormProps as ReactHookFormProps, FieldValues, DefaultValues } from "react-hook-form"
 import { z } from "zod";
 
-export interface UseFormProps<TFieldValues extends FieldValues> {
+export interface UseFormProps<TFieldValues extends FieldValues>
+  extends Omit<
+    ReactHookFormProps<TFieldValues>,
+    'resolver' | 'defaultValues'
+  > {
   /**
    * Zod schema of the form fields.
    */
@@ -11,17 +15,14 @@ export interface UseFormProps<TFieldValues extends FieldValues> {
   /**
    * Default values for the form
    */
-  defaultValues: DefaultValues<TFieldValues>
-  /**
-   * Props for `useForm` of the react-hook-form library.
-   */
-  props?: Omit<ReactHookFormProps<TFieldValues>, 'resolver' | 'defaultValues'>;
+  defaultValues: DefaultValues<TFieldValues>;
 };
 
 export const useForm = <TFieldValues extends FieldValues>({
   schema,
   defaultValues,
-  props,
+  values,
+  ...props
 }: UseFormProps<TFieldValues>) => {
   const methods = useReactHookForm<TFieldValues>({
     // When set to all, all errors from each field will be gathered.
@@ -32,6 +33,7 @@ export const useForm = <TFieldValues extends FieldValues>({
 
     ...props,
 
+    values,
     defaultValues,
     resolver: zodResolver(schema),
   });

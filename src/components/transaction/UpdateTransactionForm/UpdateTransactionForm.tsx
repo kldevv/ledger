@@ -1,7 +1,7 @@
 import { useGetTransactionDetailQuery } from '@/api/graphql';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
-import { UpsertTransactionForm } from '..';
+import { UpsertTransactionForm} from '..';
 import { useTranslation } from 'next-i18next';
 
 export const UpdateTransactionForm: React.FC = () => {
@@ -22,12 +22,17 @@ export const UpdateTransactionForm: React.FC = () => {
         transactionId,
       },
     },
+    fetchPolicy: 'network-only',
     skip: transactionId == null,
   });
 
-  const defaultValues = useMemo(() => {
-    const { accrualDate, note, tags } = data?.getTransaction ?? {};
-    const entries = data?.getEntries.map(
+  const values = useMemo(() => {
+    if (data?.getTransaction == null || data?.getEntries == null) {
+      return undefined;
+    }
+
+    const { accrualDate, note, tags } = data.getTransaction;
+    const entries = data.getEntries.map(
       ({
         transactionDate,
         debit,
@@ -40,27 +45,25 @@ export const UpdateTransactionForm: React.FC = () => {
         debit,
         credit,
         accountId,
-        memo: memo ?? undefined,
+        memo,
         status,
-      }) ?? []
+      })
     );
-    const tagsId = tags?.map(({ id }) => id) ?? []
+    const tagIds = tags?.map(({ id }) => id) ?? [];
 
     return {
       accrualDate,
       note,
-      tagsId,
+      tagIds,
       entries,
     };
   }, [data]);
-
-  if (data == null) return null;
 
   return (
     <UpsertTransactionForm
       onSubmit={(value) => console.log(value)}
       onSubmitText={t`UpdateTransactionForm.submit`}
-      defaultValues={defaultValues}
+      values={values}
     />
   );
 };

@@ -73,7 +73,7 @@ const schema = z
     /**
      * Transaction entries
      */
-    entries: entrySchema.array().nonempty(),
+    entries: entrySchema.array(),
   })
   .refine(
     (data) => {
@@ -107,17 +107,13 @@ export interface UpsertTransactionFormProps {
   /**
    * Default form values
    */
-  defaultValues: UseFormProps<FieldValues>['defaultValues'];
-  /**
-   * Is loading
-   */
-  loading?: boolean;
+  values: UseFormProps<FieldValues>['values'];
 }
 
 export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   onSubmit,
   onSubmitText,
-  defaultValues,
+  values,
 }) => {
   const { t } = useTranslation('transaction');
   const [{ curVaultId }] = useVaultContext();
@@ -139,7 +135,13 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
 
   const context = useForm<FieldValues>({
     schema,
-    defaultValues,
+    defaultValues: {
+      accrualDate: new Date(),
+      note: '',
+      tagIds: [],
+      entries: [],
+    },
+    values,
   });
 
   return (
