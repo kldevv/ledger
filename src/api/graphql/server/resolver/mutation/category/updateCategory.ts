@@ -1,9 +1,9 @@
 import { MutationResolvers } from "@/api/graphql";
 
-export const updateAccount: MutationResolvers['updateAccount'] = async (
+export const updateCategory: MutationResolvers['updateCategory'] = async (
   _, { input }, { dataSources: { prisma } }
 ) => {
-  return await prisma.account.updateOne({
+  return await prisma.category.updateOne({
     id: input.id,
     data: input
   })

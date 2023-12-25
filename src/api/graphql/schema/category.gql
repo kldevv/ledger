@@ -13,6 +13,12 @@ input AddCategoryInput {
   vaultId: String!
 }
 
+input UpdateCategoryInput {
+  id: String!
+  name: String!
+  type: CategoryType!  
+}
+
 input GetCategoryInput {
   id: String!
 }

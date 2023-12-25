@@ -5,6 +5,7 @@ type Mutation {
 
   # Category
   addCategory(input: AddCategoryInput!): Category!
+  updateCategory(input: UpdateCategoryInput!): Category!
 
   # Tag
   addTag(input: AddTagInput!): Tag!

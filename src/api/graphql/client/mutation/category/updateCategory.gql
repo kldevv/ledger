@@ -1,0 +1,10 @@
+mutation updateCategory($input: UpdateCategoryInput!) {
+  updateCategory(input: $input) {
+    id
+    name
+    type
+    vaultId
+    createdDate
+    updatedDate
+  }
+}

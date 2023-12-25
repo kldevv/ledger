@@ -1,6 +1,6 @@
-import { useGetCategoryQuery } from '@/api/graphql';
+import { useGetCategoryQuery, useUpdateCategoryMutation } from '@/api/graphql';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { FieldValues, UpsertCategoryForm } from '..';
 import { useTranslation } from 'next-i18next';
 
@@ -22,22 +22,39 @@ export const UpdateCategoryForm: React.FC = () => {
     skip: categoryId == null,
   });
 
-  const defaultValues: Partial<FieldValues> = useMemo(() => {
-    const { name, type } = data?.getCategory ?? {};
+  const [ updateCategory ]= useUpdateCategoryMutation()
+
+  const values = useMemo(() => {
+    if (data?.getCategory == null) {
+      return undefined;
+    }
 
     return {
-      name,
-      type,
+      name: data?.getCategory.name,
+      type: data?.getCategory.type,
     };
-  }, [data]);
+  }, [data?.getCategory]);
 
-  if (data == null) return null;
+  const handleOnSubmit = useCallback((values: FieldValues) => {
+    if (data?.getCategory == null) {
+      return
+    }
+
+    updateCategory({
+      variables: {
+        input: {
+          id: data.getCategory.id,
+          ...values
+        }
+      }
+    })
+  }, [updateCategory]);
 
   return (
     <UpsertCategoryForm
-      onSubmit={(value) => console.log(value)}
+      onSubmit={handleOnSubmit}
       onSubmitText={t`UpdateCategoryForm.submit`}
-      defaultValues={defaultValues}
+      values={values}
     />
   );
 };

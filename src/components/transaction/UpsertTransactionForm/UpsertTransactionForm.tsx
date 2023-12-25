@@ -107,7 +107,7 @@ export interface UpsertTransactionFormProps {
   /**
    * Default form values
    */
-  values: UseFormProps<FieldValues>['values'];
+  values?: UseFormProps<FieldValues>['values'];
 }
 
 export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({

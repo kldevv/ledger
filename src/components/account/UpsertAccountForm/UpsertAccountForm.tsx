@@ -36,7 +36,7 @@ export interface UpsertAccountFormProps {
   /**
    * Default form values
    */
-  values: UseFormProps<FieldValues>['values'];
+  values?: UseFormProps<FieldValues>['values'];
 }
 
 export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({

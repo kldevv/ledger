@@ -36,19 +36,23 @@ export interface UpsertCategoryFormProps {
   /**
    * Default form values
    */
-  defaultValues: UseFormProps<FieldValues>['defaultValues'];
+  values?: UseFormProps<FieldValues>['values'];
 }
 
 export const UpsertCategoryForm: React.FC<UpsertCategoryFormProps> = ({
   onSubmit,
   onSubmitText,
-  defaultValues,
+  values,
 }) => {
   const { t } = useTranslation('category');
 
   const context = useForm<FieldValues>({
     schema,
-    defaultValues,
+    defaultValues: {
+      name: '',
+      type: CategoryType.ASSETS,
+    },
+    values,
   });
 
   const typeOptions = useMemo(
