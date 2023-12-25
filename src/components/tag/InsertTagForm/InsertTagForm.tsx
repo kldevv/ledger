@@ -4,10 +4,6 @@ import { useCallback } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useVaultContext } from '@/hooks';
 
-const defaultValues: FieldValues = {
-  name: '',
-};
-
 export const InsertTagForm: React.FC = () => {
   const { t } = useTranslation('tag');
   const [{ curVaultId }] = useVaultContext();
@@ -38,7 +34,6 @@ export const InsertTagForm: React.FC = () => {
     <UpsertTagForm
       onSubmitText={t`InsertTagForm.submit`}
       onSubmit={handleOnSubmit}
-      defaultValues={defaultValues}
     />
   );
 };

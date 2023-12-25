@@ -11,6 +11,11 @@ input AddTagInput {
   vaultId: String!
 }
 
+input UpdateTagInput {
+  id: String!
+  name: String!
+}
+
 input GetTagInput {
   id: String!
 }

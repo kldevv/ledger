@@ -1,5 +1,0 @@
-type CurrencyMeta {
-  value: Currency!
-  label: String!
-  icon: String
-}

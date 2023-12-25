@@ -21,7 +21,4 @@ type Query {
 
   # Vault
   getVaults(input: GetVaultsInput!): [Vault!]!
-
-  # Static
-  getCurrencyMeta: [CurrencyMeta!]!
 }

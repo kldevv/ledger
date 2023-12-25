@@ -23,14 +23,12 @@ export namespace UpdateOne {
      */
     name?: string
   }
-
-  export type Returns = Category
 }
 
 export const updateOne = async ({
   id,
   data
-}: UpdateOne.Args): Promise<UpdateOne.Returns> => {
+}: UpdateOne.Args) => {
   try {
     return await prisma.category.update({
       where: {

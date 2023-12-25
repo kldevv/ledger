@@ -95,13 +95,6 @@ export const Currency = {
 } as const;
 
 export type Currency = typeof Currency[keyof typeof Currency];
-export type CurrencyMeta = {
-  __typename?: 'CurrencyMeta';
-  icon?: Maybe<Scalars['String']['output']>;
-  label: Scalars['String']['output'];
-  value: Currency;
-};
-
 export type Entry = {
   __typename?: 'Entry';
   account: Account;
@@ -195,6 +188,7 @@ export type Mutation = {
   addVault: Vault;
   updateAccount: Account;
   updateCategory: Category;
+  updateTag: Tag;
   updateTransaction: Transaction;
 };
 
@@ -234,6 +228,11 @@ export type MutationUpdateCategoryArgs = {
 };
 
 
+export type MutationUpdateTagArgs = {
+  input: UpdateTagInput;
+};
+
+
 export type MutationUpdateTransactionArgs = {
   input: UpdateTransactionInput;
 };
@@ -244,7 +243,6 @@ export type Query = {
   getAccounts: Array<Account>;
   getCategories: Array<Category>;
   getCategory?: Maybe<Category>;
-  getCurrencyMeta: Array<CurrencyMeta>;
   getEntries: Array<Entry>;
   getTag?: Maybe<Tag>;
   getTags: Array<Tag>;
@@ -341,6 +339,11 @@ export type UpdateCategoryInput = {
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
   type: CategoryType;
+};
+
+export type UpdateTagInput = {
+  id: Scalars['String']['input'];
+  name: Scalars['String']['input'];
 };
 
 export type UpdateTransactionInput = {
@@ -444,7 +447,6 @@ export type ResolversTypes = {
   Category: ResolverTypeWrapper<Category>;
   CategoryType: CategoryType;
   Currency: Currency;
-  CurrencyMeta: ResolverTypeWrapper<CurrencyMeta>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Entry: ResolverTypeWrapper<Entry>;
   EntryStatus: EntryStatus;
@@ -466,6 +468,7 @@ export type ResolversTypes = {
   Transaction: ResolverTypeWrapper<Transaction>;
   UpdateAccountInput: UpdateAccountInput;
   UpdateCategoryInput: UpdateCategoryInput;
+  UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
   Vault: ResolverTypeWrapper<Vault>;
 };
@@ -481,7 +484,6 @@ export type ResolversParentTypes = {
   AddVaultInput: AddVaultInput;
   Boolean: Scalars['Boolean']['output'];
   Category: Category;
-  CurrencyMeta: CurrencyMeta;
   DateTime: Scalars['DateTime']['output'];
   Entry: Entry;
   Float: Scalars['Float']['output'];
@@ -502,6 +504,7 @@ export type ResolversParentTypes = {
   Transaction: Transaction;
   UpdateAccountInput: UpdateAccountInput;
   UpdateCategoryInput: UpdateCategoryInput;
+  UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
   Vault: Vault;
 };
@@ -523,13 +526,6 @@ export type CategoryResolvers<ContextType = ApolloServerContext, ParentType exte
   type?: Resolver<ResolversTypes['CategoryType'], ParentType, ContextType>;
   updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type CurrencyMetaResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['CurrencyMeta'] = ResolversParentTypes['CurrencyMeta']> = {
-  icon?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  value?: Resolver<ResolversTypes['Currency'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -558,6 +554,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addVault?: Resolver<ResolversTypes['Vault'], ParentType, ContextType, RequireFields<MutationAddVaultArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
   updateCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'input'>>;
+  updateTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationUpdateTagArgs, 'input'>>;
   updateTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationUpdateTransactionArgs, 'input'>>;
 };
 
@@ -566,7 +563,6 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountsArgs, 'input'>>;
   getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoriesArgs, 'input'>>;
   getCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoryArgs, 'input'>>;
-  getCurrencyMeta?: Resolver<Array<ResolversTypes['CurrencyMeta']>, ParentType, ContextType>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
   getTag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagArgs, 'input'>>;
   getTags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagsArgs, 'input'>>;
@@ -611,7 +607,6 @@ export type VaultResolvers<ContextType = ApolloServerContext, ParentType extends
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
-  CurrencyMeta?: CurrencyMetaResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Entry?: EntryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
@@ -656,6 +651,13 @@ export type AddTagMutationVariables = Exact<{
 
 
 export type AddTagMutation = { __typename?: 'Mutation', addTag: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } };
+
+export type UpdateTagMutationVariables = Exact<{
+  input: UpdateTagInput;
+}>;
+
+
+export type UpdateTagMutation = { __typename?: 'Mutation', updateTag: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } };
 
 export type AddTransactionMutationVariables = Exact<{
   input: AddTransactionInput;
@@ -729,11 +731,6 @@ export type GetEntriesQueryVariables = Exact<{
 
 
 export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
-
-export type GetCurrencyMetaQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCurrencyMetaQuery = { __typename?: 'Query', getCurrencyMeta: Array<{ __typename?: 'CurrencyMeta', value: Currency, label: string, icon?: string | null }> };
 
 export type GetTagQueryVariables = Exact<{
   input: GetTagInput;
@@ -980,6 +977,43 @@ export function useAddTagMutation(baseOptions?: Apollo.MutationHookOptions<AddTa
 export type AddTagMutationHookResult = ReturnType<typeof useAddTagMutation>;
 export type AddTagMutationResult = Apollo.MutationResult<AddTagMutation>;
 export type AddTagMutationOptions = Apollo.BaseMutationOptions<AddTagMutation, AddTagMutationVariables>;
+export const UpdateTagDocument = gql`
+    mutation updateTag($input: UpdateTagInput!) {
+  updateTag(input: $input) {
+    id
+    name
+    vaultId
+    createdDate
+    updatedDate
+  }
+}
+    `;
+export type UpdateTagMutationFn = Apollo.MutationFunction<UpdateTagMutation, UpdateTagMutationVariables>;
+
+/**
+ * __useUpdateTagMutation__
+ *
+ * To run a mutation, you first call `useUpdateTagMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTagMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTagMutation, { data, loading, error }] = useUpdateTagMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTagMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTagMutation, UpdateTagMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTagMutation, UpdateTagMutationVariables>(UpdateTagDocument, options);
+      }
+export type UpdateTagMutationHookResult = ReturnType<typeof useUpdateTagMutation>;
+export type UpdateTagMutationResult = Apollo.MutationResult<UpdateTagMutation>;
+export type UpdateTagMutationOptions = Apollo.BaseMutationOptions<UpdateTagMutation, UpdateTagMutationVariables>;
 export const AddTransactionDocument = gql`
     mutation addTransaction($input: AddTransactionInput!) {
   addTransaction(input: $input) {
@@ -1523,47 +1557,6 @@ export type GetEntriesQueryHookResult = ReturnType<typeof useGetEntriesQuery>;
 export type GetEntriesLazyQueryHookResult = ReturnType<typeof useGetEntriesLazyQuery>;
 export type GetEntriesSuspenseQueryHookResult = ReturnType<typeof useGetEntriesSuspenseQuery>;
 export type GetEntriesQueryResult = Apollo.QueryResult<GetEntriesQuery, GetEntriesQueryVariables>;
-export const GetCurrencyMetaDocument = gql`
-    query getCurrencyMeta {
-  getCurrencyMeta {
-    value
-    label
-    icon
-  }
-}
-    `;
-
-/**
- * __useGetCurrencyMetaQuery__
- *
- * To run a query within a React component, call `useGetCurrencyMetaQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCurrencyMetaQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCurrencyMetaQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetCurrencyMetaQuery(baseOptions?: Apollo.QueryHookOptions<GetCurrencyMetaQuery, GetCurrencyMetaQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCurrencyMetaQuery, GetCurrencyMetaQueryVariables>(GetCurrencyMetaDocument, options);
-      }
-export function useGetCurrencyMetaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCurrencyMetaQuery, GetCurrencyMetaQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCurrencyMetaQuery, GetCurrencyMetaQueryVariables>(GetCurrencyMetaDocument, options);
-        }
-export function useGetCurrencyMetaSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetCurrencyMetaQuery, GetCurrencyMetaQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetCurrencyMetaQuery, GetCurrencyMetaQueryVariables>(GetCurrencyMetaDocument, options);
-        }
-export type GetCurrencyMetaQueryHookResult = ReturnType<typeof useGetCurrencyMetaQuery>;
-export type GetCurrencyMetaLazyQueryHookResult = ReturnType<typeof useGetCurrencyMetaLazyQuery>;
-export type GetCurrencyMetaSuspenseQueryHookResult = ReturnType<typeof useGetCurrencyMetaSuspenseQuery>;
-export type GetCurrencyMetaQueryResult = Apollo.QueryResult<GetCurrencyMetaQuery, GetCurrencyMetaQueryVariables>;
 export const GetTagDocument = gql`
     query getTag($input: GetTagInput!) {
   getTag(input: $input) {

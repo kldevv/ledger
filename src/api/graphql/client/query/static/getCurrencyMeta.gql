@@ -1,7 +1,0 @@
-query getCurrencyMeta {
-  getCurrencyMeta {
-    value
-    label
-    icon
-  }
-}

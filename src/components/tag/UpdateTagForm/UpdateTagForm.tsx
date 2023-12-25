@@ -1,6 +1,6 @@
-import { useGetTagQuery } from '@/api/graphql';
+import { useGetTagQuery, useUpdateTagMutation } from '@/api/graphql';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { FieldValues, UpsertTagForm } from '..';
 import { useTranslation } from 'next-i18next';
 
@@ -22,21 +22,41 @@ export const UpdateTagForm: React.FC = () => {
     skip: tagId == null,
   });
 
-  const defaultValues: Partial<FieldValues> = useMemo(() => {
-    const { name } = data?.getTag ?? {};
+  const [updateTag] = useUpdateTagMutation();
+
+  const values = useMemo(() => {
+    if (data?.getTag == null) {
+      return undefined;
+    }
 
     return {
-      name,
+      name: data.getTag.name,
     };
-  }, [data]);
+  }, [data?.getTag]);
 
-  if (data == null) return null;
+  const handleOnSubmit = useCallback(
+    (values: FieldValues) => {
+      if (data?.getTag == null) {
+        return;
+      }
+
+      updateTag({
+        variables: {
+          input: {
+            id: data.getTag.id,
+            ...values
+          }
+        }
+      })
+    },
+    [data?.getTag, updateTag]
+  );
 
   return (
     <UpsertTagForm
-      onSubmit={(value) => console.log(value)}
+      onSubmit={handleOnSubmit}
       onSubmitText={t`UpdateTagForm.submit`}
-      defaultValues={defaultValues}
+      values={values}
     />
-  )
-}
+  );
+};

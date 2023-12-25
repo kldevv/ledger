@@ -1,5 +1,4 @@
 import prisma from "@/db/prisma/client"
-import { Tag } from "@prisma/client"
 
 export namespace UpdateOne {
   export type Args = {
@@ -19,14 +18,12 @@ export namespace UpdateOne {
      */
     name?: string
   }
-
-  export type Returns = Tag
 }
 
 export const updateOne = async ({
   id,
   data
-}: UpdateOne.Args): Promise<UpdateOne.Returns> => {
+}: UpdateOne.Args) => {
   try {
     return await prisma.tag.update({
       where: {

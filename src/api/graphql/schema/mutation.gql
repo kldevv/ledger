@@ -9,6 +9,7 @@ type Mutation {
 
   # Tag
   addTag(input: AddTagInput!): Tag!
+  updateTag(input: UpdateTagInput!): Tag!
 
   # Transaction
   addTransaction(input: AddTransactionInput!): Transaction!

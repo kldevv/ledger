@@ -29,19 +29,22 @@ export interface UpsertTagFormProps {
   /**
    * Default form values
    */
-  defaultValues: UseFormProps<FieldValues>['defaultValues'];
+  values?: UseFormProps<FieldValues>['values'];
 }
 
 export const UpsertTagForm: React.FC<UpsertTagFormProps> = ({
   onSubmit,
   onSubmitText,
-  defaultValues,
+  values,
 }) => {
   const { t } = useTranslation('tag');
 
   const context = useForm<FieldValues>({
     schema,
-    defaultValues,
+    defaultValues: {
+      name: ''
+    },
+    values,
   });
 
   return (
