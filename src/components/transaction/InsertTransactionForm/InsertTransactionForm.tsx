@@ -1,15 +1,14 @@
 import { useTranslation } from "next-i18next"
 import { FieldValues, UpsertTransactionForm } from ".."
-import { defaultEntryFieldValue } from "../UpsertTransactionForm/UpsertEntryTable/UpsertEntryTable.Row";
 import { useAddTransactionMutation } from "@/api/graphql";
 import { useCallback } from "react";
-import { useVaultContext } from "@/hooks";
+import { UseFormProps, useVaultContext } from "@/hooks";
 
-const defaultValues: FieldValues = {
+const defaultValues: UseFormProps<FieldValues>['defaultValues'] = {
   accrualDate: new Date(),
   note: '',
   tagIds: [],
-  entries: [defaultEntryFieldValue, defaultEntryFieldValue],
+  entries: [],
 };
 
 export const InsertTransactionForm: React.FC = () => {

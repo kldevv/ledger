@@ -108,6 +108,10 @@ export interface UpsertTransactionFormProps {
    * Default form values
    */
   defaultValues: UseFormProps<FieldValues>['defaultValues'];
+  /**
+   * Is loading
+   */
+  loading?: boolean;
 }
 
 export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
@@ -118,10 +122,10 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   const { t } = useTranslation('transaction');
   const [{ curVaultId }] = useVaultContext();
 
-  const { data, loading, error } = useGetTagsQuery({
+  const { data } = useGetTagsQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? null,
+        vaultId: curVaultId ?? '',
       },
     },
     skip: curVaultId == null,

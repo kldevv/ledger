@@ -37,18 +37,24 @@ export const Row: React.FC<RowProps> = ({
   remove,
 }) => {
   const { t } = useTranslation('transaction');
+  const { result: { data, loading, error } } = useAccountsContext()
 
   const handleOnAppend = useCallback(() => {
-    void append?.(defaultEntryFieldValue, {
-      shouldFocus: false
-    });
-  }, [append])
+    void append?.(
+      {
+        ...defaultEntryFieldValue,
+        accountId: data?.getAccounts[0].id ?? '',
+      },
+      {
+        shouldFocus: false,
+      }
+    );
+  }, [append, data]);
 
   const handleRemove = useCallback(() => {
     void remove?.(index);
   }, [remove, index]);
 
-  const { result: { data, loading, error } } = useAccountsContext()
  
   return (
     <div className="flex gap-x-1 items-start">
@@ -80,6 +86,7 @@ export const Row: React.FC<RowProps> = ({
         <ListBox<FieldValues>
           label={t('UpsertTransactionForm.label.entries.account')}
           name={`entries.${index}.accountId` as const}
+          loading={loading}
           options={
             data?.getAccounts.map(({ id, name }) => ({
               value: id,
