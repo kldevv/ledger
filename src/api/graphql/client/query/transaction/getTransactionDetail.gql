@@ -12,6 +12,7 @@ query getTransactionDetail(
     }
     createdDate
     updatedDate
+    vaultId
   }
   getEntries(input: $getEntriesInput) {
     id

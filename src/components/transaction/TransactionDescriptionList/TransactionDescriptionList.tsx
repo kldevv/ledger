@@ -43,7 +43,7 @@ export const TransactionDescriptionList: React.FC<TransactionDescriptionListProp
       description: (
         <div className="flex gap-1 max-w-full flex-wrap">
           {tags?.map((tag) => (
-            <Tag {...tag} />
+            <Tag key={tag.id} {...tag} />
           ))}
         </div>
       ),

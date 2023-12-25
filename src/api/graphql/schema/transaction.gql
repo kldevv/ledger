@@ -21,6 +21,15 @@ input AddTransactionInput {
   entries: [AddEntryInput!]!
 }
 
+input UpdateTransactionInput {
+  id: String!
+  accrualDate: DateTime!
+  note: String!
+  tagIds: [String!]!
+  vaultId: String!
+  entries: [AddEntryInput!]!
+}
+
 input GetTransactionInput {
   id: String!
 }

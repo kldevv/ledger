@@ -193,6 +193,7 @@ export type Mutation = {
   addTag: Tag;
   addTransaction?: Maybe<Transaction>;
   addVault: Vault;
+  updateTransaction?: Maybe<Transaction>;
 };
 
 
@@ -218,6 +219,11 @@ export type MutationAddTransactionArgs = {
 
 export type MutationAddVaultArgs = {
   input: AddVaultInput;
+};
+
+
+export type MutationUpdateTransactionArgs = {
+  input: UpdateTransactionInput;
 };
 
 export type Query = {
@@ -311,6 +317,15 @@ export type Transaction = {
   tags: Array<Tag>;
   updatedDate: Scalars['DateTime']['output'];
   vaultId: Scalars['String']['output'];
+};
+
+export type UpdateTransactionInput = {
+  accrualDate: Scalars['DateTime']['input'];
+  entries: Array<AddEntryInput>;
+  id: Scalars['String']['input'];
+  note: Scalars['String']['input'];
+  tagIds: Array<Scalars['String']['input']>;
+  vaultId: Scalars['String']['input'];
 };
 
 export type Vault = {
@@ -425,6 +440,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Tag: ResolverTypeWrapper<Tag>;
   Transaction: ResolverTypeWrapper<Transaction>;
+  UpdateTransactionInput: UpdateTransactionInput;
   Vault: ResolverTypeWrapper<Vault>;
 };
 
@@ -458,6 +474,7 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output'];
   Tag: Tag;
   Transaction: Transaction;
+  UpdateTransactionInput: UpdateTransactionInput;
   Vault: Vault;
 };
 
@@ -511,6 +528,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
   addTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
   addVault?: Resolver<ResolversTypes['Vault'], ParentType, ContextType, RequireFields<MutationAddVaultArgs, 'input'>>;
+  updateTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<MutationUpdateTransactionArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -601,6 +619,13 @@ export type AddTransactionMutationVariables = Exact<{
 
 
 export type AddTransactionMutation = { __typename?: 'Mutation', addTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries?: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> | null } | null };
+
+export type UpdateTransactionMutationVariables = Exact<{
+  input: UpdateTransactionInput;
+}>;
+
+
+export type UpdateTransactionMutation = { __typename?: 'Mutation', updateTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries?: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> | null } | null };
 
 export type AddVaultMutationVariables = Exact<{
   input: AddVaultInput;
@@ -701,7 +726,7 @@ export type GetTransactionDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
+export type GetTransactionDetailQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, createdDate: Date, updatedDate: Date, vaultId: string, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
 
 export type GetTransactionsQueryVariables = Exact<{
   input: GetTransactionsInput;
@@ -894,6 +919,67 @@ export function useAddTransactionMutation(baseOptions?: Apollo.MutationHookOptio
 export type AddTransactionMutationHookResult = ReturnType<typeof useAddTransactionMutation>;
 export type AddTransactionMutationResult = Apollo.MutationResult<AddTransactionMutation>;
 export type AddTransactionMutationOptions = Apollo.BaseMutationOptions<AddTransactionMutation, AddTransactionMutationVariables>;
+export const UpdateTransactionDocument = gql`
+    mutation updateTransaction($input: UpdateTransactionInput!) {
+  updateTransaction(input: $input) {
+    id
+    accrualDate
+    note
+    vaultId
+    tags {
+      id
+      name
+    }
+    entries {
+      id
+      vaultId
+      transactionDate
+      debit
+      credit
+      memo
+      account {
+        id
+        name
+        category {
+          id
+          name
+          type
+        }
+      }
+      transactionId
+      status
+    }
+    createdDate
+    updatedDate
+  }
+}
+    `;
+export type UpdateTransactionMutationFn = Apollo.MutationFunction<UpdateTransactionMutation, UpdateTransactionMutationVariables>;
+
+/**
+ * __useUpdateTransactionMutation__
+ *
+ * To run a mutation, you first call `useUpdateTransactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTransactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTransactionMutation, { data, loading, error }] = useUpdateTransactionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTransactionMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTransactionMutation, UpdateTransactionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTransactionMutation, UpdateTransactionMutationVariables>(UpdateTransactionDocument, options);
+      }
+export type UpdateTransactionMutationHookResult = ReturnType<typeof useUpdateTransactionMutation>;
+export type UpdateTransactionMutationResult = Apollo.MutationResult<UpdateTransactionMutation>;
+export type UpdateTransactionMutationOptions = Apollo.BaseMutationOptions<UpdateTransactionMutation, UpdateTransactionMutationVariables>;
 export const AddVaultDocument = gql`
     mutation addVault($input: AddVaultInput!) {
   addVault(input: $input) {
@@ -1563,6 +1649,7 @@ export const GetTransactionDetailDocument = gql`
     }
     createdDate
     updatedDate
+    vaultId
   }
   getEntries(input: $getEntriesInput) {
     id

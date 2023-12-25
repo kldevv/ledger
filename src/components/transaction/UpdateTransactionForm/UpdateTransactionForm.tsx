@@ -1,7 +1,10 @@
-import { useGetTransactionDetailQuery } from '@/api/graphql';
+import {
+  useGetTransactionDetailQuery,
+  useUpdateTransactionMutation,
+} from '@/api/graphql';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
-import { UpsertTransactionForm} from '..';
+import { useCallback, useMemo } from 'react';
+import { FieldValues, UpsertTransactionForm } from '..';
 import { useTranslation } from 'next-i18next';
 
 export const UpdateTransactionForm: React.FC = () => {
@@ -22,9 +25,10 @@ export const UpdateTransactionForm: React.FC = () => {
         transactionId,
       },
     },
-    fetchPolicy: 'network-only',
     skip: transactionId == null,
   });
+
+  const [updateTransaction] = useUpdateTransactionMutation();
 
   const values = useMemo(() => {
     if (data?.getTransaction == null || data?.getEntries == null) {
@@ -59,9 +63,28 @@ export const UpdateTransactionForm: React.FC = () => {
     };
   }, [data]);
 
+  const handleOnSubmit = useCallback(
+    (values: FieldValues) => {
+      if (data?.getTransaction == null) {
+        return null;
+      }
+
+      void updateTransaction({
+        variables: {
+          input: {
+            id: data?.getTransaction?.id,
+            vaultId: data?.getTransaction.vaultId,
+            ...values,
+          },
+        },
+      });
+    },
+    [data?.getTransaction, updateTransaction]
+  );
+
   return (
     <UpsertTransactionForm
-      onSubmit={(value) => console.log(value)}
+      onSubmit={handleOnSubmit}
       onSubmitText={t`UpdateTransactionForm.submit`}
       values={values}
     />
