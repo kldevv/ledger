@@ -1,0 +1,14 @@
+type SumByMonth {
+  accountId: String!
+  count: Int!
+  year: Int!
+  month: Int!
+  debit: Int!
+  credit: Int!
+}
+
+input GetSumsByMonthInput {
+  startDate: DateTime
+  endDate: DateTime
+  type: Basis
+}

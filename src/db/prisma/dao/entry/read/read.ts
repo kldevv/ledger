@@ -99,18 +99,45 @@ export const readMany = async ({
   }
 }
 
-export namespace ReadAccrualMonthlySum {
+export namespace ReadSumsByAccrualMonth {
   export type Args = {
     /**
      * Year to read
      */
     year: number;
   }
+
+  export type Returns = {
+    /**
+     * Account id
+     */
+    accountId: string
+    /**
+     * Year
+     */
+    year: number
+    /**
+     * Month
+     */
+    month: number
+    /**
+     * Number of entries per group
+     */
+    count: number
+    /**
+     * Total debit
+     */
+    debit: number
+    /**
+     * Total credit
+     */
+    credit: number
+  }[]
 }
 
-export const readAccrualMonthlySum = async () => {
+export const readSumsByAccrualMonth = async () => {
   try {
-    return await prisma.$queryRaw`
+    return await prisma.$queryRaw<ReadSumsByAccrualMonth.Returns>`
       SELECT
         e."accountId",
         EXTRACT(YEAR FROM t."accrualDate") as year,
@@ -130,18 +157,45 @@ export const readAccrualMonthlySum = async () => {
   }
 }
 
-export namespace ReadTransactionMonthlySum {
+export namespace ReadSumsByTransactionMonth {
   export type Args = {
     /**
      * Year to read
      */
     year: number;
   }
+
+  export type Returns = {
+    /**
+     * Account id
+     */
+    accountId: string
+    /**
+     * Year
+     */
+    year: number
+    /**
+     * Month
+     */
+    month: number
+    /**
+     * Number of entries per group
+     */
+    count: number
+    /**
+     * Total debit
+     */
+    debit: number
+    /**
+     * Total credit
+     */
+    credit: number
+  }[]
 }
 
-export const readTransactionMonthlySum = async () => {
+export const readSumsByTransactionMonth = async () => {
   try {
-    return await prisma.$queryRaw`
+    return await prisma.$queryRaw<ReadSumsByTransactionMonth.Returns>`
       SELECT
         e."accountId",
         EXTRACT(YEAR FROM e."transactionDate") as year,

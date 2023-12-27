@@ -14,3 +14,8 @@ enum CategoryType {
   LIABILITIES
   EQUITY
 }
+
+enum Basis {
+  ACCRUAL
+  CASH
+}

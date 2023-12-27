@@ -10,6 +10,9 @@ type Query {
   # Entry
   getEntries(input: GetEntriesInput!): [Entry!]!
 
+  # Report
+  getSumsByMonth(input: GetSumsByMonthInput!): [SumByMonth!]!
+
   # Tag
   getTag(input: GetTagInput!): Tag
   getTags(input: GetTagsInput!): [Tag!]!

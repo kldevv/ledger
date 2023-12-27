@@ -1,0 +1,24 @@
+query getReportByMonth(
+  $getAccountsInput: GetAccountsInput!
+  $getSumsByMonthInput: GetSumsByMonthInput!
+) {
+  getAccounts(input: $getAccountsInput) {
+    id
+    category {
+      id
+      name
+    }
+    name
+    vaultId
+    createdDate
+    updatedDate
+  }
+  getSumsByMonth(input: $getSumsByMonthInput) {
+    accountId
+    count
+    year
+    month
+    credit
+    debit
+  }
+}

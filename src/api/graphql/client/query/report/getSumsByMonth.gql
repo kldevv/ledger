@@ -1,0 +1,10 @@
+query getSumsByMonth($input: GetSumsByMonthInput!) {
+  getSumsByMonth(input: $input) {
+    accountId
+    count
+    year
+    month
+    credit
+    debit
+  }
+}

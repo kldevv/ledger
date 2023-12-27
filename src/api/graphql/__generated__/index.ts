@@ -71,6 +71,12 @@ export type AddVaultInput = {
   ownerId: Scalars['String']['input'];
 };
 
+export const Basis = {
+  ACCRUAL: 'ACCRUAL',
+  CASH: 'CASH'
+} as const;
+
+export type Basis = typeof Basis[keyof typeof Basis];
 export type Category = {
   __typename?: 'Category';
   createdDate: Scalars['DateTime']['output'];
@@ -150,6 +156,12 @@ export type GetEntriesInput = {
   status?: InputMaybe<EntryStatus>;
   transactionId?: InputMaybe<Scalars['String']['input']>;
   vaultId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type GetSumsByMonthInput = {
+  endDate?: InputMaybe<Scalars['DateTime']['input']>;
+  startDate?: InputMaybe<Scalars['DateTime']['input']>;
+  type?: InputMaybe<Basis>;
 };
 
 export type GetTagInput = {
@@ -244,6 +256,7 @@ export type Query = {
   getCategories: Array<Category>;
   getCategory?: Maybe<Category>;
   getEntries: Array<Entry>;
+  getSumsByMonth: Array<SumByMonth>;
   getTag?: Maybe<Tag>;
   getTags: Array<Tag>;
   getTransaction?: Maybe<Transaction>;
@@ -278,6 +291,11 @@ export type QueryGetEntriesArgs = {
 };
 
 
+export type QueryGetSumsByMonthArgs = {
+  input: GetSumsByMonthInput;
+};
+
+
 export type QueryGetTagArgs = {
   input: GetTagInput;
 };
@@ -305,6 +323,16 @@ export type QueryGetTransactionsArgs = {
 
 export type QueryGetVaultsArgs = {
   input: GetVaultsInput;
+};
+
+export type SumByMonth = {
+  __typename?: 'SumByMonth';
+  accountId: Scalars['String']['output'];
+  count: Scalars['Int']['output'];
+  credit: Scalars['Int']['output'];
+  debit: Scalars['Int']['output'];
+  month: Scalars['Int']['output'];
+  year: Scalars['Int']['output'];
 };
 
 export type Tag = {
@@ -443,6 +471,7 @@ export type ResolversTypes = {
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
   AddVaultInput: AddVaultInput;
+  Basis: Basis;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Category: ResolverTypeWrapper<Category>;
   CategoryType: CategoryType;
@@ -456,14 +485,17 @@ export type ResolversTypes = {
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
+  GetSumsByMonthInput: GetSumsByMonthInput;
   GetTagInput: GetTagInput;
   GetTagsInput: GetTagsInput;
   GetTransactionInput: GetTransactionInput;
   GetTransactionsInput: GetTransactionsInput;
   GetVaultsInput: GetVaultsInput;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  SumByMonth: ResolverTypeWrapper<SumByMonth>;
   Tag: ResolverTypeWrapper<Tag>;
   Transaction: ResolverTypeWrapper<Transaction>;
   UpdateAccountInput: UpdateAccountInput;
@@ -492,14 +524,17 @@ export type ResolversParentTypes = {
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
+  GetSumsByMonthInput: GetSumsByMonthInput;
   GetTagInput: GetTagInput;
   GetTagsInput: GetTagsInput;
   GetTransactionInput: GetTransactionInput;
   GetTransactionsInput: GetTransactionsInput;
   GetVaultsInput: GetVaultsInput;
+  Int: Scalars['Int']['output'];
   Mutation: {};
   Query: {};
   String: Scalars['String']['output'];
+  SumByMonth: SumByMonth;
   Tag: Tag;
   Transaction: Transaction;
   UpdateAccountInput: UpdateAccountInput;
@@ -564,12 +599,23 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoriesArgs, 'input'>>;
   getCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoryArgs, 'input'>>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
+  getSumsByMonth?: Resolver<Array<ResolversTypes['SumByMonth']>, ParentType, ContextType, RequireFields<QueryGetSumsByMonthArgs, 'input'>>;
   getTag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagArgs, 'input'>>;
   getTags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagsArgs, 'input'>>;
   getTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'input'>>;
   getTransactionDetail?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionDetailArgs, 'transactionId'>>;
   getTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionsArgs, 'input'>>;
   getVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetVaultsArgs, 'input'>>;
+};
+
+export type SumByMonthResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['SumByMonth'] = ResolversParentTypes['SumByMonth']> = {
+  accountId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  credit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  debit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  month?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  year?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TagResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
@@ -611,6 +657,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   Entry?: EntryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  SumByMonth?: SumByMonthResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
   Transaction?: TransactionResolvers<ContextType>;
   Vault?: VaultResolvers<ContextType>;
@@ -731,6 +778,21 @@ export type GetEntriesQueryVariables = Exact<{
 
 
 export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
+
+export type GetReportByMonthQueryVariables = Exact<{
+  getAccountsInput: GetAccountsInput;
+  getSumsByMonthInput: GetSumsByMonthInput;
+}>;
+
+
+export type GetReportByMonthQuery = { __typename?: 'Query', getAccounts: Array<{ __typename?: 'Account', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date, category: { __typename?: 'Category', id: string, name: string } }>, getSumsByMonth: Array<{ __typename?: 'SumByMonth', accountId: string, count: number, year: number, month: number, credit: number, debit: number }> };
+
+export type GetSumsByMonthQueryVariables = Exact<{
+  input: GetSumsByMonthInput;
+}>;
+
+
+export type GetSumsByMonthQuery = { __typename?: 'Query', getSumsByMonth: Array<{ __typename?: 'SumByMonth', accountId: string, count: number, year: number, month: number, credit: number, debit: number }> };
 
 export type GetTagQueryVariables = Exact<{
   input: GetTagInput;
@@ -1557,6 +1619,108 @@ export type GetEntriesQueryHookResult = ReturnType<typeof useGetEntriesQuery>;
 export type GetEntriesLazyQueryHookResult = ReturnType<typeof useGetEntriesLazyQuery>;
 export type GetEntriesSuspenseQueryHookResult = ReturnType<typeof useGetEntriesSuspenseQuery>;
 export type GetEntriesQueryResult = Apollo.QueryResult<GetEntriesQuery, GetEntriesQueryVariables>;
+export const GetReportByMonthDocument = gql`
+    query getReportByMonth($getAccountsInput: GetAccountsInput!, $getSumsByMonthInput: GetSumsByMonthInput!) {
+  getAccounts(input: $getAccountsInput) {
+    id
+    category {
+      id
+      name
+    }
+    name
+    vaultId
+    createdDate
+    updatedDate
+  }
+  getSumsByMonth(input: $getSumsByMonthInput) {
+    accountId
+    count
+    year
+    month
+    credit
+    debit
+  }
+}
+    `;
+
+/**
+ * __useGetReportByMonthQuery__
+ *
+ * To run a query within a React component, call `useGetReportByMonthQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetReportByMonthQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetReportByMonthQuery({
+ *   variables: {
+ *      getAccountsInput: // value for 'getAccountsInput'
+ *      getSumsByMonthInput: // value for 'getSumsByMonthInput'
+ *   },
+ * });
+ */
+export function useGetReportByMonthQuery(baseOptions: Apollo.QueryHookOptions<GetReportByMonthQuery, GetReportByMonthQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetReportByMonthQuery, GetReportByMonthQueryVariables>(GetReportByMonthDocument, options);
+      }
+export function useGetReportByMonthLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetReportByMonthQuery, GetReportByMonthQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetReportByMonthQuery, GetReportByMonthQueryVariables>(GetReportByMonthDocument, options);
+        }
+export function useGetReportByMonthSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetReportByMonthQuery, GetReportByMonthQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetReportByMonthQuery, GetReportByMonthQueryVariables>(GetReportByMonthDocument, options);
+        }
+export type GetReportByMonthQueryHookResult = ReturnType<typeof useGetReportByMonthQuery>;
+export type GetReportByMonthLazyQueryHookResult = ReturnType<typeof useGetReportByMonthLazyQuery>;
+export type GetReportByMonthSuspenseQueryHookResult = ReturnType<typeof useGetReportByMonthSuspenseQuery>;
+export type GetReportByMonthQueryResult = Apollo.QueryResult<GetReportByMonthQuery, GetReportByMonthQueryVariables>;
+export const GetSumsByMonthDocument = gql`
+    query getSumsByMonth($input: GetSumsByMonthInput!) {
+  getSumsByMonth(input: $input) {
+    accountId
+    count
+    year
+    month
+    credit
+    debit
+  }
+}
+    `;
+
+/**
+ * __useGetSumsByMonthQuery__
+ *
+ * To run a query within a React component, call `useGetSumsByMonthQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSumsByMonthQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSumsByMonthQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetSumsByMonthQuery(baseOptions: Apollo.QueryHookOptions<GetSumsByMonthQuery, GetSumsByMonthQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSumsByMonthQuery, GetSumsByMonthQueryVariables>(GetSumsByMonthDocument, options);
+      }
+export function useGetSumsByMonthLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSumsByMonthQuery, GetSumsByMonthQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSumsByMonthQuery, GetSumsByMonthQueryVariables>(GetSumsByMonthDocument, options);
+        }
+export function useGetSumsByMonthSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetSumsByMonthQuery, GetSumsByMonthQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetSumsByMonthQuery, GetSumsByMonthQueryVariables>(GetSumsByMonthDocument, options);
+        }
+export type GetSumsByMonthQueryHookResult = ReturnType<typeof useGetSumsByMonthQuery>;
+export type GetSumsByMonthLazyQueryHookResult = ReturnType<typeof useGetSumsByMonthLazyQuery>;
+export type GetSumsByMonthSuspenseQueryHookResult = ReturnType<typeof useGetSumsByMonthSuspenseQuery>;
+export type GetSumsByMonthQueryResult = Apollo.QueryResult<GetSumsByMonthQuery, GetSumsByMonthQueryVariables>;
 export const GetTagDocument = gql`
     query getTag($input: GetTagInput!) {
   getTag(input: $input) {
