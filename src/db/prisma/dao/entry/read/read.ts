@@ -62,7 +62,7 @@ export namespace ReadMany {
   }
 }
 
-export const readMany = async ({ 
+export const readMany = async ({
   transactionDate,
   accountId,
   transactionId,
@@ -70,7 +70,7 @@ export const readMany = async ({
   vaultId,
   categoryId,
   categoryType,
- }: ReadMany.Args) => {
+}: ReadMany.Args) => {
   try {
     return await prisma.entry.findMany({
       where: {
@@ -94,6 +94,66 @@ export const readMany = async ({
         }
       }
     })
+  } catch (e) {
+    throw e
+  }
+}
+
+export namespace ReadAccrualMonthlySum {
+  export type Args = {
+    /**
+     * Year to read
+     */
+    year: number;
+  }
+}
+
+export const readAccrualMonthlySum = async () => {
+  try {
+    return await prisma.$queryRaw`
+      SELECT
+        e."accountId",
+        EXTRACT(YEAR FROM t."accrualDate") as year,
+        EXTRACT(MONTH FROM t."accrualDate") as month,
+        CAST(COUNT(*) AS INTEGER) as count,
+        SUM(e."credit") as credit,
+        SUM(e."debit") as debit
+      FROM
+        "Entry" e
+      JOIN
+        "Transaction" t ON t."id" = e."transactionId"
+      GROUP BY
+        e."accountId", year, month;
+    `
+  } catch (e) {
+    throw e
+  }
+}
+
+export namespace ReadTransactionMonthlySum {
+  export type Args = {
+    /**
+     * Year to read
+     */
+    year: number;
+  }
+}
+
+export const readTransactionMonthlySum = async () => {
+  try {
+    return await prisma.$queryRaw`
+      SELECT
+        e."accountId",
+        EXTRACT(YEAR FROM e."transactionDate") as year,
+        EXTRACT(MONTH FROM e."transactionDate") as month,
+        CAST(COUNT(*) AS INTEGER) as count,
+        SUM(e."credit") as credit,
+        SUM(e."debit") as debit
+      FROM
+        "Entry" e
+      GROUP BY
+        e."accountId", year, month;
+    `
   } catch (e) {
     throw e
   }

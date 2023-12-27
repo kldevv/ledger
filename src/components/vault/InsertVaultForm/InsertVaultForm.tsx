@@ -21,7 +21,7 @@ export const InsertVaultForm: React.FC = () => {
         variables: {
           input: {
             ...values,
-            ownerId: '153c3272-2b3d-476a-b522-313a97d36c69',
+            ownerId: '6f926ade-2719-46d2-8e9a-4fa757d2b9cc',
           },
         },
       });
