@@ -1,0 +1,14 @@
+query getAccountTopology($input: GetAccountTopologyInput!) {
+  getAccountTopology(input: $input) {
+    id
+    name
+    children {
+      id
+      name
+      children {
+        id
+        name
+      }
+    }
+  }
+}

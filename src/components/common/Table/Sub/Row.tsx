@@ -9,12 +9,22 @@ export type RowProps = {
    * Row index
    */
   index: number
+  /**
+   * Customize classname
+   */
+  className?: string
 };
 
-export const Row: React.FC<RowProps> = ({ children, index }) => {
+export const Row: React.FC<RowProps> = ({ children, index, className }) => {
   return (
-    <tr className={classNames('rounded-lg', index & 1 ? 'bg-white' : 'bg-light-shades')}>
+    <tr
+      className={classNames(
+        'rounded-lg',
+        index & 1 ? 'bg-white' : 'bg-light-shades',
+        className
+      )}
+    >
       {children}
     </tr>
-  )
-}
+  );
+};

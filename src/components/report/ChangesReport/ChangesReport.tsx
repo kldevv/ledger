@@ -1,6 +1,6 @@
 import { useGetMonthlyReportsQuery } from '@/api/graphql';
 import { useVaultContext } from '@/hooks';
-import { ReportTable, ReportTableData } from '..';
+import { ReportTable } from '..';
 
 export const ChangesReport: React.FC = () => {
   const [{ curVaultId }] = useVaultContext();
@@ -17,21 +17,5 @@ export const ChangesReport: React.FC = () => {
 
   console.log(data, error);
 
-  return <ReportTable data={mockData} />;
+  return <ReportTable reportData={data?.getMonthlyReports ?? []} />;
 };
-
-const mockData: ReportTableData[] = [
-  {
-    name: 'level1',
-    rows: [
-      {
-        name: 'level2',
-        rows: [{ name: 'level3', rows: [] }],
-      },
-    ],
-  },
-  {
-    name: 'random',
-    rows: []
-  }
-];

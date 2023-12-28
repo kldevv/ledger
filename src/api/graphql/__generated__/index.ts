@@ -31,6 +31,13 @@ export type Account = {
   vaultId: Scalars['String']['output'];
 };
 
+export type AccountTopology = {
+  __typename?: 'AccountTopology';
+  children: Array<AccountTopology>;
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type AddAccountInput = {
   categoryId: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -122,6 +129,10 @@ export const EntryStatus = {
 export type EntryStatus = typeof EntryStatus[keyof typeof EntryStatus];
 export type GetAccountInput = {
   id: Scalars['String']['input'];
+};
+
+export type GetAccountTopologyInput = {
+  vaultId: Scalars['String']['input'];
 };
 
 export type GetAccountsInput = {
@@ -252,11 +263,12 @@ export type MutationUpdateTransactionArgs = {
 export type Query = {
   __typename?: 'Query';
   getAccount?: Maybe<Account>;
+  getAccountTopology: Array<AccountTopology>;
   getAccounts: Array<Account>;
   getCategories: Array<Category>;
   getCategory?: Maybe<Category>;
   getEntries: Array<Entry>;
-  getMonthlyReports: Array<ReportRecord>;
+  getMonthlyReports: Array<ReportData>;
   getTag?: Maybe<Tag>;
   getTags: Array<Tag>;
   getTransaction?: Maybe<Transaction>;
@@ -268,6 +280,11 @@ export type Query = {
 
 export type QueryGetAccountArgs = {
   input: GetAccountInput;
+};
+
+
+export type QueryGetAccountTopologyArgs = {
+  input: GetAccountTopologyInput;
 };
 
 
@@ -325,8 +342,8 @@ export type QueryGetVaultsArgs = {
   input: GetVaultsInput;
 };
 
-export type ReportRecord = {
-  __typename?: 'ReportRecord';
+export type ReportData = {
+  __typename?: 'ReportData';
   count: Scalars['Int']['output'];
   credit: Scalars['Float']['output'];
   debit: Scalars['Float']['output'];
@@ -463,6 +480,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
+  AccountTopology: ResolverTypeWrapper<AccountTopology>;
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
@@ -479,6 +497,7 @@ export type ResolversTypes = {
   EntryStatus: EntryStatus;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   GetAccountInput: GetAccountInput;
+  GetAccountTopologyInput: GetAccountTopologyInput;
   GetAccountsInput: GetAccountsInput;
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
@@ -492,7 +511,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  ReportRecord: ResolverTypeWrapper<ReportRecord>;
+  ReportData: ResolverTypeWrapper<ReportData>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Tag: ResolverTypeWrapper<Tag>;
   Transaction: ResolverTypeWrapper<Transaction>;
@@ -506,6 +525,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Account: Account;
+  AccountTopology: AccountTopology;
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
@@ -518,6 +538,7 @@ export type ResolversParentTypes = {
   Entry: Entry;
   Float: Scalars['Float']['output'];
   GetAccountInput: GetAccountInput;
+  GetAccountTopologyInput: GetAccountTopologyInput;
   GetAccountsInput: GetAccountsInput;
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
@@ -531,7 +552,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int']['output'];
   Mutation: {};
   Query: {};
-  ReportRecord: ReportRecord;
+  ReportData: ReportData;
   String: Scalars['String']['output'];
   Tag: Tag;
   Transaction: Transaction;
@@ -549,6 +570,13 @@ export type AccountResolvers<ContextType = ApolloServerContext, ParentType exten
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AccountTopologyResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AccountTopology'] = ResolversParentTypes['AccountTopology']> = {
+  children?: Resolver<Array<ResolversTypes['AccountTopology']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -593,11 +621,12 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountArgs, 'input'>>;
+  getAccountTopology?: Resolver<Array<ResolversTypes['AccountTopology']>, ParentType, ContextType, RequireFields<QueryGetAccountTopologyArgs, 'input'>>;
   getAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountsArgs, 'input'>>;
   getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoriesArgs, 'input'>>;
   getCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoryArgs, 'input'>>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
-  getMonthlyReports?: Resolver<Array<ResolversTypes['ReportRecord']>, ParentType, ContextType, RequireFields<QueryGetMonthlyReportsArgs, 'input'>>;
+  getMonthlyReports?: Resolver<Array<ResolversTypes['ReportData']>, ParentType, ContextType, RequireFields<QueryGetMonthlyReportsArgs, 'input'>>;
   getTag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagArgs, 'input'>>;
   getTags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagsArgs, 'input'>>;
   getTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'input'>>;
@@ -606,7 +635,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetVaultsArgs, 'input'>>;
 };
 
-export type ReportRecordResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['ReportRecord'] = ResolversParentTypes['ReportRecord']> = {
+export type ReportDataResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['ReportData'] = ResolversParentTypes['ReportData']> = {
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   credit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
@@ -648,12 +677,13 @@ export type VaultResolvers<ContextType = ApolloServerContext, ParentType extends
 
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
+  AccountTopology?: AccountTopologyResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Entry?: EntryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  ReportRecord?: ReportRecordResolvers<ContextType>;
+  ReportData?: ReportDataResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
   Transaction?: TransactionResolvers<ContextType>;
   Vault?: VaultResolvers<ContextType>;
@@ -775,12 +805,19 @@ export type GetEntriesQueryVariables = Exact<{
 
 export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account: { __typename?: 'Account', id: string, name: string, category: { __typename?: 'Category', id: string, name: string, type: CategoryType } } }> };
 
+export type GetAccountTopologyQueryVariables = Exact<{
+  input: GetAccountTopologyInput;
+}>;
+
+
+export type GetAccountTopologyQuery = { __typename?: 'Query', getAccountTopology: Array<{ __typename?: 'AccountTopology', id: string, name: string, children: Array<{ __typename?: 'AccountTopology', id: string, name: string, children: Array<{ __typename?: 'AccountTopology', id: string, name: string }> }> }> };
+
 export type GetMonthlyReportsQueryVariables = Exact<{
   input: GetMonthlyReportsInput;
 }>;
 
 
-export type GetMonthlyReportsQuery = { __typename?: 'Query', getMonthlyReports: Array<{ __typename?: 'ReportRecord', encode: string, debit: number, credit: number, count: number }> };
+export type GetMonthlyReportsQuery = { __typename?: 'Query', getMonthlyReports: Array<{ __typename?: 'ReportData', encode: string, debit: number, credit: number, count: number }> };
 
 export type GetTagQueryVariables = Exact<{
   input: GetTagInput;
@@ -1607,6 +1644,55 @@ export type GetEntriesQueryHookResult = ReturnType<typeof useGetEntriesQuery>;
 export type GetEntriesLazyQueryHookResult = ReturnType<typeof useGetEntriesLazyQuery>;
 export type GetEntriesSuspenseQueryHookResult = ReturnType<typeof useGetEntriesSuspenseQuery>;
 export type GetEntriesQueryResult = Apollo.QueryResult<GetEntriesQuery, GetEntriesQueryVariables>;
+export const GetAccountTopologyDocument = gql`
+    query getAccountTopology($input: GetAccountTopologyInput!) {
+  getAccountTopology(input: $input) {
+    id
+    name
+    children {
+      id
+      name
+      children {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAccountTopologyQuery__
+ *
+ * To run a query within a React component, call `useGetAccountTopologyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccountTopologyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAccountTopologyQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetAccountTopologyQuery(baseOptions: Apollo.QueryHookOptions<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>(GetAccountTopologyDocument, options);
+      }
+export function useGetAccountTopologyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>(GetAccountTopologyDocument, options);
+        }
+export function useGetAccountTopologySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>(GetAccountTopologyDocument, options);
+        }
+export type GetAccountTopologyQueryHookResult = ReturnType<typeof useGetAccountTopologyQuery>;
+export type GetAccountTopologyLazyQueryHookResult = ReturnType<typeof useGetAccountTopologyLazyQuery>;
+export type GetAccountTopologySuspenseQueryHookResult = ReturnType<typeof useGetAccountTopologySuspenseQuery>;
+export type GetAccountTopologyQueryResult = Apollo.QueryResult<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>;
 export const GetMonthlyReportsDocument = gql`
     query getMonthlyReports($input: GetMonthlyReportsInput!) {
   getMonthlyReports(input: $input) {

@@ -1,12 +1,22 @@
-type ReportRecord {
+type ReportData {
   encode: String!
   credit: Float!
   debit: Float!
   count: Int!
 }
 
+type AccountTopology {
+  id: String!
+  name: String!
+  children: [AccountTopology!]!
+}
+
 input GetMonthlyReportsInput {
   year: Int!
   vaultId: String!
   basis: Basis
+}
+
+input GetAccountTopologyInput {
+  vaultId: String!
 }

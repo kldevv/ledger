@@ -1,4 +1,4 @@
-import { Basis, QueryResolvers, ReportRecord } from "@/api/graphql";
+import { Basis, QueryResolvers, ReportData } from "@/api/graphql";
 
 export const getMonthlyReports: QueryResolvers['getMonthlyReports'] = async (
   _, { input: { year, vaultId, basis = Basis.ACCRUAL } }, { dataSources: { prisma } }
@@ -13,7 +13,7 @@ export const getMonthlyReports: QueryResolvers['getMonthlyReports'] = async (
     }
   })()
 
-  const mappings = new Map<string, ReportRecord>()
+  const mappings = new Map<string, ReportData>()
 
   data.forEach(({ categoryId, accountId, type, month, year, debit, credit, count }) => {
     const dateEncode = `${year}::${month}`

@@ -11,7 +11,8 @@ type Query {
   getEntries(input: GetEntriesInput!): [Entry!]!
 
   # Report
-  getMonthlyReports(input: GetMonthlyReportsInput!): [ReportRecord!]!
+  getMonthlyReports(input: GetMonthlyReportsInput!): [ReportData!]!
+  getAccountTopology(input: GetAccountTopologyInput!): [AccountTopology!]!
 
   # Tag
   getTag(input: GetTagInput!): Tag

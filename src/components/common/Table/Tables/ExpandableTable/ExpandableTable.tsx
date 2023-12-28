@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-table';
 import { Card } from '../../..';
 import { Cell, Header, Row } from '../../Sub';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export type ExpandableTableProps<TData extends RowData> = {
   /**
@@ -23,7 +23,7 @@ export type ExpandableTableProps<TData extends RowData> = {
   /**
    * Get expanded data from the field of data
    */
-  getExpandedData: (row: TData) => TData[]
+  getExpandedData: (row: TData) => TData[];
 };
 
 export const ExpandableTable = <TData extends RowData>({
@@ -44,6 +44,10 @@ export const ExpandableTable = <TData extends RowData>({
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
   });
+
+  useEffect(() => {
+    table.toggleAllRowsExpanded();
+  }, []);
 
   return (
     <Card variant="2xl">
