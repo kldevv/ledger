@@ -11,7 +11,7 @@ type Query {
   getEntries(input: GetEntriesInput!): [Entry!]!
 
   # Report
-  getSumsByMonth(input: GetSumsByMonthInput!): [SumByMonth!]!
+  getMonthlyReports(input: GetMonthlyReportsInput!): [ReportRecord!]!
 
   # Tag
   getTag(input: GetTagInput!): Tag

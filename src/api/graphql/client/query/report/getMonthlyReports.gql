@@ -1,0 +1,8 @@
+query getMonthlyReports($input: GetMonthlyReportsInput!) {
+  getMonthlyReports(input: $input) {
+    encode
+    debit
+    credit
+    count
+  }
+}

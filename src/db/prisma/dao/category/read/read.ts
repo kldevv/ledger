@@ -50,7 +50,34 @@ export const readMany = async ({
         type,
         name,
         vaultId
+      },
+      include: {
+        accounts: true
       }
+    })
+  } catch (e) {
+    throw e
+  }
+}
+
+export namespace ReadGroupByType {
+  export type Args = {
+    /**
+     * Vault id
+     */
+    vaultId: string
+  }
+}
+
+export const readGroupByType = async ({
+  vaultId
+}: ReadMany.Args) => {
+  try {
+    return await prisma.category.groupBy({
+      by: ['type'],
+      where: {
+        vaultId
+      },
     })
   } catch (e) {
     throw e

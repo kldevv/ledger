@@ -1,14 +1,12 @@
-type SumByMonth {
-  accountId: String!
+type ReportRecord {
+  encode: String!
+  credit: Float!
+  debit: Float!
   count: Int!
-  year: Int!
-  month: Int!
-  debit: Int!
-  credit: Int!
 }
 
-input GetSumsByMonthInput {
-  startDate: DateTime
-  endDate: DateTime
-  type: Basis
+input GetMonthlyReportsInput {
+  year: Int!
+  vaultId: String!
+  basis: Basis
 }

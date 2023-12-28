@@ -1,9 +1,17 @@
-import { Layout } from '@/components/layout';
+import { Layout, PageHeader } from '@/components/layout';
+import { ReportDashboard } from '@/components/report';
+import { useTranslation } from 'next-i18next';
 
 const Page: React.FC = () => {
+  const { t } = useTranslation('report');
+
   return (
     <Layout>
-      <h1 className="text-dark-shades font-extrabold text-3xl">Reports</h1>
+      <PageHeader
+        title={t('page.index.title')}
+        subtitle={t('page.index.subtitle')}
+      />
+      <ReportDashboard />
     </Layout>
   );
 };
