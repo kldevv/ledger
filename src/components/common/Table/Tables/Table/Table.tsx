@@ -1,6 +1,6 @@
 import { ColumnDef, RowData, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { Card } from "..";
-import { Cell, Header, Row } from './Sub';
+import { Card } from "../../..";
+import { Cell, Header, Row } from '../../Sub';
 
 export type TableProps<TData extends RowData> = {
   /**
