@@ -73,7 +73,7 @@ export const ExpandableTable = <TData extends RowData>({
     <Card variant="2xl">
       <div className="w-full h-full max-w-xl max-h-screen overflow-x-auto">
         <table className="w-full h-full table-auto relative">
-          <thead className="sticky top-0 z-10">
+          <thead className="sticky top-0 z-30">
             {table.getHeaderGroups().map(({ id, headers }) => (
               <tr key={id}>
                 {headers.map((header, index) => (
@@ -82,7 +82,7 @@ export const ExpandableTable = <TData extends RowData>({
                     colSpan={header.colSpan}
                     className={classNames(
                       'bg-white',
-                      header.colSpan > 1 ? 'text-center' : undefined,
+                      'text-center',
                       index == 0
                         ? 'sticky left-0'
                         : index == 1
@@ -108,6 +108,8 @@ export const ExpandableTable = <TData extends RowData>({
                   <Cell
                     key={cell.id}
                     className={classNames(
+                      'z-20',
+                      index & 1 ? 'border-r border-mid-gray' : undefined,
                       index == 0
                         ? 'sticky left-0'
                         : index == 1

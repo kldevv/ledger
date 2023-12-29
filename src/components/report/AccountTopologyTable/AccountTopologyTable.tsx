@@ -3,7 +3,12 @@ import {
   ReportData,
   useGetAccountTopologyQuery,
 } from '@/api/graphql';
-import { Button, ExpandableTable } from '@/components/common';
+import {
+  Button,
+  ExpandableTable,
+  FormattedDate,
+  FormattedNumber,
+} from '@/components/common';
 import { useVaultContext } from '@/hooks';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import { createColumnHelper } from '@tanstack/react-table';
@@ -98,16 +103,26 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
           columnHelper.accessor('id', {
             header: t`AccountTopologyTable.header.subheader.debit`,
             id: `${dateEncode}.header.debit`,
-            cell: ({ getValue }) =>
-              reportDataMappings.get(`${getValue()}::${dateEncode}`)?.debit ??
-              0,
+            cell: ({ getValue }) => (
+              <FormattedNumber
+                value={
+                  reportDataMappings.get(`${getValue()}::${dateEncode}`)
+                    ?.debit ?? 0
+                }
+              />
+            ),
           }),
           columnHelper.accessor('id', {
             header: t`AccountTopologyTable.header.subheader.credit`,
             id: `${dateEncode}.header.credit`,
-            cell: ({ getValue }) =>
-              reportDataMappings.get(`${getValue()}::${dateEncode}`)?.credit ??
-              0,
+            cell: ({ getValue }) => (
+              <FormattedNumber
+                value={
+                  reportDataMappings.get(`${getValue()}::${dateEncode}`)
+                    ?.credit ?? 0
+                }
+              />
+            ),
           }),
         ],
       });
