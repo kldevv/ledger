@@ -15,11 +15,12 @@ type Data = Exclude<
   GetAccountTopologyQuery['getAccountTopology'],
   undefined | null
 >[number];
-type ReportTableData = Omit<Data, 'children'> & {
-  children: ReportTableData[];
+
+type AccountTopologyTableData = Omit<Data, 'children'> & {
+  children: AccountTopologyTableData[];
 };
 
-export interface ReportTableProps {
+export interface AccountTopologyTableProps {
   /**
    * Report data
    */
@@ -27,24 +28,22 @@ export interface ReportTableProps {
   /**
    * Start year
    */
-  startYear?: number;
+  year?: number;
   /**
    * Last month
    */
   months?: number;
 }
 
-const columnHelper = createColumnHelper<ReportTableData>();
+const columnHelper = createColumnHelper<AccountTopologyTableData>();
 
-const getExpandedData = (row: ReportTableData) => row.children;
+const getExpandedData = (row: AccountTopologyTableData) => row.children;
 
-export const ReportTable: React.FC<ReportTableProps> = ({
+export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
   reportData,
-  startYear = new Date().getFullYear(),
-  months = 12,
+  year = new Date().getFullYear(),
 }) => {
   const { t } = useTranslation('account');
-
   const [{ curVaultId }] = useVaultContext();
 
   const { data: topology } = useGetAccountTopologyQuery({
@@ -57,16 +56,14 @@ export const ReportTable: React.FC<ReportTableProps> = ({
   });
 
   const reportDataMappings = useMemo(() => {
-    const mappings = new Map<string, ReportData>()
+    const mappings = new Map<string, ReportData>();
 
     reportData.forEach((data) => {
-      mappings.set(data.encode, data)
-    })
+      mappings.set(data.encode, data);
+    });
 
     return mappings;
-  }, [reportData])
-
-  console.log(reportDataMappings);
+  }, [reportData]);
 
   const colDefs = [
     columnHelper.display({
@@ -83,7 +80,7 @@ export const ReportTable: React.FC<ReportTableProps> = ({
         ) : null,
     }),
     columnHelper.accessor('name', {
-      header: t('ReportTable.header.name'),
+      header: t('AccountTopologyTable.header.name'),
       cell: ({ getValue, row }) => (
         <span
           className={classNames(
@@ -91,28 +88,35 @@ export const ReportTable: React.FC<ReportTableProps> = ({
               ? 'ml-4'
               : row.depth == 2
               ? 'ml-8 text-dark-shades'
-              : ''
+              : '',
           )}
         >
           {getValue()}
         </span>
       ),
     }),
-    columnHelper.group({
-      header: '1',
-      columns: [
-        columnHelper.accessor('id', {
-          id: '213',
-          cell: ({ getValue }) =>
-            reportDataMappings.get(`${getValue()}::${2023}::${11}`)?.debit ?? 0,
-        }),
-        columnHelper.accessor('id', {
-          id: '456',
-          cell: ({ getValue }) =>
-            reportDataMappings.get(`${getValue()}::${2023}::${11}`)?.credit ??
-            0,
-        }),
-      ],
+    ...Array.from({ length: 12 }).map((_, month) => {
+      const dateEncode = `${year}::${month}`;
+
+      return columnHelper.group({
+        header: String(month),
+        columns: [
+          columnHelper.accessor('id', {
+            header: 'Debit',
+            id: `${dateEncode}.debit`,
+            cell: ({ getValue }) =>
+              reportDataMappings.get(`${getValue()}::${dateEncode}`)?.debit ??
+              0,
+          }),
+          columnHelper.accessor('id', {
+            header: 'Credit',
+            id: `${dateEncode}.credit`,
+            cell: ({ getValue }) =>
+              reportDataMappings.get(`${getValue()}::${dateEncode}`)?.credit ??
+              0,
+          }),
+        ],
+      });
     }),
   ];
 

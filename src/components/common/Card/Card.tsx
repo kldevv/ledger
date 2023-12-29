@@ -32,8 +32,8 @@ export const Card: React.FC<CardProps> = ({ children, variant = 'md' }) => {
   const cn = classNames(
     '-mx-5 mt-6',
     'rounded-lg shadow box-shadow shadow-mid-gray',
-    'w-full',
-    'bg-white',
+    'w-full max-w-2xl',
+    'bg-white'
   );
 
   return (

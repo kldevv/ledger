@@ -57,7 +57,11 @@ export const ExpandableTable = <TData extends RowData>({
             {table.getHeaderGroups().map(({ id, headers }) => (
               <Row key={id} index={1}>
                 {headers.map((header) => (
-                  <Header key={header.id}>
+                  <Header
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    className={header.colSpan > 1 ? 'text-center' : ''}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(

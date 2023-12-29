@@ -1,6 +1,6 @@
 import { useGetMonthlyReportsQuery } from '@/api/graphql';
 import { useVaultContext } from '@/hooks';
-import { ReportTable } from '..';
+import { AccountTopologyTable } from '..';
 
 export const ChangesReport: React.FC = () => {
   const [{ curVaultId }] = useVaultContext();
@@ -15,7 +15,5 @@ export const ChangesReport: React.FC = () => {
     skip: curVaultId == null,
   });
 
-  console.log(data, error);
-
-  return <ReportTable reportData={data?.getMonthlyReports ?? []} />;
+  return <AccountTopologyTable reportData={data?.getMonthlyReports ?? []} />;
 };

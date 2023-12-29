@@ -21,6 +21,7 @@ export const Row: React.FC<RowProps> = ({ children, index, className }) => {
       className={classNames(
         'rounded-lg',
         index & 1 ? 'bg-white' : 'bg-light-shades',
+        'relative',
         className
       )}
     >
