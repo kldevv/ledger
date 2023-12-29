@@ -256,12 +256,12 @@ export const readSumsByTransactionMonth = async ({ vaultId, year }: ReadSumsByTr
         SUM(e."debit") as debit
       FROM
         "Entry" e
-      WHERE
-        e."vaultId" = ${vaultId}
       JOIN
         "Account" a on a."id" = e."accountId"
       JOIN
         "Category" c on c."id" = a."categoryId"
+      WHERE
+        e."vaultId" = ${vaultId}
       GROUP BY
         e."accountId", a."categoryId", c."type", month, year;
     `

@@ -43,7 +43,7 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
   reportData,
   year = new Date().getFullYear(),
 }) => {
-  const { t } = useTranslation('account');
+  const { t } = useTranslation('report');
   const [{ curVaultId }] = useVaultContext();
 
   const { data: topology } = useGetAccountTopologyQuery({
@@ -66,51 +66,45 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
   }, [reportData]);
 
   const colDefs = [
-    columnHelper.display({
-      id: 'expanded',
-      cell: ({ row }) =>
-        row.getCanExpand() ? (
-          <Button onClick={row.getToggleExpandedHandler()}>
-            {row.getIsExpanded() ? (
-              <ChevronDownIcon className="w-3 h-3" />
-            ) : (
-              <ChevronRightIcon className="w-3 h-3" />
-            )}
-          </Button>
-        ) : null,
-    }),
     columnHelper.accessor('name', {
-      header: t('AccountTopologyTable.header.name'),
+      header: '',
       cell: ({ getValue, row }) => (
         <span
           className={classNames(
+            'whitespace-nowrap',
             row.depth == 1
-              ? 'ml-4'
+              ? 'ml-4 text-gray'
               : row.depth == 2
               ? 'ml-8 text-dark-shades'
-              : '',
+              : undefined
           )}
         >
           {getValue()}
         </span>
       ),
     }),
-    ...Array.from({ length: 12 }).map((_, month) => {
+    ...Array.from({ length: 12 }).map((_, index) => {
+      const month = index + 1;
       const dateEncode = `${year}::${month}`;
 
       return columnHelper.group({
-        header: String(month),
+        id: dateEncode,
+        header: () => (
+          <span className="text-light-accent font-semibold">
+            {t(`AccountTopologyTable.header.${month}`)}
+          </span>
+        ),
         columns: [
           columnHelper.accessor('id', {
-            header: 'Debit',
-            id: `${dateEncode}.debit`,
+            header: t`AccountTopologyTable.header.subheader.debit`,
+            id: `${dateEncode}.header.debit`,
             cell: ({ getValue }) =>
               reportDataMappings.get(`${getValue()}::${dateEncode}`)?.debit ??
               0,
           }),
           columnHelper.accessor('id', {
-            header: 'Credit',
-            id: `${dateEncode}.credit`,
+            header: t`AccountTopologyTable.header.subheader.credit`,
+            id: `${dateEncode}.header.credit`,
             cell: ({ getValue }) =>
               reportDataMappings.get(`${getValue()}::${dateEncode}`)?.credit ??
               0,

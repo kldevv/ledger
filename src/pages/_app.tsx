@@ -13,7 +13,7 @@ const App: AppType = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={apolloClient}>
       <VaultContextProvider>
-        <Component {...pageProps} />
+        <Component {...pageProps}/>
       </VaultContextProvider>
     </ApolloProvider>
   );

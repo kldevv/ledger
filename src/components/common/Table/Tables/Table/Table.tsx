@@ -1,6 +1,6 @@
 import { ColumnDef, RowData, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Card } from "../../..";
-import { Cell, Header, Row } from '../../Sub';
+import { Cell, Header } from '../../Sub';
 
 export type TableProps<TData extends RowData> = {
   /**
@@ -29,7 +29,7 @@ export const Table = <TData extends RowData>({
         <table className="w-full h-full table-auto">
           <thead>
             {table.getHeaderGroups().map(({ id, headers }) => (
-              <Row key={id} index={1}>
+              <tr key={id}>
                 {headers.map((header) => (
                   <Header key={header.id}>
                     {header.isPlaceholder
@@ -40,22 +40,25 @@ export const Table = <TData extends RowData>({
                         )}
                   </Header>
                 ))}
-              </Row>
+              </tr>
             ))}
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row, index) => (
-              <Row key={row.id} index={index}>
+              <tr
+                key={row.id}
+                className={index & 1 ? 'bg-white' : 'bg-light-shades'}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <Cell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </Cell>
                 ))}
-              </Row>
+              </tr>
             ))}
           </tbody>
         </table>
       </div>
     </Card>
-  )
+  );
 }
