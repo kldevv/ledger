@@ -103,8 +103,9 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
           columnHelper.accessor('id', {
             header: t`AccountTopologyTable.header.subheader.debit`,
             id: `${dateEncode}.header.debit`,
-            cell: ({ getValue }) => (
+            cell: ({ getValue, row }) => (
               <FormattedNumber
+                className={row.depth < 2 ? 'border-b' : undefined}
                 value={
                   reportDataMappings.get(`${getValue()}::${dateEncode}`)
                     ?.debit ?? 0
@@ -115,8 +116,9 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
           columnHelper.accessor('id', {
             header: t`AccountTopologyTable.header.subheader.credit`,
             id: `${dateEncode}.header.credit`,
-            cell: ({ getValue }) => (
+            cell: ({ getValue, row }) => (
               <FormattedNumber
+                className={row.depth < 2 ? 'border-b' : undefined}
                 value={
                   reportDataMappings.get(`${getValue()}::${dateEncode}`)
                     ?.credit ?? 0

@@ -10,7 +10,6 @@ export const ChangesReport: React.FC = () => {
       input: {
         vaultId: curVaultId ?? '',
         year: 2023,
-        basis: Basis.CASH
       },
     },
     skip: curVaultId == null,

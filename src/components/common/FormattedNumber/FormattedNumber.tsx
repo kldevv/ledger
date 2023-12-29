@@ -17,9 +17,9 @@ export const FormattedNumber: React.FC<FormattedNumberProps> = ({
   className,
 }) => {
   return (
-    <div className="w-30 flex items-center">
+    <div className={classNames('w-30 flex items-center', className)}>
       <div className="font-normal text-xs">US$</div>
-      <div className={classNames('ml-auto pl-8', className)}>
+      <div className="ml-auto pl-8">
         {numericFormatter(String(value), {
           decimalScale: 2,
           thousandSeparator: ',',
