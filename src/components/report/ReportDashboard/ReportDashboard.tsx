@@ -33,6 +33,7 @@ export const ReportDashboard: React.FC = () => {
         basis: accountingBasis,
       },
     },
+    fetchPolicy: 'network-only',
     skip: curVaultId == null,
   });
 
