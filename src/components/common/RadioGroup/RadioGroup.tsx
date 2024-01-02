@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { RadioGroup as HeadlessRadioGroup } from '@headlessui/react';
 
-export interface RadioGroupProps {
+export interface RadioGroupProps<TType> {
   /**
    * Radio group label
    */
@@ -13,7 +13,7 @@ export interface RadioGroupProps {
     /**
      * Option key
      */
-    value: string;
+    value: TType;
     /**
      * Option label
      */
@@ -22,19 +22,19 @@ export interface RadioGroupProps {
   /**
    * On change
    */
-  onChange?: () => void
+  onChange?: (value: TType) => void;
 }
 
-export const RadioGroup: React.FC<RadioGroupProps> = ({
+export const RadioGroup = <TType, >({
   options,
   label,
   onChange,
-}) => {
-  const [selected, setSelected] = useState(options[0].value);
+}: RadioGroupProps<TType>) => {
+  const [selected, setSelected] = useState<TType>(options[0].value);
 
   const handleOnChange = useCallback(
-    (value: RadioGroupProps['options'][number]['value']) => {
-      onChange?.();
+    (value: TType) => {
+      onChange?.(value);
       setSelected(value);
     },
     [onChange, setSelected]
@@ -48,7 +48,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       <div className="flex">
         {options.map(({ label, value }) => (
           <HeadlessRadioGroup.Option
-            key={value}
+            key={label}
             value={value}
             className={({ checked }) =>
               `flex focus:outline-none cursor-pointer first:rounded-l-lg last:rounded-r-lg border px-12 bg-white ${
