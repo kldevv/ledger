@@ -5,8 +5,8 @@ export const getTransactions: QueryResolvers['getTransactions'] = async (
 ) => {
   const transactions = await prisma.transaction.readMany({ vaultId, tagId: tagId ?? undefined })
 
-  return transactions.map((transaction) => ({
-    ...transaction,
-    status: transaction.entries?.some(({ status }) => status === EntryStatus.PENDING) ? EntryStatus.PENDING : EntryStatus.COMPLETED
+  return transactions.map(({ entries, ...rest}) => ({
+    ...rest,
+    status: entries?.some(({ status }) => status === EntryStatus.PENDING) ? EntryStatus.PENDING : EntryStatus.COMPLETED
   }))
 }
