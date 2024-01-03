@@ -1,20 +1,9 @@
 import prisma from "@/db/prisma/client"
 import { EntryDao } from "../.."
+import { Transaction } from "@prisma/client"
 
 export namespace CreateOne {
-  export type Args = {
-    /**
-     * Accrual date
-     */
-    accrualDate: Date
-    /**
-     * Transaction note
-     */
-    note: string
-    /**
-     * Vault id
-     */
-    vaultId: string
+  export type Args = Omit<Transaction, 'createdDate' | 'updatedDate' | 'id'> & {
     /**
      * List of tag ids to connect to
      */
@@ -22,44 +11,28 @@ export namespace CreateOne {
     /**
      * List of entries of the transaction
      */
-    entries: Omit<EntryDao.CreateOne.Args, 'transactionId'>[]
+    entries: Omit<EntryDao.CreateOne.Args, 'transactionId' | 'vaultId'>[]
   }
 }
 
 export const createOne = async ({
-  accrualDate,
-  vaultId,
   tagIds,
-  note,
   entries,
+  ...rest
 }: CreateOne.Args) => {
   try {
-    // console.log(accrualDate,
-    //   vaultId,
-    //   tagIds,
-    //   note,
-    //   entries,)
-
-    // return {
-    //   id: '131',
-    //   note: 'Some random note',
-    //   tags: [],
-    //   accrualDate: new Date(),
-    //   createdDate: new Date(),
-    //   updatedDate: new Date(),
-    //   vaultId: '111',
-    // }
     return await prisma.transaction.create({
       data: {
-        accrualDate,
-        vaultId,
-        note,
+        ...rest,
         tags: {
           connect: tagIds.map((id) => ({ id }))
         },
         entries: {
           createMany: {
-            data: entries
+            data: entries.map(entry => ({
+              ...entry,
+              vaultId: rest.vaultId
+            }))
           }
         }
       },

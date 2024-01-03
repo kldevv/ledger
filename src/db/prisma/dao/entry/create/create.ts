@@ -2,7 +2,7 @@ import prisma from "@/db/prisma/client"
 import { Entry } from "@prisma/client"
 
 export namespace CreateOne {
-  export type Args = Omit<Entry, 'createdDate' | 'updatedDate'>
+  export type Args = Omit<Entry, 'createdDate' | 'updatedDate' | 'id'>
 }
 
 export const createOne = async (args: CreateOne.Args) => {

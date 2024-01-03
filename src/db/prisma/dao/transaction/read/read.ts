@@ -1,12 +1,8 @@
 import prisma from "@/db/prisma/client"
+import { Transaction } from "@prisma/client"
 
 export namespace ReadOne {
-  export type Args = {
-    /**
-     * Transactio id
-     */
-    id: string
-  }
+  export type Args = Pick<Transaction, 'id'>
 }
 
 export const readOne = async ({ id }: ReadOne.Args) => {
@@ -25,21 +21,7 @@ export const readOne = async ({ id }: ReadOne.Args) => {
 }
 
 export namespace ReadMany {
-  export type Args = {
-    // TODO: Support query by date range
-    /**
-     * Accrual date
-     */
-    accrualDate?: Date
-    // TODO: Support query by text
-    /**
-     * Transaction note
-     */
-    note?: string
-    /**
-     * Vault id
-     */
-    vaultId: string
+  export type Args = Partial<Omit<Transaction, 'createdDate' | 'updatedDate' | 'id'>> & {
     /**
      * Tag id
      */
@@ -81,60 +63,3 @@ export const readMany = async ({
     throw e
   }
 }
-
-// TODO: Support query by Tag and Entry
-// TODO: Support pagination
-
-
-
-const tags = [
-  {
-    name: 'Super longlonglonglonglonglonglonglonglong name',
-    vaultId: '00',
-    id: '1',
-    createdDate: new Date(),
-    updatedDate: new Date(),
-  },
-  {
-    name: '99',
-    vaultId: '00',
-    id: '3',
-    createdDate: new Date(),
-    updatedDate: new Date(),
-  },
-  {
-    name: '4',
-    vaultId: '00',
-    id: '2',
-    createdDate: new Date(),
-    updatedDate: new Date(),
-  },
-  {
-    name: 'Groceries',
-    vaultId: '00',
-    id: '3',
-    createdDate: new Date(),
-    updatedDate: new Date(),
-  },
-  {
-    name: 'Food',
-    vaultId: '00',
-    id: '4',
-    createdDate: new Date(),
-    updatedDate: new Date(),
-  },
-  {
-    name: 'Denver',
-    vaultId: '00',
-    id: '6',
-    createdDate: new Date(),
-    updatedDate: new Date(),
-  },
-  {
-    name: 'Hawaii',
-    vaultId: '00',
-    id: '100',
-    createdDate: new Date(),
-    updatedDate: new Date(),
-  },
-]

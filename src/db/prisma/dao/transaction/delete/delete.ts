@@ -1,21 +1,12 @@
 import prisma from "@/db/prisma/client"
-import { TransactionWithDetail } from "../type"
-
+import { Transaction } from "@prisma/client"
 
 export namespace DeleteOne {
-  export type Args = {
-    /**
-     * Transaction id
-     */
-    id: string
-  }
-
-  export type Returns = TransactionWithDetail
+  export type Args = Pick<Transaction, 'id'>
 }
 
-export const deleteOne = async ({ id }: DeleteOne.Args): Promise<DeleteOne.Returns> => {
+export const deleteOne = async ({ id }: DeleteOne.Args) => {
   try {
-    // TODO: Delete relational tag before deleting the transaction
     return await prisma.transaction.delete({
       where: {
         id,

@@ -1,4 +1,5 @@
 import prisma from "@/db/prisma/client"
+import { CreateOne } from ".."
 import { EntryDao } from "../.."
 
 export namespace UpdateOne {
@@ -13,31 +14,15 @@ export namespace UpdateOne {
     data: Data
   }
 
-  export type Data = {
-    /**
-     * New transaction note
-     */
-    note?: string
-    /**
-     * New accrual date
-     */
-    accrualDate?: Date
-    /**
-     * New list of tag ids to connect to
-     */
-    tagIds?: string[]
-    /**
-     * New list of entries of the transaction
-     */
+  export type Data = Partial<Omit<CreateOne.Args, 'entries'>> & {
     entries?: Omit<EntryDao.CreateOne.Args, 'transactionId'>[]
   }
 }
 
 export const updateOne = async ({ id, data: {
-  accrualDate,
-  note,
+  entries,
   tagIds,
-  entries
+  ...rest
 }}: UpdateOne.Args) => {
   try {
     return await prisma.transaction.update({
@@ -45,8 +30,7 @@ export const updateOne = async ({ id, data: {
         id
       },
       data: {
-        accrualDate,
-        note, 
+        ...rest,
         tags: tagIds ? {
           set: [],
           connect: tagIds.map((id) => ({ id }))
