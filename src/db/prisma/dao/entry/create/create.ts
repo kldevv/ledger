@@ -1,65 +1,14 @@
 import prisma from "@/db/prisma/client"
-import { EntryStatus } from "@prisma/client"
+import { Entry } from "@prisma/client"
 
 export namespace CreateOne {
-  export type Args = {
-    /**
-     * Transaction date
-     */
-    transactionDate: Date
-    /**
-     * Account id
-     */
-    accountId: string
-    /**
-     * Entry debit
-     */
-    debit: number
-    /**
-     * Entry credit
-     */
-    credit: number
-    /**
-     * Optional memorandum
-     */
-    memo: string
-    /**
-     * Transaction id
-     */
-    transactionId: string
-    /**
-     * Optional status, default is `PENDING`
-     */
-    status?: EntryStatus
-    /**
-     * Vault id
-     */
-    vaultId: string
-  }
+  export type Args = Omit<Entry, 'createdDate' | 'updatedDate'>
 }
 
-export const createOne = async ({ 
-  transactionDate,
-  accountId,
-  debit,
-  credit,
-  transactionId,
-  memo,
-  status = EntryStatus.PENDING,
-  vaultId,
- }: CreateOne.Args) => {
+export const createOne = async (args: CreateOne.Args) => {
   try {
     await prisma.entry.create({
-      data: {
-        transactionDate,
-        accountId,
-        debit,
-        credit,
-        transactionId,
-        memo,
-        status,
-        vaultId,
-      }
+      data: args
     })
   } catch (e) {
     throw e

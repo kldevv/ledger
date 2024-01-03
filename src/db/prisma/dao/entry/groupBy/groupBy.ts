@@ -1,6 +1,7 @@
-import { CategoryType } from "@prisma/client";
+import prisma from "@/db/prisma/client";
+import { Account, Category, Entry, EntryStatus, Prisma } from "@prisma/client";
 
-export namespace GroupBy {
+export namespace GroupByDate {
   export type Filter = {
     /**
      * By year
@@ -11,12 +12,12 @@ export namespace GroupBy {
      */
     month: number
     /**
-     * 
+     * By status
      */
-    status: string
+    status: EntryStatus | 'All'
   }
 
-  export type Args = {
+  export type Args = Pick<Entry, 'vaultId'> & {
     /**
      * Group by target
      */
@@ -26,36 +27,20 @@ export namespace GroupBy {
      */
     basis: 'ACCURAL' | 'CASH'
     /**
+     * Amount handle
+     */
+    amountHandle: 'NET' | 'RAW'
+    /**
      * Optional filter 
      */
     filter?: Filter
-    /**
-     * Vault id
-     */
-    vaultId: string;
   };
 
-  export type Returns = {
-    /**
-     * Account id
-     */
-    accountId: string;
-    /**
-     * Category id
-     */
-    categoryId: string;
-    /**
-     * Category type
-     */
-    type: CategoryType;
+  export type Returns = Pick<Entry, 'accountId'> & Pick<Account, 'categoryId'> & Pick<Category, 'type'> & {
     /**
      * Month
      */
-    month: number;
-    /**
-     * Year
-     */
-    year: number;
+    groupBy: number;
     /**
      * Number of entries per group
      */
@@ -63,10 +48,70 @@ export namespace GroupBy {
     /**
      * Total debit
      */
-    debit: number;
+    debit?: number;
     /**
      * Total credit
      */
-    credit: number;
+    credit?: number;
+    /**
+     * Total amount
+     */
+    amount?: number
   }[];
+}
+
+
+export const groupByDate = async ({ vaultId, amountHandle, basis, groupBy, filter }: GroupByDate.Args) => {
+  try {
+    const sumSelect = (() => {
+      switch (amountHandle) {
+        case 'NET':
+          return Prisma.sql`SUM(e."amount") as amount,`
+        case 'RAW':
+          return Prisma.sql`
+            SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as debit,
+            SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as credit,
+          `
+      }
+    })()
+
+    const [groupBySelect, transactionTableJoinClause] = (() => {
+      switch (basis) {
+        case 'ACCURAL':
+          return [
+            Prisma.sql`EXTRACT(${groupBy} FROM e."transactionDate") as groupBy,`,
+            Prisma.empty
+          ]
+        case 'CASH':
+          return [
+            Prisma.sql`EXTRACT(${groupBy} FROM t."accrualDate") as groupBy,`,
+            Prisma.sql`JOIN "Transaction" t on t."id" = e."transactionId"`
+          ]
+      }
+    })()
+
+    return await prisma.$queryRaw<GroupByDate.Returns>`
+      SELECT
+        ${sumSelect}
+        ${groupBySelect}
+        CAST(COUNT(*) AS INTEGER) as count,
+        e."accountId",
+        a."categoryId",
+        c."type",
+      FROM
+        "Entry" e
+      ${transactionTableJoinClause}
+      JOIN
+        "Account" a on a."id" = e."accountId"
+      JOIN
+        "Category" c on c."id" = a."categoryId"
+      WHERE
+        e."vaultId" = ${vaultId}
+      GROUP BY
+        e."accountId", a."categoryId", c."type", groupBy;
+    `
+
+  } catch (e) {
+    throw e
+  }
 }

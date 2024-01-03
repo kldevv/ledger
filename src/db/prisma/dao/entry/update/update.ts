@@ -1,56 +1,21 @@
 import prisma from "@/db/prisma/client"
-import { Entry, EntryStatus } from "@prisma/client"
+import { Entry } from "@prisma/client"
 
 export namespace UpdateOne {
-  export type Args = {
-    /**
-     * Entry id
-     */
-    id: string
+  export type Args = Pick<Entry, 'id'> & {
     /**
      * Update data
      */
     data: Data
   }
 
-  export type Data = {
-    /**
-     * New transaction date
-     */
-    transactionDate?: Date
-    /**
-     * New account id
-     */
-    accountId?: string
-    /**
-     * New entry debit
-     */
-    debit?: number
-    /**
-     * New entry credit
-     */
-    credit?: number
-    /**
-     * New memorandum
-     */
-    memo?: string
-    /**
-     * New transaction id
-     */
-    transactionId: string
-    /**
-     * New status
-     */
-    status?: EntryStatus
-  }
-
-  export type Returns = Entry
+  export type Data = Partial<Omit<Entry, 'createdDate' | 'updatedDate' | 'id'>>
 }
 
-export const updateOne = async ({ 
+export const updateOne = async ({
   id,
   data
- }: UpdateOne.Args): Promise<UpdateOne.Returns> => {
+}: UpdateOne.Args) => {
   try {
     return await prisma.entry.update({
       where: {
