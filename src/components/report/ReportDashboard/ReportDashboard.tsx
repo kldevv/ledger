@@ -1,4 +1,4 @@
-import { Basis, useGetMonthlyReportsQuery } from '@/api/graphql';
+import { AmountHandle, Basis, ReportDateGroupBy, useGetReportsQuery } from '@/api/graphql';
 import { useVaultContext } from '@/hooks';
 import { AccountTopologyTable } from '..';
 import { useCallback, useMemo, useState } from 'react';
@@ -25,12 +25,13 @@ export const ReportDashboard: React.FC = () => {
     [t]
   );
 
-  const { data, error } = useGetMonthlyReportsQuery({
+  const { data, error } = useGetReportsQuery({
     variables: {
       input: {
         vaultId: curVaultId ?? '',
-        year: 2023,
         basis: accountingBasis,
+        amountHandle: AmountHandle.DEBIT_CREDIT,
+        groupBy: ReportDateGroupBy.MONTH
       },
     },
     fetchPolicy: 'network-only',
@@ -63,8 +64,7 @@ export const ReportDashboard: React.FC = () => {
         />
       </div>
       <AccountTopologyTable
-        reportData={data?.getMonthlyReports ?? []}
-        year={2023}
+        reportData={data?.getReports ?? []}
       />
     </div>
   );

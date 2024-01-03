@@ -30,14 +30,6 @@ export interface AccountTopologyTableProps {
    * Report data
    */
   reportData: ReportData[];
-  /**
-   * Start year
-   */
-  year?: number;
-  /**
-   * Last month
-   */
-  months?: number;
 }
 
 const columnHelper = createColumnHelper<AccountTopologyTableData>();
@@ -46,7 +38,6 @@ const getExpandedData = (row: AccountTopologyTableData) => row.children;
 
 export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
   reportData,
-  year = new Date().getFullYear(),
 }) => {
   const { t } = useTranslation('report');
   const [{ curVaultId }] = useVaultContext();
@@ -88,12 +79,11 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
         </span>
       ),
     }),
-    ...Array.from({ length: 12 }).map((_, index) => {
-      const month = index + 1;
-      const dateEncode = `${year}::${month}`;
+    ...Array.from({ length: 12 }).map((value, index) => {
+      const month = index + 1
 
       return columnHelper.group({
-        id: dateEncode,
+        id: String(month),
         header: () => (
           <span className="text-light-accent font-semibold">
             {t(`AccountTopologyTable.header.${month}`)}
@@ -102,26 +92,24 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
         columns: [
           columnHelper.accessor('id', {
             header: t`AccountTopologyTable.header.subheader.debit`,
-            id: `${dateEncode}.header.debit`,
+            id: `${month}.debit`,
             cell: ({ getValue, row }) => (
               <FormattedNumber
                 className={row.depth < 2 ? 'border-b' : undefined}
                 value={
-                  reportDataMappings.get(`${getValue()}::${dateEncode}`)
-                    ?.debit ?? 0
+                  reportDataMappings.get(`${getValue()}::${month}`)?.debit ?? 0
                 }
               />
             ),
           }),
           columnHelper.accessor('id', {
             header: t`AccountTopologyTable.header.subheader.credit`,
-            id: `${dateEncode}.header.credit`,
+            id: `${month}.credit`,
             cell: ({ getValue, row }) => (
               <FormattedNumber
                 className={row.depth < 2 ? 'border-b' : undefined}
                 value={
-                  reportDataMappings.get(`${getValue()}::${dateEncode}`)
-                    ?.credit ?? 0
+                  reportDataMappings.get(`${getValue()}::${month}`)?.credit ?? 0
                 }
               />
             ),

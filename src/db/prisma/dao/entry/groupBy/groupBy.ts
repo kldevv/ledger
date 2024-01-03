@@ -75,16 +75,27 @@ export const groupByDate = async ({ vaultId, amountHandle, basis, groupBy, filte
       }
     })()
 
+    const dateExtract = (() => {
+      switch (groupBy) {
+        case 'MONTH':
+          return Prisma.sql`MONTH`
+        case 'QUARTER':
+          return Prisma.sql`QUARTER`
+        case 'YEAR':
+          return Prisma.sql`YEAR`
+      }
+    })()
+
     const [groupBySelect, transactionTableJoinClause] = (() => {
       switch (basis) {
         case 'ACCRUAL':
           return [
-            Prisma.sql`EXTRACT(${groupBy} FROM e."transactionDate") as groupBy,`,
+            Prisma.sql`EXTRACT(${dateExtract} FROM e."transactionDate") as "groupBy",`,
             Prisma.empty
           ]
         case 'CASH':
           return [
-            Prisma.sql`EXTRACT(${groupBy} FROM t."accrualDate") as groupBy,`,
+            Prisma.sql`EXTRACT(${dateExtract} FROM t."accrualDate") as "groupBy",`,
             Prisma.sql`JOIN "Transaction" t on t."id" = e."transactionId"`
           ]
       }
@@ -97,7 +108,7 @@ export const groupByDate = async ({ vaultId, amountHandle, basis, groupBy, filte
         CAST(COUNT(*) AS INTEGER) as count,
         e."accountId",
         a."categoryId",
-        c."type",
+        c."type"
       FROM
         "Entry" e
       ${transactionTableJoinClause}
@@ -108,7 +119,7 @@ export const groupByDate = async ({ vaultId, amountHandle, basis, groupBy, filte
       WHERE
         e."vaultId" = ${vaultId}
       GROUP BY
-        e."accountId", a."categoryId", c."type", groupBy;
+        e."accountId", a."categoryId", c."type", "groupBy";
     `
 
   } catch (e) {

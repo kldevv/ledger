@@ -42,7 +42,10 @@ export const RadioGroup = <TType, >({
 
   return (
     <HeadlessRadioGroup value={selected} onChange={handleOnChange}>
-      <HeadlessRadioGroup.Label className="sr-only">
+      <HeadlessRadioGroup.Label
+        className="sr-only"
+        as='p'
+      >
         {label}
       </HeadlessRadioGroup.Label>
       <div className="flex">
