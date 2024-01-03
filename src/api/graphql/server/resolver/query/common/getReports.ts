@@ -7,7 +7,7 @@ export const getReports: QueryResolvers['getReports'] = async (
 
   const mappings = new Map<string, ReportData>()
 
-  data.forEach(({ categoryId, accountId, type, groupBy, debit, credit, amount, count }) => {
+  data.forEach(({ categoryId, accountId, type, groupBy, debit, credit, count }) => {
     const ids = [categoryId, accountId, type]
 
     ids.forEach((id: string) => {
@@ -15,9 +15,8 @@ export const getReports: QueryResolvers['getReports'] = async (
       const record = mappings.get(encode)
 
       mappings.set(encode, {
-        debit: (debit ?? 0) + (record?.debit ?? 0),
-        credit: (credit ?? 0) + (record?.credit ?? 0),
-        amount: (amount ?? 0) + (record?.amount ?? 0),
+        debit: debit + (record?.debit ?? 0),
+        credit: credit + (record?.credit ?? 0),
         count: count + (record?.count ?? 0),
         encode: encode
       })

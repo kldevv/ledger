@@ -16,6 +16,7 @@ type Query {
 
   # Report
   getReports(input: GetReportsInput!): [ReportData!]!
+  getReportsBalance(input: GetReportsInput!): [ReportData!]!
 
   # Tag
   getTag(input: GetTagInput!): Tag

@@ -4,6 +4,5 @@ query getReports($input: GetReportsInput!) {
     debit
     credit
     count
-    amount
   }
 }

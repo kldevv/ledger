@@ -2,6 +2,7 @@ import {
   Basis,
   ReportData,
   ReportDateGroupBy,
+  useGetReportsBalanceQuery,
   useGetReportsQuery,
 } from '@/api/graphql';
 import { useVaultContext } from '@/hooks';
@@ -86,7 +87,7 @@ export const ReportDashboard: React.FC = () => {
     [t]
   );
 
-  const { data: reportData, error } = useGetReportsQuery({
+  const { data: reportData, error } = useGetReportsBalanceQuery({
     variables: {
       input: {
         vaultId: curVaultId ?? '',
@@ -98,10 +99,12 @@ export const ReportDashboard: React.FC = () => {
     skip: curVaultId == null,
   });
 
+  console.log(reportData)
+
   const reportDataMappings = useMemo(() => {
     const mappings = new Map<string, ReportData>();
 
-    reportData?.getReports.forEach((data) => {
+    reportData?.getReportsBalance.forEach((data) => {
       mappings.set(data.encode, data);
     });
 

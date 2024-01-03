@@ -1,0 +1,8 @@
+query getReportsBalance($input: GetReportsInput!) {
+  getReportsBalance(input: $input) {
+    encode
+    debit
+    credit
+    count
+  }
+}

@@ -1,9 +1,8 @@
 type ReportData {
   encode: String!
   credit: Float
-  debit: Float
-  amount: Float
-  count: Int
+  debit: Float!
+  count: Int!
 }
 
 input GetReportsInput {

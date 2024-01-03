@@ -1,3 +1,4 @@
+import { Basis } from "@/api/graphql";
 import prisma from "@/db/prisma/client";
 import { Account, Category, Entry, EntryStatus, Prisma } from "@prisma/client";
 
@@ -34,7 +35,7 @@ export namespace GroupByDate {
 
   export type Returns = (Pick<Entry, 'accountId'> & Pick<Account, 'categoryId'> & Pick<Category, 'type'> & {
     /**
-     * Month
+     * Group by
      */
     groupBy: number;
     /**
@@ -44,15 +45,11 @@ export namespace GroupByDate {
     /**
      * Total debit
      */
-    debit?: number;
+    debit: number;
     /**
      * Total credit
      */
-    credit?: number;
-    /**
-     * Total amount
-     */
-    amount?: number
+    credit: number;
   })[];
 }
 
@@ -72,12 +69,12 @@ export const groupByDate = async ({ vaultId, basis, groupBy, filter }: GroupByDa
 
     const [groupByDateSelect, transactionTableJoinClause] = (() => {
       switch (basis) {
-        case 'ACCRUAL':
+        case 'CASH':
           return [
             Prisma.sql`EXTRACT(${dateExtract} FROM e."transactionDate") as "groupBy",`,
             Prisma.empty
           ]
-        case 'CASH':
+        case 'ACCRUAL':
           return [
             Prisma.sql`EXTRACT(${dateExtract} FROM t."accrualDate") as "groupBy",`,
             Prisma.sql`JOIN "Transaction" t on t."id" = e."transactionId"`
@@ -109,5 +106,76 @@ export const groupByDate = async ({ vaultId, basis, groupBy, filter }: GroupByDa
 
   } catch (e) {
     throw e
+  }
+}
+
+export namespace GroupBy {
+  export type Args = Pick<Entry, 'vaultId'> & {
+    /**
+     * Start date
+     */
+    startDate?: Date
+    /**
+     * Basis
+     */
+    basis: Basis
+  }
+
+  export type Returns = (Pick<Entry, 'accountId'> & Pick<Account, 'categoryId'> & Pick<Category, 'type'> & {
+    /**
+     * Number of entries per group
+     */
+    count: number;
+    /**
+     * Total debit
+     */
+    debit: number;
+    /**
+     * Total credit
+     */
+    credit: number;
+  })[];
+}
+
+export const groupBy = async ({ vaultId, startDate, basis }: GroupBy.Args) => {
+  try {
+    const [transactionTableJoinClause, whereStartDateFilter] = (() => {
+      switch (basis) {
+        case 'CASH':
+          return [
+            Prisma.empty,
+            Prisma.sql`e."transactionDate" >= ${startDate?.toISOString()}`
+          ]
+        case 'ACCRUAL':
+          return [
+            Prisma.sql`JOIN "Transaction" t on t."id" = e."transactionId"`,
+            Prisma.sql`t."accrualDate" >= ${startDate?.toISOString()}`
+          ]
+      }
+    })()
+
+    return await prisma.$queryRaw<GroupBy.Returns>`
+      SELECT
+        SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as debit,
+        SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as credit,
+        CAST(COUNT(*) AS INTEGER) as count,
+        e."accountId",
+        a."categoryId",
+        c."type"
+      FROM
+        "Entry" e
+      ${transactionTableJoinClause}
+      JOIN
+        "Account" a on a."id" = e."accountId"
+      JOIN
+        "Category" c on c."id" = a."categoryId"
+      WHERE
+        e."vaultId" = ${vaultId}
+        AND ${whereStartDateFilter}
+      GROUP BY
+        e."accountId", a."categoryId", c."type", "groupBy";
+    `
+  } catch (e) {
+
   }
 }
