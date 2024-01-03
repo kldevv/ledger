@@ -7,12 +7,15 @@ type Query {
   getCategories(input: GetCategoriesInput!): [Category!]!
   getCategory(input: GetCategoryInput!): Category
 
+  # Common
+  getAccountTopology(input: GetAccountTopologyInput!): [AccountTopology!]!
+  getMinMaxDate(input: GetMinMaxDateInput!): MinMaxDate!
+
   # Entry
   getEntries(input: GetEntriesInput!): [Entry!]!
 
   # Report
   getReports(input: GetReportsInput!): [ReportData!]!
-  getAccountTopology(input: GetAccountTopologyInput!): [AccountTopology!]!
 
   # Tag
   getTag(input: GetTagInput!): Tag

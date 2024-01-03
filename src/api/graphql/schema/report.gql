@@ -6,20 +6,10 @@ type ReportData {
   count: Int
 }
 
-type AccountTopology {
-  id: String!
-  name: String!
-  children: [AccountTopology!]!
-}
-
 input GetReportsInput {
   year: Int
   vaultId: String!
   basis: Basis!
   amountHandle: AmountHandle!
   groupBy: ReportDateGroupBy!
-}
-
-input GetAccountTopologyInput {
-  vaultId: String!
 }
