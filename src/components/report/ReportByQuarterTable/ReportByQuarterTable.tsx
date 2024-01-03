@@ -2,17 +2,23 @@ import { ReportData } from '@/api/graphql';
 import { FormattedNumber } from '@/components/common';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
-import { AccountTopologyTable, columnHelper } from '..';
+import { AccountTopologyTable, DataVariant, columnHelper } from '..';
+import classNames from 'classnames';
 
 export interface ReportByQuarterTableProps {
   /**
    * Report data mappings
    */
   reportDataMappings: Map<string, ReportData>;
+  /**
+   * Table variant
+   */
+  variant: DataVariant;
 }
 
 export const ReportByQuarterTable: React.FC<ReportByQuarterTableProps> = ({
   reportDataMappings,
+  variant,
 }) => {
   const { t } = useTranslation('report');
 
@@ -28,38 +34,84 @@ export const ReportByQuarterTable: React.FC<ReportByQuarterTableProps> = ({
               {t(`ReportByQuarterTable.header.${quarter}`)}
             </span>
           ),
-          columns: [
-            columnHelper.accessor('id', {
-              header: t`ReportByQuarterTable.header.subheader.debit`,
-              id: `${quarter}.debit`,
-              cell: ({ getValue, row }) => (
-                <FormattedNumber
-                  className={row.depth < 2 ? 'border-b' : undefined}
-                  value={
-                    reportDataMappings.get(`${getValue()}::${quarter}`)
-                      ?.debit ?? 0
-                  }
-                />
-              ),
-            }),
-            columnHelper.accessor('id', {
-              header: t`ReportByQuarterTable.header.subheader.credit`,
-              id: `${quarter}.credit`,
-              cell: ({ getValue, row }) => (
-                <FormattedNumber
-                  className={row.depth < 2 ? 'border-b' : undefined}
-                  value={
-                    reportDataMappings.get(`${getValue()}::${quarter}`)
-                      ?.credit ?? 0
-                  }
-                />
-              ),
-            }),
-          ],
+          columns:
+            variant == DataVariant.BREAKDOWN
+              ? [
+                  columnHelper.accessor('id', {
+                    header: t`ReportByQuarterTable.header.subheader.debit`,
+                    id: `${quarter}.debit`,
+                    cell: ({ getValue, row }) => (
+                      <FormattedNumber
+                        className={row.depth < 2 ? 'border-b' : undefined}
+                        value={
+                          reportDataMappings.get(`${getValue()}::${quarter}`)
+                            ?.debit ?? 0
+                        }
+                      />
+                    ),
+                  }),
+                  columnHelper.accessor('id', {
+                    header: t`ReportByQuarterTable.header.subheader.credit`,
+                    id: `${quarter}.credit`,
+                    cell: ({ getValue, row }) => (
+                      <FormattedNumber
+                        className={row.depth < 2 ? 'border-b' : undefined}
+                        value={
+                          reportDataMappings.get(`${getValue()}::${quarter}`)
+                            ?.credit ?? 0
+                        }
+                      />
+                    ),
+                  }),
+                ]
+              : variant == DataVariant.NET
+              ? [
+                  columnHelper.accessor('id', {
+                    header: t`ReportByQuarterTable.header.subheader.amount`,
+                    id: `${quarter}.debit`,
+                    cell: ({ getValue, row }) => {
+                      const reportData = reportDataMappings.get(
+                        `${getValue()}::${quarter}`
+                      );
+
+                      const debit = reportData?.debit ?? 0;
+                      const credit = reportData?.credit ?? 0;
+
+                      return (
+                        <FormattedNumber
+                          className={row.depth < 2 ? 'border-b' : undefined}
+                          value={credit + debit}
+                        />
+                      );
+                    },
+                  }),
+                ]
+              : [
+                  columnHelper.accessor('id', {
+                    header: t`ReportByQuarterTable.header.subheader.count`,
+                    id: `${quarter}.debit`,
+                    cell: ({ getValue, row }) => (
+                      <div
+                        className={classNames(
+                          'text-right',
+                          row.depth < 2 ? 'border-b' : undefined
+                        )}
+                      >
+                        {reportDataMappings.get(`${getValue()}::${quarter}`)
+                          ?.count ?? 0}
+                      </div>
+                    ),
+                  }),
+                ],
         });
       }),
-    [t, reportDataMappings]
+    [t, variant, reportDataMappings]
   );
 
-  return <AccountTopologyTable cols={colDefs} />;
+  return (
+    <AccountTopologyTable
+      cols={colDefs}
+      colGroupCount={variant == DataVariant.BREAKDOWN ? 2 : 1}
+    />
+  );
 };

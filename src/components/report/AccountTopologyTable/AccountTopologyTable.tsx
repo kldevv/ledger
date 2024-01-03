@@ -2,7 +2,7 @@ import {
   GetAccountTopologyQuery,
   useGetAccountTopologyQuery,
 } from '@/api/graphql';
-import { ExpandableTable } from '@/components/common';
+import { ExpandableTable, ExpandableTableProps } from '@/components/common';
 import { useVaultContext } from '@/hooks';
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 import classNames from 'classnames';
@@ -21,7 +21,7 @@ export const columnHelper = createColumnHelper<AccountTopologyTableData>();
 
 export const getExpandedData = (row: AccountTopologyTableData) => row.children;
 
-export interface AccountTopologyTableProps {
+export interface AccountTopologyTableProps extends Pick<ExpandableTableProps<AccountTopologyTableData>, 'colGroupCount'> {
   /**
    * Report data
    */
@@ -30,6 +30,7 @@ export interface AccountTopologyTableProps {
 
 export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
   cols,
+  colGroupCount,
 }) => {
   const [{ curVaultId }] = useVaultContext();
 
@@ -71,6 +72,7 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
       data={topology?.getAccountTopology ?? []}
       colDefs={colDefs}
       getExpandedData={getExpandedData}
+      colGroupCount={colGroupCount}
     />
   );
 };

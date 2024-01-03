@@ -15,6 +15,12 @@ import { useCallback, useMemo, useState } from 'react';
 import { RadioGroup } from '@/components/common';
 import { useTranslation } from 'next-i18next';
 
+export enum DataVariant {
+  BREAKDOWN = 'BREAKDOWN',
+  NET = 'NET',
+  COUNT = 'COUNT',
+}
+
 export const ReportDashboard: React.FC = () => {
   const { t } = useTranslation('report');
   const [{ curVaultId }] = useVaultContext();
@@ -22,6 +28,9 @@ export const ReportDashboard: React.FC = () => {
   const [accountingBasis, setAccountingBasis] = useState<Basis>(Basis.ACCRUAL);
   const [reportDateGroupBy, setReportDateGroupBy] = useState<ReportDateGroupBy>(
     ReportDateGroupBy.MONTH
+  );
+  const [dataVariant, setDataVariant] = useState<DataVariant>(
+    DataVariant.BREAKDOWN
   );
 
   const handleOnBasisChange = useCallback(
@@ -36,6 +45,13 @@ export const ReportDashboard: React.FC = () => {
       setReportDateGroupBy(value);
     },
     [setReportDateGroupBy]
+  );
+
+  const handleOnDataVariantChange = useCallback(
+    (value: DataVariant) => {
+      setDataVariant(value);
+    },
+    [setDataVariant]
   );
 
   const basisOptions = useMemo(
@@ -57,6 +73,17 @@ export const ReportDashboard: React.FC = () => {
         label: t(`ReportDashboard.radio.options.groupBy.${groupBy}`),
         value: groupBy,
       })),
+    [t]
+  );
+
+  const dataVariantOptions = useMemo(
+    () =>
+      [DataVariant.BREAKDOWN, DataVariant.NET, DataVariant.COUNT].map(
+        (variant) => ({
+          label: t(`ReportDashboard.radio.options.variant.${variant}`),
+          value: variant,
+        })
+      ),
     [t]
   );
 
@@ -97,12 +124,9 @@ export const ReportDashboard: React.FC = () => {
           label={t`ReportDashboard.radio.label.groupBy`}
         />
         <RadioGroup
-          options={[
-            { label: 'All', value: '4' },
-            { label: 'Completed', value: '3' },
-            { label: 'Pending', value: '2' },
-          ]}
-          label="ACCOUNTING BASIS"
+          options={dataVariantOptions}
+          onChange={handleOnDataVariantChange}
+          label={t`ReportDashboard.radio.label.variant`}
         />
         <RadioGroup
           options={[
@@ -111,23 +135,22 @@ export const ReportDashboard: React.FC = () => {
           ]}
           label="ACCOUNTING BASIS"
         />
-        <RadioGroup
-          options={[
-            { label: 'Breakdown', value: '4' },
-            { label: 'Net Debit', value: '3' },
-            { label: 'Count', value: '2' },
-          ]}
-          label="ACCOUNTING BASIS"
-        />
       </div>
       {reportDateGroupBy == 'MONTH' ? (
-        <ReportByMonthTable reportDataMappings={reportDataMappings} />
+        <ReportByMonthTable
+          reportDataMappings={reportDataMappings}
+          variant={dataVariant}
+        />
       ) : reportDateGroupBy == 'QUARTER' ? (
-        <ReportByQuarterTable reportDataMappings={reportDataMappings} />
+        <ReportByQuarterTable
+          reportDataMappings={reportDataMappings}
+          variant={dataVariant}
+        />
       ) : (
         <ReportByYearTable
           reportDataMappings={reportDataMappings}
           basis={accountingBasis}
+          variant={dataVariant}
         />
       )}
     </div>

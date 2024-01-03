@@ -3,7 +3,9 @@
     "header": {
       "subheader": {
         "debit": "DEBIT",
-        "credit": "CREDIT"
+        "credit": "CREDIT",
+        "amount": "AMOUNT",
+        "count": "COUNT"
       },
       "1": "JAN",
       "2": "FEB",
@@ -23,7 +25,9 @@
     "header": {
       "subheader": {
         "debit": "DEBIT",
-        "credit": "CREDIT"
+        "credit": "CREDIT",
+        "amount": "AMOUNT",
+        "count": "COUNT"
       },
       "1": "Q1",
       "2": "Q2",
@@ -35,7 +39,9 @@
     "header": {
       "subheader": {
         "debit": "DEBIT",
-        "credit": "CREDIT"
+        "credit": "CREDIT",
+        "amount": "AMOUNT",
+        "count": "COUNT"
       }
     }
   },
@@ -43,7 +49,8 @@
     "radio": {
       "label": {
         "basis": "Accounting Basis",
-        "groupBy": "Report Date Group By"
+        "groupBy": "Report Date Group By",
+        "variant": "Display Data Variant"
       },
       "options": {
         "basis": {
@@ -54,6 +61,11 @@
           "MONTH": "Month",
           "QUARTER": "Quarter",
           "YEAR": "Year"
+        },
+        "variant": {
+          "BREAKDOWN": "Breakdown",
+          "NET": "Net Debit",
+          "COUNT": "Count"
         }
       }
     }

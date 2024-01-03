@@ -2,8 +2,9 @@ import { Basis, ReportData, useGetMinMaxDateQuery } from '@/api/graphql';
 import { FormattedNumber } from '@/components/common';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
-import { AccountTopologyTable, columnHelper } from '..';
+import { AccountTopologyTable, DataVariant, columnHelper } from '..';
 import { useVaultContext } from '@/hooks';
+import classNames from 'classnames';
 
 export interface ReportByYearTableProps {
   /**
@@ -13,12 +14,17 @@ export interface ReportByYearTableProps {
   /**
    * Basis
    */
-  basis: Basis
+  basis: Basis;
+  /**
+   * Table variant
+   */
+  variant: DataVariant;
 }
 
 export const ReportByYearTable: React.FC<ReportByYearTableProps> = ({
   reportDataMappings,
   basis,
+  variant,
 }) => {
   const { t } = useTranslation('report');
   const [{ curVaultId }] = useVaultContext();
@@ -54,37 +60,84 @@ export const ReportByYearTable: React.FC<ReportByYearTableProps> = ({
           header: () => (
             <span className="text-light-accent font-semibold">{year}</span>
           ),
-          columns: [
-            columnHelper.accessor('id', {
-              header: t`ReportByYearTable.header.subheader.debit`,
-              id: `${year}.debit`,
-              cell: ({ getValue, row }) => (
-                <FormattedNumber
-                  className={row.depth < 2 ? 'border-b' : undefined}
-                  value={
-                    reportDataMappings.get(`${getValue()}::${year}`)?.debit ?? 0
-                  }
-                />
-              ),
-            }),
-            columnHelper.accessor('id', {
-              header: t`ReportByYearTable.header.subheader.credit`,
-              id: `${year}.credit`,
-              cell: ({ getValue, row }) => (
-                <FormattedNumber
-                  className={row.depth < 2 ? 'border-b' : undefined}
-                  value={
-                    reportDataMappings.get(`${getValue()}::${year}`)?.credit ??
-                    0
-                  }
-                />
-              ),
-            }),
-          ],
+          columns:
+            variant == DataVariant.BREAKDOWN
+              ? [
+                  columnHelper.accessor('id', {
+                    header: t`ReportByYearTable.header.subheader.debit`,
+                    id: `${year}.debit`,
+                    cell: ({ getValue, row }) => (
+                      <FormattedNumber
+                        className={row.depth < 2 ? 'border-b' : undefined}
+                        value={
+                          reportDataMappings.get(`${getValue()}::${year}`)
+                            ?.debit ?? 0
+                        }
+                      />
+                    ),
+                  }),
+                  columnHelper.accessor('id', {
+                    header: t`ReportByYearTable.header.subheader.credit`,
+                    id: `${year}.credit`,
+                    cell: ({ getValue, row }) => (
+                      <FormattedNumber
+                        className={row.depth < 2 ? 'border-b' : undefined}
+                        value={
+                          reportDataMappings.get(`${getValue()}::${year}`)
+                            ?.credit ?? 0
+                        }
+                      />
+                    ),
+                  }),
+                ]
+              : variant == DataVariant.NET
+              ? [
+                  columnHelper.accessor('id', {
+                    header: t`ReportByYearTable.header.subheader.amount`,
+                    id: `${year}.debit`,
+                    cell: ({ getValue, row }) => {
+                      const reportData = reportDataMappings.get(
+                        `${getValue()}::${year}`
+                      );
+
+                      const debit = reportData?.debit ?? 0;
+                      const credit = reportData?.credit ?? 0;
+
+                      return (
+                        <FormattedNumber
+                          className={row.depth < 2 ? 'border-b' : undefined}
+                          value={credit + debit}
+                        />
+                      );
+                    },
+                  }),
+                ]
+              : [
+                  columnHelper.accessor('id', {
+                    header: t`ReportByYearTable.header.subheader.count`,
+                    id: `${year}.debit`,
+                    cell: ({ getValue, row }) => (
+                      <div
+                        className={classNames(
+                          'text-right',
+                          row.depth < 2 ? 'border-b' : undefined
+                        )}
+                      >
+                        {reportDataMappings.get(`${getValue()}::${year}`)
+                          ?.count ?? 0}
+                      </div>
+                    ),
+                  }),
+                ],
         });
       }),
-    [t, reportDataMappings]
+    [t, variant, reportDataMappings]
   );
 
-  return <AccountTopologyTable cols={colDefs} />;
+  return (
+    <AccountTopologyTable
+      cols={colDefs}
+      colGroupCount={variant == DataVariant.BREAKDOWN ? 2 : 1}
+    />
+  );
 };

@@ -27,12 +27,17 @@ export type ExpandableTableProps<TData extends RowData> = {
    * Get expanded data from the field of data
    */
   getExpandedData: (row: TData) => TData[];
+  /**
+   * Col group count
+   */
+  colGroupCount?: 1 | 2;
 };
 
 export const ExpandableTable = <TData extends RowData>({
   data,
   colDefs,
   getExpandedData,
+  colGroupCount = 2,
 }: ExpandableTableProps<TData>): React.ReactElement => {
   const [expanded, setExpanded] = useState<ExpandedState>({});
 
@@ -109,7 +114,10 @@ export const ExpandableTable = <TData extends RowData>({
                     key={cell.id}
                     className={classNames(
                       'z-20',
-                      index & 1 ? 'border-r border-mid-gray' : undefined,
+                      (colGroupCount == 2 && index & 1) ||
+                        (colGroupCount == 1 && index > 0)
+                        ? 'border-r border-mid-gray'
+                        : undefined,
                       index == 0
                         ? 'sticky left-0'
                         : index == 1
