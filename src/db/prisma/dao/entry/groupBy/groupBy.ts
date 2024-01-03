@@ -25,18 +25,18 @@ export namespace GroupByDate {
     /**
      * Accounting basis
      */
-    basis: 'ACCURAL' | 'CASH'
+    basis: 'ACCRUAL' | 'CASH'
     /**
      * Amount handle
      */
-    amountHandle: 'NET' | 'RAW'
+    amountHandle: 'NET' | 'DEBIT_CREDIT'
     /**
      * Optional filter 
      */
     filter?: Filter
   };
 
-  export type Returns = Pick<Entry, 'accountId'> & Pick<Account, 'categoryId'> & Pick<Category, 'type'> & {
+  export type Returns = (Pick<Entry, 'accountId'> & Pick<Account, 'categoryId'> & Pick<Category, 'type'> & {
     /**
      * Month
      */
@@ -57,7 +57,7 @@ export namespace GroupByDate {
      * Total amount
      */
     amount?: number
-  }[];
+  })[];
 }
 
 
@@ -67,7 +67,7 @@ export const groupByDate = async ({ vaultId, amountHandle, basis, groupBy, filte
       switch (amountHandle) {
         case 'NET':
           return Prisma.sql`SUM(e."amount") as amount,`
-        case 'RAW':
+        case 'DEBIT_CREDIT':
           return Prisma.sql`
             SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as debit,
             SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as credit,
@@ -77,7 +77,7 @@ export const groupByDate = async ({ vaultId, amountHandle, basis, groupBy, filte
 
     const [groupBySelect, transactionTableJoinClause] = (() => {
       switch (basis) {
-        case 'ACCURAL':
+        case 'ACCRUAL':
           return [
             Prisma.sql`EXTRACT(${groupBy} FROM e."transactionDate") as groupBy,`,
             Prisma.empty

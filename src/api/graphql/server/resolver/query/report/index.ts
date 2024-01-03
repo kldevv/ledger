@@ -1,2 +1,2 @@
 export * from './getAccountTopology'
-export * from './getMonthlyReports'
+export * from './getReports'

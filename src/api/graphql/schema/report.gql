@@ -1,8 +1,9 @@
 type ReportData {
   encode: String!
-  credit: Float!
-  debit: Float!
-  count: Int!
+  credit: Float
+  debit: Float
+  amount: Float
+  count: Int
 }
 
 type AccountTopology {
@@ -11,10 +12,12 @@ type AccountTopology {
   children: [AccountTopology!]!
 }
 
-input GetMonthlyReportsInput {
-  year: Int!
+input GetReportsInput {
+  year: Int
   vaultId: String!
-  basis: Basis
+  basis: Basis!
+  amountHandle: AmountHandle!
+  groupBy: ReportDateGroupBy!
 }
 
 input GetAccountTopologyInput {

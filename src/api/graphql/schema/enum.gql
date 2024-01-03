@@ -19,3 +19,14 @@ enum Basis {
   ACCRUAL
   CASH
 }
+
+enum AmountHandle {
+  NET
+  DEBIT_CREDIT
+}
+
+enum ReportDateGroupBy {
+  YEAR
+  MONTH
+  QUARTER
+}
