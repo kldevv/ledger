@@ -50,7 +50,8 @@
       "label": {
         "basis": "Accounting Basis",
         "groupBy": "Report Date Group By",
-        "variant": "Display Data Variant"
+        "variant": "Display Data Variant",
+        "mode": "Data Mode"
       },
       "options": {
         "basis": {
@@ -66,6 +67,10 @@
           "BREAKDOWN": "Breakdown",
           "NET": "Net Debit",
           "COUNT": "Count"
+        },
+        "mode": {
+          "CHANGE": "Change",
+          "BALANCE": "Balance"
         }
       }
     }

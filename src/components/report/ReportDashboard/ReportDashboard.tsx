@@ -21,6 +21,11 @@ export enum DataVariant {
   COUNT = 'COUNT',
 }
 
+export enum DataMode {
+  CHANGE = 'CHANGE',
+  BALANCE = 'BALANCE',
+}
+
 export const ReportDashboard: React.FC = () => {
   const { t } = useTranslation('report');
   const [{ curVaultId }] = useVaultContext();
@@ -32,6 +37,7 @@ export const ReportDashboard: React.FC = () => {
   const [dataVariant, setDataVariant] = useState<DataVariant>(
     DataVariant.BREAKDOWN
   );
+  const [dataMode, setDataMode] = useState<DataMode>(DataMode.CHANGE);
 
   const handleOnBasisChange = useCallback(
     (value: Basis) => {
@@ -52,6 +58,13 @@ export const ReportDashboard: React.FC = () => {
       setDataVariant(value);
     },
     [setDataVariant]
+  );
+
+  const handleOnDataModeChange = useCallback(
+    (value: DataMode) => {
+      setDataMode(value);
+    },
+    [setDataMode]
   );
 
   const basisOptions = useMemo(
@@ -87,7 +100,16 @@ export const ReportDashboard: React.FC = () => {
     [t]
   );
 
-  const { data: reportData, error } = useGetReportsBalanceQuery({
+  const dataModeOptions = useMemo(
+    () =>
+      [DataMode.CHANGE, DataMode.BALANCE].map((mode) => ({
+        label: t(`ReportDashboard.radio.options.mode.${mode}`),
+        value: mode,
+      })),
+    [t]
+  );
+
+  const { data: balanceData } = useGetReportsBalanceQuery({
     variables: {
       input: {
         vaultId: curVaultId ?? '',
@@ -99,17 +121,35 @@ export const ReportDashboard: React.FC = () => {
     skip: curVaultId == null,
   });
 
-  console.log(reportData)
+  const { data: changeData } = useGetReportsQuery({
+    variables: {
+      input: {
+        vaultId: curVaultId ?? '',
+        basis: accountingBasis,
+        groupBy: reportDateGroupBy,
+      },
+    },
+    fetchPolicy: 'network-only',
+    skip: curVaultId == null,
+  });
 
   const reportDataMappings = useMemo(() => {
     const mappings = new Map<string, ReportData>();
 
-    reportData?.getReportsBalance.forEach((data) => {
-      mappings.set(data.encode, data);
-    });
+    if (dataMode === DataMode.BALANCE) {
+      balanceData?.getReportsBalance.forEach((data) => {
+        mappings.set(data.encode, data);
+      });
+    }
+
+    if (dataMode === DataMode.CHANGE) {
+      changeData?.getReports.forEach((data) => {
+        mappings.set(data.encode, data);
+      });
+    }
 
     return mappings;
-  }, [reportData]);
+  }, [changeData, balanceData, dataMode]);
 
   return (
     <div>
@@ -130,19 +170,17 @@ export const ReportDashboard: React.FC = () => {
           label={t`ReportDashboard.radio.label.variant`}
         />
         <RadioGroup
-          options={[
-            { label: 'Change', value: '3' },
-            { label: 'Balance', value: '4' },
-          ]}
-          label="ACCOUNTING BASIS"
+          options={dataModeOptions}
+          onChange={handleOnDataModeChange}
+          label={t`ReportDashboard.radio.label.mode`}
         />
       </div>
-      {reportDateGroupBy == 'MONTH' ? (
+      {reportDateGroupBy === ReportDateGroupBy.MONTH ? (
         <ReportByMonthTable
           reportDataMappings={reportDataMappings}
           variant={dataVariant}
         />
-      ) : reportDateGroupBy == 'QUARTER' ? (
+      ) : reportDateGroupBy == ReportDateGroupBy.QUARTER ? (
         <ReportByQuarterTable
           reportDataMappings={reportDataMappings}
           variant={dataVariant}
