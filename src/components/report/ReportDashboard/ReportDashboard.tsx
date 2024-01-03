@@ -1,6 +1,6 @@
 import { AmountHandle, Basis, ReportDateGroupBy, useGetReportsQuery } from '@/api/graphql';
 import { useVaultContext } from '@/hooks';
-import { AccountTopologyTable } from '..';
+import { AccountTopologyTable, ReportByMonthTable } from '..';
 import { useCallback, useMemo, useState } from 'react';
 import { RadioGroup } from '@/components/common';
 import { useTranslation } from 'next-i18next';
@@ -10,12 +10,14 @@ export const ReportDashboard: React.FC = () => {
   const [{ curVaultId }] = useVaultContext();
 
   const [accountingBasis, setAccountingBasis] = useState<Basis>(Basis.ACCRUAL);
+
   const handleOnBasisChange = useCallback(
     (value: Basis) => {
       setAccountingBasis(value);
     },
     [setAccountingBasis]
   );
+
   const basisOptions = useMemo(
     () =>
       [Basis.ACCRUAL, Basis.CASH].map((basis) => ({
@@ -37,6 +39,8 @@ export const ReportDashboard: React.FC = () => {
     fetchPolicy: 'network-only',
     skip: curVaultId == null,
   });
+
+  console.log(data);
 
   return (
     <div>
@@ -63,7 +67,7 @@ export const ReportDashboard: React.FC = () => {
           label="ACCOUNTING BASIS"
         />
       </div>
-      <AccountTopologyTable
+      <ReportByMonthTable
         reportData={data?.getReports ?? []}
       />
     </div>
