@@ -1,6 +1,12 @@
-import { AmountHandle, Basis, ReportDateGroupBy, useGetReportsQuery } from '@/api/graphql';
+import {
+  AmountHandle,
+  Basis,
+  ReportData,
+  ReportDateGroupBy,
+  useGetReportsQuery,
+} from '@/api/graphql';
 import { useVaultContext } from '@/hooks';
-import { AccountTopologyTable, ReportByMonthTable } from '..';
+import { ReportByMonthTable, ReportByQuarterTable } from '..';
 import { useCallback, useMemo, useState } from 'react';
 import { RadioGroup } from '@/components/common';
 import { useTranslation } from 'next-i18next';
@@ -10,12 +16,22 @@ export const ReportDashboard: React.FC = () => {
   const [{ curVaultId }] = useVaultContext();
 
   const [accountingBasis, setAccountingBasis] = useState<Basis>(Basis.ACCRUAL);
+  const [reportDateGroupBy, setReportDateGroupBy] = useState<ReportDateGroupBy>(
+    ReportDateGroupBy.MONTH
+  );
 
   const handleOnBasisChange = useCallback(
     (value: Basis) => {
       setAccountingBasis(value);
     },
     [setAccountingBasis]
+  );
+
+  const handleOnReportDateGroupByChange = useCallback(
+    (value: ReportDateGroupBy) => {
+      setReportDateGroupBy(value);
+    },
+    [setReportDateGroupBy]
   );
 
   const basisOptions = useMemo(
@@ -27,36 +43,54 @@ export const ReportDashboard: React.FC = () => {
     [t]
   );
 
-  const { data, error } = useGetReportsQuery({
+  const reportDateGroupByOptions = useMemo(
+    () =>
+      [
+        ReportDateGroupBy.MONTH,
+        ReportDateGroupBy.QUARTER,
+        ReportDateGroupBy.YEAR,
+      ].map((groupBy) => ({
+        label: t(`ReportDashboard.radio.options.groupBy.${groupBy}`),
+        value: groupBy,
+      })),
+    [t]
+  );
+
+  const { data: reportData, error } = useGetReportsQuery({
     variables: {
       input: {
         vaultId: curVaultId ?? '',
         basis: accountingBasis,
         amountHandle: AmountHandle.DEBIT_CREDIT,
-        groupBy: ReportDateGroupBy.MONTH
+        groupBy: reportDateGroupBy,
       },
     },
     fetchPolicy: 'network-only',
     skip: curVaultId == null,
   });
 
-  console.log(data);
+  const reportDataMappings = useMemo(() => {
+    const mappings = new Map<string, ReportData>();
+
+    reportData?.getReports.forEach((data) => {
+      mappings.set(data.encode, data);
+    });
+
+    return mappings;
+  }, [reportData]);
 
   return (
     <div>
       <div className="flex flex-col space-y-2">
         <RadioGroup
           options={basisOptions}
-          label={t`ReportDashboard.radio.label.basis`}
           onChange={handleOnBasisChange}
+          label={t`ReportDashboard.radio.label.basis`}
         />
         <RadioGroup
-          options={[
-            { label: 'Monthly', value: '4' },
-            { label: 'Quarterly', value: '3' },
-            { label: 'Yearly', value: '2' },
-          ]}
-          label="ACCOUNTING BASIS"
+          options={reportDateGroupByOptions}
+          onChange={handleOnReportDateGroupByChange}
+          label={t`ReportDashboard.radio.label.groupBy`}
         />
         <RadioGroup
           options={[
@@ -67,9 +101,11 @@ export const ReportDashboard: React.FC = () => {
           label="ACCOUNTING BASIS"
         />
       </div>
-      <ReportByMonthTable
-        reportData={data?.getReports ?? []}
-      />
+      {reportDateGroupBy == 'MONTH' ? (
+        <ReportByMonthTable reportDataMappings={reportDataMappings} />
+      ) : (
+        <ReportByQuarterTable reportDataMappings={reportDataMappings} />
+      )}
     </div>
   );
 };

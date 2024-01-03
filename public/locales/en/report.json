@@ -19,15 +19,33 @@
       "12": "DEC"
     }
   },
+  "ReportByQuarterTable": {
+    "header": {
+      "subheader": {
+        "debit": "DEBIT",
+        "credit": "CREDIT"
+      },
+      "1": "Q1",
+      "2": "Q2",
+      "3": "Q3",
+      "4": "Q4"
+    }
+  },
   "ReportDashboard": {
     "radio": {
       "label": {
-        "basis": "Accounting Basis"
+        "basis": "Accounting Basis",
+        "groupBy": "Report Date Group By"
       },
       "options": {
         "basis": {
           "CASH": "Cash",
           "ACCRUAL": "Accrual"
+        },
+        "groupBy": {
+          "MONTH": "Month",
+          "QUARTER": "Quarter",
+          "YEAR": "Year"
         }
       }
     }

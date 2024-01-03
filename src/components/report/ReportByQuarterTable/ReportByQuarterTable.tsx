@@ -4,53 +4,53 @@ import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import { AccountTopologyTable, columnHelper } from '..';
 
-export interface ReportByMonthTableProps {
+export interface ReportByQuarterTableProps {
   /**
-   * Report data mappings
+   * Report data
    */
   reportDataMappings: Map<string, ReportData>;
 }
 
-export const ReportByMonthTable: React.FC<ReportByMonthTableProps> = ({
+export const ReportByQuarterTable: React.FC<ReportByQuarterTableProps> = ({
   reportDataMappings,
 }) => {
   const { t } = useTranslation('report');
 
   const colDefs = useMemo(
     () =>
-      Array.from({ length: 12 }).map((_, index) => {
-        const month = index + 1;
+      Array.from({ length: 4 }).map((_, index) => {
+        const quarter = index + 1;
 
         return columnHelper.group({
-          id: String(month),
+          id: String(quarter),
           header: () => (
             <span className="text-light-accent font-semibold">
-              {t(`ReportByMonthTable.header.${month}`)}
+              {t(`ReportByQuarterTable.header.${quarter}`)}
             </span>
           ),
           columns: [
             columnHelper.accessor('id', {
-              header: t`ReportByMonthTable.header.subheader.debit`,
-              id: `${month}.debit`,
+              header: t`ReportByQuarterTable.header.subheader.debit`,
+              id: `${quarter}.debit`,
               cell: ({ getValue, row }) => (
                 <FormattedNumber
                   className={row.depth < 2 ? 'border-b' : undefined}
                   value={
-                    reportDataMappings.get(`${getValue()}::${month}`)?.debit ??
-                    0
+                    reportDataMappings.get(`${getValue()}::${quarter}`)
+                      ?.debit ?? 0
                   }
                 />
               ),
             }),
             columnHelper.accessor('id', {
-              header: t`ReportByMonthTable.header.subheader.credit`,
-              id: `${month}.credit`,
+              header: t`ReportByQuarterTable.header.subheader.credit`,
+              id: `${quarter}.credit`,
               cell: ({ getValue, row }) => (
                 <FormattedNumber
                   className={row.depth < 2 ? 'border-b' : undefined}
                   value={
-                    reportDataMappings.get(`${getValue()}::${month}`)?.credit ??
-                    0
+                    reportDataMappings.get(`${getValue()}::${quarter}`)
+                      ?.credit ?? 0
                   }
                 />
               ),
