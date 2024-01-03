@@ -1,5 +1,4 @@
 import {
-  AmountHandle,
   Basis,
   ReportData,
   ReportDateGroupBy,
@@ -92,7 +91,6 @@ export const ReportDashboard: React.FC = () => {
       input: {
         vaultId: curVaultId ?? '',
         basis: accountingBasis,
-        amountHandle: AmountHandle.DEBIT_CREDIT,
         groupBy: reportDateGroupBy,
       },
     },

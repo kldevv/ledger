@@ -10,6 +10,5 @@ input GetReportsInput {
   year: Int
   vaultId: String!
   basis: Basis!
-  amountHandle: AmountHandle!
   groupBy: ReportDateGroupBy!
 }

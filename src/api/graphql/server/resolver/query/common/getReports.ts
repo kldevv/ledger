@@ -1,9 +1,9 @@
 import { QueryResolvers, ReportData } from "@/api/graphql";
 
 export const getReports: QueryResolvers['getReports'] = async (
-  _, { input: { amountHandle, vaultId, basis, groupBy } }, { dataSources: { prisma } }
+  _, { input: { vaultId, basis, groupBy } }, { dataSources: { prisma } }
 ) => {
-  const data = await prisma.entry.groupByDate({ vaultId, basis, amountHandle, groupBy })
+  const data = await prisma.entry.groupByDate({ vaultId, basis, groupBy })
 
   const mappings = new Map<string, ReportData>()
 

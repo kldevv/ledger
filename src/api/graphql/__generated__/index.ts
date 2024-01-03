@@ -78,12 +78,6 @@ export type AddVaultInput = {
   ownerId: Scalars['String']['input'];
 };
 
-export const AmountHandle = {
-  DEBIT_CREDIT: 'DEBIT_CREDIT',
-  NET: 'NET'
-} as const;
-
-export type AmountHandle = typeof AmountHandle[keyof typeof AmountHandle];
 export const Basis = {
   ACCRUAL: 'ACCRUAL',
   CASH: 'CASH'
@@ -181,7 +175,6 @@ export type GetMinMaxDateInput = {
 };
 
 export type GetReportsInput = {
-  amountHandle: AmountHandle;
   basis: Basis;
   groupBy: ReportDateGroupBy;
   vaultId: Scalars['String']['input'];
@@ -520,7 +513,6 @@ export type ResolversTypes = {
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
   AddVaultInput: AddVaultInput;
-  AmountHandle: AmountHandle;
   Basis: Basis;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Category: ResolverTypeWrapper<Category>;

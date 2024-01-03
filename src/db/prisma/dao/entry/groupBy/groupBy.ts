@@ -27,10 +27,6 @@ export namespace GroupByDate {
      */
     basis: 'ACCRUAL' | 'CASH'
     /**
-     * Amount handle
-     */
-    amountHandle: 'NET' | 'DEBIT_CREDIT'
-    /**
      * Optional filter 
      */
     filter?: Filter
@@ -61,20 +57,8 @@ export namespace GroupByDate {
 }
 
 
-export const groupByDate = async ({ vaultId, amountHandle, basis, groupBy, filter }: GroupByDate.Args) => {
+export const groupByDate = async ({ vaultId, basis, groupBy, filter }: GroupByDate.Args) => {
   try {
-    const sumSelect = (() => {
-      switch (amountHandle) {
-        case 'NET':
-          return Prisma.sql`SUM(e."amount") as amount,`
-        case 'DEBIT_CREDIT':
-          return Prisma.sql`
-            SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as debit,
-            SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as credit,
-          `
-      }
-    })()
-
     const dateExtract = (() => {
       switch (groupBy) {
         case 'MONTH':
@@ -86,7 +70,7 @@ export const groupByDate = async ({ vaultId, amountHandle, basis, groupBy, filte
       }
     })()
 
-    const [groupBySelect, transactionTableJoinClause] = (() => {
+    const [groupByDateSelect, transactionTableJoinClause] = (() => {
       switch (basis) {
         case 'ACCRUAL':
           return [
@@ -103,8 +87,9 @@ export const groupByDate = async ({ vaultId, amountHandle, basis, groupBy, filte
 
     return await prisma.$queryRaw<GroupByDate.Returns>`
       SELECT
-        ${sumSelect}
-        ${groupBySelect}
+        ${groupByDateSelect}
+        SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as debit,
+        SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as credit,
         CAST(COUNT(*) AS INTEGER) as count,
         e."accountId",
         a."categoryId",
