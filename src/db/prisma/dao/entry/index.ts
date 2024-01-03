@@ -1,6 +1,6 @@
+export * from './aggr'
 export * from './create'
 export * from './delete'
 export * from './groupBy'
 export * from './read'
-export * from './stats'
 export * from './update'
