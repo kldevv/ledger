@@ -20,7 +20,7 @@ export const updateTransaction: MutationResolvers['updateTransaction'] = async (
     entries: transaction.entries.map(({ amount, ...rest }) => ({
       ...rest,
       debit: Math.max(0, amount),
-      credit: Math.min(0, amount)
+      credit: -Math.min(0, amount)
     }))
   }
 }

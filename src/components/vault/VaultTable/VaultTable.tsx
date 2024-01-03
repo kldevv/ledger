@@ -17,7 +17,8 @@ export const VaultTable: React.FC = () => {
   const { data, loading, error } = useGetVaultsQuery({
     variables: {
       input: {
-        ownerId: '6f926ade-2719-46d2-8e9a-4fa757d2b9cc',
+        ownerId:
+          process.env.PROFILE_ID ?? 'ce4a7c81-6404-4098-a763-64550c4ec902',
       },
     },
   });

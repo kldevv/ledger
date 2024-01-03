@@ -8,6 +8,6 @@ export const getEntries: QueryResolvers['getEntries'] = async (
   return entries.map(({ amount, ...rest }) => ({
     ...rest,
     debit: Math.max(0, amount),
-    credit: Math.min(0, amount)
+    credit: -Math.min(0, amount)
   }))
 }

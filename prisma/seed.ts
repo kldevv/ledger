@@ -8,8 +8,20 @@ async function main() {
       name: 'Yoyo'
     },
   })
+
   console.log(profile)
+
+  const vault = await prisma.vault.create({
+    data: {
+      name: 'My USD',
+      ownerId: profile.id,
+      currency: 'USD',
+    }
+  })
+
+  console.log(vault)
 }
+
 main()
   .then(async () => {
     await prisma.$disconnect()

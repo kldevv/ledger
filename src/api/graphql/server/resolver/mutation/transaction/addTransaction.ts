@@ -17,7 +17,7 @@ export const addTransaction: MutationResolvers['addTransaction'] = async (
     entries: transaction.entries.map(({ amount, ...rest }) => ({
       ...rest,
       debit: Math.max(0, amount),
-      credit: Math.min(0, amount)
+      credit: -Math.min(0, amount)
     }))
   }
 }
