@@ -31,6 +31,14 @@
       "4": "Q4"
     }
   },
+  "ReportByYearTable": {
+    "header": {
+      "subheader": {
+        "debit": "DEBIT",
+        "credit": "CREDIT"
+      }
+    }
+  },
   "ReportDashboard": {
     "radio": {
       "label": {

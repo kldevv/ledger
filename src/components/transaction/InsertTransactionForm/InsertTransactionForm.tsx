@@ -49,7 +49,6 @@ export const InsertTransactionForm: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: FieldValues) => {
-      console.log(values);
       if (curVaultId == null) {
         return;
       }

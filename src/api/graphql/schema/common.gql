@@ -15,5 +15,5 @@ input GetAccountTopologyInput {
 
 input GetMinMaxDateInput {
   vaultId: String!
-  basis: Basis
+  basis: Basis!
 }

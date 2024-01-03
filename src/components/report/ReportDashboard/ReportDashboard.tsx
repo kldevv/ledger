@@ -6,7 +6,11 @@ import {
   useGetReportsQuery,
 } from '@/api/graphql';
 import { useVaultContext } from '@/hooks';
-import { ReportByMonthTable, ReportByQuarterTable } from '..';
+import {
+  ReportByMonthTable,
+  ReportByQuarterTable,
+  ReportByYearTable,
+} from '..';
 import { useCallback, useMemo, useState } from 'react';
 import { RadioGroup } from '@/components/common';
 import { useTranslation } from 'next-i18next';
@@ -100,11 +104,31 @@ export const ReportDashboard: React.FC = () => {
           ]}
           label="ACCOUNTING BASIS"
         />
+        <RadioGroup
+          options={[
+            { label: 'Change', value: '3' },
+            { label: 'Balance', value: '4' },
+          ]}
+          label="ACCOUNTING BASIS"
+        />
+        <RadioGroup
+          options={[
+            { label: 'Breakdown', value: '4' },
+            { label: 'Net Debit', value: '3' },
+            { label: 'Count', value: '2' },
+          ]}
+          label="ACCOUNTING BASIS"
+        />
       </div>
       {reportDateGroupBy == 'MONTH' ? (
         <ReportByMonthTable reportDataMappings={reportDataMappings} />
-      ) : (
+      ) : reportDateGroupBy == 'QUARTER' ? (
         <ReportByQuarterTable reportDataMappings={reportDataMappings} />
+      ) : (
+        <ReportByYearTable
+          reportDataMappings={reportDataMappings}
+          basis={accountingBasis}
+        />
       )}
     </div>
   );

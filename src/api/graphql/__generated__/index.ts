@@ -176,7 +176,7 @@ export type GetEntriesInput = {
 };
 
 export type GetMinMaxDateInput = {
-  basis?: InputMaybe<Basis>;
+  basis: Basis;
   vaultId: Scalars['String']['input'];
 };
 

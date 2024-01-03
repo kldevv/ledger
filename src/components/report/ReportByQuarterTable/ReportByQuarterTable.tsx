@@ -6,7 +6,7 @@ import { AccountTopologyTable, columnHelper } from '..';
 
 export interface ReportByQuarterTableProps {
   /**
-   * Report data
+   * Report data mappings
    */
   reportDataMappings: Map<string, ReportData>;
 }
