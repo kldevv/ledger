@@ -1,5 +1,4 @@
-import { Currency as PrismaCurrency } from "@prisma/client"
-
+import type { Currency as PrismaCurrency } from '@prisma/client'
 
 export namespace ReadMany {
   export type Currency = {
@@ -25,14 +24,13 @@ const currencies: ReadMany.Currency[] = [
   },
   {
     value: 'EUR',
-    label: 'EUR'
+    label: 'EUR',
   },
   {
     value: 'NTD',
-    label: 'NTD'
-  }
+    label: 'NTD',
+  },
 ]
-
 
 export const readMany = () => {
   return currencies

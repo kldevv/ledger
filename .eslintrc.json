@@ -13,6 +13,10 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
 
+    // Import
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+
     // React
     "plugin:react/recommended",
 
@@ -29,8 +33,8 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     // to always use `tsconfig.jsons` nearest to source files
-    "project": true,
-    "tsconfigRootDir": "__dirname"
+    "project": "../tsconfig.json"
+    // "tsconfigRootDir": "./tsconfig.json"
   },
   "plugins": [
     // TypeScript
@@ -94,7 +98,77 @@
 
     // Require the use of === and !==
     // https://eslint.org/docs/latest/rules/eqeqeq
-    "eqeqeq": ["error", "always", { "null": "ignore" }]
+    "eqeqeq": ["error", "always", { "null": "ignore" }],
+
+    // Enforce a convention in the order of require() / import statements
+    // https://github.com/import-js/eslint-plugin-import/blob/HEAD/docs/rules/order.md
+    "import/order": [
+      "error",
+      {
+        // How groups are defined, and the order to respect
+        // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md#groups-array
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "unknown",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type"
+        ],
+
+        // To be able to group by paths mostly needed with aliases pathGroups can be defined
+        // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md#pathgroups-array-of-objects
+        "pathGroups": [
+          {
+            "pattern": "react*",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "*.[p]css",
+            "patternOptions": {
+              "matchBase": true
+            },
+            "group": "type",
+            "position": "after"
+          }
+        ],
+
+        // Enforces or forbids new lines between import groups
+        // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md#newlines-between-ignorealwaysalways-and-inside-groupsnever
+        "newlines-between": "always",
+
+        // Sort the order within each group in alphabetical manner based on import path
+        // https://github.com/import-js/eslint-plugin-import/blob/HEAD/docs/rules/order.md#alphabetize-order-ascdescignore-orderimportkind-ascdescignore-caseinsensitive-truefalse
+        "alphabetize": {
+          "order": "asc"
+        },
+
+        // Warns when unassigned imports are out of order
+        // https://github.com/import-js/eslint-plugin-import/blob/HEAD/docs/rules/order.md#warnonunassignedimports-truefalse
+        "warnOnUnassignedImports": true
+      }
+    ],
+
+    // Ensure consistent use of file extension within the import path
+    // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/extensions.md
+    "import/extensions": "error",
+
+    // Reports if a resolved path is imported more than once
+    // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-duplicates.md
+    "import/no-duplicates": ["error", { "considerQueryString": true }],
+
+    // Forbid the use of extraneous packages
+    // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-extraneous-dependencies.md
+    "import/no-extraneous-dependencies": [
+      "error",
+      // If set to false, then the rule will show an error when devDependencies are imported. Defaults to true. Type imports are ignored by default.
+      // When using an array of globs, the setting will be set to true (no errors reported) if the name of the file being linted (i.e. not the imported file/module) matches a single glob in the array, and false otherwise
+      { "devDependencies": ["**/*.test.{tsx,ts,js,jsx}"] }
+    ]
   },
   "ignorePatterns": [
     "src/**/*.test.ts",

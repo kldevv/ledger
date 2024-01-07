@@ -1,6 +1,7 @@
-import { EntryDashboard } from '@/components/entry';
-import { PageHeader, Layout } from '@/components/layout';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next'
+
+import { EntryDashboard } from '@/components/entry'
+import { PageHeader, Layout } from '@/components/layout'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('entry')
@@ -13,7 +14,7 @@ const Page: React.FC = () => {
       />
       <EntryDashboard />
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

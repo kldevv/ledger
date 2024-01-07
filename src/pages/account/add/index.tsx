@@ -1,9 +1,10 @@
-import { InsertAccountFrom } from '@/components/account';
-import { PageHeader, Layout } from '@/components/layout';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next'
+
+import { InsertAccountFrom } from '@/components/account'
+import { PageHeader, Layout } from '@/components/layout'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('account');
+  const { t } = useTranslation('account')
 
   return (
     <Layout prev="/account">
@@ -13,7 +14,7 @@ const Page: React.FC = () => {
       />
       <InsertAccountFrom />
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
