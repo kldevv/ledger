@@ -1,15 +1,11 @@
-import { CategoryType } from '@/api/graphql';
-import {
-  Form,
-  FormProps,
-  InputText,
-  ListBox,
-  SubmitButton,
-} from '@/components/common';
-import { UseFormProps, useForm } from '@/hooks';
-import { useTranslation } from 'next-i18next';
-import { useMemo } from 'react';
-import { z } from 'zod';
+import { CategoryType } from '@/api/graphql'
+import type { FormProps } from '@/components/common'
+import { Form, InputText, ListBox, SubmitButton } from '@/components/common'
+import type { UseFormProps } from '@/hooks'
+import { useForm } from '@/hooks'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+import { z } from 'zod'
 
 const schema = z.object({
   /**
@@ -20,23 +16,23 @@ const schema = z.object({
    * Category type
    */
   type: z.nativeEnum(CategoryType),
-});
+})
 
-export type FieldValues = z.infer<typeof schema>;
+export type FieldValues = z.infer<typeof schema>
 
 export interface UpsertCategoryFormProps {
   /**
    * On submit
    */
-  onSubmit: FormProps<FieldValues>['onSubmit'];
+  onSubmit: FormProps<FieldValues>['onSubmit']
   /**
    * On submit text
    */
-  onSubmitText: string;
+  onSubmitText: string
   /**
    * Default form values
    */
-  values?: UseFormProps<FieldValues>['values'];
+  values?: UseFormProps<FieldValues>['values']
 }
 
 export const UpsertCategoryForm: React.FC<UpsertCategoryFormProps> = ({
@@ -44,7 +40,7 @@ export const UpsertCategoryForm: React.FC<UpsertCategoryFormProps> = ({
   onSubmitText,
   values,
 }) => {
-  const { t } = useTranslation('category');
+  const { t } = useTranslation('category')
 
   const context = useForm<FieldValues>({
     schema,
@@ -53,12 +49,12 @@ export const UpsertCategoryForm: React.FC<UpsertCategoryFormProps> = ({
       type: CategoryType.ASSETS,
     },
     values,
-  });
+  })
 
   const typeOptions = useMemo(
     () => Object.values(CategoryType).map((value) => ({ value, label: value })),
-    []
-  );
+    [],
+  )
 
   return (
     <Form onSubmit={onSubmit} context={context}>
@@ -75,5 +71,5 @@ export const UpsertCategoryForm: React.FC<UpsertCategoryFormProps> = ({
       </div>
       <SubmitButton className="mt-4">{onSubmitText}</SubmitButton>
     </Form>
-  );
-};
+  )
+}

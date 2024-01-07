@@ -1,7 +1,7 @@
-import { createColumnHelper } from '@tanstack/react-table';
-import { useTranslation } from 'next-i18next';
-import { GetCategoriesQuery } from '@/api/graphql';
-import { FormattedDate, Table, ViewLink } from '@/components/common';
+import { createColumnHelper } from '@tanstack/react-table'
+import { useTranslation } from 'next-i18next'
+import type { GetCategoriesQuery } from '@/api/graphql'
+import { FormattedDate, Table, ViewLink } from '@/components/common'
 
 export type CategoryTableData = GetCategoriesQuery['getCategories'][number]
 
@@ -12,10 +12,10 @@ export interface CategoryTableProps {
   data: CategoryTableData[]
 }
 
-const columnHelper = createColumnHelper<CategoryTableData>();
+const columnHelper = createColumnHelper<CategoryTableData>()
 
 export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
-  const { t } = useTranslation('category');
+  const { t } = useTranslation('category')
 
   const colDefs = [
     columnHelper.accessor('id', {
@@ -35,12 +35,12 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
       cell: (props) => <FormattedDate dateTime={props.getValue()} />,
     }),
     columnHelper.display({
-      id: 'detail',
+      id: 'view-link',
       cell: (props) => (
-        <ViewLink href={`/category/${props.row.getValue('id')}`} />
+        <ViewLink href={`/category/${props.row.getValue<string>('id')}`} />
       ),
     }),
-  ];
+  ]
 
-  return <Table data={data} colDefs={colDefs} />;
-};
+  return <Table data={data} colDefs={colDefs} />
+}

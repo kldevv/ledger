@@ -1,21 +1,21 @@
-import { useGetCategoryDetailQuery } from '@/api/graphql';
-import { useRouter } from 'next/router';
-import { useMemo } from 'react';
-import { EntryTable } from '@/components/entry';
-import { CategoryDescriptionList } from '..';
-import { AccountTable } from '@/components/account';
-import { useTranslation } from 'next-i18next';
+import { useGetCategoryDetailQuery } from '@/api/graphql'
+import { useRouter } from 'next/router'
+import { useMemo } from 'react'
+import { EntryTable } from '@/components/entry'
+import { CategoryDescriptionList } from '..'
+import { AccountTable } from '@/components/account'
+import { useTranslation } from 'next-i18next'
 
 export const CategoryDetail: React.FC = () => {
-  const router = useRouter();
+  const router = useRouter()
   const { t } = useTranslation('category')
-  const { id } = router.query;
+  const { id } = router.query
 
   const categoryId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id;
-  }, [id]);
+    return id == null || Array.isArray(id) ? null : id
+  }, [id])
 
-  const { data, loading, error } = useGetCategoryDetailQuery({
+  const { data } = useGetCategoryDetailQuery({
     variables: {
       getCategoryInput: {
         id: categoryId ?? '',
@@ -28,7 +28,7 @@ export const CategoryDetail: React.FC = () => {
       },
     },
     skip: categoryId == null,
-  });
+  })
 
   return (
     data?.getCategory && (
@@ -48,5 +48,5 @@ export const CategoryDetail: React.FC = () => {
         <EntryTable data={data?.getEntries} />
       </div>
     )
-  );
-};
+  )
+}

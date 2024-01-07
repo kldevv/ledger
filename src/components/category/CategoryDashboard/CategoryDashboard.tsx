@@ -1,18 +1,18 @@
-import { useGetCategoriesQuery } from "@/api/graphql";
-import { useVaultContext } from "@/hooks";
-import { CategoryTable } from "..";
+import { useGetCategoriesQuery } from '@/api/graphql'
+import { useVaultContext } from '@/hooks'
+import { CategoryTable } from '..'
 
 export const CategoryDashboard: React.FC = () => {
-  const [{ curVaultId }] = useVaultContext();
+  const [{ curVaultId }] = useVaultContext()
 
-  const { data, loading, error } = useGetCategoriesQuery({
+  const { data } = useGetCategoriesQuery({
     variables: {
       input: {
         vaultId: curVaultId ?? '',
       },
     },
     skip: curVaultId == null,
-  });
+  })
 
-  return <CategoryTable data={data?.getCategories ?? []} />;
+  return <CategoryTable data={data?.getCategories ?? []} />
 }
