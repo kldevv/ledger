@@ -1,15 +1,11 @@
-import { useGetCategoriesQuery } from '@/api/graphql';
-import {
-  Form,
-  FormProps,
-  InputText,
-  ListBox,
-  SubmitButton,
-} from '@/components/common';
-import { UseFormProps, useForm, useVaultContext } from '@/hooks';
-import { useTranslation } from 'next-i18next';
-import { useMemo } from 'react';
-import { z } from 'zod';
+import { useGetCategoriesQuery } from '@/api/graphql'
+import type { FormProps } from '@/components/common'
+import { Form, InputText, ListBox, SubmitButton } from '@/components/common'
+import type { UseFormProps } from '@/hooks'
+import { useForm, useVaultContext } from '@/hooks'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+import { z } from 'zod'
 
 export const schema = z.object({
   /**
@@ -20,23 +16,23 @@ export const schema = z.object({
    * Account name
    */
   name: z.string().min(1).max(50),
-});
+})
 
-export type FieldValues = z.infer<typeof schema>;
+export type FieldValues = z.infer<typeof schema>
 
 export interface UpsertAccountFormProps {
   /**
    * On submit
    */
-  onSubmit: FormProps<FieldValues>['onSubmit'];
+  onSubmit: FormProps<FieldValues>['onSubmit']
   /**
    * On submit text
    */
-  onSubmitText: string;
+  onSubmitText: string
   /**
    * Default form values
    */
-  values?: UseFormProps<FieldValues>['values'];
+  values?: UseFormProps<FieldValues>['values']
 }
 
 export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
@@ -44,7 +40,7 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
   onSubmitText,
   values,
 }) => {
-  const { t } = useTranslation('account');
+  const { t } = useTranslation('account')
 
   const context = useForm<FieldValues>({
     schema,
@@ -53,9 +49,9 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
       categoryId: '',
     },
     values,
-  });
+  })
 
-  const [{ curVaultId }] = useVaultContext();
+  const [{ curVaultId }] = useVaultContext()
   const { data } = useGetCategoriesQuery({
     variables: {
       input: {
@@ -63,14 +59,14 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
       },
     },
     skip: curVaultId == null,
-  });
+  })
 
   const categoryOptions = useMemo(
     () =>
       data?.getCategories.map(({ id, name }) => ({ value: id, label: name })) ??
       [],
-    [data]
-  );
+    [data],
+  )
 
   return (
     <Form onSubmit={onSubmit} context={context}>
@@ -87,5 +83,5 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
       </div>
       <SubmitButton className="mt-4">{onSubmitText}</SubmitButton>
     </Form>
-  );
-};
+  )
+}

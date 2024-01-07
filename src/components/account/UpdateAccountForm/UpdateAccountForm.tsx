@@ -1,57 +1,58 @@
-import { useGetAccountQuery, useUpdateAccountMutation } from '@/api/graphql';
-import { useRouter } from 'next/router';
-import { useCallback, useMemo } from 'react';
-import { FieldValues, UpsertAccountForm } from '..';
-import { useTranslation } from 'next-i18next';
+import { useGetAccountQuery, useUpdateAccountMutation } from '@/api/graphql'
+import { useRouter } from 'next/router'
+import { useCallback, useMemo } from 'react'
+import type { FieldValues } from '..'
+import { UpsertAccountForm } from '..'
+import { useTranslation } from 'next-i18next'
 
 export const UpdateAccountForm: React.FC = () => {
-  const { t } = useTranslation('account');
-  const router = useRouter();
-  const { id } = router.query;
+  const { t } = useTranslation('account')
+  const router = useRouter()
+  const { id } = router.query
 
   const accountId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id;
-  }, [id]);
+    return id == null || Array.isArray(id) ? null : id
+  }, [id])
 
-  const { data, loading, error } = useGetAccountQuery({
+  const { data } = useGetAccountQuery({
     variables: {
       input: {
         id: accountId ?? '',
       },
     },
     skip: accountId == null,
-  });
+  })
 
-  const [updateAccount] = useUpdateAccountMutation();
+  const [updateAccount] = useUpdateAccountMutation()
 
   const values = useMemo(() => {
     if (data?.getAccount == null) {
-      return undefined;
+      return undefined
     }
 
     return {
       name: data.getAccount.name,
       categoryId: data.getAccount.category.id,
-    };
-  }, [data?.getAccount]);
+    }
+  }, [data?.getAccount])
 
   const handleOnSubmit = useCallback(
     (values: FieldValues) => {
       if (data?.getAccount == null) {
-        return;
+        return
       }
 
-      updateAccount({
+      void updateAccount({
         variables: {
           input: {
             id: data.getAccount.id,
             ...values,
           },
         },
-      });
+      })
     },
-    [updateAccount, data?.getAccount]
-  );
+    [updateAccount, data?.getAccount],
+  )
 
   return (
     <UpsertAccountForm
@@ -59,5 +60,5 @@ export const UpdateAccountForm: React.FC = () => {
       onSubmitText={t`UpdateAccountForm.submit`}
       values={values}
     />
-  );
-};
+  )
+}

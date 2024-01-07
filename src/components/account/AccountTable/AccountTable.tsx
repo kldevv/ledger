@@ -1,7 +1,7 @@
-import { GetAccountsQuery } from "@/api/graphql";
-import { FormattedDate, Table, ViewLink } from "@/components/common"
-import { createColumnHelper } from "@tanstack/react-table";
-import { useTranslation } from "next-i18next";
+import type { GetAccountsQuery } from '@/api/graphql'
+import { FormattedDate, Table, ViewLink } from '@/components/common'
+import { createColumnHelper } from '@tanstack/react-table'
+import { useTranslation } from 'next-i18next'
 
 export type AccountTableData = GetAccountsQuery['getAccounts'][number]
 
@@ -12,10 +12,10 @@ export interface AccountTableProps {
   data: AccountTableData[]
 }
 
-const columnHelper = createColumnHelper<AccountTableData>();
+const columnHelper = createColumnHelper<AccountTableData>()
 
 export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
-  const { t } = useTranslation('account');
+  const { t } = useTranslation('account')
 
   const colDefs = [
     columnHelper.accessor('id', {
@@ -32,19 +32,15 @@ export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
     }),
     columnHelper.accessor('createdDate', {
       header: t('AccountTable.header.createdDate'),
-      cell: (props) => <FormattedDate dateTime={props.getValue()}/>
+      cell: (props) => <FormattedDate dateTime={props.getValue()} />,
     }),
     columnHelper.display({
-      id: 'detail',
+      id: 'view-link',
       cell: (props) => (
-        <ViewLink
-          href={`/account/${props.row.getValue('id')}`}
-        />
+        <ViewLink href={`/account/${props.row.getValue<string>('id')}`} />
       ),
     }),
-  ];
+  ]
 
-  return (
-    <Table data={data} colDefs={colDefs} />
-  );
+  return <Table data={data} colDefs={colDefs} />
 }

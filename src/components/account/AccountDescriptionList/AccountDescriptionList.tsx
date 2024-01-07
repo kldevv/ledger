@@ -1,24 +1,24 @@
-import { GetAccountQuery } from '@/api/graphql';
-import {
-  DescriptionList,
-  DescriptionListItem,
-  FormattedDate,
-} from '@/components/common';
-import { useTranslation } from 'next-i18next';
+import type { GetAccountQuery } from '@/api/graphql'
+import type { DescriptionListItem } from '@/components/common'
+import { DescriptionList, FormattedDate } from '@/components/common'
+import { useTranslation } from 'next-i18next'
 
-export type AccountDescriptionListData = Exclude<GetAccountQuery['getAccount'], null>
+export type AccountDescriptionListData = Exclude<
+  GetAccountQuery['getAccount'],
+  null
+>
 
 export interface AccountDescriptionListProps {
   /**
    * Transaction detail
    */
-  data: AccountDescriptionListData;
+  data: AccountDescriptionListData
 }
 
 export const AccountDescriptionList: React.FC<AccountDescriptionListProps> = ({
   data: { id, name, createdDate, updatedDate, category } = {},
 }) => {
-  const { t } = useTranslation('account');
+  const { t } = useTranslation('account')
 
   const items: DescriptionListItem[] = [
     {
@@ -41,7 +41,7 @@ export const AccountDescriptionList: React.FC<AccountDescriptionListProps> = ({
       title: t('AccountDescriptionList.title.updatedDate'),
       description: <FormattedDate dateTime={updatedDate} />,
     },
-  ];
+  ]
 
-  return <DescriptionList items={items} />;
-};
+  return <DescriptionList items={items} />
+}

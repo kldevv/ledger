@@ -1,16 +1,17 @@
-import { useAddAccountMutation, useGetCategoriesQuery } from '@/api/graphql';
-import { FieldValues, UpsertAccountForm } from '..';
-import { useCallback, useMemo } from 'react';
-import { useTranslation } from 'next-i18next';
-import { useVaultContext } from '@/hooks';
+import { useAddAccountMutation, useGetCategoriesQuery } from '@/api/graphql'
+import type { FieldValues } from '..'
+import { UpsertAccountForm } from '..'
+import { useCallback, useMemo } from 'react'
+import { useTranslation } from 'next-i18next'
+import { useVaultContext } from '@/hooks'
 
 export const InsertAccountFrom: React.FC = () => {
-  const { t } = useTranslation('account');
-  const [{ curVaultId }] = useVaultContext();
+  const { t } = useTranslation('account')
+  const [{ curVaultId }] = useVaultContext()
 
   const [addAccount] = useAddAccountMutation({
     onCompleted: (data) => console.log(data),
-  });
+  })
 
   const { data } = useGetCategoriesQuery({
     variables: {
@@ -19,36 +20,36 @@ export const InsertAccountFrom: React.FC = () => {
       },
     },
     skip: curVaultId == null,
-  });
+  })
 
   const values = useMemo(() => {
     if (data?.getCategories[0] == null) {
-      return undefined;
+      return undefined
     }
 
     return {
       name: '',
       categoryId: data?.getCategories[0]?.id,
-    };
-  }, [data?.getCategories]);
+    }
+  }, [data?.getCategories])
 
   const handleOnSubmit = useCallback(
     (values: FieldValues) => {
       if (curVaultId == null) {
-        return;
+        return
       }
 
-      addAccount({
+      void addAccount({
         variables: {
           input: {
             ...values,
             vaultId: curVaultId,
           },
         },
-      });
+      })
     },
-    [curVaultId, addAccount]
-  );
+    [curVaultId, addAccount],
+  )
 
   return (
     <UpsertAccountForm
@@ -56,5 +57,5 @@ export const InsertAccountFrom: React.FC = () => {
       onSubmit={handleOnSubmit}
       values={values}
     />
-  );
-};
+  )
+}

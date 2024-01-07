@@ -1,20 +1,20 @@
-import { useGetAccountDetailQuery } from '@/api/graphql';
-import { useRouter } from 'next/router';
-import { useMemo } from 'react';
-import { EntryTable } from '@/components/entry';
-import { AccountDescriptionList } from '../AccountDescriptionList/AccountDescriptionList';
-import { useTranslation } from 'next-i18next';
+import { useGetAccountDetailQuery } from '@/api/graphql'
+import { useRouter } from 'next/router'
+import { useMemo } from 'react'
+import { EntryTable } from '@/components/entry'
+import { AccountDescriptionList } from '../AccountDescriptionList/AccountDescriptionList'
+import { useTranslation } from 'next-i18next'
 
 export const AccountDetail: React.FC = () => {
-  const router = useRouter();
+  const router = useRouter()
   const { t } = useTranslation('account')
-  const { id } = router.query;
+  const { id } = router.query
 
   const accountId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id;
-  }, [id]);
+    return id == null || Array.isArray(id) ? null : id
+  }, [id])
 
-  const { data, loading, error } = useGetAccountDetailQuery({
+  const { data } = useGetAccountDetailQuery({
     variables: {
       getAccountInput: {
         id: accountId ?? '',
@@ -24,7 +24,7 @@ export const AccountDetail: React.FC = () => {
       },
     },
     skip: accountId == null,
-  });
+  })
 
   return (
     data?.getAccount && (
@@ -40,5 +40,5 @@ export const AccountDetail: React.FC = () => {
         <EntryTable data={data?.getEntries} />
       </div>
     )
-  );
-};
+  )
+}
