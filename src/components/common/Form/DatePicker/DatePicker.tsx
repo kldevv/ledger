@@ -1,9 +1,10 @@
-import { Control, FieldValues, Path, useController } from 'react-hook-form';
-import classNames from 'classnames';
-import { useCallback, useMemo } from 'react';
-import { Label } from '../Label';
-import { formatDate } from '@/lib';
-import { ErrorMessage } from '../ErrorMessage';
+import type { Control, FieldValues, Path } from 'react-hook-form'
+import { useController } from 'react-hook-form'
+import classNames from 'classnames'
+import { useCallback, useMemo } from 'react'
+import { Label } from '../Label'
+import { formatDate } from '@/lib'
+import { ErrorMessage } from '../ErrorMessage'
 
 export interface DatePickerProps<TFieldValues extends FieldValues>
   extends Omit<
@@ -13,15 +14,15 @@ export interface DatePickerProps<TFieldValues extends FieldValues>
   /**
    * Input label
    */
-  label: string;
+  label: string
   /**
    * Input name
    */
-  name: Path<TFieldValues>;
+  name: Path<TFieldValues>
   /**
    * Form control
    */
-  control?: Control<TFieldValues>;
+  control?: Control<TFieldValues>
 }
 
 export const DatePicker = <TFieldValues extends FieldValues>({
@@ -32,12 +33,12 @@ export const DatePicker = <TFieldValues extends FieldValues>({
   ...props
 }: DatePickerProps<TFieldValues>) => {
   const {
-    field: {value, ...rest},
+    field: { value, ...rest },
     fieldState: { error },
   } = useController({
     name,
     control,
-  });
+  })
 
   const cn = useMemo(
     () =>
@@ -47,15 +48,15 @@ export const DatePicker = <TFieldValues extends FieldValues>({
         'rounded-md border border-mid-gray',
         'font-normal text-sm leading-6 text-dark-shades',
         'focus:outline-light-accent focus:bg-light-accent-halo',
-        className
+        className,
       ),
-    [className]
-  );
+    [className],
+  )
 
   const convertValue = useCallback((value: Date | string) => {
     if (typeof value === 'string') return value
 
-    return formatDate(value);
+    return formatDate(value)
   }, [])
 
   return (
@@ -73,5 +74,5 @@ export const DatePicker = <TFieldValues extends FieldValues>({
       />
       <ErrorMessage error={error?.message} />
     </div>
-  );
-};
+  )
+}

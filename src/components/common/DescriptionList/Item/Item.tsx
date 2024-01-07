@@ -2,11 +2,11 @@ export interface ItemProps {
   /**
    * Title of the item
    */
-  title: string;
+  title: string
   /**
    * Description of the item
    */
-  description: React.ReactNode;
+  description: React.ReactNode
 }
 
 export const Item: React.FC<ItemProps> = ({ title, description }) => {
@@ -21,5 +21,5 @@ export const Item: React.FC<ItemProps> = ({ title, description }) => {
         </div>
       </dd>
     </div>
-  );
-};
+  )
+}

@@ -1,9 +1,10 @@
-import classNames from "classnames";
-import { forwardRef, useMemo } from "react";
+import classNames from 'classnames'
+import { forwardRef, useMemo } from 'react'
 
 export interface InputCoreProps extends React.ComponentPropsWithRef<'input'> {}
 
-export const InputCore: React.FC<InputCoreProps> = forwardRef(({ className, ...props }, ref) => {
+export const InputCore: React.FC<InputCoreProps> = forwardRef(
+  ({ className, ...props }, ref) => {
     const cn = useMemo(
       () =>
         classNames(
@@ -12,10 +13,13 @@ export const InputCore: React.FC<InputCoreProps> = forwardRef(({ className, ...p
           'rounded-md border border-mid-gray',
           'font-normal text-sm leading-6 text-dark-shades',
           'focus:outline-light-accent focus:bg-light-accent-halo',
-          className
+          className,
         ),
-      [className]
-    );
+      [className],
+    )
 
-  return <input className={cn} ref={ref} autoComplete="on" {...props} />;
-})
+    return <input className={cn} ref={ref} autoComplete="on" {...props} />
+  },
+)
+
+InputCore.displayName = 'InputCore'

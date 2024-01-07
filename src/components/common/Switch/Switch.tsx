@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
-import { Switch as HeadlessSwitch } from '@headlessui/react';
+import { useCallback, useState } from 'react'
+import { Switch as HeadlessSwitch } from '@headlessui/react'
 
 export interface SwitchProps {
   /**
@@ -13,12 +13,12 @@ export interface SwitchProps {
 }
 
 export const Switch: React.FC<SwitchProps> = ({ label, onChange }) => {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(false)
 
   const handleOnChange = useCallback(() => {
-    setEnabled((prev) => !prev);
-    onChange?.();
-  }, [onChange]);
+    setEnabled((prev) => !prev)
+    onChange?.()
+  }, [onChange])
 
   return (
     <HeadlessSwitch.Group>
@@ -41,5 +41,5 @@ export const Switch: React.FC<SwitchProps> = ({ label, onChange }) => {
         </HeadlessSwitch.Label>
       </div>
     </HeadlessSwitch.Group>
-  );
-};
+  )
+}

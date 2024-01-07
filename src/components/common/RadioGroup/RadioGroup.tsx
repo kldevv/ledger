@@ -1,11 +1,11 @@
-import { useCallback, useState } from 'react';
-import { RadioGroup as HeadlessRadioGroup } from '@headlessui/react';
+import { useCallback, useState } from 'react'
+import { RadioGroup as HeadlessRadioGroup } from '@headlessui/react'
 
 export interface RadioGroupProps<TType> {
   /**
    * Radio group label
    */
-  label: string;
+  label: string
   /**
    * Options
    */
@@ -13,39 +13,36 @@ export interface RadioGroupProps<TType> {
     /**
      * Option key
      */
-    value: TType;
+    value: TType
     /**
      * Option label
      */
-    label: string;
-  }[];
+    label: string
+  }[]
   /**
    * On change
    */
-  onChange?: (value: TType) => void;
+  onChange?: (value: TType) => void
 }
 
-export const RadioGroup = <TType, >({
+export const RadioGroup = <TType,>({
   options,
   label,
   onChange,
 }: RadioGroupProps<TType>) => {
-  const [selected, setSelected] = useState<TType>(options[0].value);
+  const [selected, setSelected] = useState<TType>(options[0].value)
 
   const handleOnChange = useCallback(
     (value: TType) => {
-      onChange?.(value);
-      setSelected(value);
+      onChange?.(value)
+      setSelected(value)
     },
-    [onChange, setSelected]
-  );
+    [onChange, setSelected],
+  )
 
   return (
     <HeadlessRadioGroup value={selected} onChange={handleOnChange}>
-      <HeadlessRadioGroup.Label
-        className="sr-only"
-        as='p'
-      >
+      <HeadlessRadioGroup.Label className="sr-only" as="p">
         {label}
       </HeadlessRadioGroup.Label>
       <div className="flex">
@@ -73,5 +70,5 @@ export const RadioGroup = <TType, >({
         ))}
       </div>
     </HeadlessRadioGroup>
-  );
-};
+  )
+}

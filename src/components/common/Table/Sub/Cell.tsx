@@ -1,15 +1,15 @@
-import classNames from 'classnames';
+import classNames from 'classnames'
 
 export type CellProps = {
   /**
    * Children component
    */
-  children: React.ReactNode;
+  children: React.ReactNode
   /**
    * Customize classname
    */
-  className?: string;
-};
+  className?: string
+}
 
 export const Cell: React.FC<CellProps> = ({ children, className }) => {
   return (
@@ -22,5 +22,5 @@ export const Cell: React.FC<CellProps> = ({ children, className }) => {
     >
       {children}
     </td>
-  );
-};
+  )
+}

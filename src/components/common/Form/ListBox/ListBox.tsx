@@ -1,59 +1,64 @@
-import { Control, FieldValues, Path, useController } from 'react-hook-form';
-import { Listbox } from '@headlessui/react';
-import { Fragment, useMemo } from 'react';
-import classNames from 'classnames';
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
-import { Label } from '../Label';
-import { ErrorMessage } from '../ErrorMessage';
+import type { Control, FieldValues, Path } from 'react-hook-form'
+import { useController } from 'react-hook-form'
+import { Listbox } from '@headlessui/react'
+import { Fragment, useMemo } from 'react'
+import classNames from 'classnames'
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from '@heroicons/react/20/solid'
+import { Label } from '../Label'
+import { ErrorMessage } from '../ErrorMessage'
 
 export interface ListBoxProps<TFieldValues extends FieldValues> {
   /**
    * Select name
    */
-  name: Path<TFieldValues>;
+  name: Path<TFieldValues>
   /**
    * Select items
    */
-  options: { value: string; label: React.ReactNode }[];
+  options: { value: string; label: string }[]
   /**
    * Select label
    */
-  label: string;
+  label: string
   /**
    * Is multiple selectable?
    */
-  multiple?: boolean;
+  multiple?: boolean
   /**
    * Optional control to explicitly set `react-hook-form` control
    */
-  control?: Control<TFieldValues>;
+  control?: Control<TFieldValues>
 }
 
-const BUTTON_CN = classNames(
+const buttonCn = classNames(
   'py-1.5 px-3 mt-[0.125rem]',
   'w-full h-[2.5rem]',
   'flex items-center',
   'bg-white rounded-md border border-mid-gray text-dark-shades',
   'font-normal text-sm leading-6',
-  'focus:outline-light-accent focus:outline focus:bg-light-accent-halo'
-);
+  'focus:outline-light-accent focus:outline focus:bg-light-accent-halo',
+)
 
-const OPTIONS_CN = classNames(
+const optionsCn = classNames(
   'w-full',
   'max-h-[15rem]',
   'overflow-auto',
   'absolute',
   'mt-1 p-1',
   'bg-white shadow-md shadow-gray rounded-md',
-  'z-10'
-);
+  'z-10',
+)
 
-const OPTION_CN = classNames(
+const optionCn = classNames(
   'gap-x-2 py-1.5 px-3',
   'text-sm leading-6 text-dark-shades',
   'min-w-full flex items-center',
-  'rounded'
-);
+  'rounded',
+)
 
 export const ListBox = <TFieldValues extends FieldValues>({
   name,
@@ -68,16 +73,13 @@ export const ListBox = <TFieldValues extends FieldValues>({
   } = useController<TFieldValues>({
     name,
     control,
-  });
+  })
 
   const displayValue = useMemo(() => {
     return multiple
-      ? options
-          .filter(({ value }) => field.value.includes(value))
-          .map(({ label }) => label)
-          .join(', ')
-      : options.find(({ value }) => value === field.value)?.label;
-  }, [options, field.value]);
+      ? field.value
+      : options.find(({ value }) => value === field.value)?.label
+  }, [multiple, options, field.value])
 
   return (
     <div className="w-[12rem] flex flex-col relative mt-[0.125rem]">
@@ -87,7 +89,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
             <Listbox.Label as={Fragment}>
               <Label htmlFor={`listbox-${name}`}>{label}</Label>
             </Listbox.Label>
-            <Listbox.Button className={BUTTON_CN} id={`listbox-${name}`}>
+            <Listbox.Button className={buttonCn} id={`listbox-${name}`}>
               <div className="min-h-[30px] flex items-center relative w-full gap-2">
                 <span className="mr-[1.75rem] whitespace-nowrap overflow-hidden overflow-ellipsis text-left">
                   {displayValue}
@@ -101,7 +103,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
                 </div>
               </div>
             </Listbox.Button>
-            <Listbox.Options className={OPTIONS_CN}>
+            <Listbox.Options className={optionsCn}>
               {options.map(({ value, label }) => (
                 <Listbox.Option
                   key={`${value}:${label}`}
@@ -111,12 +113,14 @@ export const ListBox = <TFieldValues extends FieldValues>({
                   {({ active, selected }) => (
                     <li
                       className={classNames(
-                        OPTION_CN,
+                        optionCn,
                         active ? 'bg-mid-gray' : undefined,
                       )}
                     >
                       {label}
-                      {selected && multiple && <CheckIcon className='w-3 h-3 font-bold text-light-accent'/>}
+                      {selected && multiple && (
+                        <CheckIcon className="w-3 h-3 font-bold text-light-accent" />
+                      )}
                     </li>
                   )}
                 </Listbox.Option>
@@ -127,5 +131,5 @@ export const ListBox = <TFieldValues extends FieldValues>({
       </Listbox>
       <ErrorMessage error={error?.message} />
     </div>
-  );
-};
+  )
+}

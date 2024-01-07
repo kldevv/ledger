@@ -1,7 +1,7 @@
-import { Control, FieldValues, Path, useController } from 'react-hook-form';
-import { Label } from '../Label';
-import { ErrorMessage } from '../ErrorMessage';
-import { InputCore, InputCoreProps } from '../..';
+import type { Control, FieldValues, Path } from 'react-hook-form'
+import { useController } from 'react-hook-form'
+import type { InputCoreProps } from '../..'
+import { ErrorMessage, InputCore, Label } from '../..'
 
 export interface InputTextProps<TFieldValues extends FieldValues>
   extends Omit<
@@ -11,26 +11,25 @@ export interface InputTextProps<TFieldValues extends FieldValues>
   /**
    * Input label
    */
-  label: string;
+  label: string
   /**
    * Input name
    */
-  name: Path<TFieldValues>;
+  name: Path<TFieldValues>
   /**
    * Form control
    */
-  control?: Control<TFieldValues>;
+  control?: Control<TFieldValues>
   /**
    * Default value
    */
-  defaultValue?: number | string;
+  defaultValue?: number | string
 }
 
 export const InputText = <TFieldValues extends FieldValues>({
   name,
   label,
   control,
-  className,
   ...props
 }: InputTextProps<TFieldValues>) => {
   const {
@@ -39,7 +38,7 @@ export const InputText = <TFieldValues extends FieldValues>({
   } = useController({
     name,
     control,
-  });
+  })
 
   return (
     <div className="w-[12rem] flex flex-col my-1">
@@ -56,5 +55,5 @@ export const InputText = <TFieldValues extends FieldValues>({
       />
       <ErrorMessage error={error?.message} />
     </div>
-  );
-};
+  )
+}

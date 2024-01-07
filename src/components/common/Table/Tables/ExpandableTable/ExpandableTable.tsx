@@ -1,37 +1,35 @@
+import type { ColumnDef, ExpandedState, RowData } from '@tanstack/react-table'
 import {
-  ColumnDef,
-  ExpandedState,
-  RowData,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
   useReactTable,
-} from '@tanstack/react-table';
-import { Button, Card } from '../../..';
-import { Cell, Header } from '../../Sub';
-import { useEffect, useState } from 'react';
-import classNames from 'classnames';
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
+} from '@tanstack/react-table'
+import { Button, Card } from '../../..'
+import { Cell, Header } from '../../Sub'
+import { useEffect, useState } from 'react'
+import classNames from 'classnames'
+import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 
 export type ExpandableTableProps<TData extends RowData> = {
   /**
    * ExpandableTable data
    */
-  data: TData[];
+  data: TData[]
   /**
    * ExpandableTable column definitions
    */
-  colDefs: ColumnDef<TData, any>[];
+  colDefs: ColumnDef<TData>[]
   /**
    * Get expanded data from the field of data
    */
-  getExpandedData: (row: TData) => TData[];
+  getExpandedData: (row: TData) => TData[]
   /**
    * Col group count
    */
-  colGroupCount?: 1 | 2;
-};
+  colGroupCount?: 1 | 2
+}
 
 export const ExpandableTable = <TData extends RowData>({
   data,
@@ -39,9 +37,9 @@ export const ExpandableTable = <TData extends RowData>({
   getExpandedData,
   colGroupCount = 2,
 }: ExpandableTableProps<TData>): React.ReactElement => {
-  const [expanded, setExpanded] = useState<ExpandedState>({});
+  const [expanded, setExpanded] = useState<ExpandedState>({})
 
-  const columnHelper = createColumnHelper<TData>();
+  const columnHelper = createColumnHelper<TData>()
 
   const table = useReactTable<TData>({
     data,
@@ -68,14 +66,14 @@ export const ExpandableTable = <TData extends RowData>({
     getSubRows: getExpandedData,
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
-  });
+  })
 
   useEffect(() => {
-    table.toggleAllRowsExpanded();
-  }, []);
+    table.toggleAllRowsExpanded()
+  }, [table])
 
   return (
-    <Card variant="2xl">
+    <Card>
       <div className="w-full h-full max-w-xl max-h-screen overflow-x-auto">
         <table className="w-full h-full table-auto relative">
           <thead className="sticky top-0 z-30">
@@ -88,18 +86,18 @@ export const ExpandableTable = <TData extends RowData>({
                     className={classNames(
                       'bg-white',
                       'text-center',
-                      index == 0
+                      index === 0
                         ? 'sticky left-0'
-                        : index == 1
-                        ? 'sticky left-[2.25rem]'
-                        : undefined
+                        : index === 1
+                          ? 'sticky left-[2.25rem]'
+                          : undefined,
                     )}
                   >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </Header>
                 ))}
@@ -114,20 +112,20 @@ export const ExpandableTable = <TData extends RowData>({
                     key={cell.id}
                     className={classNames(
                       'z-20',
-                      (colGroupCount == 2 && index & 1) ||
-                        (colGroupCount == 1 && index > 0)
+                      (colGroupCount === 2 && index & 1) ||
+                        (colGroupCount === 1 && index > 0)
                         ? 'border-r border-mid-gray'
                         : undefined,
-                      index == 0
+                      index === 0
                         ? 'sticky left-0'
-                        : index == 1
-                        ? 'sticky left-[2.25rem]'
-                        : undefined,
-                      row.depth == 0
+                        : index === 1
+                          ? 'sticky left-[2.25rem]'
+                          : undefined,
+                      row.depth === 0
                         ? 'bg-light-accent text-light-shades font-semibold'
                         : rowIndex & 1
-                        ? 'bg-white'
-                        : 'bg-light-shades'
+                          ? 'bg-white'
+                          : 'bg-light-shades',
                     )}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -139,5 +137,5 @@ export const ExpandableTable = <TData extends RowData>({
         </table>
       </div>
     </Card>
-  );
-};
+  )
+}

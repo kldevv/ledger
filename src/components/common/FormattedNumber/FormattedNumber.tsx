@@ -1,15 +1,15 @@
-import classNames from 'classnames';
-import { numericFormatter } from 'react-number-format';
+import classNames from 'classnames'
+import { numericFormatter } from 'react-number-format'
 
 export interface FormattedNumberProps {
   /**
    * Value
    */
-  value: number | string;
+  value: number | string
   /**
    * Customized class name
    */
-  className?: string;
+  className?: string
 }
 
 export const FormattedNumber: React.FC<FormattedNumberProps> = ({
@@ -29,5 +29,5 @@ export const FormattedNumber: React.FC<FormattedNumberProps> = ({
         })}
       </div>
     </div>
-  );
-};
+  )
+}

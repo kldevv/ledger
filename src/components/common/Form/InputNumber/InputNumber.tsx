@@ -1,8 +1,8 @@
-import { Control, FieldValues, Path, useController } from 'react-hook-form';
-import { Label } from '../Label';
-import { ErrorMessage } from '../ErrorMessage';
-import { NumericFormat } from 'react-number-format';
-import { InputCore, InputCoreProps } from '../..';
+import type { Control, FieldValues, Path } from 'react-hook-form'
+import { useController } from 'react-hook-form'
+import { NumericFormat } from 'react-number-format'
+import type { InputCoreProps } from '../..'
+import { ErrorMessage, InputCore, Label } from '../..'
 
 export interface InputNumberProps<TFieldValues extends FieldValues>
   extends Omit<
@@ -12,26 +12,25 @@ export interface InputNumberProps<TFieldValues extends FieldValues>
   /**
    * Input number label
    */
-  label: string;
+  label: string
   /**
    * Input number name
    */
-  name: Path<TFieldValues>;
+  name: Path<TFieldValues>
   /**
    * Form control
    */
-  control?: Control<TFieldValues>;
+  control?: Control<TFieldValues>
   /**
    * Default value
    */
-  defaultValue?: number | string;
+  defaultValue?: number | string
 }
 
 export const InputNumber = <TFieldValues extends FieldValues>({
   name,
   label,
   control,
-  className,
   ...props
 }: InputNumberProps<TFieldValues>) => {
   const {
@@ -40,7 +39,7 @@ export const InputNumber = <TFieldValues extends FieldValues>({
   } = useController({
     name,
     control,
-  });
+  })
 
   return (
     <div className="w-[12rem] flex flex-col my-1">
@@ -68,5 +67,5 @@ export const InputNumber = <TFieldValues extends FieldValues>({
       </div>
       <ErrorMessage error={error?.message} />
     </div>
-  );
-};
+  )
+}

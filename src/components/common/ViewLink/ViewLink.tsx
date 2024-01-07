@@ -1,6 +1,6 @@
-import Link from "next/link"
-import { useTranslation } from "next-i18next"
-import { UrlObject } from "url"
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+import type { UrlObject } from 'url'
 
 export interface ViewLinkProps {
   href: string | UrlObject
@@ -15,5 +15,5 @@ export const ViewLink: React.FC<ViewLinkProps> = ({ href }) => {
         {t('ViewLink.label')}
       </Link>
     </div>
-  );
+  )
 }

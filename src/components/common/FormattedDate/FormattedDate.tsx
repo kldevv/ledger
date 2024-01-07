@@ -1,5 +1,5 @@
-import { formatDate } from '@/lib';
-import classNames from 'classnames';
+import { formatDate } from '@/lib'
+import classNames from 'classnames'
 
 export interface FormattedDateProps {
   /**
@@ -9,16 +9,14 @@ export interface FormattedDateProps {
   /**
    * Customized class name
    */
-  className?: string;
+  className?: string
 }
 
 export const FormattedDate: React.FC<FormattedDateProps> = ({
   dateTime,
   className,
 }) => {
-  const cn = classNames('whitespace-nowrap', className);
+  const cn = classNames('whitespace-nowrap', className)
 
-  return (
-    <span className={cn}>{formatDate(dateTime)}</span>
-  );
-};
+  return <span className={cn}>{formatDate(dateTime)}</span>
+}

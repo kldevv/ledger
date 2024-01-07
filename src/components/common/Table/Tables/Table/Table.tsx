@@ -1,6 +1,11 @@
-import { ColumnDef, RowData, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { Card } from "../../..";
-import { Cell, Header } from '../../Sub';
+import type { ColumnDef, RowData } from '@tanstack/react-table'
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from '@tanstack/react-table'
+import { Card } from '../../..'
+import { Cell, Header } from '../../Sub'
 
 export type TableProps<TData extends RowData> = {
   /**
@@ -10,8 +15,8 @@ export type TableProps<TData extends RowData> = {
   /**
    * Table column definitions
    */
-  colDefs: ColumnDef<TData, any>[]
-};
+  colDefs: ColumnDef<TData>[]
+}
 
 export const Table = <TData extends RowData>({
   data,
@@ -21,10 +26,10 @@ export const Table = <TData extends RowData>({
     data,
     columns: colDefs,
     getCoreRowModel: getCoreRowModel(),
-  });
+  })
 
   return (
-    <Card variant="2xl">
+    <Card>
       <div className="w-full h-full overflow-auto">
         <table className="w-full h-full table-auto">
           <thead>
@@ -36,7 +41,7 @@ export const Table = <TData extends RowData>({
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </Header>
                 ))}
@@ -60,5 +65,5 @@ export const Table = <TData extends RowData>({
         </table>
       </div>
     </Card>
-  );
+  )
 }

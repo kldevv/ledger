@@ -1,5 +1,5 @@
-import classNames from 'classnames';
-import { forwardRef } from 'react';
+import classNames from 'classnames'
+import { forwardRef } from 'react'
 
 export interface Label extends React.ComponentPropsWithRef<'label'> {}
 
@@ -9,13 +9,15 @@ export const Label: React.FC<Label> = forwardRef(
       <label
         className={classNames(
           'w-full text-xs leading-6 font-normal flex text-dark-shades whitespace-nowrap',
-          className
+          className,
         )}
         {...rest}
         ref={ref}
       >
         {children}
       </label>
-    );
-  }
-);
+    )
+  },
+)
+
+Label.displayName = 'Label'
