@@ -1,22 +1,23 @@
-import { QueryResolvers } from "@/api/graphql";
+import { Basis, type QueryResolvers } from '@/api/graphql'
 
 export const getMinMaxDate: QueryResolvers['getMinMaxDate'] = async (
-  _, { input: { vaultId, basis } }, { dataSources: { prisma } }
+  _,
+  { input: { vaultId, basis } },
+  { dataSources: { prisma } },
 ) => {
-  if (basis == 'ACCRUAL') {
+  if (basis === Basis.ACCRUAL) {
     const data = await prisma.transaction.readMinMaxAccrualDate({ vaultId })
 
     return {
       minDate: data?._min.accrualDate,
-      maxDate: data?._max.accrualDate
+      maxDate: data?._max.accrualDate,
     }
-  }
-  else {
+  } else {
     const data = await prisma.entry.readMinMaxTransactionDate({ vaultId })
 
     return {
       minDate: data?._min.transactionDate,
-      maxDate: data?._max.transactionDate
+      maxDate: data?._max.transactionDate,
     }
   }
 }

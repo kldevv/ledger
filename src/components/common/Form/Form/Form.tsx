@@ -1,52 +1,48 @@
-import { useCallback, useEffect, useState } from 'react';
-import type {
-  FieldValues,
-  SubmitHandler,
-  UseFormReturn,
-} from 'react-hook-form';
-import { FormProvider } from 'react-hook-form';
+import { useCallback } from 'react'
+import type { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form'
+import { FormProvider } from 'react-hook-form'
 
 export interface FormProps<TFieldValues extends FieldValues>
   extends Omit<React.ComponentPropsWithRef<'form'>, 'onSubmit'> {
   /**
    * Children component
    */
-  children: React.ReactNode;
+  children: React.ReactNode
   /**
    * Callback on submit event
    */
-  onSubmit: SubmitHandler<TFieldValues>;
+  onSubmit: SubmitHandler<TFieldValues>
   /**
    * React hook form returns
    */
-  context: UseFormReturn<TFieldValues>;
+  context: UseFormReturn<TFieldValues>
   /**
    * Is default form behavior enabled?
    *
    * By default, `false`
    */
-  enableDefault?: boolean;
+  enableDefault?: boolean
 }
 
 export const Form = <TFieldValues extends FieldValues>({
   children,
   onSubmit,
   context,
-  enableDefault,
+  enableDefault = false,
   ...props
 }: FormProps<TFieldValues>) => {
-  const { handleSubmit } = context;
+  const { handleSubmit } = context
 
   const handleOnSubmit = useCallback(
-    async (event: React.FormEvent<HTMLFormElement>) => {
+    (event: React.FormEvent<HTMLFormElement>) => {
       if (!enableDefault) {
-        event.preventDefault();
+        event.preventDefault()
       }
 
-      handleSubmit(onSubmit)(event);
+      void handleSubmit(onSubmit)(event)
     },
-    [onSubmit, handleSubmit]
-  );
+    [enableDefault, handleSubmit, onSubmit],
+  )
 
   return (
     <FormProvider {...context}>
@@ -54,5 +50,5 @@ export const Form = <TFieldValues extends FieldValues>({
         {children}
       </form>
     </FormProvider>
-  );
-};
+  )
+}

@@ -1,11 +1,16 @@
-import { Basis, QueryResolvers, ReportData, ReportDateGroupBy } from "@/api/graphql";
+import type { QueryResolvers, ReportData } from '@/api/graphql'
+import { Basis, ReportDateGroupBy } from '@/api/graphql'
 
 export const getReportsBalance: QueryResolvers['getReportsBalance'] = async (
-  _, { input: { vaultId, basis, groupBy } }, { dataSources: { prisma } }
+  _,
+  { input: { vaultId, basis, groupBy } },
+  { dataSources: { prisma } },
 ) => {
   const dateFilter = new Date(new Date().getFullYear(), 0, 1)
 
-  const balance = await prisma.entry.groupBy({ vaultId, basis, startDate: dateFilter }) ?? []
+  const balance =
+    (await prisma.entry.groupBy({ vaultId, basis, startDate: dateFilter })) ??
+    []
 
   const accu = new Map<string, Omit<ReportData, 'encode'>>()
   const visitedIds = new Set<string>()
@@ -25,40 +30,44 @@ export const getReportsBalance: QueryResolvers['getReportsBalance'] = async (
       })
     })
   })
-  
+
   const mappings = new Map<string, ReportData>()
 
   const changes = await prisma.entry.groupByDate({ vaultId, basis, groupBy })
 
-  changes.forEach(({ categoryId, accountId, type, groupBy, debit, credit, count }) => {
-    const ids = [categoryId, accountId, type]
+  changes.forEach(
+    ({ categoryId, accountId, type, groupBy, debit, credit, count }) => {
+      const ids = [categoryId, accountId, type]
 
-    ids.forEach((id: string) => {
-      const encode = `${id}::${groupBy}`
-      const record = mappings.get(encode)
+      ids.forEach((id: string) => {
+        const encode = `${id}::${groupBy}`
+        const record = mappings.get(encode)
 
-      visitedIds.add(id)
+        visitedIds.add(id)
 
-      mappings.set(encode, {
-        debit: debit + (record?.debit ?? 0),
-        credit: credit + (record?.credit ?? 0),
-        count: count + (record?.count ?? 0),
-        encode: encode
+        mappings.set(encode, {
+          debit: debit + (record?.debit ?? 0),
+          credit: credit + (record?.credit ?? 0),
+          count: count + (record?.count ?? 0),
+          encode: encode,
+        })
       })
-    })
-  })
+    },
+  )
 
   const [groupByBase, groupByLength] = await (async () => {
     if (groupBy === ReportDateGroupBy.YEAR) {
       if (basis === Basis.ACCRUAL) {
-        const { _max, _min } = await prisma.transaction.readMinMaxAccrualDate({ vaultId }) ?? {}
+        const { _max, _min } =
+          (await prisma.transaction.readMinMaxAccrualDate({ vaultId })) ?? {}
 
         const minYear = _min?.accrualDate?.getFullYear() ?? 0
         const maxYear = _max?.accrualDate?.getFullYear() ?? 0
 
         return [minYear, maxYear - minYear + 1]
       } else {
-        const { _max, _min } = await prisma.entry.readMinMaxTransactionDate({ vaultId }) ?? {}
+        const { _max, _min } =
+          (await prisma.entry.readMinMaxTransactionDate({ vaultId })) ?? {}
 
         const minYear = _min?.transactionDate?.getFullYear() ?? 0
         const maxYear = _max?.transactionDate?.getFullYear() ?? 0
@@ -87,7 +96,7 @@ export const getReportsBalance: QueryResolvers['getReportsBalance'] = async (
 
       mappings.set(encode, {
         ...update,
-        encode
+        encode,
       })
     })
   })

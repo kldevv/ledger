@@ -1,12 +1,20 @@
-import { EntryStatus, QueryResolvers } from "@/api/graphql";
+import type { QueryResolvers } from '@/api/graphql'
+import { EntryStatus } from '@/api/graphql'
 
 export const getTransactions: QueryResolvers['getTransactions'] = async (
-  _, { input: { vaultId, tagId } }, { dataSources: { prisma } }
+  _,
+  { input: { vaultId, tagId } },
+  { dataSources: { prisma } },
 ) => {
-  const transactions = await prisma.transaction.readMany({ vaultId, tagId: tagId ?? undefined })
+  const transactions = await prisma.transaction.readMany({
+    vaultId,
+    tagId: tagId ?? undefined,
+  })
 
-  return transactions.map(({ entries, ...rest}) => ({
+  return transactions.map(({ entries, ...rest }) => ({
     ...rest,
-    status: entries?.some(({ status }) => status === EntryStatus.PENDING) ? EntryStatus.PENDING : EntryStatus.COMPLETED
+    status: entries?.some(({ status }) => status === EntryStatus.PENDING)
+      ? EntryStatus.PENDING
+      : EntryStatus.COMPLETED,
   }))
 }

@@ -56,7 +56,7 @@
       {
         "selector": "variableLike",
         "format": ["camelCase", "PascalCase"],
-        "leadingUnderscore": "forbid",
+        "leadingUnderscore": "allow",
         "trailingUnderscore": "forbid"
       }
     ],
