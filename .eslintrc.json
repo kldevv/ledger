@@ -1,6 +1,82 @@
 {
+  "root": true,
+  "env": {
+    "node": true,
+    "browser": true,
+    "es2021": true
+  },
   "extends": [
+    // ESLint
+    "eslint:recommended",
+
+    // TypeScript
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
+
+    // React
+    "plugin:react/recommended",
+
+    // Nextjs
     "next/core-web-vitals",
+
+    // Storybook
     "plugin:storybook/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    // to always use `tsconfig.jsons` nearest to source files
+    "project": true,
+    "tsconfigRootDir": "__dirname"
+  },
+  "plugins": [
+    // TypeScript
+    "@typescript-eslint",
+
+    // React
+    "react-hooks",
+    "react"
+  ],
+  "rules": {
+    // Enforce consistent usage of type imports
+    // https://typescript-eslint.io/rules/consistent-type-imports/
+    "@typescript-eslint/consistent-type-imports": "error",
+
+    // Disallow certain types in boolean expressions
+    // https://typescript-eslint.io/rules/strict-boolean-expressions/
+    "@typescript-eslint/strict-boolean-expressions": "error",
+
+    // Enforce naming conventions for everything across a codebase
+    // https://typescript-eslint.io/rules/naming-convention/
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variableLike",
+        "format": ["camelCase", "PascalCase"],
+        "leadingUnderscore": "forbid",
+        "trailingUnderscore": "forbid"
+      }
+    ],
+
+    // React hooks
+    // https://www.npmjs.com/package/eslint-plugin-react-hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+
+    // Require the use of === and !==
+    // https://eslint.org/docs/latest/rules/eqeqeq
+    "eqeqeq": ["error", "always", { "null": "ignore" }]
+  },
+  "ignorePatterns": [
+    "src/**/*.test.ts",
+    "src/**/__generated__/*",
+    // TODO: Remove stories folder once we set up the stories pattern
+    "src/stories/*"
+  ],
+  "overrides": [
+    // Disable type-aware linting for JavaScript files
+    {
+      "files": ["*.js"],
+      "extends": ["plugin:@typescript-eslint/disable-type-checked"]
+    }
   ]
 }
