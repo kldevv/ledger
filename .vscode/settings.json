@@ -1,24 +1,26 @@
 {
-  "editor.formatOnSave": false,
-  "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features",
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.detectIndentation": false
+  // Editor
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit"
   },
-  "[html]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features",
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.detectIndentation": false
-  },
+
+  "javascript.format.enable": false,
   "[javascript]": {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.detectIndentation": false
+    "editor.formatOnSave": false
   },
-  "[json]": {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true
-  }
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+
+  // Eslint
+  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+  "eslint.workingDirectories": ["src"],
+  "eslint.format.enable": true,
+
+  // Prettier
+  "prettier.enable": true
 }
