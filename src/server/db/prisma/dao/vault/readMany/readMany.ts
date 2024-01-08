@@ -7,15 +7,12 @@ import type { Vault } from '@prisma/client'
 export type ReadManyProps = Pick<Vault, 'ownerId'> &
   Partial<Pick<Vault, 'currency'>>
 
-export const readMany = async ({ ownerId, currency }: ReadManyProps) => {
+export const readMany = async (where: ReadManyProps) => {
   try {
     return await prisma.vault.findMany({
-      where: {
-        ownerId,
-        currency,
-      },
+      where,
     })
-  } catch (e: unknown) {
+  } catch (e) {
     logger.log({
       level: 'info',
       message: 'Error in Vault DAO: readMany',

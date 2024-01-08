@@ -13,12 +13,12 @@ export type ReadManyProps = Partial<
 export const readMany = async ({
   categoryId,
   type,
-  ...rest
+  ...props
 }: ReadManyProps) => {
   try {
     return await prisma.entry.findMany({
       where: {
-        ...rest,
+        ...props,
         account: {
           categoryId,
           category: {

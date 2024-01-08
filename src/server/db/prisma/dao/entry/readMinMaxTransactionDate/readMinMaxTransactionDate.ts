@@ -6,14 +6,12 @@ import type { Entry } from '@prisma/client'
 
 export type ReadMinMaxTransactionDateProps = Pick<Entry, 'vaultId'>
 
-export const readMinMaxTransactionDate = async ({
-  vaultId,
-}: ReadMinMaxTransactionDateProps) => {
+export const readMinMaxTransactionDate = async (
+  where: ReadMinMaxTransactionDateProps,
+) => {
   try {
     return await prisma.entry.aggregate({
-      where: {
-        vaultId,
-      },
+      where,
       _min: {
         transactionDate: true,
       },
