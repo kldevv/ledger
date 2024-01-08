@@ -4,7 +4,6 @@ import { loadFilesSync } from '@graphql-tools/load-files'
 import { DateTimeResolver } from 'graphql-scalars'
 
 import { PrismaDataSource } from '@/server/db/prisma'
-import { StaticDataSource } from '@/server/db/static'
 
 import { resolvers } from './resolver'
 
@@ -32,7 +31,6 @@ export default startServerAndCreateNextHandler<
       res,
       dataSources: {
         prisma: new PrismaDataSource(),
-        static: new StaticDataSource(),
       },
     }),
 })
