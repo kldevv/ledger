@@ -1,4 +1,4 @@
-export * from './create'
+export * from './createOne'
 export * from './delete'
 export * from './read'
 export * from './stats'

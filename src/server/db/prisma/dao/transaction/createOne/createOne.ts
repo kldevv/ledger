@@ -1,18 +1,19 @@
-import prisma from '@/server/db/prisma/client/client'
-import { EntryDao } from '../..'
-import { Transaction } from '@prisma/client'
+import prisma from '@/server/db/prisma/client'
 
-export namespace CreateOne {
-  export type Args = Omit<Transaction, 'createdDate' | 'updatedDate' | 'id'> & {
-    /**
-     * List of tag ids to connect to
-     */
-    tagIds: string[]
-    /**
-     * List of entries of the transaction
-     */
-    entries: Omit<EntryDao.CreateOne.Args, 'transactionId' | 'vaultId'>[]
-  }
+import type { Transaction } from '@prisma/client'
+
+export type CreateOneProps = Omit<
+  Transaction,
+  'createdDate' | 'updatedDate' | 'id'
+> & {
+  /**
+   * List of tag ids to connect to
+   */
+  tagIds: string[]
+  /**
+   * List of entries of the transaction
+   */
+  entries: Omit<EntryDao.CreateOne.Args, 'transactionId' | 'vaultId'>[]
 }
 
 export const createOne = async ({
@@ -50,6 +51,12 @@ export const createOne = async ({
       },
     })
   } catch (e) {
+    logger.log({
+      level: 'info',
+      message: 'Error in Vault DAO: readMany',
+      error: parsePrismaError(e),
+    })
+
     throw e
   }
 }

@@ -1,5 +1,5 @@
+import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
-import { parsePrismaError } from '@/server/db/prisma/utils'
 import logger from '@/server/logger'
 
 import type { Vault } from '@prisma/client'
@@ -21,5 +21,7 @@ export const readMany = async ({ ownerId, currency }: ReadManyProps) => {
       message: 'Error in Vault DAO: readMany',
       error: parsePrismaError(e),
     })
+
+    throw e
   }
 }

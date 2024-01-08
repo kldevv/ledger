@@ -3,7 +3,7 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next'
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { DateTimeResolver } from 'graphql-scalars'
 
-import { PrismaDataSource } from '@/server/db/prisma'
+import { PrismaDataSource } from '@/server/db/prisma/dataSource/dataSource'
 
 import { resolvers } from './resolver'
 

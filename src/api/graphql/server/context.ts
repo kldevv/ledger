@@ -1,4 +1,4 @@
-import type { PrismaDataSource } from '@/server/db/prisma'
+import type { PrismaDataSource } from '@/server/db/prisma/dataSource/dataSource'
 import type { BaseContext } from '@apollo/server'
 import type { NextApiRequest, NextApiResponse } from 'next'
 

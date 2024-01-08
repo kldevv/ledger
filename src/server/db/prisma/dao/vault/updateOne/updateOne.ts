@@ -1,5 +1,5 @@
+import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
-import { parsePrismaError } from '@/server/db/prisma/utils'
 import logger from '@/server/logger'
 
 import type { Vault } from '@prisma/client'
