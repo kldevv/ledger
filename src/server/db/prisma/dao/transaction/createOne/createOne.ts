@@ -1,6 +1,8 @@
+import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
+import logger from '@/server/logger'
 
-import type { Transaction } from '@prisma/client'
+import type { Entry, Transaction } from '@prisma/client'
 
 export type CreateOneProps = Omit<
   Transaction,
@@ -13,18 +15,18 @@ export type CreateOneProps = Omit<
   /**
    * List of entries of the transaction
    */
-  entries: Omit<EntryDao.CreateOne.Args, 'transactionId' | 'vaultId'>[]
+  entries: Omit<Entry, 'createdDate' | 'updatedDate' | 'id' | 'vaultId'>[]
 }
 
 export const createOne = async ({
   tagIds,
   entries,
-  ...rest
-}: CreateOne.Args) => {
+  ...props
+}: CreateOneProps) => {
   try {
     return await prisma.transaction.create({
       data: {
-        ...rest,
+        ...props,
         tags: {
           connect: tagIds.map((id) => ({ id })),
         },
@@ -32,7 +34,7 @@ export const createOne = async ({
           createMany: {
             data: entries.map((entry) => ({
               ...entry,
-              vaultId: rest.vaultId,
+              vaultId: props.vaultId,
             })),
           },
         },
@@ -53,7 +55,7 @@ export const createOne = async ({
   } catch (e) {
     logger.log({
       level: 'info',
-      message: 'Error in Vault DAO: readMany',
+      message: 'Error in Transaction DAO: createOne',
       error: parsePrismaError(e),
     })
 
