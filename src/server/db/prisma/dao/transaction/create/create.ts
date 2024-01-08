@@ -1,4 +1,4 @@
-import prisma from '@/server/db/prisma/client'
+import prisma from '@/server/db/prisma/client/client'
 import { EntryDao } from '../..'
 import { Transaction } from '@prisma/client'
 

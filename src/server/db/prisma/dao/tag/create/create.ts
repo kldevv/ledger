@@ -1,4 +1,4 @@
-import prisma from '@/server/db/prisma/client'
+import prisma from '@/server/db/prisma/client/client'
 
 export namespace CreateOne {
   export type Args = {

@@ -1,5 +1,6 @@
 import prisma from '@/server/db/prisma/client'
-import { Profile } from '@prisma/client'
+
+import type { Profile } from '@prisma/client'
 
 export namespace ReadOne {
   export type Args = {

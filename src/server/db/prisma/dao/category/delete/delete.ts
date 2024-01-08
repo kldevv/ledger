@@ -1,4 +1,4 @@
-import prisma from '@/server/db/prisma/client'
+import prisma from '@/server/db/prisma/client/client'
 import { Category } from '@prisma/client'
 
 export namespace DeleteOne {

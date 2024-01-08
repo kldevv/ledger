@@ -1,5 +1,5 @@
 import { Basis } from '@/api/graphql'
-import prisma from '@/server/db/prisma/client'
+import prisma from '@/server/db/prisma/client/client'
 import { Account, Category, Entry, EntryStatus, Prisma } from '@prisma/client'
 
 export namespace GroupByDate {
