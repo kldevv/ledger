@@ -1,5 +1,6 @@
-import type { QueryResolvers, ReportData } from '@/api/graphql'
 import { Basis, ReportDateGroupBy } from '@/api/graphql'
+
+import type { QueryResolvers, ReportData } from '@/api/graphql'
 
 export const getReportsBalance: QueryResolvers['getReportsBalance'] = async (
   _,
@@ -9,8 +10,11 @@ export const getReportsBalance: QueryResolvers['getReportsBalance'] = async (
   const dateFilter = new Date(new Date().getFullYear(), 0, 1)
 
   const balance =
-    (await prisma.entry.groupBy({ vaultId, basis, startDate: dateFilter })) ??
-    []
+    (await prisma.entry.groupByAccount({
+      vaultId,
+      basis,
+      startDate: dateFilter,
+    })) ?? []
 
   const accu = new Map<string, Omit<ReportData, 'encode'>>()
   const visitedIds = new Set<string>()
@@ -33,7 +37,11 @@ export const getReportsBalance: QueryResolvers['getReportsBalance'] = async (
 
   const mappings = new Map<string, ReportData>()
 
-  const changes = await prisma.entry.groupByDate({ vaultId, basis, groupBy })
+  const changes = await prisma.entry.groupByAccountAndDate({
+    vaultId,
+    basis,
+    groupBy,
+  })
 
   changes.forEach(
     ({ categoryId, accountId, type, groupBy, debit, credit, count }) => {

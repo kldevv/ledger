@@ -1,7 +1,7 @@
 type Account {
   id: String!
   name: String!
-  category: Category!
+  category: Category
   vaultId: String!
   createdDate: DateTime!
   updatedDate: DateTime!

@@ -15,7 +15,10 @@ export type CreateOneProps = Omit<
   /**
    * List of entries of the transaction
    */
-  entries: Omit<Entry, 'createdDate' | 'updatedDate' | 'id' | 'vaultId'>[]
+  entries: Omit<
+    Entry,
+    'createdDate' | 'updatedDate' | 'id' | 'vaultId' | 'transactionId'
+  >[]
 }
 
 export const createOne = async ({

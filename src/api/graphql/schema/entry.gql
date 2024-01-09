@@ -5,7 +5,7 @@ type Entry {
   debit: Float!
   credit: Float!
   memo: String!
-  account: Account!
+  account: Account
   transactionId: String!
   status: EntryStatus!
 }
@@ -20,7 +20,7 @@ input AddEntryInput {
 }
 
 input GetEntriesInput {
-  vaultId: String
+  vaultId: String!
   startDate: DateTime
   endDate: DateTime
   transactionId: String

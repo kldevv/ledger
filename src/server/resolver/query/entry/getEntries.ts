@@ -1,3 +1,5 @@
+import { transformFromPrismaEntries } from '@/server/resolver/transform'
+
 import type { QueryResolvers } from '@/api/graphql'
 
 export const getEntries: QueryResolvers['getEntries'] = async (
@@ -6,15 +8,11 @@ export const getEntries: QueryResolvers['getEntries'] = async (
   { dataSources: { prisma } },
 ) => {
   const entries = await prisma.entry.readMany({
-    vaultId: vaultId ?? undefined,
+    vaultId,
     transactionId: transactionId ?? undefined,
     accountId: accountId ?? undefined,
     categoryId: categoryId ?? undefined,
   })
 
-  return entries.map(({ amount, ...rest }) => ({
-    ...rest,
-    debit: Math.max(0, amount),
-    credit: -Math.min(0, amount),
-  }))
+  return transformFromPrismaEntries(entries)
 }

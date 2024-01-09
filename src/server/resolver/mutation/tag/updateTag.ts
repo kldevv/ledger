@@ -2,11 +2,11 @@ import type { MutationResolvers } from '@/api/graphql'
 
 export const updateTag: MutationResolvers['updateTag'] = async (
   _,
-  { input },
+  { input: { id, ...data } },
   { dataSources: { prisma } },
 ) => {
   return await prisma.tag.updateOne({
-    id: input.id,
-    data: input,
+    id,
+    data,
   })
 }

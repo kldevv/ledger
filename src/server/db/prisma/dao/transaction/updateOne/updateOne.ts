@@ -20,7 +20,10 @@ type Data = Partial<
     /**
      * List of entries of the transaction
      */
-    entries: Omit<Entry, 'createdDate' | 'updatedDate' | 'id' | 'vaultId'>[]
+    entries: Omit<
+      Entry,
+      'createdDate' | 'updatedDate' | 'id' | 'vaultId' | 'transactionId'
+    >[]
   }
 >
 

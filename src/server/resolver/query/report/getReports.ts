@@ -5,7 +5,11 @@ export const getReports: QueryResolvers['getReports'] = async (
   { input: { vaultId, basis, groupBy } },
   { dataSources: { prisma } },
 ) => {
-  const data = await prisma.entry.groupByDate({ vaultId, basis, groupBy })
+  const data = await prisma.entry.groupByAccountAndDate({
+    vaultId,
+    basis,
+    groupBy,
+  })
 
   const mappings = new Map<string, ReportData>()
 

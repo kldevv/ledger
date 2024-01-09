@@ -3,9 +3,8 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next'
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { DateTimeResolver } from 'graphql-scalars'
 
-import { PrismaDataSource } from '@/server/db/prisma/dataSource/dataSource'
-
-import { resolvers } from './resolver'
+import { PrismaDataSource } from '@/server/db/prisma'
+import { resolvers } from '@/server/resolver'
 
 import type { ApolloServerContext } from './context'
 import type { NextApiRequest } from 'next'

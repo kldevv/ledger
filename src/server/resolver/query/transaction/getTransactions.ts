@@ -1,5 +1,6 @@
-import type { QueryResolvers } from '@/api/graphql'
 import { EntryStatus } from '@/api/graphql'
+
+import type { QueryResolvers } from '@/api/graphql'
 
 export const getTransactions: QueryResolvers['getTransactions'] = async (
   _,
@@ -11,8 +12,8 @@ export const getTransactions: QueryResolvers['getTransactions'] = async (
     tagId: tagId ?? undefined,
   })
 
-  return transactions.map(({ entries, ...rest }) => ({
-    ...rest,
+  return transactions.map(({ entries, ...transaction }) => ({
+    ...transaction,
     status: entries?.some(({ status }) => status === EntryStatus.PENDING)
       ? EntryStatus.PENDING
       : EntryStatus.COMPLETED,

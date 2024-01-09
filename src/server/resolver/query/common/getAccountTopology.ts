@@ -1,5 +1,6 @@
-import type { QueryResolvers } from '@/api/graphql'
 import { CategoryType } from '@prisma/client'
+
+import type { QueryResolvers } from '@/api/graphql'
 
 export const getAccountTopology: QueryResolvers['getAccountTopology'] = async (
   _,
