@@ -1,13 +1,15 @@
-import { useGetCategoriesQuery } from '@/api/graphql'
-import type { FormProps } from '@/components/common'
-import { Form, InputText, ListBox, SubmitButton } from '@/components/common'
-import type { UseFormProps } from '@/hooks'
-import { useForm, useVaultContext } from '@/hooks'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import { z } from 'zod'
 
-export const schema = z.object({
+import { useGetCategoriesQuery } from '@/api/graphql'
+import { Form, InputText, ListBox, SubmitButton } from '@/components/common'
+import { useForm, useVaultContext } from '@/hooks'
+
+import type { FormProps } from '@/components/common'
+import type { UseFormProps } from '@/hooks'
+
+export const upsertAccountFormSchema = z.object({
   /**
    * Account category
    */
@@ -18,13 +20,15 @@ export const schema = z.object({
   name: z.string().min(1).max(50),
 })
 
-export type FieldValues = z.infer<typeof schema>
+export type UpsertAccountFormFieldValues = z.infer<
+  typeof upsertAccountFormSchema
+>
 
 export interface UpsertAccountFormProps {
   /**
    * On submit
    */
-  onSubmit: FormProps<FieldValues>['onSubmit']
+  onSubmit: FormProps<UpsertAccountFormFieldValues>['onSubmit']
   /**
    * On submit text
    */
@@ -32,7 +36,7 @@ export interface UpsertAccountFormProps {
   /**
    * Default form values
    */
-  values?: UseFormProps<FieldValues>['values']
+  values?: UseFormProps<UpsertAccountFormFieldValues>['values']
 }
 
 export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
@@ -42,8 +46,8 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
 }) => {
   const { t } = useTranslation('account')
 
-  const context = useForm<FieldValues>({
-    schema,
+  const context = useForm<UpsertAccountFormFieldValues>({
+    schema: upsertAccountFormSchema,
     defaultValues: {
       name: '',
       categoryId: '',
@@ -71,11 +75,11 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
   return (
     <Form onSubmit={onSubmit} context={context}>
       <div className="flex flex-col">
-        <InputText<FieldValues>
+        <InputText<UpsertAccountFormFieldValues>
           name="name"
           label={t('UpsertAccountForm.label.name')}
         />
-        <ListBox<FieldValues>
+        <ListBox<UpsertAccountFormFieldValues>
           name="categoryId"
           label={t('UpsertAccountForm.label.categoryId')}
           options={categoryOptions}

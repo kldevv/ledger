@@ -1,6 +1,7 @@
 import { useGetAccountsQuery } from '@/api/graphql'
-import { AccountTable } from '..'
 import { useVaultContext } from '@/hooks'
+
+import { AccountTable } from '..'
 
 export const AccountDashboard: React.FC = () => {
   const [{ curVaultId }] = useVaultContext()

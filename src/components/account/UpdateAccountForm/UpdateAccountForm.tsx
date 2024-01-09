@@ -1,15 +1,17 @@
-import { useGetAccountQuery, useUpdateAccountMutation } from '@/api/graphql'
 import { useRouter } from 'next/router'
-import { useCallback, useMemo } from 'react'
-import type { FieldValues } from '..'
-import { UpsertAccountForm } from '..'
 import { useTranslation } from 'next-i18next'
+import { useCallback, useMemo } from 'react'
+
+import { useGetAccountQuery, useUpdateAccountMutation } from '@/api/graphql'
+import { UpsertAccountForm } from '@/components/account'
+
+import type { UpsertAccountFormFieldValues } from '@/components/account'
 
 export const UpdateAccountForm: React.FC = () => {
   const { t } = useTranslation('account')
   const router = useRouter()
-  const { id } = router.query
 
+  const { id } = router.query
   const accountId = useMemo(() => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
@@ -32,12 +34,12 @@ export const UpdateAccountForm: React.FC = () => {
 
     return {
       name: data.getAccount.name,
-      categoryId: data.getAccount.category.id,
+      categoryId: data.getAccount.category?.id ?? '',
     }
   }, [data?.getAccount])
 
   const handleOnSubmit = useCallback(
-    (values: FieldValues) => {
+    (values: UpsertAccountFormFieldValues) => {
       if (data?.getAccount == null) {
         return
       }

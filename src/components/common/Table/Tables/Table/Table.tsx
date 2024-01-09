@@ -16,13 +16,14 @@ export type TableProps<TData extends RowData> = {
   /**
    * Table column definitions
    */
-  colDefs: ColumnDef<TData>[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  colDefs: ColumnDef<TData, any>[]
 }
 
 export const Table = <TData extends RowData>({
   data,
   colDefs,
-}: TableProps<TData>): React.ReactElement => {
+}: TableProps<TData>) => {
   const table = useReactTable({
     data,
     columns: colDefs,

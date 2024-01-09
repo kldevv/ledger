@@ -1,15 +1,18 @@
-import { useGetAccountDetailQuery } from '@/api/graphql'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
-import { EntryTable } from '@/components/entry'
-import { AccountDescriptionList } from '../AccountDescriptionList/AccountDescriptionList'
 import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import { useGetAccountDetailQuery } from '@/api/graphql'
+import { AccountDescriptionList } from '@/components/account'
+import { EntryTable } from '@/components/entry'
+import { useVaultContext } from '@/hooks'
 
 export const AccountDetail: React.FC = () => {
   const router = useRouter()
   const { t } = useTranslation('account')
-  const { id } = router.query
+  const [{ curVaultId }] = useVaultContext()
 
+  const { id } = router.query
   const accountId = useMemo(() => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
@@ -20,10 +23,11 @@ export const AccountDetail: React.FC = () => {
         id: accountId ?? '',
       },
       getEntriesInput: {
+        vaultId: curVaultId ?? '',
         accountId: accountId,
       },
     },
-    skip: accountId == null,
+    skip: accountId == null || curVaultId == null,
   })
 
   return (
