@@ -1,19 +1,24 @@
-import { useGetCategoryDetailQuery } from '@/api/graphql'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
-import { EntryTable } from '@/components/entry'
-import { CategoryDescriptionList } from '..'
-import { AccountTable } from '@/components/account'
 import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import { useGetCategoryDetailQuery } from '@/api/graphql'
+import { AccountTable } from '@/components/account'
+import { EntryTable } from '@/components/entry'
+import { useVaultContext } from '@/hooks'
+
+import { CategoryDescriptionList } from '..'
 
 export const CategoryDetail: React.FC = () => {
   const router = useRouter()
   const { t } = useTranslation('category')
-  const { id } = router.query
 
+  const { id } = router.query
   const categoryId = useMemo(() => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
+
+  const [{ curVaultId }] = useVaultContext()
 
   const { data } = useGetCategoryDetailQuery({
     variables: {
@@ -22,12 +27,13 @@ export const CategoryDetail: React.FC = () => {
       },
       getEntriesInput: {
         categoryId,
+        vaultId: curVaultId ?? '',
       },
       getAccountsInput: {
         categoryId,
       },
     },
-    skip: categoryId == null,
+    skip: categoryId == null || curVaultId == null,
   })
 
   return (

@@ -1,9 +1,11 @@
-import { useAddCategoryMutation } from '@/api/graphql'
-import type { FieldValues } from '..'
-import { UpsertCategoryForm } from '..'
-import { useCallback } from 'react'
 import { useTranslation } from 'next-i18next'
+import { useCallback } from 'react'
+
+import { useAddCategoryMutation } from '@/api/graphql'
+import { UpsertCategoryForm } from '@/components/category'
 import { useVaultContext } from '@/hooks'
+
+import type { UpsertCategoryFormFieldValues } from '@/components/category'
 
 export const InsertCategoryFrom: React.FC = () => {
   const { t } = useTranslation('category')
@@ -14,7 +16,7 @@ export const InsertCategoryFrom: React.FC = () => {
   })
 
   const handleOnSubmit = useCallback(
-    (values: FieldValues) => {
+    (values: UpsertCategoryFormFieldValues) => {
       if (curVaultId == null) {
         return
       }

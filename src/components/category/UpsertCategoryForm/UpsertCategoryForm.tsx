@@ -1,13 +1,15 @@
-import { CategoryType } from '@/api/graphql'
-import type { FormProps } from '@/components/common'
-import { Form, InputText, ListBox, SubmitButton } from '@/components/common'
-import type { UseFormProps } from '@/hooks'
-import { useForm } from '@/hooks'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import { z } from 'zod'
 
-const schema = z.object({
+import { CategoryType } from '@/api/graphql'
+import { Form, InputText, ListBox, SubmitButton } from '@/components/common'
+import { useForm } from '@/hooks'
+
+import type { FormProps } from '@/components/common'
+import type { UseFormProps } from '@/hooks'
+
+export const upsertCategoryFormSchema = z.object({
   /**
    * Category name
    */
@@ -18,13 +20,15 @@ const schema = z.object({
   type: z.nativeEnum(CategoryType),
 })
 
-export type FieldValues = z.infer<typeof schema>
+export type UpsertCategoryFormFieldValues = z.infer<
+  typeof upsertCategoryFormSchema
+>
 
 export interface UpsertCategoryFormProps {
   /**
    * On submit
    */
-  onSubmit: FormProps<FieldValues>['onSubmit']
+  onSubmit: FormProps<UpsertCategoryFormFieldValues>['onSubmit']
   /**
    * On submit text
    */
@@ -32,7 +36,7 @@ export interface UpsertCategoryFormProps {
   /**
    * Default form values
    */
-  values?: UseFormProps<FieldValues>['values']
+  values?: UseFormProps<UpsertCategoryFormFieldValues>['values']
 }
 
 export const UpsertCategoryForm: React.FC<UpsertCategoryFormProps> = ({
@@ -42,8 +46,8 @@ export const UpsertCategoryForm: React.FC<UpsertCategoryFormProps> = ({
 }) => {
   const { t } = useTranslation('category')
 
-  const context = useForm<FieldValues>({
-    schema,
+  const context = useForm<UpsertCategoryFormFieldValues>({
+    schema: upsertCategoryFormSchema,
     defaultValues: {
       name: '',
       type: CategoryType.ASSETS,
@@ -59,11 +63,11 @@ export const UpsertCategoryForm: React.FC<UpsertCategoryFormProps> = ({
   return (
     <Form onSubmit={onSubmit} context={context}>
       <div className="flex flex-col">
-        <InputText<FieldValues>
+        <InputText<UpsertCategoryFormFieldValues>
           name="name"
           label={t('UpsertCategoryForm.label.name')}
         />
-        <ListBox<FieldValues>
+        <ListBox<UpsertCategoryFormFieldValues>
           name="type"
           label={t('UpsertCategoryForm.label.type')}
           options={typeOptions}

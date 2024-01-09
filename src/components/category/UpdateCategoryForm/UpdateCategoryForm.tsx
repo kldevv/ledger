@@ -1,15 +1,17 @@
-import { useGetCategoryQuery, useUpdateCategoryMutation } from '@/api/graphql'
 import { useRouter } from 'next/router'
-import { useCallback, useMemo } from 'react'
-import type { FieldValues } from '..'
-import { UpsertCategoryForm } from '..'
 import { useTranslation } from 'next-i18next'
+import { useCallback, useMemo } from 'react'
+
+import { useGetCategoryQuery, useUpdateCategoryMutation } from '@/api/graphql'
+import { UpsertCategoryForm } from '@/components/category'
+
+import type { UpsertCategoryFormFieldValues } from '@/components/category'
 
 export const UpdateCategoryForm: React.FC = () => {
   const { t } = useTranslation('category')
   const router = useRouter()
-  const { id } = router.query
 
+  const { id } = router.query
   const categoryId = useMemo(() => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
@@ -37,7 +39,7 @@ export const UpdateCategoryForm: React.FC = () => {
   }, [data?.getCategory])
 
   const handleOnSubmit = useCallback(
-    (values: FieldValues) => {
+    (values: UpsertCategoryFormFieldValues) => {
       if (data?.getCategory == null) {
         return
       }
