@@ -1,17 +1,14 @@
-import { Currency } from '@/api/graphql';
-import {
-  Card,
-  Form,
-  FormProps,
-  InputText,
-  ListBox,
-  SubmitButton,
-} from '@/components/common';
-import { UseFormProps, useForm } from '@/hooks';
-import { useTranslation } from 'next-i18next';
-import { z } from 'zod';
+import { useTranslation } from 'next-i18next'
+import { z } from 'zod'
 
-export const schema = z.object({
+import { Currency } from '@/api/graphql'
+import { Form, InputText, ListBox, SubmitButton } from '@/components/common'
+import { useForm } from '@/hooks'
+
+import type { FormProps } from '@/components/common'
+import type { UseFormProps } from '@/hooks'
+
+export const upsertVaultFormSchema = z.object({
   /**
    * Vault name
    */
@@ -20,23 +17,23 @@ export const schema = z.object({
    * Vault currency
    */
   currency: z.nativeEnum(Currency),
-});
+})
 
-export type FieldValues = z.infer<typeof schema>;
+export type UpsertVaultFormFieldValues = z.infer<typeof upsertVaultFormSchema>
 
 export interface UpsertVaultFormProps {
   /**
    * On submit
    */
-  onSubmit: FormProps<FieldValues>['onSubmit'];
+  onSubmit: FormProps<UpsertVaultFormFieldValues>['onSubmit']
   /**
    * On submit text
    */
-  onSubmitText: string;
+  onSubmitText: string
   /**
    * Default form values
    */
-  defaultValues: UseFormProps<FieldValues>['defaultValues'];
+  defaultValues: UseFormProps<UpsertVaultFormFieldValues>['defaultValues']
 }
 
 export const UpsertVaultForm: React.FC<UpsertVaultFormProps> = ({
@@ -44,21 +41,21 @@ export const UpsertVaultForm: React.FC<UpsertVaultFormProps> = ({
   onSubmitText,
   defaultValues,
 }) => {
-  const { t } = useTranslation('vault');
+  const { t } = useTranslation('vault')
 
-  const context = useForm<FieldValues>({
-    schema,
+  const context = useForm<UpsertVaultFormFieldValues>({
+    schema: upsertVaultFormSchema,
     defaultValues,
-  });
+  })
 
   return (
     <Form onSubmit={onSubmit} context={context}>
       <div className="flex flex-col">
-        <InputText<FieldValues>
+        <InputText<UpsertVaultFormFieldValues>
           name="name"
           label={t('UpsertVaultForm.label.name')}
         />
-        <ListBox<FieldValues>
+        <ListBox<UpsertVaultFormFieldValues>
           name="currency"
           label={t('UpsertVaultForm.label.currency')}
           options={currencyOptions}
@@ -66,10 +63,10 @@ export const UpsertVaultForm: React.FC<UpsertVaultFormProps> = ({
       </div>
       <SubmitButton className="mt-4">{onSubmitText}</SubmitButton>
     </Form>
-  );
-};
+  )
+}
 
 const currencyOptions = Object.keys(Currency).map((value) => ({
   value,
   label: value,
-}));
+}))
