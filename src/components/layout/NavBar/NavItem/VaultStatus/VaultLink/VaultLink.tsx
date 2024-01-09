@@ -1,22 +1,21 @@
-import Link from 'next/link';
-
-import { Item, Link as MenuLink} from '@radix-ui/react-navigation-menu';
-import classNames from 'classnames';
-import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
+import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid'
+import { Item, Link as MenuLink } from '@radix-ui/react-navigation-menu'
+import classNames from 'classnames'
+import Link from 'next/link'
 
 export type VaultLinkProps = {
   /**
    * Is active
    */
-  active?: boolean;
+  active?: boolean
   /**
    * Is loading
    */
-  loading?: boolean;
+  loading?: boolean
   /**
    * Is error
    */
-  error?: boolean;
+  error?: boolean
   /**
    * Vault route
    */
@@ -25,9 +24,14 @@ export type VaultLinkProps = {
    * Children component
    */
   children: React.ReactNode
-};
+}
 
-export const VaultLink: React.FC<VaultLinkProps> = ({ active = false, loading = false, error = false, children }) => {
+export const VaultLink: React.FC<VaultLinkProps> = ({
+  active = false,
+  loading = false,
+  error = false,
+  children,
+}) => {
   const cn = classNames(
     'mx-1',
     'flex gap-x-2 items-center',
@@ -36,21 +40,21 @@ export const VaultLink: React.FC<VaultLinkProps> = ({ active = false, loading = 
     // Hover
     'hover:bg-main hover:text-light-shades',
     // Active
-    'data-[active]:bg-main data-[active]:text-light-shades'
-  );
+    'data-[active]:bg-main data-[active]:text-light-shades',
+  )
 
-  if (loading) {
+  if (loading || error) {
     return (
       <div
         className={classNames(
           cn,
           'bg-mid-gray text-light-shades',
-          'hover:bg-mid-gray hover:text-light-shades'
+          'hover:bg-mid-gray hover:text-light-shades',
         )}
       >
         <EllipsisHorizontalIcon className="w-5 h-5 mx-auto" />
       </div>
-    );
+    )
   }
 
   return (
@@ -61,5 +65,5 @@ export const VaultLink: React.FC<VaultLinkProps> = ({ active = false, loading = 
         </MenuLink>
       </Link>
     </Item>
-  );
-};
+  )
+}

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   ChartPieIcon,
   ClipboardDocumentListIcon,
@@ -8,19 +6,20 @@ import {
   ListBulletIcon,
   TableCellsIcon,
   TagIcon,
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/outline'
+import React from 'react'
 
-const iconClassNames = 'w-5 h-5';
+const iconClassNames = 'w-5 h-5'
 
 export type NavRoute = {
   /**
    * Route
    */
-  route: string;
+  route: string
   /**
    * Route icon
    */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode
 }
 
 const Ledger: NavRoute[] = [
@@ -40,7 +39,7 @@ const Ledger: NavRoute[] = [
     route: '/document',
     icon: <TableCellsIcon className={iconClassNames} />,
   },
-];
+]
 
 const Settings: NavRoute[] = [
   {
@@ -55,9 +54,9 @@ const Settings: NavRoute[] = [
     route: '/tag',
     icon: <TagIcon className={iconClassNames} />,
   },
-];
+]
 
 export const NavRoutes = {
   Ledger,
   Settings,
-};
+}

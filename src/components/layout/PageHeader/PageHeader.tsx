@@ -1,15 +1,16 @@
-import Link from "next/link";
-import { UrlObject } from "url";
+import Link from 'next/link'
+
+import type { UrlObject } from 'url'
 
 export type PageHeaderProps = {
   /**
    * Title
    */
-  title: string;
+  title: string
   /**
    * Subtitle
    */
-  subtitle: string;
+  subtitle: string
   /**
    * Page header link
    */
@@ -17,15 +18,19 @@ export type PageHeaderProps = {
     /**
      * Page header link href
      */
-    href: string | UrlObject;
+    href: string | UrlObject
     /**
      * Page header link label
      */
-    label: string;
-  };
-};
+    label: string
+  }
+}
 
-export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle, link }) => {
+export const PageHeader: React.FC<PageHeaderProps> = ({
+  title,
+  subtitle,
+  link,
+}) => {
   return (
     <div className="grid grid-cols-3 mb-4">
       <div className="col-span-2 flex flex-col gap-y-3">
@@ -43,5 +48,5 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle, link })
         </div>
       )}
     </div>
-  );
-};
+  )
+}

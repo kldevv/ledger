@@ -1,30 +1,31 @@
-import Head from "next/head";
-import classNames from "classnames";
-import { UrlObject } from "url"
+import classNames from 'classnames'
+import Head from 'next/head'
 
-import { NavBar, BackLink } from "@/components/layout";
+import { NavBar, BackLink } from '@/components/layout'
+
+import type { UrlObject } from 'url'
 
 type LayoutProps = {
   /**
    * Page title in the HTTP head element
    */
-  title?: string;
+  title?: string
   /**
    * Route to go back to
    */
-  prev?: string | UrlObject;
+  prev?: string | UrlObject
   /**
    * Children component
    */
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 export const Layout: React.FC<LayoutProps> = ({ title, children, prev }) => {
   return (
     <div>
       <Head>
         <title>
-          {title || process.env.DEFAULT_PAGE_TITLE || 'The Ledger Page'}
+          {title ?? process.env.DEFAULT_PAGE_TITLE ?? 'The Ledger Page'}
         </title>
       </Head>
       <div className="min-h-screen flex min-w-full">
@@ -36,7 +37,7 @@ export const Layout: React.FC<LayoutProps> = ({ title, children, prev }) => {
               prev != null ? 'mt-5' : 'mt-14',
               'mb-32',
               'flex flex-col gap-y-5',
-              'min-w-min'
+              'min-w-min',
             )}
           >
             {prev != null && <BackLink href={prev} />}
@@ -45,5 +46,5 @@ export const Layout: React.FC<LayoutProps> = ({ title, children, prev }) => {
         </main>
       </div>
     </div>
-  );
-};
+  )
+}

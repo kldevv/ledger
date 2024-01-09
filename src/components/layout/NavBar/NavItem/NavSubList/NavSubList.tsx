@@ -1,16 +1,17 @@
-import { List, Item, Sub } from '@radix-ui/react-navigation-menu';
+import { List, Item, Sub } from '@radix-ui/react-navigation-menu'
+import classNames from 'classnames'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
-import { NavItem } from "./NavItem";
-import { NavRoute } from '../../NavRoutes';
-import classNames from 'classnames';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { NavItem } from './NavItem'
+
+import type { NavRoute } from '@/components/layout'
 
 export type NavSubList = {
   /**
    * Nav sub list title
    */
-  title: string,
+  title: string
   /**
    * List of nav routes
    */
@@ -42,12 +43,12 @@ export const NavSubList: React.FC<NavSubList> = ({
             >
               <div className="flex gap-x-2 items-center">
                 {icon}
-                {t(`nav-bar.nav-sub-list.label.${route}`)}
+                {t(`NavSubList.label.${route}`)}
               </div>
             </NavItem>
           ))}
         </List>
       </Sub>
     </Item>
-  );
-};
+  )
+}

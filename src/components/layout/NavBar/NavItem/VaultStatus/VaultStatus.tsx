@@ -1,20 +1,24 @@
-import { VaultLink } from "./VaultLink";
-import { WalletIcon } from "@heroicons/react/20/solid";
-import { useVaultContext } from "@/hooks";
-import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { WalletIcon } from '@heroicons/react/20/solid'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import { useVaultContext } from '@/hooks'
+
+import { VaultLink } from './VaultLink'
 
 const vaultRoute = '/vault'
 
 export const VaultStatus: React.FC = () => {
   const router = useRouter()
+  const { t } = useTranslation('layout')
 
   const [{ vaults, curVaultId, loading, error }] = useVaultContext()
 
   const currentVaultName = useMemo(
     () => vaults?.find((vault) => vault.id === curVaultId)?.name,
-    [vaults, curVaultId]
-  );
+    [vaults, curVaultId],
+  )
 
   return (
     <VaultLink
@@ -24,7 +28,7 @@ export const VaultStatus: React.FC = () => {
       error={error != null || currentVaultName == null}
     >
       <WalletIcon className="h-3 w-3 ml-2" />
-      {currentVaultName ?? 'Vault Not Found'}
+      {currentVaultName ?? t`VaultStatus.fallback`}
     </VaultLink>
-  );
+  )
 }

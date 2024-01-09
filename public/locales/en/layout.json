@@ -1,25 +1,28 @@
 {
-  "back-link": {
+  "BackLink": {
     "label": {
       "home": "Home",
       "back": "Back"
     }
   },
-  "nav-bar": {
+  "VaultStatus": {
+    "fallback": "Not Found"
+  },
+  "NavBar": {
     "label": {
       "main": "Ledger",
       "settings": "Settings"
-    },
-    "nav-sub-list": {
-      "label": {
-        "/transaction": "Transactions",
-        "/entry": "Entries",
-        "/report": "Reports",
-        "/document": "Documents",
-        "/account": "Accounts",
-        "/category": "Categories",
-        "/tag": "Tags"
-      }
+    }
+  },
+  "NavSubList": {
+    "label": {
+      "/transaction": "Transactions",
+      "/entry": "Entries",
+      "/report": "Reports",
+      "/document": "Documents",
+      "/account": "Accounts",
+      "/category": "Categories",
+      "/tag": "Tags"
     }
   }
 }

@@ -1,7 +1,7 @@
-import Link from 'next/link';
+import { Item, Link as MenuLink } from '@radix-ui/react-navigation-menu'
+import Link from 'next/link'
 
-import { Item, Link as MenuLink } from '@radix-ui/react-navigation-menu';
-import { UrlObject } from 'url';
+import type { UrlObject } from 'url'
 
 export type NavItemProps = {
   /**
@@ -11,11 +11,11 @@ export type NavItemProps = {
   /**
    * Client-side routing link
    */
-  href: string | UrlObject;
+  href: string | UrlObject
   /**
    * Children component
    */
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export const NavItem: React.FC<NavItemProps> = ({ active, href, children }) => {
@@ -31,6 +31,5 @@ export const NavItem: React.FC<NavItemProps> = ({ active, href, children }) => {
         </MenuLink>
       </Link>
     </Item>
-  );
-};
-
+  )
+}

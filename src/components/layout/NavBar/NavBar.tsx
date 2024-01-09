@@ -1,9 +1,10 @@
-import { Root, List } from '@radix-ui/react-navigation-menu';
-import * as NavItem from './NavItem';
-import Link from 'next/link';
-import { PaperClipIcon } from '@heroicons/react/20/solid';
-import { NavRoutes } from './NavRoutes';
-import { useTranslation } from 'next-i18next';
+import { PaperClipIcon } from '@heroicons/react/20/solid'
+import { Root, List } from '@radix-ui/react-navigation-menu'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+
+import * as NavItem from './NavItem'
+import { NavRoutes } from './NavRoutes'
 
 export const NavBar: React.FC = () => {
   const { t } = useTranslation('layout')
@@ -22,13 +23,13 @@ export const NavBar: React.FC = () => {
             <NavItem.VaultStatus />
 
             <NavItem.NavSubList
-              title={t('nav-bar.label.main')}
+              title={t('NavBar.label.main')}
               navRoutes={NavRoutes.Ledger}
               className="mt-2"
             />
 
             <NavItem.NavSubList
-              title={t('nav-bar.label.settings')}
+              title={t('NavBar.label.settings')}
               navRoutes={NavRoutes.Settings}
               className="mt-7"
             />
@@ -47,5 +48,5 @@ export const NavBar: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
