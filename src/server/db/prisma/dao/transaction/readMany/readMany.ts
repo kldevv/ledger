@@ -19,7 +19,7 @@ export const readMany = async ({ tagId, ...props }: ReadManyProps) => {
       where: {
         ...props,
         tags:
-          tagId !== null
+          tagId != null
             ? {
                 some: {
                   id: tagId,

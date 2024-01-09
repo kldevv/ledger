@@ -1,11 +1,12 @@
-import type { ColumnDef, RowData } from '@tanstack/react-table'
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { Card } from '../../..'
-import { Cell, Header } from '../../Sub'
+
+import { Card, Cell, Header } from '@/components/common'
+
+import type { ColumnDef, RowData } from '@tanstack/react-table'
 
 export type TableProps<TData extends RowData> = {
   /**

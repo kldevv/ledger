@@ -1,6 +1,7 @@
-import { useGetTransactionsQuery } from "@/api/graphql"
-import { TransactionTable } from ".."
-import { useVaultContext } from "@/hooks"
+import { useGetTransactionsQuery } from '@/api/graphql'
+import { useVaultContext } from '@/hooks'
+
+import { TransactionTable } from '..'
 
 export const TransactionDashboard: React.FC = () => {
   const [{ curVaultId }] = useVaultContext()
@@ -12,7 +13,7 @@ export const TransactionDashboard: React.FC = () => {
       },
     },
     skip: curVaultId == null,
-  });
+  })
 
-  return <TransactionTable data={data?.getTransactions ?? []} />;
+  return <TransactionTable data={data?.getTransactions ?? []} />
 }

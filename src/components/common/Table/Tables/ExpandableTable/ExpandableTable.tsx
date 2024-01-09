@@ -7,7 +7,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { Button, Card } from '../../..'
-import { Cell, Header } from '../../Sub'
+import { Cell, Header } from '../../TableElement'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
