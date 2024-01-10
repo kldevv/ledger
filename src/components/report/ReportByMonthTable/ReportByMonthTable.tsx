@@ -1,31 +1,37 @@
-import { ReportData } from '@/api/graphql';
-import { FormattedNumber } from '@/components/common';
-import { useTranslation } from 'next-i18next';
-import { useMemo } from 'react';
-import { AccountTopologyTable, DataVariant, columnHelper } from '..';
-import classNames from 'classnames';
+import classNames from 'classnames'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import { FormattedNumber } from '@/components/common'
+import {
+  AccountTopologyTable,
+  DataVariant,
+  columnHelper,
+} from '@/components/report'
+
+import type { ReportData } from '@/api/graphql'
 
 export interface ReportByMonthTableProps {
   /**
    * Report data mappings
    */
-  reportDataMappings: Map<string, ReportData>;
+  reportDataMappings: Map<string, ReportData>
   /**
    * Table variant
    */
-  variant: DataVariant;
+  variant: DataVariant
 }
 
 export const ReportByMonthTable: React.FC<ReportByMonthTableProps> = ({
   reportDataMappings,
   variant,
 }) => {
-  const { t } = useTranslation('report');
+  const { t } = useTranslation('report')
 
   const colDefs = useMemo(
     () =>
       Array.from({ length: 12 }).map((_, index) => {
-        const month = index + 1;
+        const month = index + 1
 
         return columnHelper.group({
           id: String(month),
@@ -35,7 +41,7 @@ export const ReportByMonthTable: React.FC<ReportByMonthTableProps> = ({
             </span>
           ),
           columns:
-            variant == DataVariant.BREAKDOWN
+            variant === DataVariant.BREAKDOWN
               ? [
                   columnHelper.accessor('id', {
                     header: t`ReportByMonthTable.header.subheader.debit`,
@@ -64,54 +70,54 @@ export const ReportByMonthTable: React.FC<ReportByMonthTableProps> = ({
                     ),
                   }),
                 ]
-              : variant == DataVariant.NET
-              ? [
-                  columnHelper.accessor('id', {
-                    header: t`ReportByMonthTable.header.subheader.amount`,
-                    id: `${month}.debit`,
-                    cell: ({ getValue, row }) => {
-                      const reportData = reportDataMappings.get(
-                        `${getValue()}::${month}`
-                      );
+              : variant === DataVariant.NET
+                ? [
+                    columnHelper.accessor('id', {
+                      header: t`ReportByMonthTable.header.subheader.amount`,
+                      id: `${month}.debit`,
+                      cell: ({ getValue, row }) => {
+                        const reportData = reportDataMappings.get(
+                          `${getValue()}::${month}`,
+                        )
 
-                      const debit = reportData?.debit ?? 0;
-                      const credit = reportData?.credit ?? 0;
+                        const debit = reportData?.debit ?? 0
+                        const credit = reportData?.credit ?? 0
 
-                      return (
-                        <FormattedNumber
-                          className={row.depth < 2 ? 'border-b' : undefined}
-                          value={credit + debit}
-                        />
-                      );
-                    },
-                  }),
-                ]
-              : [
-                  columnHelper.accessor('id', {
-                    header: t`ReportByMonthTable.header.subheader.count`,
-                    id: `${month}.debit`,
-                    cell: ({ getValue, row }) => (
-                      <div
-                        className={classNames(
-                          'text-right',
-                          row.depth < 2 ? 'border-b' : undefined
-                        )}
-                      >
-                        {reportDataMappings.get(`${getValue()}::${month}`)
-                          ?.count ?? 0}
-                      </div>
-                    ),
-                  }),
-                ],
-        });
+                        return (
+                          <FormattedNumber
+                            className={row.depth < 2 ? 'border-b' : undefined}
+                            value={credit + debit}
+                          />
+                        )
+                      },
+                    }),
+                  ]
+                : [
+                    columnHelper.accessor('id', {
+                      header: t`ReportByMonthTable.header.subheader.count`,
+                      id: `${month}.debit`,
+                      cell: ({ getValue, row }) => (
+                        <div
+                          className={classNames(
+                            'text-right',
+                            row.depth < 2 ? 'border-b' : undefined,
+                          )}
+                        >
+                          {reportDataMappings.get(`${getValue()}::${month}`)
+                            ?.count ?? 0}
+                        </div>
+                      ),
+                    }),
+                  ],
+        })
       }),
-    [t, variant, reportDataMappings]
-  );
+    [t, variant, reportDataMappings],
+  )
 
   return (
     <AccountTopologyTable
       cols={colDefs}
-      colGroupCount={variant == DataVariant.BREAKDOWN ? 2 : 1}
+      colGroupCount={variant === DataVariant.BREAKDOWN ? 2 : 1}
     />
-  );
-};
+  )
+}

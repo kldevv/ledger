@@ -1,38 +1,44 @@
-import {
-  GetAccountTopologyQuery,
-  useGetAccountTopologyQuery,
-} from '@/api/graphql';
-import { ExpandableTable, ExpandableTableProps } from '@/components/common';
-import { useVaultContext } from '@/hooks';
-import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
-import classNames from 'classnames';
-import { useMemo } from 'react';
+import { createColumnHelper } from '@tanstack/react-table'
+import classNames from 'classnames'
+import { useMemo } from 'react'
+
+import { useGetAccountTopologyQuery } from '@/api/graphql'
+import { ExpandableTable } from '@/components/common'
+import { useVaultContext } from '@/hooks'
+
+import type { GetAccountTopologyQuery } from '@/api/graphql'
+import type { ExpandableTableProps } from '@/components/common'
+import type { ColumnDef } from '@tanstack/react-table'
 
 type Data = Exclude<
   GetAccountTopologyQuery['getAccountTopology'],
   undefined | null
->[number];
+>[number]
 
-type AccountTopologyTableData = Omit<Data, 'children'> & {
-  children: AccountTopologyTableData[];
-};
+export type AccountTopologyTableData = Omit<Data, 'children'> & {
+  children: AccountTopologyTableData[]
+}
 
-export const columnHelper = createColumnHelper<AccountTopologyTableData>();
+export const columnHelper = createColumnHelper<AccountTopologyTableData>()
 
-export const getExpandedData = (row: AccountTopologyTableData) => row.children;
+export const getExpandedData = (row: AccountTopologyTableData) => row.children
 
-export interface AccountTopologyTableProps extends Pick<ExpandableTableProps<AccountTopologyTableData>, 'colGroupCount'> {
+export interface AccountTopologyTableProps
+  extends Pick<
+    ExpandableTableProps<AccountTopologyTableData>,
+    'colGroupCount'
+  > {
   /**
    * Report data
    */
-  cols: ColumnDef<AccountTopologyTableData>[];
+  cols: ColumnDef<AccountTopologyTableData>[]
 }
 
 export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
   cols,
   colGroupCount,
 }) => {
-  const [{ curVaultId }] = useVaultContext();
+  const [{ curVaultId }] = useVaultContext()
 
   const { data: topology } = useGetAccountTopologyQuery({
     variables: {
@@ -41,7 +47,7 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
       },
     },
     skip: curVaultId == null,
-  });
+  })
 
   const colDefs = useMemo(
     () => [
@@ -51,11 +57,11 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
           <span
             className={classNames(
               'whitespace-nowrap',
-              row.depth == 1
+              row.depth === 1
                 ? 'ml-4 text-gray'
-                : row.depth == 2
-                ? 'ml-8 text-dark-shades'
-                : undefined
+                : row.depth === 2
+                  ? 'ml-8 text-dark-shades'
+                  : undefined,
             )}
           >
             {getValue()}
@@ -64,8 +70,8 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
       }),
       ...cols,
     ],
-    [cols]
-  );
+    [cols],
+  )
 
   return (
     <ExpandableTable
@@ -74,5 +80,5 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
       getExpandedData={getExpandedData}
       colGroupCount={colGroupCount}
     />
-  );
-};
+  )
+}

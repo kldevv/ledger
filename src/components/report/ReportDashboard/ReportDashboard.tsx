@@ -1,19 +1,21 @@
+import { useTranslation } from 'next-i18next'
+import { useCallback, useMemo, useState } from 'react'
+
 import {
   Basis,
-  ReportData,
   ReportDateGroupBy,
   useGetReportsBalanceQuery,
   useGetReportsQuery,
-} from '@/api/graphql';
-import { useVaultContext } from '@/hooks';
+} from '@/api/graphql'
+import { RadioGroup } from '@/components/common'
 import {
   ReportByMonthTable,
   ReportByQuarterTable,
   ReportByYearTable,
-} from '..';
-import { useCallback, useMemo, useState } from 'react';
-import { RadioGroup } from '@/components/common';
-import { useTranslation } from 'next-i18next';
+} from '@/components/report'
+import { useVaultContext } from '@/hooks'
+
+import type { ReportData } from '@/api/graphql'
 
 export enum DataVariant {
   BREAKDOWN = 'BREAKDOWN',
@@ -27,45 +29,45 @@ export enum DataMode {
 }
 
 export const ReportDashboard: React.FC = () => {
-  const { t } = useTranslation('report');
-  const [{ curVaultId }] = useVaultContext();
+  const { t } = useTranslation('report')
+  const [{ curVaultId }] = useVaultContext()
 
-  const [accountingBasis, setAccountingBasis] = useState<Basis>(Basis.ACCRUAL);
+  const [accountingBasis, setAccountingBasis] = useState<Basis>(Basis.ACCRUAL)
   const [reportDateGroupBy, setReportDateGroupBy] = useState<ReportDateGroupBy>(
-    ReportDateGroupBy.MONTH
-  );
+    ReportDateGroupBy.MONTH,
+  )
   const [dataVariant, setDataVariant] = useState<DataVariant>(
-    DataVariant.BREAKDOWN
-  );
-  const [dataMode, setDataMode] = useState<DataMode>(DataMode.CHANGE);
+    DataVariant.BREAKDOWN,
+  )
+  const [dataMode, setDataMode] = useState<DataMode>(DataMode.CHANGE)
 
   const handleOnBasisChange = useCallback(
     (value: Basis) => {
-      setAccountingBasis(value);
+      setAccountingBasis(value)
     },
-    [setAccountingBasis]
-  );
+    [setAccountingBasis],
+  )
 
   const handleOnReportDateGroupByChange = useCallback(
     (value: ReportDateGroupBy) => {
-      setReportDateGroupBy(value);
+      setReportDateGroupBy(value)
     },
-    [setReportDateGroupBy]
-  );
+    [setReportDateGroupBy],
+  )
 
   const handleOnDataVariantChange = useCallback(
     (value: DataVariant) => {
-      setDataVariant(value);
+      setDataVariant(value)
     },
-    [setDataVariant]
-  );
+    [setDataVariant],
+  )
 
   const handleOnDataModeChange = useCallback(
     (value: DataMode) => {
-      setDataMode(value);
+      setDataMode(value)
     },
-    [setDataMode]
-  );
+    [setDataMode],
+  )
 
   const basisOptions = useMemo(
     () =>
@@ -73,8 +75,8 @@ export const ReportDashboard: React.FC = () => {
         label: t(`ReportDashboard.radio.options.basis.${basis}`),
         value: basis,
       })),
-    [t]
-  );
+    [t],
+  )
 
   const reportDateGroupByOptions = useMemo(
     () =>
@@ -86,8 +88,8 @@ export const ReportDashboard: React.FC = () => {
         label: t(`ReportDashboard.radio.options.groupBy.${groupBy}`),
         value: groupBy,
       })),
-    [t]
-  );
+    [t],
+  )
 
   const dataVariantOptions = useMemo(
     () =>
@@ -95,10 +97,10 @@ export const ReportDashboard: React.FC = () => {
         (variant) => ({
           label: t(`ReportDashboard.radio.options.variant.${variant}`),
           value: variant,
-        })
+        }),
       ),
-    [t]
-  );
+    [t],
+  )
 
   const dataModeOptions = useMemo(
     () =>
@@ -106,8 +108,8 @@ export const ReportDashboard: React.FC = () => {
         label: t(`ReportDashboard.radio.options.mode.${mode}`),
         value: mode,
       })),
-    [t]
-  );
+    [t],
+  )
 
   const { data: balanceData } = useGetReportsBalanceQuery({
     variables: {
@@ -119,7 +121,7 @@ export const ReportDashboard: React.FC = () => {
     },
     fetchPolicy: 'network-only',
     skip: curVaultId == null,
-  });
+  })
 
   const { data: changeData } = useGetReportsQuery({
     variables: {
@@ -131,25 +133,25 @@ export const ReportDashboard: React.FC = () => {
     },
     fetchPolicy: 'network-only',
     skip: curVaultId == null,
-  });
+  })
 
   const reportDataMappings = useMemo(() => {
-    const mappings = new Map<string, ReportData>();
+    const mappings = new Map<string, ReportData>()
 
     if (dataMode === DataMode.BALANCE) {
       balanceData?.getReportsBalance.forEach((data) => {
-        mappings.set(data.encode, data);
-      });
+        mappings.set(data.encode, data)
+      })
     }
 
     if (dataMode === DataMode.CHANGE) {
       changeData?.getReports.forEach((data) => {
-        mappings.set(data.encode, data);
-      });
+        mappings.set(data.encode, data)
+      })
     }
 
-    return mappings;
-  }, [changeData, balanceData, dataMode]);
+    return mappings
+  }, [changeData, balanceData, dataMode])
 
   return (
     <div>
@@ -180,7 +182,7 @@ export const ReportDashboard: React.FC = () => {
           reportDataMappings={reportDataMappings}
           variant={dataVariant}
         />
-      ) : reportDateGroupBy == ReportDateGroupBy.QUARTER ? (
+      ) : reportDateGroupBy === ReportDateGroupBy.QUARTER ? (
         <ReportByQuarterTable
           reportDataMappings={reportDataMappings}
           variant={dataVariant}
@@ -193,5 +195,5 @@ export const ReportDashboard: React.FC = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}

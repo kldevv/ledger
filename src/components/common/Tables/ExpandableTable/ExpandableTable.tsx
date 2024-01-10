@@ -9,8 +9,7 @@ import {
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 
-import { Button, Card } from '@/components/common'
-import { TableCell, TableHeader } from '@/components/common'
+import { Button, Card, TableCell, TableHeader } from '@/components/common'
 
 import type { ColumnDef, ExpandedState, RowData } from '@tanstack/react-table'
 
@@ -22,7 +21,8 @@ export type ExpandableTableProps<TData extends RowData> = {
   /**
    * ExpandableTable column definitions
    */
-  colDefs: ColumnDef<TData>[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  colDefs: ColumnDef<TData, any>[]
   /**
    * Get expanded data from the field of data
    */
