@@ -1,35 +1,34 @@
-import {
-  Form,
-  FormProps,
-  InputText,
-  SubmitButton,
-} from '@/components/common';
-import { UseFormProps, useForm } from '@/hooks';
-import { useTranslation } from 'next-i18next';
-import { z } from 'zod';
+import { useTranslation } from 'next-i18next'
+import { z } from 'zod'
 
-const schema = z.object({
+import { Form, InputText, SubmitButton } from '@/components/common'
+import { useForm } from '@/hooks'
+
+import type { FormProps } from '@/components/common'
+import type { UseFormProps } from '@/hooks'
+
+export const upsertTagFormSchema = z.object({
   /**
    * Tag name
    */
   name: z.string().min(1).max(50),
-});
+})
 
-export type FieldValues = z.infer<typeof schema>;
+export type UpsertTagFormFieldValues = z.infer<typeof upsertTagFormSchema>
 
 export interface UpsertTagFormProps {
   /**
    * On submit
    */
-  onSubmit: FormProps<FieldValues>['onSubmit'];
+  onSubmit: FormProps<UpsertTagFormFieldValues>['onSubmit']
   /**
    * On submit text
    */
-  onSubmitText: string;
+  onSubmitText: string
   /**
    * Default form values
    */
-  values?: UseFormProps<FieldValues>['values'];
+  values?: UseFormProps<UpsertTagFormFieldValues>['values']
 }
 
 export const UpsertTagForm: React.FC<UpsertTagFormProps> = ({
@@ -37,25 +36,25 @@ export const UpsertTagForm: React.FC<UpsertTagFormProps> = ({
   onSubmitText,
   values,
 }) => {
-  const { t } = useTranslation('tag');
+  const { t } = useTranslation('tag')
 
-  const context = useForm<FieldValues>({
-    schema,
+  const context = useForm<UpsertTagFormFieldValues>({
+    schema: upsertTagFormSchema,
     defaultValues: {
-      name: ''
+      name: '',
     },
     values,
-  });
+  })
 
   return (
     <Form onSubmit={onSubmit} context={context}>
       <div className="flex flex-col">
-        <InputText<FieldValues>
+        <InputText<UpsertTagFormFieldValues>
           name="name"
           label={t('UpsertTagForm.label.name')}
         />
       </div>
       <SubmitButton className="mt-4">{onSubmitText}</SubmitButton>
     </Form>
-  );
-};
+  )
+}

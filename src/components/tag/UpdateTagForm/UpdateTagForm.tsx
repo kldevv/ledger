@@ -1,56 +1,59 @@
-import { useGetTagQuery, useUpdateTagMutation } from '@/api/graphql';
-import { useRouter } from 'next/router';
-import { useCallback, useMemo } from 'react';
-import { FieldValues, UpsertTagForm } from '..';
-import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { useCallback, useMemo } from 'react'
+
+import { useGetTagQuery, useUpdateTagMutation } from '@/api/graphql'
+import { UpsertTagForm } from '@/components/tag'
+
+import type { UpsertTagFormFieldValues } from '@/components/tag'
 
 export const UpdateTagForm: React.FC = () => {
-  const { t } = useTranslation('tag');
-  const router = useRouter();
-  const { id } = router.query;
+  const { t } = useTranslation('tag')
+  const router = useRouter()
 
+  const { id } = router.query
   const tagId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id;
-  }, [id]);
+    return id == null || Array.isArray(id) ? null : id
+  }, [id])
 
-  const { data, loading, error } = useGetTagQuery({
+  const { data } = useGetTagQuery({
     variables: {
       input: {
         id: tagId ?? '',
       },
     },
     skip: tagId == null,
-  });
+  })
 
-  const [updateTag] = useUpdateTagMutation();
+  const [updateTag] = useUpdateTagMutation()
 
   const values = useMemo(() => {
     if (data?.getTag == null) {
-      return undefined;
+      return undefined
     }
 
     return {
       name: data.getTag.name,
-    };
-  }, [data?.getTag]);
+    }
+  }, [data?.getTag])
 
   const handleOnSubmit = useCallback(
-    (values: FieldValues) => {
+    (values: UpsertTagFormFieldValues) => {
       if (data?.getTag == null) {
-        return;
+        return
       }
 
-      updateTag({
+      void updateTag({
         variables: {
           input: {
             id: data.getTag.id,
-            ...values
-          }
-        }
+            ...values,
+          },
+        },
       })
     },
-    [data?.getTag, updateTag]
-  );
+    [data?.getTag, updateTag],
+  )
 
   return (
     <UpsertTagForm
@@ -58,5 +61,5 @@ export const UpdateTagForm: React.FC = () => {
       onSubmitText={t`UpdateTagForm.submit`}
       values={values}
     />
-  );
-};
+  )
+}

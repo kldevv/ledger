@@ -1,28 +1,27 @@
-import { GetTagQuery } from '@/api/graphql';
-import {
-  DescriptionList,
-  DescriptionListItem,
-  FormattedDate,
-} from '@/components/common';
-import { useTranslation } from 'next-i18next';
-import { useMemo } from 'react';
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import { DescriptionList, FormattedDate } from '@/components/common'
+
+import type { GetTagQuery } from '@/api/graphql'
+import type { DescriptionListItem } from '@/components/common'
 
 export type TagDescriptionListData = Exclude<
   GetTagQuery['getTag'],
   null | undefined
->;
+>
 
 export interface TagDescriptionListProps {
   /**
    * Data
    */
-  data: TagDescriptionListData;
+  data: TagDescriptionListData
 }
 
 export const TagDescriptionList: React.FC<TagDescriptionListProps> = ({
   data: { id, name, createdDate, updatedDate },
 }) => {
-  const { t } = useTranslation('tag');
+  const { t } = useTranslation('tag')
 
   const items: DescriptionListItem[] = useMemo(
     () => [
@@ -43,8 +42,8 @@ export const TagDescriptionList: React.FC<TagDescriptionListProps> = ({
         description: <FormattedDate dateTime={updatedDate} />,
       },
     ],
-    [t, id, name, createdDate, updatedDate]
-  );
+    [t, id, name, createdDate, updatedDate],
+  )
 
-  return <DescriptionList items={items} />;
-};
+  return <DescriptionList items={items} />
+}

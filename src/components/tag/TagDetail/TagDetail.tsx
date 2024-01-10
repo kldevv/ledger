@@ -1,20 +1,21 @@
-import { useGetTagDetailQuery } from '@/api/graphql';
-import { useVaultContext } from '@/hooks';
-import { useRouter } from 'next/router';
-import { useMemo } from 'react';
-import { TagDescriptionList } from '..';
-import { useTranslation } from 'next-i18next';
-import { TransactionTable } from '@/components/transaction';
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import { useGetTagDetailQuery } from '@/api/graphql'
+import { TagDescriptionList } from '@/components/tag'
+import { TransactionTable } from '@/components/transaction'
+import { useVaultContext } from '@/hooks'
 
 export const TagDetail: React.FC = () => {
   const { t } = useTranslation('tag')
-  const router = useRouter();
-  const { id } = router.query;
-  const [{ curVaultId }] = useVaultContext();
+  const router = useRouter()
+  const [{ curVaultId }] = useVaultContext()
 
+  const { id } = router.query
   const tagId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id;
-  }, [id]);
+    return id == null || Array.isArray(id) ? null : id
+  }, [id])
 
   const { data } = useGetTagDetailQuery({
     variables: {
@@ -22,7 +23,7 @@ export const TagDetail: React.FC = () => {
       getTransactionsInput: { vaultId: curVaultId ?? '', tagId },
     },
     skip: tagId == null || curVaultId == null,
-  });
+  })
 
   return (
     data?.getTag && (
@@ -34,5 +35,5 @@ export const TagDetail: React.FC = () => {
         <TransactionTable data={data.getTransactions ?? []} />
       </div>
     )
-  );
-};
+  )
+}
