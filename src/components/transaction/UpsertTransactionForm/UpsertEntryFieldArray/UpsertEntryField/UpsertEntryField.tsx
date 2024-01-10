@@ -3,7 +3,8 @@ import type { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form'
 import { PlusIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { EntryStatus } from '@prisma/client'
 import { useTranslation } from 'next-i18next'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
+import { z } from 'zod'
 
 import {
   Button,
@@ -14,19 +15,58 @@ import {
   InputDate,
 } from '@/components/common'
 import { useAccountsContext } from '@/hooks'
+import { numberSchema } from '@/lib'
 
-import type { FieldValues } from '../..'
+import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
 
-export const defaultEntryFieldValue: FieldValues['entries'][number] = {
-  transactionDate: new Date(),
-  accountId: '',
-  memo: '',
-  status: EntryStatus.PENDING,
-  debit: 0,
-  credit: 0,
-}
+export const upsertEntryFieldSchema = z
+  .object({
+    /**
+     * Entry transaction date
+     */
+    transactionDate: z.coerce.date(),
+    /**
+     * Entry optional memo
+     */
+    memo: z.string(),
+    /**
+     * Entry status
+     */
+    status: z.nativeEnum(EntryStatus),
+    /**
+     * Entry debit
+     */
+    debit: numberSchema,
+    /**
+     * Entry credit
+     */
+    credit: numberSchema,
+    /**
+     * Account id
+     */
+    accountId: z.string(),
+  })
+  .refine(
+    (data) =>
+      (data.debit === 0 || data.credit === 0) &&
+      (data.debit >= 0 || data.credit >= 0),
+    {
+      message:
+        'Either debit or credit must be positive, and the other must be zero',
+    },
+  )
 
-export interface RowProps {
+export const defaultEntryFieldValue: UpsertTransactionFormFieldValues['entries'][number] =
+  {
+    transactionDate: new Date(),
+    accountId: '',
+    memo: '',
+    status: EntryStatus.PENDING,
+    debit: 0,
+    credit: 0,
+  }
+
+export interface UpsertEntryFieldProps {
   /**
    * Row index
    */
@@ -34,17 +74,21 @@ export interface RowProps {
   /**
    * Field append
    */
-  append?: UseFieldArrayAppend<FieldValues> | null
+  append?: UseFieldArrayAppend<UpsertTransactionFormFieldValues> | null
   /**
    * Field remove
    */
   remove?: UseFieldArrayRemove | null
 }
 
-export const Row: React.FC<RowProps> = ({ index, append, remove }) => {
+export const UpsertEntryField: React.FC<UpsertEntryFieldProps> = ({
+  index,
+  append,
+  remove,
+}) => {
   const { t } = useTranslation('transaction')
   const {
-    result: { data, loading, error },
+    result: { data },
   } = useAccountsContext()
 
   const handleOnAppend = useCallback(() => {
@@ -63,18 +107,27 @@ export const Row: React.FC<RowProps> = ({ index, append, remove }) => {
     void remove?.(index)
   }, [remove, index])
 
+  const accountOptions = useMemo(
+    () =>
+      data?.getAccounts.map(({ id, name }) => ({
+        value: id,
+        label: name,
+      })) ?? [],
+    [data?.getAccounts],
+  )
+
   return (
     <div className="flex gap-x-1 items-start">
       <div className="grid grid-cols-3 w-max gap-x-1 max-w-5xl">
-        <InputDate<FieldValues>
+        <InputDate<UpsertTransactionFormFieldValues>
           label={t`UpsertTransactionForm.label.entries.transactionDate`}
           name={`entries.${index}.transactionDate` as const}
         />
-        <InputText<FieldValues>
+        <InputText<UpsertTransactionFormFieldValues>
           label={t('UpsertTransactionForm.label.entries.memo')}
           name={`entries.${index}.memo` as const}
         />
-        <ListBox<FieldValues>
+        <ListBox<UpsertTransactionFormFieldValues>
           label={t('UpsertTransactionForm.label.entries.status')}
           name={`entries.${index}.status` as const}
           options={Object.keys(EntryStatus).map((value) => ({
@@ -82,24 +135,18 @@ export const Row: React.FC<RowProps> = ({ index, append, remove }) => {
             label: <StatusChip status={value} key={value} />,
           }))}
         />
-        <InputNumber<FieldValues>
+        <InputNumber<UpsertTransactionFormFieldValues>
           label={t('UpsertTransactionForm.label.entries.debit')}
           name={`entries.${index}.debit` as const}
         />
-        <InputNumber<FieldValues>
+        <InputNumber<UpsertTransactionFormFieldValues>
           label={t('UpsertTransactionForm.label.entries.credit')}
           name={`entries.${index}.credit` as const}
         />
-        <ListBox<FieldValues>
+        <ListBox<UpsertTransactionFormFieldValues>
           label={t('UpsertTransactionForm.label.entries.account')}
           name={`entries.${index}.accountId` as const}
-          loading={loading}
-          options={
-            data?.getAccounts.map(({ id, name }) => ({
-              value: id,
-              label: name,
-            })) ?? []
-          }
+          options={accountOptions}
         />
       </div>
       <div className="mt-20 flex gap-x-1 w-10 relative">

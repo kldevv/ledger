@@ -42,7 +42,7 @@ export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
         header: t('TransactionTable.header.note'),
       }),
       columnHelper.display({
-        id: 'view',
+        id: 'view-link',
         cell: (props) => (
           <ViewLink href={`/transaction/${props.row.getValue<string>('id')}`} />
         ),

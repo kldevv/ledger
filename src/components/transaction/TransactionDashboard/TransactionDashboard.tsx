@@ -1,7 +1,6 @@
 import { useGetTransactionsQuery } from '@/api/graphql'
+import { TransactionTable } from '@/components/transaction'
 import { useVaultContext } from '@/hooks'
-
-import { TransactionTable } from '..'
 
 export const TransactionDashboard: React.FC = () => {
   const [{ curVaultId }] = useVaultContext()

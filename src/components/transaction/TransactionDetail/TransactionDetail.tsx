@@ -1,31 +1,34 @@
-import { EntryStatus, useGetTransactionDetailQuery } from "@/api/graphql"
-import { useRouter } from "next/router"
-import { useMemo } from "react"
-import { TransactionDescriptionList } from ".."
-import { EntryTable } from "@/components/entry"
-import { useTranslation } from "next-i18next"
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import { EntryStatus, useGetTransactionDetailQuery } from '@/api/graphql'
+import { EntryTable } from '@/components/entry'
+import { TransactionDescriptionList } from '@/components/transaction'
+import { useVaultContext } from '@/hooks'
 
 export const TransactionDetail: React.FC = () => {
   const { t } = useTranslation('transaction')
   const router = useRouter()
-  const { id } = router.query
+  const [{ curVaultId }] = useVaultContext()
 
+  const { id } = router.query
   const transactionId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id 
+    return id == null || Array.isArray(id) ? null : id
   }, [id])
 
-  const { data, loading, error } = useGetTransactionDetailQuery({
+  const { data } = useGetTransactionDetailQuery({
     variables: {
       getTransactionInput: {
-        id: transactionId ?? ''
+        id: transactionId ?? '',
       },
       getEntriesInput: {
-        transactionId
-      }
+        transactionId,
+        vaultId: curVaultId ?? '',
+      },
     },
-    skip: transactionId == null,
-  });
-  
+    skip: transactionId == null || curVaultId == null,
+  })
 
   return (
     data?.getTransaction && (
@@ -34,7 +37,7 @@ export const TransactionDetail: React.FC = () => {
           data={{
             ...data.getTransaction,
             status: data.getEntries.some(
-              ({ status }) => status === EntryStatus.PENDING
+              ({ status }) => status === EntryStatus.PENDING,
             )
               ? EntryStatus.PENDING
               : EntryStatus.COMPLETED,
@@ -44,5 +47,5 @@ export const TransactionDetail: React.FC = () => {
         <EntryTable data={data.getEntries} />
       </div>
     )
-  );
+  )
 }

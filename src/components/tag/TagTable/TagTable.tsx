@@ -36,7 +36,7 @@ export const TagTable: React.FC<TagTableProps> = ({ data }) => {
         cell: (props) => <FormattedDate dateTime={props.getValue()} />,
       }),
       columnHelper.display({
-        id: 'view',
+        id: 'view-link',
         cell: (props) => (
           <ViewLink href={`/tag/${props.row.getValue<string>('id')}`} />
         ),

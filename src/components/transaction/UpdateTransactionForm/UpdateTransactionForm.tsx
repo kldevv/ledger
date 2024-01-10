@@ -1,70 +1,71 @@
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { useCallback, useMemo } from 'react'
+
 import {
   useGetTransactionDetailQuery,
   useUpdateTransactionMutation,
-} from '@/api/graphql';
-import { useRouter } from 'next/router';
-import { useCallback, useMemo } from 'react';
-import { FieldValues, UpsertTransactionForm } from '..';
-import { useTranslation } from 'next-i18next';
+} from '@/api/graphql'
+import { UpsertTransactionForm } from '@/components/transaction'
+import { useVaultContext } from '@/hooks'
+
+import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
 
 export const UpdateTransactionForm: React.FC = () => {
-  const { t } = useTranslation('transaction');
-  const router = useRouter();
-  const { id } = router.query;
+  const { t } = useTranslation('transaction')
+  const router = useRouter()
+  const [{ curVaultId }] = useVaultContext()
 
+  const { id } = router.query
   const transactionId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id;
-  }, [id]);
+    return id == null || Array.isArray(id) ? null : id
+  }, [id])
 
-  const { data, loading, error } = useGetTransactionDetailQuery({
+  const { data } = useGetTransactionDetailQuery({
     variables: {
       getTransactionInput: {
         id: transactionId ?? '',
       },
       getEntriesInput: {
         transactionId,
+        vaultId: curVaultId ?? '',
       },
     },
-    skip: transactionId == null,
-  });
+    skip: transactionId == null || curVaultId == null,
+  })
 
-  const [updateTransaction] = useUpdateTransactionMutation();
+  const [updateTransaction] = useUpdateTransactionMutation()
 
   const values = useMemo(() => {
     if (data?.getTransaction == null || data?.getEntries == null) {
-      return undefined;
+      return undefined
     }
 
-    const { accrualDate, note, tags } = data.getTransaction;
+    const { accrualDate, note, tags } = data.getTransaction
+
     const entries = data.getEntries.map(
-      ({
+      ({ transactionDate, debit, credit, memo, status, account }) => ({
         transactionDate,
         debit,
         credit,
+        accountId: account?.id ?? '',
         memo,
         status,
-        account: { id: accountId },
-      }) => ({
-        transactionDate,
-        debit,
-        credit,
-        accountId,
-        memo,
-        status,
-      })
-    );
-    const tagIds = tags?.map(({ id }) => id) ?? [];
+      }),
+    )
+
+    const tagIds = tags?.map(({ id }) => id) ?? []
 
     return {
       accrualDate,
       note,
       tagIds,
       entries,
-    };
-  }, [data]);
+    }
+  }, [data])
 
   const handleOnSubmit = useCallback(
-    (values: FieldValues) => {
+    (values: UpsertTransactionFormFieldValues) => {
       if (data?.getTransaction == null) {
         return
       }
@@ -77,10 +78,10 @@ export const UpdateTransactionForm: React.FC = () => {
             ...values,
           },
         },
-      });
+      })
     },
-    [data?.getTransaction, updateTransaction]
-  );
+    [data?.getTransaction, updateTransaction],
+  )
 
   return (
     <UpsertTransactionForm
@@ -88,5 +89,5 @@ export const UpdateTransactionForm: React.FC = () => {
       onSubmitText={t`UpdateTransactionForm.submit`}
       values={values}
     />
-  );
-};
+  )
+}

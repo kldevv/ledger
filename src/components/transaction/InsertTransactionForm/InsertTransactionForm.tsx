@@ -1,20 +1,23 @@
-import { useTranslation } from 'next-i18next';
-import { FieldValues, UpsertTransactionForm } from '..';
+import { useTranslation } from 'next-i18next'
+import { useCallback, useMemo } from 'react'
+
 import {
   EntryStatus,
   useAddTransactionMutation,
   useGetAccountsQuery,
-} from '@/api/graphql';
-import { useCallback, useMemo } from 'react';
-import { useVaultContext } from '@/hooks';
+} from '@/api/graphql'
+import { UpsertTransactionForm } from '@/components/transaction'
+import { useVaultContext } from '@/hooks'
+
+import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
 
 export const InsertTransactionForm: React.FC = () => {
-  const { t } = useTranslation('transaction');
-  const [{ curVaultId }] = useVaultContext();
+  const { t } = useTranslation('transaction')
+  const [{ curVaultId }] = useVaultContext()
 
-  const [addTransaction, { loading, error }] = useAddTransactionMutation({
+  const [addTransaction] = useAddTransactionMutation({
     onCompleted: (data) => console.log(data),
-  });
+  })
 
   const { data } = useGetAccountsQuery({
     variables: {
@@ -23,11 +26,11 @@ export const InsertTransactionForm: React.FC = () => {
       },
     },
     skip: curVaultId == null,
-  });
+  })
 
   const values = useMemo(() => {
     if (data?.getAccounts[0] == null) {
-      return undefined;
+      return undefined
     }
 
     const entry = {
@@ -37,20 +40,20 @@ export const InsertTransactionForm: React.FC = () => {
       status: EntryStatus.PENDING,
       debit: 0,
       credit: 0,
-    };
+    }
 
     return {
       accrualDate: new Date(),
       note: '',
       tagIds: [],
       entries: [{ ...entry }, { ...entry }],
-    };
-  }, [data?.getAccounts]);
+    }
+  }, [data?.getAccounts])
 
   const handleOnSubmit = useCallback(
-    (values: FieldValues) => {
+    (values: UpsertTransactionFormFieldValues) => {
       if (curVaultId == null) {
-        return;
+        return
       }
 
       void addTransaction({
@@ -60,10 +63,10 @@ export const InsertTransactionForm: React.FC = () => {
             vaultId: curVaultId,
           },
         },
-      });
+      })
     },
-    [addTransaction]
-  );
+    [addTransaction, curVaultId],
+  )
 
   return (
     <UpsertTransactionForm
@@ -71,5 +74,5 @@ export const InsertTransactionForm: React.FC = () => {
       onSubmitText={t`InsertTransactionForm.submit`}
       values={values}
     />
-  );
-};
+  )
+}

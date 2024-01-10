@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import type { Control, FieldValues, Path } from 'react-hook-form'
 
 import { Listbox } from '@headlessui/react'
@@ -20,7 +21,7 @@ export interface ListBoxProps<TFieldValues extends FieldValues> {
   /**
    * Select items
    */
-  options: { value: string; label: string }[]
+  options: { value: string; label: ReactNode }[]
   /**
    * Select label
    */
@@ -106,11 +107,7 @@ export const ListBox = <TFieldValues extends FieldValues>({
             </Listbox.Button>
             <Listbox.Options className={optionsCn}>
               {options.map(({ value, label }) => (
-                <Listbox.Option
-                  key={`${value}:${label}`}
-                  value={value}
-                  as={Fragment}
-                >
+                <Listbox.Option key={value} value={value} as={Fragment}>
                   {({ active, selected }) => (
                     <li
                       className={classNames(

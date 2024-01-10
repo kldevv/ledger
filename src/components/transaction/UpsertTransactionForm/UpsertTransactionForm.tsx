@@ -1,60 +1,18 @@
-import {
-  Form,
-  InputText,
-  SubmitButton,
-  FormProps,
-  ListBox,
-} from '@/components/common';
-import {
-  AccountsContextProvider,
-  UseFormProps,
-  useForm,
-  useVaultContext,
-} from '@/hooks';
-import { useTranslation } from 'next-i18next';
-import { z } from 'zod';
-import { UpsertEntryTable } from './UpsertEntryTable';
-import { InputDate } from '@/components/common/Form/InputDate';
-import { EntryStatus, useGetTagsQuery } from '@/api/graphql';
-import { useMemo } from 'react';
-import { numberSchema } from '@/lib';
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+import { z } from 'zod'
 
-const entrySchema = z
-  .object({
-    /**
-     * Entry transaction date
-     */
-    transactionDate: z.coerce.date(),
-    /**
-     * Entry optional memo
-     */
-    memo: z.string(),
-    /**
-     * Entry status
-     */
-    status: z.nativeEnum(EntryStatus),
-    /**
-     * Entry debit
-     */
-    debit: numberSchema,
-    /**
-     * Entry credit
-     */
-    credit: numberSchema,
-    /**
-     * Account id
-     */
-    accountId: z.string(),
-  })
-  .refine(
-    (data) =>
-      (data.debit === 0 || data.credit === 0) &&
-      (data.debit >= 0 || data.credit >= 0),
-    {
-      message:
-        'Either debit or credit must be positive, and the other must be zero',
-    }
-  );
+import { useGetTagsQuery } from '@/api/graphql'
+import { Form, InputText, SubmitButton, ListBox } from '@/components/common'
+import { InputDate } from '@/components/common/Form/InputDate'
+import {
+  UpsertEntryFieldArray,
+  upsertEntryFieldArraySchema,
+} from '@/components/transaction'
+import { AccountsContextProvider, useForm, useVaultContext } from '@/hooks'
+
+import type { FormProps } from '@/components/common'
+import type { UseFormProps } from '@/hooks'
 
 const schema = z
   .object({
@@ -73,41 +31,41 @@ const schema = z
     /**
      * Transaction entries
      */
-    entries: entrySchema.array(),
+    entries: upsertEntryFieldArraySchema,
   })
   .refine(
     (data) => {
       const sumDebits = data.entries.reduce(
         (sum, entry) => sum + entry.debit,
-        0
-      );
+        0,
+      )
       const sumCredits = data.entries.reduce(
         (sum, entry) => sum + entry.credit,
-        0
-      );
+        0,
+      )
 
-      return sumDebits === sumCredits;
+      return sumDebits === sumCredits
     },
     {
       message: 'The sum of debits must equal the sum of credits',
-    }
-  );
+    },
+  )
 
-export type FieldValues = z.infer<typeof schema>;
+export type UpsertTransactionFormFieldValues = z.infer<typeof schema>
 
 export interface UpsertTransactionFormProps {
   /**
    * On submit
    */
-  onSubmit: FormProps<FieldValues>['onSubmit'];
+  onSubmit: FormProps<UpsertTransactionFormFieldValues>['onSubmit']
   /**
    * On submit text
    */
-  onSubmitText: string;
+  onSubmitText: string
   /**
    * Default form values
    */
-  values?: UseFormProps<FieldValues>['values'];
+  values?: UseFormProps<UpsertTransactionFormFieldValues>['values']
 }
 
 export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
@@ -115,8 +73,8 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   onSubmitText,
   values,
 }) => {
-  const { t } = useTranslation('transaction');
-  const [{ curVaultId }] = useVaultContext();
+  const { t } = useTranslation('transaction')
+  const [{ curVaultId }] = useVaultContext()
 
   const { data } = useGetTagsQuery({
     variables: {
@@ -125,15 +83,15 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
       },
     },
     skip: curVaultId == null,
-  });
+  })
 
-  const tagOptions = useMemo(
+  const tagIdsOptions = useMemo(
     () =>
       data?.getTags.map(({ id, name }) => ({ value: id, label: name })) ?? [],
-    [data]
-  );
+    [data],
+  )
 
-  const context = useForm<FieldValues>({
+  const context = useForm<UpsertTransactionFormFieldValues>({
     schema,
     defaultValues: {
       accrualDate: new Date(),
@@ -142,32 +100,32 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
       entries: [],
     },
     values,
-  });
+  })
 
   return (
     <AccountsContextProvider>
       <div className="mr-4">
         <Form onSubmit={onSubmit} context={context}>
-          <InputDate<FieldValues>
+          <InputDate<UpsertTransactionFormFieldValues>
             label={t('UpsertTransactionForm.label.accrualDate')}
             name="accrualDate"
           />
-          <InputText<FieldValues>
+          <InputText<UpsertTransactionFormFieldValues>
             label={t('UpsertTransactionForm.label.note')}
             name="note"
           />
-          <ListBox<FieldValues>
+          <ListBox<UpsertTransactionFormFieldValues>
             label={t('UpsertTransactionForm.label.tags')}
             name="tagIds"
+            options={tagIdsOptions}
             multiple
-            options={tagOptions}
           />
           <div className="mt-6">
-            <UpsertEntryTable />
+            <UpsertEntryFieldArray />
           </div>
           <SubmitButton>{onSubmitText}</SubmitButton>
         </Form>
       </div>
     </AccountsContextProvider>
-  );
-};
+  )
+}
