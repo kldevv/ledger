@@ -1,6 +1,6 @@
 import classNames from 'classnames'
-import { useMemo } from 'react'
 import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
 
 export type StatusChipProps = {
   /**

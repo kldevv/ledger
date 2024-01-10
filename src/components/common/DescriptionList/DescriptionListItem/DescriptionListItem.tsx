@@ -1,4 +1,4 @@
-export interface ItemProps {
+export interface DescriptionListItemProps {
   /**
    * Title of the item
    */
@@ -9,7 +9,10 @@ export interface ItemProps {
   description: React.ReactNode
 }
 
-export const Item: React.FC<ItemProps> = ({ title, description }) => {
+export const DescriptionListItem: React.FC<DescriptionListItemProps> = ({
+  title,
+  description,
+}) => {
   return (
     <div className="py-2 border-t first:border-t-0 border-t-mid-gray items-center grid grid-cols-2 gap-x-8">
       <dt>

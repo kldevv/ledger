@@ -4,7 +4,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { Card, Cell, Header } from '@/components/common'
+import { Card, TableCell, TableHeader } from '@/components/common'
 
 import type { ColumnDef, RowData } from '@tanstack/react-table'
 
@@ -38,14 +38,14 @@ export const Table = <TData extends RowData>({
             {table.getHeaderGroups().map(({ id, headers }) => (
               <tr key={id}>
                 {headers.map((header) => (
-                  <Header key={header.id}>
+                  <TableHeader key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
                           header.getContext(),
                         )}
-                  </Header>
+                  </TableHeader>
                 ))}
               </tr>
             ))}
@@ -57,9 +57,9 @@ export const Table = <TData extends RowData>({
                 className={index & 1 ? 'bg-white' : 'bg-light-shades'}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <Cell key={cell.id}>
+                  <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Cell>
+                  </TableCell>
                 ))}
               </tr>
             ))}

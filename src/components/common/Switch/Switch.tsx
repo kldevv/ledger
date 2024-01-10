@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react'
 import { Switch as HeadlessSwitch } from '@headlessui/react'
+import { useCallback, useState } from 'react'
 
 export interface SwitchProps {
   /**

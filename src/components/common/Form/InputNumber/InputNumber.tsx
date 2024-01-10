@@ -1,8 +1,11 @@
 import type { Control, FieldValues, Path } from 'react-hook-form'
+
 import { useController } from 'react-hook-form'
 import { NumericFormat } from 'react-number-format'
-import type { InputCoreProps } from '../..'
-import { ErrorMessage, InputCore, Label } from '../..'
+
+import { ErrorMessage, InputCore, Label } from '@/components/common'
+
+import type { InputCoreProps } from '@/components/common'
 
 export interface InputNumberProps<TFieldValues extends FieldValues>
   extends Omit<

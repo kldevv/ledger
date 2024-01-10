@@ -1,4 +1,4 @@
-import type { ColumnDef, ExpandedState, RowData } from '@tanstack/react-table'
+import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import {
   createColumnHelper,
   flexRender,
@@ -6,11 +6,13 @@ import {
   getExpandedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { Button, Card } from '../../..'
-import { Cell, Header } from '../../TableElement'
-import { useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import { useEffect, useState } from 'react'
+
+import { Button, Card } from '@/components/common'
+import { TableCell, TableHeader } from '@/components/common'
+
+import type { ColumnDef, ExpandedState, RowData } from '@tanstack/react-table'
 
 export type ExpandableTableProps<TData extends RowData> = {
   /**
@@ -80,7 +82,7 @@ export const ExpandableTable = <TData extends RowData>({
             {table.getHeaderGroups().map(({ id, headers }) => (
               <tr key={id}>
                 {headers.map((header, index) => (
-                  <Header
+                  <TableHeader
                     key={header.id}
                     colSpan={header.colSpan}
                     className={classNames(
@@ -99,7 +101,7 @@ export const ExpandableTable = <TData extends RowData>({
                           header.column.columnDef.header,
                           header.getContext(),
                         )}
-                  </Header>
+                  </TableHeader>
                 ))}
               </tr>
             ))}
@@ -108,7 +110,7 @@ export const ExpandableTable = <TData extends RowData>({
             {table.getRowModel().rows.map((row, rowIndex) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell, index) => (
-                  <Cell
+                  <TableCell
                     key={cell.id}
                     className={classNames(
                       'z-20',
@@ -129,7 +131,7 @@ export const ExpandableTable = <TData extends RowData>({
                     )}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Cell>
+                  </TableCell>
                 ))}
               </tr>
             ))}

@@ -1,4 +1,3 @@
-export * from './DatePicker'
 export * from './ErrorMessage'
 export * from './Form'
 export * from './InputDate'

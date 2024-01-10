@@ -4,10 +4,9 @@ import { useMemo } from 'react'
 
 import { useGetCategoryDetailQuery } from '@/api/graphql'
 import { AccountTable } from '@/components/account'
+import { CategoryDescriptionList } from '@/components/category'
 import { EntryTable } from '@/components/entry'
 import { useVaultContext } from '@/hooks'
-
-import { CategoryDescriptionList } from '..'
 
 export const CategoryDetail: React.FC = () => {
   const router = useRouter()

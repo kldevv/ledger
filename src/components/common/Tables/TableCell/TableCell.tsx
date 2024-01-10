@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-export type CellProps = {
+export type TableCellProps = {
   /**
    * Children component
    */
@@ -11,7 +11,10 @@ export type CellProps = {
   className?: string
 }
 
-export const Cell: React.FC<CellProps> = ({ children, className }) => {
+export const TableCell: React.FC<TableCellProps> = ({
+  children,
+  className,
+}) => {
   return (
     <td
       className={classNames(

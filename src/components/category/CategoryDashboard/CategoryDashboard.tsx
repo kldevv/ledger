@@ -1,7 +1,6 @@
 import { useGetCategoriesQuery } from '@/api/graphql'
+import { CategoryTable } from '@/components/category'
 import { useVaultContext } from '@/hooks'
-
-import { CategoryTable } from '..'
 
 export const CategoryDashboard: React.FC = () => {
   const [{ curVaultId }] = useVaultContext()

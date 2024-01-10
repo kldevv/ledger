@@ -1,13 +1,13 @@
 import classNames from 'classnames'
 
-export interface HeaderProps extends React.ComponentPropsWithoutRef<'th'> {
+export interface TableHeaderProps extends React.ComponentPropsWithoutRef<'th'> {
   /**
    * Children component
    */
   children?: React.ReactNode
 }
 
-export const Header: React.FC<HeaderProps> = ({
+export const TableHeader: React.FC<TableHeaderProps> = ({
   children,
   className,
   ...props

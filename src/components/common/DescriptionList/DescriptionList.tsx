@@ -1,14 +1,12 @@
-import { Card } from '..'
-import type { ItemProps } from './Item'
-import { Item } from './Item'
+import { Card, DescriptionListItem } from '@/components/common'
 
-export type DescriptionListItem = ItemProps
+import type { DescriptionListItemProps } from '@/components/common'
 
 export interface DescriptionListProps {
   /**
    * Items
    */
-  items: DescriptionListItem[]
+  items: DescriptionListItemProps[]
 }
 
 export const DescriptionList: React.FC<DescriptionListProps> = ({ items }) => {
@@ -17,7 +15,7 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({ items }) => {
       <div className="w-full">
         <dl>
           {items.map((item) => (
-            <Item key={item.title} {...item} />
+            <DescriptionListItem key={item.title} {...item} />
           ))}
         </dl>
       </div>

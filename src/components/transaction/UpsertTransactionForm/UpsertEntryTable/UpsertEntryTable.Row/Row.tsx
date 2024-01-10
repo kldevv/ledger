@@ -1,11 +1,21 @@
-import { Button, DatePicker, InputText, InputNumber, ListBox, StatusChip } from '@/components/common';
-import { useTranslation } from 'next-i18next';
-import { PlusIcon, TrashIcon } from '@heroicons/react/20/solid';
-import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
-import { FieldValues } from '../..';
-import { useCallback } from 'react';
-import { EntryStatus } from '@prisma/client';
-import { useAccountsContext } from '@/hooks';
+import type { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form'
+
+import { PlusIcon, TrashIcon } from '@heroicons/react/20/solid'
+import { EntryStatus } from '@prisma/client'
+import { useTranslation } from 'next-i18next'
+import { useCallback } from 'react'
+
+import {
+  Button,
+  InputText,
+  InputNumber,
+  ListBox,
+  StatusChip,
+  InputDate,
+} from '@/components/common'
+import { useAccountsContext } from '@/hooks'
+
+import type { FieldValues } from '../..'
 
 export const defaultEntryFieldValue: FieldValues['entries'][number] = {
   transactionDate: new Date(),
@@ -14,30 +24,28 @@ export const defaultEntryFieldValue: FieldValues['entries'][number] = {
   status: EntryStatus.PENDING,
   debit: 0,
   credit: 0,
-};
+}
 
 export interface RowProps {
   /**
    * Row index
    */
-  index: number;
+  index: number
   /**
    * Field append
    */
-  append?: UseFieldArrayAppend<FieldValues> | null;
+  append?: UseFieldArrayAppend<FieldValues> | null
   /**
    * Field remove
    */
-  remove?: UseFieldArrayRemove | null;
+  remove?: UseFieldArrayRemove | null
 }
 
-export const Row: React.FC<RowProps> = ({
-  index,
-  append,
-  remove,
-}) => {
-  const { t } = useTranslation('transaction');
-  const { result: { data, loading, error } } = useAccountsContext()
+export const Row: React.FC<RowProps> = ({ index, append, remove }) => {
+  const { t } = useTranslation('transaction')
+  const {
+    result: { data, loading, error },
+  } = useAccountsContext()
 
   const handleOnAppend = useCallback(() => {
     void append?.(
@@ -47,19 +55,18 @@ export const Row: React.FC<RowProps> = ({
       },
       {
         shouldFocus: false,
-      }
-    );
-  }, [append, data]);
+      },
+    )
+  }, [append, data])
 
   const handleRemove = useCallback(() => {
-    void remove?.(index);
-  }, [remove, index]);
+    void remove?.(index)
+  }, [remove, index])
 
- 
   return (
     <div className="flex gap-x-1 items-start">
       <div className="grid grid-cols-3 w-max gap-x-1 max-w-5xl">
-        <DatePicker<FieldValues>
+        <InputDate<FieldValues>
           label={t`UpsertTransactionForm.label.entries.transactionDate`}
           name={`entries.${index}.transactionDate` as const}
         />
@@ -112,5 +119,5 @@ export const Row: React.FC<RowProps> = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}
