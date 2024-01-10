@@ -12,6 +12,7 @@ export const Card: React.FC<CardProps> = ({ children }) => {
     '-mx-5 mt-6',
     'rounded-lg shadow box-shadow shadow-mid-gray',
     'w-full',
+    'max-w-screen-lg',
     'bg-white',
   )
 

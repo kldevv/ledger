@@ -76,7 +76,7 @@ export const ExpandableTable = <TData extends RowData>({
 
   return (
     <Card>
-      <div className="w-full h-full max-w-xl max-h-screen overflow-x-auto">
+      <div className="w-full h-full max-h-screen overflow-x-auto">
         <table className="w-full h-full table-auto relative">
           <thead className="sticky top-0 z-30">
             {table.getHeaderGroups().map(({ id, headers }) => (
