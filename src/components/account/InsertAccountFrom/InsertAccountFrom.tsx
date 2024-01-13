@@ -3,13 +3,13 @@ import { useCallback, useMemo } from 'react'
 
 import { useAddAccountMutation, useGetCategoriesQuery } from '@/api/graphql'
 import { UpsertAccountForm } from '@/components/account'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import type { UpsertAccountFormFieldValues } from '@/components/account'
 
 export const InsertAccountFrom: React.FC = () => {
   const { t } = useTranslation('account')
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const [addAccount] = useAddAccountMutation({
     onCompleted: (data) => console.log(data),
@@ -18,10 +18,10 @@ export const InsertAccountFrom: React.FC = () => {
   const { data } = useGetCategoriesQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   const values = useMemo(() => {
@@ -37,7 +37,7 @@ export const InsertAccountFrom: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: UpsertAccountFormFieldValues) => {
-      if (curVaultId == null) {
+      if (selectedTreasuryBookId == null) {
         return
       }
 
@@ -45,12 +45,12 @@ export const InsertAccountFrom: React.FC = () => {
         variables: {
           input: {
             ...values,
-            vaultId: curVaultId,
+            vaultId: selectedTreasuryBookId,
           },
         },
       })
     },
-    [curVaultId, addAccount],
+    [selectedTreasuryBookId, addAccount],
   )
 
   return (

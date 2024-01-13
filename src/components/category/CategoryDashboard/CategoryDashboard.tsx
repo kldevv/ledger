@@ -1,17 +1,17 @@
 import { useGetCategoriesQuery } from '@/api/graphql'
 import { CategoryTable } from '@/components/category'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 export const CategoryDashboard: React.FC = () => {
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { data } = useGetCategoriesQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   return <CategoryTable data={data?.getCategories ?? []} />

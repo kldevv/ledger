@@ -7,13 +7,13 @@ import {
   useGetAccountsQuery,
 } from '@/api/graphql'
 import { UpsertTransactionForm } from '@/components/transaction'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
 
 export const InsertTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const [addTransaction] = useAddTransactionMutation({
     onCompleted: (data) => console.log(data),
@@ -22,10 +22,10 @@ export const InsertTransactionForm: React.FC = () => {
   const { data } = useGetAccountsQuery({
     variables: {
       input: {
-        vaultId: curVaultId,
+        vaultId: selectedTreasuryBookId,
       },
     },
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   const values = useMemo(() => {
@@ -52,7 +52,7 @@ export const InsertTransactionForm: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: UpsertTransactionFormFieldValues) => {
-      if (curVaultId == null) {
+      if (selectedTreasuryBookId == null) {
         return
       }
 
@@ -60,12 +60,12 @@ export const InsertTransactionForm: React.FC = () => {
         variables: {
           input: {
             ...values,
-            vaultId: curVaultId,
+            vaultId: selectedTreasuryBookId,
           },
         },
       })
     },
-    [addTransaction, curVaultId],
+    [addTransaction, selectedTreasuryBookId],
   )
 
   return (

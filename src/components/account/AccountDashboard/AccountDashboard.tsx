@@ -1,18 +1,18 @@
 import { useGetAccountsQuery } from '@/api/graphql'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import { AccountTable } from '..'
 
 export const AccountDashboard: React.FC = () => {
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
   const { data } = useGetAccountsQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
     fetchPolicy: 'cache-and-network',
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   return <AccountTable data={data?.getAccounts ?? []} />

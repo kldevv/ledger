@@ -7,14 +7,14 @@ import {
   useUpdateTransactionMutation,
 } from '@/api/graphql'
 import { UpsertTransactionForm } from '@/components/transaction'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
 
 export const UpdateTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')
   const router = useRouter()
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { id } = router.query
   const transactionId = useMemo(() => {
@@ -28,10 +28,10 @@ export const UpdateTransactionForm: React.FC = () => {
       },
       getEntriesInput: {
         transactionId,
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
-    skip: transactionId == null || curVaultId == null,
+    skip: transactionId == null || selectedTreasuryBookId == null,
   })
 
   const [updateTransaction] = useUpdateTransactionMutation()

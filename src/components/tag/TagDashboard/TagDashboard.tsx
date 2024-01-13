@@ -1,17 +1,17 @@
 import { useGetTagsQuery } from '@/api/graphql'
 import { TagTable } from '@/components/tag'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 export const TagDashboard: React.FC = () => {
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { data } = useGetTagsQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
     fetchPolicy: 'cache-and-network',
   })
 

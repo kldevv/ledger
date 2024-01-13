@@ -5,12 +5,12 @@ import { useMemo } from 'react'
 import { useGetTagDetailQuery } from '@/api/graphql'
 import { TagDescriptionList } from '@/components/tag'
 import { TransactionTable } from '@/components/transaction'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 export const TagDetail: React.FC = () => {
   const { t } = useTranslation('tag')
   const router = useRouter()
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { id } = router.query
   const tagId = useMemo(() => {
@@ -20,9 +20,9 @@ export const TagDetail: React.FC = () => {
   const { data } = useGetTagDetailQuery({
     variables: {
       getTagInput: { id: tagId ?? '' },
-      getTransactionsInput: { vaultId: curVaultId ?? '', tagId },
+      getTransactionsInput: { vaultId: selectedTreasuryBookId ?? '', tagId },
     },
-    skip: tagId == null || curVaultId == null,
+    skip: tagId == null || selectedTreasuryBookId == null,
   })
 
   return (

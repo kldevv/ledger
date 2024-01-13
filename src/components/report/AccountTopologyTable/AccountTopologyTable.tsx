@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 import { useGetAccountTopologyQuery } from '@/api/graphql'
 import { ExpandableTable } from '@/components/common'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import type { GetAccountTopologyQuery } from '@/api/graphql'
 import type { ExpandableTableProps } from '@/components/common'
@@ -38,15 +38,15 @@ export const AccountTopologyTable: React.FC<AccountTopologyTableProps> = ({
   cols,
   colGroupCount,
 }) => {
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { data: topology } = useGetAccountTopologyQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   const colDefs = useMemo(

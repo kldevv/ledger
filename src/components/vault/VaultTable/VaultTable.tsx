@@ -5,7 +5,7 @@ import { useCallback, useMemo } from 'react'
 
 import { useGetVaultsQuery } from '@/api/graphql'
 import { Button, FormattedDate, Table } from '@/components/common'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import type { GetVaultsQuery } from '@/api/graphql'
 
@@ -15,7 +15,8 @@ const columnHelper = createColumnHelper<VaultTableData>()
 
 export const VaultTable: React.FC = () => {
   const { t } = useTranslation('vault')
-  const [{ curVaultId }, { setCurVaultId }] = useVaultContext()
+  const [{ selectedTreasuryBookId }, { setselectedTreasuryBookId }] =
+    useTreasuryBookContext()
 
   const { data } = useGetVaultsQuery({
     variables: {
@@ -28,9 +29,9 @@ export const VaultTable: React.FC = () => {
 
   const createHandleOnVaultSwitch = useCallback(
     (id: string) => {
-      return () => setCurVaultId?.(id)
+      return () => setselectedTreasuryBookId?.(id)
     },
-    [setCurVaultId],
+    [setselectedTreasuryBookId],
   )
 
   const colDefs = useMemo(
@@ -46,7 +47,7 @@ export const VaultTable: React.FC = () => {
       columnHelper.display({
         id: 'is-selected',
         cell: (props) =>
-          props.row.getValue('id') === curVaultId ? (
+          props.row.getValue('id') === selectedTreasuryBookId ? (
             <CheckCircleIcon className="w-5 h-5 text-light-accent" />
           ) : null,
       }),
@@ -79,7 +80,7 @@ export const VaultTable: React.FC = () => {
         ),
       }),
     ],
-    [createHandleOnVaultSwitch, curVaultId, t],
+    [createHandleOnVaultSwitch, selectedTreasuryBookId, t],
   )
 
   return <Table data={data?.getVaults ?? []} colDefs={colDefs} />

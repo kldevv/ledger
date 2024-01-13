@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 import { useGetMinMaxDateQuery } from '@/api/graphql'
 import { FormattedNumber } from '@/components/common'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import { AccountTopologyTable, DataVariant, columnHelper } from '..'
 
@@ -31,16 +31,16 @@ export const ReportByYearTable: React.FC<ReportByYearTableProps> = ({
   variant,
 }) => {
   const { t } = useTranslation('report')
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { data } = useGetMinMaxDateQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
         basis,
       },
     },
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   const [minYear, maxYear] = useMemo(() => {

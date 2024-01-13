@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import { VaultLink } from './VaultLink'
 
@@ -13,11 +13,12 @@ export const VaultStatus: React.FC = () => {
   const router = useRouter()
   const { t } = useTranslation('layout')
 
-  const [{ vaults, curVaultId, loading, error }] = useVaultContext()
+  const [{ vaults, selectedTreasuryBookId, loading, error }] =
+    useTreasuryBookContext()
 
   const currentVaultName = useMemo(
-    () => vaults?.find((vault) => vault.id === curVaultId)?.name,
-    [vaults, curVaultId],
+    () => vaults?.find((vault) => vault.id === selectedTreasuryBookId)?.name,
+    [vaults, selectedTreasuryBookId],
   )
 
   return (

@@ -13,7 +13,7 @@ import {
   ReportByQuarterTable,
   ReportByYearTable,
 } from '@/components/report'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import type { ReportData } from '@/api/graphql'
 
@@ -30,7 +30,7 @@ export enum DataMode {
 
 export const ReportDashboard: React.FC = () => {
   const { t } = useTranslation('report')
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const [accountingBasis, setAccountingBasis] = useState<Basis>(Basis.ACCRUAL)
   const [reportDateGroupBy, setReportDateGroupBy] = useState<ReportDateGroupBy>(
@@ -114,25 +114,25 @@ export const ReportDashboard: React.FC = () => {
   const { data: balanceData } = useGetReportsBalanceQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
         basis: accountingBasis,
         groupBy: reportDateGroupBy,
       },
     },
     fetchPolicy: 'network-only',
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   const { data: changeData } = useGetReportsQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
         basis: accountingBasis,
         groupBy: reportDateGroupBy,
       },
     },
     fetchPolicy: 'network-only',
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   const reportDataMappings = useMemo(() => {

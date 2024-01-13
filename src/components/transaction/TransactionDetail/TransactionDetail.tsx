@@ -5,12 +5,12 @@ import { useMemo } from 'react'
 import { EntryStatus, useGetTransactionDetailQuery } from '@/api/graphql'
 import { EntryTable } from '@/components/entry'
 import { TransactionDescriptionList } from '@/components/transaction'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 export const TransactionDetail: React.FC = () => {
   const { t } = useTranslation('transaction')
   const router = useRouter()
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { id } = router.query
   const transactionId = useMemo(() => {
@@ -24,10 +24,10 @@ export const TransactionDetail: React.FC = () => {
       },
       getEntriesInput: {
         transactionId,
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
-    skip: transactionId == null || curVaultId == null,
+    skip: transactionId == null || selectedTreasuryBookId == null,
   })
 
   return (

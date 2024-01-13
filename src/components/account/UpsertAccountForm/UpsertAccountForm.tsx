@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 import { useGetCategoriesQuery } from '@/api/graphql'
 import { Form, InputText, ListBox, SubmitButton } from '@/components/common'
-import { useForm, useVaultContext } from '@/hooks'
+import { useForm, useTreasuryBookContext } from '@/hooks'
 
 import type { FormProps } from '@/components/common'
 import type { UseFormProps } from '@/hooks'
@@ -55,14 +55,14 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
     values,
   })
 
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
   const { data } = useGetCategoriesQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   const categoryOptions = useMemo(

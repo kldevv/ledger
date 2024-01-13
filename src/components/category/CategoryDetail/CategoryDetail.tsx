@@ -6,7 +6,7 @@ import { useGetCategoryDetailQuery } from '@/api/graphql'
 import { AccountTable } from '@/components/account'
 import { CategoryDescriptionList } from '@/components/category'
 import { EntryTable } from '@/components/entry'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 export const CategoryDetail: React.FC = () => {
   const router = useRouter()
@@ -17,7 +17,7 @@ export const CategoryDetail: React.FC = () => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
 
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { data } = useGetCategoryDetailQuery({
     variables: {
@@ -26,13 +26,13 @@ export const CategoryDetail: React.FC = () => {
       },
       getEntriesInput: {
         categoryId,
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
       getAccountsInput: {
         categoryId,
       },
     },
-    skip: categoryId == null || curVaultId == null,
+    skip: categoryId == null || selectedTreasuryBookId == null,
   })
 
   return (

@@ -1,17 +1,17 @@
 import { useGetTransactionsQuery } from '@/api/graphql'
 import { TransactionTable } from '@/components/transaction'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 export const TransactionDashboard: React.FC = () => {
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { data } = useGetTransactionsQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   return <TransactionTable data={data?.getTransactions ?? []} />

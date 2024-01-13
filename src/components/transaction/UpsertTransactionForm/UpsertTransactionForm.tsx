@@ -5,7 +5,11 @@ import { z } from 'zod'
 import { useGetTagsQuery } from '@/api/graphql'
 import { Form, InputText, SubmitButton, ListBox } from '@/components/common'
 import { InputDate } from '@/components/common/Form/InputDate'
-import { AccountsContextProvider, useForm, useVaultContext } from '@/hooks'
+import {
+  AccountsContextProvider,
+  useForm,
+  useTreasuryBookContext,
+} from '@/hooks'
 
 import {
   UpsertEntryFieldArray,
@@ -75,15 +79,15 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   values,
 }) => {
   const { t } = useTranslation('transaction')
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { data } = useGetTagsQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   const tagIdsOptions = useMemo(

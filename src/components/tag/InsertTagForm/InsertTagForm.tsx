@@ -3,13 +3,13 @@ import { useCallback } from 'react'
 
 import { useAddTagMutation } from '@/api/graphql'
 import { UpsertTagForm } from '@/components/tag'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import type { UpsertTagFormFieldValues } from '@/components/tag'
 
 export const InsertTagForm: React.FC = () => {
   const { t } = useTranslation('tag')
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const [addTag] = useAddTagMutation({
     onCompleted: (data) => console.log(data),
@@ -17,7 +17,7 @@ export const InsertTagForm: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: UpsertTagFormFieldValues) => {
-      if (curVaultId == null) {
+      if (selectedTreasuryBookId == null) {
         return
       }
 
@@ -25,12 +25,12 @@ export const InsertTagForm: React.FC = () => {
         variables: {
           input: {
             ...values,
-            vaultId: curVaultId,
+            vaultId: selectedTreasuryBookId,
           },
         },
       })
     },
-    [curVaultId, addTag],
+    [selectedTreasuryBookId, addTag],
   )
 
   return (

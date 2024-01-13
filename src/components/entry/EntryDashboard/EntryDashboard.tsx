@@ -1,16 +1,16 @@
 import { useGetEntriesQuery } from '@/api/graphql'
 import { EntryTable } from '@/components/entry'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 export const EntryDashboard: React.FC = () => {
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
   const { data } = useGetEntriesQuery({
     variables: {
       input: {
-        vaultId: curVaultId ?? '',
+        vaultId: selectedTreasuryBookId ?? '',
       },
     },
-    skip: curVaultId == null,
+    skip: selectedTreasuryBookId == null,
   })
 
   return <EntryTable data={data?.getEntries ?? []} />

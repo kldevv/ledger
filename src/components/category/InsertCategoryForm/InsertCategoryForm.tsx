@@ -3,13 +3,13 @@ import { useCallback } from 'react'
 
 import { useAddCategoryMutation } from '@/api/graphql'
 import { UpsertCategoryForm } from '@/components/category'
-import { useVaultContext } from '@/hooks'
+import { useTreasuryBookContext } from '@/hooks'
 
 import type { UpsertCategoryFormFieldValues } from '@/components/category'
 
 export const InsertCategoryFrom: React.FC = () => {
   const { t } = useTranslation('category')
-  const [{ curVaultId }] = useVaultContext()
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const [addCategory] = useAddCategoryMutation({
     onCompleted: (data) => console.log(data),
@@ -17,7 +17,7 @@ export const InsertCategoryFrom: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: UpsertCategoryFormFieldValues) => {
-      if (curVaultId == null) {
+      if (selectedTreasuryBookId == null) {
         return
       }
 
@@ -25,12 +25,12 @@ export const InsertCategoryFrom: React.FC = () => {
         variables: {
           input: {
             ...values,
-            vaultId: curVaultId,
+            vaultId: selectedTreasuryBookId,
           },
         },
       })
     },
-    [curVaultId, addCategory],
+    [selectedTreasuryBookId, addCategory],
   )
 
   return (
