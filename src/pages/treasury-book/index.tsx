@@ -13,7 +13,7 @@ const Page: React.FC = () => {
         title={t`page.index.title`}
         subtitle={t`page.index.subtitle`}
         link={{
-          href: route.treasuryBookHome.pathname,
+          href: route.treasuryBookAdd.pathname,
           label: t`page.index.link`,
         }}
       />

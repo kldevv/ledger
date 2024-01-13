@@ -14,5 +14,6 @@ export const ni18nConfig: Ni18nOptions = {
     'vault',
     'report',
     'route',
+    'meta',
   ],
 }

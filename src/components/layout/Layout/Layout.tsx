@@ -24,20 +24,20 @@ type LayoutProps = {
  */
 export const Layout: React.FC<LayoutProps> = ({ children, prev }) => {
   return (
-    <div className="min-h-screen flex relative min-w-full">
-      <div className="absolute top-0 w-full h-16 index-10 overflow-hidden">
+    <div className="h-screen relative w-screen">
+      <div className="w-full absolute top-0 h-16 z-10 overflow-hidden bg-white">
         <TopNavigationBar />
       </div>
-      <div className="flex w-full mt-16">
-        <div className="absolute left-0 h-full w-52 border-left index-5 overflow-hidden">
+      <div className="flex w-full h-full pt-16">
+        <div className="h-full w-56 z-5 border-left overflow-hidden bg-white">
           <SideNavigationBar />
         </div>
-        <main className="w-full ml-52 max-h-screen overflow-auto bg-light-shades">
+        <main className="w-full h-full overflow-auto bg-light-shades">
           <div
             className={classNames(
-              'mx-16',
+              'px-16',
               prev != null ? 'mt-5' : 'mt-14',
-              'mb-32',
+              'pb-32',
               'flex flex-col gap-y-5',
               'min-w-min',
             )}

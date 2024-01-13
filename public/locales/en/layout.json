@@ -27,8 +27,9 @@
   },
   "SideNavigationBarMenu": {
     "groupTitle": {
-      "main": "MAIN",
-      "settings": "SETTINGS"
+      "main": "Main",
+      "reports": "Reports",
+      "settings": "Elements"
     }
   }
 }
