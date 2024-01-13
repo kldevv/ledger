@@ -15,7 +15,7 @@ const columnHelper = createColumnHelper<VaultTableData>()
 
 export const VaultTable: React.FC = () => {
   const { t } = useTranslation('vault')
-  const [{ selectedTreasuryBookId }, { setselectedTreasuryBookId }] =
+  const { selectedTreasuryBookId, setSelectedTreasuryBookId } =
     useTreasuryBookContext()
 
   const { data } = useGetVaultsQuery({
@@ -29,9 +29,9 @@ export const VaultTable: React.FC = () => {
 
   const createHandleOnVaultSwitch = useCallback(
     (id: string) => {
-      return () => setselectedTreasuryBookId?.(id)
+      return () => setSelectedTreasuryBookId?.(id)
     },
-    [setselectedTreasuryBookId],
+    [setSelectedTreasuryBookId],
   )
 
   const colDefs = useMemo(

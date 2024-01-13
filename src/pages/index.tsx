@@ -1,15 +1,11 @@
-import { Button, SubmitButton, useForm } from '@/components/common';
-import { z } from 'zod';
-import { Layout } from '@/components/layout';
-import { useAddVaultMutation } from '@/api/graphql';
+import { Layout } from '@/components/layout'
 
-const schema = z.object({
-  name: z.string().optional()
-})
-
-export default function IndexPage() {
+const Page: React.FC = () => {
   return (
     <Layout>
+      <div></div>
     </Layout>
-  );
+  )
 }
+
+export default Page

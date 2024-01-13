@@ -3,7 +3,7 @@ import { appWithI18Next } from 'ni18n'
 
 import apolloClient from '@/api/graphql/client'
 import { PageHead } from '@/components/meta'
-import { VaultContextProvider } from '@/hooks'
+import { TreasuryBookContextProvider } from '@/hooks'
 
 import { ni18nConfig } from '../../ni18n.config'
 import '../../styles/globals.css'
@@ -13,10 +13,10 @@ import type { AppType } from 'next/app'
 const App: AppType = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={apolloClient}>
-      <VaultContextProvider>
+      <TreasuryBookContextProvider>
         <PageHead />
         <Component {...pageProps} />
-      </VaultContextProvider>
+      </TreasuryBookContextProvider>
     </ApolloProvider>
   )
 }
