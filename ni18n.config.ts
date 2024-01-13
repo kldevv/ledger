@@ -13,6 +13,6 @@ export const ni18nConfig: Ni18nOptions = {
     'tag',
     'vault',
     'report',
-    'meta',
+    'route',
   ],
 }

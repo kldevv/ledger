@@ -1,6 +1,10 @@
 import classNames from 'classnames'
 
-import { NavBar, BackLink } from '@/components/layout'
+import {
+  BackLink,
+  SideNavigationBar,
+  TopNavigationBar,
+} from '@/components/layout'
 
 import type { UrlObject } from 'url'
 
@@ -21,12 +25,14 @@ type LayoutProps = {
 export const Layout: React.FC<LayoutProps> = ({ children, prev }) => {
   return (
     <div className="min-h-screen flex relative min-w-full">
-      <div className="absolute top-0 w-full h-12 bg-white shadow-sm border-b border-mid-gray">
-        Hello
+      <div className="absolute top-0 w-full h-16 index-10 overflow-hidden">
+        <TopNavigationBar />
       </div>
-      <div className="flex w-full pt-12">
-        <NavBar />
-        <main className="w-full max-h-screen overflow-auto bg-light-shades">
+      <div className="flex w-full mt-16">
+        <div className="absolute left-0 h-full w-52 border-left index-5 overflow-hidden">
+          <SideNavigationBar />
+        </div>
+        <main className="w-full ml-52 max-h-screen overflow-auto bg-light-shades">
           <div
             className={classNames(
               'mx-16',

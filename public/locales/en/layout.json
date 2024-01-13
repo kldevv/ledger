@@ -24,5 +24,11 @@
       "/category": "Categories",
       "/tag": "Tags"
     }
+  },
+  "SideNavigationBarMenu": {
+    "groupTitle": {
+      "main": "MAIN",
+      "settings": "SETTINGS"
+    }
   }
 }
