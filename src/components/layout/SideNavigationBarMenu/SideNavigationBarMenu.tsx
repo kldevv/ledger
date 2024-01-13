@@ -62,7 +62,7 @@ export const SideNavigationBarMenu: React.FC<SideNavigationBarMenuProps> = ({
                     }}
                     active={currentPathname === pathname}
                   >
-                    <div className="flex gap-x-2 items-center font-medium text-base">
+                    <div className="flex gap-x-2 items-center font-medium text-sm leading-6">
                       {t(titleTranslateKye)}
                     </div>
                   </NavigationBarItemLink>

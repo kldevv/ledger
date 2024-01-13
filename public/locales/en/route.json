@@ -1,4 +1,9 @@
 {
+  "entryHome": "Entries",
+  "transactionHome": "Transactions",
+  "transactionAdd": "Add Transaction",
+  "transactionDetail": "Transaction Details",
+  "transactionDetailEdit": "Edit Transaction Details",
   "treasuryBookHome": "Treasury Book",
-  "treasuryBookAdd": "New Treasury Book"
+  "treasuryBookAdd": "Add Treasury Book"
 }

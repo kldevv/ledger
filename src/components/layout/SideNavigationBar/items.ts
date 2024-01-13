@@ -7,14 +7,18 @@ import type {
 
 const mainGroupItems: SideNavigationBarMenuItem[] = [
   {
-    ...route.treasuryBookHome,
+    ...route.transactionHome,
+    iconKey: '',
+  },
+  {
+    ...route.entryHome,
     iconKey: '',
   },
 ]
 
 const settingGroupItems: SideNavigationBarMenuItem[] = [
   {
-    ...route.treasuryBookAdd,
+    ...route.treasuryBookHome,
     iconKey: '',
   },
 ]
@@ -22,10 +26,10 @@ const settingGroupItems: SideNavigationBarMenuItem[] = [
 export const navigatorGroups: SideNavigationBarMenuItemGroup[] = [
   {
     groupTitleTranslateKey: 'layout:SideNavigationBarMenu.groupTitle.main',
-    items: settingGroupItems,
+    items: mainGroupItems,
   },
   {
     groupTitleTranslateKey: 'layout:SideNavigationBarMenu.groupTitle.settings',
-    items: mainGroupItems,
+    items: settingGroupItems,
   },
 ]

@@ -1,4 +1,4 @@
-import * as treasuryBook from './routes'
+import { entry, transaction, treasuryBook } from './routes'
 
 export type Route = {
   /**
@@ -19,5 +19,7 @@ export type Route = {
  * Route Catalogue
  */
 export const route = {
+  ...entry,
+  ...transaction,
   ...treasuryBook,
 }
