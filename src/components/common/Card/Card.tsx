@@ -7,6 +7,9 @@ export type CardProps = {
   children: React.ReactNode
 }
 
+/**
+ * Div container with shadow and border
+ */
 export const Card: React.FC<CardProps> = ({ children }) => {
   const cn = classNames(
     '-mx-5 mt-6',

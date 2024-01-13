@@ -5,11 +5,12 @@ import { z } from 'zod'
 import { useGetTagsQuery } from '@/api/graphql'
 import { Form, InputText, SubmitButton, ListBox } from '@/components/common'
 import { InputDate } from '@/components/common/Form/InputDate'
+import { AccountsContextProvider, useForm, useVaultContext } from '@/hooks'
+
 import {
   UpsertEntryFieldArray,
   upsertEntryFieldArraySchema,
-} from '@/components/transaction'
-import { AccountsContextProvider, useForm, useVaultContext } from '@/hooks'
+} from './UpsertEntryFieldArray'
 
 import type { FormProps } from '@/components/common'
 import type { UseFormProps } from '@/hooks'

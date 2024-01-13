@@ -1,10 +1,9 @@
 import { useTranslation } from 'next-i18next'
 import { useFieldArray } from 'react-hook-form'
 
-import {
-  UpsertEntryField,
-  upsertEntryFieldSchema,
-} from '@/components/transaction'
+import { UpsertEntryField } from '@/components/transaction'
+
+import { upsertEntryFieldSchema } from './UpsertEntryField'
 
 import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
 

@@ -59,9 +59,9 @@
           "ACCRUAL": "Accrual"
         },
         "groupBy": {
-          "MONTH": "Month",
-          "QUARTER": "Quarter",
-          "YEAR": "Year"
+          "MONTH": "M",
+          "QUARTER": "Q",
+          "YEAR": "Y"
         },
         "variant": {
           "BREAKDOWN": "Breakdown",

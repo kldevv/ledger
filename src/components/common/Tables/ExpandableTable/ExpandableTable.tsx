@@ -9,7 +9,7 @@ import {
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 
-import { Button, Card, TableCell, TableHeader } from '@/components/common'
+import { Button, TableCell, TableHeader } from '@/components/common'
 
 import type { ColumnDef, ExpandedState, RowData } from '@tanstack/react-table'
 
@@ -75,69 +75,67 @@ export const ExpandableTable = <TData extends RowData>({
   }, [table])
 
   return (
-    <Card>
-      <div className="w-full h-full max-h-screen overflow-x-auto">
-        <table className="w-full h-full table-auto relative">
-          <thead className="sticky top-0 z-30">
-            {table.getHeaderGroups().map(({ id, headers }) => (
-              <tr key={id}>
-                {headers.map((header, index) => (
-                  <TableHeader
-                    key={header.id}
-                    colSpan={header.colSpan}
-                    className={classNames(
-                      'bg-white',
-                      'text-center',
-                      index === 0
-                        ? 'sticky left-0'
-                        : index === 1
-                          ? 'sticky left-[2.25rem]'
-                          : undefined,
-                    )}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </TableHeader>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row, rowIndex) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell, index) => (
-                  <TableCell
-                    key={cell.id}
-                    className={classNames(
-                      'z-20',
-                      (colGroupCount === 2 && index & 1) ||
-                        (colGroupCount === 1 && index > 0)
-                        ? 'border-r border-mid-gray'
+    <div className="w-full h-full max-h-screen overflow-x-auto">
+      <table className="w-full h-full table-auto relative">
+        <thead className="sticky top-0 z-30">
+          {table.getHeaderGroups().map(({ id, headers }) => (
+            <tr key={id}>
+              {headers.map((header, index) => (
+                <TableHeader
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  className={classNames(
+                    'bg-white',
+                    'text-center',
+                    index === 0
+                      ? 'sticky left-0'
+                      : index === 1
+                        ? 'sticky left-[2.25rem]'
                         : undefined,
-                      index === 0
-                        ? 'sticky left-0'
-                        : index === 1
-                          ? 'sticky left-[2.25rem]'
-                          : undefined,
-                      row.depth === 0
-                        ? 'bg-light-accent text-light-shades font-semibold'
-                        : rowIndex & 1
-                          ? 'bg-white'
-                          : 'bg-light-shades',
-                    )}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </Card>
+                  )}
+                >
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                </TableHeader>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row, rowIndex) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell, index) => (
+                <TableCell
+                  key={cell.id}
+                  className={classNames(
+                    'z-20',
+                    (colGroupCount === 2 && index & 1) ||
+                      (colGroupCount === 1 && index > 0)
+                      ? 'border-r border-mid-gray'
+                      : undefined,
+                    index === 0
+                      ? 'sticky left-0'
+                      : index === 1
+                        ? 'sticky left-[2.25rem]'
+                        : undefined,
+                    row.depth === 0
+                      ? 'bg-light-accent text-light-shades font-semibold'
+                      : rowIndex & 1
+                        ? 'bg-white'
+                        : 'bg-light-shades',
+                  )}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   )
 }

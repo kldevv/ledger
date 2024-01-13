@@ -7,7 +7,7 @@ import {
   useGetReportsBalanceQuery,
   useGetReportsQuery,
 } from '@/api/graphql'
-import { RadioGroup } from '@/components/common'
+import { Card, RadioGroup } from '@/components/common'
 import {
   ReportByMonthTable,
   ReportByQuarterTable,
@@ -162,11 +162,6 @@ export const ReportDashboard: React.FC = () => {
           label={t`ReportDashboard.radio.label.basis`}
         />
         <RadioGroup
-          options={reportDateGroupByOptions}
-          onChange={handleOnReportDateGroupByChange}
-          label={t`ReportDashboard.radio.label.groupBy`}
-        />
-        <RadioGroup
           options={dataVariantOptions}
           onChange={handleOnDataVariantChange}
           label={t`ReportDashboard.radio.label.variant`}
@@ -177,23 +172,30 @@ export const ReportDashboard: React.FC = () => {
           label={t`ReportDashboard.radio.label.mode`}
         />
       </div>
-      {reportDateGroupBy === ReportDateGroupBy.MONTH ? (
-        <ReportByMonthTable
-          reportDataMappings={reportDataMappings}
-          variant={dataVariant}
+      <Card>
+        <RadioGroup
+          options={reportDateGroupByOptions}
+          onChange={handleOnReportDateGroupByChange}
+          label={t`ReportDashboard.radio.label.groupBy`}
         />
-      ) : reportDateGroupBy === ReportDateGroupBy.QUARTER ? (
-        <ReportByQuarterTable
-          reportDataMappings={reportDataMappings}
-          variant={dataVariant}
-        />
-      ) : (
-        <ReportByYearTable
-          reportDataMappings={reportDataMappings}
-          basis={accountingBasis}
-          variant={dataVariant}
-        />
-      )}
+        {reportDateGroupBy === ReportDateGroupBy.MONTH ? (
+          <ReportByMonthTable
+            reportDataMappings={reportDataMappings}
+            variant={dataVariant}
+          />
+        ) : reportDateGroupBy === ReportDateGroupBy.QUARTER ? (
+          <ReportByQuarterTable
+            reportDataMappings={reportDataMappings}
+            variant={dataVariant}
+          />
+        ) : (
+          <ReportByYearTable
+            reportDataMappings={reportDataMappings}
+            basis={accountingBasis}
+            variant={dataVariant}
+          />
+        )}
+      </Card>
     </div>
   )
 }

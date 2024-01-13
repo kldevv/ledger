@@ -1,5 +1,5 @@
 import { RadioGroup as HeadlessRadioGroup } from '@headlessui/react'
-import { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 export interface RadioGroupProps<TType> {
   /**
@@ -17,7 +17,7 @@ export interface RadioGroupProps<TType> {
     /**
      * Option label
      */
-    label: string
+    label: React.ReactNode
   }[]
   /**
    * On change
@@ -48,10 +48,10 @@ export const RadioGroup = <TType,>({
       <div className="flex">
         {options.map(({ label, value }) => (
           <HeadlessRadioGroup.Option
-            key={label}
+            key={value}
             value={value}
             className={({ checked }) =>
-              `flex focus:outline-none cursor-pointer first:rounded-l-lg last:rounded-r-lg border px-12 bg-white ${
+              `flex focus:outline-none cursor-pointer first:rounded-l-lg last:rounded-r-lg border px-6 bg-white ${
                 checked ? 'border-light-accent' : 'border-mid-gray'
               }`
             }
