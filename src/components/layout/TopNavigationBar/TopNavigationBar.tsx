@@ -4,7 +4,10 @@ export const TopNavigationBar: React.FC = () => {
       <span className="font-bold text-lg leading-6 text-dark-shades">
         ::: Luca :::
       </span>
-      <div className="ml-auto font-medium">Github</div>
+      <div className="ml-auto font-medium flex space-x-3">
+        <span>About</span>
+        <span>Github</span>
+      </div>
     </div>
   )
 }
