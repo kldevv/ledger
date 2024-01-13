@@ -1,15 +1,10 @@
 import classNames from 'classnames'
-import Head from 'next/head'
 
 import { NavBar, BackLink } from '@/components/layout'
 
 import type { UrlObject } from 'url'
 
 type LayoutProps = {
-  /**
-   * Page title in the HTTP head element
-   */
-  title?: string
   /**
    * Route to go back to
    */
@@ -20,15 +15,16 @@ type LayoutProps = {
   children: React.ReactNode
 }
 
-export const Layout: React.FC<LayoutProps> = ({ title, children, prev }) => {
+/**
+ * Basic Page Layout
+ */
+export const Layout: React.FC<LayoutProps> = ({ children, prev }) => {
   return (
-    <div>
-      <Head>
-        <title>
-          {title ?? process.env.DEFAULT_PAGE_TITLE ?? 'The Ledger Page'}
-        </title>
-      </Head>
-      <div className="min-h-screen flex min-w-full">
+    <div className="min-h-screen flex relative min-w-full">
+      <div className="absolute top-0 w-full h-12 bg-white shadow-sm border-b border-mid-gray">
+        Hello
+      </div>
+      <div className="flex w-full pt-12">
         <NavBar />
         <main className="w-full max-h-screen overflow-auto bg-light-shades">
           <div

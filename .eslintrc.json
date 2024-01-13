@@ -100,20 +100,6 @@
     // https://eslint.org/docs/latest/rules/eqeqeq
     "eqeqeq": ["error", "always", { "null": "ignore" }],
 
-    // Disallow specified modules when loaded by import
-    // https://eslint.org/docs/latest/rules/no-restricted-imports
-    "no-restricted-imports": [
-      "error",
-      {
-        "patterns": [
-          {
-            "group": ["./*/", "**../"],
-            "message": "Relative imports are not allowed."
-          }
-        ]
-      }
-    ],
-
     // Enforce a convention in the order of require() / import statements
     // https://github.com/import-js/eslint-plugin-import/blob/HEAD/docs/rules/order.md
     "import/order": [

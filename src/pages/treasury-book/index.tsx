@@ -1,6 +1,8 @@
+import { useTranslation } from 'next-i18next'
+
 import { PageHeader, Layout } from '@/components/layout'
 import { VaultTable } from '@/components/vault'
-import { useTranslation } from 'next-i18next'
+import { route } from '@/lib'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('vault')
@@ -8,11 +10,11 @@ const Page: React.FC = () => {
   return (
     <Layout prev="/">
       <PageHeader
-        title={t('page.index.title')}
-        subtitle={t('page.index.subtitle')}
+        title={t`page.index.title`}
+        subtitle={t`page.index.subtitle`}
         link={{
-          href: '/vault/create',
-          label: t('page.index.link'),
+          href: route.treasuryBookHome.pathname,
+          label: t`page.index.link`,
         }}
       />
       <VaultTable />

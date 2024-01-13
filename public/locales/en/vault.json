@@ -23,11 +23,11 @@
   },
   "page": {
     "index": {
-      "title": "Vaults",
-      "subtitle": "Switch to a different vault or create a new one.",
-      "link": "Create Vault"
+      "title": "Treasury Book",
+      "subtitle": "A list of treasury books and the summary of their details.",
+      "link": "Add Treasury Book"
     },
-    "create": {
+    "add": {
       "index": {
         "title": "Create Vault",
         "subtitle": "Create a new vault."

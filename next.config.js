@@ -4,15 +4,16 @@ const nextConfig = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   webpack: (config, _) => {
     config.module.rules.push({
       test: /\.(graphql|gql)/,
       exclude: /node_modules/,
       loader: 'graphql-tag/loader',
-    });
+    })
 
-    return config;
+    return config
   },
-};
+}
 
 module.exports = nextConfig
