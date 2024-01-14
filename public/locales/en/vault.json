@@ -23,15 +23,7 @@
   },
   "page": {
     "index": {
-      "title": "Treasury Book",
-      "subtitle": "A list of treasury books and the summary of their details.",
-      "link": "Add Treasury Book"
-    },
-    "add": {
-      "index": {
-        "title": "Create Vault",
-        "subtitle": "Create a new vault."
-      }
+      "action": "Add Treasury Book"
     }
   }
 }

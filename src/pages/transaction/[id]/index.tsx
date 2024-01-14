@@ -1,30 +1,28 @@
-import { PageHeader, Layout } from '@/components/layout';
-import { TransactionDetail } from '@/components/transaction';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+
+import { PageHeader, Layout } from '@/components/layout'
+import { TransactionDetail } from '@/components/transaction'
+import { route } from '@/lib'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('transaction');
-  const router = useRouter();
+  const { t } = useTranslation('transaction')
+  const { query } = useRouter()
 
   return (
-    <Layout prev="/transaction">
+    <Layout>
       <PageHeader
-        title={t('page.[id].index.title')}
-        subtitle={t('page.[id].index.subtitle')}
-        link={{
+        action={{
           href: {
-            pathname: '/transaction/[id]/edit',
-            query: {
-              id: router.query.id,
-            },
+            pathname: route.transactionDetailEdit.pathname,
+            query,
           },
-          label: t('page.[id].index.link'),
+          label: t`page.[id].index.action`,
         }}
       />
       <TransactionDetail />
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

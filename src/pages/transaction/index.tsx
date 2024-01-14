@@ -1,23 +1,23 @@
-import { PageHeader, Layout } from "@/components/layout"
-import { TransactionDashboard } from "@/components/transaction"
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'next-i18next'
+
+import { PageHeader, Layout } from '@/components/layout'
+import { TransactionDashboard } from '@/components/transaction'
+import { route } from '@/lib'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('transaction')
 
   return (
-    <Layout prev="/">
+    <Layout>
       <PageHeader
-        title={t('page.index.title')}
-        subtitle={t('page.index.subtitle')}
-        link={{
-          href: '/transaction/record',
-          label: t('page.index.link'),
+        action={{
+          href: route.transactionAdd.pathname,
+          label: t`page.index.action`,
         }}
       />
       <TransactionDashboard />
     </Layout>
-  );
-};
+  )
+}
 
 export default Page

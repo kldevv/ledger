@@ -53,7 +53,7 @@ export const SideNavigationBarMenu: React.FC<SideNavigationBarMenuProps> = ({
           </div>
           <ReactNavigatioMenuSub>
             <ReactNavigatioMenuList className="flex flex-col gap-y-1">
-              {items.map(({ titleTranslateKye, pathname, query }) => (
+              {items.map(({ pathname, query }) => (
                 <div key={pathname} className="mx-2">
                   <NavigationBarItemLink
                     href={{
@@ -63,7 +63,7 @@ export const SideNavigationBarMenu: React.FC<SideNavigationBarMenuProps> = ({
                     active={currentPathname === pathname}
                   >
                     <div className="flex gap-x-2 items-center font-medium text-sm leading-6">
-                      {t(titleTranslateKye)}
+                      {t(`${pathname}.title`)}
                     </div>
                   </NavigationBarItemLink>
                 </div>

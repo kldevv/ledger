@@ -8,13 +8,11 @@ const Page: React.FC = () => {
   const { t } = useTranslation('vault')
 
   return (
-    <Layout prev="/">
+    <Layout>
       <PageHeader
-        title={t`page.index.title`}
-        subtitle={t`page.index.subtitle`}
-        link={{
+        action={{
           href: route.treasuryBookAdd.pathname,
-          label: t`page.index.link`,
+          label: t`page.index.action`,
         }}
       />
       <VaultTable />

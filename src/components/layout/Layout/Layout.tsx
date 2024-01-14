@@ -6,13 +6,7 @@ import {
   TopNavigationBar,
 } from '@/components/layout'
 
-import type { UrlObject } from 'url'
-
 type LayoutProps = {
-  /**
-   * Route to go back to
-   */
-  prev?: string | UrlObject
   /**
    * Children component
    */
@@ -22,7 +16,7 @@ type LayoutProps = {
 /**
  * Basic Page Layout
  */
-export const Layout: React.FC<LayoutProps> = ({ children, prev }) => {
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="h-screen relative w-screen">
       <div className="w-full absolute top-0 h-16 z-10 bg-white">
@@ -41,7 +35,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, prev }) => {
               'px-16 pb-32',
               'mt-3',
               'flex flex-col gap-y-5',
-              'min-w-min',
+              'w-max',
             )}
           >
             {children}

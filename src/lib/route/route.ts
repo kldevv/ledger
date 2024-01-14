@@ -10,14 +10,6 @@ import {
 
 export type Route = {
   /**
-   * Route title translate key
-   */
-  titleTranslateKye: string
-  /**
-   * Route description translate key
-   */
-  descriptionTranslateKey?: string
-  /**
    * Pathname
    */
   pathname: string
@@ -38,11 +30,4 @@ export const route = {
   ...tag,
   ...transaction,
   ...treasuryBook,
-}
-
-/**
- * Get route by pathname
- */
-export const getRouteByPathname = (pathname: string) => {
-  return Object.values(route).find((r) => r.pathname === pathname)
 }

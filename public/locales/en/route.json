@@ -1,22 +1,82 @@
 {
-  "accountHome": "Accounts",
-  "accountAdd": "Add Account",
-  "accountDetail": "Account Details",
-  "accountDetailEdit": "Edit Account Details",
-  "categoryHome": "Categories",
-  "categoryAdd": "Add Category",
-  "categoryDetail": "Category Details",
-  "categoryDetailEdit": "Edit Category Details",
-  "entryHome": "Entries",
-  "reportHome": "Reports",
-  "transactionHome": "Transactions",
-  "transactionAdd": "Add Transaction",
-  "tagHome": "Tags",
-  "tagAdd": "Add Tag",
-  "tagDetail": "Tag Details",
-  "tagDetailEdit": "Edit Tag Details",
-  "transactionDetail": "Transaction Details",
-  "transactionDetailEdit": "Edit Transaction Details",
-  "treasuryBookHome": "Treasury Book",
-  "treasuryBookAdd": "Add Treasury Book"
+  "/account": {
+    "title": "Accounts",
+    "description": "A table of entries of the accounts within the selected treasury book"
+  },
+  "/account/add": {
+    "title": "Add Account",
+    "description": "Add a new account to the selected treasury book"
+  },
+  "/account/[id]": {
+    "title": "Account Details",
+    "description": "The detail information of the account"
+  },
+  "/account/[id]/edit": {
+    "title": "Edit Account Details",
+    "description": "Modify the detail information of the account"
+  },
+  "/category": {
+    "title": "Categories",
+    "description": "A table of categories within the selected treasury book"
+  },
+  "/category/add": {
+    "title": "Add Category",
+    "description": "Add a new category to the selected treasury book"
+  },
+  "/category/[id]": {
+    "title": "Category Details",
+    "description": "The detail information of the category"
+  },
+  "/category/[id]/edit": {
+    "title": "Edit Category Details",
+    "description": "Modify the detail information of the category"
+  },
+  "/entry": {
+    "title": "Entries",
+    "description": "A table of entries of the transactions within the selected treasury book"
+  },
+  "/report": {
+    "title": "Reports",
+    "description": "A summary table of the transaction activities within the selected treasury book"
+  },
+  "/tag": {
+    "title": "Tags",
+    "description": "A table of tags within the selected treasury book"
+  },
+  "/tag/add": {
+    "title": "Add Tag",
+    "description": "Add a new tag to the selected treasury book"
+  },
+  "/tag/[id]": {
+    "title": "Tag Details",
+    "description": "The detail information of the tag"
+  },
+  "/tag/[id]/edit": {
+    "title": "Edit Tag Details",
+    "description": "Modify the detail information of the tag"
+  },
+  "/transaction": {
+    "title": "Transactions",
+    "description": "A table of transactions within the selected treasury book"
+  },
+  "/transaction/add": {
+    "title": "Add Transaction",
+    "description": "Add a new transaction to the selected treasury book"
+  },
+  "/transaction/[id]": {
+    "title": "Transaction Details",
+    "description": "The detail information of the transaction"
+  },
+  "/transaction/[id]/edit": {
+    "title": "Edit Transaction Details",
+    "description": "Modify the detail information of the transaction"
+  },
+  "/treasury-book": {
+    "title": "Treasury Book",
+    "description": "A table of all the treasury books"
+  },
+  "/treasury-book/add": {
+    "title": "Add Treasury Book",
+    "description": "Add a new treasury book to your account"
+  }
 }
