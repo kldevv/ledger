@@ -25,7 +25,7 @@ type LayoutProps = {
 export const Layout: React.FC<LayoutProps> = ({ children, prev }) => {
   return (
     <div className="h-screen relative w-screen">
-      <div className="w-full absolute top-0 h-16 z-10 overflow-hidden bg-white">
+      <div className="w-full absolute top-0 h-16 z-10 bg-white">
         <TopNavigationBar />
       </div>
       <div className="flex w-full h-full pt-16">
