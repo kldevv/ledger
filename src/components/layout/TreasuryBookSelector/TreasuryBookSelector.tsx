@@ -22,7 +22,7 @@ export const TreasuryBookSelector: React.FC = () => {
   return (
     <Listbox
       as="div"
-      className="relative flex mx-4"
+      className="relative flex mx-4 justify-center"
       onChange={setSelectedTreasuryBookId}
     >
       <Listbox.Button>

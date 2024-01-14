@@ -1,4 +1,4 @@
-export * from './BackLink'
+export * from './Breadcrumbs'
 export * from './Layout'
 export * from './NavigationBarItemLink'
 export * from './PageHeader'

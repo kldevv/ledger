@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 
 import {
-  BackLink,
+  Breadcrumbs,
   SideNavigationBar,
   TopNavigationBar,
 } from '@/components/layout'
@@ -33,16 +33,17 @@ export const Layout: React.FC<LayoutProps> = ({ children, prev }) => {
           <SideNavigationBar />
         </div>
         <main className="w-full h-full overflow-auto bg-light-shades">
+          <div className="mt-3 ml-6">
+            <Breadcrumbs />
+          </div>
           <div
             className={classNames(
-              'px-16',
-              prev != null ? 'mt-5' : 'mt-14',
-              'pb-32',
+              'px-16 pb-32',
+              'mt-3',
               'flex flex-col gap-y-5',
               'min-w-min',
             )}
           >
-            {prev != null && <BackLink href={prev} />}
             {children}
           </div>
         </main>

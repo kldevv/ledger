@@ -42,7 +42,7 @@ export const SideNavigationBarMenu: React.FC<SideNavigationBarMenuProps> = ({
   const { pathname: currentPathname } = useRouter()
 
   return (
-    <div className="flex flex-col w-full space-y-8 px-4 pt-6">
+    <div className="flex flex-col w-full space-y-8">
       {groups.map(({ groupTitleTranslateKey, items }) => (
         <ReactNavigatioMenuItem
           key={groupTitleTranslateKey}
