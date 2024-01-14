@@ -1,30 +1,28 @@
-import { Layout, PageHeader } from '@/components/layout';
-import { TagDetail } from '@/components/tag';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+
+import { Layout, PageHeader } from '@/components/layout'
+import { TagDetail } from '@/components/tag'
+import { route } from '@/lib'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('tag')
-  const router = useRouter()
+  const { query } = useRouter()
 
   return (
-    <Layout prev="/tag">
+    <Layout>
       <PageHeader
-        title={t('page.[id].index.title')}
-        subtitle={t('page.[id].index.subtitle')}
-        link={{
+        action={{
           href: {
-            pathname: '/tag/[id]/edit',
-            query: {
-              id: router.query.id,
-            },
+            pathname: route.tagDetailEdit.pathname,
+            query,
           },
-          label: t('page.[id].index.link'),
+          label: t`page.[id].index.action`,
         }}
       />
       <TagDetail />
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

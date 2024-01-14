@@ -36,27 +36,11 @@
   },
   "page": {
     "index": {
-      "title": "Categories",
-      "subtitle": "All categories of the currently selected vault.",
-      "link": "Add Category"
-    },
-    "add": {
-      "index": {
-        "title": "Add Category",
-        "subtitle": "Add a new category to the selected vault."
-      }
+      "action": "Add Category"
     },
     "[id]": {
       "index": {
-        "title": "Category Detail",
-        "subtitle": "View and edit information of the category.",
-        "link": "Edit"
-      },
-      "edit": {
-        "index": {
-          "title": "Edit Category",
-          "subtitle": "Edit or delete a category."
-        }
+        "action": "Edit"
       }
     }
   }

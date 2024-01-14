@@ -1,23 +1,23 @@
-import { CategoryDashboard } from '@/components/category';
-import { PageHeader, Layout } from '@/components/layout';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next'
+
+import { CategoryDashboard } from '@/components/category'
+import { PageHeader, Layout } from '@/components/layout'
+import { route } from '@/lib'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('category')
 
   return (
-    <Layout prev="/">
+    <Layout>
       <PageHeader
-        title={t('page.index.title')}
-        subtitle={t('page.index.subtitle')}
-        link={{
-          label: t('page.index.link'),
-          href: '/category/add',
+        action={{
+          href: route.categoryAdd,
+          label: t`page.index.action`,
         }}
       />
       <CategoryDashboard />
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

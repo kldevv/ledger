@@ -1,30 +1,28 @@
-import { AccountDetail } from '@/components/account';
-import { PageHeader, Layout } from '@/components/layout';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+
+import { AccountDetail } from '@/components/account'
+import { PageHeader, Layout } from '@/components/layout'
+import { route } from '@/lib'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('account')
-  const router = useRouter()
+  const { query } = useRouter()
 
   return (
-    <Layout prev="/account">
+    <Layout>
       <PageHeader
-        title={t('page.[id].index.title')}
-        subtitle={t('page.[id].index.subtitle')}
-        link={{
+        action={{
           href: {
-            pathname: '/account/[id]/edit',
-            query: {
-              id: router.query.id,
-            },
+            pathname: route.accountDetailEdit.pathname,
+            query,
           },
           label: t('page.[id].index.link'),
         }}
       />
       <AccountDetail />
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

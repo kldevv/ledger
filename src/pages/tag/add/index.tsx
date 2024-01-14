@@ -1,11 +1,11 @@
-import { EntryDashboard } from '@/components/entry'
 import { PageHeader, Layout } from '@/components/layout'
+import { InsertTagForm } from '@/components/tag'
 
 const Page: React.FC = () => {
   return (
     <Layout>
       <PageHeader />
-      <EntryDashboard />
+      <InsertTagForm />
     </Layout>
   )
 }

@@ -10,11 +10,5 @@
       "account": "Account",
       "status": "Status"
     }
-  },
-  "page": {
-    "index": {
-      "title": "Entries",
-      "subtitle": "All entries of the currently selected vault."
-    }
   }
 }

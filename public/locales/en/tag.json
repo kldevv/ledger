@@ -41,27 +41,11 @@
   },
   "page": {
     "index": {
-      "title": "Tags",
-      "subtitle": "All the tags of the current vault.",
-      "link": "Create Tag"
-    },
-    "create": {
-      "index": {
-        "title": "Create Tag",
-        "subtitle": "Create a new tag for the selected vault."
-      }
+      "action": "Add Tag"
     },
     "[id]": {
       "index": {
-        "title": "Tag Detail",
-        "subtitle": "View and edit information of the tag.",
-        "link": "Edit"
-      },
-      "edit": {
-        "index": {
-          "title": "Edit Tag",
-          "subtitle": "Edit information of the tag or delete it."
-        }
+        "action": "Edit"
       }
     }
   }

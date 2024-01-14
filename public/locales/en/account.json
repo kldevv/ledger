@@ -35,27 +35,11 @@
   },
   "page": {
     "index": {
-      "title": "Accounts",
-      "subtitle": "All accounts of the currently selected vault.",
-      "link": "Add Account"
-    },
-    "add": {
-      "index": {
-        "title": "Add Account",
-        "subtitle": "Add a new account to the selected vault."
-      }
+      "action": "Add Account"
     },
     "[id]": {
       "index": {
-        "title": "Account Detail",
-        "subtitle": "View and edit information of the account.",
-        "link": "Edit"
-      },
-      "edit": {
-        "index": {
-          "title": "Edit Account",
-          "subtitle": "Edit information of the account or delete it."
-        }
+        "action": "Edit"
       }
     }
   }

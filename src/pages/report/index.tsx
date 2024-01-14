@@ -1,19 +1,13 @@
-import { Layout, PageHeader } from '@/components/layout';
-import { ReportDashboard } from '@/components/report';
-import { useTranslation } from 'next-i18next';
+import { Layout, PageHeader } from '@/components/layout'
+import { ReportDashboard } from '@/components/report'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('report');
-
   return (
     <Layout>
-      <PageHeader
-        title={t('page.index.title')}
-        subtitle={t('page.index.subtitle')}
-      />
+      <PageHeader />
       <ReportDashboard />
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

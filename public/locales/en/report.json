@@ -74,11 +74,5 @@
         }
       }
     }
-  },
-  "page": {
-    "index": {
-      "title": "Reports",
-      "subtitle": "Summary and analytical data of the past activities."
-    }
   }
 }
