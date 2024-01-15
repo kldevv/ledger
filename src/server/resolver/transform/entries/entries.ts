@@ -1,4 +1,8 @@
-import type { Entry as GraphqlEntry } from '@/api/graphql'
+import type {
+  AddEntryInput,
+  AddTransactionInput,
+  Entry as GraphqlEntry,
+} from '@/api/graphql'
 import type {
   Category as PrismaCategory,
   Account as PrismaAccount,
@@ -24,14 +28,13 @@ export const transformFromPrismaEntries = (
 }
 
 export const transformToPrismaEntries = (
-  entries: Omit<GraphqlEntry, 'id' | 'transactionId'>[],
+  entries: Omit<AddEntryInput, 'id' | 'transactionId'>[],
 ): Omit<
   PrismaEntry,
-  'createdDate' | 'updatedDate' | 'id' | 'transactionId'
+  'createdDate' | 'updatedDate' | 'id' | 'vaultId' | 'transactionId'
 >[] => {
-  return entries.map(({ debit, credit, account, ...entry }) => ({
+  return entries.map(({ debit, credit, ...entry }) => ({
     ...entry,
-    accountId: account?.id ?? '',
     amount: debit > 0 ? debit : -credit,
   }))
 }

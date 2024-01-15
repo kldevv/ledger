@@ -23,9 +23,6 @@ export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
 
   const colDefs = useMemo(
     () => [
-      columnHelper.accessor('id', {
-        header: t('TransactionTable.header.id'),
-      }),
       columnHelper.accessor('accrualDate', {
         header: t('TransactionTable.header.date'),
         cell: (props) => (
@@ -34,12 +31,15 @@ export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
           </div>
         ),
       }),
+      columnHelper.accessor('note', {
+        header: t('TransactionTable.header.note'),
+      }),
       columnHelper.accessor('status', {
         header: t('TransactionTable.header.status'),
         cell: (props) => <StatusChip status={props.getValue()} />,
       }),
-      columnHelper.accessor('note', {
-        header: t('TransactionTable.header.note'),
+      columnHelper.accessor('id', {
+        header: t('TransactionTable.header.id'),
       }),
       columnHelper.display({
         id: 'view-link',

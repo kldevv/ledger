@@ -124,11 +124,11 @@ export const UpsertEntryField: React.FC<UpsertEntryFieldProps> = ({
           name={`entries.${index}.transactionDate` as const}
         />
         <InputText<UpsertTransactionFormFieldValues>
-          label={t('UpsertTransactionForm.label.entries.memo')}
+          label={t`UpsertTransactionForm.label.entries.memo`}
           name={`entries.${index}.memo` as const}
         />
         <ListBox<UpsertTransactionFormFieldValues>
-          label={t('UpsertTransactionForm.label.entries.status')}
+          label={t`UpsertTransactionForm.label.entries.status`}
           name={`entries.${index}.status` as const}
           options={Object.keys(EntryStatus).map((value) => ({
             value,
@@ -136,15 +136,15 @@ export const UpsertEntryField: React.FC<UpsertEntryFieldProps> = ({
           }))}
         />
         <InputNumber<UpsertTransactionFormFieldValues>
-          label={t('UpsertTransactionForm.label.entries.debit')}
+          label={t`UpsertTransactionForm.label.entries.debit`}
           name={`entries.${index}.debit` as const}
         />
         <InputNumber<UpsertTransactionFormFieldValues>
-          label={t('UpsertTransactionForm.label.entries.credit')}
+          label={t`UpsertTransactionForm.label.entries.credit`}
           name={`entries.${index}.credit` as const}
         />
         <ListBox<UpsertTransactionFormFieldValues>
-          label={t('UpsertTransactionForm.label.entries.account')}
+          label={t`UpsertTransactionForm.label.entries.account`}
           name={`entries.${index}.accountId` as const}
           options={accountOptions}
         />

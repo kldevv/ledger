@@ -19,7 +19,7 @@ export const TableCell: React.FC<TableCellProps> = ({
     <td
       className={classNames(
         'text-left text-xs text-gray min-w-fit',
-        'p-3',
+        'py-3 px-6 first:pl-3 last:pr-3',
         className,
       )}
     >

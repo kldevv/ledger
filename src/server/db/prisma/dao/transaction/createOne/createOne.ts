@@ -24,24 +24,28 @@ export type CreateOneProps = Omit<
 export const createOne = async ({
   tagIds,
   entries,
+  vaultId,
   ...props
 }: CreateOneProps) => {
+  const data = {
+    vaultId,
+    ...props,
+    tags: {
+      connect: tagIds.map((id) => ({ id })),
+    },
+    entries: {
+      createMany: {
+        data: entries.map((entry) => ({
+          ...entry,
+          vaultId,
+        })),
+      },
+    },
+  }
+
   try {
     return await prisma.transaction.create({
-      data: {
-        ...props,
-        tags: {
-          connect: tagIds.map((id) => ({ id })),
-        },
-        entries: {
-          createMany: {
-            data: entries.map((entry) => ({
-              ...entry,
-              vaultId: props.vaultId,
-            })),
-          },
-        },
-      },
+      data,
       include: {
         tags: true,
         entries: {
@@ -60,6 +64,7 @@ export const createOne = async ({
       level: 'info',
       message: 'Error in Transaction DAO: createOne',
       error: parsePrismaError(e),
+      data,
     })
 
     throw e

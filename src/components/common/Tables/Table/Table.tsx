@@ -4,7 +4,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { Card, TableCell, TableHeader } from '@/components/common'
+import { TableCell, TableHeader } from '@/components/common'
 
 import type { ColumnDef, RowData } from '@tanstack/react-table'
 
@@ -31,41 +31,39 @@ export const Table = <TData extends RowData>({
   })
 
   return (
-    <Card>
-      <div className="w-full h-full overflow-auto">
-        <table className="w-full h-full table-auto">
-          <thead>
-            {table.getHeaderGroups().map(({ id, headers }) => (
-              <tr key={id}>
-                {headers.map((header) => (
-                  <TableHeader key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </TableHeader>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row, index) => (
-              <tr
-                key={row.id}
-                className={index & 1 ? 'bg-white' : 'bg-light-shades'}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </Card>
+    <div className="w-full h-full overflow-auto">
+      <table className="w-full h-full table-auto">
+        <thead>
+          {table.getHeaderGroups().map(({ id, headers }) => (
+            <tr key={id}>
+              {headers.map((header) => (
+                <TableHeader key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                </TableHeader>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row, index) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <TableCell
+                  key={cell.id}
+                  className={index & 1 ? 'bg-white' : 'bg-light-shades'}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   )
 }
