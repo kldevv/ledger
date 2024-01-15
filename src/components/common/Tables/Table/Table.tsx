@@ -1,4 +1,5 @@
 import {
+  createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
@@ -24,9 +25,17 @@ export const Table = <TData extends RowData>({
   data,
   colDefs,
 }: TableProps<TData>) => {
+  const columnHelper = createColumnHelper<TData>()
+
   const table = useReactTable({
     data,
-    columns: colDefs,
+    columns: [
+      columnHelper.display({
+        id: 'index',
+        cell: ({ row }) => row.index,
+      }),
+      ...colDefs,
+    ],
     getCoreRowModel: getCoreRowModel(),
   })
 

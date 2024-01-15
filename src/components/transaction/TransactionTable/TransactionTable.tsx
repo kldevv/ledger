@@ -25,9 +25,9 @@ export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
     () => [
       columnHelper.accessor('accrualDate', {
         header: t('TransactionTable.header.date'),
-        cell: (props) => (
+        cell: ({ getValue }) => (
           <div className=" text-dark-shades">
-            <FormattedDate dateTime={props.getValue()} />
+            <FormattedDate dateTime={getValue()} />
           </div>
         ),
       }),
@@ -36,15 +36,15 @@ export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
       }),
       columnHelper.accessor('status', {
         header: t('TransactionTable.header.status'),
-        cell: (props) => <StatusChip status={props.getValue()} />,
+        cell: ({ getValue }) => <StatusChip status={getValue()} />,
       }),
       columnHelper.accessor('id', {
         header: t('TransactionTable.header.id'),
       }),
       columnHelper.display({
         id: 'view-link',
-        cell: (props) => (
-          <ViewLink href={`/transaction/${props.row.getValue<string>('id')}`} />
+        cell: ({ row }) => (
+          <ViewLink href={`/transaction/${row.getValue<string>('id')}`} />
         ),
       }),
     ],
