@@ -57,5 +57,5 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
     [t],
   )
 
-  return <Table data={data} colDefs={colDefs} />
+  return <Table data={data} colDefs={colDefs} pageSize={10} />
 }

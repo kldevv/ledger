@@ -57,6 +57,11 @@ export const Table = <TData extends RowData>({
     getCoreRowModel: getCoreRowModel(),
   })
 
+  const pageCount = useMemo(
+    () => Math.ceil(data.length / (pageSize ?? 1)),
+    [data.length, pageSize],
+  )
+
   return (
     <div className="w-full h-full overflow-auto">
       <table className="w-full h-full table-auto">
@@ -91,11 +96,12 @@ export const Table = <TData extends RowData>({
           ))}
         </tbody>
       </table>
-      {pageSize != null && (
+      {pageSize != null && pageCount > 1 && (
         <div className="border-t border-t-mid-gray w-full flex items-center justify-center pt-5">
           <Pagination
-            pageCount={Math.ceil(data.length / pageSize)}
-            onChange={setSelectedPage}
+            pageCount={pageCount}
+            selectedPage={selectedPage}
+            setSelectedPage={setSelectedPage}
           />
         </div>
       )}

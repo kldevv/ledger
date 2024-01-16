@@ -1,4 +1,5 @@
 import { useGetAccountsQuery } from '@/api/graphql'
+import { Card } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
 import { AccountTable } from '..'
@@ -15,5 +16,9 @@ export const AccountDashboard: React.FC = () => {
     skip: selectedTreasuryBookId == null,
   })
 
-  return <AccountTable data={data?.getAccounts ?? []} />
+  return (
+    <Card>
+      <AccountTable data={data?.getAccounts ?? []} />
+    </Card>
+  )
 }

@@ -37,7 +37,5 @@ input GetTransactionInput {
 input GetTransactionsInput {
   vaultId: String!
   tagId: String
-  startDate: DateTime
-  endDate: DateTime
-  noteSearch: String
+  status: EntryStatus
 }

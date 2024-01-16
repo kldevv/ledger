@@ -17,7 +17,7 @@ export const Card: React.FC<CardProps> = ({ children }) => {
 
   return (
     <div className={cn}>
-      <div className="px-3 py-3 w-full overflow-auto">{children}</div>
+      <div className="px-3 py-3 w-full">{children}</div>
     </div>
   )
 }

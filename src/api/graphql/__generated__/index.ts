@@ -195,9 +195,7 @@ export type GetTransactionInput = {
 };
 
 export type GetTransactionsInput = {
-  endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  noteSearch?: InputMaybe<Scalars['String']['input']>;
-  startDate?: InputMaybe<Scalars['DateTime']['input']>;
+  status?: InputMaybe<EntryStatus>;
   tagId?: InputMaybe<Scalars['String']['input']>;
   vaultId: Scalars['String']['input'];
 };

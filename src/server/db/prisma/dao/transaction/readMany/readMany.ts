@@ -39,6 +39,9 @@ export const readMany = async ({ tagId, ...props }: ReadManyProps) => {
           },
         },
       },
+      orderBy: {
+        accrualDate: 'desc',
+      },
     })
   } catch (e) {
     logger.log({

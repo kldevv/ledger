@@ -10,41 +10,32 @@ export interface PaginationProps {
    */
   pageCount: number
   /**
-   * Page on change
+   * Set selected page
    */
-  onChange?: (value: number) => void
+  setSelectedPage: (value: number) => void
+  /**
+   * Selected page
+   */
+  selectedPage: number
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
   pageCount,
-  onChange,
+  setSelectedPage,
+  selectedPage,
 }) => {
-  const [selectedPage, setSelectedPage] = useState(0)
-
   const pageArray = useMemo(
     () => Array.from(Array(pageCount).keys()),
     [pageCount],
   )
 
-  const handleOnChange = useCallback(
-    (value: number) => {
-      onChange?.(value)
-      setSelectedPage(value)
-    },
-    [onChange],
-  )
-
   const handleOnPageIncrement = useCallback(
     (change: number) => () => {
-      const newSelectedPage = Math.min(
-        Math.max(0, selectedPage + change),
-        pageCount - 1,
+      setSelectedPage(
+        Math.min(Math.max(0, selectedPage + change), pageCount - 1),
       )
-
-      setSelectedPage(newSelectedPage)
-      onChange?.(newSelectedPage)
     },
-    [onChange, pageCount, selectedPage],
+    [pageCount, selectedPage, setSelectedPage],
   )
 
   const remainingPages = pageCount - selectedPage - 1
@@ -59,7 +50,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       <RadioGroup
         as="div"
         className="flex"
-        onChange={handleOnChange}
+        onChange={setSelectedPage}
         value={selectedPage}
       >
         {pageCount <= 6 ? (
