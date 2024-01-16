@@ -4,8 +4,9 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { useMemo, useState } from 'react'
 
-import { TableCell, TableHeader } from '@/components/common'
+import { Pagination, TableCell, TableHeader } from '@/components/common'
 
 import type { ColumnDef, RowData } from '@tanstack/react-table'
 
@@ -19,16 +20,33 @@ export type TableProps<TData extends RowData> = {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   colDefs: ColumnDef<TData, any>[]
+  /**
+   * Page size if paginated, no pagination if undefined
+   */
+  pageSize?: number
 }
 
 export const Table = <TData extends RowData>({
   data,
   colDefs,
+  pageSize,
 }: TableProps<TData>) => {
   const columnHelper = createColumnHelper<TData>()
 
+  const [selectedPage, setSelectedPage] = useState(0)
+
+  const paginatedDate = useMemo(() => {
+    if (pageSize == null) {
+      return data
+    }
+
+    const indexStart = selectedPage * pageSize
+
+    return data.slice(indexStart, indexStart + pageSize)
+  }, [data, pageSize, selectedPage])
+
   const table = useReactTable({
-    data,
+    data: paginatedDate,
     columns: [
       columnHelper.display({
         id: 'index',
@@ -73,6 +91,14 @@ export const Table = <TData extends RowData>({
           ))}
         </tbody>
       </table>
+      {pageSize != null && (
+        <div className="border-t border-t-mid-gray w-full flex items-center justify-center pt-5">
+          <Pagination
+            pageCount={Math.ceil(data.length / pageSize)}
+            onChange={setSelectedPage}
+          />
+        </div>
+      )}
     </div>
   )
 }

@@ -35,11 +35,16 @@ export const Pagination: React.FC<PaginationProps> = ({
   )
 
   const handleOnPageIncrement = useCallback(
-    (change: number) => () =>
-      setSelectedPage((prev) =>
-        Math.min(Math.max(0, prev + change), pageCount - 1),
-      ),
-    [pageCount],
+    (change: number) => () => {
+      const newSelectedPage = Math.min(
+        Math.max(0, selectedPage + change),
+        pageCount - 1,
+      )
+
+      setSelectedPage(newSelectedPage)
+      onChange?.(newSelectedPage)
+    },
+    [onChange, pageCount, selectedPage],
   )
 
   const remainingPages = pageCount - selectedPage - 1

@@ -51,5 +51,5 @@ export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
     [t],
   )
 
-  return <Table data={data} colDefs={colDefs} />
+  return <Table data={data} colDefs={colDefs} pageSize={10} />
 }
