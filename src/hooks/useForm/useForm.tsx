@@ -1,22 +1,26 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
-import { useForm as useReactHookForm, UseFormProps as ReactHookFormProps, FieldValues, DefaultValues } from "react-hook-form"
-import { z } from "zod";
+import type {
+  UseFormProps as ReactHookFormProps,
+  FieldValues,
+  DefaultValues,
+} from 'react-hook-form'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect } from 'react'
+import { useForm as useReactHookForm } from 'react-hook-form'
+
+import type { z } from 'zod'
 
 export interface UseFormProps<TFieldValues extends FieldValues>
-  extends Omit<
-    ReactHookFormProps<TFieldValues>,
-    'resolver' | 'defaultValues'
-  > {
+  extends Omit<ReactHookFormProps<TFieldValues>, 'resolver' | 'defaultValues'> {
   /**
    * Zod schema of the form fields.
    */
-  schema: z.Schema;
+  schema: z.Schema
   /**
    * Default values for the form
    */
-  defaultValues: DefaultValues<TFieldValues>;
-};
+  defaultValues: DefaultValues<TFieldValues>
+}
 
 export const useForm = <TFieldValues extends FieldValues>({
   schema,
@@ -36,17 +40,18 @@ export const useForm = <TFieldValues extends FieldValues>({
     values,
     defaultValues,
     resolver: zodResolver(schema),
-  });
+  })
 
   const {
     formState: { isSubmitSuccessful },
     reset,
-  } = methods;
+  } = methods
+
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset(defaultValues);
+      reset(values)
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [values, isSubmitSuccessful, reset])
 
-  return methods;
-};
+  return methods
+}

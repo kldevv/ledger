@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { EntryStatus, useGetTransactionDetailQuery } from '@/api/graphql'
-import { EntryTable } from '@/components/entry'
+import { EntryFilteredTable } from '@/components/entry'
 import { TransactionDescriptionList } from '@/components/transaction'
 import { useTreasuryBookContext } from '@/hooks'
 
@@ -43,8 +43,10 @@ export const TransactionDetail: React.FC = () => {
               : EntryStatus.COMPLETED,
           }}
         />
-        <h3 className="mt-12 font-semibold text-dark-shades">{t`TransactionDetail.title.entries`}</h3>
-        <EntryTable data={data.getEntries} />
+        <div className="mt-12 flex flex-col space-y-3">
+          <h3 className="font-semibold text-dark-shades">{t`TransactionDetail.title.entries`}</h3>
+          <EntryFilteredTable data={data.getEntries} />
+        </div>
       </div>
     )
   )
