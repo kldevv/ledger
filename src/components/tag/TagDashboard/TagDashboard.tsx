@@ -1,4 +1,5 @@
 import { useGetTagsQuery } from '@/api/graphql'
+import { Card } from '@/components/common'
 import { TagTable } from '@/components/tag'
 import { useTreasuryBookContext } from '@/hooks'
 
@@ -15,5 +16,9 @@ export const TagDashboard: React.FC = () => {
     fetchPolicy: 'cache-and-network',
   })
 
-  return <TagTable data={data?.getTags ?? []} />
+  return (
+    <Card>
+      <TagTable data={data?.getTags ?? []} />
+    </Card>
+  )
 }

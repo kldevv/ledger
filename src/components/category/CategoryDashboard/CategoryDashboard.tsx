@@ -1,5 +1,6 @@
 import { useGetCategoriesQuery } from '@/api/graphql'
 import { CategoryTable } from '@/components/category'
+import { Card } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
 export const CategoryDashboard: React.FC = () => {
@@ -14,5 +15,9 @@ export const CategoryDashboard: React.FC = () => {
     skip: selectedTreasuryBookId == null,
   })
 
-  return <CategoryTable data={data?.getCategories ?? []} />
+  return (
+    <Card>
+      <CategoryTable data={data?.getCategories ?? []} />
+    </Card>
+  )
 }
