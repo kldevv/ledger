@@ -19,7 +19,7 @@ export const getTransactions: QueryResolvers['getTransactions'] = async (
         ? EntryStatus.PENDING
         : EntryStatus.COMPLETED,
     }))
-    .filter((transaction) => status === transaction.status)
+    .filter((transaction) => status == null || status === transaction.status)
 
   return transformedTransaction
 }

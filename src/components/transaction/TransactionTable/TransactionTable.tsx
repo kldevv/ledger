@@ -1,8 +1,15 @@
 import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
-import { FormattedDate, StatusChip, Table, ViewLink } from '@/components/common'
+import {
+  Card,
+  EntryStatusFilterDropdown,
+  FormattedDate,
+  StatusChip,
+  Table,
+  ViewLink,
+} from '@/components/common'
 
 import type { GetTransactionsQuery } from '@/api/graphql'
 
@@ -11,14 +18,14 @@ export type TransactionTableDataModel =
 
 const columnHelper = createColumnHelper<TransactionTableDataModel>()
 
-export interface TransactionTable {
+export interface TransactionTableProps {
   /**
    * Data
    */
   data: TransactionTableDataModel[]
 }
 
-export const TransactionTable: React.FC<TransactionTable> = ({ data }) => {
+export const TransactionTable: React.FC<TransactionTableProps> = ({ data }) => {
   const { t } = useTranslation('transaction')
 
   const colDefs = useMemo(

@@ -34,7 +34,7 @@ export const StatusChip: React.FC<StatusChipProps> = ({ status }) => {
       >
         <div className={classNames('w-1.5 h-1.5', 'rounded-full', coreColor)} />
       </div>
-      {t(`status-chip.label.${status}`)}
+      {t(`StatusChip.label.${status}`)}
     </div>
   )
 }

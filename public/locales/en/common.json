@@ -1,5 +1,5 @@
 {
-  "status-chip": {
+  "StatusChip": {
     "label": {
       "COMPLETED": "Completed",
       "PENDING": "Pending",
@@ -9,5 +9,7 @@
   "ViewLink": {
     "label": "VIEW"
   },
-  "formatted-date": "{{ year }}-{{ month }}-{{ date }}"
+  "EntryStatusFilterDropdown": {
+    "null": "All Statuses"
+  }
 }
