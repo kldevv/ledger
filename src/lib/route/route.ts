@@ -1,6 +1,7 @@
 import {
   account,
   category,
+  common,
   entry,
   report,
   tag,
@@ -25,6 +26,7 @@ export type Route = {
 export const route = {
   ...account,
   ...category,
+  ...common,
   ...entry,
   ...report,
   ...tag,

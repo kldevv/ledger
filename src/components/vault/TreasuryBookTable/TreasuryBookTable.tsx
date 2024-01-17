@@ -3,29 +3,28 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { useGetVaultsQuery } from '@/api/graphql'
 import { Button, FormattedDate, Table } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
 import type { GetVaultsQuery } from '@/api/graphql'
 
-export type VaultTableData = GetVaultsQuery['getVaults'][number]
+export type TreasuryBookTableData = GetVaultsQuery['getVaults'][number]
 
-const columnHelper = createColumnHelper<VaultTableData>()
+const columnHelper = createColumnHelper<TreasuryBookTableData>()
 
-export const VaultTable: React.FC = () => {
+export interface TreasuryBookTableProps {
+  /**
+   * Data
+   */
+  data: TreasuryBookTableData[]
+}
+
+export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
+  data,
+}) => {
   const { t } = useTranslation('vault')
   const { selectedTreasuryBookId, setSelectedTreasuryBookId } =
     useTreasuryBookContext()
-
-  const { data } = useGetVaultsQuery({
-    variables: {
-      input: {
-        ownerId:
-          process.env.PROFILE_ID ?? 'ce4a7c81-6404-4098-a763-64550c4ec902',
-      },
-    },
-  })
 
   const createHandleOnVaultSwitch = useCallback(
     (id: string) => {
@@ -37,7 +36,7 @@ export const VaultTable: React.FC = () => {
   const colDefs = useMemo(
     () => [
       columnHelper.accessor('id', {
-        header: t('VaultTable.header.id'),
+        header: t`TreasuryBookTable.header.id`,
         cell: (props) => (
           <div className="overflow-hidden overflow-ellipsis whitespace-nowrap w-[7rem]">
             {props.getValue()}
@@ -52,20 +51,20 @@ export const VaultTable: React.FC = () => {
           ) : null,
       }),
       columnHelper.accessor('name', {
-        header: t('VaultTable.header.name'),
+        header: t`TreasuryBookTable.header.name`,
         cell: (props) => (
           <div className="text-dark-shades">{props.getValue()}</div>
         ),
       }),
       columnHelper.accessor('currency', {
-        header: t('VaultTable.header.currency'),
+        header: t`TreasuryBookTable.header.currency`,
       }),
       columnHelper.accessor('createdDate', {
-        header: t('VaultTable.header.createdDate'),
+        header: t`TreasuryBookTable.header.createdDate`,
         cell: (props) => <FormattedDate dateTime={props.getValue()} />,
       }),
       columnHelper.accessor('updatedDate', {
-        header: t('VaultTable.header.updatedDate'),
+        header: t`TreasuryBookTable.header.updatedDate`,
         cell: (props) => <FormattedDate dateTime={props.getValue()} />,
       }),
       columnHelper.display({
@@ -75,7 +74,7 @@ export const VaultTable: React.FC = () => {
             onClick={createHandleOnVaultSwitch(props.row.getValue('id'))}
             className="text-light-accent"
           >
-            {t('VaultTable.button.switch')}
+            {t('TreasuryBookTable.button.switch')}
           </Button>
         ),
       }),
@@ -83,5 +82,5 @@ export const VaultTable: React.FC = () => {
     [createHandleOnVaultSwitch, selectedTreasuryBookId, t],
   )
 
-  return <Table data={data?.getVaults ?? []} colDefs={colDefs} />
+  return <Table data={data} colDefs={colDefs} />
 }

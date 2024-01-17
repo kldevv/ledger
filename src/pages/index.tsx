@@ -1,9 +1,9 @@
-import { Layout } from '@/components/layout'
+import { Layout, PageHeader } from '@/components/layout'
 
 const Page: React.FC = () => {
   return (
     <Layout>
-      <div></div>
+      <PageHeader hideDescription />
     </Layout>
   )
 }

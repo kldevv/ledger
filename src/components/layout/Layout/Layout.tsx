@@ -27,7 +27,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <SideNavigationBar />
         </div>
         <main className="w-full h-full overflow-auto bg-light-shades">
-          <div className="mt-3 ml-6">
+          <div className="mt-3 ml-6 flex items-center">
             <Breadcrumbs />
           </div>
           <div

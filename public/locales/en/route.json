@@ -1,4 +1,8 @@
 {
+  "/": {
+    "title": "Home",
+    "description": "Luca is a double-entry accounting application to help you organize the transaction activities and cashflow"
+  },
   "/account": {
     "title": "Accounts",
     "description": "A table of entries of the accounts within the selected treasury book"

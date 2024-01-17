@@ -15,9 +15,16 @@ export type PageHeaderProps = {
      */
     label: string
   }
+  /**
+   * Hide description?
+   */
+  hideDescription?: boolean
 }
 
-export const PageHeader: React.FC<PageHeaderProps> = ({ action }) => {
+export const PageHeader: React.FC<PageHeaderProps> = ({
+  action,
+  hideDescription = false,
+}) => {
   const { t } = useTranslation('route')
   const { pathname } = useRouter()
 
@@ -27,7 +34,9 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ action }) => {
         <h1 className="text-dark-shades font-extrabold text-3xl whitespace-nowrap">
           {t(`${pathname}.title`)}
         </h1>
-        <p className="text-gray text-base">{t(`${pathname}.description`)}</p>
+        {hideDescription === false && (
+          <p className="text-gray text-base">{t(`${pathname}.description`)}</p>
+        )}
       </div>
       {action && (
         <div className="ml-auto">

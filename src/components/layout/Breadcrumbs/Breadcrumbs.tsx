@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 
+import { route } from '@/lib'
+
 export const Breadcrumbs: React.FC = () => {
   const { pathname, query } = useRouter()
 
@@ -36,9 +38,13 @@ export const Breadcrumbs: React.FC = () => {
     })
   }, [pathname, query])
 
+  if (pathname === route.home.pathname) {
+    return null
+  }
+
   return (
-    <div className="flex space-x-2 items-center">
-      <Link href={'/'}>
+    <div className="flex space-x-2 items-center h-6 flex-nowrap">
+      <Link href={route.home.pathname}>
         <HomeIcon className="w-3 h-3 text-gray hover:text-light-accent" />
       </Link>
       {crumbs.map(({ label, href }) => {
