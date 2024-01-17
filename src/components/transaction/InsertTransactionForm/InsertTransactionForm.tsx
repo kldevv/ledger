@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
+import toast from 'react-hot-toast'
 
 import {
   EntryStatus,
@@ -16,7 +17,7 @@ export const InsertTransactionForm: React.FC = () => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const [addTransaction] = useAddTransactionMutation({
-    onCompleted: (data) => console.log(data),
+    onCompleted: () => toast.success('Successfully added'),
   })
 
   const { data } = useGetAccountsQuery({

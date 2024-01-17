@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client'
 import { appWithI18Next } from 'ni18n'
+import { Toaster } from 'react-hot-toast'
 
 import apolloClient from '@/api/graphql/client'
 import { PageHead } from '@/components/meta'
@@ -16,6 +17,7 @@ const App: AppType = ({ Component, pageProps }) => {
       <TreasuryBookContextProvider>
         <PageHead />
         <Component {...pageProps} />
+        <Toaster />
       </TreasuryBookContextProvider>
     </ApolloProvider>
   )
