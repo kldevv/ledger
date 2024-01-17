@@ -12,7 +12,7 @@ const columnHelper = createColumnHelper<EntryTableData>()
 
 export type EntryTableProps = {
   /**
-   * Table data
+   * Data
    */
   data: EntryTableData[]
 }

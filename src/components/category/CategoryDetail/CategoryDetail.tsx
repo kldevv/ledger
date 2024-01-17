@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 import { useGetCategoryDetailQuery } from '@/api/graphql'
 import { AccountTable } from '@/components/account'
 import { CategoryDescriptionList } from '@/components/category'
-import { EntryTable } from '@/components/entry'
+import { EntryFilteredTable } from '@/components/entry'
 import { useTreasuryBookContext } from '@/hooks'
 
 export const CategoryDetail: React.FC = () => {
@@ -47,10 +47,12 @@ export const CategoryDetail: React.FC = () => {
           {t('CategoryDetail.title.accounts')}
         </h3>
         <AccountTable data={data?.getAccounts} />
-        <h3 className="mt-12 font-semibold text-dark-shades">
-          {t('CategoryDetail.title.entries')}
-        </h3>
-        <EntryTable data={data?.getEntries} />
+        <div className="mt-12 space-y-3 flex flex-col">
+          <h3 className="font-semibold text-dark-shades">
+            {t`CategoryDetail.title.entries`}
+          </h3>
+          <EntryFilteredTable data={data?.getEntries} />
+        </div>
       </div>
     )
   )

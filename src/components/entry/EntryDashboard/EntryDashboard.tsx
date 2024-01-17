@@ -1,6 +1,5 @@
 import { useGetEntriesQuery } from '@/api/graphql'
-import { Card } from '@/components/common'
-import { EntryTable } from '@/components/entry'
+import { EntryFilteredTable } from '@/components/entry'
 import { useTreasuryBookContext } from '@/hooks'
 
 export const EntryDashboard: React.FC = () => {
@@ -14,9 +13,5 @@ export const EntryDashboard: React.FC = () => {
     skip: selectedTreasuryBookId == null,
   })
 
-  return (
-    <Card>
-      <EntryTable data={data?.getEntries ?? []} />
-    </Card>
-  )
+  return <EntryFilteredTable data={data?.getEntries ?? []} />
 }

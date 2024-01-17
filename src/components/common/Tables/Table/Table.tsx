@@ -63,39 +63,41 @@ export const Table = <TData extends RowData>({
   )
 
   return (
-    <div className="w-full h-full overflow-auto">
-      <table className="w-full h-full table-auto">
-        <thead>
-          {table.getHeaderGroups().map(({ id, headers }) => (
-            <tr key={id}>
-              {headers.map((header) => (
-                <TableHeader key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                </TableHeader>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row, index) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <TableCell
-                  key={cell.id}
-                  className={index & 1 ? 'bg-white' : 'bg-light-shades'}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="w-full h-full">
+      <div className="w-full h-full overflow-auto">
+        <table className="w-full h-full table-auto">
+          <thead>
+            {table.getHeaderGroups().map(({ id, headers }) => (
+              <tr key={id}>
+                {headers.map((header) => (
+                  <TableHeader key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </TableHeader>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row, index) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell
+                    key={cell.id}
+                    className={index & 1 ? 'bg-white' : 'bg-light-shades'}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {pageSize != null && pageCount > 1 && (
         <div className="border-t border-t-mid-gray w-full flex items-center justify-center pt-5">
           <Pagination

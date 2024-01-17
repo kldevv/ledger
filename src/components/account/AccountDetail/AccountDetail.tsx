@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 import { useGetAccountDetailQuery } from '@/api/graphql'
 import { AccountDescriptionList } from '@/components/account'
-import { EntryTable } from '@/components/entry'
+import { EntryFilteredTable } from '@/components/entry'
 import { useTreasuryBookContext } from '@/hooks'
 
 export const AccountDetail: React.FC = () => {
@@ -35,13 +35,15 @@ export const AccountDetail: React.FC = () => {
       <div>
         <AccountDescriptionList
           data={{
-            ...data?.getAccount,
+            ...data.getAccount,
           }}
         />
-        <h3 className="mt-12 font-semibold text-dark-shades">
-          {t('AccountDetail.title.entries')}
-        </h3>
-        <EntryTable data={data?.getEntries} />
+        <div className="mt-12 flex flex-col space-y-3">
+          <h3 className="font-semibold text-dark-shades">
+            {t`AccountDetail.title.entries`}
+          </h3>
+          <EntryFilteredTable data={data.getEntries} />
+        </div>
       </div>
     )
   )
