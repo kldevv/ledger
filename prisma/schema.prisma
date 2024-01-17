@@ -16,34 +16,37 @@ model Category {
   vaultId     String
   createdDate DateTime     @default(now())
   updatedDate DateTime     @updatedAt
+  deletedDate DateTime?
 
   @@unique([vaultId, name])
 }
 
 model Account {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
-  category    Category @relation(fields: [categoryId], references: [id])
+  category    Category  @relation(fields: [categoryId], references: [id])
   categoryId  String
-  vault       Vault    @relation(fields: [vaultId], references: [id])
+  vault       Vault     @relation(fields: [vaultId], references: [id])
   vaultId     String
   entries     Entry[]
-  createdDate DateTime @default(now())
-  updatedDate DateTime @updatedAt
+  createdDate DateTime  @default(now())
+  updatedDate DateTime  @updatedAt
+  deletedDate DateTime?
 
   @@unique([categoryId, name])
 }
 
 model Transaction {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   accrualDate DateTime
   note        String
-  vault       Vault    @relation(fields: [vaultId], references: [id])
+  vault       Vault     @relation(fields: [vaultId], references: [id])
   vaultId     String
   entries     Entry[]
   tags        Tag[]
-  createdDate DateTime @default(now())
-  updatedDate DateTime @updatedAt
+  createdDate DateTime  @default(now())
+  updatedDate DateTime  @updatedAt
+  deletedDate DateTime?
 }
 
 model Entry {
@@ -53,13 +56,14 @@ model Entry {
   accountId       String
   vault           Vault       @relation(fields: [vaultId], references: [id])
   vaultId         String
-  amount Float
+  amount          Float
   memo            String
   transaction     Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   transactionId   String
   status          EntryStatus @default(PENDING)
   createdDate     DateTime    @default(now())
   updatedDate     DateTime    @updatedAt
+  deletedDate     DateTime?
 }
 
 model Tag {
@@ -70,6 +74,7 @@ model Tag {
   vaultId      String
   createdDate  DateTime      @default(now())
   updatedDate  DateTime      @updatedAt
+  deletedDate  DateTime?
 
   @@unique([vaultId, name])
 }
@@ -87,16 +92,18 @@ model Vault {
   tags         Tag[]
   createdDate  DateTime      @default(now())
   updatedDate  DateTime      @updatedAt
+  deletedDate  DateTime?
 
   @@unique([ownerId, name])
 }
 
 model Profile {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
   vaults      Vault[]
-  createdDate DateTime @default(now())
-  updatedDate DateTime @updatedAt
+  createdDate DateTime  @default(now())
+  updatedDate DateTime  @updatedAt
+  deletedDate DateTime?
 }
 
 enum EntryStatus {
