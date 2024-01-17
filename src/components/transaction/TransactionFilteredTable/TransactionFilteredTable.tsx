@@ -30,7 +30,7 @@ export const TransactionFilteredTable: React.FC<
   return (
     <Card>
       <div className="flex flex-col space-y-3">
-        <div className="flex items-center mt-3 border-b pb-6 border-b-mid-gray">
+        <div className="flex items-center border-b pt-1 pb-3 border-b-mid-gray">
           <EntryStatusFilterDropdown
             value={statusFilter}
             onChange={setStatusFilter}

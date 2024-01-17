@@ -1,7 +1,7 @@
 import { useGetTransactionsQuery } from '@/api/graphql'
 import { useTreasuryBookContext } from '@/hooks'
 
-import { TransactionFilteredTable } from '../TransactionFilteredTable'
+import { TransactionFilteredTable } from '..'
 
 export const TransactionDashboard: React.FC = () => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()

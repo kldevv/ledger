@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 import { useGetTagDetailQuery } from '@/api/graphql'
 import { TagDescriptionList } from '@/components/tag'
-import { TransactionTable } from '@/components/transaction'
+import { TransactionFilteredTable } from '@/components/transaction'
 import { useTreasuryBookContext } from '@/hooks'
 
 export const TagDetail: React.FC = () => {
@@ -29,10 +29,12 @@ export const TagDetail: React.FC = () => {
     data?.getTag && (
       <div>
         <TagDescriptionList data={data?.getTag} />
-        <h3 className="mt-12 font-semibold text-dark-shades">
-          {t('TagDetail.title.transactions')}
-        </h3>
-        <TransactionTable data={data.getTransactions ?? []} />
+        <div className="mt-12 flex flex-col space-y-3">
+          <h3 className="font-semibold text-dark-shades">
+            {t`TagDetail.title.transactions`}
+          </h3>
+          <TransactionFilteredTable data={data.getTransactions ?? []} />
+        </div>
       </div>
     )
   )
