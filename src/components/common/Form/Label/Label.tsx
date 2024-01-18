@@ -8,7 +8,7 @@ export const Label: React.FC<Label> = forwardRef(
     return (
       <label
         className={classNames(
-          'w-full text-xs leading-6 font-normal flex text-dark-shades whitespace-nowrap',
+          'w-full text-xs leading-6 font-medium flex text-gray whitespace-nowrap',
           className,
         )}
         {...rest}
