@@ -1,3 +1,13 @@
+import {
+  ClipboardDocumentIcon,
+  InboxIcon,
+  InboxStackIcon,
+  ListBulletIcon,
+  PresentationChartBarIcon,
+  ReceiptPercentIcon,
+  TagIcon,
+} from '@heroicons/react/24/outline'
+
 import { route } from '@/lib'
 
 import type {
@@ -8,37 +18,40 @@ import type {
 const mainGroupItems: SideNavigationBarMenuItem[] = [
   {
     ...route.transactionHome,
-    iconKey: '',
+    icon: <ReceiptPercentIcon className="w-5 h-5" />,
   },
   {
     ...route.entryHome,
-    iconKey: '',
+    icon: <ListBulletIcon className="w-5 h-5" />,
   },
 ]
 
 const reportGroupItems: SideNavigationBarMenuItem[] = [
   {
     ...route.reportHome,
-    iconKey: '',
+    icon: <PresentationChartBarIcon className="w-5 h-5" />,
   },
 ]
 
-const settingGroupItems: SideNavigationBarMenuItem[] = [
+const treasuryBookGroupItems: SideNavigationBarMenuItem[] = [
   {
     ...route.accountHome,
-    iconKey: '',
+    icon: <InboxIcon className="w-5 h-5" />,
   },
   {
     ...route.categoryHome,
-    iconKey: '',
+    icon: <InboxStackIcon className="w-5 h-5" />,
   },
   {
     ...route.tagHome,
-    iconKey: '',
+    icon: <TagIcon className="w-5 h-5" />,
   },
+]
+
+const settingsGroupItems: SideNavigationBarMenuItem[] = [
   {
     ...route.treasuryBookHome,
-    iconKey: '',
+    icon: <ClipboardDocumentIcon className="w-5 h-5" />,
   },
 ]
 
@@ -52,7 +65,12 @@ export const navigatorGroups: SideNavigationBarMenuItemGroup[] = [
     items: reportGroupItems,
   },
   {
+    groupTitleTranslateKey:
+      'layout:SideNavigationBarMenu.groupTitle.treasuryBook',
+    items: treasuryBookGroupItems,
+  },
+  {
     groupTitleTranslateKey: 'layout:SideNavigationBarMenu.groupTitle.settings',
-    items: settingGroupItems,
+    items: settingsGroupItems,
   },
 ]

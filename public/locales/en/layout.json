@@ -28,8 +28,9 @@
   "SideNavigationBarMenu": {
     "groupTitle": {
       "main": "Main",
-      "reports": "Reports",
-      "settings": "Elements"
+      "reports": "Report",
+      "treasuryBook": "Treasury Book",
+      "settings": "Settings"
     }
   }
 }
