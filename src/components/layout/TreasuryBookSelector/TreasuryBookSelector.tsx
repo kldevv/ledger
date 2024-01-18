@@ -2,6 +2,7 @@ import { Listbox } from '@headlessui/react'
 import classNames from 'classnames'
 import React, { useMemo } from 'react'
 
+import { CurrencyChip } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
 export const TreasuryBookSelector: React.FC = () => {
@@ -10,39 +11,47 @@ export const TreasuryBookSelector: React.FC = () => {
 
   const options = useMemo(
     () =>
-      data?.getVaults.map(({ id, name }) => ({ value: id, label: name })) ?? [],
+      data?.getVaults.map(({ id, name, currency }) => ({
+        value: id,
+        label: name,
+        currency,
+      })) ?? [],
     [data?.getVaults],
   )
 
-  const displayLabel = useMemo(
-    () => data?.getVaults.find(({ id }) => id === selectedTreasuryBookId)?.name,
+  const selectedTreasury = useMemo(
+    () => data?.getVaults.find(({ id }) => id === selectedTreasuryBookId),
     [data?.getVaults, selectedTreasuryBookId],
   )
 
   return (
     <Listbox
       as="div"
-      className="relative flex mx-4 justify-center"
+      className="relative flex mx-4 justify-start"
       onChange={setSelectedTreasuryBookId}
     >
       <Listbox.Button>
-        <div className="flex-auto px-20 py-1 rounded-xl text-light-accent text-xs font-bold border-2 shadow-xs border-mid-gray">
-          <span className="whitespace-nowrap overflow-hidden overflow-ellipsis">
-            {displayLabel}
-          </span>
+        <div className="text-left flex-auto flex flex-nowrap items-center px-6 py-1 rounded-2xl text-dark-shades text-xs font-medium border-2 shadow-xs border-mid-gray whitespace-nowrap overflow-hidden overflow-ellipsis">
+          {selectedTreasury?.name}
+          <div className="ml-auto pl-8">
+            <CurrencyChip currency={selectedTreasury?.currency} />
+          </div>
         </div>
       </Listbox.Button>
-      <Listbox.Options className="absolute z-30 px-10 mt-7 bg-white border border-mid-gray shadow rounded-xl py-1 flex flex-col space-y-2 items-center">
-        {options.map(({ value, label }) => (
+      <Listbox.Options className="absolute z-30 px-3 py-3 mt-9 bg-white shadow rounded-xl flex flex-col space-y-2 items-start">
+        {options.map(({ value, label, currency }) => (
           <Listbox.Option key={value} value={value} as={React.Fragment}>
-            {({ active, selected }) => (
+            {({ active }) => (
               <li
                 className={classNames(
-                  'text-xs leading-6 font-semibold cursor-pointer text-center',
-                  active || selected ? 'text-light-accent' : undefined,
+                  'text-xs leading-6 font-medium cursor-pointer text-start flex items-center w-full rounded-md px-3 py-1',
+                  active ? 'bg-light-accent text-white' : 'text-dark-shades',
                 )}
               >
                 {label}
+                <div className="ml-auto pl-8">
+                  <CurrencyChip currency={currency} />
+                </div>
               </li>
             )}
           </Listbox.Option>

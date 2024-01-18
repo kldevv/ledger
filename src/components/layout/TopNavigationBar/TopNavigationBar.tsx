@@ -2,7 +2,7 @@ import { TreasuryBookSelector } from '..'
 
 export const TopNavigationBar: React.FC = () => {
   return (
-    <div className="w-full h-full border-b border-b-mid-gray shadow-sm flex px-8">
+    <div className="w-full h-full border-b border-b-mid-gray shadow-sm flex px-8 over">
       <div className="h-full flex-initial flex items-center">
         <span className="font-bold text-lg leading-6 text-dark-shades">
           ::: Luca :::

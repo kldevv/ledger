@@ -1,5 +1,6 @@
 export * from './Button'
 export * from './Card'
+export * from './CurrencyChip'
 export * from './DescriptionList'
 export * from './Filters'
 export * from './Form'
