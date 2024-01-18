@@ -16,16 +16,6 @@ const nextConfig = {
       loader: 'graphql-tag/loader',
     })
 
-    /**
-     * Svgr helps us load the SVG file as React component
-     * https://react-svgr.com/docs/webpack/
-     */
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    })
-
     return config
   },
 }
