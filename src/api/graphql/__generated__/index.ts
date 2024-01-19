@@ -937,7 +937,7 @@ export type GetEntriesQueryVariables = Exact<{
 
 export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
-export type MonthlyAmountChangesFragmentFragment = { __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> };
+export type MonthlyAmountChangesDataFragment = { __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> };
 
 export type GetMonthlyAmountChangesDashboardQueryVariables = Exact<{
   input: GetMonthlyAmountChangesInput;
@@ -1011,8 +1011,8 @@ export type GetVaultsQueryVariables = Exact<{
 
 export type GetVaultsQuery = { __typename?: 'Query', getVaults: Array<{ __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date }> };
 
-export const MonthlyAmountChangesFragmentFragmentDoc = gql`
-    fragment MonthlyAmountChangesFragment on MonthlyAmountChanges {
+export const MonthlyAmountChangesDataFragmentDoc = gql`
+    fragment MonthlyAmountChangesData on MonthlyAmountChanges {
   id
   name
   amountChanges {
@@ -1890,16 +1890,16 @@ export type GetEntriesQueryResult = Apollo.QueryResult<GetEntriesQuery, GetEntri
 export const GetMonthlyAmountChangesDashboardDocument = gql`
     query getMonthlyAmountChangesDashboard($input: GetMonthlyAmountChangesInput!) {
   getAccountMonthlyAmountChanges(input: $input) {
-    ...MonthlyAmountChangesFragment
+    ...MonthlyAmountChangesData
   }
   getCategoryMonthlyAmountChanges(input: $input) {
-    ...MonthlyAmountChangesFragment
+    ...MonthlyAmountChangesData
   }
   getCategoryTypeMonthlyAmountChanges(input: $input) {
-    ...MonthlyAmountChangesFragment
+    ...MonthlyAmountChangesData
   }
 }
-    ${MonthlyAmountChangesFragmentFragmentDoc}`;
+    ${MonthlyAmountChangesDataFragmentDoc}`;
 
 /**
  * __useGetMonthlyAmountChangesDashboardQuery__

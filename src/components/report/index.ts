@@ -1,4 +1,5 @@
 export * from './AccountTopologyTable'
+export * from './MonthlyAmountChangesTable'
 export * from './ReportByMonthTable'
 export * from './ReportByQuarterTable'
 export * from './ReportByYearTable'

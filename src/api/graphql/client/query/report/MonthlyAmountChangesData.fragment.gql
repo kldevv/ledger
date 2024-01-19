@@ -1,4 +1,4 @@
-fragment MonthlyAmountChangesFragment on MonthlyAmountChanges {
+fragment MonthlyAmountChangesData on MonthlyAmountChanges {
   id
   name
   amountChanges {

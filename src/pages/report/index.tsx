@@ -1,5 +1,7 @@
 import { useGetMonthlyAmountChangesDashboardQuery } from '@/api/graphql'
+import { Card } from '@/components/common'
 import { Layout, PageHeader } from '@/components/layout'
+import { MonthlyAmountChangesTable } from '@/components/report'
 import { useTreasuryBookContext } from '@/hooks'
 
 const Page: React.FC = () => {
@@ -18,6 +20,11 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <PageHeader />
+      <Card>
+        <MonthlyAmountChangesTable
+          data={data?.getAccountMonthlyAmountChanges ?? []}
+        />
+      </Card>
     </Layout>
   )
 }

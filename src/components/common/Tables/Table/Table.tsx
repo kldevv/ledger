@@ -70,7 +70,7 @@ export const Table = <TData extends RowData>({
             {table.getHeaderGroups().map(({ id, headers }) => (
               <tr key={id}>
                 {headers.map((header) => (
-                  <TableHeader key={header.id}>
+                  <TableHeader key={header.id} colSpan={header.colSpan}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
