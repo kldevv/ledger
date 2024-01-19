@@ -1,5 +1,6 @@
 fragment MonthlyAmountChangesFragment on MonthlyAmountChanges {
   id
+  name
   amountChanges {
     month
     amountChange {

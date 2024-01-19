@@ -233,6 +233,7 @@ export type MonthlyAmountChanges = {
   __typename?: 'MonthlyAmountChanges';
   amountChanges: Array<AmountChangeOnMonth>;
   id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type Mutation = {
@@ -711,6 +712,7 @@ export type MinMaxDateResolvers<ContextType = ApolloServerContext, ParentType ex
 export type MonthlyAmountChangesResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['MonthlyAmountChanges'] = ResolversParentTypes['MonthlyAmountChanges']> = {
   amountChanges?: Resolver<Array<ResolversTypes['AmountChangeOnMonth']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -935,14 +937,14 @@ export type GetEntriesQueryVariables = Exact<{
 
 export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
-export type MonthlyAmountChangesFragmentFragment = { __typename?: 'MonthlyAmountChanges', id: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> };
+export type MonthlyAmountChangesFragmentFragment = { __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> };
 
 export type GetMonthlyAmountChangesDashboardQueryVariables = Exact<{
   input: GetMonthlyAmountChangesInput;
 }>;
 
 
-export type GetMonthlyAmountChangesDashboardQuery = { __typename?: 'Query', getAccountMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }>, getCategoryMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }>, getCategoryTypeMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }> };
+export type GetMonthlyAmountChangesDashboardQuery = { __typename?: 'Query', getAccountMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }>, getCategoryMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }>, getCategoryTypeMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }> };
 
 export type GetReportsQueryVariables = Exact<{
   input: GetReportsInput;
@@ -1012,6 +1014,7 @@ export type GetVaultsQuery = { __typename?: 'Query', getVaults: Array<{ __typena
 export const MonthlyAmountChangesFragmentFragmentDoc = gql`
     fragment MonthlyAmountChangesFragment on MonthlyAmountChanges {
   id
+  name
   amountChanges {
     month
     amountChange {

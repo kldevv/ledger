@@ -24,6 +24,7 @@ type AmountChangeOnMonth {
 
 type MonthlyAmountChanges {
   id: String!
+  name: String!
   amountChanges: [AmountChangeOnMonth!]!
 }
 
