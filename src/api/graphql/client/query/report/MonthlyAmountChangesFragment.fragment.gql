@@ -1,0 +1,10 @@
+fragment MonthlyAmountChangesFragment on MonthlyAmountChanges {
+  id
+  amountChanges {
+    month
+    amountChange {
+      debit
+      credit
+    }
+  }
+}

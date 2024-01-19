@@ -1,0 +1,11 @@
+query getMonthlyAmountChangesDashboard($input: GetMonthlyAmountChangesInput!) {
+  getAccountMonthlyAmountChanges(input: $input) {
+    ...MonthlyAmountChangesFragment
+  }
+  getCategoryMonthlyAmountChanges(input: $input) {
+    ...MonthlyAmountChangesFragment
+  }
+  getCategoryTypeMonthlyAmountChanges(input: $input) {
+    ...MonthlyAmountChangesFragment
+  }
+}

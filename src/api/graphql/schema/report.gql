@@ -7,7 +7,27 @@ type ReportData {
 
 input GetReportsInput {
   year: Int
+  groupBy: ReportDateGroupBy!
   vaultId: String!
   basis: Basis!
-  groupBy: ReportDateGroupBy!
+}
+
+type AmountChange {
+  credit: Float!
+  debit: Float!
+}
+
+type AmountChangeOnMonth {
+  month: Int!
+  amountChange: AmountChange!
+}
+
+type MonthlyAmountChanges {
+  id: String!
+  amountChanges: [AmountChangeOnMonth!]!
+}
+
+input GetMonthlyAmountChangesInput {
+  year: Int!
+  vaultId: String!
 }

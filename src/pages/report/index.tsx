@@ -1,11 +1,23 @@
+import { useGetMonthlyAmountChangesDashboardQuery } from '@/api/graphql'
 import { Layout, PageHeader } from '@/components/layout'
-import { ReportDashboard } from '@/components/report'
+import { useTreasuryBookContext } from '@/hooks'
 
 const Page: React.FC = () => {
+  const { selectedTreasuryBookId } = useTreasuryBookContext()
+
+  const { data } = useGetMonthlyAmountChangesDashboardQuery({
+    variables: {
+      input: {
+        vaultId: selectedTreasuryBookId ?? '',
+        year: 2024,
+      },
+    },
+    skip: selectedTreasuryBookId == null,
+  })
+
   return (
     <Layout>
       <PageHeader />
-      <ReportDashboard />
     </Layout>
   )
 }
