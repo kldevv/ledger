@@ -1,0 +1,5 @@
+query getAccountMonthlyAmountChanges($input: GetMonthlyAmountChangesInput!) {
+  getAccountMonthlyAmountChanges(input: $input) {
+    ...MonthlyAmountChangesData
+  }
+}

@@ -939,6 +939,13 @@ export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __type
 
 export type MonthlyAmountChangesDataFragment = { __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> };
 
+export type GetAccountMonthlyAmountChangesQueryVariables = Exact<{
+  input: GetMonthlyAmountChangesInput;
+}>;
+
+
+export type GetAccountMonthlyAmountChangesQuery = { __typename?: 'Query', getAccountMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }> };
+
 export type GetMonthlyAmountChangesDashboardQueryVariables = Exact<{
   input: GetMonthlyAmountChangesInput;
 }>;
@@ -1887,6 +1894,46 @@ export type GetEntriesQueryHookResult = ReturnType<typeof useGetEntriesQuery>;
 export type GetEntriesLazyQueryHookResult = ReturnType<typeof useGetEntriesLazyQuery>;
 export type GetEntriesSuspenseQueryHookResult = ReturnType<typeof useGetEntriesSuspenseQuery>;
 export type GetEntriesQueryResult = Apollo.QueryResult<GetEntriesQuery, GetEntriesQueryVariables>;
+export const GetAccountMonthlyAmountChangesDocument = gql`
+    query getAccountMonthlyAmountChanges($input: GetMonthlyAmountChangesInput!) {
+  getAccountMonthlyAmountChanges(input: $input) {
+    ...MonthlyAmountChangesData
+  }
+}
+    ${MonthlyAmountChangesDataFragmentDoc}`;
+
+/**
+ * __useGetAccountMonthlyAmountChangesQuery__
+ *
+ * To run a query within a React component, call `useGetAccountMonthlyAmountChangesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccountMonthlyAmountChangesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAccountMonthlyAmountChangesQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetAccountMonthlyAmountChangesQuery(baseOptions: Apollo.QueryHookOptions<GetAccountMonthlyAmountChangesQuery, GetAccountMonthlyAmountChangesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAccountMonthlyAmountChangesQuery, GetAccountMonthlyAmountChangesQueryVariables>(GetAccountMonthlyAmountChangesDocument, options);
+      }
+export function useGetAccountMonthlyAmountChangesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccountMonthlyAmountChangesQuery, GetAccountMonthlyAmountChangesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAccountMonthlyAmountChangesQuery, GetAccountMonthlyAmountChangesQueryVariables>(GetAccountMonthlyAmountChangesDocument, options);
+        }
+export function useGetAccountMonthlyAmountChangesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAccountMonthlyAmountChangesQuery, GetAccountMonthlyAmountChangesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAccountMonthlyAmountChangesQuery, GetAccountMonthlyAmountChangesQueryVariables>(GetAccountMonthlyAmountChangesDocument, options);
+        }
+export type GetAccountMonthlyAmountChangesQueryHookResult = ReturnType<typeof useGetAccountMonthlyAmountChangesQuery>;
+export type GetAccountMonthlyAmountChangesLazyQueryHookResult = ReturnType<typeof useGetAccountMonthlyAmountChangesLazyQuery>;
+export type GetAccountMonthlyAmountChangesSuspenseQueryHookResult = ReturnType<typeof useGetAccountMonthlyAmountChangesSuspenseQuery>;
+export type GetAccountMonthlyAmountChangesQueryResult = Apollo.QueryResult<GetAccountMonthlyAmountChangesQuery, GetAccountMonthlyAmountChangesQueryVariables>;
 export const GetMonthlyAmountChangesDashboardDocument = gql`
     query getMonthlyAmountChangesDashboard($input: GetMonthlyAmountChangesInput!) {
   getAccountMonthlyAmountChanges(input: $input) {

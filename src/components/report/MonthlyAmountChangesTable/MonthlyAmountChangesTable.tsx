@@ -25,7 +25,7 @@ export const MonthlyAmountChangesTable: React.FC<
   const colDefs = useMemo(
     () => [
       columnHelper.accessor('name', {
-        header: 'Name',
+        header: t`MonthlyAmountChangesTable.header.name`,
       }),
       ...Array.from({ length: 12 }).map((_, index) => {
         const month = index + 1
