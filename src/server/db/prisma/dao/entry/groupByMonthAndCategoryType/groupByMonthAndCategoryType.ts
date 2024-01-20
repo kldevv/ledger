@@ -19,13 +19,13 @@ export type GroupByMonthAndCategoryTypeProps = Pick<Entry, 'vaultId'> & {
 
 export type GroupByMonthAndCategoryTypeReturns = Array<{
   /**
-   * Account id
+   * Category id
    */
-  id: Category['id']
+  id: Category['type']
   /**
-   * Account name
+   * Category type
    */
-  name: Category['name']
+  name: Category['type']
   /**
    * Month
    */

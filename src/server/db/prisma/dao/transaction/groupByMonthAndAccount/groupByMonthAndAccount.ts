@@ -4,9 +4,9 @@ import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
 import logger from '@/server/logger'
 
-import type { Account, Entry, EntryStatus, Transaction } from '@prisma/client'
+import type { Account, EntryStatus, Transaction } from '@prisma/client'
 
-export type groupByMonthAndAccountProps = Pick<Transaction, 'vaultId'> & {
+export type GroupByMonthAndAccountProps = Pick<Transaction, 'vaultId'> & {
   /**
    * Filter by year
    */
@@ -21,7 +21,7 @@ export type GroupByMonthAndAccountReturns = Array<{
   /**
    * Account id
    */
-  id: Entry['accountId']
+  id: Account['id']
   /**
    * Account name
    */
@@ -44,14 +44,14 @@ export const groupByMonthAndAccount = async ({
   vaultId,
   year,
   status,
-}: groupByMonthAndAccountProps) => {
+}: GroupByMonthAndAccountProps) => {
   try {
     return await prisma.$queryRaw<GroupByMonthAndAccountReturns>`
       SELECT
         EXTRACT(MONTH FROM t."accrualDate") as "month",
         SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as "debit",
         SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as "credit",
-        e."accountId" as "id",
+        a."id" as "id",
         a."name" as "name"
       FROM
         "Entry" e
@@ -63,7 +63,7 @@ export const groupByMonthAndAccount = async ({
         e."vaultId" = ${vaultId}
         ${
           year != null
-            ? Prisma.sql`AND EXTRACT(YEAR FROM "transactionDate") = ${year}`
+            ? Prisma.sql`AND EXTRACT(YEAR FROM t."accrualDate") = ${year}`
             : Prisma.empty
         }
         ${
@@ -72,9 +72,9 @@ export const groupByMonthAndAccount = async ({
             : Prisma.empty
         }
       GROUP BY
-        "month", e."accountId", a."name"
+        "month", a."id", a."name"
       ORDER BY
-        "name", "month";
+        a."name", "month";
     `
   } catch (e) {
     logger.log({
