@@ -4,9 +4,9 @@ import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
 import logger from '@/server/logger'
 
-import type { Account, Entry, EntryStatus } from '@prisma/client'
+import type { Category, Entry, EntryStatus } from '@prisma/client'
 
-export type GroupByMonthAndAccountProps = Pick<Entry, 'vaultId'> & {
+export type GroupByMonthAndCategoryProps = Pick<Entry, 'vaultId'> & {
   /**
    * Filter by year
    */
@@ -17,15 +17,15 @@ export type GroupByMonthAndAccountProps = Pick<Entry, 'vaultId'> & {
   status?: EntryStatus
 }
 
-export type GroupByMonthAndAccountReturns = Array<{
+export type GroupByMonthAndCategoryReturns = Array<{
   /**
    * Account id
    */
-  id: Account['id']
+  id: Category['id']
   /**
    * Account name
    */
-  name: Account['name']
+  name: Category['name']
   /**
    * Month
    */
@@ -40,23 +40,25 @@ export type GroupByMonthAndAccountReturns = Array<{
   credit: number
 }>
 
-export const groupByMonthAndAccount = async ({
+export const groupByMonthAndCategory = async ({
   vaultId,
   year,
   status,
-}: GroupByMonthAndAccountProps) => {
+}: GroupByMonthAndCategoryProps) => {
   try {
-    return await prisma.$queryRaw<GroupByMonthAndAccountReturns>`
+    return await prisma.$queryRaw<GroupByMonthAndCategoryReturns>`
       SELECT
         EXTRACT(MONTH FROM e."transactionDate") as "month",
         SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as "debit",
         SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as "credit",
-        a."id" as "id",
-        a."name" as "name"
+        c."id" as "id",
+        c."name" as "name"
       FROM
         "Entry" e
       JOIN
         "Account" a ON a."id" = e."accountId"
+      JOIN
+        "Category" c ON c."id" = a."categoryId"
       WHERE
         e."vaultId" = ${vaultId}
         ${
@@ -66,14 +68,14 @@ export const groupByMonthAndAccount = async ({
         }
         ${status != null ? Prisma.sql`AND e.status = ${status}` : Prisma.empty}
       GROUP BY
-        "month", a."id", a."name"
+        "month", c."id", c."name"
       ORDER BY
         "name", "month";
     `
   } catch (e) {
     logger.log({
       level: 'info',
-      message: 'Error in Entry DAO: groupByMonthAndAccount',
+      message: 'Error in Entry DAO: groupByMonthAndCategory',
       error: parsePrismaError(e),
     })
 
