@@ -122,7 +122,7 @@ export const Currency = {
 export type Currency = typeof Currency[keyof typeof Currency];
 export const DateType = {
   ACCRUAL: 'ACCRUAL',
-  Transaction: 'Transaction'
+  TRANSACTION: 'TRANSACTION'
 } as const;
 
 export type DateType = typeof DateType[keyof typeof DateType];
@@ -193,8 +193,9 @@ export type GetMinMaxDateInput = {
 };
 
 export type GetMonthlyAmountChangesInput = {
+  type: DateType;
   vaultId: Scalars['String']['input'];
-  year: Scalars['Int']['input'];
+  year?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type GetReportsInput = {

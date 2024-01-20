@@ -1,4 +1,5 @@
 export * from './createOne'
+export * from './groupByMonthAndAccount'
 export * from './readMany'
 export * from './readMinMaxAccrualDate'
 export * from './readOne'

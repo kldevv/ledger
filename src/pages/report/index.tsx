@@ -1,11 +1,11 @@
 import { Layout, PageHeader } from '@/components/layout'
-import { MonthlyAmountChangesAccountDataControllerTable } from '@/components/report'
+import { AccountMonthlyAmountChangesDataControllerTable } from '@/components/report'
 
 const Page: React.FC = () => {
   return (
     <Layout>
       <PageHeader />
-      <MonthlyAmountChangesAccountDataControllerTable />
+      <AccountMonthlyAmountChangesDataControllerTable />
     </Layout>
   )
 }

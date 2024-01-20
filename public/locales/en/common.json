@@ -12,7 +12,7 @@
   "EntryStatusFilterDropdown": {
     "null": "All Statuses"
   },
-  "TransactionYearFilterDropdown": {
+  "YearFilterDropdown": {
     "null": "All Years"
   }
 }

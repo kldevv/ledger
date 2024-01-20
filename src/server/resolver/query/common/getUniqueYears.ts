@@ -6,7 +6,7 @@ export const getUniqueYears: QueryResolvers['getUniqueYears'] = async (
   { dataSources: { prisma } },
 ) => {
   const prismaReturns =
-    type === DateType.Transaction
+    type === DateType.TRANSACTION
       ? await prisma.entry.readUniqueYear({ vaultId })
       : await prisma.transaction.readUniqueYear({ vaultId })
 

@@ -1,10 +1,12 @@
-import { Prisma, type Account, type Entry } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 
 import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
 import logger from '@/server/logger'
 
-export type groupByMonthAndAccountProps = Pick<Entry, 'vaultId'> & {
+import type { Account, Entry, Transaction } from '@prisma/client'
+
+export type groupByMonthAndAccountProps = Pick<Transaction, 'vaultId'> & {
   /**
    * Filter by year
    */
@@ -41,7 +43,7 @@ export const groupByMonthAndAccount = async ({
   try {
     return await prisma.$queryRaw<GroupByMonthAndAccountReturns>`
       SELECT
-        EXTRACT(MONTH FROM e."transactionDate") as "month",
+        EXTRACT(MONTH FROM t."accrualDate") as "month",
         SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as "debit",
         SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as "credit",
         e."accountId" as "id",
@@ -50,6 +52,8 @@ export const groupByMonthAndAccount = async ({
         "Entry" e
       JOIN
         "Account" a ON a."id" = e."accountId"
+      JOIN
+        "Transaction" t ON t."id" = e."transactionId"
       WHERE
         e."vaultId" = ${vaultId}
         ${
@@ -63,7 +67,7 @@ export const groupByMonthAndAccount = async ({
   } catch (e) {
     logger.log({
       level: 'info',
-      message: 'Error in Entry DAO: groupByAccountAndDate',
+      message: 'Error in Transaction DAO: groupByAccountAndDate',
       error: parsePrismaError(e),
     })
 

@@ -1,12 +1,14 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { DateType, useGetUniqueYearsQuery } from '@/api/graphql'
+import { useGetUniqueYearsQuery } from '@/api/graphql'
 import { useTreasuryBookContext } from '@/hooks'
 
 import { DropdownFilter } from '..'
 
-export interface TransactionYearFilterDropdownProps {
+import type { DateType } from '@/api/graphql'
+
+export interface YearFilterDropdownProps {
   /**
    * Value
    */
@@ -15,11 +17,17 @@ export interface TransactionYearFilterDropdownProps {
    * On change
    */
   onChange: (year: number | null) => void
+  /**
+   * Date type
+   */
+  type: DateType
 }
 
-export const TransactionYearFilterDropdown: React.FC<
-  TransactionYearFilterDropdownProps
-> = ({ value, onChange }) => {
+export const YearFilterDropdown: React.FC<YearFilterDropdownProps> = ({
+  value,
+  onChange,
+  type,
+}) => {
   const { t } = useTranslation()
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
@@ -27,7 +35,7 @@ export const TransactionYearFilterDropdown: React.FC<
     variables: {
       input: {
         vaultId: selectedTreasuryBookId ?? '',
-        type: DateType.Transaction,
+        type,
       },
     },
     skip: selectedTreasuryBookId == null,
@@ -43,7 +51,7 @@ export const TransactionYearFilterDropdown: React.FC<
     return [
       {
         value: null,
-        label: t`TransactionYearFilterDropdown.null`,
+        label: t`YearFilterDropdown.null`,
       },
       ...options,
     ]

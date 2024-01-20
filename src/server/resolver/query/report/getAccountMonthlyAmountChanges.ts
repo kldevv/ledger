@@ -1,12 +1,22 @@
+import { DateType, type QueryResolvers } from '@/api/graphql'
+
 import { monthlyAmountChangesTransform } from '../../transform'
 
-import type { QueryResolvers } from '@/api/graphql'
-
 export const getAccountMonthlyAmountChanges: QueryResolvers['getAccountMonthlyAmountChanges'] =
-  async (_, { input }, { dataSources: { prisma } }) => {
-    console.log(await prisma.entry.readUniqueYear(input))
+  async (
+    _,
+    { input: { vaultId, year, type } },
+    { dataSources: { prisma } },
+  ) => {
+    const input = {
+      vaultId,
+      year: year != null ? year : undefined,
+    }
 
-    const prismaReturns = await prisma.entry.groupByMonthAndAccount(input)
+    const prismaReturns =
+      type === DateType.TRANSACTION
+        ? await prisma.entry.groupByMonthAndAccount(input)
+        : await prisma.transaction.groupByMonthAndAccount(input)
 
     return monthlyAmountChangesTransform.transform(prismaReturns)
   }

@@ -29,6 +29,7 @@ type MonthlyAmountChanges {
 }
 
 input GetMonthlyAmountChangesInput {
-  year: Int!
+  year: Int
   vaultId: String!
+  type: DateType!
 }

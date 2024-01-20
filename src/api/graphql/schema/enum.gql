@@ -27,6 +27,6 @@ enum ReportDateGroupBy {
 }
 
 enum DateType {
-  Transaction
+  TRANSACTION
   ACCRUAL
 }
