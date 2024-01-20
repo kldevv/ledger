@@ -1,4 +1,5 @@
 import {
+  ChartPieIcon,
   ClipboardDocumentIcon,
   InboxIcon,
   InboxStackIcon,
@@ -28,7 +29,11 @@ const mainGroupItems: SideNavigationBarMenuItem[] = [
 
 const reportGroupItems: SideNavigationBarMenuItem[] = [
   {
-    ...route.reportHome,
+    ...route.reportAmountBalance,
+    icon: <ChartPieIcon className="w-5 h-5" />,
+  },
+  {
+    ...route.reportAmountChange,
     icon: <PresentationChartBarIcon className="w-5 h-5" />,
   },
 ]

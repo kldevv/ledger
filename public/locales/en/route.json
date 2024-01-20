@@ -39,9 +39,13 @@
     "title": "Entries",
     "description": "A table of entries of the transactions within the selected treasury book"
   },
-  "/report": {
-    "title": "Reports",
-    "description": "A summary table of the transaction activities within the selected treasury book"
+  "/report/change": {
+    "title": "Changes",
+    "description": "A summary of the changes of the transactions and entries within the selected treasury book"
+  },
+  "/report/balance": {
+    "title": "Balance",
+    "description": "A summary of the balance of the transactions and entries within the selected treasury book"
   },
   "/tag": {
     "title": "Tags",
