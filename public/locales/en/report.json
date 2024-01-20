@@ -95,5 +95,12 @@
         "credit": "Credit"
       }
     }
+  },
+  "MonthlyAmountChangesTableGroup": {
+    "title": {
+      "categoryType": "Category Type Monthly Changes",
+      "category": "Category Monthly Changes",
+      "account": "Account Monthly Changes"
+    }
   }
 }

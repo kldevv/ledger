@@ -1,0 +1,7 @@
+query getCategoryTypeMonthlyAmountChanges(
+  $input: GetMonthlyAmountChangesInput!
+) {
+  getCategoryTypeMonthlyAmountChanges(input: $input) {
+    ...MonthlyAmountChangesData
+  }
+}

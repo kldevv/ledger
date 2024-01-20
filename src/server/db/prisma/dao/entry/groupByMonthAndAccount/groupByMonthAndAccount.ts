@@ -64,11 +64,15 @@ export const groupByMonthAndAccount = async ({
             ? Prisma.sql`AND EXTRACT(YEAR FROM e."transactionDate") = ${year}`
             : Prisma.empty
         }
-        ${status != null ? Prisma.sql`AND e.status = ${status}` : Prisma.empty}
+        ${
+          status != null
+            ? Prisma.sql`AND e.status = ${status}::"EntryStatus"`
+            : Prisma.empty
+        }
       GROUP BY
         "month", a."id", a."name"
       ORDER BY
-        "name", "month";
+        a."name", "month";
     `
   } catch (e) {
     logger.log({

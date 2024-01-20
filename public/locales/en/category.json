@@ -3,7 +3,7 @@
     "title": {
       "id": "ID",
       "name": "Name",
-      "type": "Accounting Term",
+      "type": "Category Type",
       "updatedDate": "Last Updated Date",
       "createdDate": "Created Date"
     }
@@ -18,7 +18,7 @@
     "header": {
       "id": "ID",
       "name": "Name",
-      "type": "Accounting Term",
+      "type": "Category Type",
       "createdDate": "Created Date"
     }
   },
@@ -31,7 +31,7 @@
   "UpsertCategoryForm": {
     "label": {
       "name": "Name",
-      "type": "Accounting Term"
+      "type": "Category Type"
     }
   },
   "page": {

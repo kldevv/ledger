@@ -65,11 +65,15 @@ export const groupByMonthAndCategoryType = async ({
             ? Prisma.sql`AND EXTRACT(YEAR FROM e."transactionDate") = ${year}`
             : Prisma.empty
         }
-        ${status != null ? Prisma.sql`AND e.status = ${status}` : Prisma.empty}
+        ${
+          status != null
+            ? Prisma.sql`AND e.status = ${status}::"EntryStatus"`
+            : Prisma.empty
+        }
       GROUP BY
-        "month", c."id", c."name"
+        "month", c."type"
       ORDER BY
-        "name", "month";
+        c."type", "month";
     `
   } catch (e) {
     logger.log({

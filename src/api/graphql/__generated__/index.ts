@@ -969,6 +969,20 @@ export type GetAccountMonthlyAmountChangesQueryVariables = Exact<{
 
 export type GetAccountMonthlyAmountChangesQuery = { __typename?: 'Query', getAccountMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id?: string | null, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }> };
 
+export type GetCategoryMonthlyAmountChangesQueryVariables = Exact<{
+  input: GetMonthlyAmountChangesInput;
+}>;
+
+
+export type GetCategoryMonthlyAmountChangesQuery = { __typename?: 'Query', getCategoryMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id?: string | null, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }> };
+
+export type GetCategoryTypeMonthlyAmountChangesQueryVariables = Exact<{
+  input: GetMonthlyAmountChangesInput;
+}>;
+
+
+export type GetCategoryTypeMonthlyAmountChangesQuery = { __typename?: 'Query', getCategoryTypeMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id?: string | null, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }> };
+
 export type GetMonthlyAmountChangesDashboardQueryVariables = Exact<{
   input: GetMonthlyAmountChangesInput;
 }>;
@@ -1964,6 +1978,86 @@ export type GetAccountMonthlyAmountChangesQueryHookResult = ReturnType<typeof us
 export type GetAccountMonthlyAmountChangesLazyQueryHookResult = ReturnType<typeof useGetAccountMonthlyAmountChangesLazyQuery>;
 export type GetAccountMonthlyAmountChangesSuspenseQueryHookResult = ReturnType<typeof useGetAccountMonthlyAmountChangesSuspenseQuery>;
 export type GetAccountMonthlyAmountChangesQueryResult = Apollo.QueryResult<GetAccountMonthlyAmountChangesQuery, GetAccountMonthlyAmountChangesQueryVariables>;
+export const GetCategoryMonthlyAmountChangesDocument = gql`
+    query getCategoryMonthlyAmountChanges($input: GetMonthlyAmountChangesInput!) {
+  getCategoryMonthlyAmountChanges(input: $input) {
+    ...MonthlyAmountChangesData
+  }
+}
+    ${MonthlyAmountChangesDataFragmentDoc}`;
+
+/**
+ * __useGetCategoryMonthlyAmountChangesQuery__
+ *
+ * To run a query within a React component, call `useGetCategoryMonthlyAmountChangesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCategoryMonthlyAmountChangesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCategoryMonthlyAmountChangesQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetCategoryMonthlyAmountChangesQuery(baseOptions: Apollo.QueryHookOptions<GetCategoryMonthlyAmountChangesQuery, GetCategoryMonthlyAmountChangesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCategoryMonthlyAmountChangesQuery, GetCategoryMonthlyAmountChangesQueryVariables>(GetCategoryMonthlyAmountChangesDocument, options);
+      }
+export function useGetCategoryMonthlyAmountChangesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoryMonthlyAmountChangesQuery, GetCategoryMonthlyAmountChangesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCategoryMonthlyAmountChangesQuery, GetCategoryMonthlyAmountChangesQueryVariables>(GetCategoryMonthlyAmountChangesDocument, options);
+        }
+export function useGetCategoryMonthlyAmountChangesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetCategoryMonthlyAmountChangesQuery, GetCategoryMonthlyAmountChangesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCategoryMonthlyAmountChangesQuery, GetCategoryMonthlyAmountChangesQueryVariables>(GetCategoryMonthlyAmountChangesDocument, options);
+        }
+export type GetCategoryMonthlyAmountChangesQueryHookResult = ReturnType<typeof useGetCategoryMonthlyAmountChangesQuery>;
+export type GetCategoryMonthlyAmountChangesLazyQueryHookResult = ReturnType<typeof useGetCategoryMonthlyAmountChangesLazyQuery>;
+export type GetCategoryMonthlyAmountChangesSuspenseQueryHookResult = ReturnType<typeof useGetCategoryMonthlyAmountChangesSuspenseQuery>;
+export type GetCategoryMonthlyAmountChangesQueryResult = Apollo.QueryResult<GetCategoryMonthlyAmountChangesQuery, GetCategoryMonthlyAmountChangesQueryVariables>;
+export const GetCategoryTypeMonthlyAmountChangesDocument = gql`
+    query getCategoryTypeMonthlyAmountChanges($input: GetMonthlyAmountChangesInput!) {
+  getCategoryTypeMonthlyAmountChanges(input: $input) {
+    ...MonthlyAmountChangesData
+  }
+}
+    ${MonthlyAmountChangesDataFragmentDoc}`;
+
+/**
+ * __useGetCategoryTypeMonthlyAmountChangesQuery__
+ *
+ * To run a query within a React component, call `useGetCategoryTypeMonthlyAmountChangesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCategoryTypeMonthlyAmountChangesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCategoryTypeMonthlyAmountChangesQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetCategoryTypeMonthlyAmountChangesQuery(baseOptions: Apollo.QueryHookOptions<GetCategoryTypeMonthlyAmountChangesQuery, GetCategoryTypeMonthlyAmountChangesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCategoryTypeMonthlyAmountChangesQuery, GetCategoryTypeMonthlyAmountChangesQueryVariables>(GetCategoryTypeMonthlyAmountChangesDocument, options);
+      }
+export function useGetCategoryTypeMonthlyAmountChangesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoryTypeMonthlyAmountChangesQuery, GetCategoryTypeMonthlyAmountChangesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCategoryTypeMonthlyAmountChangesQuery, GetCategoryTypeMonthlyAmountChangesQueryVariables>(GetCategoryTypeMonthlyAmountChangesDocument, options);
+        }
+export function useGetCategoryTypeMonthlyAmountChangesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetCategoryTypeMonthlyAmountChangesQuery, GetCategoryTypeMonthlyAmountChangesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCategoryTypeMonthlyAmountChangesQuery, GetCategoryTypeMonthlyAmountChangesQueryVariables>(GetCategoryTypeMonthlyAmountChangesDocument, options);
+        }
+export type GetCategoryTypeMonthlyAmountChangesQueryHookResult = ReturnType<typeof useGetCategoryTypeMonthlyAmountChangesQuery>;
+export type GetCategoryTypeMonthlyAmountChangesLazyQueryHookResult = ReturnType<typeof useGetCategoryTypeMonthlyAmountChangesLazyQuery>;
+export type GetCategoryTypeMonthlyAmountChangesSuspenseQueryHookResult = ReturnType<typeof useGetCategoryTypeMonthlyAmountChangesSuspenseQuery>;
+export type GetCategoryTypeMonthlyAmountChangesQueryResult = Apollo.QueryResult<GetCategoryTypeMonthlyAmountChangesQuery, GetCategoryTypeMonthlyAmountChangesQueryVariables>;
 export const GetMonthlyAmountChangesDashboardDocument = gql`
     query getMonthlyAmountChangesDashboard($input: GetMonthlyAmountChangesInput!) {
   getAccountMonthlyAmountChanges(input: $input) {
