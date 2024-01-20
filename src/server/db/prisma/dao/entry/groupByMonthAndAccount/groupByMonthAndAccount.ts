@@ -11,7 +11,7 @@ export type groupByMonthAndAccountProps = Pick<Entry, 'vaultId'> & {
   year: number
 }
 
-export type groupByMonthAndAccountReturns = Array<{
+export type GroupByMonthAndAccountReturns = Array<{
   /**
    * Account id
    */
@@ -39,7 +39,7 @@ export const groupByMonthAndAccount = async ({
   year,
 }: groupByMonthAndAccountProps) => {
   try {
-    return await prisma.$queryRaw<groupByMonthAndAccountReturns>`
+    return await prisma.$queryRaw<GroupByMonthAndAccountReturns>`
       SELECT
         EXTRACT(MONTH FROM e."transactionDate") as "month",
         SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as "debit",

@@ -1,6 +1,7 @@
-import { EntryStatus } from '@prisma/client'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
+
+import { EntryStatus } from '@/api/graphql'
 
 import { DropdownFilter } from '..'
 import { StatusChip } from '../..'

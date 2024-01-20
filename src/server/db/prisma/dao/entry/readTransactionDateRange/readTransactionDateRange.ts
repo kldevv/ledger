@@ -4,10 +4,10 @@ import logger from '@/server/logger'
 
 import type { Entry } from '@prisma/client'
 
-export type ReadMinMaxTransactionDateProps = Pick<Entry, 'vaultId'>
+export type ReadTransactionDateRangeProps = Pick<Entry, 'vaultId'>
 
-export const readMinMaxTransactionDate = async (
-  where: ReadMinMaxTransactionDateProps,
+export const readTransactionDateRange = async (
+  where: ReadTransactionDateRangeProps,
 ) => {
   try {
     return await prisma.entry.aggregate({
@@ -22,7 +22,7 @@ export const readMinMaxTransactionDate = async (
   } catch (e) {
     logger.log({
       level: 'info',
-      message: 'Error in Entry DAO: readMinMaxTransactionDate',
+      message: 'Error in Entry DAO: readTransactionDateRange',
       error: parsePrismaError(e),
     })
 

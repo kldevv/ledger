@@ -10,6 +10,7 @@ type Query {
   # Common
   getAccountTopology(input: GetAccountTopologyInput!): [AccountTopology!]!
   getMinMaxDate(input: GetMinMaxDateInput!): MinMaxDate!
+  getUniqueYears(input: GetUniqueYearsInput!): [Int!]!
 
   # Entry
   getEntries(input: GetEntriesInput!): [Entry!]!

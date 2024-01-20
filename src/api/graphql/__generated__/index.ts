@@ -120,6 +120,12 @@ export const Currency = {
 } as const;
 
 export type Currency = typeof Currency[keyof typeof Currency];
+export const DateType = {
+  ACCRUAL: 'ACCRUAL',
+  Transaction: 'Transaction'
+} as const;
+
+export type DateType = typeof DateType[keyof typeof DateType];
 export type Entry = {
   __typename?: 'Entry';
   account?: Maybe<Account>;
@@ -214,6 +220,11 @@ export type GetTransactionInput = {
 export type GetTransactionsInput = {
   status?: InputMaybe<EntryStatus>;
   tagId?: InputMaybe<Scalars['String']['input']>;
+  vaultId: Scalars['String']['input'];
+};
+
+export type GetUniqueYearsInput = {
+  type: DateType;
   vaultId: Scalars['String']['input'];
 };
 
@@ -313,6 +324,7 @@ export type Query = {
   getTransaction?: Maybe<Transaction>;
   getTransactionDetail?: Maybe<Transaction>;
   getTransactions: Array<Transaction>;
+  getUniqueYears: Array<Scalars['Int']['output']>;
   getVaults: Array<Vault>;
 };
 
@@ -399,6 +411,11 @@ export type QueryGetTransactionDetailArgs = {
 
 export type QueryGetTransactionsArgs = {
   input: GetTransactionsInput;
+};
+
+
+export type QueryGetUniqueYearsArgs = {
+  input: GetUniqueYearsInput;
 };
 
 
@@ -566,6 +583,7 @@ export type ResolversTypes = {
   CategoryType: CategoryType;
   Currency: Currency;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
+  DateType: DateType;
   Entry: ResolverTypeWrapper<Entry>;
   EntryStatus: EntryStatus;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
@@ -582,6 +600,7 @@ export type ResolversTypes = {
   GetTagsInput: GetTagsInput;
   GetTransactionInput: GetTransactionInput;
   GetTransactionsInput: GetTransactionsInput;
+  GetUniqueYearsInput: GetUniqueYearsInput;
   GetVaultsInput: GetVaultsInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   MinMaxDate: ResolverTypeWrapper<MinMaxDate>;
@@ -630,6 +649,7 @@ export type ResolversParentTypes = {
   GetTagsInput: GetTagsInput;
   GetTransactionInput: GetTransactionInput;
   GetTransactionsInput: GetTransactionsInput;
+  GetUniqueYearsInput: GetUniqueYearsInput;
   GetVaultsInput: GetVaultsInput;
   Int: Scalars['Int']['output'];
   MinMaxDate: MinMaxDate;
@@ -746,6 +766,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'input'>>;
   getTransactionDetail?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionDetailArgs, 'transactionId'>>;
   getTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionsArgs, 'input'>>;
+  getUniqueYears?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<QueryGetUniqueYearsArgs, 'input'>>;
   getVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetVaultsArgs, 'input'>>;
 };
 
@@ -966,6 +987,13 @@ export type GetReportsBalanceQueryVariables = Exact<{
 
 
 export type GetReportsBalanceQuery = { __typename?: 'Query', getReportsBalance: Array<{ __typename?: 'ReportData', encode: string, debit: number, credit?: number | null, count: number }> };
+
+export type GetUniqueYearsQueryVariables = Exact<{
+  input: GetUniqueYearsInput;
+}>;
+
+
+export type GetUniqueYearsQuery = { __typename?: 'Query', getUniqueYears: Array<number> };
 
 export type GetTagQueryVariables = Exact<{
   input: GetTagInput;
@@ -2066,6 +2094,44 @@ export type GetReportsBalanceQueryHookResult = ReturnType<typeof useGetReportsBa
 export type GetReportsBalanceLazyQueryHookResult = ReturnType<typeof useGetReportsBalanceLazyQuery>;
 export type GetReportsBalanceSuspenseQueryHookResult = ReturnType<typeof useGetReportsBalanceSuspenseQuery>;
 export type GetReportsBalanceQueryResult = Apollo.QueryResult<GetReportsBalanceQuery, GetReportsBalanceQueryVariables>;
+export const GetUniqueYearsDocument = gql`
+    query getUniqueYears($input: GetUniqueYearsInput!) {
+  getUniqueYears(input: $input)
+}
+    `;
+
+/**
+ * __useGetUniqueYearsQuery__
+ *
+ * To run a query within a React component, call `useGetUniqueYearsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUniqueYearsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUniqueYearsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetUniqueYearsQuery(baseOptions: Apollo.QueryHookOptions<GetUniqueYearsQuery, GetUniqueYearsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUniqueYearsQuery, GetUniqueYearsQueryVariables>(GetUniqueYearsDocument, options);
+      }
+export function useGetUniqueYearsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUniqueYearsQuery, GetUniqueYearsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUniqueYearsQuery, GetUniqueYearsQueryVariables>(GetUniqueYearsDocument, options);
+        }
+export function useGetUniqueYearsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetUniqueYearsQuery, GetUniqueYearsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetUniqueYearsQuery, GetUniqueYearsQueryVariables>(GetUniqueYearsDocument, options);
+        }
+export type GetUniqueYearsQueryHookResult = ReturnType<typeof useGetUniqueYearsQuery>;
+export type GetUniqueYearsLazyQueryHookResult = ReturnType<typeof useGetUniqueYearsLazyQuery>;
+export type GetUniqueYearsSuspenseQueryHookResult = ReturnType<typeof useGetUniqueYearsSuspenseQuery>;
+export type GetUniqueYearsQueryResult = Apollo.QueryResult<GetUniqueYearsQuery, GetUniqueYearsQueryVariables>;
 export const GetTagDocument = gql`
     query getTag($input: GetTagInput!) {
   getTag(input: $input) {

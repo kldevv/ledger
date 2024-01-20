@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import React, { useMemo } from 'react'
 
 export interface DropdownFilterProps<
-  TData extends string,
+  TData extends string | number,
   TValue = TData | null,
 > {
   /**
@@ -21,7 +21,7 @@ export interface DropdownFilterProps<
   value: TValue
 }
 
-export const DropdownFilter = <TData extends string>({
+export const DropdownFilter = <TData extends string | number>({
   options,
   value,
   onChange,

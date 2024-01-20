@@ -17,3 +17,8 @@ input GetMinMaxDateInput {
   vaultId: String!
   basis: Basis!
 }
+
+input GetUniqueYearsInput {
+  vaultId: String!
+  type: DateType!
+}

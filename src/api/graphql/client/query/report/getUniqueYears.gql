@@ -1,0 +1,3 @@
+query getUniqueYears($input: GetUniqueYearsInput!) {
+  getUniqueYears(input: $input)
+}
