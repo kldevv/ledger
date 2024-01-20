@@ -1,9 +1,9 @@
-fragment MonthlyAmountChangesData on MonthlyAmountChanges {
+fragment MonthlyAmountData on MonthlyAmount {
   id
   name
-  amountChanges {
+  amounts {
     month
-    amountChange {
+    amount {
       debit
       credit
     }

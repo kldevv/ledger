@@ -19,14 +19,15 @@ type Query {
   getReports(input: GetReportsInput!): [ReportData!]!
   getReportsBalance(input: GetReportsInput!): [ReportData!]!
   getAccountMonthlyAmountChanges(
-    input: GetMonthlyAmountChangesInput!
-  ): [MonthlyAmountChanges!]!
+    input: GetMonthlyAmountInput!
+  ): [MonthlyAmount!]!
   getCategoryMonthlyAmountChanges(
-    input: GetMonthlyAmountChangesInput!
-  ): [MonthlyAmountChanges!]!
+    input: GetMonthlyAmountInput!
+  ): [MonthlyAmount!]!
   getCategoryTypeMonthlyAmountChanges(
-    input: GetMonthlyAmountChangesInput!
-  ): [MonthlyAmountChanges!]!
+    input: GetMonthlyAmountInput!
+  ): [MonthlyAmount!]!
+  getAccountMonthlyBalance(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
 
   # Tag
   getTag(input: GetTagInput!): Tag

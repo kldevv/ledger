@@ -78,15 +78,15 @@ export type AddVaultInput = {
   ownerId: Scalars['String']['input'];
 };
 
-export type AmountChange = {
-  __typename?: 'AmountChange';
+export type Amount = {
+  __typename?: 'Amount';
   credit: Scalars['Float']['output'];
   debit: Scalars['Float']['output'];
 };
 
-export type AmountChangeOnMonth = {
-  __typename?: 'AmountChangeOnMonth';
-  amountChange: AmountChange;
+export type AmountOnMonth = {
+  __typename?: 'AmountOnMonth';
+  amount: Amount;
   month: Scalars['Int']['output'];
 };
 
@@ -192,7 +192,7 @@ export type GetMinMaxDateInput = {
   vaultId: Scalars['String']['input'];
 };
 
-export type GetMonthlyAmountChangesInput = {
+export type GetMonthlyAmountInput = {
   status?: InputMaybe<EntryStatus>;
   type: DateType;
   vaultId: Scalars['String']['input'];
@@ -242,9 +242,9 @@ export type MinMaxDate = {
   minDate?: Maybe<Scalars['DateTime']['output']>;
 };
 
-export type MonthlyAmountChanges = {
-  __typename?: 'MonthlyAmountChanges';
-  amountChanges: Array<AmountChangeOnMonth>;
+export type MonthlyAmount = {
+  __typename?: 'MonthlyAmount';
+  amounts: Array<AmountOnMonth>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
 };
@@ -310,13 +310,14 @@ export type MutationUpdateTransactionArgs = {
 export type Query = {
   __typename?: 'Query';
   getAccount?: Maybe<Account>;
-  getAccountMonthlyAmountChanges: Array<MonthlyAmountChanges>;
+  getAccountMonthlyAmountChanges: Array<MonthlyAmount>;
+  getAccountMonthlyBalance: Array<MonthlyAmount>;
   getAccountTopology: Array<AccountTopology>;
   getAccounts: Array<Account>;
   getCategories: Array<Category>;
   getCategory?: Maybe<Category>;
-  getCategoryMonthlyAmountChanges: Array<MonthlyAmountChanges>;
-  getCategoryTypeMonthlyAmountChanges: Array<MonthlyAmountChanges>;
+  getCategoryMonthlyAmountChanges: Array<MonthlyAmount>;
+  getCategoryTypeMonthlyAmountChanges: Array<MonthlyAmount>;
   getEntries: Array<Entry>;
   getMinMaxDate: MinMaxDate;
   getReports: Array<ReportData>;
@@ -337,7 +338,12 @@ export type QueryGetAccountArgs = {
 
 
 export type QueryGetAccountMonthlyAmountChangesArgs = {
-  input: GetMonthlyAmountChangesInput;
+  input: GetMonthlyAmountInput;
+};
+
+
+export type QueryGetAccountMonthlyBalanceArgs = {
+  input: GetMonthlyAmountInput;
 };
 
 
@@ -362,12 +368,12 @@ export type QueryGetCategoryArgs = {
 
 
 export type QueryGetCategoryMonthlyAmountChangesArgs = {
-  input: GetMonthlyAmountChangesInput;
+  input: GetMonthlyAmountInput;
 };
 
 
 export type QueryGetCategoryTypeMonthlyAmountChangesArgs = {
-  input: GetMonthlyAmountChangesInput;
+  input: GetMonthlyAmountInput;
 };
 
 
@@ -577,8 +583,8 @@ export type ResolversTypes = {
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
   AddVaultInput: AddVaultInput;
-  AmountChange: ResolverTypeWrapper<AmountChange>;
-  AmountChangeOnMonth: ResolverTypeWrapper<AmountChangeOnMonth>;
+  Amount: ResolverTypeWrapper<Amount>;
+  AmountOnMonth: ResolverTypeWrapper<AmountOnMonth>;
   Basis: Basis;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Category: ResolverTypeWrapper<Category>;
@@ -596,7 +602,7 @@ export type ResolversTypes = {
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
   GetMinMaxDateInput: GetMinMaxDateInput;
-  GetMonthlyAmountChangesInput: GetMonthlyAmountChangesInput;
+  GetMonthlyAmountInput: GetMonthlyAmountInput;
   GetReportsInput: GetReportsInput;
   GetTagInput: GetTagInput;
   GetTagsInput: GetTagsInput;
@@ -606,7 +612,7 @@ export type ResolversTypes = {
   GetVaultsInput: GetVaultsInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   MinMaxDate: ResolverTypeWrapper<MinMaxDate>;
-  MonthlyAmountChanges: ResolverTypeWrapper<MonthlyAmountChanges>;
+  MonthlyAmount: ResolverTypeWrapper<MonthlyAmount>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   ReportData: ResolverTypeWrapper<ReportData>;
@@ -631,8 +637,8 @@ export type ResolversParentTypes = {
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
   AddVaultInput: AddVaultInput;
-  AmountChange: AmountChange;
-  AmountChangeOnMonth: AmountChangeOnMonth;
+  Amount: Amount;
+  AmountOnMonth: AmountOnMonth;
   Boolean: Scalars['Boolean']['output'];
   Category: Category;
   DateTime: Scalars['DateTime']['output'];
@@ -645,7 +651,7 @@ export type ResolversParentTypes = {
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
   GetMinMaxDateInput: GetMinMaxDateInput;
-  GetMonthlyAmountChangesInput: GetMonthlyAmountChangesInput;
+  GetMonthlyAmountInput: GetMonthlyAmountInput;
   GetReportsInput: GetReportsInput;
   GetTagInput: GetTagInput;
   GetTagsInput: GetTagsInput;
@@ -655,7 +661,7 @@ export type ResolversParentTypes = {
   GetVaultsInput: GetVaultsInput;
   Int: Scalars['Int']['output'];
   MinMaxDate: MinMaxDate;
-  MonthlyAmountChanges: MonthlyAmountChanges;
+  MonthlyAmount: MonthlyAmount;
   Mutation: {};
   Query: {};
   ReportData: ReportData;
@@ -686,14 +692,14 @@ export type AccountTopologyResolvers<ContextType = ApolloServerContext, ParentTy
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type AmountChangeResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AmountChange'] = ResolversParentTypes['AmountChange']> = {
+export type AmountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Amount'] = ResolversParentTypes['Amount']> = {
   credit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type AmountChangeOnMonthResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AmountChangeOnMonth'] = ResolversParentTypes['AmountChangeOnMonth']> = {
-  amountChange?: Resolver<ResolversTypes['AmountChange'], ParentType, ContextType>;
+export type AmountOnMonthResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AmountOnMonth'] = ResolversParentTypes['AmountOnMonth']> = {
+  amount?: Resolver<ResolversTypes['Amount'], ParentType, ContextType>;
   month?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -731,8 +737,8 @@ export type MinMaxDateResolvers<ContextType = ApolloServerContext, ParentType ex
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type MonthlyAmountChangesResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['MonthlyAmountChanges'] = ResolversParentTypes['MonthlyAmountChanges']> = {
-  amountChanges?: Resolver<Array<ResolversTypes['AmountChangeOnMonth']>, ParentType, ContextType>;
+export type MonthlyAmountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['MonthlyAmount'] = ResolversParentTypes['MonthlyAmount']> = {
+  amounts?: Resolver<Array<ResolversTypes['AmountOnMonth']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -752,13 +758,14 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountArgs, 'input'>>;
-  getAccountMonthlyAmountChanges?: Resolver<Array<ResolversTypes['MonthlyAmountChanges']>, ParentType, ContextType, RequireFields<QueryGetAccountMonthlyAmountChangesArgs, 'input'>>;
+  getAccountMonthlyAmountChanges?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetAccountMonthlyAmountChangesArgs, 'input'>>;
+  getAccountMonthlyBalance?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetAccountMonthlyBalanceArgs, 'input'>>;
   getAccountTopology?: Resolver<Array<ResolversTypes['AccountTopology']>, ParentType, ContextType, RequireFields<QueryGetAccountTopologyArgs, 'input'>>;
   getAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountsArgs, 'input'>>;
   getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoriesArgs, 'input'>>;
   getCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoryArgs, 'input'>>;
-  getCategoryMonthlyAmountChanges?: Resolver<Array<ResolversTypes['MonthlyAmountChanges']>, ParentType, ContextType, RequireFields<QueryGetCategoryMonthlyAmountChangesArgs, 'input'>>;
-  getCategoryTypeMonthlyAmountChanges?: Resolver<Array<ResolversTypes['MonthlyAmountChanges']>, ParentType, ContextType, RequireFields<QueryGetCategoryTypeMonthlyAmountChangesArgs, 'input'>>;
+  getCategoryMonthlyAmountChanges?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetCategoryMonthlyAmountChangesArgs, 'input'>>;
+  getCategoryTypeMonthlyAmountChanges?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetCategoryTypeMonthlyAmountChangesArgs, 'input'>>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
   getMinMaxDate?: Resolver<ResolversTypes['MinMaxDate'], ParentType, ContextType, RequireFields<QueryGetMinMaxDateArgs, 'input'>>;
   getReports?: Resolver<Array<ResolversTypes['ReportData']>, ParentType, ContextType, RequireFields<QueryGetReportsArgs, 'input'>>;
@@ -815,13 +822,13 @@ export type VaultResolvers<ContextType = ApolloServerContext, ParentType extends
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
   AccountTopology?: AccountTopologyResolvers<ContextType>;
-  AmountChange?: AmountChangeResolvers<ContextType>;
-  AmountChangeOnMonth?: AmountChangeOnMonthResolvers<ContextType>;
+  Amount?: AmountResolvers<ContextType>;
+  AmountOnMonth?: AmountOnMonthResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Entry?: EntryResolvers<ContextType>;
   MinMaxDate?: MinMaxDateResolvers<ContextType>;
-  MonthlyAmountChanges?: MonthlyAmountChangesResolvers<ContextType>;
+  MonthlyAmount?: MonthlyAmountResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   ReportData?: ReportDataResolvers<ContextType>;
@@ -960,35 +967,28 @@ export type GetEntriesQueryVariables = Exact<{
 
 export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
-export type MonthlyAmountChangesDataFragment = { __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> };
+export type MonthlyAmountDataFragment = { __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> };
 
 export type GetAccountMonthlyAmountChangesQueryVariables = Exact<{
-  input: GetMonthlyAmountChangesInput;
+  input: GetMonthlyAmountInput;
 }>;
 
 
-export type GetAccountMonthlyAmountChangesQuery = { __typename?: 'Query', getAccountMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }> };
+export type GetAccountMonthlyAmountChangesQuery = { __typename?: 'Query', getAccountMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> }> };
 
 export type GetCategoryMonthlyAmountChangesQueryVariables = Exact<{
-  input: GetMonthlyAmountChangesInput;
+  input: GetMonthlyAmountInput;
 }>;
 
 
-export type GetCategoryMonthlyAmountChangesQuery = { __typename?: 'Query', getCategoryMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }> };
+export type GetCategoryMonthlyAmountChangesQuery = { __typename?: 'Query', getCategoryMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> }> };
 
 export type GetCategoryTypeMonthlyAmountChangesQueryVariables = Exact<{
-  input: GetMonthlyAmountChangesInput;
+  input: GetMonthlyAmountInput;
 }>;
 
 
-export type GetCategoryTypeMonthlyAmountChangesQuery = { __typename?: 'Query', getCategoryTypeMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }> };
-
-export type GetMonthlyAmountChangesDashboardQueryVariables = Exact<{
-  input: GetMonthlyAmountChangesInput;
-}>;
-
-
-export type GetMonthlyAmountChangesDashboardQuery = { __typename?: 'Query', getAccountMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }>, getCategoryMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }>, getCategoryTypeMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmountChanges', id: string, name: string, amountChanges: Array<{ __typename?: 'AmountChangeOnMonth', month: number, amountChange: { __typename?: 'AmountChange', debit: number, credit: number } }> }> };
+export type GetCategoryTypeMonthlyAmountChangesQuery = { __typename?: 'Query', getCategoryTypeMonthlyAmountChanges: Array<{ __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> }> };
 
 export type GetReportsQueryVariables = Exact<{
   input: GetReportsInput;
@@ -1062,13 +1062,13 @@ export type GetVaultsQueryVariables = Exact<{
 
 export type GetVaultsQuery = { __typename?: 'Query', getVaults: Array<{ __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date }> };
 
-export const MonthlyAmountChangesDataFragmentDoc = gql`
-    fragment MonthlyAmountChangesData on MonthlyAmountChanges {
+export const MonthlyAmountDataFragmentDoc = gql`
+    fragment MonthlyAmountData on MonthlyAmount {
   id
   name
-  amountChanges {
+  amounts {
     month
-    amountChange {
+    amount {
       debit
       credit
     }
@@ -1939,12 +1939,12 @@ export type GetEntriesLazyQueryHookResult = ReturnType<typeof useGetEntriesLazyQ
 export type GetEntriesSuspenseQueryHookResult = ReturnType<typeof useGetEntriesSuspenseQuery>;
 export type GetEntriesQueryResult = Apollo.QueryResult<GetEntriesQuery, GetEntriesQueryVariables>;
 export const GetAccountMonthlyAmountChangesDocument = gql`
-    query getAccountMonthlyAmountChanges($input: GetMonthlyAmountChangesInput!) {
+    query getAccountMonthlyAmountChanges($input: GetMonthlyAmountInput!) {
   getAccountMonthlyAmountChanges(input: $input) {
-    ...MonthlyAmountChangesData
+    ...MonthlyAmountData
   }
 }
-    ${MonthlyAmountChangesDataFragmentDoc}`;
+    ${MonthlyAmountDataFragmentDoc}`;
 
 /**
  * __useGetAccountMonthlyAmountChangesQuery__
@@ -1979,12 +1979,12 @@ export type GetAccountMonthlyAmountChangesLazyQueryHookResult = ReturnType<typeo
 export type GetAccountMonthlyAmountChangesSuspenseQueryHookResult = ReturnType<typeof useGetAccountMonthlyAmountChangesSuspenseQuery>;
 export type GetAccountMonthlyAmountChangesQueryResult = Apollo.QueryResult<GetAccountMonthlyAmountChangesQuery, GetAccountMonthlyAmountChangesQueryVariables>;
 export const GetCategoryMonthlyAmountChangesDocument = gql`
-    query getCategoryMonthlyAmountChanges($input: GetMonthlyAmountChangesInput!) {
+    query getCategoryMonthlyAmountChanges($input: GetMonthlyAmountInput!) {
   getCategoryMonthlyAmountChanges(input: $input) {
-    ...MonthlyAmountChangesData
+    ...MonthlyAmountData
   }
 }
-    ${MonthlyAmountChangesDataFragmentDoc}`;
+    ${MonthlyAmountDataFragmentDoc}`;
 
 /**
  * __useGetCategoryMonthlyAmountChangesQuery__
@@ -2019,12 +2019,12 @@ export type GetCategoryMonthlyAmountChangesLazyQueryHookResult = ReturnType<type
 export type GetCategoryMonthlyAmountChangesSuspenseQueryHookResult = ReturnType<typeof useGetCategoryMonthlyAmountChangesSuspenseQuery>;
 export type GetCategoryMonthlyAmountChangesQueryResult = Apollo.QueryResult<GetCategoryMonthlyAmountChangesQuery, GetCategoryMonthlyAmountChangesQueryVariables>;
 export const GetCategoryTypeMonthlyAmountChangesDocument = gql`
-    query getCategoryTypeMonthlyAmountChanges($input: GetMonthlyAmountChangesInput!) {
+    query getCategoryTypeMonthlyAmountChanges($input: GetMonthlyAmountInput!) {
   getCategoryTypeMonthlyAmountChanges(input: $input) {
-    ...MonthlyAmountChangesData
+    ...MonthlyAmountData
   }
 }
-    ${MonthlyAmountChangesDataFragmentDoc}`;
+    ${MonthlyAmountDataFragmentDoc}`;
 
 /**
  * __useGetCategoryTypeMonthlyAmountChangesQuery__
@@ -2058,52 +2058,6 @@ export type GetCategoryTypeMonthlyAmountChangesQueryHookResult = ReturnType<type
 export type GetCategoryTypeMonthlyAmountChangesLazyQueryHookResult = ReturnType<typeof useGetCategoryTypeMonthlyAmountChangesLazyQuery>;
 export type GetCategoryTypeMonthlyAmountChangesSuspenseQueryHookResult = ReturnType<typeof useGetCategoryTypeMonthlyAmountChangesSuspenseQuery>;
 export type GetCategoryTypeMonthlyAmountChangesQueryResult = Apollo.QueryResult<GetCategoryTypeMonthlyAmountChangesQuery, GetCategoryTypeMonthlyAmountChangesQueryVariables>;
-export const GetMonthlyAmountChangesDashboardDocument = gql`
-    query getMonthlyAmountChangesDashboard($input: GetMonthlyAmountChangesInput!) {
-  getAccountMonthlyAmountChanges(input: $input) {
-    ...MonthlyAmountChangesData
-  }
-  getCategoryMonthlyAmountChanges(input: $input) {
-    ...MonthlyAmountChangesData
-  }
-  getCategoryTypeMonthlyAmountChanges(input: $input) {
-    ...MonthlyAmountChangesData
-  }
-}
-    ${MonthlyAmountChangesDataFragmentDoc}`;
-
-/**
- * __useGetMonthlyAmountChangesDashboardQuery__
- *
- * To run a query within a React component, call `useGetMonthlyAmountChangesDashboardQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMonthlyAmountChangesDashboardQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMonthlyAmountChangesDashboardQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetMonthlyAmountChangesDashboardQuery(baseOptions: Apollo.QueryHookOptions<GetMonthlyAmountChangesDashboardQuery, GetMonthlyAmountChangesDashboardQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMonthlyAmountChangesDashboardQuery, GetMonthlyAmountChangesDashboardQueryVariables>(GetMonthlyAmountChangesDashboardDocument, options);
-      }
-export function useGetMonthlyAmountChangesDashboardLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMonthlyAmountChangesDashboardQuery, GetMonthlyAmountChangesDashboardQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMonthlyAmountChangesDashboardQuery, GetMonthlyAmountChangesDashboardQueryVariables>(GetMonthlyAmountChangesDashboardDocument, options);
-        }
-export function useGetMonthlyAmountChangesDashboardSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetMonthlyAmountChangesDashboardQuery, GetMonthlyAmountChangesDashboardQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetMonthlyAmountChangesDashboardQuery, GetMonthlyAmountChangesDashboardQueryVariables>(GetMonthlyAmountChangesDashboardDocument, options);
-        }
-export type GetMonthlyAmountChangesDashboardQueryHookResult = ReturnType<typeof useGetMonthlyAmountChangesDashboardQuery>;
-export type GetMonthlyAmountChangesDashboardLazyQueryHookResult = ReturnType<typeof useGetMonthlyAmountChangesDashboardLazyQuery>;
-export type GetMonthlyAmountChangesDashboardSuspenseQueryHookResult = ReturnType<typeof useGetMonthlyAmountChangesDashboardSuspenseQuery>;
-export type GetMonthlyAmountChangesDashboardQueryResult = Apollo.QueryResult<GetMonthlyAmountChangesDashboardQuery, GetMonthlyAmountChangesDashboardQueryVariables>;
 export const GetReportsDocument = gql`
     query getReports($input: GetReportsInput!) {
   getReports(input: $input) {

@@ -12,23 +12,23 @@ input GetReportsInput {
   basis: Basis!
 }
 
-type AmountChange {
+type Amount {
   credit: Float!
   debit: Float!
 }
 
-type AmountChangeOnMonth {
+type AmountOnMonth {
   month: Int!
-  amountChange: AmountChange!
+  amount: Amount!
 }
 
-type MonthlyAmountChanges {
+type MonthlyAmount {
   id: String!
   name: String!
-  amountChanges: [AmountChangeOnMonth!]!
+  amounts: [AmountOnMonth!]!
 }
 
-input GetMonthlyAmountChangesInput {
+input GetMonthlyAmountInput {
   year: Int
   vaultId: String!
   type: DateType!

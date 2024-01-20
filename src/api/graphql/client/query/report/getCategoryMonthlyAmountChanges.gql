@@ -1,5 +1,5 @@
-query getCategoryMonthlyAmountChanges($input: GetMonthlyAmountChangesInput!) {
+query getCategoryMonthlyAmountChanges($input: GetMonthlyAmountInput!) {
   getCategoryMonthlyAmountChanges(input: $input) {
-    ...MonthlyAmountChangesData
+    ...MonthlyAmountData
   }
 }
