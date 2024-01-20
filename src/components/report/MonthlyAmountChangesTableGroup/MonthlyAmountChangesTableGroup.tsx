@@ -12,7 +12,7 @@ export const MonthlyAmountChangesTableGroup: React.FC = () => {
   const { t } = useTranslation('report')
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col mt-4">
       <div className="flex flex-col space-y-2 pb-12 border-b border-mid-gray">
         <TableTitle className="text-center">{t`MonthlyAmountChangesTableGroup.title.categoryType`}</TableTitle>
         <CategoryTypeMonthlyAmountChangesDataControllerTable />

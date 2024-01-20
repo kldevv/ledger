@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { useGetAccountMonthlyAmountChangesQuery, DateType } from '@/api/graphql'
 import {
@@ -21,6 +21,11 @@ export const AccountMonthlyAmountChangesDataControllerTable: React.FC = () => {
     DateType.ACCRUAL,
   )
 
+  const handleOnDateTypeFilterChange = useCallback((value: DateType) => {
+    setYearFilter(null)
+    setDateTypeFilter(value)
+  }, [])
+
   const { data } = useGetAccountMonthlyAmountChangesQuery({
     variables: {
       input: {
@@ -39,7 +44,7 @@ export const AccountMonthlyAmountChangesDataControllerTable: React.FC = () => {
       <div>
         <DateTypeFilterRadioGroup
           value={dateTypeFilter}
-          onChange={setDateTypeFilter}
+          onChange={handleOnDateTypeFilterChange}
         />
       </div>
       <Card>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import {
   DateType,
@@ -24,6 +24,11 @@ export const CategoryMonthlyAmountChangesDataControllerTable: React.FC = () => {
     DateType.ACCRUAL,
   )
 
+  const handleOnDateTypeFilterChange = useCallback((value: DateType) => {
+    setYearFilter(null)
+    setDateTypeFilter(value)
+  }, [])
+
   const { data } = useGetCategoryMonthlyAmountChangesQuery({
     variables: {
       input: {
@@ -42,7 +47,7 @@ export const CategoryMonthlyAmountChangesDataControllerTable: React.FC = () => {
       <div>
         <DateTypeFilterRadioGroup
           value={dateTypeFilter}
-          onChange={setDateTypeFilter}
+          onChange={handleOnDateTypeFilterChange}
         />
       </div>
       <Card>
