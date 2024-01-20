@@ -14,5 +14,9 @@
   },
   "YearFilterDropdown": {
     "null": "All Years"
+  },
+  "DateTypeFilterRadioGroup": {
+    "ACCRUAL": "Accrual Date",
+    "TRANSACTION": "Transaction Date"
   }
 }

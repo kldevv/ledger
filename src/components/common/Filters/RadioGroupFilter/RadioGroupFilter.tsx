@@ -23,7 +23,7 @@ export const RadioGroupFilter = <TValue extends string | number>({
 }: RadioGroupFilterProps<TValue>) => {
   return (
     <RadioGroup
-      className="relative flex space-x-2"
+      className="relative flex space-x-1"
       value={value}
       onChange={onChange}
     >
@@ -35,7 +35,9 @@ export const RadioGroupFilter = <TValue extends string | number>({
                 'flex items-center',
                 'py-1 px-6 rounded-md border border-mid-gray bg-white cursor-pointer',
                 'font-medium text-xs leading-6',
-                active || checked ? 'text-dark-shades' : 'text-gray',
+                active || checked
+                  ? 'text-dark-shades border-gray'
+                  : 'text-gray',
               )}
             >
               {label}

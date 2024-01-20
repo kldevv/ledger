@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { useGetAccountMonthlyAmountChangesQuery, DateType } from '@/api/graphql'
 import {
   Card,
+  DateTypeFilterRadioGroup,
   EntryStatusFilterDropdown,
-  RadioGroupFilter,
   YearFilterDropdown,
 } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
@@ -33,17 +33,15 @@ export const AccountMonthlyAmountChangesDataControllerTable: React.FC = () => {
   })
 
   return (
-    <>
-      <RadioGroupFilter
-        value={dateTypeFilter}
-        onChange={setDateTypeFilter}
-        options={[
-          { label: DateType.ACCRUAL, value: DateType.ACCRUAL },
-          { label: DateType.TRANSACTION, value: DateType.TRANSACTION },
-        ]}
-      />
+    <div className="flex flex-col space-y-2">
+      <div>
+        <DateTypeFilterRadioGroup
+          value={dateTypeFilter}
+          onChange={setDateTypeFilter}
+        />
+      </div>
       <Card>
-        <div className="flex flex-col space-y-3">
+        <div className="flex flex-col space-y-2">
           <div className="flex items-center border-b pt-1 pb-3 border-b-mid-gray space-x-2">
             <EntryStatusFilterDropdown
               value={statusFilter}
@@ -60,6 +58,6 @@ export const AccountMonthlyAmountChangesDataControllerTable: React.FC = () => {
           />
         </div>
       </Card>
-    </>
+    </div>
   )
 }
