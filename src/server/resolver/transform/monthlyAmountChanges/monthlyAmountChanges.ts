@@ -1,4 +1,4 @@
-import type { AmountChangeOnMonth } from '@/api/graphql'
+import type { AmountOnMonth } from '@/api/graphql'
 import type {
   GroupByMonthAndAccountReturns,
   GroupByMonthAndCategoryReturns,
@@ -11,31 +11,31 @@ export const transform = (
     | GroupByMonthAndCategoryReturns
     | GroupByMonthAndCategoryTypeReturns,
 ) => {
-  const mappings = new Map<string, [string, AmountChangeOnMonth[]]>()
+  const mappings = new Map<string, [string, AmountOnMonth[]]>()
 
   prismaReturns.forEach(({ id, name, month, debit, credit }) => {
-    const amountChange = {
+    const amounts = {
       month,
-      amountChange: {
+      amount: {
         debit,
         credit,
       },
     }
 
-    const amountChangeOnMonth = mappings.get(id)
+    const amountOnMonth = mappings.get(id)
 
-    if (amountChangeOnMonth == null) {
+    if (amountOnMonth == null) {
       // set the first element if not found
-      mappings.set(id, [name, [amountChange]])
+      mappings.set(id, [name, [amounts]])
     } else {
       // otherwise add the new record
-      amountChangeOnMonth[1].push(amountChange)
+      amountOnMonth[1].push(amounts)
     }
   })
 
-  return Array.from(mappings.entries()).map(([id, [name, amountChanges]]) => ({
+  return Array.from(mappings.entries()).map(([id, [name, amounts]]) => ({
     id,
     name,
-    amountChanges,
+    amounts,
   }))
 }

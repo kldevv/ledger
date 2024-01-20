@@ -18,13 +18,9 @@ type Query {
   # Report
   getReports(input: GetReportsInput!): [ReportData!]!
   getReportsBalance(input: GetReportsInput!): [ReportData!]!
-  getAccountMonthlyAmountChanges(
-    input: GetMonthlyAmountInput!
-  ): [MonthlyAmount!]!
-  getCategoryMonthlyAmountChanges(
-    input: GetMonthlyAmountInput!
-  ): [MonthlyAmount!]!
-  getCategoryTypeMonthlyAmountChanges(
+  getAccountMonthlyChanges(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
+  getCategoryMonthlyChanges(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
+  getCategoryTypeMonthlyChanges(
     input: GetMonthlyAmountInput!
   ): [MonthlyAmount!]!
   getAccountMonthlyBalance(input: GetMonthlyAmountInput!): [MonthlyAmount!]!

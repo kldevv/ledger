@@ -2,7 +2,7 @@ import { DateType, type QueryResolvers } from '@/api/graphql'
 
 import { monthlyAmountChangesTransform } from '../../transform'
 
-export const getCategoryTypeMonthlyAmountChanges: QueryResolvers['getCategoryTypeMonthlyAmountChanges'] =
+export const getCategoryMonthlyChanges: QueryResolvers['getCategoryMonthlyChanges'] =
   async (
     _,
     { input: { vaultId, year, type, status } },
@@ -16,8 +16,8 @@ export const getCategoryTypeMonthlyAmountChanges: QueryResolvers['getCategoryTyp
 
     const prismaReturns =
       type === DateType.TRANSACTION
-        ? await prisma.entry.groupByMonthAndCategoryType(input)
-        : await prisma.transaction.groupByMonthAndCategoryType(input)
+        ? await prisma.entry.groupByMonthAndCategory(input)
+        : await prisma.transaction.groupByMonthAndCategory(input)
 
     return monthlyAmountChangesTransform.transform(prismaReturns)
   }
