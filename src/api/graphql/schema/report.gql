@@ -32,4 +32,5 @@ input GetMonthlyAmountChangesInput {
   year: Int
   vaultId: String!
   type: DateType!
+  status: EntryStatus
 }

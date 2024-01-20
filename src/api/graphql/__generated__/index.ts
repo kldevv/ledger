@@ -193,6 +193,7 @@ export type GetMinMaxDateInput = {
 };
 
 export type GetMonthlyAmountChangesInput = {
+  status?: InputMaybe<EntryStatus>;
   type: DateType;
   vaultId: Scalars['String']['input'];
   year?: InputMaybe<Scalars['Int']['input']>;

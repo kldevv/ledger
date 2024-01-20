@@ -4,13 +4,17 @@ import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
 import logger from '@/server/logger'
 
-import type { Account, Entry, Transaction } from '@prisma/client'
+import type { Account, Entry, EntryStatus, Transaction } from '@prisma/client'
 
 export type groupByMonthAndAccountProps = Pick<Transaction, 'vaultId'> & {
   /**
    * Filter by year
    */
   year?: number
+  /**
+   * Filter by entry status
+   */
+  status?: EntryStatus
 }
 
 export type GroupByMonthAndAccountReturns = Array<{
@@ -39,6 +43,7 @@ export type GroupByMonthAndAccountReturns = Array<{
 export const groupByMonthAndAccount = async ({
   vaultId,
   year,
+  status,
 }: groupByMonthAndAccountProps) => {
   try {
     return await prisma.$queryRaw<GroupByMonthAndAccountReturns>`
@@ -61,8 +66,15 @@ export const groupByMonthAndAccount = async ({
             ? Prisma.sql`AND EXTRACT(YEAR FROM "transactionDate") = ${year}`
             : Prisma.empty
         }
+        ${
+          status != null
+            ? Prisma.sql`AND e.status = ${status}::"EntryStatus"`
+            : Prisma.empty
+        }
       GROUP BY
-        "month", e."accountId", a."name";
+        "month", e."accountId", a."name"
+      ORDER BY
+        "name", "month";
     `
   } catch (e) {
     logger.log({

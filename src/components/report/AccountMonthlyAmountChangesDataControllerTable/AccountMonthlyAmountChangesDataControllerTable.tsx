@@ -27,8 +27,10 @@ export const AccountMonthlyAmountChangesDataControllerTable: React.FC = () => {
         vaultId: selectedTreasuryBookId ?? '',
         year: yearFilter,
         type: dateTypeFilter,
+        status: statusFilter,
       },
     },
+    fetchPolicy: 'cache-and-network',
     skip: selectedTreasuryBookId == null,
   })
 
