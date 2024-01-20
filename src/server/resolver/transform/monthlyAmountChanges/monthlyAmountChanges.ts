@@ -1,7 +1,16 @@
 import type { AmountChangeOnMonth } from '@/api/graphql'
-import type { groupByMonthAndAccountReturns } from '@/server/db/prisma/dao/entry'
+import type {
+  GroupByMonthAndAccountReturns,
+  GroupByMonthAndCategoryReturns,
+  GroupByMonthAndCategoryTypeReturns,
+} from '@/server/db/prisma/dao/entry'
 
-export const transform = (prismaReturns: groupByMonthAndAccountReturns) => {
+export const transform = (
+  prismaReturns:
+    | GroupByMonthAndAccountReturns
+    | GroupByMonthAndCategoryReturns
+    | GroupByMonthAndCategoryTypeReturns,
+) => {
   const mappings = new Map<string, [string, AmountChangeOnMonth[]]>()
 
   prismaReturns.forEach(({ id, name, month, debit, credit }) => {

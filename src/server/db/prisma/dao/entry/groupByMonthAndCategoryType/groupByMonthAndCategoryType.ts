@@ -51,6 +51,7 @@ export const groupByMonthAndCategoryType = async ({
         EXTRACT(MONTH FROM e."transactionDate") as "month",
         SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as "debit",
         SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as "credit",
+        c."type" as "id",
         c."type" as "name"
       FROM
         "Entry" e
