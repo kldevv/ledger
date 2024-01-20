@@ -17,7 +17,7 @@ export const getCategoryTypeMonthlyAmountChanges: QueryResolvers['getCategoryTyp
     const prismaReturns =
       type === DateType.TRANSACTION
         ? await prisma.entry.groupByMonthAndCategoryType(input)
-        : []
+        : await prisma.transaction.groupByMonthAndCategoryType(input)
 
     return monthlyAmountChangesTransform.transform(prismaReturns)
   }
