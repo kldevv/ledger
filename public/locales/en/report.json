@@ -92,6 +92,13 @@
       "12": "12 - December"
     }
   },
+  "MonthlyBalanceTableGroup": {
+    "title": {
+      "categoryType": "Category Type Monthly Balance",
+      "category": "Category Monthly Balance",
+      "account": "Account Monthly Balance"
+    }
+  },
   "MonthlyChangesTable": {
     "header": {
       "name": "Name",
