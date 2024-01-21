@@ -10,15 +10,17 @@ export interface DropdownFilterProps<
   /**
    * Dropdown options
    */
-  options: { value: TValue; label: React.ReactNode }[]
+  options:
+    | { value: TValue; label: React.ReactNode }[]
+    | { value: TData; label: React.ReactNode }[]
   /**
    * On change
    */
-  onChange: (value: TValue) => void
+  onChange: ((value: TValue) => void) | ((value: TData) => void)
   /**
    * Current value
    */
-  value: TValue
+  value: TValue | TData
 }
 
 export const DropdownFilter = <TData extends string | number>({

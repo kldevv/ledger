@@ -16,17 +16,22 @@ export interface YearFilterDropdownProps {
   /**
    * On change
    */
-  onChange: (year: number | null) => void
+  onChange: ((year: number | null) => void) | ((year: number) => void)
   /**
    * Date type
    */
   type: DateType
+  /**
+   * Disable all year option
+   */
+  disableAllYear?: boolean
 }
 
 export const YearFilterDropdown: React.FC<YearFilterDropdownProps> = ({
   value,
   onChange,
   type,
+  disableAllYear = false,
 }) => {
   const { t } = useTranslation()
   const { selectedTreasuryBookId } = useTreasuryBookContext()
@@ -41,27 +46,27 @@ export const YearFilterDropdown: React.FC<YearFilterDropdownProps> = ({
     skip: selectedTreasuryBookId == null,
   })
 
-  const statusFilterOptions = useMemo(() => {
+  const options = useMemo(() => {
     const options =
       data?.getUniqueYears.map((year) => ({
         value: year,
         label: year.toString(),
       })) ?? []
 
-    return [
-      {
-        value: null,
-        label: t`YearFilterDropdown.null`,
-      },
-      ...options,
-    ]
-  }, [data?.getUniqueYears, t])
+    const currentYear = new Date().getFullYear()
 
-  return (
-    <DropdownFilter
-      value={value}
-      onChange={onChange}
-      options={statusFilterOptions}
-    />
-  )
+    return disableAllYear
+      ? options.find(({ value }) => value === currentYear) != null
+        ? options
+        : [{ value: currentYear, label: currentYear }, ...options]
+      : [
+          {
+            value: null,
+            label: t`YearFilterDropdown.null`,
+          },
+          ...options,
+        ]
+  }, [data?.getUniqueYears, disableAllYear, t])
+
+  return <DropdownFilter value={value} onChange={onChange} options={options} />
 }

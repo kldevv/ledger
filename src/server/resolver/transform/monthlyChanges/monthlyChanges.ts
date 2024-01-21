@@ -1,4 +1,4 @@
-import type { AmountOnMonth } from '@/api/graphql'
+import type { AmountOnMonth, MonthlyAmount } from '@/api/graphql'
 import type {
   GroupByMonthAndAccountReturns,
   GroupByMonthAndCategoryReturns,
@@ -10,7 +10,7 @@ export const transform = (
     | GroupByMonthAndAccountReturns
     | GroupByMonthAndCategoryReturns
     | GroupByMonthAndCategoryTypeReturns,
-) => {
+): Array<MonthlyAmount> => {
   const mappings = new Map<string, [string, AmountOnMonth[]]>()
 
   prismaReturns.forEach(({ id, name, month, debit, credit }) => {

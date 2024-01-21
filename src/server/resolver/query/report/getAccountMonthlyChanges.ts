@@ -19,7 +19,5 @@ export const getAccountMonthlyChanges: QueryResolvers['getAccountMonthlyChanges'
         ? await prisma.entry.groupByMonthAndAccount(input)
         : await prisma.transaction.groupByMonthAndAccount(input)
 
-    console.log(prismaReturns)
-
     return monthlyChanges.transform(prismaReturns)
   }
