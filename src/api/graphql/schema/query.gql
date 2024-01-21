@@ -7,17 +7,10 @@ type Query {
   getCategories(input: GetCategoriesInput!): [Category!]!
   getCategory(input: GetCategoryInput!): Category
 
-  # Common
-  getAccountTopology(input: GetAccountTopologyInput!): [AccountTopology!]!
-  getMinMaxDate(input: GetMinMaxDateInput!): MinMaxDate!
-  getUniqueYears(input: GetUniqueYearsInput!): [Int!]!
-
   # Entry
   getEntries(input: GetEntriesInput!): [Entry!]!
 
   # Report
-  getReports(input: GetReportsInput!): [ReportData!]!
-  getReportsBalance(input: GetReportsInput!): [ReportData!]!
   getAccountMonthlyChanges(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
   getCategoryMonthlyChanges(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
   getCategoryTypeMonthlyChanges(
@@ -28,6 +21,7 @@ type Query {
   getCategoryTypeMonthlyBalance(
     input: GetMonthlyAmountInput!
   ): [MonthlyAmount!]!
+  getUniqueYears(input: GetUniqueYearsInput!): [Int!]!
 
   # Tag
   getTag(input: GetTagInput!): Tag

@@ -31,13 +31,6 @@ export type Account = {
   vaultId: Scalars['String']['output'];
 };
 
-export type AccountTopology = {
-  __typename?: 'AccountTopology';
-  children: Array<AccountTopology>;
-  id: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-};
-
 export type AddAccountInput = {
   categoryId: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -149,10 +142,6 @@ export type GetAccountInput = {
   id: Scalars['String']['input'];
 };
 
-export type GetAccountTopologyInput = {
-  vaultId: Scalars['String']['input'];
-};
-
 export type GetAccountsInput = {
   categoryId?: InputMaybe<Scalars['String']['input']>;
   endDate?: InputMaybe<Scalars['DateTime']['input']>;
@@ -187,21 +176,9 @@ export type GetEntriesInput = {
   vaultId: Scalars['String']['input'];
 };
 
-export type GetMinMaxDateInput = {
-  basis: Basis;
-  vaultId: Scalars['String']['input'];
-};
-
 export type GetMonthlyAmountInput = {
   status?: InputMaybe<EntryStatus>;
   type: DateType;
-  vaultId: Scalars['String']['input'];
-  year?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type GetReportsInput = {
-  basis: Basis;
-  groupBy: ReportDateGroupBy;
   vaultId: Scalars['String']['input'];
   year?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -234,12 +211,6 @@ export type GetVaultsInput = {
   currency?: InputMaybe<Currency>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
   ownerId: Scalars['String']['input'];
-};
-
-export type MinMaxDate = {
-  __typename?: 'MinMaxDate';
-  maxDate?: Maybe<Scalars['DateTime']['output']>;
-  minDate?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type MonthlyAmount = {
@@ -312,7 +283,6 @@ export type Query = {
   getAccount?: Maybe<Account>;
   getAccountMonthlyBalance: Array<MonthlyAmount>;
   getAccountMonthlyChanges: Array<MonthlyAmount>;
-  getAccountTopology: Array<AccountTopology>;
   getAccounts: Array<Account>;
   getCategories: Array<Category>;
   getCategory?: Maybe<Category>;
@@ -321,9 +291,6 @@ export type Query = {
   getCategoryTypeMonthlyBalance: Array<MonthlyAmount>;
   getCategoryTypeMonthlyChanges: Array<MonthlyAmount>;
   getEntries: Array<Entry>;
-  getMinMaxDate: MinMaxDate;
-  getReports: Array<ReportData>;
-  getReportsBalance: Array<ReportData>;
   getTag?: Maybe<Tag>;
   getTags: Array<Tag>;
   getTransaction?: Maybe<Transaction>;
@@ -346,11 +313,6 @@ export type QueryGetAccountMonthlyBalanceArgs = {
 
 export type QueryGetAccountMonthlyChangesArgs = {
   input: GetMonthlyAmountInput;
-};
-
-
-export type QueryGetAccountTopologyArgs = {
-  input: GetAccountTopologyInput;
 };
 
 
@@ -394,21 +356,6 @@ export type QueryGetEntriesArgs = {
 };
 
 
-export type QueryGetMinMaxDateArgs = {
-  input: GetMinMaxDateInput;
-};
-
-
-export type QueryGetReportsArgs = {
-  input: GetReportsInput;
-};
-
-
-export type QueryGetReportsBalanceArgs = {
-  input: GetReportsInput;
-};
-
-
 export type QueryGetTagArgs = {
   input: GetTagInput;
 };
@@ -441,14 +388,6 @@ export type QueryGetUniqueYearsArgs = {
 
 export type QueryGetVaultsArgs = {
   input: GetVaultsInput;
-};
-
-export type ReportData = {
-  __typename?: 'ReportData';
-  count: Scalars['Int']['output'];
-  credit?: Maybe<Scalars['Float']['output']>;
-  debit: Scalars['Float']['output'];
-  encode: Scalars['String']['output'];
 };
 
 export const ReportDateGroupBy = {
@@ -588,7 +527,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
-  AccountTopology: ResolverTypeWrapper<AccountTopology>;
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
@@ -608,14 +546,11 @@ export type ResolversTypes = {
   EntryStatus: EntryStatus;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   GetAccountInput: GetAccountInput;
-  GetAccountTopologyInput: GetAccountTopologyInput;
   GetAccountsInput: GetAccountsInput;
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
-  GetMinMaxDateInput: GetMinMaxDateInput;
   GetMonthlyAmountInput: GetMonthlyAmountInput;
-  GetReportsInput: GetReportsInput;
   GetTagInput: GetTagInput;
   GetTagsInput: GetTagsInput;
   GetTransactionInput: GetTransactionInput;
@@ -623,11 +558,9 @@ export type ResolversTypes = {
   GetUniqueYearsInput: GetUniqueYearsInput;
   GetVaultsInput: GetVaultsInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  MinMaxDate: ResolverTypeWrapper<MinMaxDate>;
   MonthlyAmount: ResolverTypeWrapper<MonthlyAmount>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  ReportData: ResolverTypeWrapper<ReportData>;
   ReportDateGroupBy: ReportDateGroupBy;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Tag: ResolverTypeWrapper<Tag>;
@@ -642,7 +575,6 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Account: Account;
-  AccountTopology: AccountTopology;
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
@@ -657,14 +589,11 @@ export type ResolversParentTypes = {
   Entry: Entry;
   Float: Scalars['Float']['output'];
   GetAccountInput: GetAccountInput;
-  GetAccountTopologyInput: GetAccountTopologyInput;
   GetAccountsInput: GetAccountsInput;
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
-  GetMinMaxDateInput: GetMinMaxDateInput;
   GetMonthlyAmountInput: GetMonthlyAmountInput;
-  GetReportsInput: GetReportsInput;
   GetTagInput: GetTagInput;
   GetTagsInput: GetTagsInput;
   GetTransactionInput: GetTransactionInput;
@@ -672,11 +601,9 @@ export type ResolversParentTypes = {
   GetUniqueYearsInput: GetUniqueYearsInput;
   GetVaultsInput: GetVaultsInput;
   Int: Scalars['Int']['output'];
-  MinMaxDate: MinMaxDate;
   MonthlyAmount: MonthlyAmount;
   Mutation: {};
   Query: {};
-  ReportData: ReportData;
   String: Scalars['String']['output'];
   Tag: Tag;
   Transaction: Transaction;
@@ -694,13 +621,6 @@ export type AccountResolvers<ContextType = ApolloServerContext, ParentType exten
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type AccountTopologyResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AccountTopology'] = ResolversParentTypes['AccountTopology']> = {
-  children?: Resolver<Array<ResolversTypes['AccountTopology']>, ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -743,12 +663,6 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type MinMaxDateResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['MinMaxDate'] = ResolversParentTypes['MinMaxDate']> = {
-  maxDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  minDate?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type MonthlyAmountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['MonthlyAmount'] = ResolversParentTypes['MonthlyAmount']> = {
   amounts?: Resolver<Array<ResolversTypes['AmountOnMonth']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -772,7 +686,6 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountArgs, 'input'>>;
   getAccountMonthlyBalance?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetAccountMonthlyBalanceArgs, 'input'>>;
   getAccountMonthlyChanges?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetAccountMonthlyChangesArgs, 'input'>>;
-  getAccountTopology?: Resolver<Array<ResolversTypes['AccountTopology']>, ParentType, ContextType, RequireFields<QueryGetAccountTopologyArgs, 'input'>>;
   getAccounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountsArgs, 'input'>>;
   getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoriesArgs, 'input'>>;
   getCategory?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryGetCategoryArgs, 'input'>>;
@@ -781,9 +694,6 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getCategoryTypeMonthlyBalance?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetCategoryTypeMonthlyBalanceArgs, 'input'>>;
   getCategoryTypeMonthlyChanges?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetCategoryTypeMonthlyChangesArgs, 'input'>>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
-  getMinMaxDate?: Resolver<ResolversTypes['MinMaxDate'], ParentType, ContextType, RequireFields<QueryGetMinMaxDateArgs, 'input'>>;
-  getReports?: Resolver<Array<ResolversTypes['ReportData']>, ParentType, ContextType, RequireFields<QueryGetReportsArgs, 'input'>>;
-  getReportsBalance?: Resolver<Array<ResolversTypes['ReportData']>, ParentType, ContextType, RequireFields<QueryGetReportsBalanceArgs, 'input'>>;
   getTag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagArgs, 'input'>>;
   getTags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagsArgs, 'input'>>;
   getTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'input'>>;
@@ -791,14 +701,6 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionsArgs, 'input'>>;
   getUniqueYears?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<QueryGetUniqueYearsArgs, 'input'>>;
   getVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetVaultsArgs, 'input'>>;
-};
-
-export type ReportDataResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['ReportData'] = ResolversParentTypes['ReportData']> = {
-  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  credit?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  encode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TagResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
@@ -835,17 +737,14 @@ export type VaultResolvers<ContextType = ApolloServerContext, ParentType extends
 
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
-  AccountTopology?: AccountTopologyResolvers<ContextType>;
   Amount?: AmountResolvers<ContextType>;
   AmountOnMonth?: AmountOnMonthResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Entry?: EntryResolvers<ContextType>;
-  MinMaxDate?: MinMaxDateResolvers<ContextType>;
   MonthlyAmount?: MonthlyAmountResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  ReportData?: ReportDataResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
   Transaction?: TransactionResolvers<ContextType>;
   Vault?: VaultResolvers<ContextType>;
@@ -960,20 +859,6 @@ export type GetCategoryDetailQueryVariables = Exact<{
 
 export type GetCategoryDetailQuery = { __typename?: 'Query', getCategory?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdDate: Date, updatedDate: Date } | null, getAccounts: Array<{ __typename?: 'Account', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date, category?: { __typename?: 'Category', id: string, name: string } | null }>, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
-export type GetAccountTopologyQueryVariables = Exact<{
-  input: GetAccountTopologyInput;
-}>;
-
-
-export type GetAccountTopologyQuery = { __typename?: 'Query', getAccountTopology: Array<{ __typename?: 'AccountTopology', id: string, name: string, children: Array<{ __typename?: 'AccountTopology', id: string, name: string, children: Array<{ __typename?: 'AccountTopology', id: string, name: string }> }> }> };
-
-export type GetMinMaxDateQueryVariables = Exact<{
-  input: GetMinMaxDateInput;
-}>;
-
-
-export type GetMinMaxDateQuery = { __typename?: 'Query', getMinMaxDate: { __typename?: 'MinMaxDate', maxDate?: Date | null, minDate?: Date | null } };
-
 export type GetEntriesQueryVariables = Exact<{
   input: GetEntriesInput;
 }>;
@@ -1024,20 +909,6 @@ export type GetCategoryTypeMonthlyChangesQueryVariables = Exact<{
 
 
 export type GetCategoryTypeMonthlyChangesQuery = { __typename?: 'Query', getCategoryTypeMonthlyChanges: Array<{ __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> }> };
-
-export type GetReportsQueryVariables = Exact<{
-  input: GetReportsInput;
-}>;
-
-
-export type GetReportsQuery = { __typename?: 'Query', getReports: Array<{ __typename?: 'ReportData', encode: string, debit: number, credit?: number | null, count: number }> };
-
-export type GetReportsBalanceQueryVariables = Exact<{
-  input: GetReportsInput;
-}>;
-
-
-export type GetReportsBalanceQuery = { __typename?: 'Query', getReportsBalance: Array<{ __typename?: 'ReportData', encode: string, debit: number, credit?: number | null, count: number }> };
 
 export type GetUniqueYearsQueryVariables = Exact<{
   input: GetUniqueYearsInput;
@@ -1827,96 +1698,6 @@ export type GetCategoryDetailQueryHookResult = ReturnType<typeof useGetCategoryD
 export type GetCategoryDetailLazyQueryHookResult = ReturnType<typeof useGetCategoryDetailLazyQuery>;
 export type GetCategoryDetailSuspenseQueryHookResult = ReturnType<typeof useGetCategoryDetailSuspenseQuery>;
 export type GetCategoryDetailQueryResult = Apollo.QueryResult<GetCategoryDetailQuery, GetCategoryDetailQueryVariables>;
-export const GetAccountTopologyDocument = gql`
-    query getAccountTopology($input: GetAccountTopologyInput!) {
-  getAccountTopology(input: $input) {
-    id
-    name
-    children {
-      id
-      name
-      children {
-        id
-        name
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetAccountTopologyQuery__
- *
- * To run a query within a React component, call `useGetAccountTopologyQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAccountTopologyQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAccountTopologyQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetAccountTopologyQuery(baseOptions: Apollo.QueryHookOptions<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>(GetAccountTopologyDocument, options);
-      }
-export function useGetAccountTopologyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>(GetAccountTopologyDocument, options);
-        }
-export function useGetAccountTopologySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>(GetAccountTopologyDocument, options);
-        }
-export type GetAccountTopologyQueryHookResult = ReturnType<typeof useGetAccountTopologyQuery>;
-export type GetAccountTopologyLazyQueryHookResult = ReturnType<typeof useGetAccountTopologyLazyQuery>;
-export type GetAccountTopologySuspenseQueryHookResult = ReturnType<typeof useGetAccountTopologySuspenseQuery>;
-export type GetAccountTopologyQueryResult = Apollo.QueryResult<GetAccountTopologyQuery, GetAccountTopologyQueryVariables>;
-export const GetMinMaxDateDocument = gql`
-    query getMinMaxDate($input: GetMinMaxDateInput!) {
-  getMinMaxDate(input: $input) {
-    maxDate
-    minDate
-  }
-}
-    `;
-
-/**
- * __useGetMinMaxDateQuery__
- *
- * To run a query within a React component, call `useGetMinMaxDateQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMinMaxDateQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMinMaxDateQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetMinMaxDateQuery(baseOptions: Apollo.QueryHookOptions<GetMinMaxDateQuery, GetMinMaxDateQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMinMaxDateQuery, GetMinMaxDateQueryVariables>(GetMinMaxDateDocument, options);
-      }
-export function useGetMinMaxDateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMinMaxDateQuery, GetMinMaxDateQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMinMaxDateQuery, GetMinMaxDateQueryVariables>(GetMinMaxDateDocument, options);
-        }
-export function useGetMinMaxDateSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetMinMaxDateQuery, GetMinMaxDateQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetMinMaxDateQuery, GetMinMaxDateQueryVariables>(GetMinMaxDateDocument, options);
-        }
-export type GetMinMaxDateQueryHookResult = ReturnType<typeof useGetMinMaxDateQuery>;
-export type GetMinMaxDateLazyQueryHookResult = ReturnType<typeof useGetMinMaxDateLazyQuery>;
-export type GetMinMaxDateSuspenseQueryHookResult = ReturnType<typeof useGetMinMaxDateSuspenseQuery>;
-export type GetMinMaxDateQueryResult = Apollo.QueryResult<GetMinMaxDateQuery, GetMinMaxDateQueryVariables>;
 export const GetEntriesDocument = gql`
     query getEntries($input: GetEntriesInput!) {
   getEntries(input: $input) {
@@ -2213,92 +1994,6 @@ export type GetCategoryTypeMonthlyChangesQueryHookResult = ReturnType<typeof use
 export type GetCategoryTypeMonthlyChangesLazyQueryHookResult = ReturnType<typeof useGetCategoryTypeMonthlyChangesLazyQuery>;
 export type GetCategoryTypeMonthlyChangesSuspenseQueryHookResult = ReturnType<typeof useGetCategoryTypeMonthlyChangesSuspenseQuery>;
 export type GetCategoryTypeMonthlyChangesQueryResult = Apollo.QueryResult<GetCategoryTypeMonthlyChangesQuery, GetCategoryTypeMonthlyChangesQueryVariables>;
-export const GetReportsDocument = gql`
-    query getReports($input: GetReportsInput!) {
-  getReports(input: $input) {
-    encode
-    debit
-    credit
-    count
-  }
-}
-    `;
-
-/**
- * __useGetReportsQuery__
- *
- * To run a query within a React component, call `useGetReportsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetReportsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetReportsQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetReportsQuery(baseOptions: Apollo.QueryHookOptions<GetReportsQuery, GetReportsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetReportsQuery, GetReportsQueryVariables>(GetReportsDocument, options);
-      }
-export function useGetReportsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetReportsQuery, GetReportsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetReportsQuery, GetReportsQueryVariables>(GetReportsDocument, options);
-        }
-export function useGetReportsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetReportsQuery, GetReportsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetReportsQuery, GetReportsQueryVariables>(GetReportsDocument, options);
-        }
-export type GetReportsQueryHookResult = ReturnType<typeof useGetReportsQuery>;
-export type GetReportsLazyQueryHookResult = ReturnType<typeof useGetReportsLazyQuery>;
-export type GetReportsSuspenseQueryHookResult = ReturnType<typeof useGetReportsSuspenseQuery>;
-export type GetReportsQueryResult = Apollo.QueryResult<GetReportsQuery, GetReportsQueryVariables>;
-export const GetReportsBalanceDocument = gql`
-    query getReportsBalance($input: GetReportsInput!) {
-  getReportsBalance(input: $input) {
-    encode
-    debit
-    credit
-    count
-  }
-}
-    `;
-
-/**
- * __useGetReportsBalanceQuery__
- *
- * To run a query within a React component, call `useGetReportsBalanceQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetReportsBalanceQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetReportsBalanceQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetReportsBalanceQuery(baseOptions: Apollo.QueryHookOptions<GetReportsBalanceQuery, GetReportsBalanceQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetReportsBalanceQuery, GetReportsBalanceQueryVariables>(GetReportsBalanceDocument, options);
-      }
-export function useGetReportsBalanceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetReportsBalanceQuery, GetReportsBalanceQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetReportsBalanceQuery, GetReportsBalanceQueryVariables>(GetReportsBalanceDocument, options);
-        }
-export function useGetReportsBalanceSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetReportsBalanceQuery, GetReportsBalanceQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetReportsBalanceQuery, GetReportsBalanceQueryVariables>(GetReportsBalanceDocument, options);
-        }
-export type GetReportsBalanceQueryHookResult = ReturnType<typeof useGetReportsBalanceQuery>;
-export type GetReportsBalanceLazyQueryHookResult = ReturnType<typeof useGetReportsBalanceLazyQuery>;
-export type GetReportsBalanceSuspenseQueryHookResult = ReturnType<typeof useGetReportsBalanceSuspenseQuery>;
-export type GetReportsBalanceQueryResult = Apollo.QueryResult<GetReportsBalanceQuery, GetReportsBalanceQueryVariables>;
 export const GetUniqueYearsDocument = gql`
     query getUniqueYears($input: GetUniqueYearsInput!) {
   getUniqueYears(input: $input)

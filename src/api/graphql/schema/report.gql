@@ -1,17 +1,3 @@
-type ReportData {
-  encode: String!
-  credit: Float
-  debit: Float!
-  count: Int!
-}
-
-input GetReportsInput {
-  year: Int
-  groupBy: ReportDateGroupBy!
-  vaultId: String!
-  basis: Basis!
-}
-
 type Amount {
   credit: Float!
   debit: Float!
@@ -33,4 +19,9 @@ input GetMonthlyAmountInput {
   vaultId: String!
   type: DateType!
   status: EntryStatus
+}
+
+input GetUniqueYearsInput {
+  vaultId: String!
+  type: DateType!
 }
