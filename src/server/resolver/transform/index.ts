@@ -1,2 +1,2 @@
 export * from './entries'
-export * as monthlyAmountChangesTransform from './monthlyAmountChanges'
+export * as monthlyChanges from './monthlyChanges'

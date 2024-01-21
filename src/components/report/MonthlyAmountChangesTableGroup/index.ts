@@ -1,1 +1,1 @@
-export * from './MonthlyAmountChangesTableGroup'
+export * from './MonthlyChangesTableGroup'

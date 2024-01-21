@@ -24,6 +24,10 @@ type Query {
     input: GetMonthlyAmountInput!
   ): [MonthlyAmount!]!
   getAccountMonthlyBalance(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
+  getCategoryMonthlyBalance(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
+  getCategoryTypeMonthlyBalance(
+    input: GetMonthlyAmountInput!
+  ): [MonthlyAmount!]!
 
   # Tag
   getTag(input: GetTagInput!): Tag

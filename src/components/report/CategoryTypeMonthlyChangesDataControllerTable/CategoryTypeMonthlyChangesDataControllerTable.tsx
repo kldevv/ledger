@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { useGetAccountMonthlyAmountChangesQuery, DateType } from '@/api/graphql'
+import { DateType, useGetCategoryTypeMonthlyChangesQuery } from '@/api/graphql'
 import {
   Card,
   DateTypeFilterRadioGroup,
@@ -9,11 +9,11 @@ import {
 } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
-import { MonthlyAmountChangesTable } from '..'
+import { MonthlyChangesTable } from '..'
 
 import type { EntryStatus } from '@/api/graphql'
 
-export const AccountMonthlyAmountChangesDataControllerTable: React.FC = () => {
+export const CategoryTypeMonthlyChangesDataControllerTable: React.FC = () => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
   const [statusFilter, setStatusFilter] = useState<EntryStatus | null>(null)
   const [yearFilter, setYearFilter] = useState<number | null>(null)
@@ -26,7 +26,7 @@ export const AccountMonthlyAmountChangesDataControllerTable: React.FC = () => {
     setDateTypeFilter(value)
   }, [])
 
-  const { data } = useGetAccountMonthlyAmountChangesQuery({
+  const { data } = useGetCategoryTypeMonthlyChangesQuery({
     variables: {
       input: {
         vaultId: selectedTreasuryBookId ?? '',
@@ -60,8 +60,8 @@ export const AccountMonthlyAmountChangesDataControllerTable: React.FC = () => {
               type={dateTypeFilter}
             />
           </div>
-          <MonthlyAmountChangesTable
-            data={data?.getAccountMonthlyAmountChanges ?? []}
+          <MonthlyChangesTable
+            data={data?.getCategoryTypeMonthlyChanges ?? []}
           />
         </div>
       </Card>

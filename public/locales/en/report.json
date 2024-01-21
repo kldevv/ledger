@@ -75,7 +75,7 @@
       }
     }
   },
-  "MonthlyAmountChangesTable": {
+  "MonthlyChangesTable": {
     "header": {
       "name": "Name",
       "1": "1 - January",
@@ -96,7 +96,7 @@
       }
     }
   },
-  "MonthlyAmountChangesTableGroup": {
+  "MonthlyChangesTableGroup": {
     "title": {
       "categoryType": "Category Type Monthly Changes",
       "category": "Category Monthly Changes",
