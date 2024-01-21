@@ -8,21 +8,23 @@ export const getCategoryMonthlyBalance: QueryResolvers['getCategoryMonthlyBalanc
     { input: { vaultId, year, type, status } },
     { dataSources: { prisma } },
   ) => {
-    const input = {
+    const changeInput = {
       vaultId,
-      year: year != null ? year : undefined,
+      year: year != null ? year : new Date().getFullYear(),
       status: status != null ? status : undefined,
     }
 
     const changes =
       type === DateType.TRANSACTION
-        ? await prisma.entry.groupByMonthAndCategory(input)
-        : await prisma.transaction.groupByMonthAndCategory(input)
+        ? await prisma.entry.groupByMonthAndCategory(changeInput)
+        : await prisma.transaction.groupByMonthAndCategory(changeInput)
+
+    const balanceInput = { ...changeInput, year: changeInput.year - 1 }
 
     const balance =
       type === DateType.TRANSACTION
-        ? await prisma.entry.groupByAccount(input)
-        : []
+        ? await prisma.entry.groupByCategory(balanceInput)
+        : await prisma.transaction.groupByCategory(balanceInput)
 
     return monthlyBalance.transform(balance, changes)
   }
