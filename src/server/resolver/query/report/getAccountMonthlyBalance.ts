@@ -24,7 +24,7 @@ export const getAccountMonthlyBalance: QueryResolvers['getAccountMonthlyBalance'
     const balance =
       type === DateType.TRANSACTION
         ? await prisma.entry.groupByAccount(balanceInput)
-        : []
+        : await prisma.transaction.groupByAccount(balanceInput)
 
     return monthlyBalance.transform(balance, changes)
   }

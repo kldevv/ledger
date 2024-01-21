@@ -46,10 +46,7 @@ export const transform = (
     levels.set(id, updateLevel)
   })
 
-  console.log(levels)
-  console.log(mappings)
-
-  return Array.from(mappings.entries()).map(([id, value]) => ({
+  const result = Array.from(mappings.entries()).map(([id, value]) => ({
     id,
     name: accountName.get(id) ?? '',
     amounts: value.map(([month, debit, credit]) => ({
@@ -57,4 +54,8 @@ export const transform = (
       amount: { debit, credit },
     })),
   }))
+
+  result.sort((a, b) => a.name.localeCompare(b.name))
+
+  return result
 }

@@ -33,9 +33,15 @@ export const transform = (
     }
   })
 
-  return Array.from(mappings.entries()).map(([id, [name, amounts]]) => ({
-    id,
-    name,
-    amounts,
-  }))
+  const result = Array.from(mappings.entries()).map(
+    ([id, [name, amounts]]) => ({
+      id,
+      name,
+      amounts,
+    }),
+  )
+
+  result.sort((a, b) => a.name.localeCompare(b.name))
+
+  return result
 }

@@ -1,4 +1,5 @@
 export * from './createOne'
+export * from './groupByAccount'
 export * from './groupByMonthAndAccount'
 export * from './groupByMonthAndCategory'
 export * from './groupByMonthAndCategoryType'
