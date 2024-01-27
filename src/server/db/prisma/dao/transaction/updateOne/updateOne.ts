@@ -4,7 +4,7 @@ import logger from '@/server/logger'
 
 import type { Entry, Transaction } from '@prisma/client'
 
-export type UpdateOneProps = Pick<Transaction, 'id' | 'vaultId'> & {
+export type UpdateOneProps = Pick<Transaction, 'id' | 'treasuryBookId'> & {
   /**
    * Data
    */
@@ -12,7 +12,7 @@ export type UpdateOneProps = Pick<Transaction, 'id' | 'vaultId'> & {
 }
 
 type Data = Partial<
-  Omit<Transaction, 'createdDate' | 'updatedDate' | 'id' | 'vaultId'> & {
+  Omit<Transaction, 'createdDate' | 'updatedDate' | 'id' | 'treasuryBookId'> & {
     /**
      * List of tag ids to connect to
      */
@@ -22,14 +22,14 @@ type Data = Partial<
      */
     entries: Omit<
       Entry,
-      'createdDate' | 'updatedDate' | 'id' | 'vaultId' | 'transactionId'
+      'createdDate' | 'updatedDate' | 'id' | 'treasuryBookId' | 'transactionId'
     >[]
   }
 >
 
 export const updateOne = async ({
   id,
-  vaultId,
+  treasuryBookId,
   data: { entries, tagIds, ...props },
 }: UpdateOneProps) => {
   try {
@@ -50,7 +50,7 @@ export const updateOne = async ({
               deleteMany: {},
               createMany: {
                 data: entries.map((entry) => ({
-                  vaultId,
+                  treasuryBookId,
                   ...entry,
                 })),
               },

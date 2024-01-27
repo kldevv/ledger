@@ -5,7 +5,7 @@ import logger from '@/server/logger'
 import type { Account } from '@prisma/client'
 
 export type ReadManyProps = Partial<
-  Pick<Account, 'name' | 'categoryId' | 'vaultId'>
+  Pick<Account, 'name' | 'categoryId' | 'treasuryBookId'>
 >
 
 export const readMany = async (where: ReadManyProps) => {
