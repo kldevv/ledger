@@ -9,7 +9,7 @@ import { z } from 'zod'
 import {
   Button,
   InputText,
-  InputNumber,
+  InputCurrencyNumber,
   ListBox,
   StatusChip,
   InputDate,
@@ -135,11 +135,11 @@ export const UpsertEntryField: React.FC<UpsertEntryFieldProps> = ({
             label: <StatusChip status={value} key={value} />,
           }))}
         />
-        <InputNumber<UpsertTransactionFormFieldValues>
+        <InputCurrencyNumber<UpsertTransactionFormFieldValues>
           label={t`UpsertTransactionForm.label.entries.debit`}
           name={`entries.${index}.debit` as const}
         />
-        <InputNumber<UpsertTransactionFormFieldValues>
+        <InputCurrencyNumber<UpsertTransactionFormFieldValues>
           label={t`UpsertTransactionForm.label.entries.credit`}
           name={`entries.${index}.credit` as const}
         />

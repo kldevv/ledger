@@ -5,7 +5,7 @@ import { numericFormatter } from 'react-number-format'
 import { useTreasuryBookContext } from '@/hooks'
 import { getCurrencySymbol } from '@/lib/formatter/getCurrencySymbol/getCurrencySymbol'
 
-export interface FormattedNumberProps {
+export interface FormattedCurrencyNumberProps {
   /**
    * Value
    */
@@ -16,10 +16,9 @@ export interface FormattedNumberProps {
   className?: string
 }
 
-export const FormattedNumber: React.FC<FormattedNumberProps> = ({
-  value,
-  className,
-}) => {
+export const FormattedCurrencyNumber: React.FC<
+  FormattedCurrencyNumberProps
+> = ({ value, className }) => {
   const { selectedTreasuryBookId, data: { getVaults } = {} } =
     useTreasuryBookContext()
 

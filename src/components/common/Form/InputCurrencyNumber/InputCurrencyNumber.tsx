@@ -10,7 +10,7 @@ import { getCurrencySymbol } from '@/lib'
 
 import type { InputCoreProps } from '@/components/common'
 
-export interface InputNumberProps<TFieldValues extends FieldValues>
+export interface InputCurrencyNumberProps<TFieldValues extends FieldValues>
   extends Omit<
     InputCoreProps,
     'onChange' | 'value' | 'onBur' | 'defaultValue' | 'type' | 'ref'
@@ -33,12 +33,12 @@ export interface InputNumberProps<TFieldValues extends FieldValues>
   defaultValue?: number | string
 }
 
-export const InputNumber = <TFieldValues extends FieldValues>({
+export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
   name,
   label,
   control,
   ...props
-}: InputNumberProps<TFieldValues>) => {
+}: InputCurrencyNumberProps<TFieldValues>) => {
   const {
     field: { onChange, onBlur, value, ref, disabled },
     fieldState: { error },
