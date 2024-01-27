@@ -1,11 +1,11 @@
 import { PageHeader, Layout } from '@/components/layout'
-import { InsertVaultForm } from '@/components/vault'
+import { InsertTreasuryBookForm } from '@/components/treasuryBook'
 
 const Page: React.FC = () => {
   return (
     <Layout>
       <PageHeader />
-      <InsertVaultForm />
+      <InsertTreasuryBookForm />
     </Layout>
   )
 }

@@ -1,11 +1,11 @@
 import { useTranslation } from 'next-i18next'
 
 import { PageHeader, Layout } from '@/components/layout'
-import { TreasuryBookDataTable } from '@/components/vault'
+import { TreasuryBookDataTable } from '@/components/treasuryBook'
 import { route } from '@/lib'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('vault')
+  const { t } = useTranslation('treasuryBook')
 
   return (
     <Layout>

@@ -8,24 +8,26 @@ import { useForm } from '@/hooks'
 import type { FormProps } from '@/components/common'
 import type { UseFormProps } from '@/hooks'
 
-export const upsertVaultFormSchema = z.object({
+export const upsertTreasuryBookFormSchema = z.object({
   /**
-   * Vault name
+   * TreasuryBook name
    */
   name: z.string().min(1).max(50),
   /**
-   * Vault currency
+   * TreasuryBook currency
    */
   currency: z.nativeEnum(Currency),
 })
 
-export type UpsertVaultFormFieldValues = z.infer<typeof upsertVaultFormSchema>
+export type UpsertTreasuryBookFormFieldValues = z.infer<
+  typeof upsertTreasuryBookFormSchema
+>
 
-export interface UpsertVaultFormProps {
+export interface UpsertTreasuryBookFormProps {
   /**
    * On submit
    */
-  onSubmit: FormProps<UpsertVaultFormFieldValues>['onSubmit']
+  onSubmit: FormProps<UpsertTreasuryBookFormFieldValues>['onSubmit']
   /**
    * On submit text
    */
@@ -33,31 +35,31 @@ export interface UpsertVaultFormProps {
   /**
    * Default form values
    */
-  defaultValues: UseFormProps<UpsertVaultFormFieldValues>['defaultValues']
+  defaultValues: UseFormProps<UpsertTreasuryBookFormFieldValues>['defaultValues']
 }
 
-export const UpsertVaultForm: React.FC<UpsertVaultFormProps> = ({
+export const UpsertTreasuryBookForm: React.FC<UpsertTreasuryBookFormProps> = ({
   onSubmit,
   onSubmitText,
   defaultValues,
 }) => {
-  const { t } = useTranslation('vault')
+  const { t } = useTranslation('treasuryBook')
 
-  const context = useForm<UpsertVaultFormFieldValues>({
-    schema: upsertVaultFormSchema,
+  const context = useForm<UpsertTreasuryBookFormFieldValues>({
+    schema: upsertTreasuryBookFormSchema,
     defaultValues,
   })
 
   return (
     <Form onSubmit={onSubmit} context={context}>
       <div className="flex flex-col">
-        <InputText<UpsertVaultFormFieldValues>
+        <InputText<UpsertTreasuryBookFormFieldValues>
           name="name"
-          label={t('UpsertVaultForm.label.name')}
+          label={t('UpsertTreasuryBookForm.label.name')}
         />
-        <ListBox<UpsertVaultFormFieldValues>
+        <ListBox<UpsertTreasuryBookFormFieldValues>
           name="currency"
-          label={t('UpsertVaultForm.label.currency')}
+          label={t('UpsertTreasuryBookForm.label.currency')}
           options={currencyOptions}
         />
       </div>

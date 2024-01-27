@@ -12,13 +12,13 @@
       "selected": "SELECTED"
     }
   },
-  "UpsertVaultForm": {
+  "UpsertTreasuryBookForm": {
     "label": {
-      "name": "Vault Name",
-      "currency": "Vault Currency"
+      "name": "TreasuryBook Name",
+      "currency": "TreasuryBook Currency"
     }
   },
-  "InsertVaultForm": {
+  "InsertTreasuryBookForm": {
     "submit": "Create"
   },
   "page": {

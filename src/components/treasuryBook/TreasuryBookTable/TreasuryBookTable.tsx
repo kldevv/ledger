@@ -23,11 +23,11 @@ export interface TreasuryBookTableProps {
 export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
   data,
 }) => {
-  const { t } = useTranslation('vault')
+  const { t } = useTranslation('treasuryBook')
   const { selectedTreasuryBookId, setSelectedTreasuryBookId } =
     useTreasuryBookContext()
 
-  const createHandleOnVaultSwitch = useCallback(
+  const createHandleOnTreasuryBookSwitch = useCallback(
     (id: string) => {
       return () => setSelectedTreasuryBookId?.(id)
     },
@@ -70,10 +70,10 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
         cell: (props) => <FormattedDate dateTime={props.getValue()} />,
       }),
       columnHelper.display({
-        id: 'select-vault',
+        id: 'select-treasury-book',
         cell: (props) => (
           <Button
-            onClick={createHandleOnVaultSwitch(props.row.getValue('id'))}
+            onClick={createHandleOnTreasuryBookSwitch(props.row.getValue('id'))}
             className="text-light-accent"
           >
             {t('TreasuryBookTable.button.switch')}
@@ -81,7 +81,7 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
         ),
       }),
     ],
-    [createHandleOnVaultSwitch, selectedTreasuryBookId, t],
+    [createHandleOnTreasuryBookSwitch, selectedTreasuryBookId, t],
   )
 
   return <Table data={data} colDefs={colDefs} />
