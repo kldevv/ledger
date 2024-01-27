@@ -20,7 +20,7 @@ export interface EntryStatusFilterDropdownProps {
 export const EntryStatusFilterDropdown: React.FC<
   EntryStatusFilterDropdownProps
 > = ({ value, onChange }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common')
 
   const statusFilterOptions = useMemo(() => {
     const options = Object.values(EntryStatus).map((status) => ({

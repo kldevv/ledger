@@ -33,7 +33,7 @@ export const YearFilterDropdown: React.FC<YearFilterDropdownProps> = ({
   type,
   disableAllYear = false,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { data } = useGetUniqueYearsQuery({
@@ -55,7 +55,7 @@ export const YearFilterDropdown: React.FC<YearFilterDropdownProps> = ({
 
     const currentYear = new Date().getFullYear()
 
-    return disableAllYear
+    const convertedOptions = disableAllYear
       ? options.find(({ value }) => value === currentYear) != null
         ? options
         : [{ value: currentYear, label: currentYear }, ...options]
@@ -66,6 +66,10 @@ export const YearFilterDropdown: React.FC<YearFilterDropdownProps> = ({
           },
           ...options,
         ]
+
+    convertedOptions.sort()
+
+    return convertedOptions
   }, [data?.getUniqueYears, disableAllYear, t])
 
   return <DropdownFilter value={value} onChange={onChange} options={options} />

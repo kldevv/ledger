@@ -53,7 +53,7 @@ export const groupByCategoryType = async ({
       JOIN
         accounts a on a.id = e.account_id
       JOIN
-        categories c on c.id = a.categories_id
+        categories c on c.id = a.category_id
       JOIN
         transactions t on t.id = e.transaction_id
       WHERE

@@ -63,7 +63,7 @@ export const groupByMonthAndCategory = async ({
       JOIN
         categories c ON c.id = a.category_id
       JOIN
-        transactions t ON t.id = e.transactionId
+        transactions t ON t.id = e.transaction_id
       WHERE
         e.treasury_book_id = ${treasuryBookId}
         ${

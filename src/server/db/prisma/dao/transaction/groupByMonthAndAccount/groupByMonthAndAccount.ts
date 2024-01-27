@@ -59,7 +59,7 @@ export const groupByMonthAndAccount = async ({
       FROM
         entries e
       JOIN
-        account a ON a.id = e.account_id
+        accounts a ON a.id = e.account_id
       JOIN
         transactions t ON t.id = e.transaction_id
       WHERE
