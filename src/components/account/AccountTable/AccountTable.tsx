@@ -34,8 +34,8 @@ export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
       columnHelper.accessor('category.name', {
         header: t('AccountTable.header.category'),
       }),
-      columnHelper.accessor('createdDate', {
-        header: t('AccountTable.header.createdDate'),
+      columnHelper.accessor('createdAt', {
+        header: t('AccountTable.header.createdAt'),
         cell: (props) => <FormattedDate dateTime={props.getValue()} />,
       }),
       columnHelper.display({

@@ -1,7 +1,7 @@
 query getEntries($input: GetEntriesInput!) {
   getEntries(input: $input) {
     id
-    vaultId
+    treasuryBookId
     transactionDate
     debit
     credit

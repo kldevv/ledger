@@ -31,8 +31,8 @@ export const TagTable: React.FC<TagTableProps> = ({ data }) => {
           <span className="text-dark-shades">{props.getValue()}</span>
         ),
       }),
-      columnHelper.accessor('createdDate', {
-        header: t`TagTable.header.createdDate`,
+      columnHelper.accessor('createdAt', {
+        header: t`TagTable.header.createdAt`,
         cell: (props) => <FormattedDate dateTime={props.getValue()} />,
       }),
       columnHelper.display({

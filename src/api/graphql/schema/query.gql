@@ -32,6 +32,6 @@ type Query {
   getTransactionDetail(transactionId: String!): Transaction
   getTransactions(input: GetTransactionsInput!): [Transaction!]!
 
-  # Vault
-  getVaults(input: GetVaultsInput!): [Vault!]!
+  # TreasuryBook
+  getTreasuryBooks(input: GetTreasuryBooksInput!): [TreasuryBook!]!
 }

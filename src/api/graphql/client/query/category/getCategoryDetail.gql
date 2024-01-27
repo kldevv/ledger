@@ -7,8 +7,8 @@ query getCategoryDetail(
     id
     name
     type
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
   getAccounts(input: $getAccountsInput) {
     id
@@ -17,13 +17,13 @@ query getCategoryDetail(
       name
     }
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
   getEntries(input: $getEntriesInput) {
     id
-    vaultId
+    treasuryBookId
     transactionDate
     debit
     credit

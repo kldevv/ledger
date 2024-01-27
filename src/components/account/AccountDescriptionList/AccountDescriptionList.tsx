@@ -19,7 +19,7 @@ export interface AccountDescriptionListProps {
 }
 
 export const AccountDescriptionList: React.FC<AccountDescriptionListProps> = ({
-  data: { id, name, createdDate, updatedDate, category } = {},
+  data: { id, name, createdAt, updatedAt, category } = {},
 }) => {
   const { t } = useTranslation('account')
 
@@ -38,15 +38,15 @@ export const AccountDescriptionList: React.FC<AccountDescriptionListProps> = ({
         description: category?.name,
       },
       {
-        title: t('AccountDescriptionList.title.createdDate'),
-        description: <FormattedDate dateTime={createdDate} />,
+        title: t('AccountDescriptionList.title.createdAt'),
+        description: <FormattedDate dateTime={createdAt} />,
       },
       {
-        title: t('AccountDescriptionList.title.updatedDate'),
-        description: <FormattedDate dateTime={updatedDate} />,
+        title: t('AccountDescriptionList.title.updatedAt'),
+        description: <FormattedDate dateTime={updatedAt} />,
       },
     ],
-    [category?.name, createdDate, id, name, t, updatedDate],
+    [category?.name, createdAt, id, name, t, updatedAt],
   )
 
   return <DescriptionList items={items} />

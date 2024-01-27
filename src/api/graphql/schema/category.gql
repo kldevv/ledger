@@ -2,21 +2,21 @@ type Category {
   id: String!
   name: String!
   type: CategoryType!
-  vaultId: String!
-  createdDate: DateTime!
-  updatedDate: DateTime!
+  treasuryBookId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input AddCategoryInput {
   name: String!
   type: CategoryType!
-  vaultId: String!
+  treasuryBookId: String!
 }
 
 input UpdateCategoryInput {
   id: String!
   name: String!
-  type: CategoryType!  
+  type: CategoryType!
 }
 
 input GetCategoryInput {
@@ -24,7 +24,7 @@ input GetCategoryInput {
 }
 
 input GetCategoriesInput {
-  vaultId: String!
+  treasuryBookId: String!
   nameSearch: String
   type: CategoryType
 }

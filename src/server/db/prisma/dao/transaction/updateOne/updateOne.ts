@@ -12,7 +12,7 @@ export type UpdateOneProps = Pick<Transaction, 'id' | 'treasuryBookId'> & {
 }
 
 type Data = Partial<
-  Omit<Transaction, 'createdDate' | 'updatedDate' | 'id' | 'treasuryBookId'> & {
+  Omit<Transaction, 'createdAt' | 'updatedAt' | 'id' | 'treasuryBookId'> & {
     /**
      * List of tag ids to connect to
      */
@@ -22,7 +22,7 @@ type Data = Partial<
      */
     entries: Omit<
       Entry,
-      'createdDate' | 'updatedDate' | 'id' | 'treasuryBookId' | 'transactionId'
+      'createdAt' | 'updatedAt' | 'id' | 'treasuryBookId' | 'transactionId'
     >[]
   }
 >

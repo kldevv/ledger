@@ -5,7 +5,7 @@ import logger from '@/server/logger'
 import type { Account, Category, Entry } from '@prisma/client'
 
 export type ReadManyProps = Partial<
-  Omit<Entry, 'createdDate' | 'updatedDate' | 'amount' | 'memo'> &
+  Omit<Entry, 'createdAt' | 'updatedAt' | 'amount' | 'memo'> &
     Pick<Account, 'categoryId'> &
     Pick<Category, 'type'>
 >

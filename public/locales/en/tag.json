@@ -12,8 +12,8 @@
     "title": {
       "id": "ID",
       "name": "Name",
-      "updatedDate": "Last Updated Date",
-      "createdDate": "Created Date"
+      "updatedAt": "Last Updated Date",
+      "createdAt": "Created Date"
     }
   },
   "TagDetail": {
@@ -25,7 +25,7 @@
     "header": {
       "id": "ID",
       "name": "Name",
-      "createdDate": "Created Date"
+      "createdAt": "Created Date"
     }
   },
   "UpdateTagForm": {

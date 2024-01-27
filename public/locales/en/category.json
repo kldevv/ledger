@@ -4,8 +4,8 @@
       "id": "ID",
       "name": "Name",
       "type": "Category Type",
-      "updatedDate": "Last Updated Date",
-      "createdDate": "Created Date"
+      "updatedAt": "Last Updated Date",
+      "createdAt": "Created Date"
     }
   },
   "CategoryDetail": {
@@ -19,7 +19,7 @@
       "id": "ID",
       "name": "Name",
       "type": "Category Type",
-      "createdDate": "Created Date"
+      "createdAt": "Created Date"
     }
   },
   "InsertCategoryFrom": {

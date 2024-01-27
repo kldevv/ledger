@@ -7,8 +7,8 @@ query getTransaction($input: GetTransactionInput!) {
       id
       name
     }
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }

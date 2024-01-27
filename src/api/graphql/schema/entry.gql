@@ -1,6 +1,6 @@
 type Entry {
   id: String!
-  vaultId: String!
+  treasuryBookId: String!
   transactionDate: DateTime!
   debit: Float!
   credit: Float!
@@ -20,7 +20,7 @@ input AddEntryInput {
 }
 
 input GetEntriesInput {
-  vaultId: String!
+  treasuryBookId: String!
   startDate: DateTime
   endDate: DateTime
   transactionId: String

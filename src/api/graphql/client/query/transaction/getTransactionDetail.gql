@@ -10,13 +10,13 @@ query getTransactionDetail(
       id
       name
     }
-    createdDate
-    updatedDate
-    vaultId
+    createdAt
+    updatedAt
+    treasuryBookId
   }
   getEntries(input: $getEntriesInput) {
     id
-    vaultId
+    treasuryBookId
     transactionDate
     debit
     credit

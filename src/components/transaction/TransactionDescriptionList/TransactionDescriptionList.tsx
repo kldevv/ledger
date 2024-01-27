@@ -31,7 +31,7 @@ export interface TransactionDescriptionListProps {
 export const TransactionDescriptionList: React.FC<
   TransactionDescriptionListProps
 > = ({
-  data: { id, accrualDate, note, status, createdDate, updatedDate, tags } = {},
+  data: { id, accrualDate, note, status, createdAt, updatedAt, tags } = {},
 }) => {
   const { t } = useTranslation('transaction')
 
@@ -62,15 +62,15 @@ export const TransactionDescriptionList: React.FC<
         ),
       },
       {
-        title: t('TransactionDescriptionList.title.createdDate'),
-        description: <FormattedDate dateTime={createdDate} />,
+        title: t('TransactionDescriptionList.title.createdAt'),
+        description: <FormattedDate dateTime={createdAt} />,
       },
       {
-        title: t('TransactionDescriptionList.title.updatedDate'),
-        description: <FormattedDate dateTime={updatedDate} />,
+        title: t('TransactionDescriptionList.title.updatedAt'),
+        description: <FormattedDate dateTime={updatedAt} />,
       },
     ],
-    [accrualDate, createdDate, id, note, status, t, tags, updatedDate],
+    [accrualDate, createdAt, id, note, status, t, tags, updatedAt],
   )
 
   return <DescriptionList items={items} />

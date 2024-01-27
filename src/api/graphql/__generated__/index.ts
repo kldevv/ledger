@@ -24,23 +24,23 @@ export type Scalars = {
 export type Account = {
   __typename?: 'Account';
   category?: Maybe<Category>;
-  createdDate: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
-  updatedDate: Scalars['DateTime']['output'];
-  vaultId: Scalars['String']['output'];
+  treasuryBookId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type AddAccountInput = {
   categoryId: Scalars['String']['input'];
   name: Scalars['String']['input'];
-  vaultId: Scalars['String']['input'];
+  treasuryBookId: Scalars['String']['input'];
 };
 
 export type AddCategoryInput = {
   name: Scalars['String']['input'];
+  treasuryBookId: Scalars['String']['input'];
   type: CategoryType;
-  vaultId: Scalars['String']['input'];
 };
 
 export type AddEntryInput = {
@@ -54,7 +54,7 @@ export type AddEntryInput = {
 
 export type AddTagInput = {
   name: Scalars['String']['input'];
-  vaultId: Scalars['String']['input'];
+  treasuryBookId: Scalars['String']['input'];
 };
 
 export type AddTransactionInput = {
@@ -62,10 +62,10 @@ export type AddTransactionInput = {
   entries: Array<AddEntryInput>;
   note: Scalars['String']['input'];
   tagIds: Array<Scalars['String']['input']>;
-  vaultId: Scalars['String']['input'];
+  treasuryBookId: Scalars['String']['input'];
 };
 
-export type AddVaultInput = {
+export type AddTreasuryBookInput = {
   currency: Currency;
   name: Scalars['String']['input'];
   ownerId: Scalars['String']['input'];
@@ -91,12 +91,12 @@ export const Basis = {
 export type Basis = typeof Basis[keyof typeof Basis];
 export type Category = {
   __typename?: 'Category';
-  createdDate: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
+  treasuryBookId: Scalars['String']['output'];
   type: CategoryType;
-  updatedDate: Scalars['DateTime']['output'];
-  vaultId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export const CategoryType = {
@@ -130,7 +130,7 @@ export type Entry = {
   status: EntryStatus;
   transactionDate: Scalars['DateTime']['output'];
   transactionId: Scalars['String']['output'];
-  vaultId: Scalars['String']['output'];
+  treasuryBookId: Scalars['String']['output'];
 };
 
 export const EntryStatus = {
@@ -148,13 +148,13 @@ export type GetAccountsInput = {
   endDate?: InputMaybe<Scalars['DateTime']['input']>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  vaultId?: InputMaybe<Scalars['String']['input']>;
+  treasuryBookId: Scalars['String']['input'];
 };
 
 export type GetCategoriesInput = {
   nameSearch?: InputMaybe<Scalars['String']['input']>;
+  treasuryBookId: Scalars['String']['input'];
   type?: InputMaybe<CategoryType>;
-  vaultId: Scalars['String']['input'];
 };
 
 export type GetCategoryInput = {
@@ -174,13 +174,13 @@ export type GetEntriesInput = {
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
   status?: InputMaybe<EntryStatus>;
   transactionId?: InputMaybe<Scalars['String']['input']>;
-  vaultId: Scalars['String']['input'];
+  treasuryBookId: Scalars['String']['input'];
 };
 
 export type GetMonthlyAmountInput = {
   status?: InputMaybe<EntryStatus>;
+  treasuryBookId: Scalars['String']['input'];
   type: DateType;
-  vaultId: Scalars['String']['input'];
   year?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -190,7 +190,7 @@ export type GetTagInput = {
 
 export type GetTagsInput = {
   nameSearch?: InputMaybe<Scalars['String']['input']>;
-  vaultId: Scalars['String']['input'];
+  treasuryBookId: Scalars['String']['input'];
 };
 
 export type GetTransactionInput = {
@@ -200,18 +200,18 @@ export type GetTransactionInput = {
 export type GetTransactionsInput = {
   status?: InputMaybe<EntryStatus>;
   tagId?: InputMaybe<Scalars['String']['input']>;
-  vaultId: Scalars['String']['input'];
+  treasuryBookId: Scalars['String']['input'];
 };
 
-export type GetUniqueYearsInput = {
-  type: DateType;
-  vaultId: Scalars['String']['input'];
-};
-
-export type GetVaultsInput = {
+export type GetTreasuryBooksInput = {
   currency?: InputMaybe<Currency>;
   nameSearch?: InputMaybe<Scalars['String']['input']>;
   ownerId: Scalars['String']['input'];
+};
+
+export type GetUniqueYearsInput = {
+  treasuryBookId: Scalars['String']['input'];
+  type: DateType;
 };
 
 export type MonthlyAmount = {
@@ -227,7 +227,7 @@ export type Mutation = {
   addCategory: Category;
   addTag: Tag;
   addTransaction: Transaction;
-  addVault: Vault;
+  addTreasuryBook: TreasuryBook;
   updateAccount: Account;
   updateCategory: Category;
   updateTag: Tag;
@@ -255,8 +255,8 @@ export type MutationAddTransactionArgs = {
 };
 
 
-export type MutationAddVaultArgs = {
-  input: AddVaultInput;
+export type MutationAddTreasuryBookArgs = {
+  input: AddTreasuryBookInput;
 };
 
 
@@ -297,8 +297,8 @@ export type Query = {
   getTransaction?: Maybe<Transaction>;
   getTransactionDetail?: Maybe<Transaction>;
   getTransactions: Array<Transaction>;
+  getTreasuryBooks: Array<TreasuryBook>;
   getUniqueYears: Array<Scalars['Int']['output']>;
-  getVaults: Array<Vault>;
 };
 
 
@@ -382,13 +382,13 @@ export type QueryGetTransactionsArgs = {
 };
 
 
-export type QueryGetUniqueYearsArgs = {
-  input: GetUniqueYearsInput;
+export type QueryGetTreasuryBooksArgs = {
+  input: GetTreasuryBooksInput;
 };
 
 
-export type QueryGetVaultsArgs = {
-  input: GetVaultsInput;
+export type QueryGetUniqueYearsArgs = {
+  input: GetUniqueYearsInput;
 };
 
 export const ReportDateGroupBy = {
@@ -400,24 +400,34 @@ export const ReportDateGroupBy = {
 export type ReportDateGroupBy = typeof ReportDateGroupBy[keyof typeof ReportDateGroupBy];
 export type Tag = {
   __typename?: 'Tag';
-  createdDate: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
-  updatedDate: Scalars['DateTime']['output'];
-  vaultId: Scalars['String']['output'];
+  treasuryBookId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type Transaction = {
   __typename?: 'Transaction';
   accrualDate: Scalars['DateTime']['output'];
-  createdDate: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   entries?: Maybe<Array<Entry>>;
   id: Scalars['String']['output'];
   note: Scalars['String']['output'];
   status?: Maybe<EntryStatus>;
   tags: Array<Tag>;
-  updatedDate: Scalars['DateTime']['output'];
-  vaultId: Scalars['String']['output'];
+  treasuryBookId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type TreasuryBook = {
+  __typename?: 'TreasuryBook';
+  createdAt: Scalars['DateTime']['output'];
+  currency: Currency;
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  ownerId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type UpdateAccountInput = {
@@ -443,17 +453,7 @@ export type UpdateTransactionInput = {
   id: Scalars['String']['input'];
   note: Scalars['String']['input'];
   tagIds: Array<Scalars['String']['input']>;
-  vaultId: Scalars['String']['input'];
-};
-
-export type Vault = {
-  __typename?: 'Vault';
-  createdDate: Scalars['DateTime']['output'];
-  currency: Currency;
-  id: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  ownerId: Scalars['String']['output'];
-  updatedDate: Scalars['DateTime']['output'];
+  treasuryBookId: Scalars['String']['input'];
 };
 
 
@@ -533,7 +533,7 @@ export type ResolversTypes = {
   AddEntryInput: AddEntryInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
-  AddVaultInput: AddVaultInput;
+  AddTreasuryBookInput: AddTreasuryBookInput;
   Amount: ResolverTypeWrapper<Amount>;
   AmountOnMonth: ResolverTypeWrapper<AmountOnMonth>;
   Basis: Basis;
@@ -556,8 +556,8 @@ export type ResolversTypes = {
   GetTagsInput: GetTagsInput;
   GetTransactionInput: GetTransactionInput;
   GetTransactionsInput: GetTransactionsInput;
+  GetTreasuryBooksInput: GetTreasuryBooksInput;
   GetUniqueYearsInput: GetUniqueYearsInput;
-  GetVaultsInput: GetVaultsInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   MonthlyAmount: ResolverTypeWrapper<MonthlyAmount>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -566,11 +566,11 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Tag: ResolverTypeWrapper<Tag>;
   Transaction: ResolverTypeWrapper<Transaction>;
+  TreasuryBook: ResolverTypeWrapper<TreasuryBook>;
   UpdateAccountInput: UpdateAccountInput;
   UpdateCategoryInput: UpdateCategoryInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
-  Vault: ResolverTypeWrapper<Vault>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -581,7 +581,7 @@ export type ResolversParentTypes = {
   AddEntryInput: AddEntryInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
-  AddVaultInput: AddVaultInput;
+  AddTreasuryBookInput: AddTreasuryBookInput;
   Amount: Amount;
   AmountOnMonth: AmountOnMonth;
   Boolean: Scalars['Boolean']['output'];
@@ -599,8 +599,8 @@ export type ResolversParentTypes = {
   GetTagsInput: GetTagsInput;
   GetTransactionInput: GetTransactionInput;
   GetTransactionsInput: GetTransactionsInput;
+  GetTreasuryBooksInput: GetTreasuryBooksInput;
   GetUniqueYearsInput: GetUniqueYearsInput;
-  GetVaultsInput: GetVaultsInput;
   Int: Scalars['Int']['output'];
   MonthlyAmount: MonthlyAmount;
   Mutation: {};
@@ -608,20 +608,20 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output'];
   Tag: Tag;
   Transaction: Transaction;
+  TreasuryBook: TreasuryBook;
   UpdateAccountInput: UpdateAccountInput;
   UpdateCategoryInput: UpdateCategoryInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
-  Vault: Vault;
 };
 
 export type AccountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
   category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType>;
-  createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -638,12 +638,12 @@ export type AmountOnMonthResolvers<ContextType = ApolloServerContext, ParentType
 };
 
 export type CategoryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
-  createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['CategoryType'], ParentType, ContextType>;
-  updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -660,7 +660,7 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
   status?: Resolver<ResolversTypes['EntryStatus'], ParentType, ContextType>;
   transactionDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   transactionId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -676,7 +676,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
   addTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
-  addVault?: Resolver<ResolversTypes['Vault'], ParentType, ContextType, RequireFields<MutationAddVaultArgs, 'input'>>;
+  addTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationAddTreasuryBookArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
   updateCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'input'>>;
   updateTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationUpdateTagArgs, 'input'>>;
@@ -700,39 +700,39 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'input'>>;
   getTransactionDetail?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionDetailArgs, 'transactionId'>>;
   getTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionsArgs, 'input'>>;
+  getTreasuryBooks?: Resolver<Array<ResolversTypes['TreasuryBook']>, ParentType, ContextType, RequireFields<QueryGetTreasuryBooksArgs, 'input'>>;
   getUniqueYears?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<QueryGetUniqueYearsArgs, 'input'>>;
-  getVaults?: Resolver<Array<ResolversTypes['Vault']>, ParentType, ContextType, RequireFields<QueryGetVaultsArgs, 'input'>>;
 };
 
 export type TagResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
-  createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TransactionResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Transaction'] = ResolversParentTypes['Transaction']> = {
   accrualDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   entries?: Resolver<Maybe<Array<ResolversTypes['Entry']>>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   note?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['EntryStatus']>, ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
-  updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  vaultId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type VaultResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Vault'] = ResolversParentTypes['Vault']> = {
-  createdDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+export type TreasuryBookResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['TreasuryBook'] = ResolversParentTypes['TreasuryBook']> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   currency?: Resolver<ResolversTypes['Currency'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   ownerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  updatedDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -748,7 +748,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   Query?: QueryResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
   Transaction?: TransactionResolvers<ContextType>;
-  Vault?: VaultResolvers<ContextType>;
+  TreasuryBook?: TreasuryBookResolvers<ContextType>;
 };
 
 
@@ -757,70 +757,70 @@ export type AddAccountMutationVariables = Exact<{
 }>;
 
 
-export type AddAccountMutation = { __typename?: 'Mutation', addAccount: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category?: { __typename?: 'Category', id: string, name: string } | null } };
+export type AddAccountMutation = { __typename?: 'Mutation', addAccount: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } };
 
 export type UpdateAccountMutationVariables = Exact<{
   input: UpdateAccountInput;
 }>;
 
 
-export type UpdateAccountMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category?: { __typename?: 'Category', id: string, name: string } | null } };
+export type UpdateAccountMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } };
 
 export type AddCategoryMutationVariables = Exact<{
   input: AddCategoryInput;
 }>;
 
 
-export type AddCategoryMutation = { __typename?: 'Mutation', addCategory: { __typename?: 'Category', id: string, name: string, type: CategoryType, vaultId: string, createdDate: Date, updatedDate: Date } };
+export type AddCategoryMutation = { __typename?: 'Mutation', addCategory: { __typename?: 'Category', id: string, name: string, type: CategoryType, treasuryBookId: string, createdAt: Date, updatedAt: Date } };
 
 export type UpdateCategoryMutationVariables = Exact<{
   input: UpdateCategoryInput;
 }>;
 
 
-export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory: { __typename?: 'Category', id: string, name: string, type: CategoryType, vaultId: string, createdDate: Date, updatedDate: Date } };
+export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory: { __typename?: 'Category', id: string, name: string, type: CategoryType, treasuryBookId: string, createdAt: Date, updatedAt: Date } };
 
 export type AddTagMutationVariables = Exact<{
   input: AddTagInput;
 }>;
 
 
-export type AddTagMutation = { __typename?: 'Mutation', addTag: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } };
+export type AddTagMutation = { __typename?: 'Mutation', addTag: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } };
 
 export type UpdateTagMutationVariables = Exact<{
   input: UpdateTagInput;
 }>;
 
 
-export type UpdateTagMutation = { __typename?: 'Mutation', updateTag: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } };
+export type UpdateTagMutation = { __typename?: 'Mutation', updateTag: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } };
 
 export type AddTransactionMutationVariables = Exact<{
   input: AddTransactionInput;
 }>;
 
 
-export type AddTransactionMutation = { __typename?: 'Mutation', addTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries?: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> | null } };
+export type AddTransactionMutation = { __typename?: 'Mutation', addTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries?: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> | null } };
 
 export type UpdateTransactionMutationVariables = Exact<{
   input: UpdateTransactionInput;
 }>;
 
 
-export type UpdateTransactionMutation = { __typename?: 'Mutation', updateTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries?: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> | null } };
+export type UpdateTransactionMutation = { __typename?: 'Mutation', updateTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries?: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> | null } };
 
-export type AddVaultMutationVariables = Exact<{
-  input: AddVaultInput;
+export type AddTreasuryBookMutationVariables = Exact<{
+  input: AddTreasuryBookInput;
 }>;
 
 
-export type AddVaultMutation = { __typename?: 'Mutation', addVault: { __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date } };
+export type AddTreasuryBookMutation = { __typename?: 'Mutation', addTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date, updatedAt: Date } };
 
 export type GetAccountQueryVariables = Exact<{
   input: GetAccountInput;
 }>;
 
 
-export type GetAccountQuery = { __typename?: 'Query', getAccount?: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category?: { __typename?: 'Category', id: string, name: string } | null } | null };
+export type GetAccountQuery = { __typename?: 'Query', getAccount?: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } | null };
 
 export type GetAccountDetailQueryVariables = Exact<{
   getAccountInput: GetAccountInput;
@@ -828,28 +828,28 @@ export type GetAccountDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetAccountDetailQuery = { __typename?: 'Query', getAccount?: { __typename?: 'Account', id: string, name: string, createdDate: Date, updatedDate: Date, category?: { __typename?: 'Category', id: string, name: string } | null } | null, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type GetAccountDetailQuery = { __typename?: 'Query', getAccount?: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } | null, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
 export type GetAccountsQueryVariables = Exact<{
   input: GetAccountsInput;
 }>;
 
 
-export type GetAccountsQuery = { __typename?: 'Query', getAccounts: Array<{ __typename?: 'Account', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date, category?: { __typename?: 'Category', id: string, name: string } | null }> };
+export type GetAccountsQuery = { __typename?: 'Query', getAccounts: Array<{ __typename?: 'Account', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }> };
 
 export type GetCategoriesQueryVariables = Exact<{
   input: GetCategoriesInput;
 }>;
 
 
-export type GetCategoriesQuery = { __typename?: 'Query', getCategories: Array<{ __typename?: 'Category', id: string, name: string, type: CategoryType, vaultId: string, createdDate: Date, updatedDate: Date }> };
+export type GetCategoriesQuery = { __typename?: 'Query', getCategories: Array<{ __typename?: 'Category', id: string, name: string, type: CategoryType, treasuryBookId: string, createdAt: Date, updatedAt: Date }> };
 
 export type GetCategoryQueryVariables = Exact<{
   input: GetCategoryInput;
 }>;
 
 
-export type GetCategoryQuery = { __typename?: 'Query', getCategory?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdDate: Date, updatedDate: Date } | null };
+export type GetCategoryQuery = { __typename?: 'Query', getCategory?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date, updatedAt: Date } | null };
 
 export type GetCategoryDetailQueryVariables = Exact<{
   getCategoryInput: GetCategoryInput;
@@ -858,14 +858,14 @@ export type GetCategoryDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetCategoryDetailQuery = { __typename?: 'Query', getCategory?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdDate: Date, updatedDate: Date } | null, getAccounts: Array<{ __typename?: 'Account', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date, category?: { __typename?: 'Category', id: string, name: string } | null }>, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type GetCategoryDetailQuery = { __typename?: 'Query', getCategory?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date, updatedAt: Date } | null, getAccounts: Array<{ __typename?: 'Account', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }>, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
 export type GetEntriesQueryVariables = Exact<{
   input: GetEntriesInput;
 }>;
 
 
-export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
 export type MonthlyAmountDataFragment = { __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> };
 
@@ -923,7 +923,7 @@ export type GetTagQueryVariables = Exact<{
 }>;
 
 
-export type GetTagQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } | null };
+export type GetTagQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } | null };
 
 export type GetTagDetailQueryVariables = Exact<{
   getTagInput: GetTagInput;
@@ -931,21 +931,21 @@ export type GetTagDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date } | null, getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, status?: EntryStatus | null, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } | null, getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, status?: EntryStatus | null, createdAt: Date, updatedAt: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
 export type GetTagsQueryVariables = Exact<{
   input: GetTagsInput;
 }>;
 
 
-export type GetTagsQuery = { __typename?: 'Query', getTags: Array<{ __typename?: 'Tag', id: string, name: string, vaultId: string, createdDate: Date, updatedDate: Date }> };
+export type GetTagsQuery = { __typename?: 'Query', getTags: Array<{ __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date }> };
 
 export type GetTransactionQueryVariables = Exact<{
   input: GetTransactionInput;
 }>;
 
 
-export type GetTransactionQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null };
+export type GetTransactionQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null };
 
 export type GetTransactionDetailQueryVariables = Exact<{
   getTransactionInput: GetTransactionInput;
@@ -953,21 +953,21 @@ export type GetTransactionDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, createdDate: Date, updatedDate: Date, vaultId: string, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null, getEntries: Array<{ __typename?: 'Entry', id: string, vaultId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type GetTransactionDetailQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, createdAt: Date, updatedAt: Date, treasuryBookId: string, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
 export type GetTransactionsQueryVariables = Exact<{
   input: GetTransactionsInput;
 }>;
 
 
-export type GetTransactionsQuery = { __typename?: 'Query', getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, vaultId: string, status?: EntryStatus | null, createdDate: Date, updatedDate: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetTransactionsQuery = { __typename?: 'Query', getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, status?: EntryStatus | null, createdAt: Date, updatedAt: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
 
-export type GetVaultsQueryVariables = Exact<{
-  input: GetVaultsInput;
+export type GetTreasuryBooksQueryVariables = Exact<{
+  input: GetTreasuryBooksInput;
 }>;
 
 
-export type GetVaultsQuery = { __typename?: 'Query', getVaults: Array<{ __typename?: 'Vault', id: string, name: string, currency: Currency, ownerId: string, createdDate: Date, updatedDate: Date }> };
+export type GetTreasuryBooksQuery = { __typename?: 'Query', getTreasuryBooks: Array<{ __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date, updatedAt: Date }> };
 
 export const MonthlyAmountDataFragmentDoc = gql`
     fragment MonthlyAmountData on MonthlyAmount {
@@ -991,8 +991,8 @@ export const AddAccountDocument = gql`
       id
       name
     }
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1031,8 +1031,8 @@ export const UpdateAccountDocument = gql`
       id
       name
     }
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1068,9 +1068,9 @@ export const AddCategoryDocument = gql`
     id
     name
     type
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1106,9 +1106,9 @@ export const UpdateCategoryDocument = gql`
     id
     name
     type
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1143,9 +1143,9 @@ export const AddTagDocument = gql`
   addTag(input: $input) {
     id
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1180,9 +1180,9 @@ export const UpdateTagDocument = gql`
   updateTag(input: $input) {
     id
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1218,14 +1218,14 @@ export const AddTransactionDocument = gql`
     id
     accrualDate
     note
-    vaultId
+    treasuryBookId
     tags {
       id
       name
     }
     entries {
       id
-      vaultId
+      treasuryBookId
       transactionDate
       debit
       credit
@@ -1242,8 +1242,8 @@ export const AddTransactionDocument = gql`
       transactionId
       status
     }
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1279,14 +1279,14 @@ export const UpdateTransactionDocument = gql`
     id
     accrualDate
     note
-    vaultId
+    treasuryBookId
     tags {
       id
       name
     }
     entries {
       id
-      vaultId
+      treasuryBookId
       transactionDate
       debit
       credit
@@ -1303,8 +1303,8 @@ export const UpdateTransactionDocument = gql`
       transactionId
       status
     }
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1334,44 +1334,44 @@ export function useUpdateTransactionMutation(baseOptions?: Apollo.MutationHookOp
 export type UpdateTransactionMutationHookResult = ReturnType<typeof useUpdateTransactionMutation>;
 export type UpdateTransactionMutationResult = Apollo.MutationResult<UpdateTransactionMutation>;
 export type UpdateTransactionMutationOptions = Apollo.BaseMutationOptions<UpdateTransactionMutation, UpdateTransactionMutationVariables>;
-export const AddVaultDocument = gql`
-    mutation addVault($input: AddVaultInput!) {
-  addVault(input: $input) {
+export const AddTreasuryBookDocument = gql`
+    mutation addTreasuryBook($input: AddTreasuryBookInput!) {
+  addTreasuryBook(input: $input) {
     id
     name
     currency
     ownerId
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }
     `;
-export type AddVaultMutationFn = Apollo.MutationFunction<AddVaultMutation, AddVaultMutationVariables>;
+export type AddTreasuryBookMutationFn = Apollo.MutationFunction<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>;
 
 /**
- * __useAddVaultMutation__
+ * __useAddTreasuryBookMutation__
  *
- * To run a mutation, you first call `useAddVaultMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddVaultMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAddTreasuryBookMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddTreasuryBookMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [addVaultMutation, { data, loading, error }] = useAddVaultMutation({
+ * const [addTreasuryBookMutation, { data, loading, error }] = useAddTreasuryBookMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useAddVaultMutation(baseOptions?: Apollo.MutationHookOptions<AddVaultMutation, AddVaultMutationVariables>) {
+export function useAddTreasuryBookMutation(baseOptions?: Apollo.MutationHookOptions<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddVaultMutation, AddVaultMutationVariables>(AddVaultDocument, options);
+        return Apollo.useMutation<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>(AddTreasuryBookDocument, options);
       }
-export type AddVaultMutationHookResult = ReturnType<typeof useAddVaultMutation>;
-export type AddVaultMutationResult = Apollo.MutationResult<AddVaultMutation>;
-export type AddVaultMutationOptions = Apollo.BaseMutationOptions<AddVaultMutation, AddVaultMutationVariables>;
+export type AddTreasuryBookMutationHookResult = ReturnType<typeof useAddTreasuryBookMutation>;
+export type AddTreasuryBookMutationResult = Apollo.MutationResult<AddTreasuryBookMutation>;
+export type AddTreasuryBookMutationOptions = Apollo.BaseMutationOptions<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>;
 export const GetAccountDocument = gql`
     query getAccount($input: GetAccountInput!) {
   getAccount(input: $input) {
@@ -1381,8 +1381,8 @@ export const GetAccountDocument = gql`
       id
       name
     }
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1428,12 +1428,12 @@ export const GetAccountDetailDocument = gql`
       id
       name
     }
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
   getEntries(input: $getEntriesInput) {
     id
-    vaultId
+    treasuryBookId
     transactionDate
     debit
     credit
@@ -1495,9 +1495,9 @@ export const GetAccountsDocument = gql`
       name
     }
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1540,9 +1540,9 @@ export const GetCategoriesDocument = gql`
     id
     name
     type
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1585,8 +1585,8 @@ export const GetCategoryDocument = gql`
     id
     name
     type
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -1629,8 +1629,8 @@ export const GetCategoryDetailDocument = gql`
     id
     name
     type
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
   getAccounts(input: $getAccountsInput) {
     id
@@ -1639,13 +1639,13 @@ export const GetCategoryDetailDocument = gql`
       name
     }
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
   getEntries(input: $getEntriesInput) {
     id
-    vaultId
+    treasuryBookId
     transactionDate
     debit
     credit
@@ -1703,7 +1703,7 @@ export const GetEntriesDocument = gql`
     query getEntries($input: GetEntriesInput!) {
   getEntries(input: $input) {
     id
-    vaultId
+    treasuryBookId
     transactionDate
     debit
     credit
@@ -2038,9 +2038,9 @@ export const GetTagDocument = gql`
   getTag(input: $input) {
     id
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -2082,9 +2082,9 @@ export const GetTagDetailDocument = gql`
   getTag(input: $getTagInput) {
     id
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
   getTransactions(input: $getTransactionsInput) {
     id
@@ -2094,10 +2094,10 @@ export const GetTagDetailDocument = gql`
       id
       name
     }
-    vaultId
+    treasuryBookId
     status
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -2140,9 +2140,9 @@ export const GetTagsDocument = gql`
   getTags(input: $input) {
     id
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -2189,9 +2189,9 @@ export const GetTransactionDocument = gql`
       id
       name
     }
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -2238,13 +2238,13 @@ export const GetTransactionDetailDocument = gql`
       id
       name
     }
-    createdDate
-    updatedDate
-    vaultId
+    createdAt
+    updatedAt
+    treasuryBookId
   }
   getEntries(input: $getEntriesInput) {
     id
-    vaultId
+    treasuryBookId
     transactionDate
     debit
     credit
@@ -2307,10 +2307,10 @@ export const GetTransactionsDocument = gql`
       id
       name
     }
-    vaultId
+    treasuryBookId
     status
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -2347,48 +2347,48 @@ export type GetTransactionsQueryHookResult = ReturnType<typeof useGetTransaction
 export type GetTransactionsLazyQueryHookResult = ReturnType<typeof useGetTransactionsLazyQuery>;
 export type GetTransactionsSuspenseQueryHookResult = ReturnType<typeof useGetTransactionsSuspenseQuery>;
 export type GetTransactionsQueryResult = Apollo.QueryResult<GetTransactionsQuery, GetTransactionsQueryVariables>;
-export const GetVaultsDocument = gql`
-    query getVaults($input: GetVaultsInput!) {
-  getVaults(input: $input) {
+export const GetTreasuryBooksDocument = gql`
+    query getTreasuryBooks($input: GetTreasuryBooksInput!) {
+  getTreasuryBooks(input: $input) {
     id
     name
     currency
     ownerId
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }
     `;
 
 /**
- * __useGetVaultsQuery__
+ * __useGetTreasuryBooksQuery__
  *
- * To run a query within a React component, call `useGetVaultsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetVaultsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetTreasuryBooksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTreasuryBooksQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetVaultsQuery({
+ * const { data, loading, error } = useGetTreasuryBooksQuery({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useGetVaultsQuery(baseOptions: Apollo.QueryHookOptions<GetVaultsQuery, GetVaultsQueryVariables>) {
+export function useGetTreasuryBooksQuery(baseOptions: Apollo.QueryHookOptions<GetTreasuryBooksQuery, GetTreasuryBooksQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetVaultsQuery, GetVaultsQueryVariables>(GetVaultsDocument, options);
+        return Apollo.useQuery<GetTreasuryBooksQuery, GetTreasuryBooksQueryVariables>(GetTreasuryBooksDocument, options);
       }
-export function useGetVaultsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVaultsQuery, GetVaultsQueryVariables>) {
+export function useGetTreasuryBooksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTreasuryBooksQuery, GetTreasuryBooksQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetVaultsQuery, GetVaultsQueryVariables>(GetVaultsDocument, options);
+          return Apollo.useLazyQuery<GetTreasuryBooksQuery, GetTreasuryBooksQueryVariables>(GetTreasuryBooksDocument, options);
         }
-export function useGetVaultsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVaultsQuery, GetVaultsQueryVariables>) {
+export function useGetTreasuryBooksSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTreasuryBooksQuery, GetTreasuryBooksQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetVaultsQuery, GetVaultsQueryVariables>(GetVaultsDocument, options);
+          return Apollo.useSuspenseQuery<GetTreasuryBooksQuery, GetTreasuryBooksQueryVariables>(GetTreasuryBooksDocument, options);
         }
-export type GetVaultsQueryHookResult = ReturnType<typeof useGetVaultsQuery>;
-export type GetVaultsLazyQueryHookResult = ReturnType<typeof useGetVaultsLazyQuery>;
-export type GetVaultsSuspenseQueryHookResult = ReturnType<typeof useGetVaultsSuspenseQuery>;
-export type GetVaultsQueryResult = Apollo.QueryResult<GetVaultsQuery, GetVaultsQueryVariables>;
+export type GetTreasuryBooksQueryHookResult = ReturnType<typeof useGetTreasuryBooksQuery>;
+export type GetTreasuryBooksLazyQueryHookResult = ReturnType<typeof useGetTreasuryBooksLazyQuery>;
+export type GetTreasuryBooksSuspenseQueryHookResult = ReturnType<typeof useGetTreasuryBooksSuspenseQuery>;
+export type GetTreasuryBooksQueryResult = Apollo.QueryResult<GetTreasuryBooksQuery, GetTreasuryBooksQueryVariables>;

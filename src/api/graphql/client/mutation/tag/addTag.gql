@@ -2,8 +2,8 @@ mutation addTag($input: AddTagInput!) {
   addTag(input: $input) {
     id
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }

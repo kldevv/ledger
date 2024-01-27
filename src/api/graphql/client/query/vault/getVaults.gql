@@ -1,10 +1,10 @@
-query getVaults($input: GetVaultsInput!) {
-  getVaults(input: $input) {
+query getTreasuryBooks($input: GetTreasuryBooksInput!) {
+  getTreasuryBooks(input: $input) {
     id
     name
     currency
     ownerId
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }

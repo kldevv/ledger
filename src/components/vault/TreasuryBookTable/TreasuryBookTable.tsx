@@ -60,12 +60,12 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
         header: t`TreasuryBookTable.header.currency`,
         cell: ({ getValue }) => <CurrencyChip currency={getValue()} />,
       }),
-      columnHelper.accessor('createdDate', {
-        header: t`TreasuryBookTable.header.createdDate`,
+      columnHelper.accessor('createdAt', {
+        header: t`TreasuryBookTable.header.createdAt`,
         cell: (props) => <FormattedDate dateTime={props.getValue()} />,
       }),
-      columnHelper.accessor('updatedDate', {
-        header: t`TreasuryBookTable.header.updatedDate`,
+      columnHelper.accessor('updatedAt', {
+        header: t`TreasuryBookTable.header.updatedAt`,
         cell: (props) => <FormattedDate dateTime={props.getValue()} />,
       }),
       columnHelper.display({

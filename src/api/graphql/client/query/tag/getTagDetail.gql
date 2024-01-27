@@ -5,9 +5,9 @@ query getTagDetail(
   getTag(input: $getTagInput) {
     id
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
   getTransactions(input: $getTransactionsInput) {
     id
@@ -17,9 +17,9 @@ query getTagDetail(
       id
       name
     }
-    vaultId
+    treasuryBookId
     status
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }

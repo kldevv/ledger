@@ -6,7 +6,7 @@ import type { Entry, Transaction } from '@prisma/client'
 
 export type CreateOneProps = Omit<
   Transaction,
-  'createdDate' | 'updatedDate' | 'id'
+  'createdAt' | 'updatedAt' | 'id'
 > & {
   /**
    * List of tag ids to connect to
@@ -17,7 +17,7 @@ export type CreateOneProps = Omit<
    */
   entries: Omit<
     Entry,
-    'createdDate' | 'updatedDate' | 'id' | 'vaultId' | 'transactionId'
+    'createdAt' | 'updatedAt' | 'id' | 'vaultId' | 'transactionId'
   >[]
 }
 

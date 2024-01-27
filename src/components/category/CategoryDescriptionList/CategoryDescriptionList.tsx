@@ -20,7 +20,7 @@ export interface CategoryDescriptionListProps {
 
 export const CategoryDescriptionList: React.FC<
   CategoryDescriptionListProps
-> = ({ data: { id, name, type, createdDate, updatedDate } }) => {
+> = ({ data: { id, name, type, createdAt, updatedAt } }) => {
   const { t } = useTranslation('category')
 
   const items: DescriptionListItem[] = useMemo(
@@ -38,15 +38,15 @@ export const CategoryDescriptionList: React.FC<
         description: type,
       },
       {
-        title: t('CategoryDescriptionList.title.createdDate'),
-        description: <FormattedDate dateTime={createdDate} />,
+        title: t('CategoryDescriptionList.title.createdAt'),
+        description: <FormattedDate dateTime={createdAt} />,
       },
       {
-        title: t('CategoryDescriptionList.title.updatedDate'),
-        description: <FormattedDate dateTime={updatedDate} />,
+        title: t('CategoryDescriptionList.title.updatedAt'),
+        description: <FormattedDate dateTime={updatedAt} />,
       },
     ],
-    [createdDate, id, name, t, type, updatedDate],
+    [createdAt, id, name, t, type, updatedAt],
   )
 
   return <DescriptionList items={items} />

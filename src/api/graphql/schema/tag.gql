@@ -1,14 +1,14 @@
 type Tag {
   name: String!
   id: String!
-  vaultId: String!
-  createdDate: DateTime!
-  updatedDate: DateTime!
+  treasuryBookId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input AddTagInput {
   name: String!
-  vaultId: String!
+  treasuryBookId: String!
 }
 
 input UpdateTagInput {
@@ -21,6 +21,6 @@ input GetTagInput {
 }
 
 input GetTagsInput {
-  vaultId: String!
+  treasuryBookId: String!
   nameSearch: String
 }

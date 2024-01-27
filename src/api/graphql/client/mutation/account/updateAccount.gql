@@ -6,7 +6,7 @@ mutation updateAccount($input: UpdateAccountInput!) {
       id
       name
     }
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }

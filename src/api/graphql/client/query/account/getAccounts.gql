@@ -6,8 +6,8 @@ query getAccounts($input: GetAccountsInput!) {
       name
     }
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }

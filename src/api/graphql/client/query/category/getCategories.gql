@@ -3,8 +3,8 @@ query getCategories($input: GetCategoriesInput!) {
     id
     name
     type
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }

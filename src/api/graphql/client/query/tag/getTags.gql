@@ -2,8 +2,8 @@ query getTags($input: GetTagsInput!) {
   getTags(input: $input) {
     id
     name
-    vaultId
-    createdDate
-    updatedDate
+    treasuryBookId
+    createdAt
+    updatedAt
   }
 }

@@ -5,7 +5,7 @@ import logger from '@/server/logger'
 import type { Transaction } from '@prisma/client'
 
 export type ReadManyProps = Partial<
-  Omit<Transaction, 'createdDate' | 'updatedDate' | 'id' | 'note'>
+  Omit<Transaction, 'createdAt' | 'updatedAt' | 'id' | 'note'>
 > & {
   /**
    * Tag id

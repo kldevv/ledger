@@ -1,19 +1,19 @@
-type Vault {
+type TreasuryBook {
   id: String!
   name: String!
   currency: Currency!
   ownerId: String!
-  createdDate: DateTime!
-  updatedDate: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
-input GetVaultsInput {
+input GetTreasuryBooksInput {
   ownerId: String!
   nameSearch: String
   currency: Currency
 }
 
-input AddVaultInput {
+input AddTreasuryBookInput {
   name: String!
   currency: Currency!
   ownerId: String!

@@ -15,7 +15,6 @@ type Mutation {
   addTransaction(input: AddTransactionInput!): Transaction!
   updateTransaction(input: UpdateTransactionInput!): Transaction!
 
-  # Vault
-  addVault(input: AddVaultInput!): Vault!
-
+  # TreasuryBook
+  addTreasuryBook(input: AddTreasuryBookInput!): TreasuryBook!
 }

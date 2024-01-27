@@ -3,14 +3,14 @@ mutation addTransaction($input: AddTransactionInput!) {
     id
     accrualDate
     note
-    vaultId
+    treasuryBookId
     tags {
       id
       name
     }
     entries {
       id
-      vaultId
+      treasuryBookId
       transactionDate
       debit
       credit
@@ -27,7 +27,7 @@ mutation addTransaction($input: AddTransactionInput!) {
       transactionId
       status
     }
-    createdDate
-    updatedDate
+    createdAt
+    updatedAt
   }
 }

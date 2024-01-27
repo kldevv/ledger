@@ -3,8 +3,8 @@
     "title": {
       "id": "ID",
       "name": "Name",
-      "updatedDate": "Last Updated Date",
-      "createdDate": "Created Date",
+      "updatedAt": "Last Updated Date",
+      "createdAt": "Created Date",
       "category": "Category"
     }
   },
@@ -18,7 +18,7 @@
       "name": "Name",
       "category": "Category",
       "id": "ID",
-      "createdDate": "Created Date"
+      "createdAt": "Created Date"
     }
   },
   "InsertAccountFrom": {

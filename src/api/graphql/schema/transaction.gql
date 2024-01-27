@@ -3,9 +3,9 @@ type Transaction {
   accrualDate: DateTime!
   note: String!
   tags: [Tag!]!
-  vaultId: String!
-  createdDate: DateTime!
-  updatedDate: DateTime!
+  treasuryBookId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   # status is not part of the prisma schema but a calculated field from the entries table
   # we need this field to show the status of transactions in a table without doing another query
   status: EntryStatus
@@ -17,7 +17,7 @@ input AddTransactionInput {
   accrualDate: DateTime!
   note: String!
   tagIds: [String!]!
-  vaultId: String!
+  treasuryBookId: String!
   entries: [AddEntryInput!]!
 }
 
@@ -26,7 +26,7 @@ input UpdateTransactionInput {
   accrualDate: DateTime!
   note: String!
   tagIds: [String!]!
-  vaultId: String!
+  treasuryBookId: String!
   entries: [AddEntryInput!]!
 }
 
@@ -35,7 +35,7 @@ input GetTransactionInput {
 }
 
 input GetTransactionsInput {
-  vaultId: String!
+  treasuryBookId: String!
   tagId: String
   status: EntryStatus
 }

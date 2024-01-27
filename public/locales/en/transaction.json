@@ -18,8 +18,8 @@
       "status": "Status",
       "tags": "Tags",
       "entryCount": "Number of Entries",
-      "createdDate": "Created Date",
-      "updatedDate": "Last Updated Date"
+      "createdAt": "Created Date",
+      "updatedAt": "Last Updated Date"
     }
   },
   "TransactionDetail": {

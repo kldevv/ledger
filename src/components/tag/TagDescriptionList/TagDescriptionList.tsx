@@ -19,7 +19,7 @@ export interface TagDescriptionListProps {
 }
 
 export const TagDescriptionList: React.FC<TagDescriptionListProps> = ({
-  data: { id, name, createdDate, updatedDate },
+  data: { id, name, createdAt, updatedAt },
 }) => {
   const { t } = useTranslation('tag')
 
@@ -34,15 +34,15 @@ export const TagDescriptionList: React.FC<TagDescriptionListProps> = ({
         description: name,
       },
       {
-        title: t('TagDescriptionList.title.createdDate'),
-        description: <FormattedDate dateTime={createdDate} />,
+        title: t('TagDescriptionList.title.createdAt'),
+        description: <FormattedDate dateTime={createdAt} />,
       },
       {
-        title: t('TagDescriptionList.title.updatedDate'),
-        description: <FormattedDate dateTime={updatedDate} />,
+        title: t('TagDescriptionList.title.updatedAt'),
+        description: <FormattedDate dateTime={updatedAt} />,
       },
     ],
-    [t, id, name, createdDate, updatedDate],
+    [t, id, name, createdAt, updatedAt],
   )
 
   return <DescriptionList items={items} />

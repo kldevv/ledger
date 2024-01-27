@@ -2,15 +2,15 @@ type Account {
   id: String!
   name: String!
   category: Category
-  vaultId: String!
-  createdDate: DateTime!
-  updatedDate: DateTime!
+  treasuryBookId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input AddAccountInput {
   name: String!
   categoryId: String!
-  vaultId: String!
+  treasuryBookId: String!
 }
 
 input UpdateAccountInput {
@@ -24,7 +24,7 @@ input GetAccountInput {
 }
 
 input GetAccountsInput {
-  vaultId: String
+  treasuryBookId: String!
   startDate: DateTime
   endDate: DateTime
   categoryId: String
