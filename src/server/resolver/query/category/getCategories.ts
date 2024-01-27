@@ -2,8 +2,8 @@ import type { QueryResolvers } from '@/api/graphql'
 
 export const getCategories: QueryResolvers['getCategories'] = async (
   _,
-  { input: { vaultId } },
+  { input: { treasuryBookId } },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.category.readMany({ vaultId })
+  return await prisma.category.readMany({ treasuryBookId })
 }

@@ -4,7 +4,7 @@ import logger from '@/server/logger'
 
 import type { Tag } from '@prisma/client'
 
-export type ReadManyProps = Pick<Tag, 'vaultId'>
+export type ReadManyProps = Pick<Tag, 'treasuryBookId'>
 
 export const readMany = async (where: ReadManyProps) => {
   try {

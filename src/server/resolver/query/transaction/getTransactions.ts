@@ -4,11 +4,11 @@ import type { QueryResolvers } from '@/api/graphql'
 
 export const getTransactions: QueryResolvers['getTransactions'] = async (
   _,
-  { input: { vaultId, tagId, status } },
+  { input: { treasuryBookId, tagId, status } },
   { dataSources: { prisma } },
 ) => {
   const transactions = await prisma.transaction.readMany({
-    vaultId,
+    treasuryBookId,
     tagId: tagId ?? undefined,
   })
 

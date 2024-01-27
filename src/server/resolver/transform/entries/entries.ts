@@ -27,7 +27,12 @@ export const transformToPrismaEntries = (
   entries: Omit<AddEntryInput, 'id' | 'transactionId'>[],
 ): Omit<
   PrismaEntry,
-  'createdAt' | 'updatedAt' | 'id' | 'vaultId' | 'transactionId' | 'deletedAt'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'id'
+  | 'treasuryBookId'
+  | 'transactionId'
+  | 'deletedAt'
 >[] => {
   return entries.map(({ debit, credit, ...entry }) => ({
     ...entry,

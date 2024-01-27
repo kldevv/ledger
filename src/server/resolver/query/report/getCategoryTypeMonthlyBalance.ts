@@ -5,11 +5,11 @@ import { monthlyBalance } from '../../transform'
 export const getCategoryTypeMonthlyBalance: QueryResolvers['getCategoryTypeMonthlyBalance'] =
   async (
     _,
-    { input: { vaultId, year, type, status } },
+    { input: { treasuryBookId, year, type, status } },
     { dataSources: { prisma } },
   ) => {
     const changeInput = {
-      vaultId,
+      treasuryBookId,
       year: year != null ? year : new Date().getFullYear(),
       status: status != null ? status : undefined,
     }

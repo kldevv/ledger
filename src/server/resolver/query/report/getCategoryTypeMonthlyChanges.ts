@@ -5,11 +5,11 @@ import { monthlyChanges } from '../../transform'
 export const getCategoryTypeMonthlyChanges: QueryResolvers['getCategoryTypeMonthlyChanges'] =
   async (
     _,
-    { input: { vaultId, year, type, status } },
+    { input: { treasuryBookId, year, type, status } },
     { dataSources: { prisma } },
   ) => {
     const input = {
-      vaultId,
+      treasuryBookId,
       year: year != null ? year : undefined,
       status: status != null ? status : undefined,
     }
