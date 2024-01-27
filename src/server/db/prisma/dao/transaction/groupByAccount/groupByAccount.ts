@@ -44,30 +44,30 @@ export const groupByAccount = async ({
   try {
     return await prisma.$queryRaw<GroupByAccountReturns>`
       SELECT
-        SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as "debit",
-        SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as "credit",
-        a."id" as "id",
-        a."name" as "name"
+        SUM(CASE WHEN e.amount > 0 THEN e.amount ELSE 0 END) as debit,
+        SUM(CASE WHEN e.amount < 0 THEN -e.amount ELSE 0 END) as credit,
+        a.id as id,
+        a.name as name
       FROM
-        "Entry" e
+        entries e
       JOIN
-        "Account" a on a."id" = e."accountId"
+        accounts a on a.id = e.account_id
       JOIN
-        "Transaction" t on t."id" = e."transactionId"
+        transactions t on t.id = e.transaction_id
       WHERE
-        e."treasuryBookId" = ${treasuryBookId}
+        e.treasury_book_id = ${treasuryBookId}
         ${
           year != null
-            ? Prisma.sql`AND EXTRACT(YEAR FROM t."accrualDate") = ${year}`
+            ? Prisma.sql`AND EXTRACT(YEAR FROM t.accrual_date) = ${year}`
             : Prisma.empty
         }
         ${
           status != null
-            ? Prisma.sql`AND e.status = ${status}::"EntryStatus"`
+            ? Prisma.sql`AND e.status = ${status}::entry_status`
             : Prisma.empty
         }
       GROUP BY
-        a."id", a."name";
+        a.id, a.name;
     `
   } catch (e) {
     logger.log({

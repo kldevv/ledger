@@ -51,35 +51,35 @@ export const groupByMonthAndCategoryType = async ({
   try {
     return await prisma.$queryRaw<GroupByMonthAndCategoryTypeReturns>`
       SELECT
-        EXTRACT(MONTH FROM t."accrualDate") as "month",
-        SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as "debit",
-        SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as "credit",
-        c."type" as "id",
-        c."type" as "name"
+        EXTRACT(MONTH FROM t.accrual_date) as month,
+        SUM(CASE WHEN e.amount > 0 THEN e.amount ELSE 0 END) as debit,
+        SUM(CASE WHEN e.amount < 0 THEN -e.amount ELSE 0 END) as credit,
+        c.type as id,
+        c.type as name
       FROM
-        "Entry" e
+        entries e
       JOIN
-        "Account" a ON a."id" = e."accountId"
+        accounts a ON a.id = e.account_id
       JOIN
-        "Category" c ON c."id" = a."categoryId"
+        categories c ON c.id = a.category_id
       JOIN
-        "Transaction" t ON t."id" = e."transactionId"
+        transactions t ON t.id = e.transaction_id
       WHERE
-        e."treasuryBookId" = ${treasuryBookId}
+        e.treasury_book_id = ${treasuryBookId}
         ${
           year != null
-            ? Prisma.sql`AND EXTRACT(YEAR FROM t."accrualDate") = ${year}`
+            ? Prisma.sql`AND EXTRACT(YEAR FROM t.accrual_date) = ${year}`
             : Prisma.empty
         }
         ${
           status != null
-            ? Prisma.sql`AND e.status = ${status}::"EntryStatus"`
+            ? Prisma.sql`AND e.status = ${status}::entry_status`
             : Prisma.empty
         }
       GROUP BY
-        "month", c."type"
+        month, c.type
       ORDER BY
-        c."type", "month";
+        c.type, month;
     `
   } catch (e) {
     logger.log({

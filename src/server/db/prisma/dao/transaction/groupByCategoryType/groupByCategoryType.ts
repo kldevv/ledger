@@ -44,32 +44,32 @@ export const groupByCategoryType = async ({
   try {
     return await prisma.$queryRaw<GroupByCategoryTypeReturns>`
       SELECT
-        SUM(CASE WHEN e."amount" > 0 THEN e."amount" ELSE 0 END) as "debit",
-        SUM(CASE WHEN e."amount" < 0 THEN -e."amount" ELSE 0 END) as "credit",
-        c."type" as "id",
-        c."type" as "name"
+        SUM(CASE WHEN e.amount > 0 THEN e.amount ELSE 0 END) as debit,
+        SUM(CASE WHEN e.amount < 0 THEN -e.amount ELSE 0 END) as credit,
+        c.type as id,
+        c.type as name
       FROM
-        "Entry" e
+        entries e
       JOIN
-        "Account" a on a."id" = e."accountId"
+        accounts a on a.id = e.account_id
       JOIN
-        "Category" c on c."id" = a."categoryId"
+        categories c on c.id = a.categories_id
       JOIN
-        "Transaction" t on t."id" = e."transactionId"
+        transactions t on t.id = e.transaction_id
       WHERE
-        e."treasuryBookId" = ${treasuryBookId}
+        e.treasury_book_id = ${treasuryBookId}
         ${
           year != null
-            ? Prisma.sql`AND EXTRACT(YEAR FROM t."accrualDate") = ${year}`
+            ? Prisma.sql`AND EXTRACT(YEAR FROM t.accrual_date) = ${year}`
             : Prisma.empty
         }
         ${
           status != null
-            ? Prisma.sql`AND e.status = ${status}::"EntryStatus"`
+            ? Prisma.sql`AND e.status = ${status}::entry_status`
             : Prisma.empty
         }
       GROUP BY
-        c."type";
+        c.type;
     `
   } catch (e) {
     logger.log({

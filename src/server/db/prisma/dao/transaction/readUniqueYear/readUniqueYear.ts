@@ -19,13 +19,13 @@ export const readUniqueYear = async ({
   try {
     return await prisma.$queryRaw<ReadUniqueYearReturns>`
       SELECT
-        DISTINCT EXTRACT(YEAR FROM "accrualDate") as "year"
+        DISTINCT EXTRACT(YEAR FROM accrual_date) as year
       FROM
-        "Transaction"
+        transactions
       WHERE
-        "treasuryBookId" = ${treasuryBookId}
+        treasury_book_id = ${treasuryBookId}
       ORDER BY 
-        "year";
+        year;
     `
   } catch (e) {
     logger.log({
