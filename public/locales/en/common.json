@@ -1,7 +1,7 @@
 {
   "StatusChip": {
     "label": {
-      "COMPLETED": "Completed",
+      "COMPLETED": "Cleared",
       "PENDING": "Pending",
       "undefined": "Unknown"
     }
