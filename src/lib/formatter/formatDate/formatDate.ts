@@ -1,6 +1,6 @@
 export const formatDate = (date?: Date) => {
   if (date == null) {
-    return 'yyyy-mm-dd'
+    return 'Not a date'
   }
 
   const year = date.getFullYear()

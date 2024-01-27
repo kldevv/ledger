@@ -2,7 +2,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { Table } from '@/components/common'
+import { FormattedNumber, Table } from '@/components/common'
 
 import type { MonthlyAmountDataFragment } from '@/api/graphql'
 
@@ -40,7 +40,9 @@ export const MonthlyChangesTable: React.FC<MonthlyChangesTableProps> = ({
               {
                 header: t`MonthlyChangesTable.header.sub.debit`,
                 id: `${month}.debit`,
-                cell: ({ getValue }) => getValue<number>(),
+                cell: ({ getValue }) => (
+                  <FormattedNumber value={getValue<number>()} />
+                ),
               },
             ),
             columnHelper.accessor(
@@ -50,7 +52,9 @@ export const MonthlyChangesTable: React.FC<MonthlyChangesTableProps> = ({
               {
                 header: t`MonthlyChangesTable.header.sub.credit`,
                 id: `${month}.credit`,
-                cell: ({ getValue }) => getValue<number>(),
+                cell: ({ getValue }) => (
+                  <FormattedNumber value={getValue<number>()} />
+                ),
               },
             ),
           ],
