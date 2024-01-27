@@ -2,21 +2,21 @@ import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
 import logger from '@/server/logger'
 
-import type { Vault } from '@prisma/client'
+import type { TreasuryBook } from '@prisma/client'
 import type { Pick } from '@prisma/client/runtime/library'
 
-export type UpdateOneProps = Pick<Vault, 'id'> & {
+export type UpdateOneProps = Pick<TreasuryBook, 'id'> & {
   /**
    * Update data
    */
   data: Data
 }
 
-type Data = Partial<Pick<Vault, 'name'>>
+type Data = Partial<Pick<TreasuryBook, 'name'>>
 
 export const updateOne = async ({ id, data }: UpdateOneProps) => {
   try {
-    return await prisma.vault.update({
+    return await prisma.treasuryBook.update({
       where: {
         id,
       },
@@ -25,7 +25,7 @@ export const updateOne = async ({ id, data }: UpdateOneProps) => {
   } catch (e) {
     logger.log({
       level: 'info',
-      message: 'Error in Vault DAO: createOne',
+      message: 'Error in TreasuryBook DAO: createOne',
       error: parsePrismaError(e),
     })
 
