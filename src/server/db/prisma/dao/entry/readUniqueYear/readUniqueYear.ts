@@ -4,7 +4,7 @@ import logger from '@/server/logger'
 
 import type { Entry } from '@prisma/client'
 
-export type ReadUniqueYearProps = Pick<Entry, 'vaultId'>
+export type ReadUniqueYearProps = Pick<Entry, 'treasuryBookId'>
 
 export type ReadUniqueYearReturns = Array<{
   /**
@@ -13,17 +13,19 @@ export type ReadUniqueYearReturns = Array<{
   year: number
 }>
 
-export const readUniqueYear = async ({ vaultId }: ReadUniqueYearProps) => {
+export const readUniqueYear = async ({
+  treasuryBookId,
+}: ReadUniqueYearProps) => {
   try {
     return await prisma.$queryRaw<ReadUniqueYearReturns>`
       SELECT
-        DISTINCT EXTRACT(YEAR FROM "transactionDate") as "year"
+        DISTINCT EXTRACT(YEAR FROM transaction_date) as "year"
       FROM
-        "Entry"
+        entries
       WHERE
-        "vaultId" = ${vaultId}
+        treasury_book_id = ${treasuryBookId}
       ORDER BY 
-        "year";
+        year;
     `
   } catch (e) {
     logger.log({
