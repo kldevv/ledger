@@ -23,12 +23,12 @@ export const FormattedNumber: React.FC<FormattedNumberProps> = ({
   const { selectedTreasuryBookId, data: { getVaults } = {} } =
     useTreasuryBookContext()
 
-  const selectedCurrency = useMemo(
-    () => getVaults?.find(({ id }) => id === selectedTreasuryBookId)?.currency,
-    [getVaults, selectedTreasuryBookId],
-  )
+  const currencySymbol = useMemo(() => {
+    const currency = getVaults?.find(({ id }) => id === selectedTreasuryBookId)
+      ?.currency
 
-  const currencySymbol = getCurrencySymbol(selectedCurrency)
+    return getCurrencySymbol(currency)
+  }, [getVaults, selectedTreasuryBookId])
 
   return (
     <div className={classNames('w-30 flex items-center', className)}>

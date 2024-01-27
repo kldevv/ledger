@@ -1,5 +1,4 @@
-import { BanknotesIcon } from '@heroicons/react/24/outline'
-import { EU, TW, US } from 'country-flag-icons/react/3x2'
+import { CN, EU, TW, US } from 'country-flag-icons/react/3x2'
 
 import { Currency } from '@/api/graphql'
 
@@ -10,17 +9,19 @@ export interface CurrencyChipProps {
   currency?: Currency
 }
 
+const iconCn = 'w-3 h-3'
+
 export const CurrencyChip: React.FC<CurrencyChipProps> = ({ currency }) => {
   const icon = (() => {
     switch (currency) {
-      case Currency.USD:
-        return <US className="w-3 h-3" />
       case Currency.NTD:
-        return <TW className="w-3 h-3" />
+        return <TW className={iconCn} />
       case Currency.EUR:
-        return <EU className="w-3 h-3" />
+        return <EU className={iconCn} />
+      case Currency.RMB:
+        return <CN className={iconCn} />
       default:
-        return <BanknotesIcon className="w-3 h-3" />
+        return <US className={iconCn} />
     }
   })()
 

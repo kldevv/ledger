@@ -1,9 +1,12 @@
 import type { Control, FieldValues, Path } from 'react-hook-form'
 
+import { useMemo } from 'react'
 import { useController } from 'react-hook-form'
 import { NumericFormat } from 'react-number-format'
 
 import { ErrorMessage, InputCore, Label } from '@/components/common'
+import { useTreasuryBookContext } from '@/hooks'
+import { getCurrencySymbol } from '@/lib'
 
 import type { InputCoreProps } from '@/components/common'
 
@@ -44,12 +47,22 @@ export const InputNumber = <TFieldValues extends FieldValues>({
     control,
   })
 
+  const { selectedTreasuryBookId, data: { getVaults } = {} } =
+    useTreasuryBookContext()
+
+  const currencySymbol = useMemo(() => {
+    const currency = getVaults?.find(({ id }) => id === selectedTreasuryBookId)
+      ?.currency
+
+    return getCurrencySymbol(currency)
+  }, [getVaults, selectedTreasuryBookId])
+
   return (
     <div className="w-[12rem] flex flex-col my-1">
       <Label htmlFor={`input-${name}`}>{label}</Label>
       <div className="flex relative">
         <span className="font-normal text-dark-shades text-xs absolute top-3 left-2">
-          US$
+          {currencySymbol}
         </span>
         <NumericFormat
           id={`input-${name}`}

@@ -19,7 +19,7 @@ export const TreasuryBookSelector: React.FC = () => {
     [data?.getVaults],
   )
 
-  const selectedTreasury = useMemo(
+  const selectedTreasuryBook = useMemo(
     () => data?.getVaults.find(({ id }) => id === selectedTreasuryBookId),
     [data?.getVaults, selectedTreasuryBookId],
   )
@@ -32,9 +32,9 @@ export const TreasuryBookSelector: React.FC = () => {
     >
       <Listbox.Button>
         <div className="text-left flex-auto flex flex-nowrap items-center px-6 py-1 rounded-2xl text-dark-shades text-xs font-medium border-2 shadow-xs border-mid-gray whitespace-nowrap overflow-hidden overflow-ellipsis">
-          {selectedTreasury?.name}
+          {selectedTreasuryBook?.name}
           <div className="ml-auto pl-8">
-            <CurrencyChip currency={selectedTreasury?.currency} />
+            <CurrencyChip currency={selectedTreasuryBook?.currency} />
           </div>
         </div>
       </Listbox.Button>

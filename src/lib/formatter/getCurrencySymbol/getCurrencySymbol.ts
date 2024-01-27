@@ -6,6 +6,8 @@ export const getCurrencySymbol = (currency: Currency | undefined) => {
       return 'NT$'
     case Currency.EUR:
       return '€'
+    case Currency.RMB:
+      return '¥'
     default:
       return 'US$'
   }
