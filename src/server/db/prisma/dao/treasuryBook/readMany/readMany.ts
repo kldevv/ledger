@@ -11,6 +11,9 @@ export const readMany = async (where: ReadManyProps) => {
   try {
     return await prisma.treasuryBook.findMany({
       where,
+      orderBy: {
+        currency: 'asc',
+      },
     })
   } catch (e) {
     logger.log({

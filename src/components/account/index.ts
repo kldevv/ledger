@@ -1,4 +1,4 @@
-export * from './AccountDashboard'
+export * from './AccountDataTable'
 export * from './AccountDescriptionList'
 export * from './AccountDetail'
 export * from './AccountTable'

@@ -4,12 +4,12 @@ import { useTreasuryBookContext } from '@/hooks'
 
 import { AccountTable } from '..'
 
-export const AccountDashboard: React.FC = () => {
+export const AccountDataTable: React.FC = () => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
   const { data } = useGetAccountsQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     fetchPolicy: 'cache-and-network',

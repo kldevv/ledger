@@ -1,4 +1,4 @@
-export * from './CategoryDashboard'
+export * from './CategoryDataTable'
 export * from './CategoryDescriptionList'
 export * from './CategoryDetail'
 export * from './CategoryTable'

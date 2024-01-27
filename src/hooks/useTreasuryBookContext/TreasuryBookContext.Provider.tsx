@@ -20,7 +20,7 @@ export const TreasuryBookContextProvider: React.FC<
   const { data, loading, error } = useGetTreasuryBooksQuery({
     variables: {
       input: {
-        ownerId: 'ce4a7c81-6404-4098-a763-64550c4ec902',
+        ownerId: '8d5aeb9c-f60f-4344-adad-548044e92019',
       },
     },
     onCompleted: (data) => {

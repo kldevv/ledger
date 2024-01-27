@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { CategoryDashboard } from '@/components/category'
+import { CategoryDataTable } from '@/components/category'
 import { PageHeader, Layout } from '@/components/layout'
 import { route } from '@/lib'
 
@@ -15,7 +15,7 @@ const Page: React.FC = () => {
           label: t`page.index.action`,
         }}
       />
-      <CategoryDashboard />
+      <CategoryDataTable />
     </Layout>
   )
 }
