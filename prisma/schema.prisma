@@ -121,4 +121,5 @@ enum Currency {
   USD
   NTD
   EUR
+  RMB
 }
