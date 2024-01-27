@@ -9,6 +9,7 @@ type Tag {
 input AddTagInput {
   name: String!
   treasuryBookId: String!
+  type: TagType!
 }
 
 input UpdateTagInput {
@@ -22,5 +23,4 @@ input GetTagInput {
 
 input GetTagsInput {
   treasuryBookId: String!
-  nameSearch: String
 }

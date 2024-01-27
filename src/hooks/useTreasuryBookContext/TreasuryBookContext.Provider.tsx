@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 
-import { useGetVaultsQuery } from '@/api/graphql'
+import { useGetTreasuryBooksQuery } from '@/api/graphql'
 
 import { TreasuryBookContext } from './TreasuryBookContext'
 
@@ -17,14 +17,14 @@ export const TreasuryBookContextProvider: React.FC<
   const [selectedTreasuryBookId, setSelectedTreasuryBookId] =
     useState<TreasuryBookContext['selectedTreasuryBookId']>(undefined)
 
-  const { data, loading, error } = useGetVaultsQuery({
+  const { data, loading, error } = useGetTreasuryBooksQuery({
     variables: {
       input: {
         ownerId: 'ce4a7c81-6404-4098-a763-64550c4ec902',
       },
     },
     onCompleted: (data) => {
-      setSelectedTreasuryBookId(data.getVaults?.[0].id)
+      setSelectedTreasuryBookId(data.getTreasuryBooks?.[0].id)
     },
   })
 

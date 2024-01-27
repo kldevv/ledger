@@ -16,15 +16,11 @@ enum CategoryType {
   EQUITY
 }
 
-enum Basis {
-  ACCRUAL
-  CASH
-}
-
-enum ReportDateGroupBy {
-  YEAR
-  MONTH
-  QUARTER
+enum TagType {
+  DEPRECIATION
+  PREPAID
+  ARAP
+  CUSTOM
 }
 
 enum DateType {

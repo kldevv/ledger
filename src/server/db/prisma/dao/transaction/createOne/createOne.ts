@@ -6,7 +6,7 @@ import type { Entry, Transaction } from '@prisma/client'
 
 export type CreateOneProps = Omit<
   Transaction,
-  'createdAt' | 'updatedAt' | 'id'
+  'createdAt' | 'updatedAt' | 'deletedAt' | 'id' | 'exchangeId'
 > & {
   /**
    * List of tag ids to connect to
@@ -17,18 +17,23 @@ export type CreateOneProps = Omit<
    */
   entries: Omit<
     Entry,
-    'createdAt' | 'updatedAt' | 'id' | 'vaultId' | 'transactionId'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'id'
+    | 'treasuryBookId'
+    | 'transactionId'
+    | 'deletedAt'
   >[]
 }
 
 export const createOne = async ({
   tagIds,
   entries,
-  vaultId,
+  treasuryBookId,
   ...props
 }: CreateOneProps) => {
   const data = {
-    vaultId,
+    treasuryBookId,
     ...props,
     tags: {
       connect: tagIds.map((id) => ({ id })),
@@ -37,7 +42,7 @@ export const createOne = async ({
       createMany: {
         data: entries.map((entry) => ({
           ...entry,
-          vaultId,
+          treasuryBookId,
         })),
       },
     },

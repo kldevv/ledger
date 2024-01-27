@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from 'react'
 
 import { createContext } from 'react'
 
-import type { GetVaultsQuery } from '@/api/graphql'
+import type { GetTreasuryBooksQuery } from '@/api/graphql'
 import type { ApolloError } from '@apollo/client'
 
 export type TreasuryBookContext = {
@@ -17,7 +17,7 @@ export type TreasuryBookContext = {
   /**
    * Query data
    */
-  data?: GetVaultsQuery
+  data?: GetTreasuryBooksQuery
   /**
    * Query state
    */

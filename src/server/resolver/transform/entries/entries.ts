@@ -29,10 +29,10 @@ export const transformToPrismaEntries = (
   PrismaEntry,
   | 'createdAt'
   | 'updatedAt'
+  | 'deletedAt'
   | 'id'
   | 'treasuryBookId'
   | 'transactionId'
-  | 'deletedAt'
 >[] => {
   return entries.map(({ debit, credit, ...entry }) => ({
     ...entry,

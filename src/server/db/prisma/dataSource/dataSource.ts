@@ -13,7 +13,7 @@ export class PrismaDataSource {
   public entry: typeof EntryDao
   public tag: typeof TagDao
   public transaction: typeof TransactionDao
-  public vault: typeof TreasuryBookDao
+  public treasuryBook: typeof TreasuryBookDao
 
   constructor() {
     this.account = AccountDao
@@ -21,6 +21,6 @@ export class PrismaDataSource {
     this.entry = EntryDao
     this.tag = TagDao
     this.transaction = TransactionDao
-    this.vault = TreasuryBookDao
+    this.treasuryBook = TreasuryBookDao
   }
 }

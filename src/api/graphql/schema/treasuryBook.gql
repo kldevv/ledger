@@ -9,7 +9,6 @@ type TreasuryBook {
 
 input GetTreasuryBooksInput {
   ownerId: String!
-  nameSearch: String
   currency: Currency
 }
 

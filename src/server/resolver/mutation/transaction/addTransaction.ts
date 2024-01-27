@@ -7,15 +7,15 @@ import type { MutationResolvers } from '@/api/graphql'
 
 export const addTransaction: MutationResolvers['addTransaction'] = async (
   _,
-  { input: { entries, vaultId, ...data } },
+  { input: { entries, treasuryBookId, ...data } },
   { dataSources: { prisma } },
 ) => {
   const { entries: createdEntries, ...createdTransaction } =
     await prisma.transaction.createOne({
       ...data,
-      vaultId,
+      treasuryBookId,
       entries: transformToPrismaEntries(
-        entries.map((entry) => ({ vaultId, ...entry })),
+        entries.map((entry) => ({ treasuryBookId, ...entry })),
       ),
     })
 

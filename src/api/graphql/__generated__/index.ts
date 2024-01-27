@@ -55,6 +55,7 @@ export type AddEntryInput = {
 export type AddTagInput = {
   name: Scalars['String']['input'];
   treasuryBookId: Scalars['String']['input'];
+  type: TagType;
 };
 
 export type AddTransactionInput = {
@@ -83,12 +84,6 @@ export type AmountOnMonth = {
   month: Scalars['Int']['output'];
 };
 
-export const Basis = {
-  ACCRUAL: 'ACCRUAL',
-  CASH: 'CASH'
-} as const;
-
-export type Basis = typeof Basis[keyof typeof Basis];
 export type Category = {
   __typename?: 'Category';
   createdAt: Scalars['DateTime']['output'];
@@ -189,7 +184,6 @@ export type GetTagInput = {
 };
 
 export type GetTagsInput = {
-  nameSearch?: InputMaybe<Scalars['String']['input']>;
   treasuryBookId: Scalars['String']['input'];
 };
 
@@ -205,7 +199,6 @@ export type GetTransactionsInput = {
 
 export type GetTreasuryBooksInput = {
   currency?: InputMaybe<Currency>;
-  nameSearch?: InputMaybe<Scalars['String']['input']>;
   ownerId: Scalars['String']['input'];
 };
 
@@ -391,13 +384,6 @@ export type QueryGetUniqueYearsArgs = {
   input: GetUniqueYearsInput;
 };
 
-export const ReportDateGroupBy = {
-  MONTH: 'MONTH',
-  QUARTER: 'QUARTER',
-  YEAR: 'YEAR'
-} as const;
-
-export type ReportDateGroupBy = typeof ReportDateGroupBy[keyof typeof ReportDateGroupBy];
 export type Tag = {
   __typename?: 'Tag';
   createdAt: Scalars['DateTime']['output'];
@@ -407,6 +393,14 @@ export type Tag = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export const TagType = {
+  ARAP: 'ARAP',
+  CUSTOM: 'CUSTOM',
+  DEPRECIATION: 'DEPRECIATION',
+  PREPAID: 'PREPAID'
+} as const;
+
+export type TagType = typeof TagType[keyof typeof TagType];
 export type Transaction = {
   __typename?: 'Transaction';
   accrualDate: Scalars['DateTime']['output'];
@@ -536,7 +530,6 @@ export type ResolversTypes = {
   AddTreasuryBookInput: AddTreasuryBookInput;
   Amount: ResolverTypeWrapper<Amount>;
   AmountOnMonth: ResolverTypeWrapper<AmountOnMonth>;
-  Basis: Basis;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Category: ResolverTypeWrapper<Category>;
   CategoryType: CategoryType;
@@ -562,9 +555,9 @@ export type ResolversTypes = {
   MonthlyAmount: ResolverTypeWrapper<MonthlyAmount>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  ReportDateGroupBy: ReportDateGroupBy;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Tag: ResolverTypeWrapper<Tag>;
+  TagType: TagType;
   Transaction: ResolverTypeWrapper<Transaction>;
   TreasuryBook: ResolverTypeWrapper<TreasuryBook>;
   UpdateAccountInput: UpdateAccountInput;

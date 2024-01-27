@@ -6,9 +6,10 @@ import { useCallback, useMemo } from 'react'
 import { Button, CurrencyChip, FormattedDate, Table } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
-import type { GetVaultsQuery } from '@/api/graphql'
+import type { GetTreasuryBooksQuery } from '@/api/graphql'
 
-export type TreasuryBookTableData = GetVaultsQuery['getVaults'][number]
+export type TreasuryBookTableData =
+  GetTreasuryBooksQuery['getTreasuryBooks'][number]
 
 const columnHelper = createColumnHelper<TreasuryBookTableData>()
 

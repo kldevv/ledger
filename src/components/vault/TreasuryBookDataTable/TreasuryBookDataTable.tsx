@@ -1,10 +1,10 @@
-import { useGetVaultsQuery } from '@/api/graphql'
+import { useGetTreasuryBooksQuery } from '@/api/graphql'
 import { Card } from '@/components/common'
 
 import { TreasuryBookTable } from '..'
 
 export const TreasuryBookDataTable: React.FC = () => {
-  const { data } = useGetVaultsQuery({
+  const { data } = useGetTreasuryBooksQuery({
     variables: {
       input: {
         ownerId:
@@ -15,7 +15,7 @@ export const TreasuryBookDataTable: React.FC = () => {
 
   return (
     <Card>
-      <TreasuryBookTable data={data?.getVaults ?? []} />
+      <TreasuryBookTable data={data?.getTreasuryBooks ?? []} />
     </Card>
   )
 }

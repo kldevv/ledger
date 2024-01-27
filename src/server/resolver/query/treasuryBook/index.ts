@@ -1,1 +1,1 @@
-export * from './getVaults'
+export * from './getTreasuryBooks'

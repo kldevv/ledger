@@ -11,17 +11,18 @@ export const TreasuryBookSelector: React.FC = () => {
 
   const options = useMemo(
     () =>
-      data?.getVaults.map(({ id, name, currency }) => ({
+      data?.getTreasuryBooks.map(({ id, name, currency }) => ({
         value: id,
         label: name,
         currency,
       })) ?? [],
-    [data?.getVaults],
+    [data?.getTreasuryBooks],
   )
 
   const selectedTreasuryBook = useMemo(
-    () => data?.getVaults.find(({ id }) => id === selectedTreasuryBookId),
-    [data?.getVaults, selectedTreasuryBookId],
+    () =>
+      data?.getTreasuryBooks.find(({ id }) => id === selectedTreasuryBookId),
+    [data?.getTreasuryBooks, selectedTreasuryBookId],
   )
 
   return (

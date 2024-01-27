@@ -4,7 +4,10 @@ import logger from '@/server/logger'
 
 import type { Category } from '@prisma/client'
 
-export type CreateOneProps = Omit<Category, 'id' | 'createdAt' | 'updatedAt'>
+export type CreateOneProps = Omit<
+  Category,
+  'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+>
 
 export const createOne = async (data: CreateOneProps) => {
   try {
