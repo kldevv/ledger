@@ -8,113 +8,150 @@ datasource db {
 }
 
 model Category {
-  id          String       @id @default(uuid())
-  type        CategoryType
-  name        String
-  accounts    Account[]
-  vault       Vault        @relation(fields: [vaultId], references: [id])
-  vaultId     String
-  createdDate DateTime     @default(now())
-  updatedDate DateTime     @updatedAt
-  deletedDate DateTime?
+  id             String       @id @default(uuid())
+  type           CategoryType
+  name           String
+  accounts       Account[]
+  treasuryBook   TreasuryBook @relation(fields: [treasuryBookId], references: [id])
+  treasuryBookId String       @map("treasury_book")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+  deletedAt      DateTime?    @map("deleted_at")
 
-  @@unique([vaultId, name])
+  @@unique([treasuryBookId, name])
+  @@map("categories")
 }
 
 model Account {
-  id          String    @id @default(uuid())
-  name        String
-  category    Category  @relation(fields: [categoryId], references: [id])
-  categoryId  String
-  vault       Vault     @relation(fields: [vaultId], references: [id])
-  vaultId     String
-  entries     Entry[]
-  createdDate DateTime  @default(now())
-  updatedDate DateTime  @updatedAt
-  deletedDate DateTime?
+  id             String       @id @default(uuid())
+  name           String
+  category       Category     @relation(fields: [categoryId], references: [id])
+  categoryId     String
+  treasuryBook   TreasuryBook @relation(fields: [treasuryBookId], references: [id])
+  treasuryBookId String
+  entries        Entry[]
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+  deletedAt      DateTime?    @map("deleted_at")
 
   @@unique([categoryId, name])
+  @@map("accounts")
 }
 
 model Transaction {
-  id          String    @id @default(uuid())
-  accrualDate DateTime
-  note        String
-  vault       Vault     @relation(fields: [vaultId], references: [id])
-  vaultId     String
-  entries     Entry[]
-  tags        Tag[]
-  createdDate DateTime  @default(now())
-  updatedDate DateTime  @updatedAt
-  deletedDate DateTime?
+  id             String       @id @default(uuid())
+  accrualDate    DateTime     @map("accrual_date")
+  note           String
+  treasuryBook   TreasuryBook @relation(fields: [treasuryBookId], references: [id])
+  treasuryBookId String       @map("treasury_book_id")
+  exchangeId     String?      @map("exchange_id")
+  exchange       Exchange?    @relation(fields: [exchangeId], references: [id])
+  entries        Entry[]
+  tags           Tag[]
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+  deletedAt      DateTime?    @map("deleted_at")
+
+  @@map("transactions")
 }
 
 model Entry {
-  id              String      @id @default(uuid())
-  transactionDate DateTime
-  account         Account     @relation(fields: [accountId], references: [id])
-  accountId       String
-  vault           Vault       @relation(fields: [vaultId], references: [id])
-  vaultId         String
+  id              String       @id @default(uuid())
+  transactionDate DateTime     @map("transaction_date")
+  account         Account      @relation(fields: [accountId], references: [id])
+  accountId       String       @map("account_id")
+  treasuryBook    TreasuryBook @relation(fields: [treasuryBookId], references: [id])
+  treasuryBookId  String       @map("treasury_book_id")
   amount          Float
   memo            String
-  transaction     Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  transactionId   String
-  status          EntryStatus @default(PENDING)
-  createdDate     DateTime    @default(now())
-  updatedDate     DateTime    @updatedAt
-  deletedDate     DateTime?
+  transaction     Transaction  @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  transactionId   String       @map("transaction_id")
+  status          EntryStatus  @default(PENDING)
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+  deletedAt       DateTime?    @map("deleted_at")
+
+  @@map("entries")
 }
 
 model Tag {
-  id           String        @id @default(uuid())
-  name         String
-  transactions Transaction[]
-  vault        Vault         @relation(fields: [vaultId], references: [id])
-  vaultId      String
-  createdDate  DateTime      @default(now())
-  updatedDate  DateTime      @updatedAt
-  deletedDate  DateTime?
+  id             String        @id @default(uuid())
+  name           String
+  transactions   Transaction[]
+  treasuryBook   TreasuryBook  @relation(fields: [treasuryBookId], references: [id])
+  treasuryBookId String        @map("treasury_book_id")
+  type           TagType
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+  deletedAt      DateTime?     @map("deleted_at")
 
-  @@unique([vaultId, name])
+  @@unique([treasuryBookId, name])
+  @@map("tags")
 }
 
-model Vault {
+model Exchange {
+  id           String        @id @default(uuid())
+  ownerId      String        @map("owner_id")
+  transactions Transaction[]
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  deletedAt    DateTime?     @map("deleted_at")
+
+  @@map("exchanges")
+}
+
+model TreasuryBook {
   id           String        @id @default(uuid())
   name         String
   currency     Currency
   profile      Profile       @relation(fields: [ownerId], references: [id])
-  ownerId      String
+  ownerId      String        @map("owner_id")
   entries      Entry[]
   categories   Category[]
   accounts     Account[]
   transactions Transaction[]
   tags         Tag[]
-  createdDate  DateTime      @default(now())
-  updatedDate  DateTime      @updatedAt
-  deletedDate  DateTime?
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  deletedAt    DateTime?     @map("deleted_at")
 
   @@unique([ownerId, name])
+  @@map("treasury_book")
 }
 
 model Profile {
-  id          String    @id @default(uuid())
-  name        String
-  vaults      Vault[]
-  createdDate DateTime  @default(now())
-  updatedDate DateTime  @updatedAt
-  deletedDate DateTime?
+  id           String         @id @default(uuid())
+  name         String
+  treasuryBook TreasuryBook[]
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  deletedAt    DateTime?      @map("deleted_at")
+
+  @@map("profiles")
 }
 
 enum EntryStatus {
   PENDING
   COMPLETED
+
+  @@map("entry_status")
 }
 
 enum CategoryType {
   ASSETS
   LIABILITIES
   EQUITY
+
+  @@map("category_type")
+}
+
+enum TagType {
+  DEPRECIATION
+  PREPAID
+  ARAP
+  CUSTOM
+
+  @@map("tag_type")
 }
 
 enum Currency {
@@ -122,4 +159,6 @@ enum Currency {
   NTD
   EUR
   RMB
+
+  @@map("currency")
 }

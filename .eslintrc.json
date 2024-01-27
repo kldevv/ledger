@@ -35,9 +35,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    // to always use `tsconfig.jsons` nearest to source files
-    "project": "../tsconfig.json"
-    // "tsconfigRootDir": "./tsconfig.json"
+    "tsconfigRootDir": "./tsconfig.json"
   },
   "plugins": [
     // TypeScript
