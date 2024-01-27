@@ -2,6 +2,7 @@ enum Currency {
   USD
   NTD
   EUR
+  RMB
 }
 
 enum EntryStatus {

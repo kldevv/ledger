@@ -1,6 +1,0 @@
-query getMinMaxDate($input: GetMinMaxDateInput!) {
-  getMinMaxDate(input: $input) {
-    maxDate
-    minDate
-  }
-}

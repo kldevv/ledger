@@ -109,6 +109,7 @@ export type CategoryType = typeof CategoryType[keyof typeof CategoryType];
 export const Currency = {
   EUR: 'EUR',
   NTD: 'NTD',
+  RMB: 'RMB',
   USD: 'USD'
 } as const;
 
