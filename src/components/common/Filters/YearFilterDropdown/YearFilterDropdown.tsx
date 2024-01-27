@@ -39,7 +39,7 @@ export const YearFilterDropdown: React.FC<YearFilterDropdownProps> = ({
   const { data } = useGetUniqueYearsQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
         type,
       },
     },

@@ -48,7 +48,7 @@ export const groupByMonthAndCategoryType = async ({
   try {
     return await prisma.$queryRaw<GroupByMonthAndCategoryTypeReturns>`
       SELECT
-        EXTRACT(MONTH FROM e.transactionDate) as month,
+        EXTRACT(MONTH FROM e.transaction_date) as month,
         SUM(CASE WHEN e.amount > 0 THEN e.amount ELSE 0 END) as debit,
         SUM(CASE WHEN e.amount < 0 THEN -e.amount ELSE 0 END) as credit,
         c.type as id,

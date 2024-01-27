@@ -28,7 +28,7 @@ export const UpdateTransactionForm: React.FC = () => {
       },
       getEntriesInput: {
         transactionId,
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     skip: transactionId == null || selectedTreasuryBookId == null,
@@ -74,7 +74,7 @@ export const UpdateTransactionForm: React.FC = () => {
         variables: {
           input: {
             id: data?.getTransaction?.id,
-            vaultId: data?.getTransaction.vaultId,
+            treasuryBookId: data?.getTransaction.treasuryBookId,
             ...values,
           },
         },

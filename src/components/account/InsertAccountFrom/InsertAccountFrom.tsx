@@ -18,7 +18,7 @@ export const InsertAccountFrom: React.FC = () => {
   const { data } = useGetCategoriesQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     skip: selectedTreasuryBookId == null,
@@ -45,7 +45,7 @@ export const InsertAccountFrom: React.FC = () => {
         variables: {
           input: {
             ...values,
-            vaultId: selectedTreasuryBookId,
+            treasuryBookId: selectedTreasuryBookId,
           },
         },
       })

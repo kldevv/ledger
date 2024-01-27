@@ -84,7 +84,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   const { data } = useGetTagsQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     skip: selectedTreasuryBookId == null,

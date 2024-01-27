@@ -8,7 +8,7 @@ export const getUniqueYears: QueryResolvers['getUniqueYears'] = async (
   const prismaReturns =
     type === DateType.TRANSACTION
       ? await prisma.entry.readUniqueYear({ treasuryBookId })
-      : await prisma.transaction.readUniqueYear({ vaultId })
+      : await prisma.transaction.readUniqueYear({ treasuryBookId })
 
   return prismaReturns.map(({ year }) => year)
 }

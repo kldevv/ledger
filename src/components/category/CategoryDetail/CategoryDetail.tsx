@@ -27,7 +27,7 @@ export const CategoryDetail: React.FC = () => {
       },
       getEntriesInput: {
         categoryId,
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
       getAccountsInput: {
         categoryId,

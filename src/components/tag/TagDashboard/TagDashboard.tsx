@@ -9,7 +9,7 @@ export const TagDashboard: React.FC = () => {
   const { data } = useGetTagsQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     skip: selectedTreasuryBookId == null,

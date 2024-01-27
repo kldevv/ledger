@@ -25,7 +25,7 @@ export const InsertCategoryFrom: React.FC = () => {
         variables: {
           input: {
             ...values,
-            vaultId: selectedTreasuryBookId,
+            treasuryBookId: selectedTreasuryBookId,
           },
         },
       })

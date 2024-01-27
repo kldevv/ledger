@@ -25,7 +25,7 @@ export const InsertTagForm: React.FC = () => {
         variables: {
           input: {
             ...values,
-            vaultId: selectedTreasuryBookId,
+            treasuryBookId: selectedTreasuryBookId,
           },
         },
       })

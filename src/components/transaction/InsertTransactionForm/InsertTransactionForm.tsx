@@ -23,7 +23,7 @@ export const InsertTransactionForm: React.FC = () => {
   const { data } = useGetAccountsQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId,
+        treasuryBookId: selectedTreasuryBookId,
       },
     },
     skip: selectedTreasuryBookId == null,
@@ -61,7 +61,7 @@ export const InsertTransactionForm: React.FC = () => {
         variables: {
           input: {
             ...values,
-            vaultId: selectedTreasuryBookId,
+            treasuryBookId: selectedTreasuryBookId,
           },
         },
       })

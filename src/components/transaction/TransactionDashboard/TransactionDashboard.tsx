@@ -9,7 +9,7 @@ export const TransactionDashboard: React.FC = () => {
   const { data } = useGetTransactionsQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     skip: selectedTreasuryBookId == null,

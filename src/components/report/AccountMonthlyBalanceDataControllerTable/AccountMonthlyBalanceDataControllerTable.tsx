@@ -31,7 +31,7 @@ export const AccountMonthlyBalanceDataControllerTable: React.FC = () => {
   const { data } = useGetAccountMonthlyBalanceQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
         year: yearFilter,
         type: dateTypeFilter,
         status: statusFilter,

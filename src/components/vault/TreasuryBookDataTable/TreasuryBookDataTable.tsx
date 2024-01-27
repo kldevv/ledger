@@ -1,17 +1,10 @@
-import { useGetTreasuryBooksQuery } from '@/api/graphql'
 import { Card } from '@/components/common'
 
 import { TreasuryBookTable } from '..'
+import { useTreasuryBookContext } from '@/hooks'
 
 export const TreasuryBookDataTable: React.FC = () => {
-  const { data } = useGetTreasuryBooksQuery({
-    variables: {
-      input: {
-        ownerId:
-          process.env.PROFILE_ID ?? 'ce4a7c81-6404-4098-a763-64550c4ec902',
-      },
-    },
-  })
+  const { data } = useTreasuryBookContext()
 
   return (
     <Card>

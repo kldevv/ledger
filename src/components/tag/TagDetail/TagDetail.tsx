@@ -20,7 +20,10 @@ export const TagDetail: React.FC = () => {
   const { data } = useGetTagDetailQuery({
     variables: {
       getTagInput: { id: tagId ?? '' },
-      getTransactionsInput: { vaultId: selectedTreasuryBookId ?? '', tagId },
+      getTransactionsInput: {
+        treasuryBookId: selectedTreasuryBookId ?? '',
+        tagId,
+      },
     },
     skip: tagId == null || selectedTreasuryBookId == null,
   })

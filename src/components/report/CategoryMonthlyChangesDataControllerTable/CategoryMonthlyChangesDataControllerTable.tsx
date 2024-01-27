@@ -29,7 +29,7 @@ export const CategoryMonthlyChangesDataControllerTable: React.FC = () => {
   const { data } = useGetCategoryMonthlyChangesQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
         year: yearFilter,
         type: dateTypeFilter,
         status: statusFilter,

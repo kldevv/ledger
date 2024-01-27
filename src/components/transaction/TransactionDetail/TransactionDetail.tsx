@@ -24,7 +24,7 @@ export const TransactionDetail: React.FC = () => {
       },
       getEntriesInput: {
         transactionId,
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     skip: transactionId == null || selectedTreasuryBookId == null,

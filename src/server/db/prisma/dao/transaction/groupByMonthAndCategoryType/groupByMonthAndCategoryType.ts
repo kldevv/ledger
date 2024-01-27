@@ -6,7 +6,10 @@ import logger from '@/server/logger'
 
 import type { Category, EntryStatus, Transaction } from '@prisma/client'
 
-export type GroupByMonthAndCategoryTypeProps = Pick<Transaction, 'vaultId'> & {
+export type GroupByMonthAndCategoryTypeProps = Pick<
+  Transaction,
+  'treasuryBookId'
+> & {
   /**
    * Filter by year
    */
@@ -41,7 +44,7 @@ export type GroupByMonthAndCategoryTypeReturns = Array<{
 }>
 
 export const groupByMonthAndCategoryType = async ({
-  vaultId,
+  treasuryBookId,
   year,
   status,
 }: GroupByMonthAndCategoryTypeProps) => {
@@ -62,7 +65,7 @@ export const groupByMonthAndCategoryType = async ({
       JOIN
         "Transaction" t ON t."id" = e."transactionId"
       WHERE
-        e."vaultId" = ${vaultId}
+        e."treasuryBookId" = ${treasuryBookId}
         ${
           year != null
             ? Prisma.sql`AND EXTRACT(YEAR FROM t."accrualDate") = ${year}`

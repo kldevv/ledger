@@ -18,7 +18,7 @@ export const AccountsContextProvider: React.FC<
   const result = useGetAccountsQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId,
+        treasuryBookId: selectedTreasuryBookId,
       },
     },
   })

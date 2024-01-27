@@ -26,9 +26,9 @@ model Account {
   id             String       @id @default(uuid())
   name           String
   category       Category     @relation(fields: [categoryId], references: [id])
-  categoryId     String
+  categoryId     String @map("category_id")
   treasuryBook   TreasuryBook @relation(fields: [treasuryBookId], references: [id])
-  treasuryBookId String
+  treasuryBookId String @map("treasury_book_id")
   entries        Entry[]
   createdAt      DateTime     @default(now()) @map("created_at")
   updatedAt      DateTime     @updatedAt @map("updated_at")

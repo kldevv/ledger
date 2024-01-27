@@ -23,7 +23,7 @@ export const AccountDetail: React.FC = () => {
         id: accountId ?? '',
       },
       getEntriesInput: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
         accountId: accountId,
       },
     },

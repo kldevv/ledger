@@ -59,7 +59,7 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
   const { data } = useGetCategoriesQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     skip: selectedTreasuryBookId == null,

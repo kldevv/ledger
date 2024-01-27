@@ -27,8 +27,8 @@ CREATE TABLE "categories" (
 CREATE TABLE "accounts" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "categoryId" TEXT NOT NULL,
-    "treasuryBookId" TEXT NOT NULL,
+    "category_id" TEXT NOT NULL,
+    "treasury_book_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "deleted_at" TIMESTAMP(3),
@@ -125,7 +125,7 @@ CREATE TABLE "_TagToTransaction" (
 CREATE UNIQUE INDEX "categories_treasury_book_name_key" ON "categories"("treasury_book", "name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "accounts_categoryId_name_key" ON "accounts"("categoryId", "name");
+CREATE UNIQUE INDEX "accounts_category_id_name_key" ON "accounts"("category_id", "name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "tags_treasury_book_id_name_key" ON "tags"("treasury_book_id", "name");
@@ -143,10 +143,10 @@ CREATE INDEX "_TagToTransaction_B_index" ON "_TagToTransaction"("B");
 ALTER TABLE "categories" ADD CONSTRAINT "categories_treasury_book_fkey" FOREIGN KEY ("treasury_book") REFERENCES "treasury_book"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "accounts" ADD CONSTRAINT "accounts_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "accounts" ADD CONSTRAINT "accounts_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "accounts" ADD CONSTRAINT "accounts_treasuryBookId_fkey" FOREIGN KEY ("treasuryBookId") REFERENCES "treasury_book"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "accounts" ADD CONSTRAINT "accounts_treasury_book_id_fkey" FOREIGN KEY ("treasury_book_id") REFERENCES "treasury_book"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "transactions" ADD CONSTRAINT "transactions_treasury_book_id_fkey" FOREIGN KEY ("treasury_book_id") REFERENCES "treasury_book"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

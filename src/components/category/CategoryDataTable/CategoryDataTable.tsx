@@ -12,6 +12,7 @@ export const CategoryDataTable: React.FC = () => {
         treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
+    fetchPolicy: 'cache-and-network',
     skip: selectedTreasuryBookId == null,
   })
 

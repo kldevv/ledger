@@ -7,7 +7,7 @@ export const EntryDashboard: React.FC = () => {
   const { data } = useGetEntriesQuery({
     variables: {
       input: {
-        vaultId: selectedTreasuryBookId ?? '',
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     skip: selectedTreasuryBookId == null,
