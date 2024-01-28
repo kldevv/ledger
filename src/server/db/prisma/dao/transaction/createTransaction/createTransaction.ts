@@ -4,34 +4,36 @@ import logger from '@/server/logger'
 
 import type { Entry, Transaction } from '@prisma/client'
 
-export type CreateOneProps = Omit<
+export type CreateTransactionProps = Pick<
   Transaction,
-  'createdAt' | 'updatedAt' | 'deletedAt' | 'id' | 'exchangeId'
+  'treasuryBookId' | 'accrualDate' | 'note'
 > & {
   /**
-   * List of tag ids to connect to
+   * Connect tags, this will not create new tags
    */
   tagIds: string[]
   /**
-   * List of entries of the transaction
+   * Create and connect entries
    */
-  entries: Omit<
-    Entry,
-    | 'createdAt'
-    | 'updatedAt'
-    | 'id'
-    | 'treasuryBookId'
-    | 'transactionId'
-    | 'deletedAt'
-  >[]
+  entries: Array<CreateEntryProps>
 }
 
-export const createOne = async ({
+export type CreateEntryProps = Pick<
+  Entry,
+  | 'accountId'
+  | 'amount'
+  | 'memo'
+  | 'transactionDate'
+  | 'treasuryBookId'
+  | 'status'
+>
+
+export const createTransaction = async ({
   tagIds,
   entries,
   treasuryBookId,
   ...props
-}: CreateOneProps) => {
+}: CreateTransactionProps) => {
   const data = {
     treasuryBookId,
     ...props,

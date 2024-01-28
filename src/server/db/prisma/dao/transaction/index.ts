@@ -1,4 +1,4 @@
-export * from './createOne'
+export * from './createTransaction'
 export * from './groupByAccount'
 export * from './groupByCategory'
 export * from './groupByCategoryType'

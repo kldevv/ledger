@@ -11,7 +11,7 @@ export const addTransaction: MutationResolvers['addTransaction'] = async (
   { dataSources: { prisma } },
 ) => {
   const { entries: createdEntries, ...createdTransaction } =
-    await prisma.transaction.createOne({
+    await prisma.transaction.createTransaction({
       ...data,
       treasuryBookId,
       entries: transformToPrismaEntries(

@@ -17,7 +17,7 @@ const Page: React.FC = () => {
             pathname: route.accountDetailEdit.pathname,
             query,
           },
-          label: t('page.[id].index.link'),
+          label: t('page.[id].index.action'),
         }}
       />
       <AccountDetail />
