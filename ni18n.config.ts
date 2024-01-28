@@ -7,7 +7,7 @@ export const ni18nConfig: Ni18nOptions = {
     'category',
     'common',
     'entry',
-    'hook',
+    'exchange',
     'layout',
     'meta',
     'report',

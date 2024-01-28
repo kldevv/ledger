@@ -86,5 +86,17 @@
   "/treasury-book/add": {
     "title": "Add Treasury Book",
     "description": "Add a new treasury book to your account"
+  },
+  "/exchange": {
+    "title": "Exchange History",
+    "description": "A table of all the exchanges"
+  },
+  "/exchange/add": {
+    "title": "Exchange",
+    "description": "Exchange between different treasury books"
+  },
+  "/exchange/[id]": {
+    "title": "Exchange Details",
+    "description": "The detail information of the exchange"
   }
 }

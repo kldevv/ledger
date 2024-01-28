@@ -1,5 +1,6 @@
 export * as account from './account'
 export * as entry from './entry'
+export * as exchange from './exchange'
 export * as category from './category'
 export * as common from './common'
 export * as report from './report'

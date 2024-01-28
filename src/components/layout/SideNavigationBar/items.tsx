@@ -1,4 +1,5 @@
 import {
+  ArrowsRightLeftIcon,
   ChartPieIcon,
   ClipboardDocumentIcon,
   InboxIcon,
@@ -16,47 +17,53 @@ import type {
   SideNavigationBarMenuItemGroup,
 } from '..'
 
+const iconCn = 'w-5 h-5'
+
 const mainGroupItems: SideNavigationBarMenuItem[] = [
   {
     ...route.transactionHome,
-    icon: <ReceiptPercentIcon className="w-5 h-5" />,
+    icon: <ReceiptPercentIcon className={iconCn} />,
   },
   {
     ...route.entryHome,
-    icon: <ListBulletIcon className="w-5 h-5" />,
+    icon: <ListBulletIcon className={iconCn} />,
   },
 ]
 
 const reportGroupItems: SideNavigationBarMenuItem[] = [
   {
     ...route.reportAmountBalance,
-    icon: <ChartPieIcon className="w-5 h-5" />,
+    icon: <ChartPieIcon className={iconCn} />,
   },
   {
     ...route.reportAmountChange,
-    icon: <PresentationChartBarIcon className="w-5 h-5" />,
+    icon: <PresentationChartBarIcon className={iconCn} />,
   },
 ]
 
 const treasuryBookGroupItems: SideNavigationBarMenuItem[] = [
   {
     ...route.accountHome,
-    icon: <InboxIcon className="w-5 h-5" />,
+    icon: <InboxIcon className={iconCn} />,
   },
   {
     ...route.categoryHome,
-    icon: <InboxStackIcon className="w-5 h-5" />,
+    icon: <InboxStackIcon className={iconCn} />,
   },
   {
     ...route.tagHome,
-    icon: <TagIcon className="w-5 h-5" />,
+    icon: <TagIcon className={iconCn} />,
   },
 ]
 
 const settingsGroupItems: SideNavigationBarMenuItem[] = [
   {
+    ...route.exchangeHome,
+    icon: <ArrowsRightLeftIcon className={iconCn} />,
+  },
+  {
     ...route.treasuryBookHome,
-    icon: <ClipboardDocumentIcon className="w-5 h-5" />,
+    icon: <ClipboardDocumentIcon className={iconCn} />,
   },
 ]
 
