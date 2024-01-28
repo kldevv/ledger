@@ -3,6 +3,7 @@ type Category {
   name: String!
   type: CategoryType!
   treasuryBookId: String!
+  accountCount: Int
   createdAt: DateTime!
   updatedAt: DateTime!
 }

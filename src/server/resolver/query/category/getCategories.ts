@@ -5,5 +5,10 @@ export const getCategories: QueryResolvers['getCategories'] = async (
   { input: { treasuryBookId } },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.category.readMany({ treasuryBookId })
+  const categories = await prisma.category.readMany({ treasuryBookId })
+
+  return categories.map(({ _count, ...category }) => ({
+    ...category,
+    accountCount: _count.accounts,
+  }))
 }

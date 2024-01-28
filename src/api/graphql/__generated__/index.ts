@@ -86,6 +86,7 @@ export type AmountOnMonth = {
 
 export type Category = {
   __typename?: 'Category';
+  accountCount?: Maybe<Scalars['Int']['output']>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
@@ -631,6 +632,7 @@ export type AmountOnMonthResolvers<ContextType = ApolloServerContext, ParentType
 };
 
 export type CategoryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
+  accountCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -835,7 +837,7 @@ export type GetCategoriesQueryVariables = Exact<{
 }>;
 
 
-export type GetCategoriesQuery = { __typename?: 'Query', getCategories: Array<{ __typename?: 'Category', id: string, name: string, type: CategoryType, treasuryBookId: string, createdAt: Date, updatedAt: Date }> };
+export type GetCategoriesQuery = { __typename?: 'Query', getCategories: Array<{ __typename?: 'Category', id: string, name: string, type: CategoryType, accountCount?: number | null, treasuryBookId: string, createdAt: Date, updatedAt: Date }> };
 
 export type GetCategoryQueryVariables = Exact<{
   input: GetCategoryInput;
@@ -1533,6 +1535,7 @@ export const GetCategoriesDocument = gql`
     id
     name
     type
+    accountCount
     treasuryBookId
     createdAt
     updatedAt

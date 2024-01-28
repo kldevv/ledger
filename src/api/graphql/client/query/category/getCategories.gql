@@ -3,6 +3,7 @@ query getCategories($input: GetCategoriesInput!) {
     id
     name
     type
+    accountCount
     treasuryBookId
     createdAt
     updatedAt

@@ -10,6 +10,16 @@ export const readMany = async (where: ReadManyProps) => {
   try {
     return await prisma.category.findMany({
       where,
+      include: {
+        _count: {
+          select: {
+            accounts: true,
+          },
+        },
+      },
+      orderBy: {
+        type: 'asc',
+      },
     })
   } catch (e) {
     logger.log({

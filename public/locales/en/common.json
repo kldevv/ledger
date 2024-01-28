@@ -1,4 +1,11 @@
 {
+  "CategoryTypeChip": {
+    "label": {
+      "ASSETS": "Assets",
+      "LIABILITIES": "Liabilities",
+      "EQUITY": "Equity"
+    }
+  },
   "StatusChip": {
     "label": {
       "COMPLETED": "Cleared",
