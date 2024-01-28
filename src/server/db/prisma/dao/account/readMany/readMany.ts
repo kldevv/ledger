@@ -14,6 +14,16 @@ export const readMany = async (where: ReadManyProps) => {
       where,
       include: {
         category: true,
+        _count: {
+          select: {
+            entries: true,
+          },
+        },
+      },
+      orderBy: {
+        category: {
+          name: 'asc',
+        },
       },
     })
   } catch (e) {

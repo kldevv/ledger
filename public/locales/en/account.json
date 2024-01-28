@@ -17,7 +17,7 @@
     "header": {
       "name": "Name",
       "category": "Category",
-      "id": "ID",
+      "entryCount": "Entries",
       "createdAt": "Create Date"
     }
   },

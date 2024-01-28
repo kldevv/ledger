@@ -25,6 +25,7 @@ export type Account = {
   __typename?: 'Account';
   category?: Maybe<Category>;
   createdAt: Scalars['DateTime']['output'];
+  entryCount?: Maybe<Scalars['Int']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   treasuryBookId: Scalars['String']['output'];
@@ -612,6 +613,7 @@ export type ResolversParentTypes = {
 export type AccountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
   category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  entryCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -830,7 +832,7 @@ export type GetAccountsQueryVariables = Exact<{
 }>;
 
 
-export type GetAccountsQuery = { __typename?: 'Query', getAccounts: Array<{ __typename?: 'Account', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }> };
+export type GetAccountsQuery = { __typename?: 'Query', getAccounts: Array<{ __typename?: 'Account', id: string, name: string, entryCount?: number | null, treasuryBookId: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }> };
 
 export type GetCategoriesQueryVariables = Exact<{
   input: GetCategoriesInput;
@@ -1490,6 +1492,7 @@ export const GetAccountsDocument = gql`
       name
     }
     name
+    entryCount
     treasuryBookId
     createdAt
     updatedAt

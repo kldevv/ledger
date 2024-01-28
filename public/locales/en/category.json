@@ -16,7 +16,6 @@
   },
   "CategoryTable": {
     "header": {
-      "id": "ID",
       "name": "Name",
       "type": "Category Type",
       "accountCount": "Accounts",

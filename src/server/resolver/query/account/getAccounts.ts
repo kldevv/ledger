@@ -5,8 +5,13 @@ export const getAccounts: QueryResolvers['getAccounts'] = async (
   { input: { treasuryBookId, categoryId } },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.account.readMany({
+  const accounts = await prisma.account.readMany({
     treasuryBookId: treasuryBookId,
     categoryId: categoryId ?? undefined,
   })
+
+  return accounts.map(({ _count, ...account }) => ({
+    ...account,
+    entryCount: _count.entries,
+  }))
 }

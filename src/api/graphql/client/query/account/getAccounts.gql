@@ -6,6 +6,7 @@ query getAccounts($input: GetAccountsInput!) {
       name
     }
     name
+    entryCount
     treasuryBookId
     createdAt
     updatedAt
