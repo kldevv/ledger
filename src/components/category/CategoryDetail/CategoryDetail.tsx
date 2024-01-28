@@ -31,6 +31,7 @@ export const CategoryDetail: React.FC = () => {
       },
       getAccountsInput: {
         categoryId,
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     skip: categoryId == null || selectedTreasuryBookId == null,

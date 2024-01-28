@@ -4,7 +4,7 @@
       "id": "ID",
       "name": "Name",
       "currency": "Currency",
-      "createdAt": "Created Date",
+      "createdAt": "Create Date",
       "updatedAt": "Updated Date"
     },
     "button": {
