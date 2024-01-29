@@ -11,17 +11,11 @@ export const addTransaction: MutationResolvers['addTransaction'] = async (
   { input: { entries, treasuryBookId, ...data } },
   { dataSources: { prisma } },
 ) => {
-  const { entries: createdEntries, ...createdTransaction } =
-    await prisma.transaction.createTransaction({
-      ...data,
-      treasuryBookId,
-      entries: entries.map((entry) =>
-        addEntryInputTransform({ entry, treasuryBookId }),
-      ),
-    })
-
-  return {
-    ...createdTransaction,
-    entries: transformFromPrismaEntries(createdEntries),
-  }
+  return await prisma.transaction.createTransaction({
+    ...data,
+    treasuryBookId,
+    entries: entries.map((entry) =>
+      addEntryInputTransform({ entry, treasuryBookId }),
+    ),
+  })
 }
