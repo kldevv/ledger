@@ -10,20 +10,14 @@ export const updateTransaction: MutationResolvers['updateTransaction'] = async (
   { input: { id, treasuryBookId, entries, ...data } },
   { dataSources: { prisma } },
 ) => {
-  const { entries: updatedEntries, ...updatedTransaction } =
-    await prisma.transaction.updateOne({
-      id,
-      treasuryBookId,
-      data: {
-        ...data,
-        entries: transformToPrismaEntries(
-          entries.map((entry) => ({ treasuryBookId, ...entry })),
-        ),
-      },
-    })
-
-  return {
-    ...updatedTransaction,
-    entries: transformFromPrismaEntries(updatedEntries),
-  }
+  return await prisma.transaction.updateOne({
+    id,
+    treasuryBookId,
+    data: {
+      ...data,
+      entries: transformToPrismaEntries(
+        entries.map((entry) => ({ treasuryBookId, ...entry })),
+      ),
+    },
+  })
 }

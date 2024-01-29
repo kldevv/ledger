@@ -65,18 +65,6 @@ export const updateOne = async ({
             }
           : undefined,
       },
-      include: {
-        tags: true,
-        entries: {
-          include: {
-            account: {
-              include: {
-                category: true,
-              },
-            },
-          },
-        },
-      },
     })
   } catch (e) {
     logger.log({

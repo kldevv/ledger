@@ -42,7 +42,7 @@ export const createExchange = async ({
   } catch (e) {
     logger.log({
       level: 'info',
-      message: 'Error in Exchange DAO: createOne',
+      message: 'Error in Exchange DAO: createExchange',
       error: parsePrismaError(e),
     })
 

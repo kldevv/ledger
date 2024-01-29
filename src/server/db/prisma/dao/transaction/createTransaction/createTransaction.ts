@@ -34,35 +34,26 @@ export const createTransaction = async ({
   treasuryBookId,
   ...props
 }: CreateTransactionProps) => {
-  const data = {
-    treasuryBookId,
-    ...props,
-    tags: {
-      connect: tagIds.map((id) => ({ id })),
-    },
-    entries: {
-      createMany: {
-        data: entries.map((entry) => ({
-          ...entry,
-          treasuryBookId,
-        })),
-      },
-    },
-  }
-
   try {
     return await prisma.transaction.create({
-      data,
-      include: {
-        tags: true,
+      data: {
+        treasuryBookId,
+        ...props,
+        tags: {
+          connect: tagIds.map((id) => ({ id })),
+        },
+        entries: {
+          createMany: {
+            data: entries,
+          },
+        },
       },
     })
   } catch (e) {
     logger.log({
       level: 'info',
-      message: 'Error in Transaction DAO: createOne',
+      message: 'Error in Transaction DAO: createTransaction',
       error: parsePrismaError(e),
-      data,
     })
 
     throw e
