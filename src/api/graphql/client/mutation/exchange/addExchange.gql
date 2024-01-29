@@ -1,0 +1,11 @@
+mutation addExchange($input: AddExchangeInput!) {
+  addExchange(input: $input) {
+    ownerId
+    origin {
+      id
+    }
+    destination {
+      id
+    }
+  }
+}

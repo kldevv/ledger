@@ -1,0 +1,17 @@
+type Exchange {
+  ownerId: String!
+  origin: Transaction!
+  destination: Transaction!
+}
+
+input AddExchangeInput {
+  accrualDate: DateTime!
+  ownerId: String!
+  origin: AddExchangeTransactionInput!
+  destination: AddExchangeTransactionInput!
+}
+
+input AddExchangeTransactionInput {
+  treasuryBookId: String!
+  entries: [AddEntryInput!]!
+}

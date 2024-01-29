@@ -1,15 +1,5 @@
 query getTransactions($input: GetTransactionsInput!) {
   getTransactions(input: $input) {
-    id
-    accrualDate
-    note
-    tags {
-      id
-      name
-    }
-    treasuryBookId
-    status
-    createdAt
-    updatedAt
+    ...TransactionData
   }
 }

@@ -53,6 +53,18 @@ export type AddEntryInput = {
   transactionDate: Scalars['DateTime']['input'];
 };
 
+export type AddExchangeInput = {
+  accrualDate: Scalars['DateTime']['input'];
+  destination: AddExchangeTransactionInput;
+  origin: AddExchangeTransactionInput;
+  ownerId: Scalars['String']['input'];
+};
+
+export type AddExchangeTransactionInput = {
+  entries: Array<AddEntryInput>;
+  treasuryBookId: Scalars['String']['input'];
+};
+
 export type AddTagInput = {
   name: Scalars['String']['input'];
   treasuryBookId: Scalars['String']['input'];
@@ -136,6 +148,13 @@ export const EntryStatus = {
 } as const;
 
 export type EntryStatus = typeof EntryStatus[keyof typeof EntryStatus];
+export type Exchange = {
+  __typename?: 'Exchange';
+  destination: Transaction;
+  origin: Transaction;
+  ownerId: Scalars['String']['output'];
+};
+
 export type GetAccountInput = {
   id: Scalars['String']['input'];
 };
@@ -220,6 +239,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addAccount: Account;
   addCategory: Category;
+  addExchange: Exchange;
   addTag: Tag;
   addTransaction: Transaction;
   addTreasuryBook: TreasuryBook;
@@ -237,6 +257,11 @@ export type MutationAddAccountArgs = {
 
 export type MutationAddCategoryArgs = {
   input: AddCategoryInput;
+};
+
+
+export type MutationAddExchangeArgs = {
+  input: AddExchangeInput;
 };
 
 
@@ -527,6 +552,8 @@ export type ResolversTypes = {
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
+  AddExchangeInput: AddExchangeInput;
+  AddExchangeTransactionInput: AddExchangeTransactionInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
   AddTreasuryBookInput: AddTreasuryBookInput;
@@ -540,6 +567,7 @@ export type ResolversTypes = {
   DateType: DateType;
   Entry: ResolverTypeWrapper<Entry>;
   EntryStatus: EntryStatus;
+  Exchange: ResolverTypeWrapper<Exchange>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   GetAccountInput: GetAccountInput;
   GetAccountsInput: GetAccountsInput;
@@ -574,6 +602,8 @@ export type ResolversParentTypes = {
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
+  AddExchangeInput: AddExchangeInput;
+  AddExchangeTransactionInput: AddExchangeTransactionInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
   AddTreasuryBookInput: AddTreasuryBookInput;
@@ -583,6 +613,7 @@ export type ResolversParentTypes = {
   Category: Category;
   DateTime: Scalars['DateTime']['output'];
   Entry: Entry;
+  Exchange: Exchange;
   Float: Scalars['Float']['output'];
   GetAccountInput: GetAccountInput;
   GetAccountsInput: GetAccountsInput;
@@ -661,6 +692,13 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ExchangeResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Exchange'] = ResolversParentTypes['Exchange']> = {
+  destination?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType>;
+  origin?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType>;
+  ownerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MonthlyAmountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['MonthlyAmount'] = ResolversParentTypes['MonthlyAmount']> = {
   amounts?: Resolver<Array<ResolversTypes['AmountOnMonth']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -671,6 +709,7 @@ export type MonthlyAmountResolvers<ContextType = ApolloServerContext, ParentType
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
   addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
+  addExchange?: Resolver<ResolversTypes['Exchange'], ParentType, ContextType, RequireFields<MutationAddExchangeArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
   addTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
   addTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationAddTreasuryBookArgs, 'input'>>;
@@ -740,6 +779,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   Category?: CategoryResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Entry?: EntryResolvers<ContextType>;
+  Exchange?: ExchangeResolvers<ContextType>;
   MonthlyAmount?: MonthlyAmountResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
@@ -748,6 +788,10 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   TreasuryBook?: TreasuryBookResolvers<ContextType>;
 };
 
+
+export type MonthlyAmountDataFragment = { __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> };
+
+export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date };
 
 export type AddAccountMutationVariables = Exact<{
   input: AddAccountInput;
@@ -776,6 +820,13 @@ export type UpdateCategoryMutationVariables = Exact<{
 
 
 export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory: { __typename?: 'Category', id: string, name: string, type: CategoryType, treasuryBookId: string, createdAt: Date, updatedAt: Date } };
+
+export type AddExchangeMutationVariables = Exact<{
+  input: AddExchangeInput;
+}>;
+
+
+export type AddExchangeMutation = { __typename?: 'Mutation', addExchange: { __typename?: 'Exchange', ownerId: string, origin: { __typename?: 'Transaction', id: string }, destination: { __typename?: 'Transaction', id: string } } };
 
 export type AddTagMutationVariables = Exact<{
   input: AddTagInput;
@@ -863,8 +914,6 @@ export type GetEntriesQueryVariables = Exact<{
 
 
 export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
-
-export type MonthlyAmountDataFragment = { __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> };
 
 export type GetAccountMonthlyBalanceQueryVariables = Exact<{
   input: GetMonthlyAmountInput;
@@ -957,7 +1006,7 @@ export type GetTransactionsQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionsQuery = { __typename?: 'Query', getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, status?: EntryStatus | null, createdAt: Date, updatedAt: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetTransactionsQuery = { __typename?: 'Query', getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date }> };
 
 export type GetTreasuryBooksQueryVariables = Exact<{
   input: GetTreasuryBooksInput;
@@ -977,6 +1026,15 @@ export const MonthlyAmountDataFragmentDoc = gql`
       credit
     }
   }
+}
+    `;
+export const TransactionDataFragmentDoc = gql`
+    fragment TransactionData on Transaction {
+  id
+  accrualDate
+  note
+  status
+  createdAt
 }
     `;
 export const AddAccountDocument = gql`
@@ -1135,6 +1193,45 @@ export function useUpdateCategoryMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateCategoryMutationHookResult = ReturnType<typeof useUpdateCategoryMutation>;
 export type UpdateCategoryMutationResult = Apollo.MutationResult<UpdateCategoryMutation>;
 export type UpdateCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
+export const AddExchangeDocument = gql`
+    mutation addExchange($input: AddExchangeInput!) {
+  addExchange(input: $input) {
+    ownerId
+    origin {
+      id
+    }
+    destination {
+      id
+    }
+  }
+}
+    `;
+export type AddExchangeMutationFn = Apollo.MutationFunction<AddExchangeMutation, AddExchangeMutationVariables>;
+
+/**
+ * __useAddExchangeMutation__
+ *
+ * To run a mutation, you first call `useAddExchangeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddExchangeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addExchangeMutation, { data, loading, error }] = useAddExchangeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddExchangeMutation(baseOptions?: Apollo.MutationHookOptions<AddExchangeMutation, AddExchangeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddExchangeMutation, AddExchangeMutationVariables>(AddExchangeDocument, options);
+      }
+export type AddExchangeMutationHookResult = ReturnType<typeof useAddExchangeMutation>;
+export type AddExchangeMutationResult = Apollo.MutationResult<AddExchangeMutation>;
+export type AddExchangeMutationOptions = Apollo.BaseMutationOptions<AddExchangeMutation, AddExchangeMutationVariables>;
 export const AddTagDocument = gql`
     mutation addTag($input: AddTagInput!) {
   addTag(input: $input) {
@@ -2299,20 +2396,10 @@ export type GetTransactionDetailQueryResult = Apollo.QueryResult<GetTransactionD
 export const GetTransactionsDocument = gql`
     query getTransactions($input: GetTransactionsInput!) {
   getTransactions(input: $input) {
-    id
-    accrualDate
-    note
-    tags {
-      id
-      name
-    }
-    treasuryBookId
-    status
-    createdAt
-    updatedAt
+    ...TransactionData
   }
 }
-    `;
+    ${TransactionDataFragmentDoc}`;
 
 /**
  * __useGetTransactionsQuery__
