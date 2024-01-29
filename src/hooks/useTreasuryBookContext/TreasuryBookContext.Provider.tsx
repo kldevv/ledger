@@ -11,6 +11,8 @@ export interface TreasuryBookContextProviderProps {
   children: React.ReactNode
 }
 
+const ownerId = '81087108-3748-446a-b033-a85d7c9ace7b'
+
 export const TreasuryBookContextProvider: React.FC<
   TreasuryBookContextProviderProps
 > = ({ children }) => {
@@ -20,7 +22,7 @@ export const TreasuryBookContextProvider: React.FC<
   const { data, loading, error } = useGetTreasuryBooksQuery({
     variables: {
       input: {
-        ownerId: '81087108-3748-446a-b033-a85d7c9ace7b',
+        ownerId,
       },
     },
     onCompleted: (data) => {
@@ -30,6 +32,7 @@ export const TreasuryBookContextProvider: React.FC<
 
   const context = useMemo(
     () => ({
+      ownerId,
       selectedTreasuryBookId,
       setSelectedTreasuryBookId,
       data,

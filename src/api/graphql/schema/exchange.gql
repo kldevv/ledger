@@ -1,4 +1,5 @@
 type Exchange {
+  id: String!
   ownerId: String!
   origin: Transaction!
   destination: Transaction!

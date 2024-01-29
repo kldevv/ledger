@@ -7,6 +7,10 @@ import type { ApolloError } from '@apollo/client'
 
 export type TreasuryBookContext = {
   /**
+   * Owner id
+   */
+  ownerId: string
+  /**
    * Selected treasury book id
    */
   selectedTreasuryBookId?: string

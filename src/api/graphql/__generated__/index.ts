@@ -151,6 +151,7 @@ export type EntryStatus = typeof EntryStatus[keyof typeof EntryStatus];
 export type Exchange = {
   __typename?: 'Exchange';
   destination: Transaction;
+  id: Scalars['String']['output'];
   origin: Transaction;
   ownerId: Scalars['String']['output'];
 };
@@ -705,6 +706,7 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
 
 export type ExchangeResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Exchange'] = ResolversParentTypes['Exchange']> = {
   destination?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   origin?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType>;
   ownerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -837,7 +839,7 @@ export type AddExchangeMutationVariables = Exact<{
 }>;
 
 
-export type AddExchangeMutation = { __typename?: 'Mutation', addExchange: { __typename?: 'Exchange', ownerId: string, origin: { __typename?: 'Transaction', id: string }, destination: { __typename?: 'Transaction', id: string } } };
+export type AddExchangeMutation = { __typename?: 'Mutation', addExchange: { __typename?: 'Exchange', id: string, ownerId: string, origin: { __typename?: 'Transaction', id: string }, destination: { __typename?: 'Transaction', id: string } } };
 
 export type AddTagMutationVariables = Exact<{
   input: AddTagInput;
@@ -931,7 +933,7 @@ export type GetExchangesQueryVariables = Exact<{
 }>;
 
 
-export type GetExchangesQuery = { __typename?: 'Query', getExchanges: Array<{ __typename?: 'Exchange', ownerId: string, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date } }> };
+export type GetExchangesQuery = { __typename?: 'Query', getExchanges: Array<{ __typename?: 'Exchange', id: string, ownerId: string, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date } }> };
 
 export type GetAccountMonthlyBalanceQueryVariables = Exact<{
   input: GetMonthlyAmountInput;
@@ -1214,6 +1216,7 @@ export type UpdateCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateCat
 export const AddExchangeDocument = gql`
     mutation addExchange($input: AddExchangeInput!) {
   addExchange(input: $input) {
+    id
     ownerId
     origin {
       id
@@ -1816,6 +1819,7 @@ export type GetEntriesQueryResult = Apollo.QueryResult<GetEntriesQuery, GetEntri
 export const GetExchangesDocument = gql`
     query getExchanges($input: GetExchangesInput!) {
   getExchanges(input: $input) {
+    id
     ownerId
     origin {
       ...TransactionData

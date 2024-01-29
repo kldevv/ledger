@@ -1,5 +1,6 @@
 mutation addExchange($input: AddExchangeInput!) {
   addExchange(input: $input) {
+    id
     ownerId
     origin {
       id

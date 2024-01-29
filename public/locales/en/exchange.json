@@ -1,4 +1,11 @@
 {
+  "ExchangeTable": {
+    "header": {
+      "accrualDate": "Date",
+      "origin": "Origin",
+      "destination": "Destination"
+    }
+  },
   "page": {
     "index": {
       "action": "Exchange"
