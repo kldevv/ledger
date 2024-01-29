@@ -1,5 +1,6 @@
 export * from './addEntryInputTransform'
 export * from './addExchangeTransactionTransform'
 export * from './entries'
+export * from './exchangeTransform'
 export * as monthlyBalance from './monthlyBalance'
 export * as monthlyChanges from './monthlyChanges'
