@@ -34,4 +34,7 @@ type Query {
 
   # TreasuryBook
   getTreasuryBooks(input: GetTreasuryBooksInput!): [TreasuryBook!]!
+
+  # Exchange
+  getExchanges(input: GetExchangesInput!): [Exchange!]!
 }

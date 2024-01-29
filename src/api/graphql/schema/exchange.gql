@@ -15,3 +15,7 @@ input AddExchangeTransactionInput {
   treasuryBookId: String!
   entries: [AddEntryInput!]!
 }
+
+input GetExchangesInput {
+  ownerId: String!
+}

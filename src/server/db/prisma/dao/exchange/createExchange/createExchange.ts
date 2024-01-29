@@ -27,10 +27,17 @@ export const createExchange = async ({
         ownerId,
         transactions: {
           create: [
-            { ...originTransaction, entries: { create: originEntries } },
+            {
+              ...originTransaction,
+              entries: { createMany: { data: originEntries } },
+            },
             {
               ...destinationTransaction,
-              entries: { create: destinationEntries },
+              entries: {
+                createMany: {
+                  data: destinationEntries,
+                },
+              },
             },
           ],
         },

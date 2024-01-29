@@ -1,0 +1,11 @@
+query getExchanges($input: GetExchangesInput!) {
+  getExchanges(input: $input) {
+    ownerId
+    origin {
+      ...TransactionData
+    }
+    destination {
+      ...TransactionData
+    }
+  }
+}
