@@ -1,33 +1,5 @@
 mutation updateTransaction($input: UpdateTransactionInput!) {
   updateTransaction(input: $input) {
-    id
-    accrualDate
-    note
-    treasuryBookId
-    tags {
-      id
-      name
-    }
-    entries {
-      id
-      treasuryBookId
-      transactionDate
-      debit
-      credit
-      memo
-      account {
-        id
-        name
-        category {
-          id
-          name
-          type
-        }
-      }
-      transactionId
-      status
-    }
-    createdAt
-    updatedAt
+    ...TransactionData
   }
 }

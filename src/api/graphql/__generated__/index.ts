@@ -432,11 +432,10 @@ export type Transaction = {
   __typename?: 'Transaction';
   accrualDate: Scalars['DateTime']['output'];
   createdAt: Scalars['DateTime']['output'];
-  entries?: Maybe<Array<Entry>>;
   id: Scalars['String']['output'];
   note: Scalars['String']['output'];
   status?: Maybe<EntryStatus>;
-  tags: Array<Tag>;
+  tags?: Maybe<Array<Tag>>;
   treasuryBookId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -752,11 +751,10 @@ export type TagResolvers<ContextType = ApolloServerContext, ParentType extends R
 export type TransactionResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Transaction'] = ResolversParentTypes['Transaction']> = {
   accrualDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  entries?: Resolver<Maybe<Array<ResolversTypes['Entry']>>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   note?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['EntryStatus']>, ParentType, ContextType>;
-  tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
+  tags?: Resolver<Maybe<Array<ResolversTypes['Tag']>>, ParentType, ContextType>;
   treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -847,14 +845,14 @@ export type AddTransactionMutationVariables = Exact<{
 }>;
 
 
-export type AddTransactionMutation = { __typename?: 'Mutation', addTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries?: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> | null } };
+export type AddTransactionMutation = { __typename?: 'Mutation', addTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date } };
 
 export type UpdateTransactionMutationVariables = Exact<{
   input: UpdateTransactionInput;
 }>;
 
 
-export type UpdateTransactionMutation = { __typename?: 'Mutation', updateTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }>, entries?: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> | null } };
+export type UpdateTransactionMutation = { __typename?: 'Mutation', updateTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date } };
 
 export type AddTreasuryBookMutationVariables = Exact<{
   input: AddTreasuryBookInput;
@@ -977,7 +975,7 @@ export type GetTagDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } | null, getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, status?: EntryStatus | null, createdAt: Date, updatedAt: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> }> };
+export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } | null, getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, status?: EntryStatus | null, createdAt: Date, updatedAt: Date, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null }> };
 
 export type GetTagsQueryVariables = Exact<{
   input: GetTagsInput;
@@ -991,7 +989,7 @@ export type GetTransactionQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null };
+export type GetTransactionQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null };
 
 export type GetTransactionDetailQueryVariables = Exact<{
   getTransactionInput: GetTransactionInput;
@@ -999,7 +997,7 @@ export type GetTransactionDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, createdAt: Date, updatedAt: Date, treasuryBookId: string, tags: Array<{ __typename?: 'Tag', id: string, name: string }> } | null, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type GetTransactionDetailQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, createdAt: Date, updatedAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
 export type GetTransactionsQueryVariables = Exact<{
   input: GetTransactionsInput;
@@ -1309,38 +1307,10 @@ export type UpdateTagMutationOptions = Apollo.BaseMutationOptions<UpdateTagMutat
 export const AddTransactionDocument = gql`
     mutation addTransaction($input: AddTransactionInput!) {
   addTransaction(input: $input) {
-    id
-    accrualDate
-    note
-    treasuryBookId
-    tags {
-      id
-      name
-    }
-    entries {
-      id
-      treasuryBookId
-      transactionDate
-      debit
-      credit
-      memo
-      account {
-        id
-        name
-        category {
-          id
-          name
-          type
-        }
-      }
-      transactionId
-      status
-    }
-    createdAt
-    updatedAt
+    ...TransactionData
   }
 }
-    `;
+    ${TransactionDataFragmentDoc}`;
 export type AddTransactionMutationFn = Apollo.MutationFunction<AddTransactionMutation, AddTransactionMutationVariables>;
 
 /**
@@ -1370,38 +1340,10 @@ export type AddTransactionMutationOptions = Apollo.BaseMutationOptions<AddTransa
 export const UpdateTransactionDocument = gql`
     mutation updateTransaction($input: UpdateTransactionInput!) {
   updateTransaction(input: $input) {
-    id
-    accrualDate
-    note
-    treasuryBookId
-    tags {
-      id
-      name
-    }
-    entries {
-      id
-      treasuryBookId
-      transactionDate
-      debit
-      credit
-      memo
-      account {
-        id
-        name
-        category {
-          id
-          name
-          type
-        }
-      }
-      transactionId
-      status
-    }
-    createdAt
-    updatedAt
+    ...TransactionData
   }
 }
-    `;
+    ${TransactionDataFragmentDoc}`;
 export type UpdateTransactionMutationFn = Apollo.MutationFunction<UpdateTransactionMutation, UpdateTransactionMutationVariables>;
 
 /**

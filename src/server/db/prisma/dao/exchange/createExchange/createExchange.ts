@@ -22,7 +22,7 @@ export const createExchange = async ({
   destination: { entries: destinationEntries, ...destinationTransaction },
 }: CreateExchangeProps) => {
   try {
-    await prisma.exchange.create({
+    return await prisma.exchange.create({
       data: {
         ownerId,
         transactions: {

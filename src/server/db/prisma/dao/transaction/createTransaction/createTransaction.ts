@@ -55,15 +55,6 @@ export const createTransaction = async ({
       data,
       include: {
         tags: true,
-        entries: {
-          include: {
-            account: {
-              include: {
-                category: true,
-              },
-            },
-          },
-        },
       },
     })
   } catch (e) {

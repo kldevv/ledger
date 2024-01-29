@@ -1,4 +1,5 @@
 import {
+  addEntryInputTransform,
   transformFromPrismaEntries,
   transformToPrismaEntries,
 } from '@/server/resolver/transform'
@@ -14,8 +15,8 @@ export const addTransaction: MutationResolvers['addTransaction'] = async (
     await prisma.transaction.createTransaction({
       ...data,
       treasuryBookId,
-      entries: transformToPrismaEntries(
-        entries.map((entry) => ({ treasuryBookId, ...entry })),
+      entries: entries.map((entry) =>
+        addEntryInputTransform({ entry, treasuryBookId }),
       ),
     })
 

@@ -1,5 +1,6 @@
 export * from './account'
 export * from './category'
+export * from './exchange'
 export * from './tag'
 export * from './transaction'
 export * from './treasuryBook'

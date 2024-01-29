@@ -29,15 +29,6 @@ export const readMany = async ({ tagId, ...props }: ReadManyProps) => {
       },
       include: {
         tags: true,
-        entries: {
-          include: {
-            account: {
-              include: {
-                category: true,
-              },
-            },
-          },
-        },
       },
       orderBy: {
         accrualDate: 'desc',
