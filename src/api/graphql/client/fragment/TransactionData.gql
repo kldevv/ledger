@@ -5,4 +5,5 @@ fragment TransactionData on Transaction {
   status
   amount
   createdAt
+  treasuryBookId
 }

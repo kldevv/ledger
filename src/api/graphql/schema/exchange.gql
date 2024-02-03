@@ -3,6 +3,7 @@ type Exchange {
   ownerId: String!
   origin: Transaction!
   destination: Transaction!
+  createdAt: DateTime!
 }
 
 input AddExchangeInput {

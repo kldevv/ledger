@@ -3,7 +3,10 @@
     "header": {
       "accrualDate": "Date",
       "origin": "Origin",
-      "destination": "Destination"
+      "originAmount": "Origin Amount",
+      "destination": "Destination",
+      "destinationAmount": "Destination Amount",
+      "createdAt": "Create Date"
     }
   },
   "page": {

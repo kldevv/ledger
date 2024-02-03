@@ -8,5 +8,6 @@ query getExchanges($input: GetExchangesInput!) {
     destination {
       ...TransactionData
     }
+    createdAt
   }
 }
