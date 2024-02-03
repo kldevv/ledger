@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { numericFormatter } from 'react-number-format'
 
 import { useTreasuryBookContext } from '@/hooks'
-import { getCurrencySymbol } from '@/lib/formatter/getCurrencySymbol/getCurrencySymbol'
+import { getCurrencySymbol } from '@/lib/utils/getCurrencySymbol/getCurrencySymbol'
 
 export interface FormattedCurrencyNumberProps {
   /**

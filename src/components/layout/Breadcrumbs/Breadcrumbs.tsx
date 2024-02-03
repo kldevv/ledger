@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 
-import { route } from '@/lib'
+import { parseQueryValue, route } from '@/lib'
 
 export const Breadcrumbs: React.FC = () => {
   const { pathname, query } = useRouter()
@@ -11,28 +11,32 @@ export const Breadcrumbs: React.FC = () => {
   const crumbs = useMemo(() => {
     const segments = pathname.split('/').filter((segment) => segment !== '')
 
+    const includedQueries: Array<[string, string | string[] | undefined]> = []
+
     return segments.map((segment, index) => {
       const pathname = '/' + segments.slice(0, index + 1).join('/')
 
-      const queryValue = Object.entries(query)
-        .find(([key]) => `[${key}]` === segment)
-        ?.at(1)
+      const relevantQuery = Object.entries(query).find(
+        ([key]) => `[${key}]` === segment,
+      )
+
+      if (relevantQuery) {
+        includedQueries.push(relevantQuery)
+      }
 
       const label =
-        queryValue == null
+        relevantQuery == null
           ? segment
               .split('-')
               .map((word) => word.at(0)?.toUpperCase() + word.slice(1))
               .join(' ')
-          : Array.isArray(queryValue)
-            ? queryValue.at(0)
-            : queryValue
+          : parseQueryValue(relevantQuery.at(1))
 
       return {
         label,
         href: {
           pathname,
-          query,
+          query: Object.fromEntries(includedQueries),
         },
       }
     })
