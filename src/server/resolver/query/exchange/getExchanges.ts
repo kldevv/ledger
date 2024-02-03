@@ -1,4 +1,4 @@
-import { exchangeTransform } from '@/server/resolver/transform'
+import { transformExchange } from '@/server/resolver/transform'
 
 import type { QueryResolvers } from '@/api/graphql'
 
@@ -9,5 +9,5 @@ export const getExchanges: QueryResolvers['getExchanges'] = async (
 ) => {
   const exchanges = await prisma.exchange.findExchanges(input)
 
-  return exchanges.map(exchangeTransform)
+  return exchanges.map(transformExchange)
 }

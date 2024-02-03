@@ -3,5 +3,6 @@ fragment TransactionData on Transaction {
   accrualDate
   note
   status
+  amount
   createdAt
 }

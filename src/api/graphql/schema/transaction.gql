@@ -6,9 +6,8 @@ type Transaction {
   treasuryBookId: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  # status is not part of the prisma schema but a calculated field from the entries table
-  # we need this field to show the status of transactions in a table without doing another query
   status: EntryStatus
+  amount: Float
 }
 
 input AddTransactionInput {

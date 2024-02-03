@@ -11,7 +11,11 @@ export const findExchanges = async (where: FindExchangesProps) => {
     return await prisma.exchange.findMany({
       where,
       include: {
-        transactions: true,
+        transactions: {
+          include: {
+            entries: true,
+          },
+        },
       },
     })
   } catch (e) {

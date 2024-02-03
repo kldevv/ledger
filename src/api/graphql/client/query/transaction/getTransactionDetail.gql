@@ -3,16 +3,11 @@ query getTransactionDetail(
   $getEntriesInput: GetEntriesInput!
 ) {
   getTransaction(input: $getTransactionInput) {
-    id
-    accrualDate
-    note
+    ...TransactionData
     tags {
       id
       name
     }
-    createdAt
-    updatedAt
-    treasuryBookId
   }
   getEntries(input: $getEntriesInput) {
     id

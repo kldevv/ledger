@@ -442,6 +442,7 @@ export type TagType = typeof TagType[keyof typeof TagType];
 export type Transaction = {
   __typename?: 'Transaction';
   accrualDate: Scalars['DateTime']['output'];
+  amount?: Maybe<Scalars['Float']['output']>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   note: Scalars['String']['output'];
@@ -765,6 +766,7 @@ export type TagResolvers<ContextType = ApolloServerContext, ParentType extends R
 
 export type TransactionResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Transaction'] = ResolversParentTypes['Transaction']> = {
   accrualDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  amount?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   note?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -804,7 +806,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 
 export type MonthlyAmountDataFragment = { __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> };
 
-export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date };
+export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date };
 
 export type AddAccountMutationVariables = Exact<{
   input: AddAccountInput;
@@ -860,14 +862,14 @@ export type AddTransactionMutationVariables = Exact<{
 }>;
 
 
-export type AddTransactionMutation = { __typename?: 'Mutation', addTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date } };
+export type AddTransactionMutation = { __typename?: 'Mutation', addTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date } };
 
 export type UpdateTransactionMutationVariables = Exact<{
   input: UpdateTransactionInput;
 }>;
 
 
-export type UpdateTransactionMutation = { __typename?: 'Mutation', updateTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date } };
+export type UpdateTransactionMutation = { __typename?: 'Mutation', updateTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date } };
 
 export type AddTreasuryBookMutationVariables = Exact<{
   input: AddTreasuryBookInput;
@@ -933,7 +935,7 @@ export type GetExchangesQueryVariables = Exact<{
 }>;
 
 
-export type GetExchangesQuery = { __typename?: 'Query', getExchanges: Array<{ __typename?: 'Exchange', id: string, ownerId: string, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date } }> };
+export type GetExchangesQuery = { __typename?: 'Query', getExchanges: Array<{ __typename?: 'Exchange', id: string, ownerId: string, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date } }> };
 
 export type GetAccountMonthlyBalanceQueryVariables = Exact<{
   input: GetMonthlyAmountInput;
@@ -997,7 +999,7 @@ export type GetTagDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } | null, getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, status?: EntryStatus | null, createdAt: Date, updatedAt: Date, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null }> };
+export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } | null, getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date }> };
 
 export type GetTagsQueryVariables = Exact<{
   input: GetTagsInput;
@@ -1011,7 +1013,7 @@ export type GetTransactionQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null };
+export type GetTransactionQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date } | null };
 
 export type GetTransactionDetailQueryVariables = Exact<{
   getTransactionInput: GetTransactionInput;
@@ -1019,14 +1021,14 @@ export type GetTransactionDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, createdAt: Date, updatedAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type GetTransactionDetailQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
 export type GetTransactionsQueryVariables = Exact<{
   input: GetTransactionsInput;
 }>;
 
 
-export type GetTransactionsQuery = { __typename?: 'Query', getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, createdAt: Date }> };
+export type GetTransactionsQuery = { __typename?: 'Query', getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date }> };
 
 export type GetTreasuryBooksQueryVariables = Exact<{
   input: GetTreasuryBooksInput;
@@ -1054,6 +1056,7 @@ export const TransactionDataFragmentDoc = gql`
   accrualDate
   note
   status
+  amount
   createdAt
 }
     `;
@@ -2195,20 +2198,10 @@ export const GetTagDetailDocument = gql`
     updatedAt
   }
   getTransactions(input: $getTransactionsInput) {
-    id
-    accrualDate
-    note
-    tags {
-      id
-      name
-    }
-    treasuryBookId
-    status
-    createdAt
-    updatedAt
+    ...TransactionData
   }
 }
-    `;
+    ${TransactionDataFragmentDoc}`;
 
 /**
  * __useGetTagDetailQuery__
@@ -2290,19 +2283,10 @@ export type GetTagsQueryResult = Apollo.QueryResult<GetTagsQuery, GetTagsQueryVa
 export const GetTransactionDocument = gql`
     query getTransaction($input: GetTransactionInput!) {
   getTransaction(input: $input) {
-    id
-    accrualDate
-    note
-    tags {
-      id
-      name
-    }
-    treasuryBookId
-    createdAt
-    updatedAt
+    ...TransactionData
   }
 }
-    `;
+    ${TransactionDataFragmentDoc}`;
 
 /**
  * __useGetTransactionQuery__
@@ -2339,16 +2323,11 @@ export type GetTransactionQueryResult = Apollo.QueryResult<GetTransactionQuery, 
 export const GetTransactionDetailDocument = gql`
     query getTransactionDetail($getTransactionInput: GetTransactionInput!, $getEntriesInput: GetEntriesInput!) {
   getTransaction(input: $getTransactionInput) {
-    id
-    accrualDate
-    note
+    ...TransactionData
     tags {
       id
       name
     }
-    createdAt
-    updatedAt
-    treasuryBookId
   }
   getEntries(input: $getEntriesInput) {
     id
@@ -2370,7 +2349,7 @@ export const GetTransactionDetailDocument = gql`
     transactionId
   }
 }
-    `;
+    ${TransactionDataFragmentDoc}`;
 
 /**
  * __useGetTransactionDetailQuery__

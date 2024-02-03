@@ -10,16 +10,6 @@ query getTagDetail(
     updatedAt
   }
   getTransactions(input: $getTransactionsInput) {
-    id
-    accrualDate
-    note
-    tags {
-      id
-      name
-    }
-    treasuryBookId
-    status
-    createdAt
-    updatedAt
+    ...TransactionData
   }
 }

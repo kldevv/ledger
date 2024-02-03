@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
 
 import { PageHeader, Layout } from '@/components/layout'
-import { TagDashboard } from '@/components/tag'
 import { route } from '@/lib'
+import { ExchangeDataTable } from '@/components/exchange'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('exchange')
@@ -11,11 +11,11 @@ const Page: React.FC = () => {
     <Layout>
       <PageHeader
         action={{
-          href: route.exchangeHome.pathname,
+          href: route.exchangeAdd.pathname,
           label: t`page.index.action`,
         }}
       />
-      <TagDashboard />
+      <ExchangeDataTable />
     </Layout>
   )
 }
