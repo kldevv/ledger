@@ -4,7 +4,6 @@ import { PlusIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { EntryStatus } from '@prisma/client'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
-import { z } from 'zod'
 
 import {
   Button,
@@ -15,46 +14,8 @@ import {
   InputDate,
 } from '@/components/common'
 import { useAccountsContext } from '@/hooks'
-import { numberSchema } from '@/lib'
 
 import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
-
-export const upsertEntryFieldSchema = z
-  .object({
-    /**
-     * Entry transaction date
-     */
-    transactionDate: z.coerce.date(),
-    /**
-     * Entry optional memo
-     */
-    memo: z.string(),
-    /**
-     * Entry status
-     */
-    status: z.nativeEnum(EntryStatus),
-    /**
-     * Entry debit
-     */
-    debit: numberSchema,
-    /**
-     * Entry credit
-     */
-    credit: numberSchema,
-    /**
-     * Account id
-     */
-    accountId: z.string(),
-  })
-  .refine(
-    (data) =>
-      (data.debit === 0 || data.credit === 0) &&
-      (data.debit >= 0 || data.credit >= 0),
-    {
-      message:
-        'Either debit or credit must be positive, and the other must be zero',
-    },
-  )
 
 export const defaultEntryFieldValue: UpsertTransactionFormFieldValues['entries'][number] =
   {
@@ -66,7 +27,7 @@ export const defaultEntryFieldValue: UpsertTransactionFormFieldValues['entries']
     credit: 0,
   }
 
-export interface UpsertEntryFieldProps {
+export interface UpsertTransactionEntryFieldProps {
   /**
    * Row index
    */
@@ -81,11 +42,9 @@ export interface UpsertEntryFieldProps {
   remove?: UseFieldArrayRemove | null
 }
 
-export const UpsertEntryField: React.FC<UpsertEntryFieldProps> = ({
-  index,
-  append,
-  remove,
-}) => {
+export const UpsertTransactionEntryField: React.FC<
+  UpsertTransactionEntryFieldProps
+> = ({ index, append, remove }) => {
   const { t } = useTranslation('transaction')
   const {
     result: { data },

@@ -1,15 +1,11 @@
 import { useTranslation } from 'next-i18next'
 import { useFieldArray } from 'react-hook-form'
 
-import { UpsertEntryField } from '@/components/transaction'
-
-import { upsertEntryFieldSchema } from './UpsertEntryField'
+import { UpsertTransactionEntryField } from '@/components/transaction'
 
 import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
 
-export const upsertEntryFieldArraySchema = upsertEntryFieldSchema.array()
-
-export const UpsertEntryFieldArray: React.FC = () => {
+export const UpsertTransactionEntryFieldArray: React.FC = () => {
   const { t } = useTranslation('transaction')
 
   const { fields, append, remove } =
@@ -26,7 +22,7 @@ export const UpsertEntryFieldArray: React.FC = () => {
               index: index + 1,
             })}
           </span>
-          <UpsertEntryField
+          <UpsertTransactionEntryField
             index={index}
             // The last table row will be have a button to append more
             append={index === fields.length - 1 ? append : null}

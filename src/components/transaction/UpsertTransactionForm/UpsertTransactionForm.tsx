@@ -11,52 +11,15 @@ import {
   useTreasuryBookContext,
 } from '@/hooks'
 
-import {
-  UpsertEntryFieldArray,
-  upsertEntryFieldArraySchema,
-} from './UpsertEntryFieldArray'
+import { UpsertTransactionEntryFieldArray } from './UpsertTransactionEntryFieldArray'
 
 import type { FormProps } from '@/components/common'
 import type { UseFormProps } from '@/hooks'
+import { addTransactionSchema } from '@/lib'
 
-const schema = z
-  .object({
-    /**
-     * Transaction accrual date
-     */
-    accrualDate: z.coerce.date(),
-    /**
-     * Transaction note
-     */
-    note: z.string().min(1),
-    /**
-     * Transaction tags
-     */
-    tagIds: z.string().array(),
-    /**
-     * Transaction entries
-     */
-    entries: upsertEntryFieldArraySchema,
-  })
-  .refine(
-    (data) => {
-      const sumDebits = data.entries.reduce(
-        (sum, entry) => sum + entry.debit,
-        0,
-      )
-      const sumCredits = data.entries.reduce(
-        (sum, entry) => sum + entry.credit,
-        0,
-      )
-
-      return sumDebits === sumCredits
-    },
-    {
-      message: 'The sum of debits must equal the sum of credits',
-    },
-  )
-
-export type UpsertTransactionFormFieldValues = z.infer<typeof schema>
+export type UpsertTransactionFormFieldValues = z.infer<
+  typeof addTransactionSchema
+>
 
 export interface UpsertTransactionFormProps {
   /**
@@ -97,7 +60,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   )
 
   const context = useForm<UpsertTransactionFormFieldValues>({
-    schema,
+    schema: addTransactionSchema,
     defaultValues: {
       accrualDate: new Date(),
       note: '',
@@ -126,7 +89,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
             multiple
           />
           <div className="mt-6">
-            <UpsertEntryFieldArray />
+            <UpsertTransactionEntryFieldArray />
           </div>
           <SubmitButton>{onSubmitText}</SubmitButton>
         </Form>
