@@ -30,8 +30,7 @@
   },
   "UpsertCategoryForm": {
     "label": {
-      "name": "Name",
-      "type": "Category Type"
+      "name": "Name"
     }
   },
   "page": {

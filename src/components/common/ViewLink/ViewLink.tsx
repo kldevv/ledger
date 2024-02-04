@@ -12,7 +12,10 @@ export const ViewLink: React.FC<ViewLinkProps> = ({ href }) => {
 
   return (
     <div className="w-full text-right">
-      <Link href={href} className="text-light-accent text-xs font-medium">
+      <Link
+        href={href}
+        className="text-light-accent text-xs font-medium leading-6"
+      >
         {t('ViewLink.label')}
       </Link>
     </div>

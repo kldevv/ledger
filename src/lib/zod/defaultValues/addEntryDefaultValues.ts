@@ -1,6 +1,7 @@
-import { z } from 'zod'
-import { addEntrySchema } from '..'
 import { EntryStatus } from '@/api/graphql'
+
+import type { addEntrySchema } from '..'
+import type { z } from 'zod'
 
 export const addEntryDefaultValues: z.infer<typeof addEntrySchema> = {
   transactionDate: new Date(),

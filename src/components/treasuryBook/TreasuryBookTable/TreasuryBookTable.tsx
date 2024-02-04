@@ -1,10 +1,18 @@
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
 import { createColumnHelper } from '@tanstack/react-table'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { Button, CurrencyChip, FormattedDate, Table } from '@/components/common'
+import {
+  Button,
+  CurrencyChip,
+  FormattedDate,
+  Table,
+  ViewLink,
+} from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
+import { route } from '@/lib'
 
 import type { GetTreasuryBooksQuery } from '@/api/graphql'
 
@@ -37,26 +45,35 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
   const colDefs = useMemo(
     () => [
       columnHelper.accessor('id', {
-        header: t`TreasuryBookTable.header.id`,
-        cell: ({ getValue }) => (
-          <div className="overflow-hidden overflow-ellipsis whitespace-nowrap w-[7rem]">
-            {getValue()}
-          </div>
-        ),
-      }),
-      columnHelper.display({
+        header: '',
         id: 'is-selected',
-        cell: ({ row }) =>
-          row.getValue('id') === selectedTreasuryBookId ? (
-            <CheckCircleIcon className="w-5 h-5 text-light-accent" />
+        cell: ({ getValue }) =>
+          getValue() === selectedTreasuryBookId ? (
+            <CheckCircleIcon className="text-light-accent size-5" />
           ) : null,
       }),
-      columnHelper.accessor('name', {
-        header: t`TreasuryBookTable.header.name`,
-        cell: ({ getValue }) => (
-          <div className="text-dark-shades">{getValue()}</div>
-        ),
-      }),
+      columnHelper.accessor(
+        ({ id, name }) => ({
+          id,
+          name,
+        }),
+        {
+          header: t`TreasuryBookTable.header.name`,
+          cell: ({ getValue }) => (
+            <Link
+              href={{
+                pathname: route.treasuryBookDetail.pathname,
+                query: {
+                  id: getValue().id,
+                },
+              }}
+              className="text-dark-shades flex items-center"
+            >
+              {getValue().name}
+            </Link>
+          ),
+        },
+      ),
       columnHelper.accessor('currency', {
         header: t`TreasuryBookTable.header.currency`,
         cell: ({ getValue }) => <CurrencyChip currency={getValue()} />,
@@ -65,19 +82,29 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
         header: t`TreasuryBookTable.header.createdAt`,
         cell: (props) => <FormattedDate dateTime={props.getValue()} />,
       }),
-      columnHelper.accessor('updatedAt', {
-        header: t`TreasuryBookTable.header.updatedAt`,
-        cell: (props) => <FormattedDate dateTime={props.getValue()} />,
-      }),
-      columnHelper.display({
-        id: 'select-treasury-book',
-        cell: (props) => (
+      columnHelper.accessor('id', {
+        header: '',
+        id: 'select',
+        cell: ({ getValue }) => (
           <Button
-            onClick={createHandleOnTreasuryBookSwitch(props.row.getValue('id'))}
-            className="text-light-accent"
+            onClick={createHandleOnTreasuryBookSwitch(getValue())}
+            className="text-light-accent text-xs font-medium leading-6"
           >
-            {t('TreasuryBookTable.button.switch')}
+            {t('TreasuryBookTable.button.select')}
           </Button>
+        ),
+      }),
+      columnHelper.accessor('id', {
+        header: '',
+        cell: ({ getValue }) => (
+          <ViewLink
+            href={{
+              pathname: route.treasuryBookDetail.pathname,
+              query: {
+                id: getValue(),
+              },
+            }}
+          />
         ),
       }),
     ],

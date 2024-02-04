@@ -1,21 +1,18 @@
 {
   "TreasuryBookTable": {
     "header": {
-      "id": "ID",
       "name": "Name",
       "currency": "Currency",
-      "createdAt": "Create Date",
-      "updatedAt": "Updated Date"
+      "createdAt": "Create Date"
     },
+
     "button": {
-      "switch": "SWITCH",
-      "selected": "SELECTED"
+      "select": "SELECT"
     }
   },
   "UpsertTreasuryBookForm": {
     "label": {
-      "name": "TreasuryBook Name",
-      "currency": "TreasuryBook Currency"
+      "name": "Name"
     }
   },
   "InsertTreasuryBookForm": {
@@ -24,6 +21,11 @@
   "page": {
     "index": {
       "action": "Add Treasury Book"
+    },
+    "[id]": {
+      "index": {
+        "action": "Edit"
+      }
     }
   }
 }

@@ -34,5 +34,11 @@
   },
   "AccountFormDropdown": {
     "label": "Account"
+  },
+  "CurrencyFormDropdown": {
+    "label": "Currency"
+  },
+  "CategoryTypeFormDropdown": {
+    "label": "Category Type"
   }
 }

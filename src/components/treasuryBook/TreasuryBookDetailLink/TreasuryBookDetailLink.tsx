@@ -1,6 +1,7 @@
+import Link from 'next/link'
+
 import { useTreasuryBookContext } from '@/hooks'
 import { route } from '@/lib'
-import Link from 'next/link'
 
 export interface TreasuryBookDetailLinkProps {
   /**
