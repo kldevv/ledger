@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { z } from 'zod'
 
 import { useGetCategoriesQuery } from '@/api/graphql'
-import { Form, InputText, ListBox, SubmitButton } from '@/components/common'
+import { Form, InputText, Dropdown, SubmitButton } from '@/components/common'
 import { useForm, useTreasuryBookContext } from '@/hooks'
 
 import type { FormProps } from '@/components/common'
@@ -79,7 +79,7 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
           name="name"
           label={t('UpsertAccountForm.label.name')}
         />
-        <ListBox<UpsertAccountFormFieldValues>
+        <Dropdown<UpsertAccountFormFieldValues>
           name="categoryId"
           label={t('UpsertAccountForm.label.categoryId')}
           options={categoryOptions}

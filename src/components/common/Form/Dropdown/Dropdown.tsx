@@ -62,7 +62,7 @@ const optionCn = classNames(
   'rounded',
 )
 
-export const ListBox = <TFieldValues extends FieldValues>({
+export const Dropdown = <TFieldValues extends FieldValues>({
   name,
   control,
   options,

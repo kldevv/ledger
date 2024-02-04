@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { z } from 'zod'
 
 import { useGetTagsQuery } from '@/api/graphql'
-import { Form, InputText, SubmitButton, ListBox } from '@/components/common'
+import { Form, InputText, SubmitButton, Dropdown } from '@/components/common'
 import { InputDate } from '@/components/common/Form/InputDate'
 import {
   AccountsContextProvider,
@@ -82,7 +82,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
             label={t('UpsertTransactionForm.label.note')}
             name="note"
           />
-          <ListBox<UpsertTransactionFormFieldValues>
+          <Dropdown<UpsertTransactionFormFieldValues>
             label={t('UpsertTransactionForm.label.tags')}
             name="tagIds"
             options={tagIdsOptions}

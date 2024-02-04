@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { z } from 'zod'
 
 import { Currency } from '@/api/graphql'
-import { Form, InputText, ListBox, SubmitButton } from '@/components/common'
+import { Form, InputText, Dropdown, SubmitButton } from '@/components/common'
 import { useForm } from '@/hooks'
 
 import type { FormProps } from '@/components/common'
@@ -57,7 +57,7 @@ export const UpsertTreasuryBookForm: React.FC<UpsertTreasuryBookFormProps> = ({
           name="name"
           label={t('UpsertTreasuryBookForm.label.name')}
         />
-        <ListBox<UpsertTreasuryBookFormFieldValues>
+        <Dropdown<UpsertTreasuryBookFormFieldValues>
           name="currency"
           label={t('UpsertTreasuryBookForm.label.currency')}
           options={currencyOptions}

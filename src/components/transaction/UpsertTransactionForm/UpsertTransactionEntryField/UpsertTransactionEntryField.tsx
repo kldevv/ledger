@@ -9,7 +9,7 @@ import {
   Button,
   InputText,
   InputCurrencyNumber,
-  ListBox,
+  Dropdown,
   StatusChip,
   InputDate,
 } from '@/components/common'
@@ -86,7 +86,7 @@ export const UpsertTransactionEntryField: React.FC<
           label={t`UpsertTransactionForm.label.entries.memo`}
           name={`entries.${index}.memo` as const}
         />
-        <ListBox<UpsertTransactionFormFieldValues>
+        <Dropdown<UpsertTransactionFormFieldValues>
           label={t`UpsertTransactionForm.label.entries.status`}
           name={`entries.${index}.status` as const}
           options={Object.keys(EntryStatus).map((value) => ({
@@ -102,7 +102,7 @@ export const UpsertTransactionEntryField: React.FC<
           label={t`UpsertTransactionForm.label.entries.credit`}
           name={`entries.${index}.credit` as const}
         />
-        <ListBox<UpsertTransactionFormFieldValues>
+        <Dropdown<UpsertTransactionFormFieldValues>
           label={t`UpsertTransactionForm.label.entries.account`}
           name={`entries.${index}.accountId` as const}
           options={accountOptions}

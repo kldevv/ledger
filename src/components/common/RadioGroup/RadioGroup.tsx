@@ -48,7 +48,7 @@ export const RadioGroup = <TType,>({
       <div className="flex">
         {options.map(({ label, value }) => (
           <HeadlessRadioGroup.Option
-            key={value}
+            key={String(value)}
             value={value}
             className={({ checked }) =>
               `flex focus:outline-none cursor-pointer first:rounded-l-lg last:rounded-r-lg border px-6 bg-white ${
