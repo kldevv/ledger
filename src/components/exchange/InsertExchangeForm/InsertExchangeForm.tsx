@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
-import { useGetAccountsQuery } from '@/api/graphql'
-import { useTreasuryBookContext } from '@/hooks'
+import { useAddExchangeMutation } from '@/api/graphql'
+import { useAccountsContext, useTreasuryBookContext } from '@/hooks'
 import {
   addEntryDefaultValues,
   addExchangeDefaultValues,
@@ -11,22 +11,31 @@ import {
 
 import { UpsertExchangeForm } from '..'
 
+import type { UpsertExchangeFormFieldValues } from '@/lib'
+
 export const InsertExchangeForm: React.FC = () => {
   const { t } = useTranslation('exchange')
-  const { selectedTreasuryBookId, data: treasuryBookQueryData } =
-    useTreasuryBookContext()
+  const { ownerId, data: treasuryBookQueryData } = useTreasuryBookContext()
+  const { data: accountsQueryData } = useAccountsContext()
 
-  const { data } = useGetAccountsQuery({
-    variables: {
-      input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
-      },
+  const [addExchange] = useAddExchangeMutation()
+
+  const handleOnSubmit = useCallback(
+    (values: UpsertExchangeFormFieldValues) => {
+      void addExchange({
+        variables: {
+          input: {
+            ...values,
+            ownerId,
+          },
+        },
+      })
     },
-    skip: selectedTreasuryBookId == null,
-  })
+    [addExchange, ownerId],
+  )
 
   const values = useMemo(() => {
-    const firstAccount = data?.getAccounts.at(0)
+    const firstAccount = accountsQueryData?.getAccounts.at(0)
 
     if (firstAccount == null) {
       return undefined
@@ -53,11 +62,11 @@ export const InsertExchangeForm: React.FC = () => {
         treasuryBookId: treasuryBookQueryData?.getTreasuryBooks.at(1)?.id ?? '',
       },
     }
-  }, [data?.getAccounts, treasuryBookQueryData])
+  }, [accountsQueryData?.getAccounts, treasuryBookQueryData?.getTreasuryBooks])
 
   return (
     <UpsertExchangeForm
-      onSubmit={(value) => console.log(value)}
+      onSubmit={handleOnSubmit}
       onSubmitText={t`InsertExchangeForm.submit`}
       values={values}
     />

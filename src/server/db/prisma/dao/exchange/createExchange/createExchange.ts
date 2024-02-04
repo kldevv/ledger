@@ -2,8 +2,8 @@ import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
 import logger from '@/server/logger'
 
+import type { CreateTransactionProps } from '../../transaction'
 import type { Exchange } from '@prisma/client'
-import { CreateTransactionProps } from '../../transaction'
 
 export type CreateExchangeProps = Pick<Exchange, 'ownerId'> & {
   /**
@@ -18,8 +18,16 @@ export type CreateExchangeProps = Pick<Exchange, 'ownerId'> & {
 
 export const createExchange = async ({
   ownerId,
-  origin: { entries: originEntries, ...originTransaction },
-  destination: { entries: destinationEntries, ...destinationTransaction },
+  origin: {
+    entries: originEntries,
+    tagIds: originTagIds,
+    ...originTransaction
+  },
+  destination: {
+    entries: destinationEntries,
+    tagIds: destinationTagIds,
+    ...destinationTransaction
+  },
 }: CreateExchangeProps) => {
   try {
     return await prisma.exchange.create({
@@ -29,10 +37,16 @@ export const createExchange = async ({
           create: [
             {
               ...originTransaction,
+              tags: {
+                connect: originTagIds.map((id) => ({ id })),
+              },
               entries: { createMany: { data: originEntries } },
             },
             {
               ...destinationTransaction,
+              tags: {
+                connect: destinationTagIds.map((id) => ({ id })),
+              },
               entries: {
                 createMany: {
                   data: destinationEntries,

@@ -3,10 +3,10 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { FormattedDate, Table, ViewLink } from '@/components/common'
+import { TreasuryBookDetailLink } from '@/components/treasuryBook'
+import { route } from '@/lib'
 
 import type { GetExchangesQuery } from '@/api/graphql'
-import { route } from '@/lib'
-import { TreasuryBookDetailLink } from '@/components/treasuryBook'
 
 export type ExchangeTableData = GetExchangesQuery['getExchanges'][number]
 
@@ -48,6 +48,7 @@ export const ExchangeTable: React.FC<ExchangeTableProps> = ({ data }) => {
       }),
       columnHelper.accessor('createdAt', {
         header: t`ExchangeTable.header.createdAt`,
+        cell: ({ getValue }) => <FormattedDate dateTime={getValue()} />,
       }),
       columnHelper.accessor('id', {
         header: '',
