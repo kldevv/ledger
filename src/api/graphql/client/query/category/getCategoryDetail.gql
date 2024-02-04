@@ -11,15 +11,7 @@ query getCategoryDetail(
     updatedAt
   }
   getAccounts(input: $getAccountsInput) {
-    id
-    category {
-      id
-      name
-    }
-    name
-    treasuryBookId
-    createdAt
-    updatedAt
+    ...AccountData
   }
   getEntries(input: $getEntriesInput) {
     id

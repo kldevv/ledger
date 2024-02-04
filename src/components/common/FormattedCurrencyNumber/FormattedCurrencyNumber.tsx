@@ -1,8 +1,8 @@
 import classNames from 'classnames'
 import { useMemo } from 'react'
-import { numericFormatter } from 'react-number-format'
 
 import { useTreasuryBookContext } from '@/hooks'
+import { formatCurrencyNumber } from '@/lib'
 import { getCurrencySymbol } from '@/lib/utils/getCurrencySymbol/getCurrencySymbol'
 
 import type { Currency } from '@/api/graphql'
@@ -43,13 +43,7 @@ export const FormattedCurrencyNumber: React.FC<
         {currencySymbol}
       </div>
       <div className="text-dark-shades ml-auto pl-8 text-xs font-medium leading-6">
-        {numericFormatter(String(value), {
-          decimalScale: 2,
-          thousandSeparator: ',',
-          allowLeadingZeros: false,
-          allowNegative: false,
-          fixedDecimalScale: true,
-        })}
+        {formatCurrencyNumber(value)}
       </div>
     </div>
   )

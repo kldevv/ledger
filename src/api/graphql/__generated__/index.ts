@@ -807,6 +807,8 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 };
 
 
+export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null };
+
 export type MonthlyAmountDataFragment = { __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> };
 
 export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string };
@@ -894,7 +896,7 @@ export type GetAccountDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetAccountDetailQuery = { __typename?: 'Query', getAccount?: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } | null, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type GetAccountDetailQuery = { __typename?: 'Query', getAccount?: { __typename?: 'Account', updatedAt: Date, id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } | null, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
 export type GetAccountsQueryVariables = Exact<{
   input: GetAccountsInput;
@@ -924,7 +926,7 @@ export type GetCategoryDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetCategoryDetailQuery = { __typename?: 'Query', getCategory?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date, updatedAt: Date } | null, getAccounts: Array<{ __typename?: 'Account', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }>, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type GetCategoryDetailQuery = { __typename?: 'Query', getCategory?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date, updatedAt: Date } | null, getAccounts: Array<{ __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }>, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
 export type GetEntriesQueryVariables = Exact<{
   input: GetEntriesInput;
@@ -1040,6 +1042,18 @@ export type GetTreasuryBooksQueryVariables = Exact<{
 
 export type GetTreasuryBooksQuery = { __typename?: 'Query', getTreasuryBooks: Array<{ __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date, updatedAt: Date }> };
 
+export const AccountDataFragmentDoc = gql`
+    fragment AccountData on Account {
+  id
+  category {
+    id
+    name
+  }
+  name
+  entryCount
+  createdAt
+}
+    `;
 export const MonthlyAmountDataFragmentDoc = gql`
     fragment MonthlyAmountData on MonthlyAmount {
   id
@@ -1488,13 +1502,7 @@ export type GetAccountQueryResult = Apollo.QueryResult<GetAccountQuery, GetAccou
 export const GetAccountDetailDocument = gql`
     query getAccountDetail($getAccountInput: GetAccountInput!, $getEntriesInput: GetEntriesInput!) {
   getAccount(input: $getAccountInput) {
-    id
-    name
-    category {
-      id
-      name
-    }
-    createdAt
+    ...AccountData
     updatedAt
   }
   getEntries(input: $getEntriesInput) {
@@ -1517,7 +1525,7 @@ export const GetAccountDetailDocument = gql`
     status
   }
 }
-    `;
+    ${AccountDataFragmentDoc}`;
 
 /**
  * __useGetAccountDetailQuery__
@@ -1555,17 +1563,10 @@ export type GetAccountDetailQueryResult = Apollo.QueryResult<GetAccountDetailQue
 export const GetAccountsDocument = gql`
     query getAccounts($input: GetAccountsInput!) {
   getAccounts(input: $input) {
-    id
-    category {
-      id
-      name
-    }
-    name
-    entryCount
-    createdAt
+    ...AccountData
   }
 }
-    `;
+    ${AccountDataFragmentDoc}`;
 
 /**
  * __useGetAccountsQuery__
@@ -1699,15 +1700,7 @@ export const GetCategoryDetailDocument = gql`
     updatedAt
   }
   getAccounts(input: $getAccountsInput) {
-    id
-    category {
-      id
-      name
-    }
-    name
-    treasuryBookId
-    createdAt
-    updatedAt
+    ...AccountData
   }
   getEntries(input: $getEntriesInput) {
     id
@@ -1729,7 +1722,7 @@ export const GetCategoryDetailDocument = gql`
     status
   }
 }
-    `;
+    ${AccountDataFragmentDoc}`;
 
 /**
  * __useGetCategoryDetailQuery__

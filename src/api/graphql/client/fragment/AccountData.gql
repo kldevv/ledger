@@ -1,0 +1,10 @@
+fragment AccountData on Account {
+  id
+  category {
+    id
+    name
+  }
+  name
+  entryCount
+  createdAt
+}

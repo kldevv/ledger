@@ -3,9 +3,9 @@
     "header": {
       "accrualDate": "Date",
       "origin": "Origin",
-      "originAmount": "Origin Amount",
       "destination": "Destination",
-      "destinationAmount": "Destination Amount",
+      "amount": "Amount",
+      "currency": "Currency",
       "createdAt": "Create Date"
     }
   },

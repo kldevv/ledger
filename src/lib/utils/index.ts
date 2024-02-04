@@ -1,3 +1,4 @@
+export * from './formatCurrencyNumber'
 export * from './formatDate'
 export * from './getCategoryTypeIcon'
 export * from './getCurrencyIcon'

@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 import { FormattedDate, Table, ViewLink } from '@/components/common'
 import { TreasuryBookDetailLink } from '@/components/treasuryBook'
-import { route } from '@/lib'
+import { formatCurrencyNumber, route } from '@/lib'
 
 import type { GetExchangesQuery } from '@/api/graphql'
 
@@ -34,18 +34,26 @@ export const ExchangeTable: React.FC<ExchangeTableProps> = ({ data }) => {
           <TreasuryBookDetailLink treasuryBookId={getValue().treasuryBookId} />
         ),
       }),
-      columnHelper.accessor('origin.amount', {
-        header: t`ExchangeTable.header.originAmount`,
-      }),
       columnHelper.accessor('destination', {
         header: t`ExchangeTable.header.destination`,
         cell: ({ getValue }) => (
           <TreasuryBookDetailLink treasuryBookId={getValue().treasuryBookId} />
         ),
       }),
-      columnHelper.accessor('destination.amount', {
-        header: t`ExchangeTable.header.destinationAmount`,
-      }),
+      columnHelper.accessor(
+        ({ origin, destination }) => ({
+          oriAmount: origin.amount,
+          destAmount: destination.amount,
+        }),
+        {
+          header: t`ExchangeTable.header.amount`,
+          cell: ({ getValue }) => (
+            <div>{`${formatCurrencyNumber(
+              getValue().oriAmount,
+            )} / ${formatCurrencyNumber(getValue().destAmount)}`}</div>
+          ),
+        },
+      ),
       columnHelper.accessor('createdAt', {
         header: t`ExchangeTable.header.createdAt`,
         cell: ({ getValue }) => <FormattedDate dateTime={getValue()} />,

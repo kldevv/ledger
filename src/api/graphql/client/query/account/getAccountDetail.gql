@@ -3,13 +3,7 @@ query getAccountDetail(
   $getEntriesInput: GetEntriesInput!
 ) {
   getAccount(input: $getAccountInput) {
-    id
-    name
-    category {
-      id
-      name
-    }
-    createdAt
+    ...AccountData
     updatedAt
   }
   getEntries(input: $getEntriesInput) {
