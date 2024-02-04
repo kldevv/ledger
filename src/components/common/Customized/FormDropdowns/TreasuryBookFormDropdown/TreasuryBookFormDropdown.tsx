@@ -3,7 +3,7 @@ import type { FieldValues, Path } from 'react-hook-form'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { Dropdown } from '@/components/common'
+import { CurrencyChip, Dropdown, TreasuryBookChip } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
 export interface TreasuryBookFormDropdownProps<
@@ -31,8 +31,8 @@ export const TreasuryBookFormDropdown = <TFieldValues extends FieldValues>({
     () =>
       data?.getTreasuryBooks
         .filter(({ id }) => id !== excludeTreasuryBookId)
-        .map(({ id, name }) => ({
-          label: name,
+        .map(({ id, name, currency }) => ({
+          label: <TreasuryBookChip name={name} currency={currency} />,
           value: id,
         })) ?? [],
     [data?.getTreasuryBooks, excludeTreasuryBookId],

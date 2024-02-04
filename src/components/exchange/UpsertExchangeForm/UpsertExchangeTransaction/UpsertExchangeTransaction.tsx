@@ -14,9 +14,11 @@ export const UpsertExchangeTransaction: React.FC<
 > = ({ name }) => {
   return (
     <div className="flex flex-col">
-      <TreasuryBookFormDropdown<UpsertExchangeFormFieldValues>
-        name={`${name}.treasuryBookId`}
-      />
+      <div className="w-96">
+        <TreasuryBookFormDropdown<UpsertExchangeFormFieldValues>
+          name={`${name}.treasuryBookId`}
+        />
+      </div>
     </div>
   )
 }

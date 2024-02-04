@@ -84,7 +84,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
   }, [multiple, options, field.value])
 
   return (
-    <div className="w-[12rem] flex flex-col relative mt-[0.125rem]">
+    <div className="w-full flex flex-col relative mt-[0.125rem]">
       <Listbox {...field} as="div" multiple={multiple}>
         {({ open }) => (
           <>
@@ -93,7 +93,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
             </Listbox.Label>
             <Listbox.Button className={buttonCn} id={`listbox-${name}`}>
               <div className="min-h-[30px] flex items-center relative w-full gap-2">
-                <span className="mr-[1.75rem] whitespace-nowrap overflow-hidden overflow-ellipsis text-left">
+                <span className="mr-[1.75rem] whitespace-nowrap overflow-hidden overflow-ellipsis text-left w-full">
                   {displayValue}
                 </span>
                 <div className="absolute right-1 text-gray">

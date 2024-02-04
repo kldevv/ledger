@@ -5,6 +5,7 @@ import { Currency, useAddTreasuryBookMutation } from '@/api/graphql'
 import { UpsertTreasuryBookForm } from '@/components/treasuryBook'
 
 import type { UpsertTreasuryBookFormFieldValues } from '@/components/treasuryBook'
+import { useTreasuryBookContext } from '@/hooks'
 
 const defaultValues = {
   name: '',
@@ -14,9 +15,9 @@ const defaultValues = {
 export const InsertTreasuryBookForm: React.FC = () => {
   const { t } = useTranslation('treasuryBook')
 
-  const [addTreasuryBook] = useAddTreasuryBookMutation({
-    onCompleted: (data) => console.log(data),
-  })
+  const { ownerId } = useTreasuryBookContext()
+
+  const [addTreasuryBook] = useAddTreasuryBookMutation()
 
   const handleOnSubmit = useCallback(
     (values: UpsertTreasuryBookFormFieldValues) => {
@@ -24,8 +25,7 @@ export const InsertTreasuryBookForm: React.FC = () => {
         variables: {
           input: {
             ...values,
-            ownerId:
-              process.env.PROFILE_ID ?? 'ce4a7c81-6404-4098-a763-64550c4ec902',
+            ownerId,
           },
         },
       })
