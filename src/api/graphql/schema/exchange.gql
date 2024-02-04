@@ -9,6 +9,7 @@ type Exchange {
 input AddExchangeInput {
   accrualDate: DateTime!
   ownerId: String!
+  note: String!
   origin: AddExchangeTransactionInput!
   destination: AddExchangeTransactionInput!
 }

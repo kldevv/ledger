@@ -43,7 +43,11 @@ export const createExchange = async ({
         },
       },
       include: {
-        transactions: true,
+        transactions: {
+          include: {
+            entries: true,
+          },
+        },
       },
     })
   } catch (e) {

@@ -1,5 +1,5 @@
-import { addEntrySchema } from '@/lib'
 import { z } from 'zod'
+import { addEntrySchema } from '../../entries'
 
 export const addTransactionSchema = z
   .object({

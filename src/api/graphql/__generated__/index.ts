@@ -56,6 +56,7 @@ export type AddEntryInput = {
 export type AddExchangeInput = {
   accrualDate: Scalars['DateTime']['input'];
   destination: AddExchangeTransactionInput;
+  note: Scalars['String']['input'];
   origin: AddExchangeTransactionInput;
   ownerId: Scalars['String']['input'];
 };

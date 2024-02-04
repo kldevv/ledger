@@ -1,6 +1,6 @@
-import { numberSchema } from '@/lib'
-import { EntryStatus } from '@prisma/client'
 import { z } from 'zod'
+import { numberSchema } from '../..'
+import { EntryStatus } from '@/api/graphql'
 
 export const addEntrySchema = z
   .object({

@@ -1,7 +1,7 @@
 import type { MutationResolvers } from '@/api/graphql'
 import {
   addExchangeTransactionTransform,
-  exchangeTransform,
+  transformExchange,
 } from '../../transform'
 
 export const addExchange: MutationResolvers['addExchange'] = async (
@@ -33,5 +33,5 @@ export const addExchange: MutationResolvers['addExchange'] = async (
     }),
   })
 
-  return exchangeTransform(exchange)
+  return transformExchange(exchange)
 }

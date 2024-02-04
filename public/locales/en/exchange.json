@@ -9,6 +9,17 @@
       "createdAt": "Create Date"
     }
   },
+  "UpsertExchangeForm": {
+    "label": {
+      "accrualDate": "Date",
+      "note": "Note"
+    }
+  },
+  "UpsertExchangeTransaction": {
+    "label": {
+      "treasuryBookId": "Treasury Book"
+    }
+  },
   "page": {
     "index": {
       "action": "Add Exchange"

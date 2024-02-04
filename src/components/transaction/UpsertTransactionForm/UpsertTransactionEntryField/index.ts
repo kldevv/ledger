@@ -1,1 +1,1 @@
-export * from './UpsertEntryField'
+export * from './UpsertTransactionEntryField'

@@ -17,7 +17,7 @@ export interface UseFormProps<TFieldValues extends FieldValues>
    */
   schema: z.Schema
   /**
-   * Default values for the form
+   * More constraint version of defaultValues
    */
   defaultValues: DefaultValues<TFieldValues>
 }

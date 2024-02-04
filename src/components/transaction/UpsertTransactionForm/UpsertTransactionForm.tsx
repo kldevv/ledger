@@ -31,7 +31,7 @@ export interface UpsertTransactionFormProps {
    */
   onSubmitText: string
   /**
-   * Default form values
+   * Dynamic fill the form values
    */
   values?: UseFormProps<UpsertTransactionFormFieldValues>['values']
 }
