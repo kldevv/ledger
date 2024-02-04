@@ -50,7 +50,7 @@ const optionsCn = classNames(
   'max-h-[15rem]',
   'overflow-auto',
   'absolute',
-  'mt-1 p-1',
+  'p-1',
   'bg-white shadow-md shadow-gray rounded-md',
   'z-10',
 )

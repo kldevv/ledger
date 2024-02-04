@@ -9,10 +9,22 @@
       "createdAt": "Create Date"
     }
   },
+  "InsertExchangeForm": {
+    "submit": "Submit"
+  },
   "UpsertExchangeForm": {
+    "title": "ENTRY #{{ index }}",
     "label": {
       "accrualDate": "Date",
-      "note": "Note"
+      "note": "Note",
+      "entries": {
+        "memo": "Memo",
+        "transactionDate": "Transaction Date",
+        "debit": "Debit",
+        "credit": "Credit",
+        "account": "Account",
+        "status": "Status"
+      }
     }
   },
   "page": {

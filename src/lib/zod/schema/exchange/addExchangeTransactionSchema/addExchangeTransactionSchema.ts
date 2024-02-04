@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { addEntrySchema } from '../../entries'
+import { addEntrySchema } from '../../entry'
 
 export const addExchangeTransactionSchema = z.object({
   /**

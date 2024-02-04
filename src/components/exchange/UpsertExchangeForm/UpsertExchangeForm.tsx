@@ -5,8 +5,8 @@ import { useForm } from '@/hooks'
 import type { FormProps } from '@/components/common'
 import type { UseFormProps } from '@/hooks'
 import {
-  UpsertExchangeFormDefaultValues,
   UpsertExchangeFormFieldValues,
+  addExchangeDefaultValues,
   addExchangeSchema,
 } from '@/lib'
 import { UpsertExchangeTransaction } from './UpsertExchangeTransaction'
@@ -35,7 +35,7 @@ export const UpsertExchangeForm: React.FC<UpsertExchangeFormProps> = ({
 
   const context = useForm<UpsertExchangeFormFieldValues>({
     schema: addExchangeSchema,
-    defaultValues: UpsertExchangeFormDefaultValues,
+    defaultValues: addExchangeDefaultValues,
     values,
   })
 

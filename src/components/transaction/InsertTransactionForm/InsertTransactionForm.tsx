@@ -11,6 +11,7 @@ import { UpsertTransactionForm } from '@/components/transaction'
 import { useTreasuryBookContext } from '@/hooks'
 
 import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
+import { addEntryDefaultValues } from '@/lib'
 
 export const InsertTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')
@@ -23,24 +24,22 @@ export const InsertTransactionForm: React.FC = () => {
   const { data } = useGetAccountsQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId,
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
     skip: selectedTreasuryBookId == null,
   })
 
   const values = useMemo(() => {
-    if (data?.getAccounts[0] == null) {
+    const firstAccount = data?.getAccounts.at(0)
+
+    if (firstAccount == null) {
       return undefined
     }
 
     const entry = {
-      transactionDate: new Date(),
-      accountId: data.getAccounts[0]?.id,
-      memo: '',
-      status: EntryStatus.PENDING,
-      debit: 0,
-      credit: 0,
+      ...addEntryDefaultValues,
+      accountId: firstAccount.id,
     }
 
     return {

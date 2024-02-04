@@ -1,4 +1,4 @@
 export * from './common'
-export * from './entries'
+export * from './entry'
 export * from './exchange'
 export * from './transaction'
