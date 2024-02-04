@@ -1,6 +1,12 @@
 import { useTranslation } from 'next-i18next'
 
-import { Form, InputDate, InputText, SubmitButton } from '@/components/common'
+import {
+  Form,
+  InputDate,
+  InputText,
+  PageTab,
+  SubmitButton,
+} from '@/components/common'
 import { useForm } from '@/hooks'
 import { addExchangeDefaultValues, addExchangeSchema } from '@/lib'
 
@@ -35,6 +41,7 @@ export const UpsertExchangeForm: React.FC<UpsertExchangeFormProps> = ({
   const context = useForm<UpsertExchangeFormFieldValues>({
     schema: addExchangeSchema,
     defaultValues: addExchangeDefaultValues,
+    shouldUnregister: false,
     values,
   })
 
@@ -49,10 +56,16 @@ export const UpsertExchangeForm: React.FC<UpsertExchangeFormProps> = ({
           name="note"
           label={t('UpsertExchangeForm.label.note')}
         />
-        <UpsertExchangeTransaction name="origin" />
-        <UpsertExchangeTransaction name="destination" />
+        <div className="mt-6">
+          <PageTab
+            options={(['origin', 'destination'] as const).map((tab) => ({
+              label: tab.toUpperCase(),
+              content: <UpsertExchangeTransaction name={tab} key={tab} />,
+            }))}
+          />
+        </div>
       </div>
-      <SubmitButton className="mt-4">{onSubmitText}</SubmitButton>
+      <SubmitButton className="mt-12">{onSubmitText}</SubmitButton>
     </Form>
   )
 }

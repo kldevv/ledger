@@ -13,7 +13,8 @@
     "submit": "Submit"
   },
   "UpsertExchangeForm": {
-    "title": "ENTRY #{{ index }}",
+    "transactionTitle": "{{ type }} Transaction",
+    "entryTitle": "ENTRY #{{ index }}",
     "label": {
       "accrualDate": "Date",
       "note": "Note",

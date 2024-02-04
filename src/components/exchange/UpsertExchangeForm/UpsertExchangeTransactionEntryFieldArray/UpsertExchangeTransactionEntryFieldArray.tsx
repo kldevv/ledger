@@ -27,7 +27,7 @@ export const UpsertExchangeTransactionEntryFieldArray: React.FC<
       {fields.map((field, index) => (
         <div key={field.id}>
           <span className="text-light-accent -mb-3 text-[0.5rem] font-semibold leading-6">
-            {t('UpsertExchangeForm.title', {
+            {t('UpsertExchangeForm.entryTitle', {
               index: index + 1,
             })}
           </span>

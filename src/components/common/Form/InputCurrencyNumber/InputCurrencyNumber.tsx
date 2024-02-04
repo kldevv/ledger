@@ -59,10 +59,10 @@ export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
   }, [getTreasuryBooks, selectedTreasuryBookId])
 
   return (
-    <div className="w-[12rem] flex flex-col my-1">
+    <div className="my-1 flex w-[12rem] flex-col">
       <Label htmlFor={`input-${name}`}>{label}</Label>
-      <div className="flex relative">
-        <span className="font-normal text-dark-shades text-xs absolute top-3 left-2">
+      <div className="relative flex">
+        <span className="text-dark-shades absolute left-2 top-3 text-xs font-normal">
           {currencySymbol}
         </span>
         <NumericFormat
@@ -78,7 +78,7 @@ export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
           allowLeadingZeros={false}
           allowNegative={false}
           thousandSeparator={','}
-          className="text-right pl-10"
+          className="pl-10 text-right"
           {...props}
         />
       </div>
