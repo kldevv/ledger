@@ -1,6 +1,5 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-import { z } from 'zod'
 
 import { useGetTagsQuery } from '@/api/graphql'
 import { Form, InputText, SubmitButton, Dropdown } from '@/components/common'
@@ -10,12 +9,13 @@ import {
   useForm,
   useTreasuryBookContext,
 } from '@/hooks'
+import { addTransactionSchema } from '@/lib'
 
 import { UpsertTransactionEntryFieldArray } from './UpsertTransactionEntryFieldArray'
 
 import type { FormProps } from '@/components/common'
 import type { UseFormProps } from '@/hooks'
-import { addTransactionSchema } from '@/lib'
+import type { z } from 'zod'
 
 export type UpsertTransactionFormFieldValues = z.infer<
   typeof addTransactionSchema

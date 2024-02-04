@@ -2,7 +2,8 @@ import { useTranslation } from 'next-i18next'
 import { useFieldArray } from 'react-hook-form'
 
 import { UpsertExchangeTransactionEntryField } from '../UpsertExchangeTransactionEntryField'
-import { UpsertExchangeFormFieldValues } from '@/lib'
+
+import type { UpsertExchangeFormFieldValues } from '@/lib'
 
 export interface UpsertExchangeTransactionEntryFieldArrayProps {
   /**
@@ -25,7 +26,7 @@ export const UpsertExchangeTransactionEntryFieldArray: React.FC<
     <div className="flex flex-col gap-y-3">
       {fields.map((field, index) => (
         <div key={field.id}>
-          <span className="leading-6 text-light-accent text-[0.5rem] font-semibold -mb-3">
+          <span className="text-light-accent -mb-3 text-[0.5rem] font-semibold leading-6">
             {t('UpsertExchangeForm.title', {
               index: index + 1,
             })}

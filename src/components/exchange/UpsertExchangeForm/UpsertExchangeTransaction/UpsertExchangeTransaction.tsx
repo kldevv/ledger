@@ -1,7 +1,8 @@
 import { TreasuryBookFormDropdown } from '@/components/common'
 
-import type { UpsertExchangeFormFieldValues } from '@/lib'
 import { UpsertExchangeTransactionEntryFieldArray } from '../UpsertExchangeTransactionEntryFieldArray'
+
+import type { UpsertExchangeFormFieldValues } from '@/lib'
 
 export interface UpsertExchangeTransactionProps {
   /**
@@ -20,9 +21,7 @@ export const UpsertExchangeTransaction: React.FC<
           name={`${name}.treasuryBookId`}
         />
       </div>
-      <div className="mt-6">
-        <UpsertExchangeTransactionEntryFieldArray name={name} />
-      </div>
+      <UpsertExchangeTransactionEntryFieldArray name={name} />
     </div>
   )
 }

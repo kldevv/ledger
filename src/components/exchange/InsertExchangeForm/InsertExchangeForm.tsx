@@ -1,17 +1,20 @@
+import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-import { UpsertExchangeForm } from '..'
+
+import { useGetAccountsQuery } from '@/api/graphql'
+import { useTreasuryBookContext } from '@/hooks'
 import {
   addEntryDefaultValues,
   addExchangeDefaultValues,
   addExchangeTransactionDefaultValues,
 } from '@/lib'
-import { useGetAccountsQuery } from '@/api/graphql'
-import { useTreasuryBookContext } from '@/hooks'
-import { useTranslation } from 'next-i18next'
+
+import { UpsertExchangeForm } from '..'
 
 export const InsertExchangeForm: React.FC = () => {
   const { t } = useTranslation('exchange')
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const { selectedTreasuryBookId, data: treasuryBookQueryData } =
+    useTreasuryBookContext()
 
   const { data } = useGetAccountsQuery({
     variables: {
@@ -41,10 +44,16 @@ export const InsertExchangeForm: React.FC = () => {
 
     return {
       ...addExchangeDefaultValues,
-      origin: transaction,
-      destination: transaction,
+      origin: {
+        ...transaction,
+        treasuryBookId: treasuryBookQueryData?.getTreasuryBooks.at(0)?.id ?? '',
+      },
+      destination: {
+        ...transaction,
+        treasuryBookId: treasuryBookQueryData?.getTreasuryBooks.at(1)?.id ?? '',
+      },
     }
-  }, [data?.getAccounts])
+  }, [data?.getAccounts, treasuryBookQueryData])
 
   return (
     <UpsertExchangeForm

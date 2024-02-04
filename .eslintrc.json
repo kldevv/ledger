@@ -186,12 +186,13 @@
     "src/**/*.test.ts",
     "src/**/__generated__/*",
     // TODO: Remove stories folder once we set up the stories pattern
-    "src/stories/*"
+    "src/stories/*",
+    "./tailwind.config.ts"
   ],
   "overrides": [
     // Disable type-aware linting for JavaScript files
     {
-      "files": ["*.js", "../tailwind.config.ts"],
+      "files": ["*.js"],
       "extends": ["plugin:@typescript-eslint/disable-type-checked"]
     }
   ]
