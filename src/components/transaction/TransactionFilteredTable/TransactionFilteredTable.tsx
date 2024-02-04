@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 
 import {
   Card,
-  EntryStatusFilterDropdown,
+  EntryStatusDropdownFilter,
   Pagination,
 } from '@/components/common'
 
@@ -57,7 +57,7 @@ export const TransactionFilteredTable: React.FC<
     <Card>
       <div className="flex flex-col space-y-3">
         <div className="flex items-center border-b pt-1 pb-3 border-b-mid-gray">
-          <EntryStatusFilterDropdown
+          <EntryStatusDropdownFilter
             value={statusFilter}
             onChange={handleOnStatusFilterChange}
           />

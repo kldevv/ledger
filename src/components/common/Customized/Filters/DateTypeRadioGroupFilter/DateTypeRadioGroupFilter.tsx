@@ -3,9 +3,9 @@ import { useMemo } from 'react'
 
 import { DateType } from '@/api/graphql'
 
-import { RadioGroupFilter } from '..'
+import { RadioGroupFilter } from '../../../Filters'
 
-export interface DateTypeFilterRadioGroupProps {
+export interface DateTypeRadioGroupFilterProps {
   /**
    * Value
    */
@@ -16,8 +16,8 @@ export interface DateTypeFilterRadioGroupProps {
   onChange: (type: DateType) => void
 }
 
-export const DateTypeFilterRadioGroup: React.FC<
-  DateTypeFilterRadioGroupProps
+export const DateTypeRadioGroupFilter: React.FC<
+  DateTypeRadioGroupFilterProps
 > = ({ value, onChange }) => {
   const { t } = useTranslation('common')
 
@@ -25,7 +25,7 @@ export const DateTypeFilterRadioGroup: React.FC<
     () =>
       Object.values(DateType).map((type) => ({
         value: type,
-        label: t(`DateTypeFilterRadioGroup.${type}`),
+        label: t(`DateTypeRadioGroupFilter.${type}`),
       })),
     [t],
   )

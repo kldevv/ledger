@@ -3,9 +3,9 @@ import { useCallback, useState } from 'react'
 import { DateType, useGetCategoryTypeMonthlyBalanceQuery } from '@/api/graphql'
 import {
   Card,
-  DateTypeFilterRadioGroup,
-  EntryStatusFilterDropdown,
-  YearFilterDropdown,
+  DateTypeRadioGroupFilter,
+  EntryStatusDropdownFilter,
+  YearDropdownFilter,
 } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
@@ -44,7 +44,7 @@ export const CategoryTypeMonthlyBalanceDataControllerTable: React.FC = () => {
   return (
     <div className="flex flex-col space-y-2">
       <div>
-        <DateTypeFilterRadioGroup
+        <DateTypeRadioGroupFilter
           value={dateTypeFilter}
           onChange={handleOnDateTypeFilterChange}
         />
@@ -52,11 +52,11 @@ export const CategoryTypeMonthlyBalanceDataControllerTable: React.FC = () => {
       <Card>
         <div className="flex flex-col space-y-2">
           <div className="flex items-center border-b pt-1 pb-3 border-b-mid-gray space-x-2">
-            <EntryStatusFilterDropdown
+            <EntryStatusDropdownFilter
               value={statusFilter}
               onChange={setStatusFilter}
             />
-            <YearFilterDropdown
+            <YearDropdownFilter
               value={yearFilter}
               onChange={setYearFilter}
               type={dateTypeFilter}

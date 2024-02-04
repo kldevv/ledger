@@ -16,13 +16,13 @@
   "ViewLink": {
     "label": "VIEW"
   },
-  "EntryStatusFilterDropdown": {
+  "EntryStatusDropdownFilter": {
     "null": "All Statuses"
   },
-  "YearFilterDropdown": {
+  "YearDropdownFilter": {
     "null": "All Years"
   },
-  "DateTypeFilterRadioGroup": {
+  "DateTypeRadioGroupFilter": {
     "ACCRUAL": "Accrual Date",
     "TRANSACTION": "Transaction Date"
   }

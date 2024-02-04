@@ -3,10 +3,10 @@ import { useMemo } from 'react'
 
 import { EntryStatus } from '@/api/graphql'
 
-import { DropdownFilter } from '..'
-import { StatusChip } from '../..'
+import { DropdownFilter } from '../../../Filters'
+import { StatusChip } from '../../..'
 
-export interface EntryStatusFilterDropdownProps {
+export interface EntryStatusDropdownFilterProps {
   /**
    * Value
    */
@@ -17,8 +17,8 @@ export interface EntryStatusFilterDropdownProps {
   onChange: (status: EntryStatus | null) => void
 }
 
-export const EntryStatusFilterDropdown: React.FC<
-  EntryStatusFilterDropdownProps
+export const EntryStatusDropdownFilter: React.FC<
+  EntryStatusDropdownFilterProps
 > = ({ value, onChange }) => {
   const { t } = useTranslation('common')
 
@@ -31,7 +31,7 @@ export const EntryStatusFilterDropdown: React.FC<
     return [
       {
         value: null,
-        label: t`EntryStatusFilterDropdown.null`,
+        label: t`EntryStatusDropdownFilter.null`,
       },
       ...options,
     ]

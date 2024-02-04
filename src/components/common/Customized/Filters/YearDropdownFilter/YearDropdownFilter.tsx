@@ -4,11 +4,11 @@ import { useMemo } from 'react'
 import { useGetUniqueYearsQuery } from '@/api/graphql'
 import { useTreasuryBookContext } from '@/hooks'
 
-import { DropdownFilter } from '..'
+import { DropdownFilter } from '../../../Filters'
 
 import type { DateType } from '@/api/graphql'
 
-export interface YearFilterDropdownProps {
+export interface YearDropdownFilterProps {
   /**
    * Value
    */
@@ -27,7 +27,7 @@ export interface YearFilterDropdownProps {
   disableAllYear?: boolean
 }
 
-export const YearFilterDropdown: React.FC<YearFilterDropdownProps> = ({
+export const YearDropdownFilter: React.FC<YearDropdownFilterProps> = ({
   value,
   onChange,
   type,
@@ -62,7 +62,7 @@ export const YearFilterDropdown: React.FC<YearFilterDropdownProps> = ({
       : [
           {
             value: null,
-            label: t`YearFilterDropdown.null`,
+            label: t`YearDropdownFilter.null`,
           },
           ...options,
         ]
