@@ -3,7 +3,7 @@ import type { FieldValues, Path } from 'react-hook-form'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { CurrencyChip, Dropdown, TreasuryBookChip } from '@/components/common'
+import { Dropdown, TreasuryBookChip } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
 export interface TreasuryBookFormDropdownProps<

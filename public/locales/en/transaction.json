@@ -43,9 +43,7 @@
         "memo": "Memo",
         "transactionDate": "Transaction Date",
         "debit": "Debit",
-        "credit": "Credit",
-        "account": "Account",
-        "status": "Status"
+        "credit": "Credit"
       }
     }
   },

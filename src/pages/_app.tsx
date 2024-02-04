@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast'
 
 import apolloClient from '@/api/graphql/client'
 import { PageHead } from '@/components/meta'
-import { TreasuryBookContextProvider } from '@/hooks'
+import { AccountsContextProvider, TreasuryBookContextProvider } from '@/hooks'
 
 import { ni18nConfig } from '../../ni18n.config'
 import '../../styles/globals.css'
@@ -15,9 +15,11 @@ const App: AppType = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={apolloClient}>
       <TreasuryBookContextProvider>
-        <PageHead />
-        <Component {...pageProps} />
-        <Toaster />
+        <AccountsContextProvider>
+          <PageHead />
+          <Component {...pageProps} />
+          <Toaster />
+        </AccountsContextProvider>
       </TreasuryBookContextProvider>
     </ApolloProvider>
   )

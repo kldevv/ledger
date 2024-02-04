@@ -18,13 +18,14 @@ export const AccountsContextProvider: React.FC<
   const result = useGetAccountsQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId,
+        treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
+    skip: selectedTreasuryBookId == null,
   })
 
   return (
-    <AccountsContext.Provider value={{ result }}>
+    <AccountsContext.Provider value={{ ...result }}>
       {children}
     </AccountsContext.Provider>
   )

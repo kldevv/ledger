@@ -901,7 +901,7 @@ export type GetAccountsQueryVariables = Exact<{
 }>;
 
 
-export type GetAccountsQuery = { __typename?: 'Query', getAccounts: Array<{ __typename?: 'Account', id: string, name: string, entryCount?: number | null, treasuryBookId: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }> };
+export type GetAccountsQuery = { __typename?: 'Query', getAccounts: Array<{ __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }> };
 
 export type GetCategoriesQueryVariables = Exact<{
   input: GetCategoriesInput;
@@ -1562,9 +1562,7 @@ export const GetAccountsDocument = gql`
     }
     name
     entryCount
-    treasuryBookId
     createdAt
-    updatedAt
   }
 }
     `;

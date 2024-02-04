@@ -17,7 +17,7 @@ export const UpsertTransactionEntryFieldArray: React.FC = () => {
     <div className="flex flex-col gap-y-3">
       {fields.map((field, index) => (
         <div key={field.id}>
-          <span className="leading-6 text-light-accent text-[0.5rem] font-semibold -mb-3">
+          <span className="text-light-accent -mb-3 text-[0.5rem] font-semibold leading-6">
             {t('UpsertTransactionForm.title', {
               index: index + 1,
             })}

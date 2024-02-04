@@ -28,5 +28,11 @@
   },
   "TreasuryBookFormDropdown": {
     "label": "Treasury Book"
+  },
+  "EntryStatusFromDropdown": {
+    "label": "Status"
+  },
+  "AccountFormDropdown": {
+    "label": "Account"
   }
 }

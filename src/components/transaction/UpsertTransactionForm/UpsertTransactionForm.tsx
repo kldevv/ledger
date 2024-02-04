@@ -4,11 +4,7 @@ import { useMemo } from 'react'
 import { useGetTagsQuery } from '@/api/graphql'
 import { Form, InputText, SubmitButton, Dropdown } from '@/components/common'
 import { InputDate } from '@/components/common/Form/InputDate'
-import {
-  AccountsContextProvider,
-  useForm,
-  useTreasuryBookContext,
-} from '@/hooks'
+import { useForm, useTreasuryBookContext } from '@/hooks'
 import { addTransactionSchema } from '@/lib'
 
 import { UpsertTransactionEntryFieldArray } from './UpsertTransactionEntryFieldArray'
@@ -71,29 +67,27 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   })
 
   return (
-    <AccountsContextProvider>
-      <div className="mr-4">
-        <Form onSubmit={onSubmit} context={context}>
-          <InputDate<UpsertTransactionFormFieldValues>
-            label={t('UpsertTransactionForm.label.accrualDate')}
-            name="accrualDate"
-          />
-          <InputText<UpsertTransactionFormFieldValues>
-            label={t('UpsertTransactionForm.label.note')}
-            name="note"
-          />
-          <Dropdown<UpsertTransactionFormFieldValues>
-            label={t('UpsertTransactionForm.label.tags')}
-            name="tagIds"
-            options={tagIdsOptions}
-            multiple
-          />
-          <div className="mt-6">
-            <UpsertTransactionEntryFieldArray />
-          </div>
-          <SubmitButton>{onSubmitText}</SubmitButton>
-        </Form>
-      </div>
-    </AccountsContextProvider>
+    <div className="mr-4">
+      <Form onSubmit={onSubmit} context={context}>
+        <InputDate<UpsertTransactionFormFieldValues>
+          label={t('UpsertTransactionForm.label.accrualDate')}
+          name="accrualDate"
+        />
+        <InputText<UpsertTransactionFormFieldValues>
+          label={t('UpsertTransactionForm.label.note')}
+          name="note"
+        />
+        <Dropdown<UpsertTransactionFormFieldValues>
+          label={t('UpsertTransactionForm.label.tags')}
+          name="tagIds"
+          options={tagIdsOptions}
+          multiple
+        />
+        <div className="mt-6">
+          <UpsertTransactionEntryFieldArray />
+        </div>
+        <SubmitButton>{onSubmitText}</SubmitButton>
+      </Form>
+    </div>
   )
 }
