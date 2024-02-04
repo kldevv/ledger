@@ -1,5 +1,9 @@
 import { useTranslation } from 'next-i18next'
-import { useFieldArray } from 'react-hook-form'
+import { useMemo } from 'react'
+import { useFieldArray, useFormContext } from 'react-hook-form'
+
+import { Currency } from '@/api/graphql'
+import { useTreasuryBookContext } from '@/hooks'
 
 import { UpsertExchangeTransactionEntryField } from '../UpsertExchangeTransactionEntryField'
 
@@ -16,6 +20,17 @@ export const UpsertExchangeTransactionEntryFieldArray: React.FC<
   UpsertExchangeTransactionEntryFieldArrayProps
 > = ({ name }) => {
   const { t } = useTranslation('exchange')
+  const { watch } = useFormContext<UpsertExchangeFormFieldValues>()
+  const { data } = useTreasuryBookContext()
+
+  const transactionTreasuryBookId = watch(`${name}.treasuryBookId`)
+
+  const selectedCurrency = useMemo(
+    () =>
+      data?.getTreasuryBooks?.find(({ id }) => id === transactionTreasuryBookId)
+        ?.currency ?? Currency.USD,
+    [data?.getTreasuryBooks, transactionTreasuryBookId],
+  )
 
   const { fields, append, remove } =
     useFieldArray<UpsertExchangeFormFieldValues>({
@@ -38,6 +53,7 @@ export const UpsertExchangeTransactionEntryFieldArray: React.FC<
             append={index === fields.length - 1 ? append : null}
             // We will maintain at least two rows
             remove={fields.length > 2 ? remove : null}
+            currency={selectedCurrency}
           />
         </div>
       ))}

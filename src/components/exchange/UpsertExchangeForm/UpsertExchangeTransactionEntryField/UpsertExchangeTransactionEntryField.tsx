@@ -15,6 +15,7 @@ import {
 import { useAccountsContext } from '@/hooks'
 import { addEntryDefaultValues } from '@/lib'
 
+import type { Currency } from '@/api/graphql'
 import type { UpsertExchangeFormFieldValues } from '@/lib'
 
 export interface UpsertExchangeTransactionEntryFieldProps {
@@ -34,11 +35,15 @@ export interface UpsertExchangeTransactionEntryFieldProps {
    * Field remove
    */
   remove?: UseFieldArrayRemove | null
+  /**
+   * Currency of the selected treasury book of the transaction
+   */
+  currency: Currency
 }
 
 export const UpsertExchangeTransactionEntryField: React.FC<
   UpsertExchangeTransactionEntryFieldProps
-> = ({ index, append, remove, name }) => {
+> = ({ index, append, remove, name, currency }) => {
   const { t } = useTranslation('exchange')
   const { data } = useAccountsContext()
 
@@ -75,10 +80,12 @@ export const UpsertExchangeTransactionEntryField: React.FC<
         <InputCurrencyNumber<UpsertExchangeFormFieldValues>
           label={t`UpsertExchangeForm.label.entries.debit`}
           name={`${name}.entries.${index}.debit` as const}
+          currency={currency}
         />
         <InputCurrencyNumber<UpsertExchangeFormFieldValues>
           label={t`UpsertExchangeForm.label.entries.credit`}
           name={`${name}.entries.${index}.credit` as const}
+          currency={currency}
         />
         <AccountFormDropdown<UpsertExchangeFormFieldValues>
           name={`${name}.entries.${index}.accountId` as const}

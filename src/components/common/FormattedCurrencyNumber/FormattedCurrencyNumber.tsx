@@ -5,6 +5,8 @@ import { numericFormatter } from 'react-number-format'
 import { useTreasuryBookContext } from '@/hooks'
 import { getCurrencySymbol } from '@/lib/utils/getCurrencySymbol/getCurrencySymbol'
 
+import type { Currency } from '@/api/graphql'
+
 export interface FormattedCurrencyNumberProps {
   /**
    * Value
@@ -14,21 +16,26 @@ export interface FormattedCurrencyNumberProps {
    * Customized class name
    */
   className?: string
+  /**
+   * Override the selected currency
+   */
+  currency?: Currency
 }
 
 export const FormattedCurrencyNumber: React.FC<
   FormattedCurrencyNumberProps
-> = ({ value, className }) => {
+> = ({ value, currency, className }) => {
   const { selectedTreasuryBookId, data: { getTreasuryBooks } = {} } =
     useTreasuryBookContext()
 
   const currencySymbol = useMemo(() => {
-    const currency = getTreasuryBooks?.find(
-      ({ id }) => id === selectedTreasuryBookId,
-    )?.currency
+    const selectedCurrency = currency
+      ? currency
+      : getTreasuryBooks?.find(({ id }) => id === selectedTreasuryBookId)
+          ?.currency
 
-    return getCurrencySymbol(currency)
-  }, [getTreasuryBooks, selectedTreasuryBookId])
+    return getCurrencySymbol(selectedCurrency)
+  }, [currency, getTreasuryBooks, selectedTreasuryBookId])
 
   return (
     <div className={classNames('w-30 flex items-center', className)}>

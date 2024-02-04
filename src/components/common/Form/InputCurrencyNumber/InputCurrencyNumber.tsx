@@ -8,6 +8,7 @@ import { ErrorMessage, InputCore, Label } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 import { getCurrencySymbol } from '@/lib'
 
+import type { Currency } from '@/api/graphql'
 import type { InputCoreProps } from '@/components/common'
 
 export interface InputCurrencyNumberProps<TFieldValues extends FieldValues>
@@ -31,12 +32,17 @@ export interface InputCurrencyNumberProps<TFieldValues extends FieldValues>
    * Default value
    */
   defaultValue?: number | string
+  /**
+   * Override the default selected currency
+   */
+  currency?: Currency
 }
 
 export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
   name,
   label,
   control,
+  currency,
   ...props
 }: InputCurrencyNumberProps<TFieldValues>) => {
   const {
@@ -51,12 +57,14 @@ export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
     useTreasuryBookContext()
 
   const currencySymbol = useMemo(() => {
-    const currency = getTreasuryBooks?.find(
-      ({ id }) => id === selectedTreasuryBookId,
-    )?.currency
+    const selectedCurrency =
+      currency != null
+        ? currency
+        : getTreasuryBooks?.find(({ id }) => id === selectedTreasuryBookId)
+            ?.currency
 
-    return getCurrencySymbol(currency)
-  }, [getTreasuryBooks, selectedTreasuryBookId])
+    return getCurrencySymbol(selectedCurrency)
+  }, [currency, getTreasuryBooks, selectedTreasuryBookId])
 
   return (
     <div className="my-1 flex w-[12rem] flex-col">
