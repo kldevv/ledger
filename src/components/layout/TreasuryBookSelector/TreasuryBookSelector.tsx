@@ -28,18 +28,18 @@ export const TreasuryBookSelector: React.FC = () => {
   return (
     <Listbox
       as="div"
-      className="relative flex mx-4 justify-start"
+      className="relative mx-4 flex justify-start"
       onChange={setSelectedTreasuryBookId}
     >
       <Listbox.Button>
-        <div className="text-left flex-auto flex flex-nowrap items-center px-6 py-1 rounded-2xl text-dark-shades text-xs font-medium border-2 shadow-xs border-mid-gray whitespace-nowrap overflow-hidden overflow-ellipsis">
+        <div className="text-dark-shades shadow-xs border-mid-gray flex flex-auto flex-nowrap items-center truncate rounded-2xl border-2 px-6 py-1 text-left text-xs font-medium">
           {selectedTreasuryBook?.name}
           <div className="ml-auto pl-8">
             <CurrencyChip currency={selectedTreasuryBook?.currency} />
           </div>
         </div>
       </Listbox.Button>
-      <Listbox.Options className="absolute z-30 px-3 py-3 mt-9 bg-white shadow rounded-xl flex flex-col space-y-2 items-start">
+      <Listbox.Options className="absolute z-30 mt-9 flex flex-col items-start space-y-2 rounded-xl bg-white p-3 shadow">
         {options.map(({ value, label, currency }) => (
           <Listbox.Option key={value} value={value} as={React.Fragment}>
             {({ active }) => (

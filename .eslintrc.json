@@ -35,7 +35,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "tsconfigRootDir": "./tsconfig.json"
+    "project": ["../tsconfig.json"]
   },
   "plugins": [
     // TypeScript
@@ -173,7 +173,10 @@
 
     // Detect classnames which do not belong to Tailwind CSS
     // https://github.com/francoismassart/eslint-plugin-tailwindcss/blob/HEAD/docs/rules/no-custom-classname.md
-    "tailwindcss/no-custom-classname": "error",
+    "tailwindcss/no-custom-classname": [
+      "error",
+      { "config": "../tailwind.config.ts" }
+    ],
 
     // Avoid contradicting Tailwind CSS classnames
     // https://github.com/francoismassart/eslint-plugin-tailwindcss/blob/cf46b40ecc002acbb5ebae41159bb40f8d3f55bf/docs/rules/no-contradicting-classname.md
@@ -188,7 +191,7 @@
   "overrides": [
     // Disable type-aware linting for JavaScript files
     {
-      "files": ["*.js"],
+      "files": ["*.js", "../tailwind.config.ts"],
       "extends": ["plugin:@typescript-eslint/disable-type-checked"]
     }
   ]

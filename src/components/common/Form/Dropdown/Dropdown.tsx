@@ -13,7 +13,7 @@ import { useController } from 'react-hook-form'
 
 import { Label, ErrorMessage } from '@/components/common'
 
-export interface ListBoxProps<TFieldValues extends FieldValues> {
+export interface DropdownProps<TFieldValues extends FieldValues> {
   /**
    * Select name
    */
@@ -68,7 +68,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
   options,
   label,
   multiple = false,
-}: ListBoxProps<TFieldValues>) => {
+}: DropdownProps<TFieldValues>) => {
   const {
     field,
     fieldState: { error },
