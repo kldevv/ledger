@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 
 import {
+  Card,
   Form,
   InputDate,
   InputText,
@@ -10,6 +11,7 @@ import {
 import { useForm } from '@/hooks'
 import { addExchangeDefaultValues, addExchangeSchema } from '@/lib'
 
+import { UpsertExchangeRateChip } from './UpsertExchangeRateChip'
 import { UpsertExchangeTransaction } from './UpsertExchangeTransaction'
 
 import type { FormProps } from '@/components/common'
@@ -48,24 +50,29 @@ export const UpsertExchangeForm: React.FC<UpsertExchangeFormProps> = ({
   return (
     <Form onSubmit={onSubmit} context={context}>
       <div className="flex flex-col">
-        <InputDate<UpsertExchangeFormFieldValues>
-          name="accrualDate"
-          label={t('UpsertExchangeForm.label.accrualDate')}
-        />
-        <InputText<UpsertExchangeFormFieldValues>
-          name="note"
-          label={t('UpsertExchangeForm.label.note')}
-        />
-        <div className="mt-6">
-          <PageTab
-            options={(['origin', 'destination'] as const).map((tab) => ({
-              label: tab.toUpperCase(),
-              content: <UpsertExchangeTransaction name={tab} key={tab} />,
-            }))}
-          />
+        <div className="my-3">
+          <UpsertExchangeRateChip />
         </div>
+        <Card>
+          <InputDate<UpsertExchangeFormFieldValues>
+            name="accrualDate"
+            label={t('UpsertExchangeForm.label.accrualDate')}
+          />
+          <InputText<UpsertExchangeFormFieldValues>
+            name="note"
+            label={t('UpsertExchangeForm.label.note')}
+          />
+          <div className="mt-6">
+            <PageTab
+              options={(['origin', 'destination'] as const).map((tab) => ({
+                label: tab.toUpperCase(),
+                content: <UpsertExchangeTransaction name={tab} key={tab} />,
+              }))}
+            />
+          </div>
+          <SubmitButton className="mt-12">{onSubmitText}</SubmitButton>
+        </Card>
       </div>
-      <SubmitButton className="mt-12">{onSubmitText}</SubmitButton>
     </Form>
   )
 }

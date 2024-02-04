@@ -26,8 +26,8 @@ export const CurrencyChip: React.FC<CurrencyChipProps> = ({ currency }) => {
   })()
 
   return (
-    <div className="rounded-xl border border-mid-gray bg-white flex items-center px-3 select-none">
-      <span className="text-dark-shades font-medium leading-6 pr-2">
+    <div className="border-mid-gray flex select-none items-center rounded-xl border bg-white px-3">
+      <span className="text-dark-shades pr-2 text-xs font-medium leading-6">
         {currency}
       </span>
       {icon}

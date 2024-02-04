@@ -11,13 +11,13 @@ export const Card: React.FC<CardProps> = ({ children }) => {
   const cn = classNames(
     'rounded-lg shadow box-shadow shadow-mid-gray',
     'w-full',
-    'max-w-screen-lg',
+    'max-w-screen-xl',
     'bg-white',
   )
 
   return (
     <div className={cn}>
-      <div className="px-3 py-3 w-full">{children}</div>
+      <div className="w-full px-6 py-3">{children}</div>
     </div>
   )
 }

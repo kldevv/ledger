@@ -15,6 +15,7 @@
   "UpsertExchangeForm": {
     "transactionTitle": "{{ type }} Transaction",
     "entryTitle": "ENTRY #{{ index }}",
+    "rate": "Current Conversion Rate",
     "label": {
       "accrualDate": "Date",
       "note": "Note",

@@ -1,14 +1,6 @@
 import { z } from 'zod'
 
-const parseNumberString = (input: string | number): number => {
-  if (typeof input === 'number') {
-    return input
-  }
-
-  const valueWithoutSeparators = input.replace(/,/g, '')
-
-  return parseFloat(valueWithoutSeparators)
-}
+import { parseNumberString } from '@/lib'
 
 export const numberSchema = z
   .union([z.string(), z.number()])

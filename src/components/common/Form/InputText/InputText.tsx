@@ -44,7 +44,7 @@ export const InputText = <TFieldValues extends FieldValues>({
   })
 
   return (
-    <div className="w-[12rem] flex flex-col my-1">
+    <div className="my-1 flex w-[12rem] flex-col">
       <Label htmlFor={`input-${name}`}>{label}</Label>
       <InputCore
         id={`input-${name}`}

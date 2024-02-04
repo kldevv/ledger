@@ -23,13 +23,15 @@ export const UpsertExchangeTransaction: React.FC<
 
   return (
     <div className="flex flex-col space-y-6">
-      <h3 className="text-gray w-full text-center text-lg font-light leading-6">
-        {t('UpsertExchangeForm.transactionTitle', {
-          type: `${
-            name.slice(0, 1).toUpperCase() + name.slice(1).toLowerCase()
-          }`,
-        })}
-      </h3>
+      <div className="flex w-full items-center justify-center">
+        <h3 className="text-gray border-b-mid-gray w-fit select-none border-b px-6 pb-1 text-center text-xs font-medium leading-6">
+          {t('UpsertExchangeForm.transactionTitle', {
+            type: `${
+              name.slice(0, 1).toUpperCase() + name.slice(1).toLowerCase()
+            }`,
+          })}
+        </h3>
+      </div>
       <div className="w-96">
         <TreasuryBookFormDropdown<UpsertExchangeFormFieldValues>
           name={`${name}.treasuryBookId`}

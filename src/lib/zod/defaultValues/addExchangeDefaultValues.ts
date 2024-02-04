@@ -1,5 +1,7 @@
-import { z } from 'zod'
-import { addExchangeSchema, addExchangeTransactionDefaultValues } from '..'
+import { addExchangeTransactionDefaultValues } from '..'
+
+import type { addExchangeSchema } from '..'
+import type { z } from 'zod'
 
 export const addExchangeDefaultValues: z.infer<typeof addExchangeSchema> = {
   accrualDate: new Date(),

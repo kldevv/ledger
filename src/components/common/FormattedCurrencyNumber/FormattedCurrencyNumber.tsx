@@ -32,8 +32,10 @@ export const FormattedCurrencyNumber: React.FC<
 
   return (
     <div className={classNames('w-30 flex items-center', className)}>
-      <div className="font-normal text-xs select-none">{currencySymbol}</div>
-      <div className="ml-auto pl-8">
+      <div className="text-dark-shades select-none text-xs font-medium leading-6">
+        {currencySymbol}
+      </div>
+      <div className="text-dark-shades ml-auto pl-8 text-xs font-medium leading-6">
         {numericFormatter(String(value), {
           decimalScale: 2,
           thousandSeparator: ',',
