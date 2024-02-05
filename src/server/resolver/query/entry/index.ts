@@ -1,1 +1,1 @@
-export * from './getEntries'
+export * from './entries'

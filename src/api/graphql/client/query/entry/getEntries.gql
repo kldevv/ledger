@@ -1,5 +1,0 @@
-query getEntries($input: GetEntriesInput!) {
-  getEntries(input: $input) {
-    ...EntryData
-  }
-}

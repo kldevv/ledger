@@ -1,0 +1,5 @@
+query Entries($input: EntriesInput!) {
+  entries(input: $input) {
+    ...EntryData
+  }
+}

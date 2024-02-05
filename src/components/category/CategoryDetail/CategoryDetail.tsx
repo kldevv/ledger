@@ -25,7 +25,7 @@ export const CategoryDetail: React.FC = () => {
       getCategoryInput: {
         id: categoryId ?? '',
       },
-      getEntriesInput: {
+      entriesInput: {
         categoryId,
         treasuryBookId: selectedTreasuryBookId ?? '',
       },
@@ -57,7 +57,7 @@ export const CategoryDetail: React.FC = () => {
           <h3 className="font-semibold text-dark-shades">
             {t`CategoryDetail.title.entries`}
           </h3>
-          <EntryFilteredTable data={data?.getEntries} />
+          <EntryFilteredTable data={data?.entries} />
         </div>
       </div>
     )

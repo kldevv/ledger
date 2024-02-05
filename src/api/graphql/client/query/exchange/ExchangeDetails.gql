@@ -1,12 +1,12 @@
 query ExchangeDetails(
   $exchangeInput: ExchangeInput!
-  $transactionsInput: TransactionsInput!
+  $entriesInput: EntriesInput!
 ) {
   exchange(input: $exchangeInput) {
     ...ExchangeData
     updatedAt
   }
-  transactions(input: $transactionsInput) {
-    ...TransactionData
+  entries(input: $entriesInput) {
+    ...EntryData
   }
 }

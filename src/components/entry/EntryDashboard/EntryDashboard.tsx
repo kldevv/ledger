@@ -1,10 +1,10 @@
-import { useGetEntriesQuery } from '@/api/graphql'
+import { useEntriesQuery } from '@/api/graphql'
 import { EntryFilteredTable } from '@/components/entry'
 import { useTreasuryBookContext } from '@/hooks'
 
 export const EntryDashboard: React.FC = () => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
-  const { data } = useGetEntriesQuery({
+  const { data } = useEntriesQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',
@@ -13,5 +13,5 @@ export const EntryDashboard: React.FC = () => {
     skip: selectedTreasuryBookId == null,
   })
 
-  return <EntryFilteredTable data={data?.getEntries ?? []} />
+  return <EntryFilteredTable data={data?.entries ?? []} />
 }

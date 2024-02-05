@@ -2,19 +2,21 @@ import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
 import logger from '@/server/logger'
 
-import type { Account, Category, Entry } from '@prisma/client'
+import type { Account, Category, Entry, Transaction } from '@prisma/client'
 
-export type ReadManyProps = Partial<
-  Omit<Entry, 'createdAt' | 'updatedAt' | 'amount' | 'memo'> &
+export type FindEntriesProps = Partial<
+  Pick<Entry, 'accountId' | 'status' | 'transactionId' | 'treasuryBookId'> &
     Pick<Account, 'categoryId'> &
-    Pick<Category, 'type'>
+    Pick<Category, 'type'> &
+    Pick<Transaction, 'exchangeId'>
 >
 
-export const readMany = async ({
+export const findEntries = async ({
   categoryId,
   type,
+  exchangeId,
   ...props
-}: ReadManyProps) => {
+}: FindEntriesProps) => {
   try {
     return await prisma.entry.findMany({
       where: {
@@ -24,6 +26,9 @@ export const readMany = async ({
           category: {
             type,
           },
+        },
+        transaction: {
+          exchangeId,
         },
       },
       include: {
@@ -37,7 +42,7 @@ export const readMany = async ({
   } catch (e) {
     logger.log({
       level: 'info',
-      message: 'Error in Entry DAO: readMany',
+      message: 'Error in Entry DAO: findEntries',
       error: parsePrismaError(e),
     })
 

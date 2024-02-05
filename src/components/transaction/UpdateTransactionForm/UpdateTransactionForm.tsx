@@ -26,7 +26,7 @@ export const UpdateTransactionForm: React.FC = () => {
       TransactionInput: {
         id: transactionId ?? '',
       },
-      getEntriesInput: {
+      entriesInput: {
         transactionId,
         treasuryBookId: selectedTreasuryBookId ?? '',
       },
@@ -37,13 +37,13 @@ export const UpdateTransactionForm: React.FC = () => {
   const [updateTransaction] = useUpdateTransactionMutation()
 
   const values = useMemo(() => {
-    if (data?.transaction == null || data?.getEntries == null) {
+    if (data?.transaction == null || data?.entries == null) {
       return undefined
     }
 
     const { accrualDate, note, tags } = data.transaction
 
-    const entries = data.getEntries.map(
+    const entries = data.entries.map(
       ({ transactionDate, debit, credit, memo, status, account }) => ({
         transactionDate,
         debit,

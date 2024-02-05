@@ -8,7 +8,7 @@ type Query {
   getCategory(input: GetCategoryInput!): Category
 
   # Entry
-  getEntries(input: GetEntriesInput!): [Entry!]!
+  entries(input: EntriesInput!): [Entry!]!
 
   # Report
   getAccountMonthlyChanges(input: GetMonthlyAmountInput!): [MonthlyAmount!]!

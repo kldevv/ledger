@@ -19,18 +19,12 @@ input AddEntryInput {
   memo: String!
 }
 
-input GetEntriesInput {
-  treasuryBookId: String!
-  startDate: DateTime
-  endDate: DateTime
+input EntriesInput {
+  treasuryBookId: String
+  exchangeId: String
   transactionId: String
   status: EntryStatus
-  memoSearch: String
   accountId: String
   categoryType: String
   categoryId: String
-  debitAtLeast: Float
-  debitNoMore: Float
-  creditAtLeast: Float
-  creditNoMore: Float
 }

@@ -1,12 +1,12 @@
 query getAccountDetail(
   $getAccountInput: GetAccountInput!
-  $getEntriesInput: GetEntriesInput!
+  $entriesInput: EntriesInput!
 ) {
   getAccount(input: $getAccountInput) {
     ...AccountData
     updatedAt
   }
-  getEntries(input: $getEntriesInput) {
+  entries(input: $entriesInput) {
     id
     treasuryBookId
     transactionDate

@@ -1,4 +1,4 @@
-import { Entry } from '@prisma/client'
+import type { Entry } from '@prisma/client'
 
 export type TransformEntryProps = Entry
 

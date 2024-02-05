@@ -35,5 +35,4 @@ input TransactionsInput {
   treasuryBookId: String
   tagId: String
   status: EntryStatus
-  exchangeId: String
 }

@@ -4,9 +4,9 @@ import { useMemo } from 'react'
 
 import { FormattedDate, StatusChip, Table } from '@/components/common'
 
-import type { GetEntriesQuery } from '@/api/graphql'
+import type { EntriesQuery } from '@/api/graphql'
 
-export type EntryTableData = GetEntriesQuery['getEntries'][number]
+export type EntryTableData = EntriesQuery['entries'][number]
 
 const columnHelper = createColumnHelper<EntryTableData>()
 

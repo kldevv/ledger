@@ -1,6 +1,6 @@
 query TransactionDetails(
   $TransactionInput: TransactionInput!
-  $getEntriesInput: GetEntriesInput!
+  $entriesInput: EntriesInput!
 ) {
   transaction(input: $TransactionInput) {
     ...TransactionData
@@ -10,7 +10,7 @@ query TransactionDetails(
       name
     }
   }
-  getEntries(input: $getEntriesInput) {
+  entries(input: $entriesInput) {
     ...EntryData
   }
 }
