@@ -40,8 +40,8 @@ export const Table = <TData extends RowData>({
   })
 
   return (
-    <div className="w-full h-full overflow-auto">
-      <table className="w-full h-full table-auto">
+    <div className="size-full overflow-auto">
+      <table className="size-full table-auto">
         <thead>
           {table.getHeaderGroups().map(({ id, headers }) => (
             <tr key={id}>

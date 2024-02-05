@@ -1,8 +1,10 @@
 import { createColumnHelper } from '@tanstack/react-table'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { FormattedDate, EntryStatusChip, Table } from '@/components/common'
+import { route } from '@/lib'
 
 import type { EntriesQuery } from '@/api/graphql'
 
@@ -37,8 +39,18 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
       columnHelper.accessor('credit', {
         header: t('EntryTable.header.credit'),
       }),
-      columnHelper.accessor('account.name', {
-        header: t('EntryTable.header.account'),
+      columnHelper.accessor('account', {
+        header: t`EntryTable.header.account`,
+        cell: ({ getValue }) => (
+          <Link
+            href={{
+              pathname: route.accountDetail.pathname,
+              query: { id: getValue()?.id },
+            }}
+          >
+            {getValue()?.name}
+          </Link>
+        ),
       }),
       columnHelper.accessor('memo', {
         header: t('EntryTable.header.memo'),
@@ -47,15 +59,22 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
         header: t('EntryTable.header.status'),
         cell: (props) => <EntryStatusChip status={props.getValue()} />,
       }),
-      columnHelper.accessor('id', {
-        header: t('EntryTable.header.id'),
-      }),
       columnHelper.accessor('transactionId', {
-        header: t('EntryTable.header.transaction'),
+        header: t`EntryTable.header.transaction`,
+        cell: ({ getValue }) => (
+          <Link
+            href={{
+              pathname: route.transactionDetail.pathname,
+              query: { id: getValue() },
+            }}
+          >
+            {getValue()}
+          </Link>
+        ),
       }),
     ],
     [t],
   )
 
-  return <Table data={data} colDefs={colDefs} pageSize={10} />
+  return <Table data={data} colDefs={colDefs} />
 }
