@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import {
   DescriptionList,
   FormattedDate,
-  StatusChip,
+  EntryStatusChip,
   Tag,
 } from '@/components/common'
 
@@ -51,7 +51,7 @@ export const TransactionDescriptionList: React.FC<
       },
       {
         title: t('TransactionDescriptionList.title.status'),
-        description: <StatusChip status={status} />,
+        description: <EntryStatusChip status={status} />,
       },
       {
         title: t('TransactionDescriptionList.title.tags'),

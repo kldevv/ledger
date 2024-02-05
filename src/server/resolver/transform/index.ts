@@ -1,6 +1,5 @@
 export * from './addEntryInputTransform'
 export * from './addExchangeTransactionTransform'
-export * from './entries'
 export * from './transformEntry'
 export * from './transformExchange'
 export * from './transformTransaction'

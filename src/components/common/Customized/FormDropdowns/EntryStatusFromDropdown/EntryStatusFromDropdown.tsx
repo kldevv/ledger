@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { EntryStatus } from '@/api/graphql'
-import { Dropdown, StatusChip } from '@/components/common'
+import { Dropdown, EntryStatusChip } from '@/components/common'
 
 export interface EntryStatusFromDropdownProps<
   TFieldValues extends FieldValues,
@@ -24,7 +24,7 @@ export const EntryStatusFromDropdown = <TFieldValues extends FieldValues>({
     () =>
       Object.values(EntryStatus).map((value) => ({
         value,
-        label: <StatusChip status={value} key={value} />,
+        label: <EntryStatusChip status={value} key={value} />,
       })),
     [],
   )

@@ -11,10 +11,38 @@
   "ExchangeDescriptionList": {
     "title": {
       "id": "ID",
+      "date": "Date",
+      "note": "Note",
       "origin": "Origin Transaction ID",
       "destination": "Destination Transaction ID",
+      "status": "Status",
       "createdAt": "Create Date",
       "updatedAt": "Update Date"
+    }
+  },
+  "ExchangeTransactionDescriptionList": {
+    "title": {
+      "treasuryBook": "Treasury Book",
+      "currency": "Note",
+      "id": "Transaction ID",
+      "status": "Status",
+      "amount": "Amount"
+    }
+  },
+  "ExchangeDetails": {
+    "label": {
+      "0": "Origin",
+      "1": "Destination"
+    },
+    "title": {
+      "0": {
+        "details": "Origin Details",
+        "entries": "Origin Entries"
+      },
+      "1": {
+        "details": "Destination Details",
+        "entries": "Destination Entries"
+      }
     }
   },
   "InsertExchangeForm": {

@@ -37,7 +37,7 @@ export const ExchangeRateChip: React.FC<ExchangeRateChipProps> = ({
   }
 
   return (
-    <div className="border-mid-gray flex h-[2.5rem] items-center space-x-12 rounded-md border bg-white px-6 py-2">
+    <div className="border-mid-gray flex h-[2.5rem] items-center justify-center space-x-12 rounded-md border bg-white px-6 py-2">
       <div className="flex items-center space-x-3">
         <FormattedCurrencyNumber
           value={origin.amount}

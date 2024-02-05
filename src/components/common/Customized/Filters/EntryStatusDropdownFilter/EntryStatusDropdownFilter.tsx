@@ -3,8 +3,8 @@ import { useMemo } from 'react'
 
 import { EntryStatus } from '@/api/graphql'
 
+import { EntryStatusChip } from '../../..'
 import { DropdownFilter } from '../../../Filters'
-import { StatusChip } from '../../..'
 
 export interface EntryStatusDropdownFilterProps {
   /**
@@ -25,7 +25,7 @@ export const EntryStatusDropdownFilter: React.FC<
   const statusFilterOptions = useMemo(() => {
     const options = Object.values(EntryStatus).map((status) => ({
       value: status,
-      label: <StatusChip status={status} />,
+      label: <EntryStatusChip status={status} />,
     }))
 
     return [

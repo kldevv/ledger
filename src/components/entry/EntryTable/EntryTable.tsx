@@ -2,7 +2,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate, StatusChip, Table } from '@/components/common'
+import { FormattedDate, EntryStatusChip, Table } from '@/components/common'
 
 import type { EntriesQuery } from '@/api/graphql'
 
@@ -45,7 +45,7 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
       }),
       columnHelper.accessor('status', {
         header: t('EntryTable.header.status'),
-        cell: (props) => <StatusChip status={props.getValue()} />,
+        cell: (props) => <EntryStatusChip status={props.getValue()} />,
       }),
       columnHelper.accessor('id', {
         header: t('EntryTable.header.id'),

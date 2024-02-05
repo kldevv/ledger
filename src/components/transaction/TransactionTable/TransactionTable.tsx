@@ -2,7 +2,12 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate, StatusChip, Table, ViewLink } from '@/components/common'
+import {
+  FormattedDate,
+  EntryStatusChip,
+  Table,
+  ViewLink,
+} from '@/components/common'
 
 import type { TransactionsQuery } from '@/api/graphql'
 
@@ -36,7 +41,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({ data }) => {
       }),
       columnHelper.accessor('status', {
         header: t('TransactionTable.header.status'),
-        cell: ({ getValue }) => <StatusChip status={getValue()} />,
+        cell: ({ getValue }) => <EntryStatusChip status={getValue()} />,
       }),
       columnHelper.accessor('id', {
         header: t('TransactionTable.header.id'),

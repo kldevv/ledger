@@ -6,7 +6,7 @@
       "EQUITY": "Equity"
     }
   },
-  "StatusChip": {
+  "EntryStatusChip": {
     "label": {
       "COMPLETED": "Cleared",
       "PENDING": "Pending",
