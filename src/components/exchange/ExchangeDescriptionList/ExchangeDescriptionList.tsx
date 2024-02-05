@@ -3,11 +3,11 @@ import { useMemo } from 'react'
 
 import { DescriptionList, FormattedDate } from '@/components/common'
 
-import type { GetExchangeQuery } from '@/api/graphql'
+import type { ExchangeQuery } from '@/api/graphql'
 import type { DescriptionListItemProps } from '@/components/common'
 
 export type ExchangeDescriptionListData = Exclude<
-  GetExchangeQuery['getExchange'],
+  ExchangeQuery['exchange'],
   null | undefined
 >
 

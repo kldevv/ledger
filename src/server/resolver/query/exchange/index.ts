@@ -1,2 +1,2 @@
-export * from './getExchange'
-export * from './getExchanges'
+export * from './exchange'
+export * from './exchanges'

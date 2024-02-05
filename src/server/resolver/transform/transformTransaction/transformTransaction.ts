@@ -1,11 +1,13 @@
-import { Entry, EntryStatus, Transaction } from '@prisma/client'
-import { Transaction as GraphqlTransaction } from '@/api/graphql'
+import { EntryStatus } from '@prisma/client'
+
+import type { Transaction as GraphqlTransaction } from '@/api/graphql'
+import type { Entry, Transaction } from '@prisma/client'
 
 export type TransformTransactionProps = Transaction & {
   /**
    * Relational field: entries
    */
-  entries: Array<Entry>
+  entries: Array<Pick<Entry, 'amount' | 'status'>>
 }
 
 export const transformTransaction = ({

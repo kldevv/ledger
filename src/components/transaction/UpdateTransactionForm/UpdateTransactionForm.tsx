@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
 import {
-  useGetTransactionDetailQuery,
+  useTransactionDetailsQuery,
   useUpdateTransactionMutation,
 } from '@/api/graphql'
 import { UpsertTransactionForm } from '@/components/transaction'
@@ -21,9 +21,9 @@ export const UpdateTransactionForm: React.FC = () => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
 
-  const { data } = useGetTransactionDetailQuery({
+  const { data } = useTransactionDetailsQuery({
     variables: {
-      getTransactionInput: {
+      TransactionInput: {
         id: transactionId ?? '',
       },
       getEntriesInput: {
@@ -37,11 +37,11 @@ export const UpdateTransactionForm: React.FC = () => {
   const [updateTransaction] = useUpdateTransactionMutation()
 
   const values = useMemo(() => {
-    if (data?.getTransaction == null || data?.getEntries == null) {
+    if (data?.transaction == null || data?.getEntries == null) {
       return undefined
     }
 
-    const { accrualDate, note, tags } = data.getTransaction
+    const { accrualDate, note, tags } = data.transaction
 
     const entries = data.getEntries.map(
       ({ transactionDate, debit, credit, memo, status, account }) => ({
@@ -66,21 +66,21 @@ export const UpdateTransactionForm: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: UpsertTransactionFormFieldValues) => {
-      if (data?.getTransaction == null) {
+      if (data?.transaction == null) {
         return
       }
 
       void updateTransaction({
         variables: {
           input: {
-            id: data?.getTransaction?.id,
-            treasuryBookId: data?.getTransaction.treasuryBookId,
+            id: data?.transaction?.id,
+            treasuryBookId: data?.transaction.treasuryBookId,
             ...values,
           },
         },
       })
     },
-    [data?.getTransaction, updateTransaction],
+    [data?.transaction, updateTransaction],
   )
 
   return (

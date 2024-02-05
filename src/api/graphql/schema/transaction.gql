@@ -27,12 +27,13 @@ input UpdateTransactionInput {
   entries: [AddEntryInput!]!
 }
 
-input GetTransactionInput {
+input TransactionInput {
   id: String!
 }
 
-input GetTransactionsInput {
-  treasuryBookId: String!
+input TransactionsInput {
+  treasuryBookId: String
   tagId: String
   status: EntryStatus
+  exchangeId: String
 }

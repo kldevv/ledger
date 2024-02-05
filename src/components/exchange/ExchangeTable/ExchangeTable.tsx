@@ -6,9 +6,9 @@ import { FormattedDate, Table, ViewLink } from '@/components/common'
 import { TreasuryBookDetailLink } from '@/components/treasuryBook'
 import { formatCurrencyNumber, route } from '@/lib'
 
-import type { GetExchangesQuery } from '@/api/graphql'
+import type { ExchangesQuery } from '@/api/graphql'
 
-export type ExchangeTableData = GetExchangesQuery['getExchanges'][number]
+export type ExchangeTableData = ExchangesQuery['exchanges'][number]
 
 export interface ExchangeTableProps {
   /**

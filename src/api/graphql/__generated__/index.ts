@@ -159,6 +159,14 @@ export type Exchange = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type ExchangeInput = {
+  id: Scalars['String']['input'];
+};
+
+export type ExchangesInput = {
+  ownerId: Scalars['String']['input'];
+};
+
 export type GetAccountInput = {
   id: Scalars['String']['input'];
 };
@@ -197,14 +205,6 @@ export type GetEntriesInput = {
   treasuryBookId: Scalars['String']['input'];
 };
 
-export type GetExchangeInput = {
-  id: Scalars['String']['input'];
-};
-
-export type GetExchangesInput = {
-  ownerId: Scalars['String']['input'];
-};
-
 export type GetMonthlyAmountInput = {
   status?: InputMaybe<EntryStatus>;
   treasuryBookId: Scalars['String']['input'];
@@ -217,16 +217,6 @@ export type GetTagInput = {
 };
 
 export type GetTagsInput = {
-  treasuryBookId: Scalars['String']['input'];
-};
-
-export type GetTransactionInput = {
-  id: Scalars['String']['input'];
-};
-
-export type GetTransactionsInput = {
-  status?: InputMaybe<EntryStatus>;
-  tagId?: InputMaybe<Scalars['String']['input']>;
   treasuryBookId: Scalars['String']['input'];
 };
 
@@ -313,6 +303,8 @@ export type MutationUpdateTransactionArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  exchange?: Maybe<Exchange>;
+  exchanges: Array<Exchange>;
   getAccount?: Maybe<Account>;
   getAccountMonthlyBalance: Array<MonthlyAmount>;
   getAccountMonthlyChanges: Array<MonthlyAmount>;
@@ -324,15 +316,22 @@ export type Query = {
   getCategoryTypeMonthlyBalance: Array<MonthlyAmount>;
   getCategoryTypeMonthlyChanges: Array<MonthlyAmount>;
   getEntries: Array<Entry>;
-  getExchange?: Maybe<Exchange>;
-  getExchanges: Array<Exchange>;
   getTag?: Maybe<Tag>;
   getTags: Array<Tag>;
-  getTransaction?: Maybe<Transaction>;
-  getTransactionDetail?: Maybe<Transaction>;
-  getTransactions: Array<Transaction>;
   getTreasuryBooks: Array<TreasuryBook>;
   getUniqueYears: Array<Scalars['Int']['output']>;
+  transaction?: Maybe<Transaction>;
+  transactions: Array<Transaction>;
+};
+
+
+export type QueryExchangeArgs = {
+  input: ExchangeInput;
+};
+
+
+export type QueryExchangesArgs = {
+  input: ExchangesInput;
 };
 
 
@@ -391,16 +390,6 @@ export type QueryGetEntriesArgs = {
 };
 
 
-export type QueryGetExchangeArgs = {
-  input: GetExchangeInput;
-};
-
-
-export type QueryGetExchangesArgs = {
-  input: GetExchangesInput;
-};
-
-
 export type QueryGetTagArgs = {
   input: GetTagInput;
 };
@@ -411,21 +400,6 @@ export type QueryGetTagsArgs = {
 };
 
 
-export type QueryGetTransactionArgs = {
-  input: GetTransactionInput;
-};
-
-
-export type QueryGetTransactionDetailArgs = {
-  transactionId: Scalars['String']['input'];
-};
-
-
-export type QueryGetTransactionsArgs = {
-  input: GetTransactionsInput;
-};
-
-
 export type QueryGetTreasuryBooksArgs = {
   input: GetTreasuryBooksInput;
 };
@@ -433,6 +407,16 @@ export type QueryGetTreasuryBooksArgs = {
 
 export type QueryGetUniqueYearsArgs = {
   input: GetUniqueYearsInput;
+};
+
+
+export type QueryTransactionArgs = {
+  input: TransactionInput;
+};
+
+
+export type QueryTransactionsArgs = {
+  input: TransactionsInput;
 };
 
 export type Tag = {
@@ -463,6 +447,17 @@ export type Transaction = {
   tags?: Maybe<Array<Tag>>;
   treasuryBookId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type TransactionInput = {
+  id: Scalars['String']['input'];
+};
+
+export type TransactionsInput = {
+  exchangeId?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<EntryStatus>;
+  tagId?: InputMaybe<Scalars['String']['input']>;
+  treasuryBookId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type TreasuryBook = {
@@ -592,19 +587,17 @@ export type ResolversTypes = {
   Entry: ResolverTypeWrapper<Entry>;
   EntryStatus: EntryStatus;
   Exchange: ResolverTypeWrapper<Exchange>;
+  ExchangeInput: ExchangeInput;
+  ExchangesInput: ExchangesInput;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   GetAccountInput: GetAccountInput;
   GetAccountsInput: GetAccountsInput;
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
-  GetExchangeInput: GetExchangeInput;
-  GetExchangesInput: GetExchangesInput;
   GetMonthlyAmountInput: GetMonthlyAmountInput;
   GetTagInput: GetTagInput;
   GetTagsInput: GetTagsInput;
-  GetTransactionInput: GetTransactionInput;
-  GetTransactionsInput: GetTransactionsInput;
   GetTreasuryBooksInput: GetTreasuryBooksInput;
   GetUniqueYearsInput: GetUniqueYearsInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
@@ -615,6 +608,8 @@ export type ResolversTypes = {
   Tag: ResolverTypeWrapper<Tag>;
   TagType: TagType;
   Transaction: ResolverTypeWrapper<Transaction>;
+  TransactionInput: TransactionInput;
+  TransactionsInput: TransactionsInput;
   TreasuryBook: ResolverTypeWrapper<TreasuryBook>;
   UpdateAccountInput: UpdateAccountInput;
   UpdateCategoryInput: UpdateCategoryInput;
@@ -640,19 +635,17 @@ export type ResolversParentTypes = {
   DateTime: Scalars['DateTime']['output'];
   Entry: Entry;
   Exchange: Exchange;
+  ExchangeInput: ExchangeInput;
+  ExchangesInput: ExchangesInput;
   Float: Scalars['Float']['output'];
   GetAccountInput: GetAccountInput;
   GetAccountsInput: GetAccountsInput;
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
-  GetExchangeInput: GetExchangeInput;
-  GetExchangesInput: GetExchangesInput;
   GetMonthlyAmountInput: GetMonthlyAmountInput;
   GetTagInput: GetTagInput;
   GetTagsInput: GetTagsInput;
-  GetTransactionInput: GetTransactionInput;
-  GetTransactionsInput: GetTransactionsInput;
   GetTreasuryBooksInput: GetTreasuryBooksInput;
   GetUniqueYearsInput: GetUniqueYearsInput;
   Int: Scalars['Int']['output'];
@@ -662,6 +655,8 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output'];
   Tag: Tag;
   Transaction: Transaction;
+  TransactionInput: TransactionInput;
+  TransactionsInput: TransactionsInput;
   TreasuryBook: TreasuryBook;
   UpdateAccountInput: UpdateAccountInput;
   UpdateCategoryInput: UpdateCategoryInput;
@@ -751,6 +746,8 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 };
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  exchange?: Resolver<Maybe<ResolversTypes['Exchange']>, ParentType, ContextType, RequireFields<QueryExchangeArgs, 'input'>>;
+  exchanges?: Resolver<Array<ResolversTypes['Exchange']>, ParentType, ContextType, RequireFields<QueryExchangesArgs, 'input'>>;
   getAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryGetAccountArgs, 'input'>>;
   getAccountMonthlyBalance?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetAccountMonthlyBalanceArgs, 'input'>>;
   getAccountMonthlyChanges?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetAccountMonthlyChangesArgs, 'input'>>;
@@ -762,15 +759,12 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getCategoryTypeMonthlyBalance?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetCategoryTypeMonthlyBalanceArgs, 'input'>>;
   getCategoryTypeMonthlyChanges?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetCategoryTypeMonthlyChangesArgs, 'input'>>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
-  getExchange?: Resolver<Maybe<ResolversTypes['Exchange']>, ParentType, ContextType, RequireFields<QueryGetExchangeArgs, 'input'>>;
-  getExchanges?: Resolver<Array<ResolversTypes['Exchange']>, ParentType, ContextType, RequireFields<QueryGetExchangesArgs, 'input'>>;
   getTag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagArgs, 'input'>>;
   getTags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagsArgs, 'input'>>;
-  getTransaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionArgs, 'input'>>;
-  getTransactionDetail?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionDetailArgs, 'transactionId'>>;
-  getTransactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryGetTransactionsArgs, 'input'>>;
   getTreasuryBooks?: Resolver<Array<ResolversTypes['TreasuryBook']>, ParentType, ContextType, RequireFields<QueryGetTreasuryBooksArgs, 'input'>>;
   getUniqueYears?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<QueryGetUniqueYearsArgs, 'input'>>;
+  transaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryTransactionArgs, 'input'>>;
+  transactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryTransactionsArgs, 'input'>>;
 };
 
 export type TagResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
@@ -823,6 +817,8 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 
 
 export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null };
+
+export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null };
 
 export type ExchangeDataFragment = { __typename?: 'Exchange', id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } };
 
@@ -950,21 +946,22 @@ export type GetEntriesQueryVariables = Exact<{
 }>;
 
 
-export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
-export type GetExchangeQueryVariables = Exact<{
-  input: GetExchangeInput;
+export type ExchangeDetailsQueryVariables = Exact<{
+  exchangeInput: ExchangeInput;
+  transactionsInput: TransactionsInput;
 }>;
 
 
-export type GetExchangeQuery = { __typename?: 'Query', getExchange?: { __typename?: 'Exchange', updatedAt: Date, id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } } | null };
+export type ExchangeDetailsQuery = { __typename?: 'Query', exchange?: { __typename?: 'Exchange', updatedAt: Date, id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } } | null, transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
 
-export type GetExchangesQueryVariables = Exact<{
-  input: GetExchangesInput;
+export type ExchangesQueryVariables = Exact<{
+  input: ExchangesInput;
 }>;
 
 
-export type GetExchangesQuery = { __typename?: 'Query', getExchanges: Array<{ __typename?: 'Exchange', id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } }> };
+export type ExchangesQuery = { __typename?: 'Query', exchanges: Array<{ __typename?: 'Exchange', id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } }> };
 
 export type GetAccountMonthlyBalanceQueryVariables = Exact<{
   input: GetMonthlyAmountInput;
@@ -1024,11 +1021,11 @@ export type GetTagQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag',
 
 export type GetTagDetailQueryVariables = Exact<{
   getTagInput: GetTagInput;
-  getTransactionsInput: GetTransactionsInput;
+  TransactionsInput: TransactionsInput;
 }>;
 
 
-export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } | null, getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
+export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } | null, transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
 
 export type GetTagsQueryVariables = Exact<{
   input: GetTagsInput;
@@ -1037,27 +1034,20 @@ export type GetTagsQueryVariables = Exact<{
 
 export type GetTagsQuery = { __typename?: 'Query', getTags: Array<{ __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date }> };
 
-export type GetTransactionQueryVariables = Exact<{
-  input: GetTransactionInput;
-}>;
-
-
-export type GetTransactionQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } | null };
-
-export type GetTransactionDetailQueryVariables = Exact<{
-  getTransactionInput: GetTransactionInput;
+export type TransactionDetailsQueryVariables = Exact<{
+  TransactionInput: TransactionInput;
   getEntriesInput: GetEntriesInput;
 }>;
 
 
-export type GetTransactionDetailQuery = { __typename?: 'Query', getTransaction?: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
-export type GetTransactionsQueryVariables = Exact<{
-  input: GetTransactionsInput;
+export type TransactionsQueryVariables = Exact<{
+  input: TransactionsInput;
 }>;
 
 
-export type GetTransactionsQuery = { __typename?: 'Query', getTransactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
+export type TransactionsQuery = { __typename?: 'Query', transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
 
 export type GetTreasuryBooksQueryVariables = Exact<{
   input: GetTreasuryBooksInput;
@@ -1076,6 +1066,27 @@ export const AccountDataFragmentDoc = gql`
   name
   entryCount
   createdAt
+}
+    `;
+export const EntryDataFragmentDoc = gql`
+    fragment EntryData on Entry {
+  id
+  treasuryBookId
+  transactionDate
+  debit
+  credit
+  memo
+  account {
+    id
+    name
+    category {
+      id
+      name
+      type
+    }
+  }
+  status
+  transactionId
 }
     `;
 export const TransactionDataFragmentDoc = gql`
@@ -1798,26 +1809,10 @@ export type GetCategoryDetailQueryResult = Apollo.QueryResult<GetCategoryDetailQ
 export const GetEntriesDocument = gql`
     query getEntries($input: GetEntriesInput!) {
   getEntries(input: $input) {
-    id
-    treasuryBookId
-    transactionDate
-    debit
-    credit
-    memo
-    account {
-      id
-      name
-      category {
-        id
-        name
-        type
-      }
-    }
-    transactionId
-    status
+    ...EntryData
   }
 }
-    `;
+    ${EntryDataFragmentDoc}`;
 
 /**
  * __useGetEntriesQuery__
@@ -1851,87 +1846,92 @@ export type GetEntriesQueryHookResult = ReturnType<typeof useGetEntriesQuery>;
 export type GetEntriesLazyQueryHookResult = ReturnType<typeof useGetEntriesLazyQuery>;
 export type GetEntriesSuspenseQueryHookResult = ReturnType<typeof useGetEntriesSuspenseQuery>;
 export type GetEntriesQueryResult = Apollo.QueryResult<GetEntriesQuery, GetEntriesQueryVariables>;
-export const GetExchangeDocument = gql`
-    query getExchange($input: GetExchangeInput!) {
-  getExchange(input: $input) {
+export const ExchangeDetailsDocument = gql`
+    query ExchangeDetails($exchangeInput: ExchangeInput!, $transactionsInput: TransactionsInput!) {
+  exchange(input: $exchangeInput) {
     ...ExchangeData
     updatedAt
   }
+  transactions(input: $transactionsInput) {
+    ...TransactionData
+  }
 }
-    ${ExchangeDataFragmentDoc}`;
+    ${ExchangeDataFragmentDoc}
+${TransactionDataFragmentDoc}`;
 
 /**
- * __useGetExchangeQuery__
+ * __useExchangeDetailsQuery__
  *
- * To run a query within a React component, call `useGetExchangeQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetExchangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useExchangeDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExchangeDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetExchangeQuery({
+ * const { data, loading, error } = useExchangeDetailsQuery({
  *   variables: {
- *      input: // value for 'input'
+ *      exchangeInput: // value for 'exchangeInput'
+ *      transactionsInput: // value for 'transactionsInput'
  *   },
  * });
  */
-export function useGetExchangeQuery(baseOptions: Apollo.QueryHookOptions<GetExchangeQuery, GetExchangeQueryVariables>) {
+export function useExchangeDetailsQuery(baseOptions: Apollo.QueryHookOptions<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetExchangeQuery, GetExchangeQueryVariables>(GetExchangeDocument, options);
+        return Apollo.useQuery<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>(ExchangeDetailsDocument, options);
       }
-export function useGetExchangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetExchangeQuery, GetExchangeQueryVariables>) {
+export function useExchangeDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetExchangeQuery, GetExchangeQueryVariables>(GetExchangeDocument, options);
+          return Apollo.useLazyQuery<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>(ExchangeDetailsDocument, options);
         }
-export function useGetExchangeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetExchangeQuery, GetExchangeQueryVariables>) {
+export function useExchangeDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetExchangeQuery, GetExchangeQueryVariables>(GetExchangeDocument, options);
+          return Apollo.useSuspenseQuery<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>(ExchangeDetailsDocument, options);
         }
-export type GetExchangeQueryHookResult = ReturnType<typeof useGetExchangeQuery>;
-export type GetExchangeLazyQueryHookResult = ReturnType<typeof useGetExchangeLazyQuery>;
-export type GetExchangeSuspenseQueryHookResult = ReturnType<typeof useGetExchangeSuspenseQuery>;
-export type GetExchangeQueryResult = Apollo.QueryResult<GetExchangeQuery, GetExchangeQueryVariables>;
-export const GetExchangesDocument = gql`
-    query getExchanges($input: GetExchangesInput!) {
-  getExchanges(input: $input) {
+export type ExchangeDetailsQueryHookResult = ReturnType<typeof useExchangeDetailsQuery>;
+export type ExchangeDetailsLazyQueryHookResult = ReturnType<typeof useExchangeDetailsLazyQuery>;
+export type ExchangeDetailsSuspenseQueryHookResult = ReturnType<typeof useExchangeDetailsSuspenseQuery>;
+export type ExchangeDetailsQueryResult = Apollo.QueryResult<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>;
+export const ExchangesDocument = gql`
+    query Exchanges($input: ExchangesInput!) {
+  exchanges(input: $input) {
     ...ExchangeData
   }
 }
     ${ExchangeDataFragmentDoc}`;
 
 /**
- * __useGetExchangesQuery__
+ * __useExchangesQuery__
  *
- * To run a query within a React component, call `useGetExchangesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetExchangesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useExchangesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExchangesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetExchangesQuery({
+ * const { data, loading, error } = useExchangesQuery({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useGetExchangesQuery(baseOptions: Apollo.QueryHookOptions<GetExchangesQuery, GetExchangesQueryVariables>) {
+export function useExchangesQuery(baseOptions: Apollo.QueryHookOptions<ExchangesQuery, ExchangesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetExchangesQuery, GetExchangesQueryVariables>(GetExchangesDocument, options);
+        return Apollo.useQuery<ExchangesQuery, ExchangesQueryVariables>(ExchangesDocument, options);
       }
-export function useGetExchangesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetExchangesQuery, GetExchangesQueryVariables>) {
+export function useExchangesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExchangesQuery, ExchangesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetExchangesQuery, GetExchangesQueryVariables>(GetExchangesDocument, options);
+          return Apollo.useLazyQuery<ExchangesQuery, ExchangesQueryVariables>(ExchangesDocument, options);
         }
-export function useGetExchangesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetExchangesQuery, GetExchangesQueryVariables>) {
+export function useExchangesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ExchangesQuery, ExchangesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetExchangesQuery, GetExchangesQueryVariables>(GetExchangesDocument, options);
+          return Apollo.useSuspenseQuery<ExchangesQuery, ExchangesQueryVariables>(ExchangesDocument, options);
         }
-export type GetExchangesQueryHookResult = ReturnType<typeof useGetExchangesQuery>;
-export type GetExchangesLazyQueryHookResult = ReturnType<typeof useGetExchangesLazyQuery>;
-export type GetExchangesSuspenseQueryHookResult = ReturnType<typeof useGetExchangesSuspenseQuery>;
-export type GetExchangesQueryResult = Apollo.QueryResult<GetExchangesQuery, GetExchangesQueryVariables>;
+export type ExchangesQueryHookResult = ReturnType<typeof useExchangesQuery>;
+export type ExchangesLazyQueryHookResult = ReturnType<typeof useExchangesLazyQuery>;
+export type ExchangesSuspenseQueryHookResult = ReturnType<typeof useExchangesSuspenseQuery>;
+export type ExchangesQueryResult = Apollo.QueryResult<ExchangesQuery, ExchangesQueryVariables>;
 export const GetAccountMonthlyBalanceDocument = gql`
     query getAccountMonthlyBalance($input: GetMonthlyAmountInput!) {
   getAccountMonthlyBalance(input: $input) {
@@ -2255,7 +2255,7 @@ export type GetTagLazyQueryHookResult = ReturnType<typeof useGetTagLazyQuery>;
 export type GetTagSuspenseQueryHookResult = ReturnType<typeof useGetTagSuspenseQuery>;
 export type GetTagQueryResult = Apollo.QueryResult<GetTagQuery, GetTagQueryVariables>;
 export const GetTagDetailDocument = gql`
-    query getTagDetail($getTagInput: GetTagInput!, $getTransactionsInput: GetTransactionsInput!) {
+    query getTagDetail($getTagInput: GetTagInput!, $TransactionsInput: TransactionsInput!) {
   getTag(input: $getTagInput) {
     id
     name
@@ -2263,7 +2263,7 @@ export const GetTagDetailDocument = gql`
     createdAt
     updatedAt
   }
-  getTransactions(input: $getTransactionsInput) {
+  transactions(input: $TransactionsInput) {
     ...TransactionData
   }
 }
@@ -2282,7 +2282,7 @@ export const GetTagDetailDocument = gql`
  * const { data, loading, error } = useGetTagDetailQuery({
  *   variables: {
  *      getTagInput: // value for 'getTagInput'
- *      getTransactionsInput: // value for 'getTransactionsInput'
+ *      TransactionsInput: // value for 'TransactionsInput'
  *   },
  * });
  */
@@ -2346,150 +2346,96 @@ export type GetTagsQueryHookResult = ReturnType<typeof useGetTagsQuery>;
 export type GetTagsLazyQueryHookResult = ReturnType<typeof useGetTagsLazyQuery>;
 export type GetTagsSuspenseQueryHookResult = ReturnType<typeof useGetTagsSuspenseQuery>;
 export type GetTagsQueryResult = Apollo.QueryResult<GetTagsQuery, GetTagsQueryVariables>;
-export const GetTransactionDocument = gql`
-    query getTransaction($input: GetTransactionInput!) {
-  getTransaction(input: $input) {
+export const TransactionDetailsDocument = gql`
+    query TransactionDetails($TransactionInput: TransactionInput!, $getEntriesInput: GetEntriesInput!) {
+  transaction(input: $TransactionInput) {
     ...TransactionData
-  }
-}
-    ${TransactionDataFragmentDoc}`;
-
-/**
- * __useGetTransactionQuery__
- *
- * To run a query within a React component, call `useGetTransactionQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTransactionQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetTransactionQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetTransactionQuery(baseOptions: Apollo.QueryHookOptions<GetTransactionQuery, GetTransactionQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTransactionQuery, GetTransactionQueryVariables>(GetTransactionDocument, options);
-      }
-export function useGetTransactionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTransactionQuery, GetTransactionQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTransactionQuery, GetTransactionQueryVariables>(GetTransactionDocument, options);
-        }
-export function useGetTransactionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTransactionQuery, GetTransactionQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetTransactionQuery, GetTransactionQueryVariables>(GetTransactionDocument, options);
-        }
-export type GetTransactionQueryHookResult = ReturnType<typeof useGetTransactionQuery>;
-export type GetTransactionLazyQueryHookResult = ReturnType<typeof useGetTransactionLazyQuery>;
-export type GetTransactionSuspenseQueryHookResult = ReturnType<typeof useGetTransactionSuspenseQuery>;
-export type GetTransactionQueryResult = Apollo.QueryResult<GetTransactionQuery, GetTransactionQueryVariables>;
-export const GetTransactionDetailDocument = gql`
-    query getTransactionDetail($getTransactionInput: GetTransactionInput!, $getEntriesInput: GetEntriesInput!) {
-  getTransaction(input: $getTransactionInput) {
-    ...TransactionData
+    updatedAt
     tags {
       id
       name
     }
   }
   getEntries(input: $getEntriesInput) {
-    id
-    treasuryBookId
-    transactionDate
-    debit
-    credit
-    memo
-    account {
-      id
-      name
-      category {
-        id
-        name
-        type
-      }
-    }
-    status
-    transactionId
+    ...EntryData
   }
 }
-    ${TransactionDataFragmentDoc}`;
+    ${TransactionDataFragmentDoc}
+${EntryDataFragmentDoc}`;
 
 /**
- * __useGetTransactionDetailQuery__
+ * __useTransactionDetailsQuery__
  *
- * To run a query within a React component, call `useGetTransactionDetailQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTransactionDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useTransactionDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTransactionDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetTransactionDetailQuery({
+ * const { data, loading, error } = useTransactionDetailsQuery({
  *   variables: {
- *      getTransactionInput: // value for 'getTransactionInput'
+ *      TransactionInput: // value for 'TransactionInput'
  *      getEntriesInput: // value for 'getEntriesInput'
  *   },
  * });
  */
-export function useGetTransactionDetailQuery(baseOptions: Apollo.QueryHookOptions<GetTransactionDetailQuery, GetTransactionDetailQueryVariables>) {
+export function useTransactionDetailsQuery(baseOptions: Apollo.QueryHookOptions<TransactionDetailsQuery, TransactionDetailsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTransactionDetailQuery, GetTransactionDetailQueryVariables>(GetTransactionDetailDocument, options);
+        return Apollo.useQuery<TransactionDetailsQuery, TransactionDetailsQueryVariables>(TransactionDetailsDocument, options);
       }
-export function useGetTransactionDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTransactionDetailQuery, GetTransactionDetailQueryVariables>) {
+export function useTransactionDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TransactionDetailsQuery, TransactionDetailsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTransactionDetailQuery, GetTransactionDetailQueryVariables>(GetTransactionDetailDocument, options);
+          return Apollo.useLazyQuery<TransactionDetailsQuery, TransactionDetailsQueryVariables>(TransactionDetailsDocument, options);
         }
-export function useGetTransactionDetailSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTransactionDetailQuery, GetTransactionDetailQueryVariables>) {
+export function useTransactionDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TransactionDetailsQuery, TransactionDetailsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetTransactionDetailQuery, GetTransactionDetailQueryVariables>(GetTransactionDetailDocument, options);
+          return Apollo.useSuspenseQuery<TransactionDetailsQuery, TransactionDetailsQueryVariables>(TransactionDetailsDocument, options);
         }
-export type GetTransactionDetailQueryHookResult = ReturnType<typeof useGetTransactionDetailQuery>;
-export type GetTransactionDetailLazyQueryHookResult = ReturnType<typeof useGetTransactionDetailLazyQuery>;
-export type GetTransactionDetailSuspenseQueryHookResult = ReturnType<typeof useGetTransactionDetailSuspenseQuery>;
-export type GetTransactionDetailQueryResult = Apollo.QueryResult<GetTransactionDetailQuery, GetTransactionDetailQueryVariables>;
-export const GetTransactionsDocument = gql`
-    query getTransactions($input: GetTransactionsInput!) {
-  getTransactions(input: $input) {
+export type TransactionDetailsQueryHookResult = ReturnType<typeof useTransactionDetailsQuery>;
+export type TransactionDetailsLazyQueryHookResult = ReturnType<typeof useTransactionDetailsLazyQuery>;
+export type TransactionDetailsSuspenseQueryHookResult = ReturnType<typeof useTransactionDetailsSuspenseQuery>;
+export type TransactionDetailsQueryResult = Apollo.QueryResult<TransactionDetailsQuery, TransactionDetailsQueryVariables>;
+export const TransactionsDocument = gql`
+    query Transactions($input: TransactionsInput!) {
+  transactions(input: $input) {
     ...TransactionData
   }
 }
     ${TransactionDataFragmentDoc}`;
 
 /**
- * __useGetTransactionsQuery__
+ * __useTransactionsQuery__
  *
- * To run a query within a React component, call `useGetTransactionsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTransactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useTransactionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTransactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetTransactionsQuery({
+ * const { data, loading, error } = useTransactionsQuery({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useGetTransactionsQuery(baseOptions: Apollo.QueryHookOptions<GetTransactionsQuery, GetTransactionsQueryVariables>) {
+export function useTransactionsQuery(baseOptions: Apollo.QueryHookOptions<TransactionsQuery, TransactionsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTransactionsQuery, GetTransactionsQueryVariables>(GetTransactionsDocument, options);
+        return Apollo.useQuery<TransactionsQuery, TransactionsQueryVariables>(TransactionsDocument, options);
       }
-export function useGetTransactionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTransactionsQuery, GetTransactionsQueryVariables>) {
+export function useTransactionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TransactionsQuery, TransactionsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTransactionsQuery, GetTransactionsQueryVariables>(GetTransactionsDocument, options);
+          return Apollo.useLazyQuery<TransactionsQuery, TransactionsQueryVariables>(TransactionsDocument, options);
         }
-export function useGetTransactionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTransactionsQuery, GetTransactionsQueryVariables>) {
+export function useTransactionsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TransactionsQuery, TransactionsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetTransactionsQuery, GetTransactionsQueryVariables>(GetTransactionsDocument, options);
+          return Apollo.useSuspenseQuery<TransactionsQuery, TransactionsQueryVariables>(TransactionsDocument, options);
         }
-export type GetTransactionsQueryHookResult = ReturnType<typeof useGetTransactionsQuery>;
-export type GetTransactionsLazyQueryHookResult = ReturnType<typeof useGetTransactionsLazyQuery>;
-export type GetTransactionsSuspenseQueryHookResult = ReturnType<typeof useGetTransactionsSuspenseQuery>;
-export type GetTransactionsQueryResult = Apollo.QueryResult<GetTransactionsQuery, GetTransactionsQueryVariables>;
+export type TransactionsQueryHookResult = ReturnType<typeof useTransactionsQuery>;
+export type TransactionsLazyQueryHookResult = ReturnType<typeof useTransactionsLazyQuery>;
+export type TransactionsSuspenseQueryHookResult = ReturnType<typeof useTransactionsSuspenseQuery>;
+export type TransactionsQueryResult = Apollo.QueryResult<TransactionsQuery, TransactionsQueryVariables>;
 export const GetTreasuryBooksDocument = gql`
     query getTreasuryBooks($input: GetTreasuryBooksInput!) {
   getTreasuryBooks(input: $input) {

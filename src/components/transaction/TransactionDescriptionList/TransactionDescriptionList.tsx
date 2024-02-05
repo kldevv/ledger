@@ -8,11 +8,11 @@ import {
   Tag,
 } from '@/components/common'
 
-import type { EntryStatus, GetTransactionDetailQuery } from '@/api/graphql'
+import type { EntryStatus, TransactionDetailsQuery } from '@/api/graphql'
 import type { DescriptionListItemProps } from '@/components/common'
 
 type TransactionDescriptionListData = Exclude<
-  GetTransactionDetailQuery['getTransaction'],
+  TransactionDetailsQuery['transaction'],
   null
 > & {
   /**
@@ -56,7 +56,7 @@ export const TransactionDescriptionList: React.FC<
       {
         title: t('TransactionDescriptionList.title.tags'),
         description: (
-          <div className="flex gap-1 max-w-full flex-wrap">
+          <div className="flex max-w-full flex-wrap gap-1">
             {tags?.map((tag) => <Tag key={tag.id} {...tag} />)}
           </div>
         ),

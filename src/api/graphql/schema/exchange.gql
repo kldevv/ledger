@@ -20,10 +20,10 @@ input AddExchangeTransactionInput {
   entries: [AddEntryInput!]!
 }
 
-input GetExchangesInput {
+input ExchangesInput {
   ownerId: String!
 }
 
-input GetExchangeInput {
+input ExchangeInput {
   id: String!
 }

@@ -1,0 +1,12 @@
+query ExchangeDetails(
+  $exchangeInput: ExchangeInput!
+  $transactionsInput: TransactionsInput!
+) {
+  exchange(input: $exchangeInput) {
+    ...ExchangeData
+    updatedAt
+  }
+  transactions(input: $transactionsInput) {
+    ...TransactionData
+  }
+}

@@ -1,6 +1,6 @@
 query getTagDetail(
   $getTagInput: GetTagInput!
-  $getTransactionsInput: GetTransactionsInput!
+  $TransactionsInput: TransactionsInput!
 ) {
   getTag(input: $getTagInput) {
     id
@@ -9,7 +9,7 @@ query getTagDetail(
     createdAt
     updatedAt
   }
-  getTransactions(input: $getTransactionsInput) {
+  transactions(input: $TransactionsInput) {
     ...TransactionData
   }
 }

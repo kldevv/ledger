@@ -1,0 +1,16 @@
+query TransactionDetails(
+  $TransactionInput: TransactionInput!
+  $getEntriesInput: GetEntriesInput!
+) {
+  transaction(input: $TransactionInput) {
+    ...TransactionData
+    updatedAt
+    tags {
+      id
+      name
+    }
+  }
+  getEntries(input: $getEntriesInput) {
+    ...EntryData
+  }
+}

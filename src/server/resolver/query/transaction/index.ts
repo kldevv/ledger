@@ -1,2 +1,2 @@
-export * from './getTransaction'
-export * from './getTransactions'
+export * from './transaction'
+export * from './transactions'

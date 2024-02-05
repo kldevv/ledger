@@ -20,7 +20,7 @@ export const TagDetail: React.FC = () => {
   const { data } = useGetTagDetailQuery({
     variables: {
       getTagInput: { id: tagId ?? '' },
-      getTransactionsInput: {
+      TransactionsInput: {
         treasuryBookId: selectedTreasuryBookId ?? '',
         tagId,
       },
@@ -33,10 +33,10 @@ export const TagDetail: React.FC = () => {
       <div>
         <TagDescriptionList data={data?.getTag} />
         <div className="mt-12 flex flex-col space-y-3">
-          <h3 className="font-semibold text-dark-shades">
+          <h3 className="text-dark-shades font-semibold">
             {t`TagDetail.title.transactions`}
           </h3>
-          <TransactionFilteredTable data={data.getTransactions ?? []} />
+          <TransactionFilteredTable data={data.transactions ?? []} />
         </div>
       </div>
     )

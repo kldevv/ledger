@@ -2,7 +2,7 @@ import { transformExchange } from '@/server/resolver/transform'
 
 import type { QueryResolvers } from '@/api/graphql'
 
-export const getExchanges: QueryResolvers['getExchanges'] = async (
+export const exchanges: QueryResolvers['exchanges'] = async (
   _,
   { input },
   { dataSources: { prisma } },

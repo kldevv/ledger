@@ -1,4 +1,4 @@
-import { useGetExchangesQuery } from '@/api/graphql'
+import { useExchangesQuery } from '@/api/graphql'
 import { Card } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
@@ -6,7 +6,7 @@ import { ExchangeTable } from '..'
 
 export const ExchangeDataTable: React.FC = () => {
   const { ownerId } = useTreasuryBookContext()
-  const { data } = useGetExchangesQuery({
+  const { data } = useExchangesQuery({
     variables: {
       input: {
         ownerId,
@@ -17,7 +17,7 @@ export const ExchangeDataTable: React.FC = () => {
 
   return (
     <Card>
-      <ExchangeTable data={data?.getExchanges ?? []} />
+      <ExchangeTable data={data?.exchanges ?? []} />
     </Card>
   )
 }

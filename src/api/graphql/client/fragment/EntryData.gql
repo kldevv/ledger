@@ -1,0 +1,19 @@
+fragment EntryData on Entry {
+  id
+  treasuryBookId
+  transactionDate
+  debit
+  credit
+  memo
+  account {
+    id
+    name
+    category {
+      id
+      name
+      type
+    }
+  }
+  status
+  transactionId
+}

@@ -1,5 +1,5 @@
 export * from './InsertTransactionForm'
-export * from './TransactionDashboard'
+export * from './TransactionDataTable'
 export * from './TransactionDescriptionList'
 export * from './TransactionDetail'
 export * from './TransactionFilteredTable'

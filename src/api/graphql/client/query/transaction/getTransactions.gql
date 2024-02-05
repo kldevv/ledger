@@ -1,5 +1,0 @@
-query getTransactions($input: GetTransactionsInput!) {
-  getTransactions(input: $input) {
-    ...TransactionData
-  }
-}

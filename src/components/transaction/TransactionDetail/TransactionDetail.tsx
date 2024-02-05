@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { EntryStatus, useGetTransactionDetailQuery } from '@/api/graphql'
+import { EntryStatus, useTransactionDetailsQuery } from '@/api/graphql'
 import { EntryFilteredTable } from '@/components/entry'
 import { TransactionDescriptionList } from '@/components/transaction'
 import { useTreasuryBookContext } from '@/hooks'
@@ -17,9 +17,9 @@ export const TransactionDetail: React.FC = () => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
 
-  const { data } = useGetTransactionDetailQuery({
+  const { data } = useTransactionDetailsQuery({
     variables: {
-      getTransactionInput: {
+      TransactionInput: {
         id: transactionId ?? '',
       },
       getEntriesInput: {
@@ -31,11 +31,11 @@ export const TransactionDetail: React.FC = () => {
   })
 
   return (
-    data?.getTransaction && (
+    data?.transaction && (
       <div>
         <TransactionDescriptionList
           data={{
-            ...data.getTransaction,
+            ...data.transaction,
             status: data.getEntries.some(
               ({ status }) => status === EntryStatus.PENDING,
             )

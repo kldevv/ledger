@@ -28,14 +28,13 @@ type Query {
   getTags(input: GetTagsInput!): [Tag!]!
 
   # Transaction
-  getTransaction(input: GetTransactionInput!): Transaction
-  getTransactionDetail(transactionId: String!): Transaction
-  getTransactions(input: GetTransactionsInput!): [Transaction!]!
+  transaction(input: TransactionInput!): Transaction
+  transactions(input: TransactionsInput!): [Transaction!]!
 
   # TreasuryBook
   getTreasuryBooks(input: GetTreasuryBooksInput!): [TreasuryBook!]!
 
   # Exchange
-  getExchanges(input: GetExchangesInput!): [Exchange!]!
-  getExchange(input: GetExchangeInput!): Exchange
+  exchanges(input: ExchangesInput!): [Exchange!]!
+  exchange(input: ExchangeInput!): Exchange
 }

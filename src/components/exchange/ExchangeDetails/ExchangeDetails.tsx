@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
-import { useGetExchangeQuery } from '@/api/graphql'
+import { useExchangeDetailsQuery } from '@/api/graphql'
 
 import { ExchangeDescriptionList } from '..'
 
@@ -13,19 +13,22 @@ export const ExchangeDetails: React.FC = () => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
 
-  const { data } = useGetExchangeQuery({
+  const { data } = useExchangeDetailsQuery({
     variables: {
-      input: {
+      exchangeInput: {
         id: exchangeId ?? '',
+      },
+      transactionsInput: {
+        exchangeId: exchangeId,
       },
     },
     skip: exchangeId == null,
   })
 
   return (
-    data?.getExchange && (
+    data?.exchange && (
       <div>
-        <ExchangeDescriptionList data={data.getExchange} />
+        <ExchangeDescriptionList data={data.exchange} />
       </div>
     )
   )

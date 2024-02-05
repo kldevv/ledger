@@ -1,21 +1,5 @@
 query getEntries($input: GetEntriesInput!) {
   getEntries(input: $input) {
-    id
-    treasuryBookId
-    transactionDate
-    debit
-    credit
-    memo
-    account {
-      id
-      name
-      category {
-        id
-        name
-        type
-      }
-    }
-    transactionId
-    status
+    ...EntryData
   }
 }

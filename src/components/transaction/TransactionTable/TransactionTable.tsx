@@ -4,10 +4,10 @@ import { useMemo } from 'react'
 
 import { FormattedDate, StatusChip, Table, ViewLink } from '@/components/common'
 
-import type { GetTransactionsQuery } from '@/api/graphql'
+import type { TransactionsQuery } from '@/api/graphql'
 
 export type TransactionTableDataModel =
-  GetTransactionsQuery['getTransactions'][number]
+  TransactionsQuery['transactions'][number]
 
 const columnHelper = createColumnHelper<TransactionTableDataModel>()
 
