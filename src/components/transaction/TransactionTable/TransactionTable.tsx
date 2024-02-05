@@ -7,6 +7,7 @@ import {
   EntryStatusChip,
   Table,
   ViewLink,
+  FormattedCurrencyNumber,
 } from '@/components/common'
 
 import type { TransactionsQuery } from '@/api/graphql'
@@ -31,7 +32,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({ data }) => {
       columnHelper.accessor('accrualDate', {
         header: t('TransactionTable.header.date'),
         cell: ({ getValue }) => (
-          <div className=" text-dark-shades">
+          <div className="text-dark-shades">
             <FormattedDate dateTime={getValue()} />
           </div>
         ),
@@ -43,13 +44,19 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({ data }) => {
         header: t('TransactionTable.header.status'),
         cell: ({ getValue }) => <EntryStatusChip status={getValue()} />,
       }),
-      columnHelper.accessor('id', {
-        header: t('TransactionTable.header.id'),
+      columnHelper.accessor('amount', {
+        header: t`TransactionTable.header.amount`,
+        cell: ({ getValue }) => <FormattedCurrencyNumber value={getValue()} />,
       }),
-      columnHelper.display({
+      columnHelper.accessor('createdAt', {
+        header: t`TransactionTable.header.createdAt`,
+        cell: ({ getValue }) => <FormattedDate dateTime={getValue()} />,
+      }),
+      columnHelper.accessor('id', {
         id: 'view-link',
-        cell: ({ row }) => (
-          <ViewLink href={`/transaction/${row.getValue<string>('id')}`} />
+        header: '',
+        cell: ({ getValue }) => (
+          <ViewLink href={`/transaction/${getValue()}`} />
         ),
       }),
     ],

@@ -4,10 +4,8 @@
       "note": "Note",
       "date": "Date",
       "amount": "Amount",
-      "count": "Count",
       "status": "Status",
-      "tags": "Tags",
-      "id": "ID"
+      "createdAt": "Create Date"
     }
   },
   "TransactionDescriptionList": {

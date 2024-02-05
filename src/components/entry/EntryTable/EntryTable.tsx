@@ -3,7 +3,12 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate, EntryStatusChip, Table } from '@/components/common'
+import {
+  FormattedDate,
+  EntryStatusChip,
+  Table,
+  FormattedCurrencyNumber,
+} from '@/components/common'
 import { route } from '@/lib'
 
 import type { EntriesQuery } from '@/api/graphql'
@@ -35,9 +40,11 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
       }),
       columnHelper.accessor('debit', {
         header: t('EntryTable.header.debit'),
+        cell: ({ getValue }) => <FormattedCurrencyNumber value={getValue()} />,
       }),
       columnHelper.accessor('credit', {
         header: t('EntryTable.header.credit'),
+        cell: ({ getValue }) => <FormattedCurrencyNumber value={getValue()} />,
       }),
       columnHelper.accessor('account', {
         header: t`EntryTable.header.account`,
@@ -59,6 +66,10 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
         header: t('EntryTable.header.status'),
         cell: (props) => <EntryStatusChip status={props.getValue()} />,
       }),
+      columnHelper.accessor('createdAt', {
+        header: t`EntryTable.header.createdAt`,
+        cell: ({ getValue }) => <FormattedDate dateTime={getValue()} />,
+      }),
       columnHelper.accessor('transactionId', {
         header: t`EntryTable.header.transaction`,
         cell: ({ getValue }) => (
@@ -68,7 +79,7 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
               query: { id: getValue() },
             }}
           >
-            {getValue()}
+            <div className="max-w-32 truncate">{getValue()}</div>
           </Link>
         ),
       }),

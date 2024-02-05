@@ -11,7 +11,7 @@ export interface FormattedCurrencyNumberProps {
   /**
    * Value
    */
-  value: number | string
+  value?: number | string | null
   /**
    * Customized class name
    */
@@ -39,10 +39,10 @@ export const FormattedCurrencyNumber: React.FC<
 
   return (
     <div className={classNames('w-30 flex items-center', className)}>
-      <div className="text-dark-shades select-none text-xs font-medium leading-6">
+      <div className="select-none text-xs font-medium leading-6">
         {currencySymbol}
       </div>
-      <div className="text-dark-shades ml-auto pl-8 text-xs font-medium leading-6">
+      <div className="ml-auto pl-8 text-xs font-medium leading-6">
         {formatCurrencyNumber(value)}
       </div>
     </div>

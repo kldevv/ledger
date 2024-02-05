@@ -1,14 +1,14 @@
 {
   "EntryTable": {
     "header": {
-      "id": "ID",
       "date": "Date",
       "debit": "Debit",
       "credit": "Credit",
       "memo": "Memo",
       "transaction": "Transaction",
       "account": "Account",
-      "status": "Status"
+      "status": "Status",
+      "createdAt": "Create Date"
     }
   }
 }

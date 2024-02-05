@@ -8,6 +8,7 @@ type Entry {
   account: Account
   transactionId: String!
   status: EntryStatus!
+  createdAt: DateTime!
 }
 
 input AddEntryInput {

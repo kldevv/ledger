@@ -16,4 +16,5 @@ fragment EntryData on Entry {
   }
   status
   transactionId
+  createdAt
 }
