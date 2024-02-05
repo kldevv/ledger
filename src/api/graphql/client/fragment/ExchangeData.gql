@@ -1,0 +1,11 @@
+fragment ExchangeData on Exchange {
+  id
+  ownerId
+  origin {
+    ...TransactionData
+  }
+  destination {
+    ...TransactionData
+  }
+  createdAt
+}

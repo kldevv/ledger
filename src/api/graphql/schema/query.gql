@@ -37,4 +37,5 @@ type Query {
 
   # Exchange
   getExchanges(input: GetExchangesInput!): [Exchange!]!
+  getExchange(input: GetExchangeInput!): Exchange
 }

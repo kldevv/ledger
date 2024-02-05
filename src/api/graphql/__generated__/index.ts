@@ -156,6 +156,7 @@ export type Exchange = {
   id: Scalars['String']['output'];
   origin: Transaction;
   ownerId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type GetAccountInput = {
@@ -194,6 +195,10 @@ export type GetEntriesInput = {
   status?: InputMaybe<EntryStatus>;
   transactionId?: InputMaybe<Scalars['String']['input']>;
   treasuryBookId: Scalars['String']['input'];
+};
+
+export type GetExchangeInput = {
+  id: Scalars['String']['input'];
 };
 
 export type GetExchangesInput = {
@@ -319,6 +324,7 @@ export type Query = {
   getCategoryTypeMonthlyBalance: Array<MonthlyAmount>;
   getCategoryTypeMonthlyChanges: Array<MonthlyAmount>;
   getEntries: Array<Entry>;
+  getExchange?: Maybe<Exchange>;
   getExchanges: Array<Exchange>;
   getTag?: Maybe<Tag>;
   getTags: Array<Tag>;
@@ -382,6 +388,11 @@ export type QueryGetCategoryTypeMonthlyChangesArgs = {
 
 export type QueryGetEntriesArgs = {
   input: GetEntriesInput;
+};
+
+
+export type QueryGetExchangeArgs = {
+  input: GetExchangeInput;
 };
 
 
@@ -587,6 +598,7 @@ export type ResolversTypes = {
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
+  GetExchangeInput: GetExchangeInput;
   GetExchangesInput: GetExchangesInput;
   GetMonthlyAmountInput: GetMonthlyAmountInput;
   GetTagInput: GetTagInput;
@@ -634,6 +646,7 @@ export type ResolversParentTypes = {
   GetCategoriesInput: GetCategoriesInput;
   GetCategoryInput: GetCategoryInput;
   GetEntriesInput: GetEntriesInput;
+  GetExchangeInput: GetExchangeInput;
   GetExchangesInput: GetExchangesInput;
   GetMonthlyAmountInput: GetMonthlyAmountInput;
   GetTagInput: GetTagInput;
@@ -713,6 +726,7 @@ export type ExchangeResolvers<ContextType = ApolloServerContext, ParentType exte
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   origin?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType>;
   ownerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -748,6 +762,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   getCategoryTypeMonthlyBalance?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetCategoryTypeMonthlyBalanceArgs, 'input'>>;
   getCategoryTypeMonthlyChanges?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryGetCategoryTypeMonthlyChangesArgs, 'input'>>;
   getEntries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryGetEntriesArgs, 'input'>>;
+  getExchange?: Resolver<Maybe<ResolversTypes['Exchange']>, ParentType, ContextType, RequireFields<QueryGetExchangeArgs, 'input'>>;
   getExchanges?: Resolver<Array<ResolversTypes['Exchange']>, ParentType, ContextType, RequireFields<QueryGetExchangesArgs, 'input'>>;
   getTag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagArgs, 'input'>>;
   getTags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryGetTagsArgs, 'input'>>;
@@ -808,6 +823,8 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 
 
 export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null };
+
+export type ExchangeDataFragment = { __typename?: 'Exchange', id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } };
 
 export type MonthlyAmountDataFragment = { __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> };
 
@@ -935,6 +952,13 @@ export type GetEntriesQueryVariables = Exact<{
 
 export type GetEntriesQuery = { __typename?: 'Query', getEntries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
+export type GetExchangeQueryVariables = Exact<{
+  input: GetExchangeInput;
+}>;
+
+
+export type GetExchangeQuery = { __typename?: 'Query', getExchange?: { __typename?: 'Exchange', updatedAt: Date, id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } } | null };
+
 export type GetExchangesQueryVariables = Exact<{
   input: GetExchangesInput;
 }>;
@@ -1054,6 +1078,30 @@ export const AccountDataFragmentDoc = gql`
   createdAt
 }
     `;
+export const TransactionDataFragmentDoc = gql`
+    fragment TransactionData on Transaction {
+  id
+  accrualDate
+  note
+  status
+  amount
+  createdAt
+  treasuryBookId
+}
+    `;
+export const ExchangeDataFragmentDoc = gql`
+    fragment ExchangeData on Exchange {
+  id
+  ownerId
+  origin {
+    ...TransactionData
+  }
+  destination {
+    ...TransactionData
+  }
+  createdAt
+}
+    ${TransactionDataFragmentDoc}`;
 export const MonthlyAmountDataFragmentDoc = gql`
     fragment MonthlyAmountData on MonthlyAmount {
   id
@@ -1065,17 +1113,6 @@ export const MonthlyAmountDataFragmentDoc = gql`
       credit
     }
   }
-}
-    `;
-export const TransactionDataFragmentDoc = gql`
-    fragment TransactionData on Transaction {
-  id
-  accrualDate
-  note
-  status
-  amount
-  createdAt
-  treasuryBookId
 }
     `;
 export const AddAccountDocument = gql`
@@ -1814,21 +1851,54 @@ export type GetEntriesQueryHookResult = ReturnType<typeof useGetEntriesQuery>;
 export type GetEntriesLazyQueryHookResult = ReturnType<typeof useGetEntriesLazyQuery>;
 export type GetEntriesSuspenseQueryHookResult = ReturnType<typeof useGetEntriesSuspenseQuery>;
 export type GetEntriesQueryResult = Apollo.QueryResult<GetEntriesQuery, GetEntriesQueryVariables>;
+export const GetExchangeDocument = gql`
+    query getExchange($input: GetExchangeInput!) {
+  getExchange(input: $input) {
+    ...ExchangeData
+    updatedAt
+  }
+}
+    ${ExchangeDataFragmentDoc}`;
+
+/**
+ * __useGetExchangeQuery__
+ *
+ * To run a query within a React component, call `useGetExchangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetExchangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetExchangeQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetExchangeQuery(baseOptions: Apollo.QueryHookOptions<GetExchangeQuery, GetExchangeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetExchangeQuery, GetExchangeQueryVariables>(GetExchangeDocument, options);
+      }
+export function useGetExchangeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetExchangeQuery, GetExchangeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetExchangeQuery, GetExchangeQueryVariables>(GetExchangeDocument, options);
+        }
+export function useGetExchangeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetExchangeQuery, GetExchangeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetExchangeQuery, GetExchangeQueryVariables>(GetExchangeDocument, options);
+        }
+export type GetExchangeQueryHookResult = ReturnType<typeof useGetExchangeQuery>;
+export type GetExchangeLazyQueryHookResult = ReturnType<typeof useGetExchangeLazyQuery>;
+export type GetExchangeSuspenseQueryHookResult = ReturnType<typeof useGetExchangeSuspenseQuery>;
+export type GetExchangeQueryResult = Apollo.QueryResult<GetExchangeQuery, GetExchangeQueryVariables>;
 export const GetExchangesDocument = gql`
     query getExchanges($input: GetExchangesInput!) {
   getExchanges(input: $input) {
-    id
-    ownerId
-    origin {
-      ...TransactionData
-    }
-    destination {
-      ...TransactionData
-    }
-    createdAt
+    ...ExchangeData
   }
 }
-    ${TransactionDataFragmentDoc}`;
+    ${ExchangeDataFragmentDoc}`;
 
 /**
  * __useGetExchangesQuery__

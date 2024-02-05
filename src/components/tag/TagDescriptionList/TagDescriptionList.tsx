@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { DescriptionList, FormattedDate } from '@/components/common'
 
 import type { GetTagQuery } from '@/api/graphql'
-import type { DescriptionListItem } from '@/components/common'
+import type { DescriptionListItemProps } from '@/components/common'
 
 export type TagDescriptionListData = Exclude<
   GetTagQuery['getTag'],
@@ -23,7 +23,7 @@ export const TagDescriptionList: React.FC<TagDescriptionListProps> = ({
 }) => {
   const { t } = useTranslation('tag')
 
-  const items: DescriptionListItem[] = useMemo(
+  const items: DescriptionListItemProps[] = useMemo(
     () => [
       {
         title: t('TagDescriptionList.title.id'),

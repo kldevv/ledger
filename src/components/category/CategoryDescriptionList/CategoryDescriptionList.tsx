@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { DescriptionList, FormattedDate } from '@/components/common'
 
 import type { GetCategoryQuery } from '@/api/graphql'
-import type { DescriptionListItem } from '@/components/common'
+import type { DescriptionListItemProps } from '@/components/common'
 
 export type CategoryDescriptionListData = Exclude<
   GetCategoryQuery['getCategory'],
@@ -23,7 +23,7 @@ export const CategoryDescriptionList: React.FC<
 > = ({ data: { id, name, type, createdAt, updatedAt } }) => {
   const { t } = useTranslation('category')
 
-  const items: DescriptionListItem[] = useMemo(
+  const items: DescriptionListItemProps[] = useMemo(
     () => [
       {
         title: t('CategoryDescriptionList.title.id'),

@@ -3,9 +3,8 @@ import type { FieldValues, Path } from 'react-hook-form'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { CategoryType, Currency } from '@/api/graphql'
-import { CategoryTypeChip, CurrencyChip, Dropdown } from '@/components/common'
-import { getCurrencySymbol } from '@/lib'
+import { CategoryType } from '@/api/graphql'
+import { CategoryTypeChip, Dropdown } from '@/components/common'
 
 export interface CategoryTypeFormDropdownProps<
   TFieldValues extends FieldValues,

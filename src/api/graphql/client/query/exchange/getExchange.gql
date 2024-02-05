@@ -1,0 +1,6 @@
+query getExchange($input: GetExchangeInput!) {
+  getExchange(input: $input) {
+    ...ExchangeData
+    updatedAt
+  }
+}

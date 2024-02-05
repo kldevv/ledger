@@ -25,6 +25,7 @@ export const TreasuryBookDetailLink: React.FC<TreasuryBookDetailLinkProps> = ({
           id: treasuryBookId,
         },
       }}
+      className="text-dark-shades"
     >
       {name ?? treasuryBookId}
     </Link>

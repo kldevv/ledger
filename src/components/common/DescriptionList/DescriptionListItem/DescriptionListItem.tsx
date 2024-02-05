@@ -14,12 +14,12 @@ export const DescriptionListItem: React.FC<DescriptionListItemProps> = ({
   description,
 }) => {
   return (
-    <div className="py-2 border-t first:border-t-0 border-t-mid-gray items-center grid grid-cols-2 gap-x-8">
+    <div className="border-t-mid-gray grid grid-cols-2 items-center gap-x-8 border-t py-2 first:border-t-0">
       <dt>
-        <div className="text-xs font-normal text-dark-shades">{title}</div>
+        <div className="text-dark-shades text-xs font-normal">{title}</div>
       </dt>
       <dd>
-        <div className="max-w-xs text-xs font-light leading-6 text-gray">
+        <div className="text-gray max-w-xs text-xs font-light leading-6">
           {description}
         </div>
       </dd>

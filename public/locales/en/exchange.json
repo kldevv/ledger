@@ -5,8 +5,16 @@
       "origin": "Origin",
       "destination": "Destination",
       "amount": "Amount",
-      "currency": "Currency",
       "createdAt": "Create Date"
+    }
+  },
+  "ExchangeDescriptionList": {
+    "title": {
+      "id": "ID",
+      "origin": "Origin Transaction ID",
+      "destination": "Destination Transaction ID",
+      "createdAt": "Create Date",
+      "updatedAt": "Update Date"
     }
   },
   "InsertExchangeForm": {

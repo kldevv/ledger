@@ -1,6 +1,8 @@
-import { Exchange } from '@prisma/client'
-import { TransformTransactionProps, transformTransaction } from '..'
-import { Exchange as GraphqlExchange } from '@/api/graphql'
+import { transformTransaction } from '..'
+
+import type { TransformTransactionProps } from '..'
+import type { Exchange as GraphqlExchange } from '@/api/graphql'
+import type { Exchange } from '@prisma/client'
 
 export type TransformExchangeProps = Exchange & {
   /**

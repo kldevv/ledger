@@ -4,6 +4,7 @@ type Exchange {
   origin: Transaction!
   destination: Transaction!
   createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input AddExchangeInput {
@@ -21,4 +22,8 @@ input AddExchangeTransactionInput {
 
 input GetExchangesInput {
   ownerId: String!
+}
+
+input GetExchangeInput {
+  id: String!
 }
