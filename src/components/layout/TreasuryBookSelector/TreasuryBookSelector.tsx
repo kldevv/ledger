@@ -1,12 +1,12 @@
 import { Listbox } from '@headlessui/react'
+import classNames from 'classnames'
 import React, { useMemo } from 'react'
 
-import { CurrencyChip, TreasuryBookChip } from '@/components/common'
+import { DotStreamLoader, TreasuryBookChip } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
-import classNames from 'classnames'
 
 export const TreasuryBookSelector: React.FC = () => {
-  const { selectedTreasuryBookId, setSelectedTreasuryBookId, data } =
+  const { selectedTreasuryBookId, setSelectedTreasuryBookId, data, state } =
     useTreasuryBookContext()
 
   const options = useMemo(
@@ -24,15 +24,19 @@ export const TreasuryBookSelector: React.FC = () => {
     [data?.getTreasuryBooks, selectedTreasuryBookId],
   )
 
+  if (state.loading) {
+    return <DotStreamLoader />
+  }
+
   return (
     <div className="w-96">
       <Listbox
         as="div"
-        className="relative mx-4 flex justify-center w-full"
+        className="relative mx-4 flex w-full justify-center"
         onChange={setSelectedTreasuryBookId}
       >
         <Listbox.Button className="w-full">
-          <div className="text-dark-shades shadow-xs border-mid-gray flex flex-auto flex-nowrap items-center truncate rounded-2xl border-2 px-6 py-1 text-left text-xs font-medium w-full">
+          <div className="text-dark-shades border-mid-gray flex w-full flex-auto flex-nowrap items-center truncate rounded-2xl border-2 px-6 py-1 text-left text-xs font-medium">
             {selectedTreasuryBook && (
               <TreasuryBookChip
                 name={selectedTreasuryBook?.name}
