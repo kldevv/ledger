@@ -1,4 +1,4 @@
 export * from './createOne'
-export * from './readMany'
-export * from './readOne'
+export * from './findTags'
+export * from './findTag'
 export * from './updateOne'

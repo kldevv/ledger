@@ -3,10 +3,7 @@ query getTagDetail(
   $TransactionsInput: TransactionsInput!
 ) {
   getTag(input: $getTagInput) {
-    id
-    name
-    treasuryBookId
-    createdAt
+    ...TagData
     updatedAt
   }
   transactions(input: $TransactionsInput) {

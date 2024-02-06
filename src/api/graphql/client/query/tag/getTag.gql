@@ -1,9 +1,5 @@
 query getTag($input: GetTagInput!) {
   getTag(input: $input) {
-    id
-    name
-    treasuryBookId
-    createdAt
-    updatedAt
+    ...TagData
   }
 }

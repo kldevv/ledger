@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 
-import { useAddTagMutation } from '@/api/graphql'
+import { TagType, useAddTagMutation } from '@/api/graphql'
 import { UpsertTagForm } from '@/components/tag'
 import { useTreasuryBookContext } from '@/hooks'
 
@@ -26,6 +26,7 @@ export const InsertTagForm: React.FC = () => {
           input: {
             ...values,
             treasuryBookId: selectedTreasuryBookId,
+            type: TagType.CUSTOM,
           },
         },
       })

@@ -1,3 +1,7 @@
+import { TagType } from '@prisma/client'
+
+import { transformTag } from '../../transform'
+
 import type { QueryResolvers } from '@/api/graphql'
 
 export const getTags: QueryResolvers['getTags'] = async (
@@ -5,5 +9,10 @@ export const getTags: QueryResolvers['getTags'] = async (
   { input: { treasuryBookId } },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.tag.readMany({ treasuryBookId })
+  const tags = await prisma.tag.findTags({
+    treasuryBookId,
+    type: TagType.CUSTOM,
+  })
+
+  return tags.map(transformTag)
 }

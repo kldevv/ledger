@@ -3,11 +3,11 @@ import { useMemo } from 'react'
 
 import { DescriptionList, FormattedDate } from '@/components/common'
 
-import type { GetTagQuery } from '@/api/graphql'
+import type { GetTagDetailQuery } from '@/api/graphql'
 import type { DescriptionListItemProps } from '@/components/common'
 
 export type TagDescriptionListData = Exclude<
-  GetTagQuery['getTag'],
+  GetTagDetailQuery['getTag'],
   null | undefined
 >
 

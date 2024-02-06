@@ -416,6 +416,7 @@ export type QueryTransactionsArgs = {
 
 export type Tag = {
   __typename?: 'Tag';
+  count: Scalars['Int']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
@@ -763,6 +764,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
 };
 
 export type TagResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -818,6 +820,8 @@ export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBook
 export type ExchangeDataFragment = { __typename?: 'Exchange', id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } };
 
 export type MonthlyAmountDataFragment = { __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> };
+
+export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, createdAt: Date, count: number };
 
 export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string };
 
@@ -1012,7 +1016,7 @@ export type GetTagQueryVariables = Exact<{
 }>;
 
 
-export type GetTagQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } | null };
+export type GetTagQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, createdAt: Date, count: number } | null };
 
 export type GetTagDetailQueryVariables = Exact<{
   getTagInput: GetTagInput;
@@ -1020,14 +1024,14 @@ export type GetTagDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } | null, transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
+export type GetTagDetailQuery = { __typename?: 'Query', getTag?: { __typename?: 'Tag', updatedAt: Date, id: string, name: string, createdAt: Date, count: number } | null, transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
 
 export type GetTagsQueryVariables = Exact<{
   input: GetTagsInput;
 }>;
 
 
-export type GetTagsQuery = { __typename?: 'Query', getTags: Array<{ __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date }> };
+export type GetTagsQuery = { __typename?: 'Query', getTags: Array<{ __typename?: 'Tag', id: string, name: string, createdAt: Date, count: number }> };
 
 export type TransactionDetailsQueryVariables = Exact<{
   TransactionInput: TransactionInput;
@@ -1120,6 +1124,14 @@ export const MonthlyAmountDataFragmentDoc = gql`
       credit
     }
   }
+}
+    `;
+export const TagDataFragmentDoc = gql`
+    fragment TagData on Tag {
+  id
+  name
+  createdAt
+  count
 }
     `;
 export const AddAccountDocument = gql`
@@ -2209,14 +2221,10 @@ export type GetUniqueYearsQueryResult = Apollo.QueryResult<GetUniqueYearsQuery, 
 export const GetTagDocument = gql`
     query getTag($input: GetTagInput!) {
   getTag(input: $input) {
-    id
-    name
-    treasuryBookId
-    createdAt
-    updatedAt
+    ...TagData
   }
 }
-    `;
+    ${TagDataFragmentDoc}`;
 
 /**
  * __useGetTagQuery__
@@ -2253,17 +2261,15 @@ export type GetTagQueryResult = Apollo.QueryResult<GetTagQuery, GetTagQueryVaria
 export const GetTagDetailDocument = gql`
     query getTagDetail($getTagInput: GetTagInput!, $TransactionsInput: TransactionsInput!) {
   getTag(input: $getTagInput) {
-    id
-    name
-    treasuryBookId
-    createdAt
+    ...TagData
     updatedAt
   }
   transactions(input: $TransactionsInput) {
     ...TransactionData
   }
 }
-    ${TransactionDataFragmentDoc}`;
+    ${TagDataFragmentDoc}
+${TransactionDataFragmentDoc}`;
 
 /**
  * __useGetTagDetailQuery__
@@ -2301,14 +2307,10 @@ export type GetTagDetailQueryResult = Apollo.QueryResult<GetTagDetailQuery, GetT
 export const GetTagsDocument = gql`
     query getTags($input: GetTagsInput!) {
   getTags(input: $input) {
-    id
-    name
-    treasuryBookId
-    createdAt
-    updatedAt
+    ...TagData
   }
 }
-    `;
+    ${TagDataFragmentDoc}`;
 
 /**
  * __useGetTagsQuery__

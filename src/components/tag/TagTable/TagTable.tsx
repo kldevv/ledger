@@ -1,8 +1,10 @@
 import { createColumnHelper } from '@tanstack/react-table'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { FormattedDate, Table, LinkButton } from '@/components/common'
+import { route } from '@/lib'
 
 import type { GetTagsQuery } from '@/api/graphql'
 
@@ -22,24 +24,38 @@ export const TagTable: React.FC<TagTableProps> = ({ data }) => {
 
   const colDefs = useMemo(
     () => [
-      columnHelper.accessor('id', {
-        header: t`TagTable.header.id`,
-      }),
-      columnHelper.accessor('name', {
+      columnHelper.accessor(({ id, name }) => ({ id, name }), {
         header: t`TagTable.header.name`,
-        cell: (props) => (
-          <span className="text-dark-shades">{props.getValue()}</span>
+        cell: ({ getValue }) => (
+          <Link
+            href={{
+              pathname: route.tagDetail.pathname,
+              query: {
+                id: getValue().id,
+              },
+            }}
+            className="text-dark-shades hover:text-light-accent flex items-center"
+          >
+            {getValue().name}
+          </Link>
         ),
+      }),
+      columnHelper.accessor('count', {
+        header: t`TagTable.header.transaction`,
       }),
       columnHelper.accessor('createdAt', {
         header: t`TagTable.header.createdAt`,
-        cell: (props) => <FormattedDate dateTime={props.getValue()} />,
+        cell: ({ getValue }) => <FormattedDate dateTime={getValue()} />,
       }),
-      columnHelper.display({
+      columnHelper.accessor('id', {
         id: 'view-link',
-        cell: (props) => (
+        header: '',
+        cell: ({ getValue }) => (
           <LinkButton
-            href={`/tag/${props.row.getValue<string>('id')}`}
+            href={{
+              pathname: route.tagDetail.pathname,
+              query: { id: getValue() },
+            }}
             label={t`TagTable.link.view`}
           />
         ),

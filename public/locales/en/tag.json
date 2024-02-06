@@ -14,9 +14,6 @@
       "name": "Name",
       "updatedAt": "Update Date",
       "createdAt": "Create Date"
-    },
-    "link": {
-      "view": "View"
     }
   },
   "TagDetail": {
@@ -28,7 +25,11 @@
     "header": {
       "id": "ID",
       "name": "Name",
+      "transaction": "Transactions",
       "createdAt": "Create Date"
+    },
+    "link": {
+      "view": "View"
     }
   },
   "UpdateTagForm": {
