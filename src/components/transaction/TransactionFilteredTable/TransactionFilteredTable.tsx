@@ -56,15 +56,15 @@ export const TransactionFilteredTable: React.FC<
   return (
     <Card>
       <div className="flex flex-col space-y-3">
-        <div className="flex items-center border-b pt-1 pb-3 border-b-mid-gray">
+        <div className="border-b-mid-gray flex items-center border-b pb-3 pt-1">
           <EntryStatusDropdownFilter
             value={statusFilter}
             onChange={handleOnStatusFilterChange}
           />
         </div>
-        <TransactionTable data={paginatedDate} />
+        <TransactionTable data={paginatedDate} loading={true} />
         {pageCount > 1 && (
-          <div className="border-t border-t-mid-gray w-full flex items-center justify-center pt-5">
+          <div className="border-t-mid-gray flex w-full items-center justify-center border-t pt-5">
             <Pagination
               pageCount={pageCount}
               selectedPage={selectedPage}

@@ -22,10 +22,17 @@ export interface TransactionTableProps {
   /**
    * Data
    */
-  data: TransactionTableDataModel[]
+  data?: TransactionTableDataModel[]
+  /**
+   * Loading?
+   */
+  loading?: boolean
 }
 
-export const TransactionTable: React.FC<TransactionTableProps> = ({ data }) => {
+export const TransactionTable: React.FC<TransactionTableProps> = ({
+  data,
+  loading,
+}) => {
   const { t } = useTranslation('transaction')
 
   const colDefs = useMemo(
@@ -70,5 +77,5 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({ data }) => {
     [t],
   )
 
-  return <Table data={data} colDefs={colDefs} />
+  return <Table data={data} colDefs={colDefs} loading={loading} />
 }
