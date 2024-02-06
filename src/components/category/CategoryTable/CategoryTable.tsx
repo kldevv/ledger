@@ -1,4 +1,5 @@
 import { createColumnHelper } from '@tanstack/react-table'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
@@ -6,12 +7,11 @@ import {
   CategoryTypeChip,
   FormattedDate,
   Table,
-  ViewLink,
+  LinkButton,
 } from '@/components/common'
+import { route } from '@/lib'
 
 import type { GetCategoriesQuery } from '@/api/graphql'
-import Link from 'next/link'
-import { route } from '@/lib'
 
 export type CategoryTableData = GetCategoriesQuery['getCategories'][number]
 
@@ -44,7 +44,7 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
                   id: getValue().id,
                 },
               }}
-              className="text-dark-shades flex items-center"
+              className="text-dark-shades hover:text-light-accent flex items-center"
             >
               {getValue().name}
             </Link>
@@ -54,7 +54,10 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
       columnHelper.accessor('type', {
         header: t`CategoryTable.header.type`,
         cell: ({ getValue }) => (
-          <Link href={route.entryHome.pathname} className="flex items-center">
+          <Link
+            href={route.entryHome.pathname}
+            className="hover:text-light-accent text-dark-shades flex items-center"
+          >
             <CategoryTypeChip type={getValue()} />
           </Link>
         ),
@@ -69,13 +72,14 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
       columnHelper.accessor('id', {
         header: '',
         cell: ({ getValue }) => (
-          <ViewLink
+          <LinkButton
             href={{
               pathname: route.categoryDetail.pathname,
               query: {
                 id: getValue(),
               },
             }}
+            label={t`CategoryTable.link.view`}
           />
         ),
       }),

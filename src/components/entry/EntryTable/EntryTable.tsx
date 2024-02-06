@@ -54,6 +54,7 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
               pathname: route.accountDetail.pathname,
               query: { id: getValue()?.id },
             }}
+            className="hover:text-light-accent"
           >
             {getValue()?.name}
           </Link>
@@ -78,8 +79,9 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
               pathname: route.transactionDetail.pathname,
               query: { id: getValue() },
             }}
+            className="hover:text-light-accent"
           >
-            <div className="max-w-32 truncate">{getValue()}</div>
+            <div className="max-w-28 truncate">{getValue()}</div>
           </Link>
         ),
       }),

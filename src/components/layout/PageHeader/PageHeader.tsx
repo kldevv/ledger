@@ -29,9 +29,9 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   const { pathname } = useRouter()
 
   return (
-    <div className="flex items-center my-3">
+    <div className="my-3 flex items-center">
       <div className="flex flex-col space-y-3">
-        <h1 className="text-dark-shades font-extrabold text-3xl whitespace-nowrap">
+        <h1 className="text-dark-shades whitespace-nowrap text-3xl font-extrabold">
           {t(`${pathname}.title`)}
         </h1>
         {hideDescription === false && (
@@ -41,10 +41,11 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       {action && (
         <div className="ml-auto">
           <div className="ml-16">
-            <Link href={action.href}>
-              <div className="text-xs leading-6 font-semibold bg-light-accent text-light-shades py-1 px-3 rounded-md whitespace-nowrap">
-                {action.label}
-              </div>
+            <Link
+              href={action.href}
+              className="bg-light-accent text-light-shades hover:bg-light-shades hover:text-light-accent hover:border-light-accent whitespace-nowrap rounded-md px-4 py-2 text-xs font-semibold leading-6 hover:border-2"
+            >
+              {action.label}
             </Link>
           </div>
         </div>

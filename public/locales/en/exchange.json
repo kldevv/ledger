@@ -6,6 +6,9 @@
       "destination": "Destination",
       "amount": "Amount",
       "createdAt": "Create Date"
+    },
+    "link": {
+      "view": "View"
     }
   },
   "ExchangeDescriptionList": {
@@ -31,8 +34,8 @@
   },
   "ExchangeDetails": {
     "label": {
-      "0": "Origin",
-      "1": "Destination"
+      "0": "ORIGIN",
+      "1": "DESTINATION"
     },
     "title": {
       "0": {

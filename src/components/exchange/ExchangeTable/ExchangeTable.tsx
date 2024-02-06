@@ -2,7 +2,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate, Table, ViewLink } from '@/components/common'
+import { FormattedDate, Table, LinkButton } from '@/components/common'
 import { TreasuryBookDetailLink } from '@/components/treasuryBook'
 import { formatCurrencyNumber, route } from '@/lib'
 
@@ -61,11 +61,12 @@ export const ExchangeTable: React.FC<ExchangeTableProps> = ({ data }) => {
       columnHelper.accessor('id', {
         header: '',
         cell: ({ getValue }) => (
-          <ViewLink
+          <LinkButton
             href={{
               pathname: route.exchangeDetail.pathname,
               query: { id: getValue() },
             }}
+            label={t`ExchangeTable.link.view`}
           />
         ),
       }),

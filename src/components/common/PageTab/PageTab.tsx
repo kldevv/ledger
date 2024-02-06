@@ -36,7 +36,9 @@ export const PageTab: React.FC<PageTabProps> = ({ options }) => {
                       : 'text-gray',
                   )}
                 >
-                  {label}
+                  <div className="hover:bg-light-accent-halo size-full rounded-md p-1">
+                    {label}
+                  </div>
                 </Button>
               )}
             </Tab>

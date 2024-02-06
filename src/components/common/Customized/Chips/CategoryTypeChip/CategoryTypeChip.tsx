@@ -15,7 +15,7 @@ export const CategoryTypeChip: React.FC<CategoryTypeChipProps> = ({ type }) => {
   const { t } = useTranslation('common')
 
   return (
-    <div className="text-dark-shades flex items-center text-xs font-normal leading-6">
+    <div className="flex items-center text-xs font-normal leading-6">
       <div className="mr-2">{getCategoryTypeIcon(type)}</div>
       {t(`CategoryTypeChip.label.${type}`)}
     </div>

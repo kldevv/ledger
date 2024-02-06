@@ -1,8 +1,10 @@
 import { createColumnHelper } from '@tanstack/react-table'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { FormattedCurrencyNumber, Table } from '@/components/common'
+import { route } from '@/lib'
 
 import type { MonthlyAmountDataFragment } from '@/api/graphql'
 
@@ -24,8 +26,19 @@ export const MonthlyChangesTable: React.FC<MonthlyChangesTableProps> = ({
 
   const colDefs = useMemo(
     () => [
-      columnHelper.accessor('name', {
+      columnHelper.accessor(({ id, name }) => ({ id, name }), {
         header: t`MonthlyChangesTable.header.name`,
+        cell: ({ getValue }) => (
+          <Link
+            href={{
+              pathname: route.accountDetail.pathname,
+              query: { id: getValue().id },
+            }}
+            className="hover:text-light-accent"
+          >
+            {getValue().name}
+          </Link>
+        ),
       }),
       ...Array.from({ length: 12 }).map((_, index) => {
         const month = index + 1

@@ -2,7 +2,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate, Table, ViewLink } from '@/components/common'
+import { FormattedDate, Table, LinkButton } from '@/components/common'
 
 import type { GetTagsQuery } from '@/api/graphql'
 
@@ -38,7 +38,10 @@ export const TagTable: React.FC<TagTableProps> = ({ data }) => {
       columnHelper.display({
         id: 'view-link',
         cell: (props) => (
-          <ViewLink href={`/tag/${props.row.getValue<string>('id')}`} />
+          <LinkButton
+            href={`/tag/${props.row.getValue<string>('id')}`}
+            label={t`TagTable.link.view`}
+          />
         ),
       }),
     ],

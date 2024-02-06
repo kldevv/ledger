@@ -19,6 +19,9 @@
       "category": "Category",
       "entryCount": "Entries",
       "createdAt": "Create Date"
+    },
+    "link": {
+      "view": "View"
     }
   },
   "InsertAccountFrom": {

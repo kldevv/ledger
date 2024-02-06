@@ -9,7 +9,7 @@ import {
   CurrencyChip,
   FormattedDate,
   Table,
-  ViewLink,
+  LinkButton,
 } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 import { route } from '@/lib'
@@ -52,6 +52,18 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
             <CheckCircleIcon className="text-light-accent size-5" />
           ) : null,
       }),
+      columnHelper.accessor('id', {
+        header: '',
+        id: 'select',
+        cell: ({ getValue }) => (
+          <Button
+            onClick={createHandleOnTreasuryBookSwitch(getValue())}
+            className="text-light-accent border-light-accent hover:bg-light-accent hover:text-light-shades rounded-md border px-1 text-xs font-medium leading-6 hover:border-0"
+          >
+            {t`TreasuryBookTable.button.select`}
+          </Button>
+        ),
+      }),
       columnHelper.accessor(
         ({ id, name }) => ({
           id,
@@ -84,26 +96,15 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
       }),
       columnHelper.accessor('id', {
         header: '',
-        id: 'select',
         cell: ({ getValue }) => (
-          <Button
-            onClick={createHandleOnTreasuryBookSwitch(getValue())}
-            className="text-light-accent text-xs font-medium leading-6"
-          >
-            {t('TreasuryBookTable.button.select')}
-          </Button>
-        ),
-      }),
-      columnHelper.accessor('id', {
-        header: '',
-        cell: ({ getValue }) => (
-          <ViewLink
+          <LinkButton
             href={{
               pathname: route.treasuryBookDetail.pathname,
               query: {
                 id: getValue(),
               },
             }}
+            label={t`TreasuryBookTable.link.view`}
           />
         ),
       }),

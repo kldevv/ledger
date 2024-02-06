@@ -1,12 +1,12 @@
 import { createColumnHelper } from '@tanstack/react-table'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate, Table, ViewLink } from '@/components/common'
+import { FormattedDate, Table, LinkButton } from '@/components/common'
+import { route } from '@/lib'
 
 import type { GetAccountsQuery } from '@/api/graphql'
-import { route } from '@/lib'
-import Link from 'next/link'
 
 export type AccountTableData = GetAccountsQuery['getAccounts'][number]
 
@@ -39,7 +39,7 @@ export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
                   id: getValue().id,
                 },
               }}
-              className="text-dark-shades flex items-center"
+              className="hover:text-light-accent text-dark-shades flex items-center"
             >
               {getValue().name}
             </Link>
@@ -56,7 +56,7 @@ export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
                 id: getValue()?.id,
               },
             }}
-            className="text-gray flex items-center"
+            className="text-gray hover:text-light-accent flex items-center"
           >
             {getValue()?.name}
           </Link>
@@ -72,11 +72,12 @@ export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
       columnHelper.accessor('id', {
         header: '',
         cell: ({ getValue }) => (
-          <ViewLink
+          <LinkButton
             href={{
               pathname: route.accountDetail.pathname,
               query: { id: getValue() },
             }}
+            label={t`AccountTable.link.view`}
           />
         ),
       }),

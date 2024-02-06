@@ -6,9 +6,10 @@ import {
   FormattedDate,
   EntryStatusChip,
   Table,
-  ViewLink,
+  LinkButton,
   FormattedCurrencyNumber,
 } from '@/components/common'
+import { route } from '@/lib'
 
 import type { TransactionsQuery } from '@/api/graphql'
 
@@ -56,7 +57,13 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({ data }) => {
         id: 'view-link',
         header: '',
         cell: ({ getValue }) => (
-          <ViewLink href={`/transaction/${getValue()}`} />
+          <LinkButton
+            href={{
+              pathname: route.transactionDetail.pathname,
+              query: { id: getValue() },
+            }}
+            label={t`TransactionTable.link.view`}
+          />
         ),
       }),
     ],

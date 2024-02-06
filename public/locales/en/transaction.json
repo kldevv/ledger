@@ -6,6 +6,9 @@
       "amount": "Amount",
       "status": "Status",
       "createdAt": "Create Date"
+    },
+    "link": {
+      "view": "View"
     }
   },
   "TransactionDescriptionList": {
