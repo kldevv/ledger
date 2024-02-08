@@ -28,7 +28,7 @@ export const CategoryMonthlyBalanceDataControllerTable: React.FC = () => {
     setDateTypeFilter(value)
   }, [])
 
-  const { data } = useGetCategoryMonthlyBalanceQuery({
+  const { data, loading } = useGetCategoryMonthlyBalanceQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',
@@ -51,7 +51,7 @@ export const CategoryMonthlyBalanceDataControllerTable: React.FC = () => {
       </div>
       <Card>
         <div className="flex flex-col space-y-2">
-          <div className="flex items-center border-b pt-1 pb-3 border-b-mid-gray space-x-2">
+          <div className="border-b-mid-gray flex items-center space-x-2 border-b pb-3 pt-1">
             <EntryStatusDropdownFilter
               value={statusFilter}
               onChange={setStatusFilter}
@@ -63,7 +63,10 @@ export const CategoryMonthlyBalanceDataControllerTable: React.FC = () => {
               disableAllYear
             />
           </div>
-          <MonthlyBalanceTable data={data?.getCategoryMonthlyBalance ?? []} />
+          <MonthlyBalanceTable
+            data={data?.getCategoryMonthlyBalance}
+            loading={loading}
+          />
         </div>
       </Card>
     </div>

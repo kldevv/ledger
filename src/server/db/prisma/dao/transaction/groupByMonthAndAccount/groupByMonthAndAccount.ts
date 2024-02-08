@@ -71,7 +71,7 @@ export const groupByMonthAndAccount = async ({
         }
         ${
           status != null
-            ? Prisma.sql`AND e.status = ${status}::"EntryStatus"`
+            ? Prisma.sql`AND e.status = ${status}::entry_status`
             : Prisma.empty
         }
       GROUP BY

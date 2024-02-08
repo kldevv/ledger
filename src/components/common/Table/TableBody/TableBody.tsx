@@ -23,7 +23,7 @@ export const TableBody = <TData extends RowData>({
   if (loading === true) {
     return (
       <tbody>
-        {range({ count: 5 }).map((rowIndex) => (
+        {range({ count: 3 }).map((rowIndex) => (
           <tr key={rowIndex}>
             <TableCell variant={rowIndex & 1 ? 'white' : 'gray'}>
               {rowIndex}

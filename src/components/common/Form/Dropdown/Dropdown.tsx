@@ -11,7 +11,7 @@ import classNames from 'classnames'
 import { Fragment, useMemo } from 'react'
 import { useController } from 'react-hook-form'
 
-import { Label, ErrorMessage } from '@/components/common'
+import { Label, ErrorMessage, LoadingBox } from '@/components/common'
 
 export interface DropdownProps<TFieldValues extends FieldValues> {
   /**
@@ -34,6 +34,10 @@ export interface DropdownProps<TFieldValues extends FieldValues> {
    * Optional control to explicitly set `react-hook-form` control
    */
   control?: Control<TFieldValues>
+  /**
+   * Loading?
+   */
+  loading?: boolean
 }
 
 const buttonCn = classNames(
@@ -67,6 +71,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
   control,
   options,
   label,
+  loading,
   multiple = false,
 }: DropdownProps<TFieldValues>) => {
   const {
@@ -84,27 +89,31 @@ export const Dropdown = <TFieldValues extends FieldValues>({
   }, [multiple, options, field.value])
 
   return (
-    <div className="w-full flex flex-col relative mt-[0.125rem]">
+    <div className="relative mt-[0.125rem] flex w-full flex-col">
       <Listbox {...field} as="div" multiple={multiple}>
         {({ open }) => (
           <>
             <Listbox.Label as={Fragment}>
               <Label htmlFor={`listbox-${name}`}>{label}</Label>
             </Listbox.Label>
-            <Listbox.Button className={buttonCn} id={`listbox-${name}`}>
-              <div className="min-h-[30px] flex items-center relative w-full gap-2">
-                <span className="mr-[1.75rem] whitespace-nowrap overflow-hidden overflow-ellipsis text-left w-full">
-                  {displayValue}
-                </span>
-                <div className="absolute right-1 text-gray">
-                  {open ? (
-                    <ChevronUpIcon className="w-5 h-5" />
-                  ) : (
-                    <ChevronDownIcon className="w-5 h-5" />
-                  )}
+            {loading === true ? (
+              <LoadingBox className="mt-[0.125rem] h-[2.5rem] w-full" />
+            ) : (
+              <Listbox.Button className={buttonCn} id={`listbox-${name}`}>
+                <div className="relative flex min-h-[30px] w-full items-center gap-2">
+                  <span className="mr-[1.75rem] w-full truncate text-left">
+                    {displayValue}
+                  </span>
+                  <div className="text-gray absolute right-1">
+                    {open ? (
+                      <ChevronUpIcon className="size-5" />
+                    ) : (
+                      <ChevronDownIcon className="size-5" />
+                    )}
+                  </div>
                 </div>
-              </div>
-            </Listbox.Button>
+              </Listbox.Button>
+            )}
             <Listbox.Options className={optionsCn}>
               {options.map(({ value, label }) => (
                 <Listbox.Option key={value} value={value} as={Fragment}>
@@ -117,7 +126,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
                     >
                       {label}
                       {selected && multiple && (
-                        <CheckIcon className="w-3 h-3 font-bold text-light-accent" />
+                        <CheckIcon className="text-light-accent size-3 font-bold" />
                       )}
                     </li>
                   )}

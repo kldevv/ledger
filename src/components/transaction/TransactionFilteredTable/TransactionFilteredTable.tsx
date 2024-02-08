@@ -15,14 +15,18 @@ export interface TransactionFilteredTableProps {
   /**
    * Data
    */
-  data: TransactionTableDataModel[]
+  data?: TransactionTableDataModel[]
+  /**
+   * Loading?
+   */
+  loading?: boolean
 }
 
 const pageSize = 10
 
 export const TransactionFilteredTable: React.FC<
   TransactionFilteredTableProps
-> = ({ data }) => {
+> = ({ data, loading }) => {
   const [statusFilter, setStatusFilter] = useState<EntryStatus | null>(null)
   const [selectedPage, setSelectedPage] = useState(0)
 
@@ -36,7 +40,7 @@ export const TransactionFilteredTable: React.FC<
 
   const filteredData = useMemo(
     () =>
-      data.filter(
+      data?.filter(
         ({ status }) => statusFilter == null || status === statusFilter,
       ),
     [data, statusFilter],
@@ -45,12 +49,13 @@ export const TransactionFilteredTable: React.FC<
   const paginatedDate = useMemo(() => {
     const indexStart = selectedPage * pageSize
 
-    return filteredData.slice(indexStart, indexStart + pageSize)
+    return filteredData?.slice(indexStart, indexStart + pageSize)
   }, [filteredData, selectedPage])
 
   const pageCount = useMemo(
-    () => Math.ceil(filteredData.length / pageSize),
-    [filteredData.length],
+    () =>
+      filteredData == null ? 0 : Math.ceil(filteredData.length / pageSize),
+    [filteredData],
   )
 
   return (
@@ -62,7 +67,7 @@ export const TransactionFilteredTable: React.FC<
             onChange={handleOnStatusFilterChange}
           />
         </div>
-        <TransactionTable data={paginatedDate} loading={true} />
+        <TransactionTable data={paginatedDate} loading={loading} />
         {pageCount > 1 && (
           <div className="border-t-mid-gray flex w-full items-center justify-center border-t pt-5">
             <Pagination

@@ -18,7 +18,7 @@ export const AccountFormDropdown = <TFieldValues extends FieldValues>({
 }: AccountFormDropdownProps<TFieldValues>) => {
   const { t } = useTranslation('common')
 
-  const { data } = useAccountsContext()
+  const { data, loading } = useAccountsContext()
 
   const options = useMemo(
     () =>
@@ -34,6 +34,7 @@ export const AccountFormDropdown = <TFieldValues extends FieldValues>({
       name={name}
       options={options}
       label={t`AccountFormDropdown.label`}
+      loading={loading}
     />
   )
 }

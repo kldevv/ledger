@@ -6,7 +6,7 @@ import { TransactionFilteredTable } from '..'
 export const TransactionDataTable: React.FC = () => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
-  const { data } = useTransactionsQuery({
+  const { data, loading } = useTransactionsQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId,
@@ -15,5 +15,7 @@ export const TransactionDataTable: React.FC = () => {
     skip: selectedTreasuryBookId == null,
   })
 
-  return <TransactionFilteredTable data={data?.transactions ?? []} />
+  return (
+    <TransactionFilteredTable data={data?.transactions} loading={loading} />
+  )
 }

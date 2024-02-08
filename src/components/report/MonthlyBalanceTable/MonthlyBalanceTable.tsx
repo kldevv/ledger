@@ -16,11 +16,16 @@ export interface MonthlyBalanceTableProps {
   /**
    * Data
    */
-  data: MonthlyBalanceTableData[]
+  data?: MonthlyBalanceTableData[]
+  /**
+   * Loading?
+   */
+  loading?: boolean
 }
 
 export const MonthlyBalanceTable: React.FC<MonthlyBalanceTableProps> = ({
   data,
+  loading,
 }) => {
   const { t } = useTranslation('report')
 
@@ -62,7 +67,7 @@ export const MonthlyBalanceTable: React.FC<MonthlyBalanceTableProps> = ({
     [t],
   )
 
-  return <Table data={data} colDefs={colDefs} />
+  return <Table data={data} colDefs={colDefs} loading={loading} />
 }
 
 /**

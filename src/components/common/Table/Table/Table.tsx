@@ -15,11 +15,16 @@ export type TableProps<TData extends RowData> = {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   colDefs: ColumnDef<TData, any>[]
+  /**
+   * Loading?
+   */
+  loading?: boolean
 }
 
 export const Table = <TData extends RowData>({
   data,
   colDefs,
+  loading,
 }: TableProps<TData>) => {
   const table = useReactTable({
     data: data ?? [],
@@ -31,7 +36,7 @@ export const Table = <TData extends RowData>({
     <div className="size-full overflow-auto">
       <table className="size-full table-auto">
         <TableHead table={table} />
-        <TableBody table={table} loading={true} />
+        <TableBody table={table} loading={loading} />
       </table>
     </div>
   )
