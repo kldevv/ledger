@@ -47,16 +47,19 @@ export const Breadcrumbs: React.FC = () => {
   }
 
   return (
-    <div className="flex space-x-2 items-center h-6 flex-nowrap">
-      <Link href={route.home.pathname}>
-        <HomeIcon className="w-3 h-3 text-gray hover:text-light-accent" />
+    <div className="flex h-6 flex-nowrap items-center space-x-2">
+      <Link
+        href={route.home.pathname}
+        className="hover:text-light-accent text-gray "
+      >
+        <HomeIcon className="size-3" />
       </Link>
       {crumbs.map(({ label, href }) => {
         return (
           <React.Fragment key={label}>
-            <ChevronRightIcon className="w-3 h-3 text-gray" />
-            <Link href={href}>
-              <span className="leading-6 text-xs text-gray font-medium whitespace-nowrap hover:text-light-accent">
+            <ChevronRightIcon className="text-gray size-3" />
+            <Link href={href} className="text-gray hover:text-light-accent">
+              <span className="whitespace-nowrap text-xs font-medium leading-6">
                 {label}
               </span>
             </Link>
