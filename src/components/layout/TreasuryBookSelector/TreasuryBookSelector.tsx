@@ -2,7 +2,7 @@ import { Listbox } from '@headlessui/react'
 import classNames from 'classnames'
 import React, { useMemo } from 'react'
 
-import { DotStreamLoader, TreasuryBookChip } from '@/components/common'
+import { LoadingBox, TreasuryBookChip } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
 export const TreasuryBookSelector: React.FC = () => {
@@ -25,7 +25,7 @@ export const TreasuryBookSelector: React.FC = () => {
   )
 
   if (state.loading) {
-    return <DotStreamLoader />
+    return <LoadingBox className="w-96" />
   }
 
   return (

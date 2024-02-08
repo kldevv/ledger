@@ -2,9 +2,9 @@ import { CN, EU, TW, US } from 'country-flag-icons/react/3x2'
 
 import { Currency } from '@/api/graphql'
 
-const iconCn = 'size-3'
-
 export const getCurrencyIcon = (currency: Currency | undefined) => {
+  const iconCn = 'w-3 h-3'
+
   switch (currency) {
     case Currency.NTD:
       return <TW className={iconCn} />
