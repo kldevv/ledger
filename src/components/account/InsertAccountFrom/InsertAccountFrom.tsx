@@ -25,15 +25,15 @@ export const InsertAccountFrom: React.FC = () => {
   })
 
   const values = useMemo(() => {
-    if (data?.getCategories[0] == null) {
+    if (data?.categories[0] == null) {
       return undefined
     }
 
     return {
       name: '',
-      categoryId: data?.getCategories[0]?.id,
+      categoryId: data?.categories[0]?.id,
     }
-  }, [data?.getCategories])
+  }, [data?.categories])
 
   const handleOnSubmit = useCallback(
     (values: UpsertAccountFormFieldValues) => {

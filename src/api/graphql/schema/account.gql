@@ -20,14 +20,11 @@ input UpdateAccountInput {
   categoryId: String!
 }
 
-input GetAccountInput {
+input AccountInput {
   id: String!
 }
 
-input GetAccountsInput {
+input AccountsInput {
   treasuryBookId: String!
-  startDate: DateTime
-  endDate: DateTime
   categoryId: String
-  nameSearch: String
 }

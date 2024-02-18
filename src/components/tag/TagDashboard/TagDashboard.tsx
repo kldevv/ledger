@@ -18,7 +18,7 @@ export const TagDashboard: React.FC = () => {
 
   return (
     <Card>
-      <TagTable data={data?.getTags ?? []} />
+      <TagTable data={data?.tags ?? []} />
     </Card>
   )
 }

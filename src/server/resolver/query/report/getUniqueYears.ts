@@ -1,6 +1,6 @@
 import { DateType, type QueryResolvers } from '@/api/graphql'
 
-export const getUniqueYears: QueryResolvers['getUniqueYears'] = async (
+export const uniqueYears: QueryResolvers['uniqueYears'] = async (
   _,
   { input: { treasuryBookId, type } },
   { dataSources: { prisma } },

@@ -42,7 +42,7 @@ export const UpsertTransactionEntryField: React.FC<
     void append?.(
       {
         ...addEntryDefaultValues,
-        accountId: data?.getAccounts[0].id ?? '',
+        accountId: data?.accounts[0].id ?? '',
       },
       {
         shouldFocus: false,

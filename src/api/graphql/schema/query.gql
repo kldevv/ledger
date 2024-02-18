@@ -1,38 +1,38 @@
 type Query {
   # Account
-  getAccount(input: GetAccountInput!): Account
-  getAccounts(input: GetAccountsInput!): [Account!]!
+  account(input: AccountInput!): Account
+  accounts(input: AccountsInput!): [Account!]!
 
   # Category
-  getCategories(input: GetCategoriesInput!): [Category!]!
-  getCategory(input: GetCategoryInput!): Category
+  categories(input: CategoriesInput!): [Category!]!
+  category(input: CategoryInput!): Category
 
   # Entry
   entries(input: EntriesInput!): [Entry!]!
 
   # Report
-  getAccountMonthlyChanges(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
-  getCategoryMonthlyChanges(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
-  getCategoryTypeMonthlyChanges(
-    input: GetMonthlyAmountInput!
+  accountMonthlyChanges(input: MonthlyAmountInput!): [MonthlyAmount!]!
+  categoryMonthlyChanges(input: MonthlyAmountInput!): [MonthlyAmount!]!
+  categoryTypeMonthlyChanges(
+    input: MonthlyAmountInput!
   ): [MonthlyAmount!]!
-  getAccountMonthlyBalance(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
-  getCategoryMonthlyBalance(input: GetMonthlyAmountInput!): [MonthlyAmount!]!
-  getCategoryTypeMonthlyBalance(
-    input: GetMonthlyAmountInput!
+  accountMonthlyBalance(input: MonthlyAmountInput!): [MonthlyAmount!]!
+  categoryMonthlyBalance(input: MonthlyAmountInput!): [MonthlyAmount!]!
+  categoryTypeMonthlyBalance(
+    input: MonthlyAmountInput!
   ): [MonthlyAmount!]!
-  getUniqueYears(input: GetUniqueYearsInput!): [Int!]!
+  uniqueYears(input: UniqueYearsInput!): [Int!]!
 
   # Tag
-  getTag(input: GetTagInput!): Tag
-  getTags(input: GetTagsInput!): [Tag!]!
+  tag(input: TagInput!): Tag
+  tags(input: TagsInput!): [Tag!]!
 
   # Transaction
   transaction(input: TransactionInput!): Transaction
   transactions(input: TransactionsInput!): [Transaction!]!
 
   # TreasuryBook
-  getTreasuryBooks(input: GetTreasuryBooksInput!): [TreasuryBook!]!
+  treasuryBooks(input: TreasuryBooksInput!): [TreasuryBook!]!
 
   # Exchange
   exchanges(input: ExchangesInput!): [Exchange!]!

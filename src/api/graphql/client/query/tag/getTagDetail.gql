@@ -1,8 +1,8 @@
-query getTagDetail(
-  $getTagInput: GetTagInput!
+query tagDetail(
+  $TagInput: TagInput!
   $TransactionsInput: TransactionsInput!
 ) {
-  getTag(input: $getTagInput) {
+  tag(input: $TagInput) {
     ...TagData
     updatedAt
   }

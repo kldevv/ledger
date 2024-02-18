@@ -27,9 +27,9 @@ export const UpsertExchangeTransactionEntryFieldArray: React.FC<
 
   const selectedCurrency = useMemo(
     () =>
-      data?.getTreasuryBooks?.find(({ id }) => id === transactionTreasuryBookId)
+      data?.treasuryBooks?.find(({ id }) => id === transactionTreasuryBookId)
         ?.currency ?? Currency.USD,
-    [data?.getTreasuryBooks, transactionTreasuryBookId],
+    [data?.treasuryBooks, transactionTreasuryBookId],
   )
 
   const { fields, append, remove } =

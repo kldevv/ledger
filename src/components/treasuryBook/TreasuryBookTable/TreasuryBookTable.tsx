@@ -17,7 +17,7 @@ import { route } from '@/lib'
 import type { GetTreasuryBooksQuery } from '@/api/graphql'
 
 export type TreasuryBookTableData =
-  GetTreasuryBooksQuery['getTreasuryBooks'][number]
+  GetTreasuryBooksQuery['treasuryBooks'][number]
 
 const columnHelper = createColumnHelper<TreasuryBookTableData>()
 

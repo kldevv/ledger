@@ -14,7 +14,7 @@ export const TreasuryBookDetailLink: React.FC<TreasuryBookDetailLinkProps> = ({
 }) => {
   const { data } = useTreasuryBookContext()
 
-  const name = data?.getTreasuryBooks.find(({ id }) => id === treasuryBookId)
+  const name = data?.treasuryBooks.find(({ id }) => id === treasuryBookId)
     ?.name
 
   return (

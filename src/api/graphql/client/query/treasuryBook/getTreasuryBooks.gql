@@ -1,5 +1,5 @@
-query getTreasuryBooks($input: GetTreasuryBooksInput!) {
-  getTreasuryBooks(input: $input) {
+query treasuryBooks($input: TreasuryBooksInput!) {
+  treasuryBooks(input: $input) {
     id
     name
     currency

@@ -26,7 +26,7 @@ export const TreasuryBookContextProvider: React.FC<
       },
     },
     onCompleted: (data) => {
-      setSelectedTreasuryBookId(data.getTreasuryBooks?.[0].id)
+      setSelectedTreasuryBookId(data.treasuryBooks?.[0].id)
     },
   })
 

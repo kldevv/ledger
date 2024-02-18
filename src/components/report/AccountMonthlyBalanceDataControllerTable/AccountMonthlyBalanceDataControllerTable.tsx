@@ -64,7 +64,7 @@ export const AccountMonthlyBalanceDataControllerTable: React.FC = () => {
             />
           </div>
           <MonthlyBalanceTable
-            data={data?.getAccountMonthlyBalance}
+            data={data?.accountMonthlyBalance}
             loading={loading}
           />
         </div>

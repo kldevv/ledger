@@ -1,1 +1,1 @@
-export * from './getCategoryTypeIcon'
+export * from './categoryTypeIcon'

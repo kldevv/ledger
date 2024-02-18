@@ -20,12 +20,10 @@ input UpdateCategoryInput {
   type: CategoryType!
 }
 
-input GetCategoryInput {
+input CategoryInput {
   id: String!
 }
 
-input GetCategoriesInput {
+input CategoriesInput {
   treasuryBookId: String!
-  nameSearch: String
-  type: CategoryType
 }

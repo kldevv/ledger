@@ -1,6 +1,6 @@
 import type { QueryResolvers } from '@/api/graphql'
 
-export const getAccount: QueryResolvers['getAccount'] = async (
+export const account: QueryResolvers['account'] = async (
   _,
   { input: { id } },
   { dataSources: { prisma } },

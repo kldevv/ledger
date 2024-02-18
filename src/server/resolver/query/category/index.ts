@@ -1,2 +1,2 @@
-export * from './getCategories'
-export * from './getCategory'
+export * from './categories'
+export * from './category'

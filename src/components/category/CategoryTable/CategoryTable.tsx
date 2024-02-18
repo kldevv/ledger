@@ -13,7 +13,7 @@ import { route } from '@/lib'
 
 import type { GetCategoriesQuery } from '@/api/graphql'
 
-export type CategoryTableData = GetCategoriesQuery['getCategories'][number]
+export type CategoryTableData = GetCategoriesQuery['categories'][number]
 
 export interface CategoryTableProps {
   /**

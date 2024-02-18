@@ -1,3 +1,3 @@
-query getUniqueYears($input: GetUniqueYearsInput!) {
-  getUniqueYears(input: $input)
+query uniqueYears($input: UniqueYearsInput!) {
+  uniqueYears(input: $input)
 }

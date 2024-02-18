@@ -22,11 +22,11 @@ export const AccountFormDropdown = <TFieldValues extends FieldValues>({
 
   const options = useMemo(
     () =>
-      data?.getAccounts.map(({ id, name }) => ({
+      data?.accounts.map(({ id, name }) => ({
         value: id,
         label: name,
       })) ?? [],
-    [data?.getAccounts],
+    [data?.accounts],
   )
 
   return (

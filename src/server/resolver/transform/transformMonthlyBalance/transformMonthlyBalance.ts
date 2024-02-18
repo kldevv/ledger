@@ -1,18 +1,39 @@
 import type { MonthlyAmount } from '@/api/graphql'
 import type {
   GroupByAccountReturns,
+  GroupByCategoryReturns,
+  GroupByCategoryTypeReturns,
   GroupByMonthAndAccountReturns,
+  GroupByMonthAndCategoryReturns,
+  GroupByMonthAndCategoryTypeReturns,
 } from '@/server/db/prisma/dao/entry'
 
-export const transform = (
-  balance: GroupByAccountReturns,
-  changes: GroupByMonthAndAccountReturns,
-): Array<MonthlyAmount> => {
+export type TransformMonthlyBalanceProps = {
+  /**
+   * Initial balance
+   */
+  init:
+    | GroupByAccountReturns
+    | GroupByCategoryReturns
+    | GroupByCategoryTypeReturns
+  /**
+   * Changes over the months
+   */
+  changes:
+    | GroupByMonthAndAccountReturns
+    | GroupByMonthAndCategoryReturns
+    | GroupByMonthAndCategoryTypeReturns
+}
+
+export const transformMonthlyBalance = ({
+  init,
+  changes,
+}: TransformMonthlyBalanceProps): Array<MonthlyAmount> => {
   const levels = new Map<string, [number, number]>()
   const mappings = new Map<string, Array<[number, number, number]>>()
   const accountName = new Map<string, string>()
 
-  balance.forEach(({ id, name, debit, credit }) => {
+  init.forEach(({ id, name, debit, credit }) => {
     levels.set(id, [debit, credit])
 
     accountName.set(id, name)

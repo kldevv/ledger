@@ -1,7 +1,7 @@
 import { AddEntryInput } from '@/api/graphql'
-import { addEntryInputTransform } from '..'
+import { transformAddEntryInput } from '..'
 
-export type AddExchangeTransactionTransformProps = {
+export type TransformAddExchangeTransactionInputProps = {
   /**
    * Accrual date
    */
@@ -11,23 +11,28 @@ export type AddExchangeTransactionTransformProps = {
    */
   treasuryBookId: string
   /**
+   * Exchange transaction note
+   */
+  note: string
+  /**
    * Add entry input
    */
   entries: Array<AddEntryInput>
 }
 
-export const addExchangeTransactionTransform = ({
+export const transformAddExchangeTransactionInput = ({
   accrualDate,
   treasuryBookId,
   entries,
-}: AddExchangeTransactionTransformProps) => {
+  note,
+}: TransformAddExchangeTransactionInputProps) => {
   return {
     accrualDate,
     treasuryBookId,
     tagIds: [],
     entries: entries.map((entry) =>
-      addEntryInputTransform({ entry, treasuryBookId }),
+      transformAddEntryInput({ entry, treasuryBookId }),
     ),
-    note: `EXCHANGE`,
+    note,
   }
 }

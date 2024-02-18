@@ -2,7 +2,7 @@ import { transformTag } from '../../transform'
 
 import type { QueryResolvers } from '@/api/graphql'
 
-export const getTag: QueryResolvers['getTag'] = async (
+export const tag: QueryResolvers['tag'] = async (
   _,
   { input },
   { dataSources: { prisma } },

@@ -1,6 +1,6 @@
 import type { MutationResolvers } from '@/api/graphql'
 import {
-  addExchangeTransactionTransform,
+  transformAddExchangeTransactionInput,
   transformExchange,
 } from '../../transform'
 
@@ -10,6 +10,7 @@ export const addExchange: MutationResolvers['addExchange'] = async (
     input: {
       ownerId,
       accrualDate,
+      note,
       origin: { entries: originEntries, treasuryBookId: originTreasuryBookId },
       destination: {
         entries: destinationEntries,
@@ -21,15 +22,17 @@ export const addExchange: MutationResolvers['addExchange'] = async (
 ) => {
   const exchange = await prisma.exchange.createExchange({
     ownerId,
-    origin: addExchangeTransactionTransform({
+    origin: transformAddExchangeTransactionInput({
       accrualDate,
       treasuryBookId: originTreasuryBookId,
       entries: originEntries,
+      note,
     }),
-    destination: addExchangeTransactionTransform({
+    destination: transformAddExchangeTransactionInput({
       accrualDate,
       treasuryBookId: destinationTreasuryBookId,
       entries: destinationEntries,
+      note,
     }),
   })
 

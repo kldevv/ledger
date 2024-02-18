@@ -18,7 +18,7 @@ export const CategoryDataTable: React.FC = () => {
 
   return (
     <Card>
-      <CategoryTable data={data?.getCategories ?? []} />
+      <CategoryTable data={data?.categories ?? []} />
     </Card>
   )
 }

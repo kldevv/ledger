@@ -48,7 +48,7 @@ export const YearDropdownFilter: React.FC<YearDropdownFilterProps> = ({
 
   const options = useMemo(() => {
     const options =
-      data?.getUniqueYears.map((year) => ({
+      data?.uniqueYears.map((year) => ({
         value: year,
         label: year.toString(),
       })) ?? []
@@ -70,7 +70,7 @@ export const YearDropdownFilter: React.FC<YearDropdownFilterProps> = ({
     convertedOptions.sort()
 
     return convertedOptions
-  }, [data?.getUniqueYears, disableAllYear, t])
+  }, [data?.uniqueYears, disableAllYear, t])
 
   return <DropdownFilter value={value} onChange={onChange} options={options} />
 }

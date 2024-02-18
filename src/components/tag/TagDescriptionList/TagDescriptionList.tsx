@@ -7,7 +7,7 @@ import type { GetTagDetailQuery } from '@/api/graphql'
 import type { DescriptionListItemProps } from '@/components/common'
 
 export type TagDescriptionListData = Exclude<
-  GetTagDetailQuery['getTag'],
+  GetTagDetailQuery['tag'],
   null | undefined
 >
 

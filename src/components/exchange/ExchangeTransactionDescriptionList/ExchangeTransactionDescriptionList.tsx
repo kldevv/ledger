@@ -30,7 +30,7 @@ export const ExchangeTransactionDescriptionList: React.FC<
   const { data } = useTreasuryBookContext()
 
   const items: DescriptionListItemProps[] = useMemo(() => {
-    const treasuryBook = data?.getTreasuryBooks.find(
+    const treasuryBook = data?.treasuryBooks.find(
       ({ id }) => id === treasuryBookId,
     )
 
@@ -56,7 +56,7 @@ export const ExchangeTransactionDescriptionList: React.FC<
         description: amount,
       },
     ]
-  }, [amount, data?.getTreasuryBooks, id, status, t, treasuryBookId])
+  }, [amount, data?.treasuryBooks, id, status, t, treasuryBookId])
 
   return <DescriptionList items={items} />
 }

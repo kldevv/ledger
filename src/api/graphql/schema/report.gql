@@ -14,14 +14,14 @@ type MonthlyAmount {
   amounts: [AmountOnMonth!]!
 }
 
-input GetMonthlyAmountInput {
+input MonthlyAmountInput {
   year: Int
   treasuryBookId: String!
   type: DateType!
   status: EntryStatus
 }
 
-input GetUniqueYearsInput {
+input UniqueYearsInput {
   treasuryBookId: String!
   type: DateType!
 }

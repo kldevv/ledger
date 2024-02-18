@@ -1,7 +1,7 @@
 import { AddEntryInput } from '@/api/graphql'
 import { CreateEntryProps } from '@/server/db/prisma/dao/transaction'
 
-export type AddEntryInputTransformProps = {
+export type TransformAddEntryInputProps = {
   /**
    * Transform graphql add entry input
    */
@@ -12,10 +12,10 @@ export type AddEntryInputTransformProps = {
   treasuryBookId: string
 }
 
-export const addEntryInputTransform = ({
+export const transformAddEntryInput = ({
   entry: { debit, credit, ...entry },
   treasuryBookId,
-}: AddEntryInputTransformProps): CreateEntryProps => {
+}: TransformAddEntryInputProps): CreateEntryProps => {
   return {
     ...entry,
     treasuryBookId,

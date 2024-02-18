@@ -51,7 +51,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
 
   const tagIdsOptions = useMemo(
     () =>
-      data?.getTags.map(({ id, name }) => ({ value: id, label: name })) ?? [],
+      data?.tags.map(({ id, name }) => ({ value: id, label: name })) ?? [],
     [data],
   )
 

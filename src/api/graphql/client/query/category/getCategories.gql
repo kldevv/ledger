@@ -1,5 +1,5 @@
-query getCategories($input: GetCategoriesInput!) {
-  getCategories(input: $input) {
+query categories($input: CategoriesInput!) {
+  categories(input: $input) {
     id
     name
     type

@@ -1,5 +1,5 @@
-query getAccounts($input: GetAccountsInput!) {
-  getAccounts(input: $input) {
+query accounts($input: AccountsInput!) {
+  accounts(input: $input) {
     ...AccountData
   }
 }

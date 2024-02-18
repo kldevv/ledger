@@ -28,32 +28,32 @@ export const UpdateAccountForm: React.FC = () => {
   const [updateAccount] = useUpdateAccountMutation()
 
   const values = useMemo(() => {
-    if (data?.getAccount == null) {
+    if (data?.account == null) {
       return undefined
     }
 
     return {
-      name: data.getAccount.name,
-      categoryId: data.getAccount.category?.id ?? '',
+      name: data.account.name,
+      categoryId: data.account.category?.id ?? '',
     }
-  }, [data?.getAccount])
+  }, [data?.account])
 
   const handleOnSubmit = useCallback(
     (values: UpsertAccountFormFieldValues) => {
-      if (data?.getAccount == null) {
+      if (data?.account == null) {
         return
       }
 
       void updateAccount({
         variables: {
           input: {
-            id: data.getAccount.id,
+            id: data.account.id,
             ...values,
           },
         },
       })
     },
-    [updateAccount, data?.getAccount],
+    [updateAccount, data?.account],
   )
 
   return (

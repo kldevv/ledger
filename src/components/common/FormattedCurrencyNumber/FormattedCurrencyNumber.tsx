@@ -25,17 +25,17 @@ export interface FormattedCurrencyNumberProps {
 export const FormattedCurrencyNumber: React.FC<
   FormattedCurrencyNumberProps
 > = ({ value, currency, className }) => {
-  const { selectedTreasuryBookId, data: { getTreasuryBooks } = {} } =
+  const { selectedTreasuryBookId, data: { treasuryBooks } = {} } =
     useTreasuryBookContext()
 
   const currencySymbol = useMemo(() => {
     const selectedCurrency = currency
       ? currency
-      : getTreasuryBooks?.find(({ id }) => id === selectedTreasuryBookId)
+      : treasuryBooks?.find(({ id }) => id === selectedTreasuryBookId)
           ?.currency
 
     return getCurrencySymbol(selectedCurrency)
-  }, [currency, getTreasuryBooks, selectedTreasuryBookId])
+  }, [currency, treasuryBooks, selectedTreasuryBookId])
 
   return (
     <div className={classNames('w-30 flex items-center', className)}>

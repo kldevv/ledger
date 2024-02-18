@@ -7,7 +7,7 @@ import type { GetAccountQuery } from '@/api/graphql'
 import type { DescriptionListItemProps } from '@/components/common'
 
 export type AccountDescriptionListData = Exclude<
-  GetAccountQuery['getAccount'],
+  GetAccountQuery['account'],
   null
 >
 

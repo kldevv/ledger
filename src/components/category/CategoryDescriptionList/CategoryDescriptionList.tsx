@@ -7,7 +7,7 @@ import type { GetCategoryQuery } from '@/api/graphql'
 import type { DescriptionListItemProps } from '@/components/common'
 
 export type CategoryDescriptionListData = Exclude<
-  GetCategoryQuery['getCategory'],
+  GetCategoryQuery['category'],
   null | undefined
 >
 

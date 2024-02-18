@@ -1,5 +1,5 @@
-query getAccount($input: GetAccountInput!) {
-  getAccount(input: $input) {
+query account($input: AccountInput!) {
+  account(input: $input) {
     id
     name
     category {

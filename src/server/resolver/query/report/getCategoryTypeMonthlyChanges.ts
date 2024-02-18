@@ -2,7 +2,7 @@ import { DateType, type QueryResolvers } from '@/api/graphql'
 
 import { monthlyChanges } from '../../transform'
 
-export const getCategoryTypeMonthlyChanges: QueryResolvers['getCategoryTypeMonthlyChanges'] =
+export const categoryTypeMonthlyChanges: QueryResolvers['categoryTypeMonthlyChanges'] =
   async (
     _,
     { input: { treasuryBookId, year, type, status } },

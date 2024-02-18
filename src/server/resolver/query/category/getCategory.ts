@@ -1,6 +1,6 @@
 import type { QueryResolvers } from '@/api/graphql'
 
-export const getCategory: QueryResolvers['getCategory'] = async (
+export const category: QueryResolvers['category'] = async (
   _,
   { input },
   { dataSources: { prisma } },

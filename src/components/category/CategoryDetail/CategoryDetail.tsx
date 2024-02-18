@@ -22,14 +22,14 @@ export const CategoryDetail: React.FC = () => {
 
   const { data } = useGetCategoryDetailQuery({
     variables: {
-      getCategoryInput: {
+      categoryInput: {
         id: categoryId ?? '',
       },
       entriesInput: {
         categoryId,
         treasuryBookId: selectedTreasuryBookId ?? '',
       },
-      getAccountsInput: {
+      accountsInput: {
         categoryId,
         treasuryBookId: selectedTreasuryBookId ?? '',
       },
@@ -38,23 +38,23 @@ export const CategoryDetail: React.FC = () => {
   })
 
   return (
-    data?.getCategory && (
+    data?.category && (
       <div>
         <CategoryDescriptionList
           data={{
-            ...data?.getCategory,
+            ...data?.category,
           }}
         />
-        <div className="mt-12 space-y-3 flex flex-col">
-          <h3 className="font-semibold text-dark-shades">
+        <div className="mt-12 flex flex-col space-y-3">
+          <h3 className="text-dark-shades font-semibold">
             {t`CategoryDetail.title.accounts`}
           </h3>
           <Card>
-            <AccountTable data={data?.getAccounts} />
+            <AccountTable data={data?.accounts} />
           </Card>
         </div>
-        <div className="mt-12 space-y-3 flex flex-col">
-          <h3 className="font-semibold text-dark-shades">
+        <div className="mt-12 flex flex-col space-y-3">
+          <h3 className="text-dark-shades font-semibold">
             {t`CategoryDetail.title.entries`}
           </h3>
           <EntryFilteredTable data={data?.entries} />

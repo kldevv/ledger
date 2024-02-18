@@ -28,31 +28,31 @@ export const UpdateTagForm: React.FC = () => {
   const [updateTag] = useUpdateTagMutation()
 
   const values = useMemo(() => {
-    if (data?.getTag == null) {
+    if (data?.tag == null) {
       return undefined
     }
 
     return {
-      name: data.getTag.name,
+      name: data.tag.name,
     }
-  }, [data?.getTag])
+  }, [data?.tag])
 
   const handleOnSubmit = useCallback(
     (values: UpsertTagFormFieldValues) => {
-      if (data?.getTag == null) {
+      if (data?.tag == null) {
         return
       }
 
       void updateTag({
         variables: {
           input: {
-            id: data.getTag.id,
+            id: data.tag.id,
             ...values,
           },
         },
       })
     },
-    [data?.getTag, updateTag],
+    [data?.tag, updateTag],
   )
 
   return (

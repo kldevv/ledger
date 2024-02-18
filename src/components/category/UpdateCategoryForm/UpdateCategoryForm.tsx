@@ -28,32 +28,32 @@ export const UpdateCategoryForm: React.FC = () => {
   const [updateCategory] = useUpdateCategoryMutation()
 
   const values = useMemo(() => {
-    if (data?.getCategory == null) {
+    if (data?.category == null) {
       return undefined
     }
 
     return {
-      name: data?.getCategory.name,
-      type: data?.getCategory.type,
+      name: data?.category.name,
+      type: data?.category.type,
     }
-  }, [data?.getCategory])
+  }, [data?.category])
 
   const handleOnSubmit = useCallback(
     (values: UpsertCategoryFormFieldValues) => {
-      if (data?.getCategory == null) {
+      if (data?.category == null) {
         return
       }
 
       void updateCategory({
         variables: {
           input: {
-            id: data.getCategory.id,
+            id: data.category.id,
             ...values,
           },
         },
       })
     },
-    [data?.getCategory, updateCategory],
+    [data?.category, updateCategory],
   )
 
   return (

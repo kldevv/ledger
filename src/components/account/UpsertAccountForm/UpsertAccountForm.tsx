@@ -67,7 +67,7 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
 
   const categoryOptions = useMemo(
     () =>
-      data?.getCategories.map(({ id, name }) => ({ value: id, label: name })) ??
+      data?.categories.map(({ id, name }) => ({ value: id, label: name })) ??
       [],
     [data],
   )

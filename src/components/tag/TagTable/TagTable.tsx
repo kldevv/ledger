@@ -8,7 +8,7 @@ import { route } from '@/lib'
 
 import type { GetTagsQuery } from '@/api/graphql'
 
-export type TagTableData = GetTagsQuery['getTags'][number]
+export type TagTableData = GetTagsQuery['tags'][number]
 
 export interface TagTableProps {
   /**

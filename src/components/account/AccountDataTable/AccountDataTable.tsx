@@ -18,7 +18,7 @@ export const AccountDataTable: React.FC = () => {
 
   return (
     <Card>
-      <AccountTable data={data?.getAccounts ?? []} />
+      <AccountTable data={data?.accounts ?? []} />
     </Card>
   )
 }

@@ -7,7 +7,7 @@ type TreasuryBook {
   updatedAt: DateTime!
 }
 
-input GetTreasuryBooksInput {
+input TreasuryBooksInput {
   ownerId: String!
   currency: Currency
 }

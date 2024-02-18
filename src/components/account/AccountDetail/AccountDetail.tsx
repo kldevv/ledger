@@ -19,7 +19,7 @@ export const AccountDetail: React.FC = () => {
 
   const { data } = useGetAccountDetailQuery({
     variables: {
-      getAccountInput: {
+      accountInput: {
         id: accountId ?? '',
       },
       entriesInput: {
@@ -31,15 +31,15 @@ export const AccountDetail: React.FC = () => {
   })
 
   return (
-    data?.getAccount && (
+    data?.account && (
       <div>
         <AccountDescriptionList
           data={{
-            ...data.getAccount,
+            ...data.account,
           }}
         />
         <div className="mt-12 flex flex-col space-y-3">
-          <h3 className="font-semibold text-dark-shades">
+          <h3 className="text-dark-shades font-semibold">
             {t`AccountDetail.title.entries`}
           </h3>
           <EntryFilteredTable data={data.entries} />

@@ -1,5 +1,5 @@
-query getAccountMonthlyBalance($input: GetMonthlyAmountInput!) {
-  getAccountMonthlyBalance(input: $input) {
+query accountMonthlyBalance($input: MonthlyAmountInput!) {
+  accountMonthlyBalance(input: $input) {
     ...MonthlyAmountData
   }
 }

@@ -35,7 +35,7 @@ export const InsertExchangeForm: React.FC = () => {
   )
 
   const values = useMemo(() => {
-    const firstAccount = accountsQueryData?.getAccounts.at(0)
+    const firstAccount = accountsQueryData?.accounts.at(0)
 
     if (firstAccount == null) {
       return undefined
@@ -55,14 +55,14 @@ export const InsertExchangeForm: React.FC = () => {
       ...addExchangeDefaultValues,
       origin: {
         ...transaction,
-        treasuryBookId: treasuryBookQueryData?.getTreasuryBooks.at(0)?.id ?? '',
+        treasuryBookId: treasuryBookQueryData?.treasuryBooks.at(0)?.id ?? '',
       },
       destination: {
         ...transaction,
-        treasuryBookId: treasuryBookQueryData?.getTreasuryBooks.at(1)?.id ?? '',
+        treasuryBookId: treasuryBookQueryData?.treasuryBooks.at(1)?.id ?? '',
       },
     }
-  }, [accountsQueryData?.getAccounts, treasuryBookQueryData?.getTreasuryBooks])
+  }, [accountsQueryData?.accounts, treasuryBookQueryData?.treasuryBooks])
 
   return (
     <UpsertExchangeForm

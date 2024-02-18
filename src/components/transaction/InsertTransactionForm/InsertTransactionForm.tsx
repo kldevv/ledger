@@ -31,7 +31,7 @@ export const InsertTransactionForm: React.FC = () => {
   })
 
   const values = useMemo(() => {
-    const firstAccount = data?.getAccounts.at(0)
+    const firstAccount = data?.accounts.at(0)
 
     if (firstAccount == null) {
       return undefined
@@ -48,7 +48,7 @@ export const InsertTransactionForm: React.FC = () => {
       tagIds: [],
       entries: [{ ...entry }, { ...entry }],
     }
-  }, [data?.getAccounts])
+  }, [data?.accounts])
 
   const handleOnSubmit = useCallback(
     (values: UpsertTransactionFormFieldValues) => {

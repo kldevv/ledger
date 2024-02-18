@@ -5,15 +5,17 @@ import type {
   GroupByMonthAndCategoryTypeReturns,
 } from '@/server/db/prisma/dao/entry'
 
-export const transform = (
-  prismaReturns:
-    | GroupByMonthAndAccountReturns
-    | GroupByMonthAndCategoryReturns
-    | GroupByMonthAndCategoryTypeReturns,
+export type TransformMonthlyChangesProps =
+  | GroupByMonthAndAccountReturns
+  | GroupByMonthAndCategoryReturns
+  | GroupByMonthAndCategoryTypeReturns
+
+export const transformMonthlyChanges = (
+  props: TransformMonthlyChangesProps,
 ): Array<MonthlyAmount> => {
   const mappings = new Map<string, [string, AmountOnMonth[]]>()
 
-  prismaReturns.forEach(({ id, name, month, debit, credit }) => {
+  props.forEach(({ id, name, month, debit, credit }) => {
     const amounts = {
       month,
       amount: {

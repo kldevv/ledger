@@ -53,18 +53,18 @@ export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
     control,
   })
 
-  const { selectedTreasuryBookId, data: { getTreasuryBooks } = {} } =
+  const { selectedTreasuryBookId, data: { treasuryBooks } = {} } =
     useTreasuryBookContext()
 
   const currencySymbol = useMemo(() => {
     const selectedCurrency =
       currency != null
         ? currency
-        : getTreasuryBooks?.find(({ id }) => id === selectedTreasuryBookId)
+        : treasuryBooks?.find(({ id }) => id === selectedTreasuryBookId)
             ?.currency
 
     return getCurrencySymbol(selectedCurrency)
-  }, [currency, getTreasuryBooks, selectedTreasuryBookId])
+  }, [currency, treasuryBooks, selectedTreasuryBookId])
 
   return (
     <div className="my-1 flex w-[12rem] flex-col">

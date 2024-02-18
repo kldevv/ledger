@@ -8,7 +8,7 @@ export const TreasuryBookDataTable: React.FC = () => {
 
   return (
     <Card>
-      <TreasuryBookTable data={data?.getTreasuryBooks ?? []} />
+      <TreasuryBookTable data={data?.treasuryBooks ?? []} />
     </Card>
   )
 }

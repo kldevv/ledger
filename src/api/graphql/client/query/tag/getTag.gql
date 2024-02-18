@@ -1,5 +1,5 @@
-query getTag($input: GetTagInput!) {
-  getTag(input: $input) {
+query tag($input: TagInput!) {
+  tag(input: $input) {
     ...TagData
   }
 }

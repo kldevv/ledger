@@ -8,7 +8,7 @@ import { route } from '@/lib'
 
 import type { GetAccountsQuery } from '@/api/graphql'
 
-export type AccountTableData = GetAccountsQuery['getAccounts'][number]
+export type AccountTableData = GetAccountsQuery['accounts'][number]
 
 export interface AccountTableProps {
   /**

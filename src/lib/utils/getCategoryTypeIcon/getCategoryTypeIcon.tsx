@@ -8,7 +8,7 @@ import { CategoryType } from '@/api/graphql'
 
 const iconCn = 'size-5'
 
-export const getCategoryTypeIcon = (type: CategoryType | undefined) => {
+export const categoryTypeIcon = (type: CategoryType | undefined) => {
   switch (type) {
     case CategoryType.ASSETS:
       return <BuildingOffice2Icon className={iconCn} />

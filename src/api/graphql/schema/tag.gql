@@ -18,10 +18,10 @@ input UpdateTagInput {
   name: String!
 }
 
-input GetTagInput {
+input TagInput {
   id: String!
 }
 
-input GetTagsInput {
+input TagsInput {
   treasuryBookId: String!
 }

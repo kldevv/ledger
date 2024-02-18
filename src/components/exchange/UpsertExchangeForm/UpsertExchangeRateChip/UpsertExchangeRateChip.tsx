@@ -24,7 +24,7 @@ export const UpsertExchangeRateChip: React.FC = () => {
             entries,
           }: UpsertExchangeFormFieldValues['destination' | 'origin']) => {
             const currency =
-              data?.getTreasuryBooks.find(({ id }) => id === treasuryBookId)
+              data?.treasuryBooks.find(({ id }) => id === treasuryBookId)
                 ?.currency ?? Currency.USD
 
             const amount = entries
@@ -34,7 +34,7 @@ export const UpsertExchangeRateChip: React.FC = () => {
             return { currency, amount }
           },
         ),
-    [data?.getTreasuryBooks, sources],
+    [data?.treasuryBooks, sources],
   )
 
   return (

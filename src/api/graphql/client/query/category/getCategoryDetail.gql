@@ -1,16 +1,16 @@
-query getCategoryDetail(
-  $getCategoryInput: GetCategoryInput!
-  $getAccountsInput: GetAccountsInput!
+query categoryDetail(
+  $categoryInput: CategoryInput!
+  $accountsInput: AccountsInput!
   $entriesInput: EntriesInput!
 ) {
-  getCategory(input: $getCategoryInput) {
+  category(input: $categoryInput) {
     id
     name
     type
     createdAt
     updatedAt
   }
-  getAccounts(input: $getAccountsInput) {
+  accounts(input: $accountsInput) {
     ...AccountData
   }
   entries(input: $entriesInput) {

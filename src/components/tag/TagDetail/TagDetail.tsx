@@ -19,7 +19,7 @@ export const TagDetail: React.FC = () => {
 
   const { data } = useGetTagDetailQuery({
     variables: {
-      getTagInput: { id: tagId ?? '' },
+      TagInput: { id: tagId ?? '' },
       TransactionsInput: {
         treasuryBookId: selectedTreasuryBookId ?? '',
         tagId,
@@ -29,9 +29,9 @@ export const TagDetail: React.FC = () => {
   })
 
   return (
-    data?.getTag && (
+    data?.tag && (
       <div>
-        <TagDescriptionList data={data?.getTag} />
+        <TagDescriptionList data={data?.tag} />
         <div className="mt-12 flex flex-col space-y-3">
           <h3 className="text-dark-shades font-semibold">
             {t`TagDetail.title.transactions`}
