@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 
 import { PageHeader, Layout } from '@/components/layout'
 import { TransactionDetails } from '@/components/transaction'
-import { route } from '@/lib'
+import { route } from '@/shared'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('transaction')

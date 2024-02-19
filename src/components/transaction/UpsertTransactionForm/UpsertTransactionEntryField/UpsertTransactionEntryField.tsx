@@ -13,7 +13,7 @@ import {
   AccountFormDropdown,
 } from '@/components/common'
 import { useAccountsContext } from '@/hooks'
-import { addEntryDefaultValues } from '@/lib'
+import { addEntryDefaultValues } from '@/shared'
 
 import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
 

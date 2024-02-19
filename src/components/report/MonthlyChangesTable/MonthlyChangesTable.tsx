@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { FormattedCurrencyNumber, Table } from '@/components/common'
-import { route } from '@/lib'
+import { route } from '@/shared'
 
 import type { MonthlyAmountDataFragment } from '@/api/graphql'
 

@@ -12,7 +12,7 @@ import {
   LinkButton,
 } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
-import { route } from '@/lib'
+import { route } from '@/shared'
 
 import type { GetTreasuryBooksQuery } from '@/api/graphql'
 

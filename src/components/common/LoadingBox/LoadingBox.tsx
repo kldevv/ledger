@@ -10,10 +10,7 @@ export interface LoadingBoxProps {
 export const LoadingBox: React.FC<LoadingBoxProps> = ({ className }) => {
   return (
     <div
-      className={classNames(
-        'bg-mid-gray h-6 w-32 animate-pulse rounded',
-        className,
-      )}
+      className={classNames('bg-loading-gray animate-pulse rounded', className)}
     />
   )
 }

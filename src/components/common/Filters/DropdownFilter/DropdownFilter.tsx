@@ -43,20 +43,20 @@ export const DropdownFilter = <TData extends string | number>({
       {({ open }) => (
         <>
           <Listbox.Button>
-            <div className="flex flex-auto py-2 px-4 rounded-md font-medium border border-mid-gray items-center">
-              <div className="whitespace-nowrap pr-12 overflow-hidden overflow-ellipsis text-dark-shades text-xs">
+            <div className="border-mid-gray flex flex-auto items-center rounded-md border px-4 py-2 font-medium">
+              <div className="text-dark-shades truncate pr-12 text-xs">
                 {displayValue}
               </div>
               <div className="text-gray">
                 {open ? (
-                  <ChevronUpIcon className="w-5 h-5" />
+                  <ChevronUpIcon className="size-5" />
                 ) : (
-                  <ChevronDownIcon className="w-5 h-5" />
+                  <ChevronDownIcon className="size-5" />
                 )}
               </div>
             </div>
           </Listbox.Button>
-          <Listbox.Options className="absolute z-30 px-4 mt-9 bg-white border border-mid-gray shadow rounded-md py-1 flex flex-col space-y-2 items-start justify-center">
+          <Listbox.Options className="border-mid-gray absolute z-30 mt-9 flex flex-col items-start justify-center space-y-2 rounded-md border bg-white px-4 py-1 shadow">
             {options.map(({ value, label }) => (
               <Listbox.Option key={value} value={value} as={React.Fragment}>
                 {({ active }) => (
@@ -66,7 +66,7 @@ export const DropdownFilter = <TData extends string | number>({
                       active ? 'text-light-accent' : 'text-dark-shades',
                     )}
                   >
-                    <div className="whitespace-nowrap pr-12 overflow-hidden overflow-ellipsis text-xs leading-6 font-medium text-left">
+                    <div className="truncate pr-12 text-left text-xs font-medium leading-6">
                       {label}
                     </div>
                   </li>

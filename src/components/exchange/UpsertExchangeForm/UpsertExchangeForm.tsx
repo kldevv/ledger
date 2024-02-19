@@ -9,14 +9,14 @@ import {
   SubmitButton,
 } from '@/components/common'
 import { useForm } from '@/hooks'
-import { addExchangeDefaultValues, addExchangeSchema } from '@/lib'
+import { addExchangeDefaultValues, addExchangeSchema } from '@/shared'
 
 import { UpsertExchangeRateChip } from './UpsertExchangeRateChip'
 import { UpsertExchangeTransaction } from './UpsertExchangeTransaction'
 
 import type { FormProps } from '@/components/common'
 import type { UseFormProps } from '@/hooks'
-import type { UpsertExchangeFormFieldValues } from '@/lib'
+import type { UpsertExchangeFormFieldValues } from '@/shared'
 
 export interface UpsertExchangeFormProps {
   /**

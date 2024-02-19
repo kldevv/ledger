@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 
 import { Layout, PageHeader } from '@/components/layout'
 import { TagDetail } from '@/components/tag'
-import { route } from '@/lib'
+import { route } from '@/shared'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('tag')

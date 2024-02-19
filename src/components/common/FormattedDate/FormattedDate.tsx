@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { formatDate } from '@/lib'
+import { formatDate } from '@/shared'
 
 export interface FormattedDateProps {
   /**

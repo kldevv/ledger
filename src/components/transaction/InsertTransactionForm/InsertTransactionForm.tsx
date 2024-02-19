@@ -11,7 +11,7 @@ import { UpsertTransactionForm } from '@/components/transaction'
 import { useTreasuryBookContext } from '@/hooks'
 
 import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
-import { addEntryDefaultValues } from '@/lib'
+import { addEntryDefaultValues } from '@/shared'
 
 export const InsertTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')

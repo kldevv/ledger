@@ -9,7 +9,7 @@ import {
   LinkButton,
   FormattedCurrencyNumber,
 } from '@/components/common'
-import { route } from '@/lib'
+import { route } from '@/shared'
 
 import type { TransactionsQuery } from '@/api/graphql'
 

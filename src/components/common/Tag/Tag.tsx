@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { route } from '@/lib'
+import { route } from '@/shared'
 
 export interface TagProps {
   /**
@@ -23,7 +23,7 @@ export const Tag: React.FC<TagProps> = ({ id, name }) => {
         },
       }}
     >
-      <div className="w-12 h-6 text-xs align-middle text-center whitespace-nowrap overflow-ellipsis overflow-hidden rounded-xl bg-light-accent py-1 px-1 text-light-shades">
+      <div className="bg-light-accent text-light-shades h-6 w-12 truncate rounded-xl p-1 text-center align-middle text-xs">
         {name}
       </div>
     </Link>

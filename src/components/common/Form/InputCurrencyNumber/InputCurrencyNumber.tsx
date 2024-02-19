@@ -6,7 +6,7 @@ import { NumericFormat } from 'react-number-format'
 
 import { ErrorMessage, InputCore, Label } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
-import { getCurrencySymbol } from '@/lib'
+import { getCurrencySymbol } from '@/shared'
 
 import type { Currency } from '@/api/graphql'
 import type { InputCoreProps } from '@/components/common'

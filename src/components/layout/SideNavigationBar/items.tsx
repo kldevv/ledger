@@ -10,7 +10,7 @@ import {
   TagIcon,
 } from '@heroicons/react/24/outline'
 
-import { route } from '@/lib'
+import { route } from '@/shared'
 
 import type {
   SideNavigationBarMenuItem,

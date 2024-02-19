@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { PageHeader, Layout } from '@/components/layout'
-import { route } from '@/lib'
+import { route } from '@/shared'
 import { TreasuryBookDetails } from '@/components/treasuryBook'
 
 const Page: React.FC = () => {

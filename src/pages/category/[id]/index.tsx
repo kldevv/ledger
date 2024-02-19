@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 
 import { CategoryDetail } from '@/components/category'
 import { PageHeader, Layout } from '@/components/layout'
-import { route } from '@/lib'
+import { route } from '@/shared'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('category')

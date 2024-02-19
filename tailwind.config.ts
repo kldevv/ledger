@@ -13,6 +13,7 @@ const config: Config = {
 
       // base color palette
       white: 'rgb(255, 255, 255)', // #FFFFFF
+      'loading-gray': 'rgb(38, 85, 115, 0.15)',
       'mid-gray': 'rgb(229, 231, 235)', // #E5E7EB
       gray: 'rgb(156, 163, 175)', // #9CA3AF
 
@@ -24,7 +25,7 @@ const config: Config = {
       'dark-shades': 'rgb(51, 48, 71)', // #333047
 
       // main halo color palette
-      'light-accent-halo': 'rgb(226, 126, 97, 0.1)', // #E27E61
+      'light-accent-halo': 'rgba(226, 126, 97, 0.1)', // #E27E61
 
       // rainbow color palette
       red: 'rgb(255, 96, 92)', // #FF605C

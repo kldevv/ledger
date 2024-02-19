@@ -1,4 +1,4 @@
-import { Card, LoadingBox } from '@/components/common'
+import { Card, LoadingBox } from '..'
 
 export type DescriptionListItem = {
   /**
@@ -24,8 +24,10 @@ export interface DescriptionListProps {
 
 export const DescriptionList: React.FC<DescriptionListProps> = ({
   items,
-  loading,
+  loading = true,
 }) => {
+  if (items.length === 0) return null
+
   return (
     <Card>
       <div className="w-full">
@@ -42,7 +44,7 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({
               </dt>
               <dd>
                 <div className="text-gray max-w-xs text-xs font-light leading-6">
-                  {loading ? <LoadingBox /> : description}
+                  {loading ? <LoadingBox className="h-3 w-36" /> : description}
                 </div>
               </dd>
             </div>

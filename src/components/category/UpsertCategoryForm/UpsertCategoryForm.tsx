@@ -7,11 +7,11 @@ import {
   CategoryTypeFormDropdown,
 } from '@/components/common'
 import { useForm } from '@/hooks'
-import { addCategorySchema, addCategorySchemaDefaultValues } from '@/lib'
+import { addCategorySchema, addCategorySchemaDefaultValues } from '@/shared'
 
 import type { FormProps } from '@/components/common'
 import type { UseFormProps } from '@/hooks'
-import type { UpsertCategoryFormFieldValues } from '@/lib'
+import type { UpsertCategoryFormFieldValues } from '@/shared'
 
 export interface UpsertCategoryFormProps {
   /**

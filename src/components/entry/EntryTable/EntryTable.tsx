@@ -9,7 +9,7 @@ import {
   Table,
   FormattedCurrencyNumber,
 } from '@/components/common'
-import { route } from '@/lib'
+import { route } from '@/shared'
 
 import type { EntriesQuery } from '@/api/graphql'
 

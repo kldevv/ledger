@@ -2,8 +2,8 @@ import classNames from 'classnames'
 import { useMemo } from 'react'
 
 import { useTreasuryBookContext } from '@/hooks'
-import { formatCurrencyNumber } from '@/lib'
-import { getCurrencySymbol } from '@/lib/utils/getCurrencySymbol/getCurrencySymbol'
+import { formatCurrencyNumber } from '@/shared'
+import { getCurrencySymbol } from '@/shared/utils/getCurrencySymbol/getCurrencySymbol'
 
 import type { Currency } from '@/api/graphql'
 

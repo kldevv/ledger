@@ -1,4 +1,4 @@
-import { getCurrencyIcon } from '@/lib'
+import { getCurrencyIcon } from '@/shared'
 
 import type { Currency } from '@/api/graphql'
 

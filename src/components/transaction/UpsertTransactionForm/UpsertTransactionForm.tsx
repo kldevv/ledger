@@ -5,7 +5,7 @@ import { useGetTagsQuery } from '@/api/graphql'
 import { Form, InputText, SubmitButton, Dropdown } from '@/components/common'
 import { InputDate } from '@/components/common/Form/InputDate'
 import { useForm, useTreasuryBookContext } from '@/hooks'
-import { addTransactionSchema } from '@/lib'
+import { addTransactionSchema } from '@/shared'
 
 import { UpsertTransactionEntryFieldArray } from './UpsertTransactionEntryFieldArray'
 

@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form'
 import { Currency } from '@/api/graphql'
 import { ExchangeRateChip } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
-import { parseNumberString, type UpsertExchangeFormFieldValues } from '@/lib'
+import { parseNumberString, type UpsertExchangeFormFieldValues } from '@/shared'
 
 export const UpsertExchangeRateChip: React.FC = () => {
   const { t } = useTranslation('exchange')

@@ -7,7 +7,7 @@ import { useTreasuryBookContext } from '@/hooks'
 
 import { UpsertExchangeTransactionEntryField } from '../UpsertExchangeTransactionEntryField'
 
-import type { UpsertExchangeFormFieldValues } from '@/lib'
+import type { UpsertExchangeFormFieldValues } from '@/shared'
 
 export interface UpsertExchangeTransactionEntryFieldArrayProps {
   /**

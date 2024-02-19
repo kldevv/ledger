@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next'
 
 import { NavigationBarItemLink } from '..'
 
-import type { Route } from '@/lib'
+import type { Route } from '@/shared'
 
 export interface SideNavigationBarMenuProps {
   /**

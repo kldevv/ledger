@@ -13,10 +13,10 @@ import {
   AccountFormDropdown,
 } from '@/components/common'
 import { useAccountsContext } from '@/hooks'
-import { addEntryDefaultValues } from '@/lib'
+import { addEntryDefaultValues } from '@/shared'
 
 import type { Currency } from '@/api/graphql'
-import type { UpsertExchangeFormFieldValues } from '@/lib'
+import type { UpsertExchangeFormFieldValues } from '@/shared'
 
 export interface UpsertExchangeTransactionEntryFieldProps {
   /**

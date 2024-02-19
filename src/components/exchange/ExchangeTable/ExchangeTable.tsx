@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 import { FormattedDate, Table, LinkButton } from '@/components/common'
 import { TreasuryBookDetailLink } from '@/components/treasuryBook'
-import { formatCurrencyNumber, route } from '@/lib'
+import { formatCurrencyNumber, route } from '@/shared'
 
 import type { ExchangesQuery } from '@/api/graphql'
 

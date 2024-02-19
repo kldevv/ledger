@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { parseNumberString } from '@/lib'
+import { parseNumberString } from '@/shared'
 
 export const numberSchema = z
   .union([z.string(), z.number()])

@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 
 import { Currency } from '@/api/graphql'
 import { CurrencyChip, Dropdown } from '@/components/common'
-import { getCurrencySymbol } from '@/lib'
+import { getCurrencySymbol } from '@/shared'
 
 export interface CurrencyFormDropdownProps<TFieldValues extends FieldValues> {
   /**

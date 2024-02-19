@@ -7,11 +7,11 @@ import {
   addEntryDefaultValues,
   addExchangeDefaultValues,
   addExchangeTransactionDefaultValues,
-} from '@/lib'
+} from '@/shared'
 
 import { UpsertExchangeForm } from '..'
 
-import type { UpsertExchangeFormFieldValues } from '@/lib'
+import type { UpsertExchangeFormFieldValues } from '@/shared'
 
 export const InsertExchangeForm: React.FC = () => {
   const { t } = useTranslation('exchange')

@@ -1,6 +1,6 @@
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 
-import { range } from '@/lib'
+import { range } from '@/shared'
 
 import { TableCell } from '..'
 import { LoadingBox } from '../..'

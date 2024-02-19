@@ -5,7 +5,7 @@ import { TreasuryBookFormDropdown } from '@/components/common'
 
 import { UpsertExchangeTransactionEntryFieldArray } from '../UpsertExchangeTransactionEntryFieldArray'
 
-import type { UpsertExchangeFormFieldValues } from '@/lib'
+import type { UpsertExchangeFormFieldValues } from '@/shared'
 
 export interface UpsertExchangeTransactionProps {
   /**

@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { FormattedDate, Table, LinkButton } from '@/components/common'
-import { route } from '@/lib'
+import { route } from '@/shared'
 
 import type { AccountsQuery } from '@/api/graphql'
 
