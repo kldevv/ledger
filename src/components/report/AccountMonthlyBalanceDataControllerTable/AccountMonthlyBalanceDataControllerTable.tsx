@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { DateType, useGetAccountMonthlyBalanceQuery } from '@/api/graphql'
+import { DateType, useAccountMonthlyBalanceQuery } from '@/api/graphql'
 import {
   Card,
   DateTypeRadioGroupFilter,
@@ -28,7 +28,7 @@ export const AccountMonthlyBalanceDataControllerTable: React.FC = () => {
     setDateTypeFilter(value)
   }, [])
 
-  const { data, loading } = useGetAccountMonthlyBalanceQuery({
+  const { data, loading } = useAccountMonthlyBalanceQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',

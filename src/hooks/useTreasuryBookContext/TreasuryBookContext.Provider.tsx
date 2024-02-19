@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 
-import { useGetTreasuryBooksQuery } from '@/api/graphql'
+import { useTreasuryBooksQuery } from '@/api/graphql'
 
 import { TreasuryBookContext } from './TreasuryBookContext'
 
@@ -19,7 +19,7 @@ export const TreasuryBookContextProvider: React.FC<
   const [selectedTreasuryBookId, setSelectedTreasuryBookId] =
     useState<TreasuryBookContext['selectedTreasuryBookId']>(undefined)
 
-  const { data, loading, error } = useGetTreasuryBooksQuery({
+  const { data, loading, error } = useTreasuryBooksQuery({
     variables: {
       input: {
         ownerId,

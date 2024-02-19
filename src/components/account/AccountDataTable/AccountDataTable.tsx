@@ -1,4 +1,4 @@
-import { useGetAccountsQuery } from '@/api/graphql'
+import { useAccountsQuery } from '@/api/graphql'
 import { Card } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
@@ -6,7 +6,7 @@ import { AccountTable } from '..'
 
 export const AccountDataTable: React.FC = () => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
-  const { data } = useGetAccountsQuery({
+  const { data } = useAccountsQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',

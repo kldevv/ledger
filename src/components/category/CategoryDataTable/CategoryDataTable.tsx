@@ -1,4 +1,4 @@
-import { useGetCategoriesQuery } from '@/api/graphql'
+import { useCategoriesQuery } from '@/api/graphql'
 import { CategoryTable } from '@/components/category'
 import { Card } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
@@ -6,7 +6,7 @@ import { useTreasuryBookContext } from '@/hooks'
 export const CategoryDataTable: React.FC = () => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
-  const { data } = useGetCategoriesQuery({
+  const { data } = useCategoriesQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',

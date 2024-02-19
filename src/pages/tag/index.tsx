@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 
 import { PageHeader, Layout } from '@/components/layout'
-import { TagDashboard } from '@/components/tag'
+import { TagDataTable } from '@/components/tag'
 import { route } from '@/lib'
 
 const Page: React.FC = () => {
@@ -15,7 +15,7 @@ const Page: React.FC = () => {
           label: t`page.index.action`,
         }}
       />
-      <TagDashboard />
+      <TagDataTable />
     </Layout>
   )
 }

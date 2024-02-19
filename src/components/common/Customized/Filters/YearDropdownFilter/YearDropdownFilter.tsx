@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { useGetUniqueYearsQuery } from '@/api/graphql'
+import { useUniqueYearsQuery } from '@/api/graphql'
 import { useTreasuryBookContext } from '@/hooks'
 
 import { DropdownFilter } from '../../../Filters'
@@ -36,7 +36,7 @@ export const YearDropdownFilter: React.FC<YearDropdownFilterProps> = ({
   const { t } = useTranslation('common')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
-  const { data } = useGetUniqueYearsQuery({
+  const { data } = useUniqueYearsQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',

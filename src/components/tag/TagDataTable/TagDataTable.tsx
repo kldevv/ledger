@@ -1,12 +1,12 @@
-import { useGetTagsQuery } from '@/api/graphql'
+import { useTagsQuery } from '@/api/graphql'
 import { Card } from '@/components/common'
 import { TagTable } from '@/components/tag'
 import { useTreasuryBookContext } from '@/hooks'
 
-export const TagDashboard: React.FC = () => {
+export const TagDataTable: React.FC = () => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
-  const { data } = useGetTagsQuery({
+  const { data } = useTagsQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',

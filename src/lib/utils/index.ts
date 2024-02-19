@@ -1,6 +1,6 @@
 export * from './formatCurrencyNumber'
 export * from './formatDate'
-export * from './categoryTypeIcon'
+export * from './getCategoryTypeIcon'
 export * from './getCurrencyIcon'
 export * from './getCurrencySymbol'
 export * from './parseNumberString'

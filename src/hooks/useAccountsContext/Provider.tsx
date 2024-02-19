@@ -1,4 +1,4 @@
-import { useGetAccountsQuery } from '@/api/graphql'
+import { useAccountsQuery } from '@/api/graphql'
 import { useTreasuryBookContext } from '@/hooks'
 
 import { AccountsContext } from './Context'
@@ -15,7 +15,7 @@ export const AccountsContextProvider: React.FC<
 > = ({ children }) => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
-  const result = useGetAccountsQuery({
+  const result = useAccountsQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',
