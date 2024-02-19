@@ -5,7 +5,7 @@ export const updateCategory: MutationResolvers['updateCategory'] = async (
   { input: { id, ...data } },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.category.updateOne({
+  return await prisma.category.updateCategory({
     id,
     data,
   })

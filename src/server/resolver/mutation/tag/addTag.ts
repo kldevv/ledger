@@ -6,7 +6,7 @@ export const addTag: MutationResolvers['addTag'] = async (
   { input },
   { dataSources: { prisma } },
 ) => {
-  const tag = await prisma.tag.createOne({
+  const tag = await prisma.tag.createTag({
     ...input,
     type: TagType.CUSTOM,
   })

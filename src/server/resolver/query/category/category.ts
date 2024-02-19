@@ -5,5 +5,5 @@ export const category: QueryResolvers['category'] = async (
   { input },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.category.readOne(input)
+  return await prisma.category.findCategory(input)
 }

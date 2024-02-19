@@ -5,5 +5,5 @@ export const addTreasuryBook: MutationResolvers['addTreasuryBook'] = async (
   { input },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.treasuryBook.createOne(input)
+  return await prisma.treasuryBook.createTreasuryBook(input)
 }

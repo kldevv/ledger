@@ -5,5 +5,5 @@ export const account: QueryResolvers['account'] = async (
   { input: { id } },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.account.readOne({ id })
+  return await prisma.account.findAccount({ id })
 }

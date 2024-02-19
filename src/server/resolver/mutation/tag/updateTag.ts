@@ -6,7 +6,7 @@ export const updateTag: MutationResolvers['updateTag'] = async (
   { input: { id, ...data } },
   { dataSources: { prisma } },
 ) => {
-  const tag = await prisma.tag.updateOne({
+  const tag = await prisma.tag.updateTag({
     id,
     data,
   })

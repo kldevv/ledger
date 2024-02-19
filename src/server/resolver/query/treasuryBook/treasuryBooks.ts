@@ -5,7 +5,7 @@ export const treasuryBooks: QueryResolvers['treasuryBooks'] = async (
   { input: { ownerId, currency } },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.treasuryBook.readMany({
+  return await prisma.treasuryBook.findTreasuryBooks({
     ownerId,
     currency: currency ?? undefined,
   })

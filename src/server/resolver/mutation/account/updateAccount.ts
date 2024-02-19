@@ -5,7 +5,7 @@ export const updateAccount: MutationResolvers['updateAccount'] = async (
   { input: { id, ...data } },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.account.updateOne({
+  return await prisma.account.updateAccount({
     id,
     data,
   })

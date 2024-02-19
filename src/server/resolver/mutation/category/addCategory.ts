@@ -5,5 +5,5 @@ export const addCategory: MutationResolvers['addCategory'] = async (
   { input },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.category.createOne(input)
+  return await prisma.category.createCategory(input)
 }

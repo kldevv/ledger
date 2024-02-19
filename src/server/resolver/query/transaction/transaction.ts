@@ -6,7 +6,7 @@ export const transaction: QueryResolvers['transaction'] = async (
   { input: { id } },
   { dataSources: { prisma } },
 ) => {
-  const transaction = await prisma.transaction.readOne({ id })
+  const transaction = await prisma.transaction.findTransaction({ id })
 
   if (transaction == null) return null
 

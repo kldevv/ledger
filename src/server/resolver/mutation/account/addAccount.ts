@@ -5,5 +5,5 @@ export const addAccount: MutationResolvers['addAccount'] = async (
   { input },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.account.createOne(input)
+  return await prisma.account.createAccount(input)
 }
