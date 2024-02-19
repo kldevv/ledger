@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { useGetAccountDetailQuery } from '@/api/graphql'
+import { useAccountDetailQuery } from '@/api/graphql'
 import { AccountDescriptionList } from '@/components/account'
 import { EntryFilteredTable } from '@/components/entry'
 import { useTreasuryBookContext } from '@/hooks'
@@ -17,7 +17,7 @@ export const AccountDetail: React.FC = () => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
 
-  const { data } = useGetAccountDetailQuery({
+  const { data } = useAccountDetailQuery({
     variables: {
       accountInput: {
         id: accountId ?? '',

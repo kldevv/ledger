@@ -902,7 +902,7 @@ export type AccountDetailQueryVariables = Exact<{
 }>;
 
 
-export type AccountDetailQuery = { __typename?: 'Query', account?: { __typename?: 'Account', updatedAt: Date, id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type AccountDetailQuery = { __typename?: 'Query', account?: { __typename?: 'Account', updatedAt: Date, id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
 export type AccountsQueryVariables = Exact<{
   input: AccountsInput;
@@ -1556,26 +1556,11 @@ export const AccountDetailDocument = gql`
     updatedAt
   }
   entries(input: $entriesInput) {
-    id
-    treasuryBookId
-    transactionDate
-    debit
-    credit
-    memo
-    account {
-      id
-      name
-      category {
-        id
-        name
-        type
-      }
-    }
-    transactionId
-    status
+    ...EntryData
   }
 }
-    ${AccountDataFragmentDoc}`;
+    ${AccountDataFragmentDoc}
+${EntryDataFragmentDoc}`;
 
 /**
  * __useAccountDetailQuery__

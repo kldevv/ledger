@@ -7,22 +7,6 @@ query accountDetail(
     updatedAt
   }
   entries(input: $entriesInput) {
-    id
-    treasuryBookId
-    transactionDate
-    debit
-    credit
-    memo
-    account {
-      id
-      name
-      category {
-        id
-        name
-        type
-      }
-    }
-    transactionId
-    status
+    ...EntryData
   }
 }
