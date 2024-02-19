@@ -1,7 +1,3 @@
-// import { EntryStatus } from '@/api/graphql'
-
-// import { EntryStatusChip, FormattedDate } from '..'
-
 import { DescriptionList } from './DescriptionList'
 
 import type { Meta, StoryObj } from '@storybook/react'
@@ -21,7 +17,6 @@ export const Primary: Story = {
         description: 'Random Name',
       },
     ],
-    loading: false,
   },
 }
 

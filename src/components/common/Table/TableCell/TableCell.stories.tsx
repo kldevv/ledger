@@ -10,9 +10,9 @@ export default meta
 type Story = StoryObj<typeof TableCell>
 
 export const WhiteBackground: Story = {
-  args: { children: 'Any Text' },
+  args: { children: 'Table Cell' },
 }
 
 export const GrayBackground: Story = {
-  args: { children: 'Any Text', variant: 'gray' },
+  args: { ...WhiteBackground.args, variant: 'gray' },
 }

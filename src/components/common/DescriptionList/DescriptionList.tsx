@@ -24,7 +24,7 @@ export interface DescriptionListProps {
 
 export const DescriptionList: React.FC<DescriptionListProps> = ({
   items,
-  loading = true,
+  loading = false,
 }) => {
   if (items.length === 0) return null
 

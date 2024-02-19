@@ -1,4 +1,6 @@
-import { forwardRef, useMemo } from 'react'
+import { forwardRef } from 'react'
+
+import { LoadingBox } from '..'
 
 export interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
   /**
@@ -9,19 +11,17 @@ export interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
 
 export const Button: React.FC<ButtonProps> = forwardRef(
   ({ children, loading = false, disabled = false, onClick, ...props }, ref) => {
-    const isDisabled = useMemo(() => {
-      return loading || disabled
-    }, [loading, disabled])
+    if (loading) return <LoadingBox className="h-6 w-32" />
 
     return (
       <button
         ref={ref}
-        disabled={isDisabled}
-        onClick={isDisabled ? undefined : onClick}
+        disabled={disabled}
+        onClick={disabled ? undefined : onClick}
         type="button"
         {...props}
       >
-        {loading ? <span>loading</span> : <span>{children}</span>}
+        {children}
       </button>
     )
   },
