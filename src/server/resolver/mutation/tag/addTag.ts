@@ -1,9 +1,15 @@
-import type { MutationResolvers } from '@/api/graphql'
+import { TagType, type MutationResolvers } from '@/api/graphql'
+import { transformTag } from '../../transform'
 
 export const addTag: MutationResolvers['addTag'] = async (
   _,
   { input },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.tag.createOne(input)
+  const tag = await prisma.tag.createOne({
+    ...input,
+    type: TagType.CUSTOM,
+  })
+
+  return transformTag(tag)
 }

@@ -1,8 +1,8 @@
 import { DateType, type QueryResolvers } from '@/api/graphql'
 
-import { monthlyBalance } from '../../transform'
+import { transformMonthlyBalance } from '../../transform'
 
-export const categoryMonthlyBalance: QueryResolvers['categoryMonthlyBalance'] =
+export const accountMonthlyBalance: QueryResolvers['accountMonthlyBalance'] =
   async (
     _,
     { input: { treasuryBookId, year, type, status } },
@@ -16,15 +16,15 @@ export const categoryMonthlyBalance: QueryResolvers['categoryMonthlyBalance'] =
 
     const changes =
       type === DateType.TRANSACTION
-        ? await prisma.entry.groupByMonthAndCategory(changeInput)
-        : await prisma.transaction.groupByMonthAndCategory(changeInput)
+        ? await prisma.entry.groupByMonthAndAccount(changeInput)
+        : await prisma.transaction.groupByMonthAndAccount(changeInput)
 
     const balanceInput = { ...changeInput, year: changeInput.year - 1 }
 
-    const balance =
+    const init =
       type === DateType.TRANSACTION
-        ? await prisma.entry.groupByCategory(balanceInput)
-        : await prisma.transaction.groupByCategory(balanceInput)
+        ? await prisma.entry.groupByAccount(balanceInput)
+        : await prisma.transaction.groupByAccount(balanceInput)
 
-    return monthlyBalance.transform(balance, changes)
+    return transformMonthlyBalance({ init, changes })
   }

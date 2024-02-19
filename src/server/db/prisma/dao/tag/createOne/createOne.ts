@@ -13,6 +13,13 @@ export const createOne = async (data: CreateOneProps) => {
   try {
     return await prisma.tag.create({
       data,
+      include: {
+        _count: {
+          select: {
+            transactions: true,
+          },
+        },
+      },
     })
   } catch (e) {
     logger.log({

@@ -1,9 +1,14 @@
 import type { QueryResolvers } from '@/api/graphql'
+import { transformTransaction } from '../../transform'
 
 export const transaction: QueryResolvers['transaction'] = async (
   _,
   { input: { id } },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.transaction.readOne({ id })
+  const transaction = await prisma.transaction.readOne({ id })
+
+  if (transaction == null) return null
+
+  return transformTransaction(transaction)
 }

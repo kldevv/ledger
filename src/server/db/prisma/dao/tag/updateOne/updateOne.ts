@@ -18,6 +18,13 @@ export const updateOne = async ({ id, data }: UpdateOneProps) => {
         id,
       },
       data,
+      include: {
+        _count: {
+          select: {
+            transactions: true,
+          },
+        },
+      },
     })
   } catch (e) {
     logger.log({

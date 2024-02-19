@@ -78,7 +78,6 @@ export type AddExchangeTransactionInput = {
 export type AddTagInput = {
   name: Scalars['String']['input'];
   treasuryBookId: Scalars['String']['input'];
-  type: TagType;
 };
 
 export type AddTransactionInput = {

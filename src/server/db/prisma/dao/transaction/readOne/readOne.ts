@@ -12,6 +12,12 @@ export const readOne = async (where: ReadOneProps) => {
       where,
       include: {
         tags: true,
+        entries: {
+          select: {
+            amount: true,
+            status: true,
+          },
+        },
       },
     })
   } catch (e) {

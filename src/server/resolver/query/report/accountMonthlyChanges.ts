@@ -1,6 +1,5 @@
 import { DateType, type QueryResolvers } from '@/api/graphql'
-
-import { monthlyChanges } from '../../transform'
+import { transformMonthlyChanges } from '../../transform'
 
 export const accountMonthlyChanges: QueryResolvers['accountMonthlyChanges'] =
   async (
@@ -19,5 +18,5 @@ export const accountMonthlyChanges: QueryResolvers['accountMonthlyChanges'] =
         ? await prisma.entry.groupByMonthAndAccount(input)
         : await prisma.transaction.groupByMonthAndAccount(input)
 
-    return monthlyChanges.transform(prismaReturns)
+    return transformMonthlyChanges(prismaReturns)
   }

@@ -1,7 +1,4 @@
-import {
-  transformFromPrismaEntries,
-  transformToPrismaEntries,
-} from '@/server/resolver/transform'
+import { transformAddEntryInput } from '@/server/resolver/transform'
 
 import type { MutationResolvers } from '@/api/graphql'
 
@@ -15,8 +12,8 @@ export const updateTransaction: MutationResolvers['updateTransaction'] = async (
     treasuryBookId,
     data: {
       ...data,
-      entries: transformToPrismaEntries(
-        entries.map((entry) => ({ treasuryBookId, ...entry })),
+      entries: entries.map((entry) =>
+        transformAddEntryInput({ entry, treasuryBookId }),
       ),
     },
   })
