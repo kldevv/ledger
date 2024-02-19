@@ -1,6 +1,6 @@
 export * from './AccountDataTable'
 export * from './AccountDescriptionList'
-export * from './AccountDetail'
+export * from './AccountDetails'
 export * from './AccountTable'
 export * from './InsertAccountFrom'
 export * from './UpdateAccountForm'

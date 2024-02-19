@@ -3,13 +3,10 @@ import { useMemo } from 'react'
 
 import { DescriptionList, FormattedDate } from '@/components/common'
 
-import type { GetAccountQuery } from '@/api/graphql'
-import type { DescriptionListItemProps } from '@/components/common'
+import type { AccountQuery } from '@/api/graphql'
+import type { DescriptionListItem } from '@/components/common'
 
-export type AccountDescriptionListData = Exclude<
-  GetAccountQuery['account'],
-  null
->
+export type AccountDescriptionListData = Exclude<AccountQuery['account'], null>
 
 export interface AccountDescriptionListProps {
   /**
@@ -23,7 +20,7 @@ export const AccountDescriptionList: React.FC<AccountDescriptionListProps> = ({
 }) => {
   const { t } = useTranslation('account')
 
-  const items: DescriptionListItemProps[] = useMemo(
+  const items: DescriptionListItem[] = useMemo(
     () => [
       {
         title: t('AccountDescriptionList.title.id'),

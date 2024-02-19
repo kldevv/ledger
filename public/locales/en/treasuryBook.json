@@ -5,12 +5,20 @@
       "currency": "Currency",
       "createdAt": "Create Date"
     },
-
     "button": {
       "select": "Select"
     },
     "link": {
       "view": "View"
+    }
+  },
+  "TreasuryBookDescriptionList": {
+    "title": {
+      "id": "ID",
+      "name": "Name",
+      "currency": "Currency",
+      "updatedAt": "Update Date",
+      "createdAt": "Create Date"
     }
   },
   "UpsertTreasuryBookForm": {

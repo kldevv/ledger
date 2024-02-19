@@ -6,9 +6,9 @@ import { useMemo } from 'react'
 import { FormattedDate, Table, LinkButton } from '@/components/common'
 import { route } from '@/lib'
 
-import type { GetAccountsQuery } from '@/api/graphql'
+import type { AccountsQuery } from '@/api/graphql'
 
-export type AccountTableData = GetAccountsQuery['accounts'][number]
+export type AccountTableData = AccountsQuery['accounts'][number]
 
 export interface AccountTableProps {
   /**

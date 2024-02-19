@@ -5,7 +5,7 @@ import toast from 'react-hot-toast'
 import {
   EntryStatus,
   useAddTransactionMutation,
-  useGetAccountsQuery,
+  useAccountsQuery,
 } from '@/api/graphql'
 import { UpsertTransactionForm } from '@/components/transaction'
 import { useTreasuryBookContext } from '@/hooks'
@@ -21,7 +21,7 @@ export const InsertTransactionForm: React.FC = () => {
     onCompleted: () => toast.success('Successfully added'),
   })
 
-  const { data } = useGetAccountsQuery({
+  const { data } = useAccountsQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',

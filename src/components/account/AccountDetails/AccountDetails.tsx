@@ -7,7 +7,7 @@ import { AccountDescriptionList } from '@/components/account'
 import { EntryFilteredTable } from '@/components/entry'
 import { useTreasuryBookContext } from '@/hooks'
 
-export const AccountDetail: React.FC = () => {
+export const AccountDetails: React.FC = () => {
   const router = useRouter()
   const { t } = useTranslation('account')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
@@ -40,7 +40,7 @@ export const AccountDetail: React.FC = () => {
         />
         <div className="mt-12 flex flex-col space-y-3">
           <h3 className="text-dark-shades font-semibold">
-            {t`AccountDetail.title.entries`}
+            {t`AccountDetails.title.entries`}
           </h3>
           <EntryFilteredTable data={data.entries} />
         </div>

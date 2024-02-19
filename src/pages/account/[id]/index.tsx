@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { AccountDetail } from '@/components/account'
+import { AccountDetails } from '@/components/account'
 import { PageHeader, Layout } from '@/components/layout'
 import { route } from '@/lib'
 
@@ -20,7 +20,7 @@ const Page: React.FC = () => {
           label: t('page.[id].index.action'),
         }}
       />
-      <AccountDetail />
+      <AccountDetails />
     </Layout>
   )
 }

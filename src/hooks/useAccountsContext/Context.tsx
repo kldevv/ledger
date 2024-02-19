@@ -1,9 +1,9 @@
 import { createContext } from 'react'
 
-import type { GetAccountsQueryResult } from '@/api/graphql'
+import type { AccountsQueryResult } from '@/api/graphql'
 
 export type AccountsContext = Pick<
-  GetAccountsQueryResult,
+  AccountsQueryResult,
   'data' | 'loading' | 'error'
 >
 
