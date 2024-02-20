@@ -1,4 +1,4 @@
-query accountMonthlyChanges($input: MonthlyAmountInput!) {
+query AccountMonthlyChanges($input: MonthlyAmountInput!) {
   accountMonthlyChanges(input: $input) {
     ...MonthlyAmountData
   }

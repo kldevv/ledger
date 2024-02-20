@@ -1,3 +1,0 @@
-query uniqueYears($input: UniqueYearsInput!) {
-  uniqueYears(input: $input)
-}

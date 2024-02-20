@@ -1,0 +1,6 @@
+query Category($input: CategoryInput!) {
+  category(input: $input) {
+    ...CategoryData
+    updatedAt
+  }
+}

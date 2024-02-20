@@ -1,0 +1,6 @@
+query Categories($input: CategoriesInput!) {
+  categories(input: $input) {
+    ...CategoryData
+    accountCount
+  }
+}

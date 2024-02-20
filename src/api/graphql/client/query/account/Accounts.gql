@@ -1,4 +1,4 @@
-query accounts($input: AccountsInput!) {
+query Accounts($input: AccountsInput!) {
   accounts(input: $input) {
     ...AccountData
   }

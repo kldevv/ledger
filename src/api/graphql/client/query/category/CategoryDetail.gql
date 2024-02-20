@@ -1,0 +1,16 @@
+query CategoryDetail(
+  $categoryInput: CategoryInput!
+  $accountsInput: AccountsInput!
+  $entriesInput: EntriesInput!
+) {
+  category(input: $categoryInput) {
+    ...CategoryData
+    updatedAt
+  }
+  accounts(input: $accountsInput) {
+    ...AccountData
+  }
+  entries(input: $entriesInput) {
+    ...EntryData
+  }
+}

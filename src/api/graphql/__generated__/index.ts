@@ -809,6 +809,8 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 
 export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null };
 
+export type CategoryDataFragment = { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date };
+
 export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null };
 
 export type ExchangeDataFragment = { __typename?: 'Exchange', id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } };
@@ -916,14 +918,14 @@ export type CategoriesQueryVariables = Exact<{
 }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string, type: CategoryType, accountCount?: number | null, treasuryBookId: string, createdAt: Date, updatedAt: Date }> };
+export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', accountCount?: number | null, id: string, name: string, type: CategoryType, createdAt: Date }> };
 
 export type CategoryQueryVariables = Exact<{
   input: CategoryInput;
 }>;
 
 
-export type CategoryQuery = { __typename?: 'Query', category?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date, updatedAt: Date } | null };
+export type CategoryQuery = { __typename?: 'Query', category?: { __typename?: 'Category', updatedAt: Date, id: string, name: string, type: CategoryType, createdAt: Date } | null };
 
 export type CategoryDetailQueryVariables = Exact<{
   categoryInput: CategoryInput;
@@ -932,7 +934,7 @@ export type CategoryDetailQueryVariables = Exact<{
 }>;
 
 
-export type CategoryDetailQuery = { __typename?: 'Query', category?: { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date, updatedAt: Date } | null, accounts: Array<{ __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }>, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, transactionId: string, status: EntryStatus, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type CategoryDetailQuery = { __typename?: 'Query', category?: { __typename?: 'Category', updatedAt: Date, id: string, name: string, type: CategoryType, createdAt: Date } | null, accounts: Array<{ __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }>, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
 
 export type EntriesQueryVariables = Exact<{
   input: EntriesInput;
@@ -1058,6 +1060,14 @@ export const AccountDataFragmentDoc = gql`
   }
   name
   entryCount
+  createdAt
+}
+    `;
+export const CategoryDataFragmentDoc = gql`
+    fragment CategoryData on Category {
+  id
+  name
+  type
   createdAt
 }
     `;
@@ -1503,7 +1513,7 @@ export type AddTreasuryBookMutationHookResult = ReturnType<typeof useAddTreasury
 export type AddTreasuryBookMutationResult = Apollo.MutationResult<AddTreasuryBookMutation>;
 export type AddTreasuryBookMutationOptions = Apollo.BaseMutationOptions<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>;
 export const AccountDocument = gql`
-    query account($input: AccountInput!) {
+    query Account($input: AccountInput!) {
   account(input: $input) {
     id
     name
@@ -1550,7 +1560,7 @@ export type AccountLazyQueryHookResult = ReturnType<typeof useAccountLazyQuery>;
 export type AccountSuspenseQueryHookResult = ReturnType<typeof useAccountSuspenseQuery>;
 export type AccountQueryResult = Apollo.QueryResult<AccountQuery, AccountQueryVariables>;
 export const AccountDetailDocument = gql`
-    query accountDetail($accountInput: AccountInput!, $entriesInput: EntriesInput!) {
+    query AccountDetail($accountInput: AccountInput!, $entriesInput: EntriesInput!) {
   account(input: $accountInput) {
     ...AccountData
     updatedAt
@@ -1596,7 +1606,7 @@ export type AccountDetailLazyQueryHookResult = ReturnType<typeof useAccountDetai
 export type AccountDetailSuspenseQueryHookResult = ReturnType<typeof useAccountDetailSuspenseQuery>;
 export type AccountDetailQueryResult = Apollo.QueryResult<AccountDetailQuery, AccountDetailQueryVariables>;
 export const AccountsDocument = gql`
-    query accounts($input: AccountsInput!) {
+    query Accounts($input: AccountsInput!) {
   accounts(input: $input) {
     ...AccountData
   }
@@ -1636,18 +1646,13 @@ export type AccountsLazyQueryHookResult = ReturnType<typeof useAccountsLazyQuery
 export type AccountsSuspenseQueryHookResult = ReturnType<typeof useAccountsSuspenseQuery>;
 export type AccountsQueryResult = Apollo.QueryResult<AccountsQuery, AccountsQueryVariables>;
 export const CategoriesDocument = gql`
-    query categories($input: CategoriesInput!) {
+    query Categories($input: CategoriesInput!) {
   categories(input: $input) {
-    id
-    name
-    type
+    ...CategoryData
     accountCount
-    treasuryBookId
-    createdAt
-    updatedAt
   }
 }
-    `;
+    ${CategoryDataFragmentDoc}`;
 
 /**
  * __useCategoriesQuery__
@@ -1682,16 +1687,13 @@ export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQ
 export type CategoriesSuspenseQueryHookResult = ReturnType<typeof useCategoriesSuspenseQuery>;
 export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
 export const CategoryDocument = gql`
-    query category($input: CategoryInput!) {
+    query Category($input: CategoryInput!) {
   category(input: $input) {
-    id
-    name
-    type
-    createdAt
+    ...CategoryData
     updatedAt
   }
 }
-    `;
+    ${CategoryDataFragmentDoc}`;
 
 /**
  * __useCategoryQuery__
@@ -1726,38 +1728,21 @@ export type CategoryLazyQueryHookResult = ReturnType<typeof useCategoryLazyQuery
 export type CategorySuspenseQueryHookResult = ReturnType<typeof useCategorySuspenseQuery>;
 export type CategoryQueryResult = Apollo.QueryResult<CategoryQuery, CategoryQueryVariables>;
 export const CategoryDetailDocument = gql`
-    query categoryDetail($categoryInput: CategoryInput!, $accountsInput: AccountsInput!, $entriesInput: EntriesInput!) {
+    query CategoryDetail($categoryInput: CategoryInput!, $accountsInput: AccountsInput!, $entriesInput: EntriesInput!) {
   category(input: $categoryInput) {
-    id
-    name
-    type
-    createdAt
+    ...CategoryData
     updatedAt
   }
   accounts(input: $accountsInput) {
     ...AccountData
   }
   entries(input: $entriesInput) {
-    id
-    treasuryBookId
-    transactionDate
-    debit
-    credit
-    memo
-    account {
-      id
-      name
-      category {
-        id
-        name
-        type
-      }
-    }
-    transactionId
-    status
+    ...EntryData
   }
 }
-    ${AccountDataFragmentDoc}`;
+    ${CategoryDataFragmentDoc}
+${AccountDataFragmentDoc}
+${EntryDataFragmentDoc}`;
 
 /**
  * __useCategoryDetailQuery__
@@ -1920,7 +1905,7 @@ export type ExchangesLazyQueryHookResult = ReturnType<typeof useExchangesLazyQue
 export type ExchangesSuspenseQueryHookResult = ReturnType<typeof useExchangesSuspenseQuery>;
 export type ExchangesQueryResult = Apollo.QueryResult<ExchangesQuery, ExchangesQueryVariables>;
 export const AccountMonthlyBalanceDocument = gql`
-    query accountMonthlyBalance($input: MonthlyAmountInput!) {
+    query AccountMonthlyBalance($input: MonthlyAmountInput!) {
   accountMonthlyBalance(input: $input) {
     ...MonthlyAmountData
   }
@@ -1960,7 +1945,7 @@ export type AccountMonthlyBalanceLazyQueryHookResult = ReturnType<typeof useAcco
 export type AccountMonthlyBalanceSuspenseQueryHookResult = ReturnType<typeof useAccountMonthlyBalanceSuspenseQuery>;
 export type AccountMonthlyBalanceQueryResult = Apollo.QueryResult<AccountMonthlyBalanceQuery, AccountMonthlyBalanceQueryVariables>;
 export const AccountMonthlyChangesDocument = gql`
-    query accountMonthlyChanges($input: MonthlyAmountInput!) {
+    query AccountMonthlyChanges($input: MonthlyAmountInput!) {
   accountMonthlyChanges(input: $input) {
     ...MonthlyAmountData
   }
@@ -2000,7 +1985,7 @@ export type AccountMonthlyChangesLazyQueryHookResult = ReturnType<typeof useAcco
 export type AccountMonthlyChangesSuspenseQueryHookResult = ReturnType<typeof useAccountMonthlyChangesSuspenseQuery>;
 export type AccountMonthlyChangesQueryResult = Apollo.QueryResult<AccountMonthlyChangesQuery, AccountMonthlyChangesQueryVariables>;
 export const CategoryMonthlyBalanceDocument = gql`
-    query categoryMonthlyBalance($input: MonthlyAmountInput!) {
+    query CategoryMonthlyBalance($input: MonthlyAmountInput!) {
   categoryMonthlyBalance(input: $input) {
     ...MonthlyAmountData
   }
@@ -2040,7 +2025,7 @@ export type CategoryMonthlyBalanceLazyQueryHookResult = ReturnType<typeof useCat
 export type CategoryMonthlyBalanceSuspenseQueryHookResult = ReturnType<typeof useCategoryMonthlyBalanceSuspenseQuery>;
 export type CategoryMonthlyBalanceQueryResult = Apollo.QueryResult<CategoryMonthlyBalanceQuery, CategoryMonthlyBalanceQueryVariables>;
 export const CategoryMonthlyChangesDocument = gql`
-    query categoryMonthlyChanges($input: MonthlyAmountInput!) {
+    query CategoryMonthlyChanges($input: MonthlyAmountInput!) {
   categoryMonthlyChanges(input: $input) {
     ...MonthlyAmountData
   }
@@ -2080,7 +2065,7 @@ export type CategoryMonthlyChangesLazyQueryHookResult = ReturnType<typeof useCat
 export type CategoryMonthlyChangesSuspenseQueryHookResult = ReturnType<typeof useCategoryMonthlyChangesSuspenseQuery>;
 export type CategoryMonthlyChangesQueryResult = Apollo.QueryResult<CategoryMonthlyChangesQuery, CategoryMonthlyChangesQueryVariables>;
 export const CategoryTypeMonthlyBalanceDocument = gql`
-    query categoryTypeMonthlyBalance($input: MonthlyAmountInput!) {
+    query CategoryTypeMonthlyBalance($input: MonthlyAmountInput!) {
   categoryTypeMonthlyBalance(input: $input) {
     ...MonthlyAmountData
   }
@@ -2120,7 +2105,7 @@ export type CategoryTypeMonthlyBalanceLazyQueryHookResult = ReturnType<typeof us
 export type CategoryTypeMonthlyBalanceSuspenseQueryHookResult = ReturnType<typeof useCategoryTypeMonthlyBalanceSuspenseQuery>;
 export type CategoryTypeMonthlyBalanceQueryResult = Apollo.QueryResult<CategoryTypeMonthlyBalanceQuery, CategoryTypeMonthlyBalanceQueryVariables>;
 export const CategoryTypeMonthlyChangesDocument = gql`
-    query categoryTypeMonthlyChanges($input: MonthlyAmountInput!) {
+    query CategoryTypeMonthlyChanges($input: MonthlyAmountInput!) {
   categoryTypeMonthlyChanges(input: $input) {
     ...MonthlyAmountData
   }
@@ -2160,7 +2145,7 @@ export type CategoryTypeMonthlyChangesLazyQueryHookResult = ReturnType<typeof us
 export type CategoryTypeMonthlyChangesSuspenseQueryHookResult = ReturnType<typeof useCategoryTypeMonthlyChangesSuspenseQuery>;
 export type CategoryTypeMonthlyChangesQueryResult = Apollo.QueryResult<CategoryTypeMonthlyChangesQuery, CategoryTypeMonthlyChangesQueryVariables>;
 export const UniqueYearsDocument = gql`
-    query uniqueYears($input: UniqueYearsInput!) {
+    query UniqueYears($input: UniqueYearsInput!) {
   uniqueYears(input: $input)
 }
     `;
@@ -2198,7 +2183,7 @@ export type UniqueYearsLazyQueryHookResult = ReturnType<typeof useUniqueYearsLaz
 export type UniqueYearsSuspenseQueryHookResult = ReturnType<typeof useUniqueYearsSuspenseQuery>;
 export type UniqueYearsQueryResult = Apollo.QueryResult<UniqueYearsQuery, UniqueYearsQueryVariables>;
 export const TagDocument = gql`
-    query tag($input: TagInput!) {
+    query Tag($input: TagInput!) {
   tag(input: $input) {
     ...TagData
   }
@@ -2238,7 +2223,7 @@ export type TagLazyQueryHookResult = ReturnType<typeof useTagLazyQuery>;
 export type TagSuspenseQueryHookResult = ReturnType<typeof useTagSuspenseQuery>;
 export type TagQueryResult = Apollo.QueryResult<TagQuery, TagQueryVariables>;
 export const TagDetailDocument = gql`
-    query tagDetail($TagInput: TagInput!, $TransactionsInput: TransactionsInput!) {
+    query TagDetail($TagInput: TagInput!, $TransactionsInput: TransactionsInput!) {
   tag(input: $TagInput) {
     ...TagData
     updatedAt
@@ -2284,7 +2269,7 @@ export type TagDetailLazyQueryHookResult = ReturnType<typeof useTagDetailLazyQue
 export type TagDetailSuspenseQueryHookResult = ReturnType<typeof useTagDetailSuspenseQuery>;
 export type TagDetailQueryResult = Apollo.QueryResult<TagDetailQuery, TagDetailQueryVariables>;
 export const TagsDocument = gql`
-    query tags($input: TagsInput!) {
+    query Tags($input: TagsInput!) {
   tags(input: $input) {
     ...TagData
   }
@@ -2414,7 +2399,7 @@ export type TransactionsLazyQueryHookResult = ReturnType<typeof useTransactionsL
 export type TransactionsSuspenseQueryHookResult = ReturnType<typeof useTransactionsSuspenseQuery>;
 export type TransactionsQueryResult = Apollo.QueryResult<TransactionsQuery, TransactionsQueryVariables>;
 export const TreasuryBooksDocument = gql`
-    query treasuryBooks($input: TreasuryBooksInput!) {
+    query TreasuryBooks($input: TreasuryBooksInput!) {
   treasuryBooks(input: $input) {
     id
     name

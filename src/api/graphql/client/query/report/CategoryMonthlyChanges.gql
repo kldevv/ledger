@@ -1,4 +1,4 @@
-query categoryMonthlyChanges($input: MonthlyAmountInput!) {
+query CategoryMonthlyChanges($input: MonthlyAmountInput!) {
   categoryMonthlyChanges(input: $input) {
     ...MonthlyAmountData
   }

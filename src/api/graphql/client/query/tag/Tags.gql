@@ -1,4 +1,4 @@
-query tags($input: TagsInput!) {
+query Tags($input: TagsInput!) {
   tags(input: $input) {
     ...TagData
   }

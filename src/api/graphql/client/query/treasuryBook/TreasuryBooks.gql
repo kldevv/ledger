@@ -1,4 +1,4 @@
-query treasuryBooks($input: TreasuryBooksInput!) {
+query TreasuryBooks($input: TreasuryBooksInput!) {
   treasuryBooks(input: $input) {
     id
     name

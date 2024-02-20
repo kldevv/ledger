@@ -1,0 +1,6 @@
+fragment CategoryData on Category {
+  id
+  name
+  type
+  createdAt
+}

@@ -1,4 +1,4 @@
-query tagDetail(
+query TagDetail(
   $TagInput: TagInput!
   $TransactionsInput: TransactionsInput!
 ) {

@@ -170,7 +170,13 @@
       "error",
       // If set to false, then the rule will show an error when devDependencies are imported. Defaults to true. Type imports are ignored by default.
       // When using an array of globs, the setting will be set to true (no errors reported) if the name of the file being linted (i.e. not the imported file/module) matches a single glob in the array, and false otherwise
-      { "devDependencies": ["**/*.test.{tsx,ts,js,jsx}"] }
+      {
+        "devDependencies": [
+          "**/*.test.{tsx,ts,js,jsx}",
+          "**/*.mock.{tsx,ts,js,jsx}",
+          "**/*.stories.{tsx,ts,js,jsx}"
+        ]
+      }
     ],
 
     // Detect classnames which do not belong to Tailwind CSS

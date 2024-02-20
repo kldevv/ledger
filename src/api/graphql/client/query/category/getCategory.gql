@@ -1,9 +1,0 @@
-query category($input: CategoryInput!) {
-  category(input: $input) {
-    id
-    name
-    type
-    createdAt
-    updatedAt
-  }
-}

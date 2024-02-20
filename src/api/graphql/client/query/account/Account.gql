@@ -1,4 +1,4 @@
-query account($input: AccountInput!) {
+query Account($input: AccountInput!) {
   account(input: $input) {
     id
     name
