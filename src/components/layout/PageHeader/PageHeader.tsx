@@ -43,7 +43,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
           <div className="ml-16">
             <Link
               href={action.href}
-              className="bg-light-accent text-light-shades hover:bg-light-shades hover:text-light-accent hover:border-light-accent whitespace-nowrap rounded-md border-2 px-4 py-2 text-xs font-semibold leading-6"
+              className="bg-light-accent text-light-shades hover:bg-main whitespace-nowrap rounded-md px-4 py-2 text-xs font-semibold leading-6"
             >
               {action.label}
             </Link>
