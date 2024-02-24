@@ -15,12 +15,13 @@ export const SubmitButton: React.FC<SubmitButtonProps> = forwardRef(
       isSubmitting,
       isValid,
       isValidating,
+      isDirty,
     } = useFormState()
 
     // Disable button if the form states are not ready
     const isDisabled = useMemo(() => {
-      return disabled || !isValid || isValidating || isFormLoading
-    }, [disabled, isValid, isValidating, isFormLoading])
+      return disabled || !isValid || isValidating || isFormLoading || !isDirty
+    }, [disabled, isValid, isValidating, isFormLoading, isDirty])
 
     // Loading the button when submitting, useful when handling async `onSubmit` callback
     const isLoading = useMemo(() => {

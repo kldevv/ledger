@@ -29,10 +29,10 @@
     }
   },
   "InsertTransactionForm": {
-    "submit": "Record"
+    "submit": "Add Transaction"
   },
   "UpdateTransactionForm": {
-    "submit": "Confirm"
+    "submit": "Update Transaction"
   },
   "UpsertTransactionForm": {
     "title": "Entry #{{ index }}",
