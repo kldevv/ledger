@@ -7,7 +7,8 @@ import {
   CategoryTypeFormDropdown,
 } from '@/components/common'
 import { useForm } from '@/hooks'
-import { addCategorySchema, addCategorySchemaDefaultValues } from '@/shared'
+import { addCategorySchema } from '@/shared'
+import { addCategorySchemaDefaultValues } from '@/shared/zod/defaultValues'
 
 import type { FormProps } from '@/components/common'
 import type { UseFormProps } from '@/hooks'

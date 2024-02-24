@@ -35,7 +35,7 @@
     "submit": "Confirm"
   },
   "UpsertTransactionForm": {
-    "title": "ENTRY #{{ index }}",
+    "title": "Entry #{{ index }}",
     "label": {
       "accrualDate": "Accrual Date",
       "note": "Note",

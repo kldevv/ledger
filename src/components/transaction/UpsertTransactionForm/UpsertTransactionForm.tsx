@@ -1,8 +1,14 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { useGetTagsQuery } from '@/api/graphql'
-import { Form, InputText, SubmitButton, Dropdown } from '@/components/common'
+import { useTagsQuery } from '@/api/graphql'
+import {
+  Form,
+  InputText,
+  SubmitButton,
+  Dropdown,
+  Card,
+} from '@/components/common'
 import { InputDate } from '@/components/common/Form/InputDate'
 import { useForm, useTreasuryBookContext } from '@/hooks'
 import { addTransactionSchema } from '@/shared'
@@ -40,7 +46,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   const { t } = useTranslation('transaction')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
-  const { data } = useGetTagsQuery({
+  const { data } = useTagsQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',
@@ -50,8 +56,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   })
 
   const tagIdsOptions = useMemo(
-    () =>
-      data?.tags.map(({ id, name }) => ({ value: id, label: name })) ?? [],
+    () => data?.tags.map(({ id, name }) => ({ value: id, label: name })) ?? [],
     [data],
   )
 
@@ -67,27 +72,31 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   })
 
   return (
-    <div className="mr-4">
-      <Form onSubmit={onSubmit} context={context}>
-        <InputDate<UpsertTransactionFormFieldValues>
-          label={t('UpsertTransactionForm.label.accrualDate')}
-          name="accrualDate"
-        />
-        <InputText<UpsertTransactionFormFieldValues>
-          label={t('UpsertTransactionForm.label.note')}
-          name="note"
-        />
-        <Dropdown<UpsertTransactionFormFieldValues>
-          label={t('UpsertTransactionForm.label.tags')}
-          name="tagIds"
-          options={tagIdsOptions}
-          multiple
-        />
+    <Form onSubmit={onSubmit} context={context}>
+      <Card>
+        <div className="space-y-2">
+          <InputDate<UpsertTransactionFormFieldValues>
+            label={t('UpsertTransactionForm.label.accrualDate')}
+            name="accrualDate"
+          />
+          <InputText<UpsertTransactionFormFieldValues>
+            label={t('UpsertTransactionForm.label.note')}
+            name="note"
+          />
+          <Dropdown<UpsertTransactionFormFieldValues>
+            label={t('UpsertTransactionForm.label.tags')}
+            name="tagIds"
+            options={tagIdsOptions}
+            multiple
+          />
+        </div>
         <div className="mt-6">
           <UpsertTransactionEntryFieldArray />
         </div>
-        <SubmitButton>{onSubmitText}</SubmitButton>
-      </Form>
-    </div>
+      </Card>
+      <div className="mt-10">
+        <SubmitButton className="ml-auto w-48">{onSubmitText}</SubmitButton>
+      </div>
+    </Form>
   )
 }

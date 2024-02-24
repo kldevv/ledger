@@ -23,10 +23,6 @@ export interface InputTextProps<TFieldValues extends FieldValues>
    * Form control
    */
   control?: Control<TFieldValues>
-  /**
-   * Default value
-   */
-  defaultValue?: number | string
 }
 
 export const InputText = <TFieldValues extends FieldValues>({
@@ -37,14 +33,14 @@ export const InputText = <TFieldValues extends FieldValues>({
 }: InputTextProps<TFieldValues>) => {
   const {
     field: { onChange, onBlur, value, ref, disabled },
-    fieldState: { error },
+    fieldState: { error, isDirty, isTouched },
   } = useController({
     name,
     control,
   })
 
   return (
-    <div className="my-1 flex w-[12rem] flex-col">
+    <div className="flex flex-col">
       <Label htmlFor={`input-${name}`}>{label}</Label>
       <InputCore
         id={`input-${name}`}
@@ -54,6 +50,13 @@ export const InputText = <TFieldValues extends FieldValues>({
         onBlur={onBlur}
         name={name}
         value={value}
+        className={
+          isDirty && isTouched
+            ? error == null
+              ? 'border-green'
+              : 'border-red'
+            : undefined
+        }
         {...props}
       />
       <ErrorMessage error={error?.message} />

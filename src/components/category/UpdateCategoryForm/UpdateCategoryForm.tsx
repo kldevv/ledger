@@ -2,10 +2,10 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { useGetCategoryQuery, useUpdateCategoryMutation } from '@/api/graphql'
+import { useCategoryQuery, useUpdateCategoryMutation } from '@/api/graphql'
 import { UpsertCategoryForm } from '@/components/category'
 
-import type { UpsertCategoryFormFieldValues } from '@/components/category'
+import type { UpsertCategoryFormFieldValues } from '@/shared'
 
 export const UpdateCategoryForm: React.FC = () => {
   const { t } = useTranslation('category')
@@ -16,7 +16,7 @@ export const UpdateCategoryForm: React.FC = () => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
 
-  const { data } = useGetCategoryQuery({
+  const { data } = useCategoryQuery({
     variables: {
       input: {
         id: categoryId ?? '',

@@ -47,7 +47,7 @@ export const Form = <TFieldValues extends FieldValues>({
 
   return (
     <FormProvider {...context}>
-      <form {...props} className="w-fit" onSubmit={handleOnSubmit}>
+      <form {...props} className="w-full" onSubmit={handleOnSubmit}>
         {children}
       </form>
     </FormProvider>

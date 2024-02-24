@@ -1,8 +1,9 @@
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { useAddAccountMutation, useGetCategoriesQuery } from '@/api/graphql'
+import { useAddAccountMutation, useCategoriesQuery } from '@/api/graphql'
 import { UpsertAccountForm } from '@/components/account'
+import { Card } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
 import type { UpsertAccountFormFieldValues } from '@/components/account'
@@ -15,7 +16,7 @@ export const InsertAccountFrom: React.FC = () => {
     onCompleted: (data) => console.log(data),
   })
 
-  const { data } = useGetCategoriesQuery({
+  const { data } = useCategoriesQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',
@@ -54,10 +55,12 @@ export const InsertAccountFrom: React.FC = () => {
   )
 
   return (
-    <UpsertAccountForm
-      onSubmitText={t`InsertAccountFrom.submit`}
-      onSubmit={handleOnSubmit}
-      values={values}
-    />
+    <Card>
+      <UpsertAccountForm
+        onSubmitText={t`InsertAccountFrom.submit`}
+        onSubmit={handleOnSubmit}
+        values={values}
+      />
+    </Card>
   )
 }

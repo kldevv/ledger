@@ -39,7 +39,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   'px-16 pb-32',
                   'mt-3',
                   'flex flex-col gap-y-5',
-                  'w-max',
+                  'w-full',
                 )}
               >
                 {children}

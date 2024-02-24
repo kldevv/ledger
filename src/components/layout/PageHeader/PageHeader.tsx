@@ -29,7 +29,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   const { pathname } = useRouter()
 
   return (
-    <div className="my-3 flex items-center">
+    <div className="my-3 flex w-full items-center">
       <div className="flex flex-col space-y-3">
         <h1 className="text-dark-shades whitespace-nowrap text-3xl font-extrabold">
           {t(`${pathname}.title`)}

@@ -14,10 +14,9 @@ import {
 import { useTreasuryBookContext } from '@/hooks'
 import { route } from '@/shared'
 
-import type { GetTreasuryBooksQuery } from '@/api/graphql'
+import type { TreasuryBooksQuery } from '@/api/graphql'
 
-export type TreasuryBookTableData =
-  GetTreasuryBooksQuery['treasuryBooks'][number]
+export type TreasuryBookTableData = TreasuryBooksQuery['treasuryBooks'][number]
 
 const columnHelper = createColumnHelper<TreasuryBookTableData>()
 
@@ -58,7 +57,7 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
         cell: ({ getValue }) => (
           <Button
             onClick={createHandleOnTreasuryBookSwitch(getValue())}
-            className="text-light-accent border-light-accent hover:bg-light-accent hover:text-light-shades rounded-md border px-1 text-xs font-medium leading-6 hover:border-0"
+            className="text-light-accent border-light-accent hover:bg-light-accent-halo rounded-md border px-1 text-xs font-medium leading-6"
           >
             {t`TreasuryBookTable.button.select`}
           </Button>
@@ -79,7 +78,7 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
                   id: getValue().id,
                 },
               }}
-              className="text-dark-shades flex items-center"
+              className="text-dark-shades hover:text-light-accent flex items-center"
             >
               {getValue().name}
             </Link>

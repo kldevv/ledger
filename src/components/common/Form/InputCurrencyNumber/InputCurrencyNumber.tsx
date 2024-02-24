@@ -67,7 +67,7 @@ export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
   }, [currency, treasuryBooks, selectedTreasuryBookId])
 
   return (
-    <div className="my-1 flex w-[12rem] flex-col">
+    <div className="flex flex-col">
       <Label htmlFor={`input-${name}`}>{label}</Label>
       <div className="relative flex">
         <span className="text-dark-shades absolute left-2 top-3 text-xs font-normal">

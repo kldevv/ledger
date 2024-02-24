@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import { z } from 'zod'
 
-import { useGetCategoriesQuery } from '@/api/graphql'
+import { useCategoriesQuery } from '@/api/graphql'
 import { Form, InputText, Dropdown, SubmitButton } from '@/components/common'
 import { useForm, useTreasuryBookContext } from '@/hooks'
 
@@ -56,7 +56,7 @@ export const UpsertAccountForm: React.FC<UpsertAccountFormProps> = ({
   })
 
   const { selectedTreasuryBookId } = useTreasuryBookContext()
-  const { data } = useGetCategoriesQuery({
+  const { data } = useCategoriesQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',

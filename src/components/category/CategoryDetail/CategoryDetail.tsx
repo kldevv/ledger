@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { useGetCategoryDetailQuery } from '@/api/graphql'
+import { useCategoryDetailQuery } from '@/api/graphql'
 import { AccountTable } from '@/components/account'
 import { CategoryDescriptionList } from '@/components/category'
 import { Card } from '@/components/common'
@@ -20,7 +20,7 @@ export const CategoryDetail: React.FC = () => {
 
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
-  const { data } = useGetCategoryDetailQuery({
+  const { data } = useCategoryDetailQuery({
     variables: {
       categoryInput: {
         id: categoryId ?? '',

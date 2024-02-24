@@ -3,9 +3,9 @@ import { useCallback } from 'react'
 
 import { Currency, useAddTreasuryBookMutation } from '@/api/graphql'
 import { UpsertTreasuryBookForm } from '@/components/treasuryBook'
+import { useTreasuryBookContext } from '@/hooks'
 
 import type { UpsertTreasuryBookFormFieldValues } from '@/components/treasuryBook'
-import { useTreasuryBookContext } from '@/hooks'
 
 const defaultValues = {
   name: '',
@@ -30,7 +30,7 @@ export const InsertTreasuryBookForm: React.FC = () => {
         },
       })
     },
-    [addTreasuryBook],
+    [addTreasuryBook, ownerId],
   )
 
   return (

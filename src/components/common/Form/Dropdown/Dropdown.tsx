@@ -40,15 +40,6 @@ export interface DropdownProps<TFieldValues extends FieldValues> {
   loading?: boolean
 }
 
-const buttonCn = classNames(
-  'py-1.5 px-3 mt-[0.125rem]',
-  'w-full h-[2.5rem]',
-  'flex items-center',
-  'bg-white rounded-md border border-mid-gray text-dark-shades',
-  'font-normal text-sm leading-6',
-  'focus:outline-light-accent focus:outline focus:bg-light-accent-halo',
-)
-
 const optionsCn = classNames(
   'w-full',
   'max-h-[15rem]',
@@ -76,11 +67,24 @@ export const Dropdown = <TFieldValues extends FieldValues>({
 }: DropdownProps<TFieldValues>) => {
   const {
     field,
-    fieldState: { error },
+    fieldState: { error, isDirty, isTouched },
   } = useController<TFieldValues>({
     name,
     control,
   })
+
+  const buttonCn = classNames(
+    'py-1.5 px-3',
+    'w-full h-[2.5rem]',
+    'flex items-center',
+    'bg-white rounded-md border border-mid-gray text-dark-shades',
+    'font-normal text-sm leading-6 outline-none',
+    isDirty && isTouched
+      ? error == null
+        ? 'border-green'
+        : 'border-red'
+      : undefined,
+  )
 
   const displayValue = useMemo(() => {
     return multiple
@@ -89,7 +93,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
   }, [multiple, options, field.value])
 
   return (
-    <div className="relative mt-[0.125rem] flex w-full flex-col">
+    <div className="relative flex w-full flex-col">
       <Listbox {...field} as="div" multiple={multiple}>
         {({ open }) => (
           <>
@@ -97,7 +101,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
               <Label htmlFor={`listbox-${name}`}>{label}</Label>
             </Listbox.Label>
             {loading === true ? (
-              <LoadingBox className="mt-[0.125rem] h-[2.5rem] w-full" />
+              <LoadingBox className="h-[2.5rem] w-full" />
             ) : (
               <Listbox.Button className={buttonCn} id={`listbox-${name}`}>
                 <div className="relative flex min-h-[30px] w-full items-center gap-2">

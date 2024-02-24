@@ -5,7 +5,7 @@ import { useAddCategoryMutation } from '@/api/graphql'
 import { UpsertCategoryForm } from '@/components/category'
 import { useTreasuryBookContext } from '@/hooks'
 
-import type { UpsertCategoryFormFieldValues } from '@/components/category'
+import type { UpsertCategoryFormFieldValues } from '@/shared'
 
 export const InsertCategoryFrom: React.FC = () => {
   const { t } = useTranslation('category')

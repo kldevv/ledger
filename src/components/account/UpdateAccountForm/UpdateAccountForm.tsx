@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { useGetAccountQuery, useUpdateAccountMutation } from '@/api/graphql'
+import { useAccountQuery, useUpdateAccountMutation } from '@/api/graphql'
 import { UpsertAccountForm } from '@/components/account'
 
 import type { UpsertAccountFormFieldValues } from '@/components/account'
@@ -16,7 +16,7 @@ export const UpdateAccountForm: React.FC = () => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
 
-  const { data } = useGetAccountQuery({
+  const { data } = useAccountQuery({
     variables: {
       input: {
         id: accountId ?? '',
