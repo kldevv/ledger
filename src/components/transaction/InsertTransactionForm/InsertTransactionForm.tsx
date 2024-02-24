@@ -1,10 +1,9 @@
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
-import toast from 'react-hot-toast'
 
 import { useAddTransactionMutation, useAccountsQuery } from '@/api/graphql'
 import { UpsertTransactionForm } from '@/components/transaction'
-import { useTreasuryBookContext } from '@/hooks'
+import { useToaster, useTreasuryBookContext } from '@/hooks'
 import { addEntryDefaultValues } from '@/shared/zod/defaultValues'
 
 import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
@@ -12,9 +11,10 @@ import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
 export const InsertTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const toast = useToaster()
 
   const [addTransaction] = useAddTransactionMutation({
-    onCompleted: () => toast.success('Successfully added'),
+    onCompleted: () => toast('Transaction is added successfully'),
   })
 
   const { data } = useAccountsQuery({

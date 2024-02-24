@@ -3,6 +3,7 @@ import { appWithI18Next } from 'ni18n'
 import { Toaster } from 'react-hot-toast'
 
 import apolloClient from '@/api/graphql/client'
+import { Notification } from '@/components/common'
 import { PageHead } from '@/components/meta'
 import { AccountsContextProvider, TreasuryBookContextProvider } from '@/hooks'
 
@@ -18,7 +19,7 @@ const App: AppType = ({ Component, pageProps }) => {
         <AccountsContextProvider>
           <PageHead />
           <Component {...pageProps} />
-          <Toaster />
+          <Toaster>{(t) => <Notification {...t} />}</Toaster>
         </AccountsContextProvider>
       </TreasuryBookContextProvider>
     </ApolloProvider>
