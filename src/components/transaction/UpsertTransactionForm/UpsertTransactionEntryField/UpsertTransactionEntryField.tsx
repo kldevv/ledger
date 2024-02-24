@@ -23,7 +23,7 @@ export const UpsertTransactionEntryField: React.FC<
   const { t } = useTranslation('transaction')
 
   return (
-    <div className="grid w-full grid-cols-3 gap-2">
+    <div className="grid w-full grid-cols-3 gap-3">
       <InputDate<UpsertTransactionFormFieldValues>
         label={t`UpsertTransactionForm.label.entries.transactionDate`}
         name={`entries.${index}.transactionDate` as const}

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 import { addEntrySchema } from '../../entry'
 
 export const addTransactionSchema = z
@@ -21,15 +22,9 @@ export const addTransactionSchema = z
     entries: addEntrySchema.array(),
   })
   .refine(
-    (data) => {
-      const sumDebits = data.entries.reduce(
-        (sum, entry) => sum + entry.debit,
-        0,
-      )
-      const sumCredits = data.entries.reduce(
-        (sum, entry) => sum + entry.credit,
-        0,
-      )
+    ({ entries }) => {
+      const sumDebits = entries.reduce((sum, { debit }) => sum + debit, 0)
+      const sumCredits = entries.reduce((sum, { credit }) => sum + credit, 0)
 
       return sumDebits === sumCredits
     },

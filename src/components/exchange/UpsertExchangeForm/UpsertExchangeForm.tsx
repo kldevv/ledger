@@ -9,7 +9,8 @@ import {
   SubmitButton,
 } from '@/components/common'
 import { useForm } from '@/hooks'
-import { addExchangeDefaultValues, addExchangeSchema } from '@/shared'
+import { addExchangeSchema } from '@/shared'
+import { addExchangeDefaultValues } from '@/shared/zod/defaultValues'
 
 import { UpsertExchangeRateChip } from './UpsertExchangeRateChip'
 import { UpsertExchangeTransaction } from './UpsertExchangeTransaction'

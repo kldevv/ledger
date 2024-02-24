@@ -13,6 +13,8 @@ import { useController } from 'react-hook-form'
 
 import { Label, ErrorMessage, LoadingBox } from '@/components/common'
 
+import { MultiSelectChips } from './MultiSelectChips'
+
 export interface DropdownProps<TFieldValues extends FieldValues> {
   /**
    * Select name
@@ -21,7 +23,7 @@ export interface DropdownProps<TFieldValues extends FieldValues> {
   /**
    * Select items
    */
-  options: { value: string; label: ReactNode }[]
+  options: Array<DropdownOption>
   /**
    * Select label
    */
@@ -38,6 +40,17 @@ export interface DropdownProps<TFieldValues extends FieldValues> {
    * Loading?
    */
   loading?: boolean
+}
+
+export type DropdownOption = {
+  /**
+   * Value
+   */
+  value: string
+  /**
+   * Display label
+   */
+  label: ReactNode
 }
 
 const optionsCn = classNames(
@@ -67,7 +80,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
 }: DropdownProps<TFieldValues>) => {
   const {
     field,
-    fieldState: { error, isDirty, isTouched },
+    fieldState: { error, isTouched },
   } = useController<TFieldValues>({
     name,
     control,
@@ -79,21 +92,19 @@ export const Dropdown = <TFieldValues extends FieldValues>({
     'flex items-center',
     'bg-white rounded-md border border-mid-gray text-dark-shades',
     'font-normal text-sm leading-6 outline-none',
-    isDirty && isTouched
-      ? error == null
-        ? 'border-green'
-        : 'border-red'
-      : undefined,
+    isTouched ? (error == null ? 'border-green' : 'border-red') : undefined,
   )
 
   const displayValue = useMemo(() => {
-    return multiple
-      ? field.value
-      : options.find(({ value }) => value === field.value)?.label
+    return multiple ? (
+      <MultiSelectChips values={field.value} options={options} />
+    ) : (
+      options.find(({ value }) => value === field.value)?.label
+    )
   }, [multiple, options, field.value])
 
   return (
-    <div className="relative flex w-full flex-col">
+    <div className="relative flex w-full min-w-fit flex-col">
       <Listbox {...field} as="div" multiple={multiple}>
         {({ open }) => (
           <>
@@ -101,10 +112,10 @@ export const Dropdown = <TFieldValues extends FieldValues>({
               <Label htmlFor={`listbox-${name}`}>{label}</Label>
             </Listbox.Label>
             {loading === true ? (
-              <LoadingBox className="h-[2.5rem] w-full" />
+              <LoadingBox className="h-[30px] w-full" />
             ) : (
               <Listbox.Button className={buttonCn} id={`listbox-${name}`}>
-                <div className="relative flex min-h-[30px] w-full items-center gap-2">
+                <div className="relative flex h-[30px] w-full items-center">
                   <span className="mr-[1.75rem] w-full truncate text-left">
                     {displayValue}
                   </span>
@@ -130,7 +141,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
                     >
                       {label}
                       {selected && multiple && (
-                        <CheckIcon className="text-light-accent size-3 font-bold" />
+                        <CheckIcon className="size-3 font-bold" />
                       )}
                     </li>
                   )}

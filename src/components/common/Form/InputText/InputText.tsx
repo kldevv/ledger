@@ -33,14 +33,14 @@ export const InputText = <TFieldValues extends FieldValues>({
 }: InputTextProps<TFieldValues>) => {
   const {
     field: { onChange, onBlur, value, ref, disabled },
-    fieldState: { error, isDirty, isTouched },
+    fieldState: { error, isTouched },
   } = useController({
     name,
     control,
   })
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full min-w-fit flex-col">
       <Label htmlFor={`input-${name}`}>{label}</Label>
       <InputCore
         id={`input-${name}`}
@@ -51,7 +51,7 @@ export const InputText = <TFieldValues extends FieldValues>({
         name={name}
         value={value}
         className={
-          isDirty && isTouched
+          isTouched
             ? error == null
               ? 'border-green'
               : 'border-red'

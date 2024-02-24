@@ -2,11 +2,13 @@ import classNames from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
+import type { EntryStatus } from '@/api/graphql'
+
 export type EntryStatusChipProps = {
   /**
    * Status
    */
-  status?: string | null
+  status?: EntryStatus | null
 }
 
 export const EntryStatusChip: React.FC<EntryStatusChipProps> = ({ status }) => {

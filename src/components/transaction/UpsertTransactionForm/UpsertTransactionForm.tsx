@@ -74,7 +74,7 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   return (
     <Form onSubmit={onSubmit} context={context}>
       <Card>
-        <div className="space-y-2">
+        <div className="space-y-3">
           <InputDate<UpsertTransactionFormFieldValues>
             label={t('UpsertTransactionForm.label.accrualDate')}
             name="accrualDate"

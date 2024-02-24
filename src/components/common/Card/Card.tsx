@@ -10,7 +10,7 @@ export type CardProps = {
 export const Card: React.FC<CardProps> = ({ children }) => {
   const cn = classNames(
     'rounded-lg shadow box-shadow shadow-mid-gray',
-    'w-full',
+    'w-full min-w-max',
     'bg-white',
   )
 

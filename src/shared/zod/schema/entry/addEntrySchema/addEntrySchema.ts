@@ -1,6 +1,8 @@
 import { z } from 'zod'
-import { numberSchema } from '../..'
+
 import { EntryStatus } from '@/api/graphql'
+
+import { numberSchema } from '../..'
 
 export const addEntrySchema = z
   .object({
@@ -30,11 +32,9 @@ export const addEntrySchema = z
     accountId: z.string(),
   })
   .refine(
-    (data) =>
-      (data.debit === 0 || data.credit === 0) &&
-      (data.debit >= 0 || data.credit >= 0),
+    ({ debit, credit }) =>
+      (debit === 0 && credit > 0) || (credit === 0 && debit > 0),
     {
-      message:
-        'Either debit or credit must be positive, and the other must be zero',
+      message: 'Entry is not valid',
     },
   )

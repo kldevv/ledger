@@ -7,7 +7,7 @@ import {
   addEntryDefaultValues,
   addExchangeDefaultValues,
   addExchangeTransactionDefaultValues,
-} from '@/shared'
+} from '@/shared/zod/defaultValues'
 
 import { UpsertExchangeForm } from '..'
 

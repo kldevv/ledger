@@ -33,7 +33,7 @@ export const InputDate = <TFieldValues extends FieldValues>({
 }: InputDateProps<TFieldValues>) => {
   const {
     field: { value, ...rest },
-    fieldState: { error },
+    fieldState: { error, isTouched },
   } = useController({
     name,
     control,
@@ -46,7 +46,7 @@ export const InputDate = <TFieldValues extends FieldValues>({
   }, [])
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full min-w-fit flex-col">
       <Label htmlFor={`input-${name}`}>{label}</Label>
       <InputCore
         {...props}
@@ -54,6 +54,13 @@ export const InputDate = <TFieldValues extends FieldValues>({
         value={convertValue(value)}
         type="date"
         max="2999-12-31"
+        className={
+          isTouched
+            ? error == null
+              ? 'border-green'
+              : 'border-red'
+            : undefined
+        }
         id={`input-${name}`}
       />
       <ErrorMessage error={error?.message} />
