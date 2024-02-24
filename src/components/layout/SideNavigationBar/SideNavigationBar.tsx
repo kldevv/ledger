@@ -6,7 +6,7 @@ import { navigatorGroups } from './items'
 
 export const SideNavigationBar: React.FC = () => {
   return (
-    <div className="w-full h-full border-r border-r-mid-gray overflow-y-auto shadow-sm px-4 pt-3 pb-12">
+    <div className="border-r-mid-gray size-full overflow-y-auto border-r px-4 pb-12 pt-3 shadow-sm">
       <ReactNavigatioMenuRoot orientation={'vertical'}>
         <SideNavigationBarMenu groups={navigatorGroups} />
       </ReactNavigatioMenuRoot>

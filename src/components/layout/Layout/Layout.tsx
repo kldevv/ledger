@@ -6,6 +6,8 @@ import {
   TopNavigationBar,
 } from '@/components/layout'
 
+import { Footer } from '../Footer'
+
 type LayoutProps = {
   /**
    * Children component
@@ -18,29 +20,34 @@ type LayoutProps = {
  */
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="h-screen relative w-screen">
-      <div className="w-full absolute top-0 h-16 z-10 bg-white">
+    <div className="relative h-screen w-screen">
+      <div className="absolute top-0 z-10 h-16 w-full bg-white">
         <TopNavigationBar />
       </div>
-      <div className="flex w-full h-full pt-16">
-        <div className="h-full min-w-52 z-5 border-left overflow-hidden bg-white">
+      <div className="flex size-full pt-16">
+        <div className="h-full min-w-52 overflow-hidden bg-white">
           <SideNavigationBar />
         </div>
-        <main className="w-full h-full overflow-auto bg-light-shades">
-          <div className="mt-3 ml-6 flex items-center">
-            <Breadcrumbs />
+        <div className="bg-light-shades size-full overflow-auto">
+          <div className="h-full w-fit min-w-full">
+            <main className="size-fit min-h-full min-w-full">
+              <div className="ml-6 mt-3 flex items-center">
+                <Breadcrumbs />
+              </div>
+              <div
+                className={classNames(
+                  'px-16 pb-32',
+                  'mt-3',
+                  'flex flex-col gap-y-5',
+                  'w-max',
+                )}
+              >
+                {children}
+              </div>
+            </main>
+            <Footer className="bottom-0" />
           </div>
-          <div
-            className={classNames(
-              'px-16 pb-32',
-              'mt-3',
-              'flex flex-col gap-y-5',
-              'w-max',
-            )}
-          >
-            {children}
-          </div>
-        </main>
+        </div>
       </div>
     </div>
   )

@@ -38,6 +38,7 @@ export const RadioGroupFilter = <TValue extends string | number>({
                 active || checked
                   ? 'text-dark-shades border-gray'
                   : 'text-gray',
+                'hover:text-light-accent',
               )}
             >
               {label}

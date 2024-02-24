@@ -1,29 +1,6 @@
 {
-  "BackLink": {
-    "label": {
-      "home": "Home",
-      "back": "Back"
-    }
-  },
   "TreasuryBookStatus": {
     "fallback": "Not Found"
-  },
-  "NavBar": {
-    "label": {
-      "main": "Ledger",
-      "settings": "Settings"
-    }
-  },
-  "NavSubList": {
-    "label": {
-      "/transaction": "Transactions",
-      "/entry": "Entries",
-      "/report": "Reports",
-      "/document": "Documents",
-      "/account": "Accounts",
-      "/category": "Categories",
-      "/tag": "Tags"
-    }
   },
   "SideNavigationBarMenu": {
     "groupTitle": {
@@ -32,5 +9,8 @@
       "treasuryBook": "Treasury Book",
       "settings": "Settings"
     }
+  },
+  "Footer": {
+    "copyrights": " {{ year }} Kuan-you Lin. All rights reserved."
   }
 }

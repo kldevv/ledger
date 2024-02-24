@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { useGetTagDetailQuery } from '@/api/graphql'
+import { useTagDetailQuery } from '@/api/graphql'
 import { TagDescriptionList } from '@/components/tag'
 import { TransactionFilteredTable } from '@/components/transaction'
 import { useTreasuryBookContext } from '@/hooks'
@@ -17,7 +17,7 @@ export const TagDetail: React.FC = () => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
 
-  const { data } = useGetTagDetailQuery({
+  const { data } = useTagDetailQuery({
     variables: {
       TagInput: { id: tagId ?? '' },
       TransactionsInput: {
