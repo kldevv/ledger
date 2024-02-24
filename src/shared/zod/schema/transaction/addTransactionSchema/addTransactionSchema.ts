@@ -23,10 +23,10 @@ export const addTransactionSchema = z
   })
   .refine(
     ({ entries }) => {
-      const sumDebits = entries.reduce((sum, { debit }) => sum + debit, 0)
-      const sumCredits = entries.reduce((sum, { credit }) => sum + credit, 0)
+      const debits = entries.reduce((sum, { debit }) => sum + debit, 0)
+      const credits = entries.reduce((sum, { credit }) => sum + credit, 0)
 
-      return sumDebits === sumCredits
+      return debits === credits
     },
     {
       message: 'The sum of debits must equal the sum of credits',

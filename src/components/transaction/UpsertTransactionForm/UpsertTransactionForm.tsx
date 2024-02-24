@@ -1,16 +1,14 @@
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
 
-import { useTagsQuery } from '@/api/graphql'
 import {
   Form,
   InputText,
   SubmitButton,
-  Dropdown,
   Card,
+  TagFormDropdown,
 } from '@/components/common'
 import { InputDate } from '@/components/common/Form/InputDate'
-import { useForm, useTreasuryBookContext } from '@/hooks'
+import { useForm } from '@/hooks'
 import { addTransactionSchema } from '@/shared'
 
 import { UpsertTransactionEntryFieldArray } from './UpsertTransactionEntryFieldArray'
@@ -44,21 +42,6 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
   values,
 }) => {
   const { t } = useTranslation('transaction')
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
-
-  const { data } = useTagsQuery({
-    variables: {
-      input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
-      },
-    },
-    skip: selectedTreasuryBookId == null,
-  })
-
-  const tagIdsOptions = useMemo(
-    () => data?.tags.map(({ id, name }) => ({ value: id, label: name })) ?? [],
-    [data],
-  )
 
   const context = useForm<UpsertTransactionFormFieldValues>({
     schema: addTransactionSchema,
@@ -83,11 +66,9 @@ export const UpsertTransactionForm: React.FC<UpsertTransactionFormProps> = ({
             label={t('UpsertTransactionForm.label.note')}
             name="note"
           />
-          <Dropdown<UpsertTransactionFormFieldValues>
+          <TagFormDropdown<UpsertTransactionFormFieldValues>
             label={t('UpsertTransactionForm.label.tags')}
             name="tagIds"
-            options={tagIdsOptions}
-            multiple
           />
         </div>
         <div className="mt-6">

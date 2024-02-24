@@ -1,4 +1,5 @@
 import { useTranslation } from 'next-i18next'
+import { useFormContext } from 'react-hook-form'
 
 import {
   InputText,
@@ -22,6 +23,11 @@ export const UpsertTransactionEntryField: React.FC<
 > = ({ index }) => {
   const { t } = useTranslation('transaction')
 
+  const { watch } = useFormContext()
+
+  const debitName = `entries.${index}.debit` as const
+  const creditName = `entries.${index}.credit` as const
+
   return (
     <div className="grid w-full grid-cols-3 gap-3">
       <InputDate<UpsertTransactionFormFieldValues>
@@ -37,11 +43,21 @@ export const UpsertTransactionEntryField: React.FC<
       />
       <InputCurrencyNumber<UpsertTransactionFormFieldValues>
         label={t`UpsertTransactionForm.label.entries.debit`}
-        name={`entries.${index}.debit` as const}
+        name={debitName}
+        disabled={
+          watch(creditName) !== 0 &&
+          watch(creditName) !== '0' &&
+          watch(creditName) != null
+        }
       />
       <InputCurrencyNumber<UpsertTransactionFormFieldValues>
         label={t`UpsertTransactionForm.label.entries.credit`}
-        name={`entries.${index}.credit` as const}
+        name={creditName}
+        disabled={
+          watch(debitName) !== 0 &&
+          watch(debitName) !== '0' &&
+          watch(debitName) != null
+        }
       />
       <AccountFormDropdown<UpsertTransactionFormFieldValues>
         name={`entries.${index}.accountId` as const}
