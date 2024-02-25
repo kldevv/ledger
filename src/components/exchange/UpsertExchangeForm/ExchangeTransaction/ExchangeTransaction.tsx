@@ -2,21 +2,20 @@ import { useTranslation } from 'next-i18next'
 import { useFormContext } from 'react-hook-form'
 
 import { TreasuryBookFormDropdown } from '@/components/common'
-
-import { UpsertExchangeTransactionEntryFieldArray } from '../UpsertExchangeTransactionEntryFieldArray'
+import { EntryFields } from '@/components/transaction'
 
 import type { UpsertExchangeFormFieldValues } from '@/shared'
 
-export interface UpsertExchangeTransactionProps {
+export interface ExchangeTransactionProps {
   /**
    * Exchange transaction name
    */
   name: 'origin' | 'destination'
 }
 
-export const UpsertExchangeTransaction: React.FC<
-  UpsertExchangeTransactionProps
-> = ({ name }) => {
+export const ExchangeTransaction: React.FC<ExchangeTransactionProps> = ({
+  name,
+}) => {
   const { t } = useTranslation('exchange')
 
   const { watch } = useFormContext<UpsertExchangeFormFieldValues>()
@@ -40,9 +39,7 @@ export const UpsertExchangeTransaction: React.FC<
           )}
         />
       </div>
-      <div>
-        <UpsertExchangeTransactionEntryFieldArray name={name} />
-      </div>
+      <EntryFields name={`${name}.entries`} />
     </div>
   )
 }

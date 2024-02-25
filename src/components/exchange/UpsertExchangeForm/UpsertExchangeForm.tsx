@@ -12,8 +12,8 @@ import { useForm } from '@/hooks'
 import { addExchangeSchema } from '@/shared'
 import { addExchangeDefaultValues } from '@/shared/zod/defaultValues'
 
+import { ExchangeTransaction } from './ExchangeTransaction'
 import { UpsertExchangeRateChip } from './UpsertExchangeRateChip'
-import { UpsertExchangeTransaction } from './UpsertExchangeTransaction'
 
 import type { FormProps } from '@/components/common'
 import type { UseFormProps } from '@/hooks'
@@ -55,6 +55,7 @@ export const UpsertExchangeForm: React.FC<UpsertExchangeFormProps> = ({
           <UpsertExchangeRateChip />
         </div>
         <Card>
+          <div className="flex flex-col space-y-2"></div>
           <InputDate<UpsertExchangeFormFieldValues>
             name="accrualDate"
             label={t('UpsertExchangeForm.label.accrualDate')}
@@ -67,7 +68,7 @@ export const UpsertExchangeForm: React.FC<UpsertExchangeFormProps> = ({
             <PageTab
               options={(['origin', 'destination'] as const).map((tab) => ({
                 label: tab.toUpperCase(),
-                content: <UpsertExchangeTransaction name={tab} key={tab} />,
+                content: <ExchangeTransaction name={tab} key={tab} />,
               }))}
             />
           </div>

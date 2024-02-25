@@ -1,23 +1,33 @@
+import type { ArrayPath, FieldArray, FieldValues } from 'react-hook-form'
+
 import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 import { useFieldArray } from 'react-hook-form'
 
 import { Button } from '@/components/common'
-import { useAccountsContext } from '@/hooks'
 
-import {
-  EntryField,
-  entryFieldDefaultValues,
-  type TransactionFormFieldValues,
-} from '..'
+import { EntryField } from '.'
 
-export const EntryFields: React.FC = () => {
-  const { t } = useTranslation('transaction')
-  const { data } = useAccountsContext()
+export interface EntryFieldsProps<TFieldValues extends FieldValues> {
+  /**
+   * Name
+   */
+  name: ArrayPath<TFieldValues>
+  /**
+   * Append value
+   */
+  appendValue: FieldArray<TFieldValues, ArrayPath<TFieldValues>>
+}
 
-  const { fields, append, remove } = useFieldArray<TransactionFormFieldValues>({
-    name: 'entries',
+export const EntryFields = <TFieldValues extends FieldValues>({
+  name,
+  appendValue,
+}: EntryFieldsProps<TFieldValues>) => {
+  const { t } = useTranslation('entry')
+
+  const { fields, append, remove } = useFieldArray<TFieldValues>({
+    name,
   })
 
   const handleOnRemove = useCallback(
@@ -28,16 +38,10 @@ export const EntryFields: React.FC = () => {
   )
 
   const handleOnAppend = useCallback(() => {
-    void append?.(
-      {
-        ...entryFieldDefaultValues,
-        accountId: data?.accounts[0].id ?? '',
-      },
-      {
-        shouldFocus: false,
-      },
-    )
-  }, [append, data?.accounts])
+    void append?.(appendValue, {
+      shouldFocus: false,
+    })
+  }, [append, appendValue])
 
   return (
     <div className="flex flex-col">
@@ -46,7 +50,7 @@ export const EntryFields: React.FC = () => {
           <div key={field.id}>
             <div className="mb-2 flex items-center">
               <div className="text-light-accent text-xs font-medium leading-6">
-                {t('TransactionForm.title', {
+                {t('EntryFields.entry', {
                   index: index + 1,
                 })}
               </div>
@@ -56,7 +60,7 @@ export const EntryFields: React.FC = () => {
                 </Button>
               )}
             </div>
-            <EntryField index={index} />
+            <EntryField name={`${name}.${index}` as const} />
           </div>
         ))}
       </div>

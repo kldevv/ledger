@@ -37,17 +37,10 @@
     "success": "Your transaction is successfully updated."
   },
   "TransactionForm": {
-    "title": "Entry #{{ index }}",
     "label": {
       "accrualDate": "Accrual Date",
       "note": "Note",
-      "tags": "Tags",
-      "entries": {
-        "memo": "Memo",
-        "transactionDate": "Transaction Date",
-        "debit": "Debit",
-        "credit": "Credit"
-      }
+      "tags": "Tags"
     }
   },
   "page": {

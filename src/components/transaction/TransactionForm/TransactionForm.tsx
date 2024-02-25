@@ -1,4 +1,5 @@
 import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
 
 import {
   Form,
@@ -8,10 +9,9 @@ import {
   TagFormDropdown,
 } from '@/components/common'
 import { InputDate } from '@/components/common/Form/InputDate'
-import { useForm } from '@/hooks'
+import { EntryFields, entryFieldDefaultValues } from '@/components/entry'
+import { useAccountsContext, useForm } from '@/hooks'
 import { addTransactionSchema } from '@/shared'
-
-import { EntryFields } from '.'
 
 import type { FormProps } from '@/components/common'
 import type { z } from 'zod'
@@ -39,11 +39,20 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   values,
 }) => {
   const { t } = useTranslation('transaction')
+  const { data: { accounts } = {} } = useAccountsContext()
 
   const context = useForm<TransactionFormFieldValues>({
     schema: addTransactionSchema,
     values,
   })
+
+  const entry = useMemo(
+    () => ({
+      ...entryFieldDefaultValues,
+      accountId: accounts?.at(0)?.id ?? '',
+    }),
+    [accounts],
+  )
 
   return (
     <Form onSubmit={onSubmit} context={context}>
@@ -63,7 +72,10 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
           />
         </div>
         <div className="mt-6">
-          <EntryFields />
+          <EntryFields<TransactionFormFieldValues>
+            name={'entries'}
+            appendValue={entry}
+          />
         </div>
       </Card>
       <div className="mt-10">

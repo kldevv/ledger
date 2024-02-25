@@ -2,8 +2,8 @@ import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
 import { useAddTransactionMutation } from '@/api/graphql'
+import { entryFieldDefaultValues } from '@/components/entry'
 import {
-  entryFieldDefaultValues,
   TransactionForm,
   type TransactionFormFieldValues,
 } from '@/components/transaction'
