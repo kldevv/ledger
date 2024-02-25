@@ -2,7 +2,7 @@ import type { NumericFormatProps } from 'react-number-format'
 
 import { useNumericFormat } from 'react-number-format'
 
-export const useNumberFormat = (props: NumericFormatProps) => {
+export const useNumberFormat = (props?: NumericFormatProps) => {
   const { format, removeFormatting } = useNumericFormat({
     decimalScale: 2,
     allowLeadingZeros: false,

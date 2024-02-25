@@ -33,13 +33,11 @@ export const InputText = <TFieldValues extends FieldValues>({
 }: InputTextProps<TFieldValues>) => {
   const {
     field: { onChange, onBlur, value, ref, disabled },
-    fieldState: { error, isTouched },
+    fieldState: { error },
   } = useController({
     name,
     control,
   })
-
-  console.log(error, isTouched)
 
   return (
     <div className="flex w-full min-w-fit flex-col">
@@ -52,7 +50,6 @@ export const InputText = <TFieldValues extends FieldValues>({
         onBlur={onBlur}
         name={name}
         value={value}
-        className={'border-green'}
         {...props}
       />
       <ErrorMessage error={error?.message} />

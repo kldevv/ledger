@@ -81,11 +81,12 @@ export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
           disabled={disabled}
           onBlur={onBlur}
           name={name}
-          value={value}
+          value={value === '' ? '0' : value}
           decimalScale={2}
           allowLeadingZeros={false}
           allowNegative={false}
           thousandSeparator={','}
+          fixedDecimalScale
           className="pl-10 text-right"
           {...props}
         />

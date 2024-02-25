@@ -33,7 +33,7 @@ export const InputDate = <TFieldValues extends FieldValues>({
 }: InputDateProps<TFieldValues>) => {
   const {
     field: { value, ...rest },
-    fieldState: { error, isTouched },
+    fieldState: { error },
   } = useController({
     name,
     control,
@@ -54,13 +54,6 @@ export const InputDate = <TFieldValues extends FieldValues>({
         value={convertValue(value)}
         type="date"
         max="2999-12-31"
-        className={
-          isTouched
-            ? error == null
-              ? 'border-green'
-              : 'border-red'
-            : undefined
-        }
         id={`input-${name}`}
       />
       <ErrorMessage error={error?.message} />
