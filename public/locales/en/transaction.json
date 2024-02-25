@@ -29,10 +29,12 @@
     }
   },
   "AddTransactionForm": {
-    "submit": "Add Transaction"
+    "submit": "Add Transaction",
+    "success": "Your transaction is successfully added."
   },
   "UpdateTransactionForm": {
-    "submit": "Update Transaction"
+    "submit": "Update Transaction",
+    "success": "Your transaction is successfully updated."
   },
   "TransactionForm": {
     "title": "Entry #{{ index }}",

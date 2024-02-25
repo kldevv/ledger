@@ -1,4 +1,4 @@
-export const parseNumberString = (input: string | number): number => {
+export const parseCurrencyNumericFormat = (input: string | number): number => {
   if (typeof input === 'number') {
     return input
   }

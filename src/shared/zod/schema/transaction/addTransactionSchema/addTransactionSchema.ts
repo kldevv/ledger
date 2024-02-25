@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { parseNumberString } from '@/shared'
+import { parseCurrencyNumericFormat } from '@/shared'
 
 import { addEntrySchema } from '../../entry'
 
@@ -26,11 +26,11 @@ export const addTransactionSchema = z
   .refine(
     ({ entries }) => {
       const debits = entries.reduce(
-        (sum, { debit }) => sum + parseNumberString(debit),
+        (sum, { debit }) => sum + parseCurrencyNumericFormat(debit),
         0,
       )
       const credits = entries.reduce(
-        (sum, { credit }) => sum + parseNumberString(credit),
+        (sum, { credit }) => sum + parseCurrencyNumericFormat(credit),
         0,
       )
 

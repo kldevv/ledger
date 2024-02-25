@@ -7,7 +7,7 @@ export interface MultiSelectChipsProps {
   /**
    * Values
    */
-  values: Array<string>
+  values?: Array<string>
   /**
    * Dropdown options
    */
@@ -21,7 +21,7 @@ export const MultiSelectChips: React.FC<MultiSelectChipsProps> = ({
   const opts = useMemo(
     () =>
       values
-        .slice(0, 2)
+        ?.slice(0, 2)
         .map((value) => {
           return options.find((option) => option.value === value)
         })
@@ -31,14 +31,14 @@ export const MultiSelectChips: React.FC<MultiSelectChipsProps> = ({
 
   return (
     <div className="text-dark-shades flex space-x-2 text-sm font-normal">
-      {opts.map(({ value, label }) => {
+      {opts?.map(({ value, label }) => {
         return (
           <div key={value} className="bg-mid-gray rounded p-1">
             {label}
           </div>
         )
       })}
-      {values.length > 2 && (
+      {values != null && values.length > 2 && (
         <div className="bg-mid-gray flex items-center rounded p-1">
           <PlusIcon className="size-4" />
           {values.length - 2}

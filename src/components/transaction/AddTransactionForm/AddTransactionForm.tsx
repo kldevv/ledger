@@ -1,39 +1,25 @@
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { useAddTransactionMutation, useAccountsQuery } from '@/api/graphql'
+import { useAddTransactionMutation } from '@/api/graphql'
 import {
   entryFieldDefaultValues,
   TransactionForm,
   type TransactionFormFieldValues,
 } from '@/components/transaction'
-import { useToaster, useTreasuryBookContext } from '@/hooks'
-import { parseNumberString } from '@/shared'
+import { useAccountsContext, useToaster, useTreasuryBookContext } from '@/hooks'
+import { parseCurrencyNumericFormat } from '@/shared'
 
 export const AddTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
   const toast = useToaster()
 
-  const [addTransaction] = useAddTransactionMutation({
-    onCompleted: () => toast('Transaction is added successfully'),
-  })
-
-  const { data } = useAccountsQuery({
-    variables: {
-      input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
-      },
-    },
-    skip: selectedTreasuryBookId == null,
-  })
-
+  const { data: { accounts } = {} } = useAccountsContext()
   const values = useMemo(() => {
-    const firstAccount = data?.accounts.at(0)
-
     const entry = {
       ...entryFieldDefaultValues,
-      accountId: firstAccount?.id ?? '',
+      accountId: accounts?.at(0)?.id ?? '',
     }
 
     return {
@@ -42,13 +28,15 @@ export const AddTransactionForm: React.FC = () => {
       tagIds: [],
       entries: [entry, entry],
     }
-  }, [data?.accounts])
+  }, [accounts])
+
+  const [addTransaction] = useAddTransactionMutation({
+    onCompleted: () => toast(t`AddTransactionForm.success`),
+  })
 
   const handleOnSubmit = useCallback(
     (values: TransactionFormFieldValues) => {
-      if (selectedTreasuryBookId == null) {
-        return
-      }
+      if (selectedTreasuryBookId == null) return
 
       void addTransaction({
         variables: {
@@ -56,8 +44,10 @@ export const AddTransactionForm: React.FC = () => {
             ...values,
             entries: values.entries.map((entry) => ({
               ...entry,
-              debit: parseNumberString(entry.debit),
-              credit: parseNumberString(entry.credit),
+              // remove currency numeric format
+              debit: parseCurrencyNumericFormat(entry.debit),
+              // remove currency numeric format
+              credit: parseCurrencyNumericFormat(entry.credit),
             })),
             treasuryBookId: selectedTreasuryBookId,
           },

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 import { EntryStatus } from '@/api/graphql'
-import { parseNumberString } from '@/shared'
+import { parseCurrencyNumericFormat } from '@/shared'
 
 export const addEntrySchema = z
   .object({
@@ -32,8 +32,8 @@ export const addEntrySchema = z
   })
   .refine(
     ({ debit, credit }) => {
-      const d = parseNumberString(debit)
-      const c = parseNumberString(credit)
+      const d = parseCurrencyNumericFormat(debit)
+      const c = parseCurrencyNumericFormat(credit)
 
       return (d === 0 && c > 0) || (c === 0 && d > 0)
     },

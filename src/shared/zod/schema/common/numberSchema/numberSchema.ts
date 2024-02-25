@@ -1,12 +1,12 @@
 import { z } from 'zod'
 
-import { parseNumberString } from '@/shared'
+import { parseCurrencyNumericFormat } from '@/shared'
 
 export const numberSchema = z
   .string()
   .refine(
     (value) => {
-      const parsedValue = parseNumberString(value)
+      const parsedValue = parseCurrencyNumericFormat(value)
 
       return !isNaN(parsedValue) && parsedValue >= 0
     },
@@ -15,5 +15,5 @@ export const numberSchema = z
     },
   )
   .transform((value) => {
-    return String(parseNumberString(value))
+    return String(parseCurrencyNumericFormat(value))
   })
