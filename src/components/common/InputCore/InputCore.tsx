@@ -8,11 +8,11 @@ export const InputCore: React.FC<InputCoreProps> = forwardRef(
     const cn = useMemo(
       () =>
         classNames(
+          className,
           'py-1.5 px-3',
           'w-full h-[2.5rem]',
           'rounded-md border border-mid-gray',
-          'font-normal text-sm leading-6 text-dark-shades outline-none',
-          className,
+          'font-normal text-sm leading-6 text-dark-shades',
         ),
       [className],
     )

@@ -9,7 +9,7 @@ import {
 } from '@/components/common'
 
 import type { EntryStatus, TransactionDetailsQuery } from '@/api/graphql'
-import type { DescriptionListItemProps } from '@/components/common'
+import type { DescriptionListItem } from '@/components/common'
 
 type TransactionDescriptionListData = Exclude<
   TransactionDetailsQuery['transaction'],
@@ -35,7 +35,7 @@ export const TransactionDescriptionList: React.FC<
 }) => {
   const { t } = useTranslation('transaction')
 
-  const items: DescriptionListItemProps[] = useMemo(
+  const items: DescriptionListItem[] = useMemo(
     () => [
       {
         title: t('TransactionDescriptionList.title.id'),

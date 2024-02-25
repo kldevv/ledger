@@ -2,9 +2,9 @@ import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
 import { useAddExchangeMutation } from '@/api/graphql'
+import { entryFieldDefaultValues } from '@/components/transaction'
 import { useAccountsContext, useTreasuryBookContext } from '@/hooks'
 import {
-  addEntryDefaultValues,
   addExchangeDefaultValues,
   addExchangeTransactionDefaultValues,
 } from '@/shared/zod/defaultValues'
@@ -42,7 +42,7 @@ export const InsertExchangeForm: React.FC = () => {
     }
 
     const entry = {
-      ...addEntryDefaultValues,
+      ...entryFieldDefaultValues,
       accountId: firstAccount.id,
     }
 

@@ -9,7 +9,7 @@ import {
 } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
-import type { DescriptionListItemProps } from '@/components/common'
+import type { DescriptionListItem } from '@/components/common'
 
 export type ExchangeTransactionDescriptionListData = Exclude<
   ExchangeDetailsQuery['exchange'],
@@ -29,7 +29,7 @@ export const ExchangeTransactionDescriptionList: React.FC<
   const { t } = useTranslation('exchange')
   const { data } = useTreasuryBookContext()
 
-  const items: DescriptionListItemProps[] = useMemo(() => {
+  const items: DescriptionListItem[] = useMemo(() => {
     const treasuryBook = data?.treasuryBooks.find(
       ({ id }) => id === treasuryBookId,
     )

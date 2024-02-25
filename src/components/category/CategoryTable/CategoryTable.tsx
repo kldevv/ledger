@@ -11,9 +11,9 @@ import {
 } from '@/components/common'
 import { route } from '@/shared'
 
-import type { GetCategoriesQuery } from '@/api/graphql'
+import type { CategoriesQuery } from '@/api/graphql'
 
-export type CategoryTableData = GetCategoriesQuery['categories'][number]
+export type CategoryTableData = CategoriesQuery['categories'][number]
 
 export interface CategoryTableProps {
   /**

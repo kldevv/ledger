@@ -8,7 +8,7 @@ import {
   EntryStatusChip,
 } from '@/components/common'
 
-import type { DescriptionListItemProps } from '@/components/common'
+import type { DescriptionListItem } from '@/components/common'
 
 export type ExchangeDescriptionListData = Exclude<
   ExchangeDetailsQuery['exchange'],
@@ -27,7 +27,7 @@ export const ExchangeDescriptionList: React.FC<
 > = ({ data: { id, origin, destination, createdAt, updatedAt } }) => {
   const { t } = useTranslation('exchange')
 
-  const items: DescriptionListItemProps[] = useMemo(() => {
+  const items: DescriptionListItem[] = useMemo(() => {
     const status =
       origin.status === EntryStatus.COMPLETED &&
       destination.status === EntryStatus.COMPLETED
