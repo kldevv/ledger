@@ -2,13 +2,15 @@ import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
 import { useAddTransactionMutation, useAccountsQuery } from '@/api/graphql'
-import { UpsertTransactionForm } from '@/components/transaction'
+import {
+  entryFieldDefaultValues,
+  TransactionForm,
+  type TransactionFormFieldValues,
+} from '@/components/transaction'
 import { useToaster, useTreasuryBookContext } from '@/hooks'
-import { addEntryDefaultValues } from '@/shared/zod/defaultValues'
+import { parseNumberString } from '@/shared'
 
-import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
-
-export const InsertTransactionForm: React.FC = () => {
+export const AddTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
   const toast = useToaster()
@@ -29,25 +31,21 @@ export const InsertTransactionForm: React.FC = () => {
   const values = useMemo(() => {
     const firstAccount = data?.accounts.at(0)
 
-    if (firstAccount == null) {
-      return undefined
-    }
-
     const entry = {
-      ...addEntryDefaultValues,
-      accountId: firstAccount.id,
+      ...entryFieldDefaultValues,
+      accountId: firstAccount?.id ?? '',
     }
 
     return {
       accrualDate: new Date(),
       note: '',
       tagIds: [],
-      entries: [{ ...entry }, { ...entry }],
+      entries: [entry, entry],
     }
   }, [data?.accounts])
 
   const handleOnSubmit = useCallback(
-    (values: UpsertTransactionFormFieldValues) => {
+    (values: TransactionFormFieldValues) => {
       if (selectedTreasuryBookId == null) {
         return
       }
@@ -56,6 +54,11 @@ export const InsertTransactionForm: React.FC = () => {
         variables: {
           input: {
             ...values,
+            entries: values.entries.map((entry) => ({
+              ...entry,
+              debit: parseNumberString(entry.debit),
+              credit: parseNumberString(entry.credit),
+            })),
             treasuryBookId: selectedTreasuryBookId,
           },
         },
@@ -65,9 +68,9 @@ export const InsertTransactionForm: React.FC = () => {
   )
 
   return (
-    <UpsertTransactionForm
+    <TransactionForm
       onSubmit={handleOnSubmit}
-      onSubmitText={t`InsertTransactionForm.submit`}
+      onSubmitText={t`AddTransactionForm.submit`}
       values={values}
     />
   )

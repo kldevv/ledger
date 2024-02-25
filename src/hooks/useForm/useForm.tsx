@@ -1,7 +1,6 @@
 import type {
   UseFormProps as ReactHookFormProps,
   FieldValues,
-  DefaultValues,
 } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -11,20 +10,15 @@ import { useForm as useReactHookForm } from 'react-hook-form'
 import type { z } from 'zod'
 
 export interface UseFormProps<TFieldValues extends FieldValues>
-  extends Omit<ReactHookFormProps<TFieldValues>, 'resolver' | 'defaultValues'> {
+  extends Omit<ReactHookFormProps<TFieldValues>, 'resolver'> {
   /**
    * Zod schema of the form fields.
    */
   schema: z.Schema
-  /**
-   * More constraint version of defaultValues
-   */
-  defaultValues: DefaultValues<TFieldValues>
 }
 
 export const useForm = <TFieldValues extends FieldValues>({
   schema,
-  defaultValues,
   values,
   ...props
 }: UseFormProps<TFieldValues>) => {
@@ -38,7 +32,6 @@ export const useForm = <TFieldValues extends FieldValues>({
     ...props,
 
     values,
-    defaultValues,
     resolver: zodResolver(schema),
   })
 

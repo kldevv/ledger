@@ -5,13 +5,18 @@ export type CardProps = {
    * Children component
    */
   children: React.ReactNode
+  /**
+   * Override class name
+   */
+  className?: string
 }
 
-export const Card: React.FC<CardProps> = ({ children }) => {
+export const Card: React.FC<CardProps> = ({ children, className }) => {
   const cn = classNames(
     'rounded-lg shadow box-shadow shadow-mid-gray',
     'w-full min-w-max',
     'bg-white',
+    className,
   )
 
   return (

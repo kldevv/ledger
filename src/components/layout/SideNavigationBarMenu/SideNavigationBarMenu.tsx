@@ -42,19 +42,19 @@ export const SideNavigationBarMenu: React.FC<SideNavigationBarMenuProps> = ({
   const { pathname: currentPathname } = useRouter()
 
   return (
-    <div className="flex flex-col w-full space-y-8">
+    <div className="flex w-full flex-col space-y-8">
       {groups.map(({ groupTitleTranslateKey, items }) => (
         <ReactNavigatioMenuItem
           key={groupTitleTranslateKey}
           className={'flex flex-col gap-y-1'}
         >
-          <div className="leading-6 font-semibold text-xs text-gray">
+          <div className="text-gray text-xs font-semibold leading-6">
             {t(groupTitleTranslateKey)}
           </div>
           <ReactNavigatioMenuSub>
             <ReactNavigatioMenuList className="flex flex-col gap-y-1">
               {items.map(({ pathname, query, icon }) => (
-                <div key={pathname} className="mx-2">
+                <div key={pathname} className="mx-1">
                   <NavigationBarItemLink
                     href={{
                       pathname,
@@ -62,7 +62,7 @@ export const SideNavigationBarMenu: React.FC<SideNavigationBarMenuProps> = ({
                     }}
                     active={currentPathname === pathname}
                   >
-                    <div className="flex gap-x-2 items-center font-medium text-sm leading-6">
+                    <div className="flex items-center gap-x-2 text-sm font-medium leading-6">
                       {icon}
                       {t(`${pathname}.title`)}
                     </div>

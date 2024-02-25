@@ -1,11 +1,11 @@
 import { PageHeader, Layout } from '@/components/layout'
-import { InsertTransactionForm } from '@/components/transaction'
+import { AddTransactionForm } from '@/components/transaction'
 
 const Page: React.FC = () => {
   return (
     <Layout>
       <PageHeader />
-      <InsertTransactionForm />
+      <AddTransactionForm />
     </Layout>
   )
 }

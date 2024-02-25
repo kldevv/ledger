@@ -6,10 +6,10 @@ import {
   useTransactionDetailsQuery,
   useUpdateTransactionMutation,
 } from '@/api/graphql'
-import { UpsertTransactionForm } from '@/components/transaction'
+import { TransactionForm } from '@/components/transaction'
 import { useTreasuryBookContext } from '@/hooks'
 
-import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
+import type { TransactionFormFieldValues } from '@/components/transaction'
 
 export const UpdateTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')
@@ -65,7 +65,7 @@ export const UpdateTransactionForm: React.FC = () => {
   }, [data])
 
   const handleOnSubmit = useCallback(
-    (values: UpsertTransactionFormFieldValues) => {
+    (values: TransactionFormFieldValues) => {
       if (data?.transaction == null) {
         return
       }
@@ -84,7 +84,7 @@ export const UpdateTransactionForm: React.FC = () => {
   )
 
   return (
-    <UpsertTransactionForm
+    <TransactionForm
       onSubmit={handleOnSubmit}
       onSubmitText={t`UpdateTransactionForm.submit`}
       values={values}

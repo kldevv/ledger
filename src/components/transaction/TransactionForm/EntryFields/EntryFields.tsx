@@ -4,20 +4,21 @@ import { useCallback } from 'react'
 import { useFieldArray } from 'react-hook-form'
 
 import { Button } from '@/components/common'
-import { UpsertTransactionEntryField } from '@/components/transaction'
 import { useAccountsContext } from '@/hooks'
-import { addEntryDefaultValues } from '@/shared/zod/defaultValues'
 
-import type { UpsertTransactionFormFieldValues } from '@/components/transaction'
+import {
+  EntryField,
+  entryFieldDefaultValues,
+  type TransactionFormFieldValues,
+} from '..'
 
-export const UpsertTransactionEntryFieldArray: React.FC = () => {
+export const EntryFields: React.FC = () => {
   const { t } = useTranslation('transaction')
   const { data } = useAccountsContext()
 
-  const { fields, append, remove } =
-    useFieldArray<UpsertTransactionFormFieldValues>({
-      name: 'entries',
-    })
+  const { fields, append, remove } = useFieldArray<TransactionFormFieldValues>({
+    name: 'entries',
+  })
 
   const handleOnRemove = useCallback(
     (index: number) => () => {
@@ -29,7 +30,7 @@ export const UpsertTransactionEntryFieldArray: React.FC = () => {
   const handleOnAppend = useCallback(() => {
     void append?.(
       {
-        ...addEntryDefaultValues,
+        ...entryFieldDefaultValues,
         accountId: data?.accounts[0].id ?? '',
       },
       {
@@ -45,7 +46,7 @@ export const UpsertTransactionEntryFieldArray: React.FC = () => {
           <div key={field.id}>
             <div className="mb-2 flex items-center">
               <div className="text-light-accent text-xs font-medium leading-6">
-                {t('UpsertTransactionForm.title', {
+                {t('TransactionForm.title', {
                   index: index + 1,
                 })}
               </div>
@@ -55,7 +56,7 @@ export const UpsertTransactionEntryFieldArray: React.FC = () => {
                 </Button>
               )}
             </div>
-            <UpsertTransactionEntryField index={index} />
+            <EntryField index={index} />
           </div>
         ))}
       </div>

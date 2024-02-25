@@ -1,6 +1,4 @@
-import {
-  transformAddEntryInput,
-} from '@/server/resolver/transform'
+import { transformAddEntryInput } from '@/server/resolver/transform'
 
 import type { MutationResolvers } from '@/api/graphql'
 

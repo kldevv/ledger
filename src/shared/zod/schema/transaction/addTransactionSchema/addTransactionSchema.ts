@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+import { parseNumberString } from '@/shared'
+
 import { addEntrySchema } from '../../entry'
 
 export const addTransactionSchema = z
@@ -23,8 +25,14 @@ export const addTransactionSchema = z
   })
   .refine(
     ({ entries }) => {
-      const debits = entries.reduce((sum, { debit }) => sum + debit, 0)
-      const credits = entries.reduce((sum, { credit }) => sum + credit, 0)
+      const debits = entries.reduce(
+        (sum, { debit }) => sum + parseNumberString(debit),
+        0,
+      )
+      const credits = entries.reduce(
+        (sum, { credit }) => sum + parseNumberString(credit),
+        0,
+      )
 
       return debits === credits
     },

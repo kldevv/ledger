@@ -28,13 +28,13 @@
       "entries": "Transaction Entries"
     }
   },
-  "InsertTransactionForm": {
+  "AddTransactionForm": {
     "submit": "Add Transaction"
   },
   "UpdateTransactionForm": {
     "submit": "Update Transaction"
   },
-  "UpsertTransactionForm": {
+  "TransactionForm": {
     "title": "Entry #{{ index }}",
     "label": {
       "accrualDate": "Accrual Date",

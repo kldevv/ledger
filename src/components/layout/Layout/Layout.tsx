@@ -25,7 +25,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <TopNavigationBar />
       </div>
       <div className="flex size-full pt-16">
-        <div className="h-full min-w-52 overflow-hidden bg-white">
+        <div className="h-full min-w-48 overflow-hidden bg-white">
           <SideNavigationBar />
         </div>
         <div className="bg-light-shades size-full overflow-auto">

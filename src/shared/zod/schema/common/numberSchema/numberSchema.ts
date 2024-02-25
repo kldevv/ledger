@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { parseNumberString } from '@/shared'
 
 export const numberSchema = z
-  .union([z.string(), z.number()])
+  .string()
   .refine(
     (value) => {
       const parsedValue = parseNumberString(value)
@@ -15,5 +15,5 @@ export const numberSchema = z
     },
   )
   .transform((value) => {
-    return parseNumberString(value)
+    return String(parseNumberString(value))
   })
