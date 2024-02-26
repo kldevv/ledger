@@ -5,14 +5,13 @@ import { useFormContext } from 'react-hook-form'
 import { Currency } from '@/api/graphql'
 import { ExchangeRateChip } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
-import {
-  parseCurrencyNumericFormat,
-  type UpsertExchangeFormFieldValues,
-} from '@/shared'
+import { parseCurrencyNumericFormat } from '@/shared'
 
-export const UpsertExchangeRateChip: React.FC = () => {
+import type { ExchangeFormFieldValues } from '@/shared'
+
+export const ExchangeRate: React.FC = () => {
   const { t } = useTranslation('exchange')
-  const { watch } = useFormContext<UpsertExchangeFormFieldValues>()
+  const { watch } = useFormContext<ExchangeFormFieldValues>()
   const { data } = useTreasuryBookContext()
 
   const sources = watch(['origin', 'destination'])
@@ -25,7 +24,7 @@ export const UpsertExchangeRateChip: React.FC = () => {
           ({
             treasuryBookId,
             entries,
-          }: UpsertExchangeFormFieldValues['destination' | 'origin']) => {
+          }: ExchangeFormFieldValues['destination' | 'origin']) => {
             const currency =
               data?.treasuryBooks.find(({ id }) => id === treasuryBookId)
                 ?.currency ?? Currency.USD
@@ -42,7 +41,7 @@ export const UpsertExchangeRateChip: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center space-y-1">
-      <h3 className="text-gray text-xs font-medium leading-6">{t`UpsertExchangeForm.rate`}</h3>
+      <h3 className="text-gray text-xs font-medium leading-6">{t`ExchangeForm.rate`}</h3>
       <ExchangeRateChip
         origin={transformedSources.at(0)}
         destination={transformedSources.at(1)}

@@ -14,7 +14,7 @@ export type CardProps = {
 export const Card: React.FC<CardProps> = ({ children, className }) => {
   const cn = classNames(
     'rounded-lg shadow box-shadow shadow-mid-gray',
-    'w-full min-w-max',
+    'max-w-full w-full min-w-max',
     'bg-white',
     className,
   )

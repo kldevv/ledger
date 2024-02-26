@@ -12,18 +12,18 @@ import { useForm } from '@/hooks'
 import { addExchangeSchema } from '@/shared'
 import { addExchangeDefaultValues } from '@/shared/zod/defaultValues'
 
-import { ExchangeTransaction } from './ExchangeTransaction'
-import { UpsertExchangeRateChip } from './UpsertExchangeRateChip'
+import { ExchangeRate, ExchangeTransaction } from '.'
 
 import type { FormProps } from '@/components/common'
-import type { UseFormProps } from '@/hooks'
-import type { UpsertExchangeFormFieldValues } from '@/shared'
+import type { z } from 'zod'
 
-export interface UpsertExchangeFormProps {
+export type ExchangeFormFieldValues = z.infer<typeof addExchangeSchema>
+
+export interface ExchangeFormProps {
   /**
    * On submit
    */
-  onSubmit: FormProps<UpsertExchangeFormFieldValues>['onSubmit']
+  onSubmit: FormProps<ExchangeFormFieldValues>['onSubmit']
   /**
    * On submit text
    */
@@ -31,17 +31,17 @@ export interface UpsertExchangeFormProps {
   /**
    * Dynamic fill the form values
    */
-  values?: UseFormProps<UpsertExchangeFormFieldValues>['values']
+  values?: ExchangeFormFieldValues
 }
 
-export const UpsertExchangeForm: React.FC<UpsertExchangeFormProps> = ({
+export const ExchangeForm: React.FC<ExchangeFormProps> = ({
   onSubmit,
   onSubmitText,
   values,
 }) => {
   const { t } = useTranslation('exchange')
 
-  const context = useForm<UpsertExchangeFormFieldValues>({
+  const context = useForm<ExchangeFormFieldValues>({
     schema: addExchangeSchema,
     defaultValues: addExchangeDefaultValues,
     shouldUnregister: false,
@@ -52,18 +52,19 @@ export const UpsertExchangeForm: React.FC<UpsertExchangeFormProps> = ({
     <Form onSubmit={onSubmit} context={context}>
       <div className="flex flex-col">
         <div className="my-3">
-          <UpsertExchangeRateChip />
+          <ExchangeRate />
         </div>
         <Card>
-          <div className="flex flex-col space-y-2"></div>
-          <InputDate<UpsertExchangeFormFieldValues>
-            name="accrualDate"
-            label={t('UpsertExchangeForm.label.accrualDate')}
-          />
-          <InputText<UpsertExchangeFormFieldValues>
-            name="note"
-            label={t('UpsertExchangeForm.label.note')}
-          />
+          <div className="flex w-72 flex-col space-y-3">
+            <InputDate<ExchangeFormFieldValues>
+              name="accrualDate"
+              label={t('ExchangeForm.label.accrualDate')}
+            />
+            <InputText<ExchangeFormFieldValues>
+              name="note"
+              label={t('ExchangeForm.label.note')}
+            />
+          </div>
           <div className="mt-6">
             <PageTab
               options={(['origin', 'destination'] as const).map((tab) => ({

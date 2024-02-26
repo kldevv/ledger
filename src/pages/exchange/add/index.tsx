@@ -1,11 +1,11 @@
-import { InsertExchangeForm } from '@/components/exchange'
+import { AddExchangeForm } from '@/components/exchange'
 import { PageHeader, Layout } from '@/components/layout'
 
 const Page: React.FC = () => {
   return (
     <Layout>
       <PageHeader />
-      <InsertExchangeForm />
+      <AddExchangeForm />
     </Layout>
   )
 }

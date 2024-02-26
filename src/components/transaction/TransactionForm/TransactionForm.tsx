@@ -41,11 +41,6 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   const { t } = useTranslation('transaction')
   const { data: { accounts } = {} } = useAccountsContext()
 
-  const context = useForm<TransactionFormFieldValues>({
-    schema: addTransactionSchema,
-    values,
-  })
-
   const entry = useMemo(
     () => ({
       ...entryFieldDefaultValues,
@@ -53,6 +48,11 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
     }),
     [accounts],
   )
+
+  const context = useForm<TransactionFormFieldValues>({
+    schema: addTransactionSchema,
+    values,
+  })
 
   return (
     <Form onSubmit={onSubmit} context={context}>

@@ -48,10 +48,10 @@
       }
     }
   },
-  "InsertExchangeForm": {
+  "AddExchangeForm": {
     "submit": "Submit"
   },
-  "UpsertExchangeForm": {
+  "ExchangeForm": {
     "transactionTitle": "{{ type }} Transaction",
     "entryTitle": "ENTRY #{{ index }}",
     "rate": "Current Conversion Rate",
