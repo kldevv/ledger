@@ -13,7 +13,7 @@ const config: Config = {
 
       // base color palette
       white: 'rgb(255, 255, 255)', // #FFFFFF
-      'loading-gray': 'rgb(38, 85, 115, 0.15)',
+      'loading-gray': 'rgb(241, 240, 245)',
       'mid-gray': 'rgb(229, 231, 235)', // #E5E7EB
       gray: 'rgb(156, 163, 175)', // #9CA3AF
 

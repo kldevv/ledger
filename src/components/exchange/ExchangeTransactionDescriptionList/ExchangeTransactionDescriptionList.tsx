@@ -20,19 +20,18 @@ export interface ExchangeTransactionDescriptionListProps {
   /**
    * Data
    */
-  data: ExchangeTransactionDescriptionListData
+  data?: ExchangeTransactionDescriptionListData
 }
 
 export const ExchangeTransactionDescriptionList: React.FC<
   ExchangeTransactionDescriptionListProps
-> = ({ data: { id, treasuryBookId, status, amount } }) => {
+> = ({ data }) => {
   const { t } = useTranslation('exchange')
-  const { data } = useTreasuryBookContext()
+  const { id, treasuryBookId, status, amount } = data ?? {}
+  const { data: { treasuryBooks } = {} } = useTreasuryBookContext()
 
   const items: DescriptionListItem[] = useMemo(() => {
-    const treasuryBook = data?.treasuryBooks.find(
-      ({ id }) => id === treasuryBookId,
-    )
+    const treasuryBook = treasuryBooks?.find(({ id }) => id === treasuryBookId)
 
     return [
       {
@@ -56,7 +55,7 @@ export const ExchangeTransactionDescriptionList: React.FC<
         description: amount,
       },
     ]
-  }, [amount, data?.treasuryBooks, id, status, t, treasuryBookId])
+  }, [amount, id, status, t, treasuryBookId, treasuryBooks])
 
   return <DescriptionList items={items} />
 }

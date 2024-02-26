@@ -1,11 +1,11 @@
-import { InsertCategoryFrom } from '@/components/category'
+import { AddCategoryFrom } from '@/components/category'
 import { PageHeader, Layout } from '@/components/layout'
 
 const Page: React.FC = () => {
   return (
     <Layout>
       <PageHeader />
-      <InsertCategoryFrom />
+      <AddCategoryFrom />
     </Layout>
   )
 }

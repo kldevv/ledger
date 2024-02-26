@@ -59,7 +59,7 @@ export const TransactionFilteredTable: React.FC<
   )
 
   return (
-    <Card>
+    <Card className="w-full">
       <div className="flex flex-col space-y-3">
         <div className="border-b-mid-gray flex items-center border-b pb-3 pt-1">
           <EntryStatusDropdownFilter

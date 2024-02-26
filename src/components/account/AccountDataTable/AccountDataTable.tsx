@@ -17,7 +17,7 @@ export const AccountDataTable: React.FC = () => {
   })
 
   return (
-    <Card>
+    <Card className="w-full">
       <AccountTable data={data?.accounts ?? []} />
     </Card>
   )

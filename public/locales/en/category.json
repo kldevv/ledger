@@ -25,16 +25,16 @@
       "view": "View"
     }
   },
-  "InsertCategoryFrom": {
-    "submit": "Create"
+  "AddCategoryFrom": {
+    "submit": "Add Category",
+    "success": "Your category is successfully added"
   },
   "UpdateCategoryForm": {
-    "submit": "Confirm"
+    "submit": "Update Category",
+    "success": "Your category is successfully updated"
   },
-  "UpsertCategoryForm": {
-    "label": {
-      "name": "Name"
-    }
+  "CategoryForm": {
+    "name": "Name"
   },
   "page": {
     "index": {

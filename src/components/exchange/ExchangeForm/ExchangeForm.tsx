@@ -54,7 +54,7 @@ export const ExchangeForm: React.FC<ExchangeFormProps> = ({
         <div className="my-3">
           <ExchangeRate />
         </div>
-        <Card>
+        <Card className="w-full">
           <div className="flex w-72 flex-col space-y-3">
             <InputDate<ExchangeFormFieldValues>
               name="accrualDate"

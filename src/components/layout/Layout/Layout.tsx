@@ -29,8 +29,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <SideNavigationBar />
         </div>
         <div className="bg-light-shades size-full overflow-auto">
-          <div className="h-full w-fit min-w-full">
-            <main className="size-fit min-h-full min-w-full">
+          <div className="size-full min-w-full">
+            <main className="size-fit min-h-full w-[80vw]">
               <div className="ml-6 mt-3 flex items-center">
                 <Breadcrumbs />
               </div>
@@ -39,7 +39,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   'px-16 pb-32',
                   'mt-3',
                   'flex flex-col gap-y-5',
-                  'w-full',
+                  'w-full ',
                 )}
               >
                 {children}

@@ -24,16 +24,17 @@
       "view": "View"
     }
   },
-  "InsertAccountFrom": {
-    "submit": "Create"
+  "AddAccountFrom": {
+    "submit": "Add Account",
+    "success": "Your Account is successfully added"
   },
   "UpdateAccountForm": {
-    "submit": "Confirm"
+    "submit": "Update Account",
+    "success": "Your Account is successfully updated"
   },
-  "UpsertAccountForm": {
+  "AccountForm": {
     "label": {
-      "name": "Account Name",
-      "categoryId": "Account Category"
+      "name": "Name"
     }
   },
   "page": {

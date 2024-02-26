@@ -29,7 +29,7 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({
   if (items.length === 0) return null
 
   return (
-    <Card>
+    <Card className="w-full">
       <div className="w-full">
         <dl>
           {items.map(({ title, description }) => (

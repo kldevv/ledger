@@ -6,22 +6,20 @@ import { DescriptionList, FormattedDate } from '@/components/common'
 import type { CategoryQuery } from '@/api/graphql'
 import type { DescriptionListItem } from '@/components/common'
 
-export type CategoryDescriptionListData = Exclude<
-  CategoryQuery['category'],
-  null | undefined
->
+export type CategoryDescriptionListData = CategoryQuery['category']
 
 export interface CategoryDescriptionListProps {
   /**
    * Data
    */
-  data: CategoryDescriptionListData
+  data?: CategoryDescriptionListData
 }
 
 export const CategoryDescriptionList: React.FC<
   CategoryDescriptionListProps
-> = ({ data: { id, name, type, createdAt, updatedAt } }) => {
+> = ({ data }) => {
   const { t } = useTranslation('category')
+  const { id, name, type, createdAt, updatedAt } = data ?? {}
 
   const items: DescriptionListItem[] = useMemo(
     () => [

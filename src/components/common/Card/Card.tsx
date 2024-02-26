@@ -14,14 +14,14 @@ export type CardProps = {
 export const Card: React.FC<CardProps> = ({ children, className }) => {
   const cn = classNames(
     'rounded-lg shadow box-shadow shadow-mid-gray',
-    'max-w-full w-full min-w-max',
+    'w-full',
     'bg-white',
     className,
   )
 
   return (
     <div className={cn}>
-      <div className="w-full px-6 py-3">{children}</div>
+      <div className="w-full p-6">{children}</div>
     </div>
   )
 }

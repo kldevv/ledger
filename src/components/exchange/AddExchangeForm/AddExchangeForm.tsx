@@ -4,16 +4,15 @@ import { useCallback, useMemo } from 'react'
 import { useAddExchangeMutation } from '@/api/graphql'
 import { entryFieldDefaultValues } from '@/components/entry/EntryFields'
 import { useAccountsContext, useTreasuryBookContext } from '@/hooks'
-import {
-  parseCurrencyNumericFormat,
-  type ExchangeFormFieldValues,
-} from '@/shared'
+import { parseCurrencyNumericFormat } from '@/shared'
 import {
   addExchangeDefaultValues,
   addExchangeTransactionDefaultValues,
 } from '@/shared/zod/defaultValues'
 
 import { ExchangeForm } from '..'
+
+import type { ExchangeFormFieldValues } from '..'
 
 export const AddExchangeForm: React.FC = () => {
   const { t } = useTranslation('exchange')

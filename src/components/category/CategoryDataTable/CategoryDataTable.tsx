@@ -6,19 +6,18 @@ import { useTreasuryBookContext } from '@/hooks'
 export const CategoryDataTable: React.FC = () => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
-  const { data } = useCategoriesQuery({
+  const { data: { categories } = {} } = useCategoriesQuery({
     variables: {
       input: {
         treasuryBookId: selectedTreasuryBookId ?? '',
       },
     },
-    fetchPolicy: 'cache-and-network',
     skip: selectedTreasuryBookId == null,
   })
 
   return (
     <Card>
-      <CategoryTable data={data?.categories ?? []} />
+      <CategoryTable data={categories ?? []} />
     </Card>
   )
 }

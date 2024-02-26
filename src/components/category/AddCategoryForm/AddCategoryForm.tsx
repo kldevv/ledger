@@ -2,30 +2,27 @@ import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 
 import { useAddCategoryMutation } from '@/api/graphql'
-import { UpsertCategoryForm } from '@/components/category'
-import { useTreasuryBookContext } from '@/hooks'
+import { CategoryForm } from '@/components/category'
+import { useToaster, useTreasuryBookContext } from '@/hooks'
 
-import type { UpsertCategoryFormFieldValues } from '@/shared'
+import type { CategoryFormFieldValues } from '@/components/category'
 
-export const InsertCategoryFrom: React.FC = () => {
+export const AddCategoryFrom: React.FC = () => {
   const { t } = useTranslation('category')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const toast = useToaster()
 
   const [addCategory] = useAddCategoryMutation({
-    onCompleted: (data) => console.log(data),
+    onCompleted: () => toast(t`AddCategoryFrom.success`),
   })
 
   const handleOnSubmit = useCallback(
-    (values: UpsertCategoryFormFieldValues) => {
-      if (selectedTreasuryBookId == null) {
-        return
-      }
-
+    (values: CategoryFormFieldValues) => {
       void addCategory({
         variables: {
           input: {
             ...values,
-            treasuryBookId: selectedTreasuryBookId,
+            treasuryBookId: selectedTreasuryBookId ?? '',
           },
         },
       })
@@ -34,8 +31,8 @@ export const InsertCategoryFrom: React.FC = () => {
   )
 
   return (
-    <UpsertCategoryForm
-      onSubmitText={t`InsertCategoryFrom.submit`}
+    <CategoryForm
+      onSubmitText={t`AddCategoryFrom.submit`}
       onSubmit={handleOnSubmit}
     />
   )

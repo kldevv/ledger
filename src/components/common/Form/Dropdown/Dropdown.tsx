@@ -80,7 +80,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
 }: DropdownProps<TFieldValues>) => {
   const {
     field,
-    fieldState: { error, isTouched },
+    fieldState: { error },
   } = useController<TFieldValues>({
     name,
     control,
@@ -92,7 +92,6 @@ export const Dropdown = <TFieldValues extends FieldValues>({
     'flex items-center',
     'bg-white rounded-md border border-mid-gray text-dark-shades',
     'font-normal text-sm leading-6 outline-none',
-    isTouched ? (error == null ? 'border-green' : 'border-red') : undefined,
   )
 
   const displayValue = useMemo(() => {
@@ -104,7 +103,7 @@ export const Dropdown = <TFieldValues extends FieldValues>({
   }, [multiple, options, field.value])
 
   return (
-    <div className="relative flex w-full min-w-fit flex-col">
+    <div className="relative flex w-full flex-col">
       <Listbox {...field} as="div" multiple={multiple}>
         {({ open }) => (
           <>
@@ -116,9 +115,9 @@ export const Dropdown = <TFieldValues extends FieldValues>({
             ) : (
               <Listbox.Button className={buttonCn} id={`listbox-${name}`}>
                 <div className="relative flex h-[30px] w-full items-center">
-                  <span className="mr-[1.75rem] w-full truncate text-left">
+                  <div className="mr-[1.75rem] w-full truncate text-left">
                     {displayValue}
-                  </span>
+                  </div>
                   <div className="text-gray absolute right-1">
                     {open ? (
                       <ChevronUpIcon className="size-5" />

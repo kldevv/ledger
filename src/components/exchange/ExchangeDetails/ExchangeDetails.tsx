@@ -18,7 +18,7 @@ export const ExchangeDetails: React.FC = () => {
     return id == null || Array.isArray(id) ? null : id
   }, [id])
 
-  const { data: exchangeDetailsQueryData } = useExchangeDetailsQuery({
+  const { data: { exchange, entries } = {} } = useExchangeDetailsQuery({
     variables: {
       exchangeInput: {
         id: exchangeId ?? '',
@@ -30,22 +30,18 @@ export const ExchangeDetails: React.FC = () => {
     skip: exchangeId == null,
   })
 
-  if (exchangeDetailsQueryData?.exchange == null) {
-    return null
-  }
-
-  const { origin, destination } = exchangeDetailsQueryData.exchange
+  const { origin, destination } = exchange ?? {}
 
   return (
     <div>
-      <ExchangeDescriptionList data={exchangeDetailsQueryData.exchange} />
+      <ExchangeDescriptionList data={exchange} />
       <div className="mt-12">
         <PageTab
           options={[origin, destination].map((data, index) => {
             return {
               label: t(`ExchangeDetails.label.${index}`),
               content: (
-                <Fragment key={data.id}>
+                <Fragment key={data?.id}>
                   <div className="flex flex-col space-y-4">
                     <h3 className="text-dark-shades text-base font-medium leading-6">
                       {t(`ExchangeDetails.title.${index}.details`)}
@@ -58,8 +54,8 @@ export const ExchangeDetails: React.FC = () => {
                     </h3>
                     <EntryFilteredTable
                       data={
-                        exchangeDetailsQueryData.entries.filter(
-                          ({ transactionId }) => transactionId === data.id,
+                        entries?.filter(
+                          ({ transactionId }) => transactionId === data?.id,
                         ) ?? []
                       }
                     />

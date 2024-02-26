@@ -1,63 +1,57 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { useCategoryQuery, useUpdateCategoryMutation } from '@/api/graphql'
-import { UpsertCategoryForm } from '@/components/category'
+import {
+  CategoryType,
+  useCategoryQuery,
+  useUpdateCategoryMutation,
+} from '@/api/graphql'
+import { CategoryForm } from '@/components/category'
+import { useResolvedQuery, useToaster } from '@/hooks'
 
-import type { UpsertCategoryFormFieldValues } from '@/shared'
+import type { CategoryFormFieldValues } from '@/components/category'
 
 export const UpdateCategoryForm: React.FC = () => {
   const { t } = useTranslation('category')
-  const router = useRouter()
+  const id = useResolvedQuery('id', '')
+  const toast = useToaster()
 
-  const { id } = router.query
-  const categoryId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id
-  }, [id])
-
-  const { data } = useCategoryQuery({
+  const { data: { category } = {} } = useCategoryQuery({
     variables: {
       input: {
-        id: categoryId ?? '',
+        id: id ?? '',
       },
     },
-    skip: categoryId == null,
+    skip: id == null,
   })
 
-  const [updateCategory] = useUpdateCategoryMutation()
+  const [updateCategory] = useUpdateCategoryMutation({
+    onCompleted: () => toast(t`UpdateCategoryForm.success`),
+  })
 
   const values = useMemo(() => {
-    if (data?.category == null) {
-      return undefined
-    }
-
     return {
-      name: data?.category.name,
-      type: data?.category.type,
+      name: category?.name ?? '',
+      type: category?.type ?? CategoryType.ASSETS,
     }
-  }, [data?.category])
+  }, [category?.name, category?.type])
 
   const handleOnSubmit = useCallback(
-    (values: UpsertCategoryFormFieldValues) => {
-      if (data?.category == null) {
-        return
-      }
-
+    (values: CategoryFormFieldValues) => {
       void updateCategory({
         variables: {
           input: {
-            id: data.category.id,
+            id: category?.id ?? '',
             ...values,
           },
         },
       })
     },
-    [data?.category, updateCategory],
+    [category?.id, updateCategory],
   )
 
   return (
-    <UpsertCategoryForm
+    <CategoryForm
       onSubmit={handleOnSubmit}
       onSubmitText={t`UpdateCategoryForm.submit`}
       values={values}

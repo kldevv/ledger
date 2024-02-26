@@ -1,63 +1,54 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
 import { useAccountQuery, useUpdateAccountMutation } from '@/api/graphql'
-import { UpsertAccountForm } from '@/components/account'
+import { AccountForm } from '@/components/account'
+import { useResolvedQuery, useToaster } from '@/hooks'
 
-import type { UpsertAccountFormFieldValues } from '@/components/account'
+import type { AccountFormFieldValues } from '@/components/account'
 
 export const UpdateAccountForm: React.FC = () => {
   const { t } = useTranslation('account')
-  const router = useRouter()
+  const id = useResolvedQuery('id', '')
+  const toast = useToaster()
 
-  const { id } = router.query
-  const accountId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id
-  }, [id])
-
-  const { data } = useAccountQuery({
+  const { data: { account } = {} } = useAccountQuery({
     variables: {
       input: {
-        id: accountId ?? '',
+        id: id ?? '',
       },
     },
-    skip: accountId == null,
+    skip: id == null,
   })
 
-  const [updateAccount] = useUpdateAccountMutation()
+  const [updateAccount] = useUpdateAccountMutation({
+    onCompleted: () => toast(t`UpdateAccountForm.success`),
+  })
 
-  const values = useMemo(() => {
-    if (data?.account == null) {
-      return undefined
-    }
-
-    return {
-      name: data.account.name,
-      categoryId: data.account.category?.id ?? '',
-    }
-  }, [data?.account])
+  const values = useMemo(
+    () => ({
+      name: account?.name ?? '',
+      categoryId: account?.category?.id ?? '',
+    }),
+    [account?.category?.id, account?.name],
+  )
 
   const handleOnSubmit = useCallback(
-    (values: UpsertAccountFormFieldValues) => {
-      if (data?.account == null) {
-        return
-      }
-
+    (values: AccountFormFieldValues) => {
       void updateAccount({
         variables: {
           input: {
-            id: data.account.id,
+            id: account?.id ?? '',
             ...values,
           },
         },
       })
     },
-    [updateAccount, data?.account],
+    [updateAccount, account?.id],
   )
 
   return (
-    <UpsertAccountForm
+    <AccountForm
       onSubmit={handleOnSubmit}
       onSubmitText={t`UpdateAccountForm.submit`}
       values={values}

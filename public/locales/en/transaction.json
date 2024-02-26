@@ -30,11 +30,11 @@
   },
   "AddTransactionForm": {
     "submit": "Add Transaction",
-    "success": "Your transaction is successfully added."
+    "success": "Your transaction is successfully added"
   },
   "UpdateTransactionForm": {
     "submit": "Update Transaction",
-    "success": "Your transaction is successfully updated."
+    "success": "Your transaction is successfully updated"
   },
   "TransactionForm": {
     "label": {

@@ -11,9 +11,8 @@ import {
 import type { EntryStatus, TransactionDetailsQuery } from '@/api/graphql'
 import type { DescriptionListItem } from '@/components/common'
 
-type TransactionDescriptionListData = Exclude<
-  TransactionDetailsQuery['transaction'],
-  null
+type TransactionDescriptionListData = Partial<
+  Exclude<TransactionDetailsQuery['transaction'], null>
 > & {
   /**
    * Summary of the entries status

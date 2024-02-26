@@ -10,10 +10,7 @@ import {
 
 import type { DescriptionListItem } from '@/components/common'
 
-export type ExchangeDescriptionListData = Exclude<
-  ExchangeDetailsQuery['exchange'],
-  null | undefined
->
+export type ExchangeDescriptionListData = ExchangeDetailsQuery['exchange']
 
 export interface ExchangeDescriptionListProps {
   /**
@@ -24,13 +21,14 @@ export interface ExchangeDescriptionListProps {
 
 export const ExchangeDescriptionList: React.FC<
   ExchangeDescriptionListProps
-> = ({ data: { id, origin, destination, createdAt, updatedAt } }) => {
+> = ({ data }) => {
   const { t } = useTranslation('exchange')
+  const { id, origin, destination, createdAt, updatedAt } = data ?? {}
 
   const items: DescriptionListItem[] = useMemo(() => {
     const status =
-      origin.status === EntryStatus.COMPLETED &&
-      destination.status === EntryStatus.COMPLETED
+      origin?.status === EntryStatus.COMPLETED &&
+      destination?.status === EntryStatus.COMPLETED
         ? EntryStatus.COMPLETED
         : EntryStatus.PENDING
 
@@ -41,19 +39,19 @@ export const ExchangeDescriptionList: React.FC<
       },
       {
         title: t('ExchangeDescriptionList.title.date'),
-        description: <FormattedDate dateTime={origin.accrualDate} />,
+        description: <FormattedDate dateTime={origin?.accrualDate} />,
       },
       {
         title: t('ExchangeDescriptionList.title.note'),
-        description: origin.note,
+        description: origin?.note,
       },
       {
         title: t('ExchangeDescriptionList.title.origin'),
-        description: origin.id,
+        description: origin?.id,
       },
       {
         title: t('ExchangeDescriptionList.title.destination'),
-        description: destination.id,
+        description: destination?.id,
       },
       {
         title: t('ExchangeDescriptionList.title.status'),
@@ -70,13 +68,13 @@ export const ExchangeDescriptionList: React.FC<
     ]
   }, [
     createdAt,
-    destination.id,
-    destination.status,
+    destination?.id,
+    destination?.status,
     id,
-    origin.accrualDate,
-    origin.id,
-    origin.note,
-    origin.status,
+    origin?.accrualDate,
+    origin?.id,
+    origin?.note,
+    origin?.status,
     t,
     updatedAt,
   ])

@@ -18,15 +18,15 @@ export const AccountFormDropdown = <TFieldValues extends FieldValues>({
 }: AccountFormDropdownProps<TFieldValues>) => {
   const { t } = useTranslation('common')
 
-  const { data, loading } = useAccountsContext()
+  const { data: { accounts } = {}, loading } = useAccountsContext()
 
   const options = useMemo(
     () =>
-      data?.accounts.map(({ id, name }) => ({
+      accounts?.map(({ id, name }) => ({
         value: id,
         label: name,
       })) ?? [],
-    [data?.accounts],
+    [accounts],
   )
 
   return (

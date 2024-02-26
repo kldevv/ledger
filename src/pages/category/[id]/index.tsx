@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { CategoryDetail } from '@/components/category'
+import { CategoryDetails } from '@/components/category'
 import { PageHeader, Layout } from '@/components/layout'
 import { route } from '@/shared'
 
@@ -20,7 +20,7 @@ const Page: React.FC = () => {
           label: t`page.[id].index.action`,
         }}
       />
-      <CategoryDetail />
+      <CategoryDetails />
     </Layout>
   )
 }
