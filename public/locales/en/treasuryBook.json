@@ -21,13 +21,18 @@
       "createdAt": "Create Date"
     }
   },
-  "UpsertTreasuryBookForm": {
+  "TreasuryBookForm": {
     "label": {
       "name": "Name"
     }
   },
-  "InsertTreasuryBookForm": {
-    "submit": "Create"
+  "AddTreasuryBookForm": {
+    "submit": "Add Treasury Book",
+    "success": "Your treasury book is successfully added"
+  },
+  "UpdateTreasuryBookForm": {
+    "submit": "Update Treasury Book",
+    "success": "Your treasury book is successfully updated"
   },
   "page": {
     "index": {

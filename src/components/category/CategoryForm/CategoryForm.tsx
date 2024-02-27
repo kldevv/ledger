@@ -34,6 +34,7 @@ export interface CategoryFormProps {
 export const CategoryForm: React.FC<CategoryFormProps> = ({
   onSubmit,
   onSubmitText,
+  values,
 }) => {
   const { t } = useTranslation('category')
 
@@ -43,6 +44,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       name: '',
       type: CategoryType.ASSETS,
     },
+    values,
   })
 
   return (

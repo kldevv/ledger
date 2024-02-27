@@ -17,6 +17,7 @@ type Mutation {
 
   # TreasuryBook
   addTreasuryBook(input: AddTreasuryBookInput!): TreasuryBook!
+  updateTreasuryBook(input: UpdateTreasuryBookInput!): TreasuryBook!
 
   # Exchange
   addExchange(input: AddExchangeInput!): Exchange!

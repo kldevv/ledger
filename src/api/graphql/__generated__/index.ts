@@ -220,6 +220,7 @@ export type Mutation = {
   updateCategory: Category;
   updateTag: Tag;
   updateTransaction: Transaction;
+  updateTreasuryBook: TreasuryBook;
 };
 
 
@@ -270,6 +271,11 @@ export type MutationUpdateTagArgs = {
 
 export type MutationUpdateTransactionArgs = {
   input: UpdateTransactionInput;
+};
+
+
+export type MutationUpdateTreasuryBookArgs = {
+  input: UpdateTreasuryBookInput;
 };
 
 export type Query = {
@@ -485,6 +491,12 @@ export type UpdateTransactionInput = {
   treasuryBookId: Scalars['String']['input'];
 };
 
+export type UpdateTreasuryBookInput = {
+  currency: Currency;
+  id: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+};
+
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -604,6 +616,7 @@ export type ResolversTypes = {
   UpdateCategoryInput: UpdateCategoryInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
+  UpdateTreasuryBookInput: UpdateTreasuryBookInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -651,6 +664,7 @@ export type ResolversParentTypes = {
   UpdateCategoryInput: UpdateCategoryInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
+  UpdateTreasuryBookInput: UpdateTreasuryBookInput;
 };
 
 export type AccountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
@@ -733,6 +747,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   updateCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'input'>>;
   updateTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationUpdateTagArgs, 'input'>>;
   updateTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationUpdateTransactionArgs, 'input'>>;
+  updateTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationUpdateTreasuryBookArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -821,6 +836,8 @@ export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, cr
 
 export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string };
 
+export type TreasuryBookDataFragment = { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, createdAt: Date };
+
 export type AddAccountMutationVariables = Exact<{
   input: AddAccountInput;
 }>;
@@ -889,7 +906,14 @@ export type AddTreasuryBookMutationVariables = Exact<{
 }>;
 
 
-export type AddTreasuryBookMutation = { __typename?: 'Mutation', addTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date, updatedAt: Date } };
+export type AddTreasuryBookMutation = { __typename?: 'Mutation', addTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, createdAt: Date } };
+
+export type UpdateTreasuryBookMutationVariables = Exact<{
+  input: UpdateTreasuryBookInput;
+}>;
+
+
+export type UpdateTreasuryBookMutation = { __typename?: 'Mutation', updateTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, createdAt: Date } };
 
 export type AccountQueryVariables = Exact<{
   input: AccountInput;
@@ -1049,7 +1073,7 @@ export type TreasuryBooksQueryVariables = Exact<{
 }>;
 
 
-export type TreasuryBooksQuery = { __typename?: 'Query', treasuryBooks: Array<{ __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date, updatedAt: Date }> };
+export type TreasuryBooksQuery = { __typename?: 'Query', treasuryBooks: Array<{ __typename?: 'TreasuryBook', updatedAt: Date, id: string, name: string, currency: Currency, createdAt: Date }> };
 
 export const AccountDataFragmentDoc = gql`
     fragment AccountData on Account {
@@ -1136,6 +1160,14 @@ export const TagDataFragmentDoc = gql`
   name
   createdAt
   count
+}
+    `;
+export const TreasuryBookDataFragmentDoc = gql`
+    fragment TreasuryBookData on TreasuryBook {
+  id
+  name
+  currency
+  createdAt
 }
     `;
 export const AddAccountDocument = gql`
@@ -1477,15 +1509,10 @@ export type UpdateTransactionMutationOptions = Apollo.BaseMutationOptions<Update
 export const AddTreasuryBookDocument = gql`
     mutation addTreasuryBook($input: AddTreasuryBookInput!) {
   addTreasuryBook(input: $input) {
-    id
-    name
-    currency
-    ownerId
-    createdAt
-    updatedAt
+    ...TreasuryBookData
   }
 }
-    `;
+    ${TreasuryBookDataFragmentDoc}`;
 export type AddTreasuryBookMutationFn = Apollo.MutationFunction<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>;
 
 /**
@@ -1512,6 +1539,39 @@ export function useAddTreasuryBookMutation(baseOptions?: Apollo.MutationHookOpti
 export type AddTreasuryBookMutationHookResult = ReturnType<typeof useAddTreasuryBookMutation>;
 export type AddTreasuryBookMutationResult = Apollo.MutationResult<AddTreasuryBookMutation>;
 export type AddTreasuryBookMutationOptions = Apollo.BaseMutationOptions<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>;
+export const UpdateTreasuryBookDocument = gql`
+    mutation updateTreasuryBook($input: UpdateTreasuryBookInput!) {
+  updateTreasuryBook(input: $input) {
+    ...TreasuryBookData
+  }
+}
+    ${TreasuryBookDataFragmentDoc}`;
+export type UpdateTreasuryBookMutationFn = Apollo.MutationFunction<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>;
+
+/**
+ * __useUpdateTreasuryBookMutation__
+ *
+ * To run a mutation, you first call `useUpdateTreasuryBookMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTreasuryBookMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTreasuryBookMutation, { data, loading, error }] = useUpdateTreasuryBookMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTreasuryBookMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>(UpdateTreasuryBookDocument, options);
+      }
+export type UpdateTreasuryBookMutationHookResult = ReturnType<typeof useUpdateTreasuryBookMutation>;
+export type UpdateTreasuryBookMutationResult = Apollo.MutationResult<UpdateTreasuryBookMutation>;
+export type UpdateTreasuryBookMutationOptions = Apollo.BaseMutationOptions<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>;
 export const AccountDocument = gql`
     query Account($input: AccountInput!) {
   account(input: $input) {
@@ -2401,15 +2461,11 @@ export type TransactionsQueryResult = Apollo.QueryResult<TransactionsQuery, Tran
 export const TreasuryBooksDocument = gql`
     query TreasuryBooks($input: TreasuryBooksInput!) {
   treasuryBooks(input: $input) {
-    id
-    name
-    currency
-    ownerId
-    createdAt
+    ...TreasuryBookData
     updatedAt
   }
 }
-    `;
+    ${TreasuryBookDataFragmentDoc}`;
 
 /**
  * __useTreasuryBooksQuery__

@@ -1,4 +1,4 @@
-export * from './InsertTagForm'
+export * from './AddTagForm'
 export * from './TagDataTable'
 export * from './TagDescriptionList'
 export * from './TagDetails'

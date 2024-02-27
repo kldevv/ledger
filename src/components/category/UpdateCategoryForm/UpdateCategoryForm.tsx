@@ -13,7 +13,7 @@ import type { CategoryFormFieldValues } from '@/components/category'
 
 export const UpdateCategoryForm: React.FC = () => {
   const { t } = useTranslation('category')
-  const id = useResolvedQuery('id', '')
+  const id = useResolvedQuery('id')
   const toast = useToaster()
 
   const { data: { category } = {} } = useCategoryQuery({
@@ -28,6 +28,8 @@ export const UpdateCategoryForm: React.FC = () => {
   const [updateCategory] = useUpdateCategoryMutation({
     onCompleted: () => toast(t`UpdateCategoryForm.success`),
   })
+
+  console.log(category)
 
   const values = useMemo(() => {
     return {

@@ -1,0 +1,5 @@
+mutation updateTreasuryBook($input: UpdateTreasuryBookInput!) {
+  updateTreasuryBook(input: $input) {
+    ...TreasuryBookData
+  }
+}

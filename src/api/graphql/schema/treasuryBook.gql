@@ -17,3 +17,9 @@ input AddTreasuryBookInput {
   currency: Currency!
   ownerId: String!
 }
+
+input UpdateTreasuryBookInput {
+  id: String!
+  name: String!
+  currency: Currency!
+}

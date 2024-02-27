@@ -1,11 +1,11 @@
 import { PageHeader, Layout } from '@/components/layout'
-import { InsertTagForm } from '@/components/tag'
+import { AddTagForm } from '@/components/tag'
 
 const Page: React.FC = () => {
   return (
     <Layout>
       <PageHeader />
-      <InsertTagForm />
+      <AddTagForm />
     </Layout>
   )
 }

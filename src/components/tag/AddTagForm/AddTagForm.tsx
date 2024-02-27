@@ -7,13 +7,13 @@ import { useToaster, useTreasuryBookContext } from '@/hooks'
 
 import type { TagFormFieldValues } from '@/components/tag'
 
-export const InsertTagForm: React.FC = () => {
+export const AddTagForm: React.FC = () => {
   const { t } = useTranslation('tag')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
   const toast = useToaster()
 
   const [addTag] = useAddTagMutation({
-    onCompleted: () => toast(t`InsertTagForm.success`),
+    onCompleted: () => toast(t`AddTagForm.success`),
   })
 
   const handleOnSubmit = useCallback(
@@ -33,6 +33,6 @@ export const InsertTagForm: React.FC = () => {
   )
 
   return (
-    <TagForm onSubmitText={t`InsertTagForm.submit`} onSubmit={handleOnSubmit} />
+    <TagForm onSubmitText={t`AddTagForm.submit`} onSubmit={handleOnSubmit} />
   )
 }

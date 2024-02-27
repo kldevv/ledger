@@ -1,10 +1,5 @@
 mutation addTreasuryBook($input: AddTreasuryBookInput!) {
   addTreasuryBook(input: $input) {
-    id
-    name
-    currency
-    ownerId
-    createdAt
-    updatedAt
+    ...TreasuryBookData
   }
 }

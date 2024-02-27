@@ -9,7 +9,7 @@ export type UpdateTreasuryBookProps = Pick<TreasuryBook, 'id'> & {
   /**
    * Update data
    */
-  data: Partial<Pick<TreasuryBook, 'name'>>
+  data: Partial<Pick<TreasuryBook, 'name' | 'currency'>>
 }
 
 export const updateTreasuryBook = async ({

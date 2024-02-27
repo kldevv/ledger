@@ -13,14 +13,14 @@ import type { TransactionFormFieldValues } from '@/components/transaction'
 
 export const UpdateTransactionForm: React.FC = () => {
   const { t } = useTranslation('transaction')
-  const id = useResolvedQuery('id', '')
+  const id = useResolvedQuery('id')
   const toast = useToaster()
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
   const { data: { transaction, entries } = {} } = useTransactionDetailsQuery({
     variables: {
       TransactionInput: {
-        id,
+        id: id ?? '',
       },
       entriesInput: {
         transactionId: id,
@@ -31,17 +31,18 @@ export const UpdateTransactionForm: React.FC = () => {
   })
 
   const values = useMemo(() => {
-    if (transaction == null || entries == null) return undefined
+    if (transaction == null) return
 
     return {
       ...transaction,
-      tagIds: transaction.tags?.map(({ id }) => id) ?? [],
-      entries: entries.map(({ debit, credit, account, ...entry }) => ({
-        ...entry,
-        debit: String(debit),
-        credit: String(credit),
-        accountId: account?.id ?? '',
-      })),
+      tagIds: transaction?.tags?.map(({ id }) => id) ?? [],
+      entries:
+        entries?.map(({ debit, credit, account, ...entry }) => ({
+          ...entry,
+          debit: String(debit),
+          credit: String(credit),
+          accountId: account?.id ?? '',
+        })) ?? [],
     }
   }, [entries, transaction])
 
@@ -51,12 +52,14 @@ export const UpdateTransactionForm: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: TransactionFormFieldValues) => {
+      if (transaction == null) return
+
       void updateTransaction({
         variables: {
           input: {
             ...values,
-            id,
-            treasuryBookId: transaction?.treasuryBookId ?? '',
+            id: transaction.id,
+            treasuryBookId: transaction.treasuryBookId,
             entries: values.entries.map((entry) => ({
               ...entry,
               // remove currency numeric format
@@ -68,7 +71,7 @@ export const UpdateTransactionForm: React.FC = () => {
         },
       })
     },
-    [id, transaction, updateTransaction],
+    [transaction, updateTransaction],
   )
 
   return (

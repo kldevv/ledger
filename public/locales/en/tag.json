@@ -36,7 +36,7 @@
     "submit": "Update Tag",
     "success": "Your tag is successfully updated"
   },
-  "InsertTagForm": {
+  "AddTagForm": {
     "submit": "Add Tag",
     "success": "Your tag is successfully added"
   },
