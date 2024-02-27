@@ -2,24 +2,23 @@ import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 
 import { useAddTagMutation } from '@/api/graphql'
-import { UpsertTagForm } from '@/components/tag'
-import { useTreasuryBookContext } from '@/hooks'
+import { TagForm } from '@/components/tag'
+import { useToaster, useTreasuryBookContext } from '@/hooks'
 
-import type { UpsertTagFormFieldValues } from '@/components/tag'
+import type { TagFormFieldValues } from '@/components/tag'
 
 export const InsertTagForm: React.FC = () => {
   const { t } = useTranslation('tag')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const toast = useToaster()
 
   const [addTag] = useAddTagMutation({
-    onCompleted: (data) => console.log(data),
+    onCompleted: () => toast(t`InsertTagForm.success`),
   })
 
   const handleOnSubmit = useCallback(
-    (values: UpsertTagFormFieldValues) => {
-      if (selectedTreasuryBookId == null) {
-        return
-      }
+    (values: TagFormFieldValues) => {
+      if (selectedTreasuryBookId == null) return
 
       void addTag({
         variables: {
@@ -34,9 +33,6 @@ export const InsertTagForm: React.FC = () => {
   )
 
   return (
-    <UpsertTagForm
-      onSubmitText={t`InsertTagForm.submit`}
-      onSubmit={handleOnSubmit}
-    />
+    <TagForm onSubmitText={t`InsertTagForm.submit`} onSubmit={handleOnSubmit} />
   )
 }

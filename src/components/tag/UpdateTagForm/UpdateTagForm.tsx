@@ -1,62 +1,54 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { useGetTagQuery, useUpdateTagMutation } from '@/api/graphql'
-import { UpsertTagForm } from '@/components/tag'
+import { useTagQuery, useUpdateTagMutation } from '@/api/graphql'
+import { TagForm } from '@/components/tag'
+import { useResolvedQuery, useToaster } from '@/hooks'
 
-import type { UpsertTagFormFieldValues } from '@/components/tag'
+import type { TagFormFieldValues } from '@/components/tag'
 
 export const UpdateTagForm: React.FC = () => {
   const { t } = useTranslation('tag')
-  const router = useRouter()
+  const id = useResolvedQuery('id')
+  const toast = useToaster()
 
-  const { id } = router.query
-  const tagId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id
-  }, [id])
-
-  const { data } = useGetTagQuery({
+  const { data: { tag } = {} } = useTagQuery({
     variables: {
       input: {
-        id: tagId ?? '',
+        id: id ?? '',
       },
     },
-    skip: tagId == null,
+    skip: id == null,
   })
 
-  const [updateTag] = useUpdateTagMutation()
+  const [updateTag] = useUpdateTagMutation({
+    onCompleted: () => toast(t`UpdateTagForm.success`),
+  })
 
   const values = useMemo(() => {
-    if (data?.tag == null) {
-      return undefined
-    }
-
     return {
-      name: data.tag.name,
+      name: tag?.name ?? '',
     }
-  }, [data?.tag])
+  }, [tag])
 
   const handleOnSubmit = useCallback(
-    (values: UpsertTagFormFieldValues) => {
-      if (data?.tag == null) {
-        return
-      }
+    (values: TagFormFieldValues) => {
+      if (tag?.id == null) return
 
       void updateTag({
         variables: {
           input: {
-            id: data.tag.id,
+            id: tag?.id,
             ...values,
           },
         },
       })
     },
-    [data?.tag, updateTag],
+    [tag?.id, updateTag],
   )
 
   return (
-    <UpsertTagForm
+    <TagForm
       onSubmit={handleOnSubmit}
       onSubmitText={t`UpdateTagForm.submit`}
       values={values}

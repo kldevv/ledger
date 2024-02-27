@@ -38,6 +38,8 @@ export const UpdateCategoryForm: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: CategoryFormFieldValues) => {
+      if (category?.id == null) return
+
       void updateCategory({
         variables: {
           input: {

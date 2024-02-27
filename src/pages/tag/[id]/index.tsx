@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { Layout, PageHeader } from '@/components/layout'
-import { TagDetail } from '@/components/tag'
+import { TagDetails } from '@/components/tag'
 import { route } from '@/shared'
 
 const Page: React.FC = () => {
@@ -20,7 +20,7 @@ const Page: React.FC = () => {
           label: t`page.[id].index.action`,
         }}
       />
-      <TagDetail />
+      <TagDetails />
     </Layout>
   )
 }

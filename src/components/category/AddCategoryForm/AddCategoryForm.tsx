@@ -18,11 +18,13 @@ export const AddCategoryFrom: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: CategoryFormFieldValues) => {
+      if (selectedTreasuryBookId == null) return
+
       void addCategory({
         variables: {
           input: {
             ...values,
-            treasuryBookId: selectedTreasuryBookId ?? '',
+            treasuryBookId: selectedTreasuryBookId,
           },
         },
       })

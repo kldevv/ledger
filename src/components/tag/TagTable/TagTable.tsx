@@ -6,9 +6,9 @@ import { useMemo } from 'react'
 import { FormattedDate, Table, LinkButton } from '@/components/common'
 import { route } from '@/shared'
 
-import type { GetTagsQuery } from '@/api/graphql'
+import type { TagsQuery } from '@/api/graphql'
 
-export type TagTableData = GetTagsQuery['tags'][number]
+export type TagTableData = TagsQuery['tags'][number]
 
 export interface TagTableProps {
   /**

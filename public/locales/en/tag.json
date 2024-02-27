@@ -16,7 +16,7 @@
       "createdAt": "Create Date"
     }
   },
-  "TagDetail": {
+  "TagDetails": {
     "title": {
       "transactions": "Tag Transactions"
     }
@@ -33,12 +33,14 @@
     }
   },
   "UpdateTagForm": {
-    "submit": "Confirm"
+    "submit": "Update Tag",
+    "success": "Your tag is successfully updated"
   },
   "InsertTagForm": {
-    "submit": "Create"
+    "submit": "Add Tag",
+    "success": "Your tag is successfully added"
   },
-  "UpsertTagForm": {
+  "TagForm": {
     "label": {
       "name": "Name"
     }

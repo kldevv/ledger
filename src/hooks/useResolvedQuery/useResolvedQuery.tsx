@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-export const useResolvedQuery = (x: string, defaultValue: string) => {
+export const useResolvedQuery = (x: string, defaultValue?: string) => {
   const { query } = useRouter()
 
   const y = query[x]

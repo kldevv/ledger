@@ -1014,13 +1014,13 @@ export type TagQueryVariables = Exact<{
 
 export type TagQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', id: string, name: string, createdAt: Date, count: number } | null };
 
-export type TagDetailQueryVariables = Exact<{
-  TagInput: TagInput;
-  TransactionsInput: TransactionsInput;
+export type TagDetailsQueryVariables = Exact<{
+  tagInput: TagInput;
+  transactionsInput: TransactionsInput;
 }>;
 
 
-export type TagDetailQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', updatedAt: Date, id: string, name: string, createdAt: Date, count: number } | null, transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
+export type TagDetailsQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', updatedAt: Date, id: string, name: string, createdAt: Date, count: number } | null, transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
 
 export type TagsQueryVariables = Exact<{
   input: TagsInput;
@@ -2222,13 +2222,13 @@ export type TagQueryHookResult = ReturnType<typeof useTagQuery>;
 export type TagLazyQueryHookResult = ReturnType<typeof useTagLazyQuery>;
 export type TagSuspenseQueryHookResult = ReturnType<typeof useTagSuspenseQuery>;
 export type TagQueryResult = Apollo.QueryResult<TagQuery, TagQueryVariables>;
-export const TagDetailDocument = gql`
-    query TagDetail($TagInput: TagInput!, $TransactionsInput: TransactionsInput!) {
-  tag(input: $TagInput) {
+export const TagDetailsDocument = gql`
+    query TagDetails($tagInput: TagInput!, $transactionsInput: TransactionsInput!) {
+  tag(input: $tagInput) {
     ...TagData
     updatedAt
   }
-  transactions(input: $TransactionsInput) {
+  transactions(input: $transactionsInput) {
     ...TransactionData
   }
 }
@@ -2236,38 +2236,38 @@ export const TagDetailDocument = gql`
 ${TransactionDataFragmentDoc}`;
 
 /**
- * __useTagDetailQuery__
+ * __useTagDetailsQuery__
  *
- * To run a query within a React component, call `useTagDetailQuery` and pass it any options that fit your needs.
- * When your component renders, `useTagDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useTagDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTagDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useTagDetailQuery({
+ * const { data, loading, error } = useTagDetailsQuery({
  *   variables: {
- *      TagInput: // value for 'TagInput'
- *      TransactionsInput: // value for 'TransactionsInput'
+ *      tagInput: // value for 'tagInput'
+ *      transactionsInput: // value for 'transactionsInput'
  *   },
  * });
  */
-export function useTagDetailQuery(baseOptions: Apollo.QueryHookOptions<TagDetailQuery, TagDetailQueryVariables>) {
+export function useTagDetailsQuery(baseOptions: Apollo.QueryHookOptions<TagDetailsQuery, TagDetailsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TagDetailQuery, TagDetailQueryVariables>(TagDetailDocument, options);
+        return Apollo.useQuery<TagDetailsQuery, TagDetailsQueryVariables>(TagDetailsDocument, options);
       }
-export function useTagDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TagDetailQuery, TagDetailQueryVariables>) {
+export function useTagDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TagDetailsQuery, TagDetailsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TagDetailQuery, TagDetailQueryVariables>(TagDetailDocument, options);
+          return Apollo.useLazyQuery<TagDetailsQuery, TagDetailsQueryVariables>(TagDetailsDocument, options);
         }
-export function useTagDetailSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TagDetailQuery, TagDetailQueryVariables>) {
+export function useTagDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TagDetailsQuery, TagDetailsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<TagDetailQuery, TagDetailQueryVariables>(TagDetailDocument, options);
+          return Apollo.useSuspenseQuery<TagDetailsQuery, TagDetailsQueryVariables>(TagDetailsDocument, options);
         }
-export type TagDetailQueryHookResult = ReturnType<typeof useTagDetailQuery>;
-export type TagDetailLazyQueryHookResult = ReturnType<typeof useTagDetailLazyQuery>;
-export type TagDetailSuspenseQueryHookResult = ReturnType<typeof useTagDetailSuspenseQuery>;
-export type TagDetailQueryResult = Apollo.QueryResult<TagDetailQuery, TagDetailQueryVariables>;
+export type TagDetailsQueryHookResult = ReturnType<typeof useTagDetailsQuery>;
+export type TagDetailsLazyQueryHookResult = ReturnType<typeof useTagDetailsLazyQuery>;
+export type TagDetailsSuspenseQueryHookResult = ReturnType<typeof useTagDetailsSuspenseQuery>;
+export type TagDetailsQueryResult = Apollo.QueryResult<TagDetailsQuery, TagDetailsQueryVariables>;
 export const TagsDocument = gql`
     query Tags($input: TagsInput!) {
   tags(input: $input) {
