@@ -12,6 +12,7 @@
     "title": {
       "id": "ID",
       "name": "Name",
+      "type": "Type",
       "updatedAt": "Update Date",
       "createdAt": "Create Date"
     }
@@ -26,6 +27,7 @@
       "id": "ID",
       "name": "Name",
       "transaction": "Transactions",
+      "type": "Type",
       "createdAt": "Create Date"
     },
     "link": {

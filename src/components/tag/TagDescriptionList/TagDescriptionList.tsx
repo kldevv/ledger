@@ -1,7 +1,11 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { DescriptionList, FormattedDate } from '@/components/common'
+import {
+  DescriptionList,
+  FormattedDate,
+  TagTypeChip,
+} from '@/components/common'
 
 import type { TagDetailsQuery } from '@/api/graphql'
 import type { DescriptionListItem } from '@/components/common'
@@ -19,7 +23,7 @@ export const TagDescriptionList: React.FC<TagDescriptionListProps> = ({
   data,
 }) => {
   const { t } = useTranslation('tag')
-  const { id, name, createdAt, updatedAt } = data ?? {}
+  const { id, name, createdAt, updatedAt, type } = data ?? {}
 
   const items: DescriptionListItem[] = useMemo(
     () => [
@@ -32,6 +36,10 @@ export const TagDescriptionList: React.FC<TagDescriptionListProps> = ({
         description: name,
       },
       {
+        title: t('TagDescriptionList.title.name'),
+        description: <TagTypeChip type={type} />,
+      },
+      {
         title: t('TagDescriptionList.title.createdAt'),
         description: <FormattedDate dateTime={createdAt} />,
       },
@@ -40,7 +48,7 @@ export const TagDescriptionList: React.FC<TagDescriptionListProps> = ({
         description: <FormattedDate dateTime={updatedAt} />,
       },
     ],
-    [t, id, name, createdAt, updatedAt],
+    [t, id, name, type, createdAt, updatedAt],
   )
 
   return <DescriptionList items={items} />

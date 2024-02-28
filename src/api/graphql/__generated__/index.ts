@@ -404,6 +404,7 @@ export type Tag = {
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   treasuryBookId: Scalars['String']['output'];
+  type: TagType;
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -780,6 +781,7 @@ export type TagResolvers<ContextType = ApolloServerContext, ParentType extends R
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['TagType'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -834,7 +836,7 @@ export type ExchangeDataFragment = { __typename?: 'Exchange', id: string, ownerI
 
 export type MonthlyAmountDataFragment = { __typename?: 'MonthlyAmount', id: string, name: string, amounts: Array<{ __typename?: 'AmountOnMonth', month: number, amount: { __typename?: 'Amount', debit: number, credit: number } }> };
 
-export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, createdAt: Date, count: number };
+export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number };
 
 export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string };
 
@@ -1038,7 +1040,7 @@ export type TagQueryVariables = Exact<{
 }>;
 
 
-export type TagQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', id: string, name: string, createdAt: Date, count: number } | null };
+export type TagQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number } | null };
 
 export type TagDetailsQueryVariables = Exact<{
   tagInput: TagInput;
@@ -1046,14 +1048,14 @@ export type TagDetailsQueryVariables = Exact<{
 }>;
 
 
-export type TagDetailsQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', updatedAt: Date, id: string, name: string, createdAt: Date, count: number } | null, transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
+export type TagDetailsQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', updatedAt: Date, id: string, name: string, createdAt: Date, type: TagType, count: number } | null, transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
 
 export type TagsQueryVariables = Exact<{
   input: TagsInput;
 }>;
 
 
-export type TagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string, createdAt: Date, count: number }> };
+export type TagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number }> };
 
 export type TransactionDetailsQueryVariables = Exact<{
   TransactionInput: TransactionInput;
@@ -1161,6 +1163,7 @@ export const TagDataFragmentDoc = gql`
   id
   name
   createdAt
+  type
   count
 }
     `;

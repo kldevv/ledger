@@ -8,7 +8,7 @@ export interface TagTypeChipProps {
   /**
    * Tag type
    */
-  type: TagType
+  type?: TagType
 }
 
 export const TagTypeChip: React.FC<TagTypeChipProps> = ({ type }) => {

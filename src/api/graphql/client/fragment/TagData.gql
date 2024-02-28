@@ -2,5 +2,6 @@ fragment TagData on Tag {
   id
   name
   createdAt
+  type
   count
 }

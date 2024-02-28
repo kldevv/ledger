@@ -3,7 +3,12 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate, Table, LinkButton } from '@/components/common'
+import {
+  FormattedDate,
+  Table,
+  LinkButton,
+  TagTypeChip,
+} from '@/components/common'
 import { route } from '@/shared'
 
 import type { TagsQuery } from '@/api/graphql'
@@ -39,6 +44,10 @@ export const TagTable: React.FC<TagTableProps> = ({ data }) => {
             {getValue().name}
           </Link>
         ),
+      }),
+      columnHelper.accessor('type', {
+        header: t`TagTable.header.transaction`,
+        cell: ({ getValue }) => <TagTypeChip type={getValue()} />,
       }),
       columnHelper.accessor('count', {
         header: t`TagTable.header.transaction`,

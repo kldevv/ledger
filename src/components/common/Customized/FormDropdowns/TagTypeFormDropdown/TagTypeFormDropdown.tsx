@@ -4,9 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { TagType } from '@/api/graphql'
-import { Dropdown } from '@/components/common'
-
-import { TagTypeChip } from '../../Chips/TagTypeChip'
+import { Dropdown, TagTypeChip } from '@/components/common'
 
 export interface TagTypeFormDropdownProps<TFieldValues extends FieldValues> {
   /**
