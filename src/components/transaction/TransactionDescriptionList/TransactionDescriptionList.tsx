@@ -5,7 +5,7 @@ import {
   DescriptionList,
   FormattedDate,
   EntryStatusChip,
-  Tag,
+  TagChip,
 } from '@/components/common'
 
 import type { EntryStatus, TransactionDetailsQuery } from '@/api/graphql'
@@ -56,7 +56,7 @@ export const TransactionDescriptionList: React.FC<
         title: t('TransactionDescriptionList.title.tags'),
         description: (
           <div className="flex max-w-full flex-wrap gap-1">
-            {tags?.map((tag) => <Tag key={tag.id} {...tag} />)}
+            {tags?.map((tag) => <TagChip key={tag.id} tag={tag} />)}
           </div>
         ),
       },

@@ -1,5 +1,6 @@
-import type { MutationResolvers } from '@/api/graphql'
 import { transformTag } from '../../transform'
+
+import type { MutationResolvers } from '@/api/graphql'
 
 export const updateTag: MutationResolvers['updateTag'] = async (
   _,

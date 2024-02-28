@@ -43,7 +43,7 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({
                 </div>
               </dt>
               <dd>
-                <div className="text-gray max-w-xs text-xs font-light leading-6">
+                <div className="text-gray text-xs font-light leading-6">
                   {loading ? <LoadingBox className="h-3 w-36" /> : description}
                 </div>
               </dd>

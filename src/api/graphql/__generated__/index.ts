@@ -483,6 +483,7 @@ export type UpdateCategoryInput = {
 export type UpdateTagInput = {
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
+  type: TagType;
 };
 
 export type UpdateTransactionInput = {

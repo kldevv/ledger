@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { useTagQuery, useUpdateTagMutation } from '@/api/graphql'
+import { TagType, useTagQuery, useUpdateTagMutation } from '@/api/graphql'
 import { TagForm } from '@/components/tag'
 import { useResolvedQuery, useToaster } from '@/hooks'
 
@@ -28,6 +28,7 @@ export const UpdateTagForm: React.FC = () => {
   const values = useMemo(() => {
     return {
       name: tag?.name ?? '',
+      type: tag?.type ?? TagType.GENERAL,
     }
   }, [tag])
 

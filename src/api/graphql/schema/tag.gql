@@ -17,6 +17,7 @@ input AddTagInput {
 input UpdateTagInput {
   id: String!
   name: String!
+  type: TagType!
 }
 
 input TagInput {
