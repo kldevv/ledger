@@ -5,9 +5,13 @@ export const exchangeHome: Route = {
 }
 
 export const exchangeAdd: Route = {
-  pathname: '/exchange/add',
+  pathname: `${exchangeHome.pathname}/add`,
 }
 
-export const exchangeDetail: Route = {
-  pathname: '/exchange/[id]',
+export const exchangeDetails: Route = {
+  pathname: `${exchangeHome.pathname}/[id]`,
+}
+
+export const exchangeDetailsEdit: Route = {
+  pathname: `${exchangeDetails.pathname}/edit`,
 }

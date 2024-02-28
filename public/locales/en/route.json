@@ -106,5 +106,9 @@
   "/exchange/[id]": {
     "title": "Exchange Details",
     "description": "The detail information of the exchange"
+  },
+  "/exchange/[id]/edit": {
+    "title": "Edit Exchange Details",
+    "description": "Modify the detail information of the exchange"
   }
 }

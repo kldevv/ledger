@@ -50,7 +50,7 @@ export const ExchangeForm: React.FC<ExchangeFormProps> = ({
 
   return (
     <Form onSubmit={onSubmit} context={context}>
-      <div className="flex flex-col">
+      <div className="flex min-w-fit flex-col">
         <div className="my-3">
           <ExchangeRate />
         </div>
@@ -73,8 +73,8 @@ export const ExchangeForm: React.FC<ExchangeFormProps> = ({
               }))}
             />
           </div>
-          <SubmitButton className="mt-12">{onSubmitText}</SubmitButton>
         </Card>
+        <SubmitButton className="mt-8">{onSubmitText}</SubmitButton>
       </div>
     </Form>
   )

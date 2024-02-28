@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react'
 
 import { useAddExchangeMutation } from '@/api/graphql'
 import { entryFieldDefaultValues } from '@/components/entry/EntryFields'
-import { useAccountsContext, useTreasuryBookContext } from '@/hooks'
+import { useAccountsContext, useToaster, useTreasuryBookContext } from '@/hooks'
 import { parseCurrencyNumericFormat } from '@/shared'
 import {
   addExchangeDefaultValues,
@@ -17,9 +17,12 @@ import type { ExchangeFormFieldValues } from '..'
 export const AddExchangeForm: React.FC = () => {
   const { t } = useTranslation('exchange')
   const { ownerId, data: treasuryBookQueryData } = useTreasuryBookContext()
+  const toast = useToaster()
   const { data: { accounts } = {} } = useAccountsContext()
 
-  const [addExchange] = useAddExchangeMutation()
+  const [addExchange] = useAddExchangeMutation({
+    onCompleted: () => toast(`AddExchangeForm.success`),
+  })
 
   const handleOnSubmit = useCallback(
     (values: ExchangeFormFieldValues) => {

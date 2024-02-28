@@ -1,33 +1,27 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Fragment, useMemo } from 'react'
+import { Fragment } from 'react'
 
 import { useExchangeDetailsQuery } from '@/api/graphql'
 import { PageTab } from '@/components/common'
 import { EntryFilteredTable } from '@/components/entry'
+import { useResolvedQuery } from '@/hooks'
 
 import { ExchangeDescriptionList, ExchangeTransactionDescriptionList } from '..'
 
 export const ExchangeDetails: React.FC = () => {
-  const {
-    query: { id },
-  } = useRouter()
+  const id = useResolvedQuery('id')
   const { t } = useTranslation('exchange')
-
-  const exchangeId = useMemo(() => {
-    return id == null || Array.isArray(id) ? null : id
-  }, [id])
 
   const { data: { exchange, entries } = {} } = useExchangeDetailsQuery({
     variables: {
       exchangeInput: {
-        id: exchangeId ?? '',
+        id: id ?? '',
       },
       entriesInput: {
-        exchangeId: exchangeId,
+        exchangeId: id,
       },
     },
-    skip: exchangeId == null,
+    skip: id == null,
   })
 
   const { origin, destination } = exchange ?? {}

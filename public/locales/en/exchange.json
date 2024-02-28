@@ -49,7 +49,12 @@
     }
   },
   "AddExchangeForm": {
-    "submit": "Submit"
+    "submit": "Add Exchange",
+    "success": "Your exchange is successfully added"
+  },
+  "UpdateExchangeForm": {
+    "submit": "Update Exchange",
+    "success": "Your exchange is successfully updated"
   },
   "ExchangeForm": {
     "transactionTitle": "{{ type }} Transaction",
@@ -69,6 +74,11 @@
   "page": {
     "index": {
       "action": "Add Exchange"
+    },
+    "[id]": {
+      "index": {
+        "action": "Edit"
+      }
     }
   }
 }

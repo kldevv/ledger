@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
 
+import { ExchangeDataTable } from '@/components/exchange'
 import { PageHeader, Layout } from '@/components/layout'
 import { route } from '@/shared'
-import { ExchangeDataTable } from '@/components/exchange'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('exchange')

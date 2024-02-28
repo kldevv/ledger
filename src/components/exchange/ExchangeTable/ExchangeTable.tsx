@@ -63,7 +63,7 @@ export const ExchangeTable: React.FC<ExchangeTableProps> = ({ data }) => {
         cell: ({ getValue }) => (
           <LinkButton
             href={{
-              pathname: route.exchangeDetail.pathname,
+              pathname: route.exchangeDetails.pathname,
               query: { id: getValue() },
             }}
             label={t`ExchangeTable.link.view`}
