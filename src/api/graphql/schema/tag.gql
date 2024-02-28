@@ -10,6 +10,7 @@ type Tag {
 input AddTagInput {
   name: String!
   treasuryBookId: String!
+  type: TagType!
 }
 
 input UpdateTagInput {

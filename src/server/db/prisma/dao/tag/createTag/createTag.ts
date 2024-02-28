@@ -4,10 +4,7 @@ import logger from '@/server/logger'
 
 import type { Tag } from '@prisma/client'
 
-export type CreateTagProps = Omit<
-  Tag,
-  'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
->
+export type CreateTagProps = Pick<Tag, 'name' | 'treasuryBookId' | 'type'>
 
 export const createTag = async (data: CreateTagProps) => {
   try {

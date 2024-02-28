@@ -78,6 +78,7 @@ export type AddExchangeTransactionInput = {
 export type AddTagInput = {
   name: Scalars['String']['input'];
   treasuryBookId: Scalars['String']['input'];
+  type: TagType;
 };
 
 export type AddTransactionInput = {
@@ -411,10 +412,11 @@ export type TagInput = {
 };
 
 export const TagType = {
-  ARAP: 'ARAP',
-  CUSTOM: 'CUSTOM',
-  DEPRECIATION: 'DEPRECIATION',
-  PREPAID: 'PREPAID'
+  GENERAL: 'GENERAL',
+  ORGANIZATION: 'ORGANIZATION',
+  PEOPLE: 'PEOPLE',
+  PROPERTY: 'PROPERTY',
+  TRAVEL: 'TRAVEL'
 } as const;
 
 export type TagType = typeof TagType[keyof typeof TagType];

@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { categoryTypeIcon } from '@/shared'
+import { getCategoryTypeIcon } from '@/shared'
 
 import type { CategoryType } from '@/api/graphql'
 
@@ -16,7 +16,7 @@ export const CategoryTypeChip: React.FC<CategoryTypeChipProps> = ({ type }) => {
 
   return (
     <div className="flex items-center text-xs font-normal leading-6">
-      <div className="mr-2">{categoryTypeIcon(type)}</div>
+      <div className="mr-2">{getCategoryTypeIcon(type)}</div>
       {t(`CategoryTypeChip.label.${type}`)}
     </div>
   )

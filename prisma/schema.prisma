@@ -146,10 +146,11 @@ enum CategoryType {
 }
 
 enum TagType {
-  DEPRECIATION
-  PREPAID
-  ARAP
-  CUSTOM
+  GENERAL
+  PEOPLE
+  PROPERTY
+  TRAVEL
+  ORGANIZATION
 
   @@map("tag_type")
 }

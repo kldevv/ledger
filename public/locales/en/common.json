@@ -6,6 +6,13 @@
       "EQUITY": "Equity"
     }
   },
+  "TagTypeChip": {
+    "GENERAL": "General",
+    "PEOPLE": "People",
+    "PROPERTY": "Property",
+    "ORGANIZATION": "Organization",
+    "TRAVEL": "Travel"
+  },
   "EntryStatusChip": {
     "label": {
       "COMPLETED": "Cleared",
@@ -40,5 +47,8 @@
   },
   "CategoryFormDropdown": {
     "label": "Category"
+  },
+  "TagTypeFormDropdown": {
+    "label": "Tag Type"
   }
 }

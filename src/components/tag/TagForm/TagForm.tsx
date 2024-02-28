@@ -1,7 +1,14 @@
 import { useTranslation } from 'next-i18next'
 import { z } from 'zod'
 
-import { Card, Form, InputText, SubmitButton } from '@/components/common'
+import { TagType } from '@/api/graphql'
+import {
+  Card,
+  Form,
+  InputText,
+  SubmitButton,
+  TagTypeFormDropdown,
+} from '@/components/common'
 import { useForm } from '@/hooks'
 
 import type { FormProps } from '@/components/common'
@@ -11,6 +18,10 @@ export const tagFormSchema = z.object({
    * Tag name
    */
   name: z.string().min(1).max(50),
+  /**
+   * Tag type
+   */
+  type: z.string(),
 })
 
 export type TagFormFieldValues = z.infer<typeof tagFormSchema>
@@ -41,6 +52,7 @@ export const TagForm: React.FC<TagFormProps> = ({
     schema: tagFormSchema,
     defaultValues: {
       name: '',
+      type: TagType.GENERAL,
     },
     values,
   })
@@ -48,11 +60,12 @@ export const TagForm: React.FC<TagFormProps> = ({
   return (
     <Form onSubmit={onSubmit} context={context}>
       <Card>
-        <div className="flex w-60 flex-col">
+        <div className="flex w-60 flex-col space-y-3">
           <InputText<TagFormFieldValues>
             name="name"
             label={t`TagForm.label.name`}
           />
+          <TagTypeFormDropdown<TagFormFieldValues> name="type" />
         </div>
       </Card>
       <SubmitButton className="mt-8">{onSubmitText}</SubmitButton>
