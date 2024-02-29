@@ -21,7 +21,7 @@ export const tagFormSchema = z.object({
   /**
    * Tag type
    */
-  type: z.string(),
+  type: z.nativeEnum(TagType),
 })
 
 export type TagFormFieldValues = z.infer<typeof tagFormSchema>
