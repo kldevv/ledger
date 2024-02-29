@@ -26,4 +26,5 @@ input TagInput {
 
 input TagsInput {
   treasuryBookId: String!
+  type: TagType
 }

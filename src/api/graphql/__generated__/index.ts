@@ -423,6 +423,7 @@ export const TagType = {
 export type TagType = typeof TagType[keyof typeof TagType];
 export type TagsInput = {
   treasuryBookId: Scalars['String']['input'];
+  type?: InputMaybe<TagType>;
 };
 
 export type Transaction = {

@@ -46,7 +46,7 @@ export const TagTable: React.FC<TagTableProps> = ({ data }) => {
         ),
       }),
       columnHelper.accessor('type', {
-        header: t`TagTable.header.transaction`,
+        header: t`TagTable.header.type`,
         cell: ({ getValue }) => <TagTypeChip type={getValue()} />,
       }),
       columnHelper.accessor('count', {
