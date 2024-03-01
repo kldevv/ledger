@@ -9,6 +9,8 @@ import {
   AccountFormDropdown,
 } from '@/components/common'
 
+import type { Currency } from '@/api/graphql'
+
 export const entryFieldDefaultValues = {
   transactionDate: new Date(),
   memo: '',
@@ -23,10 +25,15 @@ export interface EntryFieldProps {
    * Field name
    */
   name: string
+  /**
+   * Override default currency
+   */
+  currency?: Currency
 }
 
 export const EntryField: React.FC<EntryFieldProps> = ({
   name,
+  currency,
 }: EntryFieldProps) => {
   const { t } = useTranslation('entry')
 
@@ -45,10 +52,12 @@ export const EntryField: React.FC<EntryFieldProps> = ({
         <InputCurrencyNumber
           label={t`EntryField.debit`}
           name={`${name}.debit` as const}
+          currency={currency}
         />
         <InputCurrencyNumber
           label={t`EntryField.credit`}
           name={`${name}.credit` as const}
+          currency={currency}
         />
       </div>
     </div>

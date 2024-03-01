@@ -9,6 +9,8 @@ import { Button } from '@/components/common'
 
 import { EntryField } from '.'
 
+import type { Currency } from '@/api/graphql'
+
 export interface EntryFieldsProps<TFieldValues extends FieldValues> {
   /**
    * Name
@@ -18,11 +20,16 @@ export interface EntryFieldsProps<TFieldValues extends FieldValues> {
    * Append value
    */
   appendValue: FieldArray<TFieldValues, ArrayPath<TFieldValues>>
+  /**
+   * Override default currency
+   */
+  currency?: Currency
 }
 
 export const EntryFields = <TFieldValues extends FieldValues>({
   name,
   appendValue,
+  currency,
 }: EntryFieldsProps<TFieldValues>) => {
   const { t } = useTranslation('entry')
 
@@ -60,7 +67,10 @@ export const EntryFields = <TFieldValues extends FieldValues>({
                 </Button>
               )}
             </div>
-            <EntryField name={`${name}.${index}` as const} />
+            <EntryField
+              name={`${name}.${index}` as const}
+              currency={currency}
+            />
           </div>
         ))}
       </div>

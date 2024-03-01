@@ -4,7 +4,11 @@ import { useFormContext } from 'react-hook-form'
 
 import { TreasuryBookFormDropdown } from '@/components/common'
 import { EntryFields, entryFieldDefaultValues } from '@/components/entry'
-import { AccountsContextProvider, useAccountsContext } from '@/hooks'
+import {
+  AccountsContextProvider,
+  useAccountsContext,
+  useTreasuryBookContext,
+} from '@/hooks'
 
 import type { ExchangeFormFieldValues } from '..'
 
@@ -20,19 +24,21 @@ export const ExchangeTransaction: React.FC<ExchangeTransactionProps> = ({
 }) => {
   const { t } = useTranslation('exchange')
 
-  const { data: { accounts } = {} } = useAccountsContext()
-
-  const entry = useMemo(
-    () => ({
-      ...entryFieldDefaultValues,
-      accountId: accounts?.at(0)?.id ?? '',
-    }),
-    [accounts],
-  )
+  const { data: { treasuryBooks } = {} } = useTreasuryBookContext()
 
   const { watch } = useFormContext<ExchangeFormFieldValues>()
 
   const { origin, destination } = watch()
+
+  const currency = useMemo(() => {
+    return treasuryBooks?.find(
+      (treasuryBook) =>
+        treasuryBook.id ===
+        (name === 'origin'
+          ? origin.treasuryBookId
+          : destination.treasuryBookId),
+    )?.currency
+  }, [destination.treasuryBookId, name, origin.treasuryBookId, treasuryBooks])
 
   return (
     <div className="flex flex-col space-y-6">
@@ -45,7 +51,7 @@ export const ExchangeTransaction: React.FC<ExchangeTransactionProps> = ({
           })}
         </h3>
       </div>
-      <div className="w-96">
+      <div>
         <div className="w-72">
           <TreasuryBookFormDropdown<ExchangeFormFieldValues>
             name={`${name}.treasuryBookId`}
@@ -64,7 +70,11 @@ export const ExchangeTransaction: React.FC<ExchangeTransactionProps> = ({
             : origin?.treasuryBookId
         }
       >
-        <EntryFields name={`${name}.entries`} appendValue={entry} />
+        <EntryFields
+          name={`${name}.entries`}
+          appendValue={entryFieldDefaultValues}
+          currency={currency}
+        />
       </AccountsContextProvider>
     </div>
   )

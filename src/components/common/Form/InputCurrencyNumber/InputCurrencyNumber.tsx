@@ -70,7 +70,7 @@ export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
     <div className="flex w-full min-w-fit flex-col">
       <Label htmlFor={`input-${name}`}>{label}</Label>
       <div className="relative flex">
-        <span className="text-dark-shades absolute left-2 top-3 text-xs font-normal">
+        <span className="text-dark-shades absolute left-2 top-3 select-none text-xs font-normal">
           {currencySymbol}
         </span>
         <NumericFormat
