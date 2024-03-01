@@ -1,3 +1,10 @@
 @tailwind base;
+
+@layer base {
+  html {
+    @apply text-dark-shades leading-6;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;

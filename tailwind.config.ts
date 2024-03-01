@@ -37,13 +37,6 @@ const config: Config = {
       'yellow-halo': 'rgb(255, 189, 68, 0.1)', //#FFBD44
       'green-halo': 'rgb(0, 202, 78, 0.1)', //#FFBD44
     },
-    extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-    },
   },
   plugins: [],
 }
