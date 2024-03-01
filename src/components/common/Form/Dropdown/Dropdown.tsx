@@ -8,7 +8,7 @@ import {
   ChevronUpIcon,
 } from '@heroicons/react/20/solid'
 import classNames from 'classnames'
-import { Fragment, useMemo } from 'react'
+import { Fragment, useCallback, useMemo } from 'react'
 import { useController } from 'react-hook-form'
 
 import { Label, ErrorMessage, LoadingBox } from '@/components/common'
@@ -40,6 +40,10 @@ export interface DropdownProps<TFieldValues extends FieldValues> {
    * Loading?
    */
   loading?: boolean
+  /**
+   * Optional on change callback
+   */
+  onChange?: (value: TFieldValues) => null
 }
 
 export type DropdownOption = {
@@ -77,14 +81,23 @@ export const Dropdown = <TFieldValues extends FieldValues>({
   label,
   loading,
   multiple = false,
+  onChange,
 }: DropdownProps<TFieldValues>) => {
   const {
-    field,
+    field: { onChange: handleOnFormValueChange, value, ...states },
     fieldState: { error },
   } = useController<TFieldValues>({
     name,
     control,
   })
+
+  const handleOnChange = useCallback(
+    (value: TFieldValues) => {
+      handleOnFormValueChange(value)
+      onChange?.(value)
+    },
+    [onChange, handleOnFormValueChange],
+  )
 
   const buttonCn = classNames(
     'py-1.5 px-3',
@@ -96,15 +109,21 @@ export const Dropdown = <TFieldValues extends FieldValues>({
 
   const displayValue = useMemo(() => {
     return multiple ? (
-      <MultiSelectChips values={field.value} options={options} />
+      <MultiSelectChips values={value} options={options} />
     ) : (
-      options.find(({ value }) => value === field.value)?.label
+      options.find(({ value: optionVal }) => optionVal === value)?.label
     )
-  }, [multiple, options, field.value])
+  }, [multiple, options, value])
 
   return (
     <div className="relative flex w-full flex-col">
-      <Listbox {...field} as="div" multiple={multiple}>
+      <Listbox
+        {...states}
+        value={value}
+        onChange={handleOnChange}
+        as="div"
+        multiple={multiple}
+      >
         {({ open }) => (
           <>
             <Listbox.Label as={Fragment}>

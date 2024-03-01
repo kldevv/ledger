@@ -4,10 +4,9 @@ import type { AccountsQueryResult } from '@/api/graphql'
 
 export type AccountsContext = Pick<
   AccountsQueryResult,
-  'data' | 'loading' | 'error'
+  'data' | 'loading' | 'error' | 'refetch'
 >
 
-export const AccountsContext = createContext<AccountsContext>({
-  data: undefined,
-  loading: true,
-})
+export const AccountsContext = createContext<AccountsContext | undefined>(
+  undefined,
+)

@@ -25,17 +25,17 @@ export const TreasuryBookFormDropdown = <TFieldValues extends FieldValues>({
 }: TreasuryBookFormDropdownProps<TFieldValues>) => {
   const { t } = useTranslation('common')
 
-  const { data } = useTreasuryBookContext()
+  const { data: { treasuryBooks } = {} } = useTreasuryBookContext()
 
   const options = useMemo(
     () =>
-      data?.treasuryBooks
-        .filter(({ id }) => id !== excludeTreasuryBookId)
+      treasuryBooks
+        ?.filter(({ id }) => id !== excludeTreasuryBookId)
         .map(({ id, name, currency }) => ({
           label: <TreasuryBookChip name={name} currency={currency} />,
           value: id,
         })) ?? [],
-    [data?.treasuryBooks, excludeTreasuryBookId],
+    [treasuryBooks, excludeTreasuryBookId],
   )
 
   return (

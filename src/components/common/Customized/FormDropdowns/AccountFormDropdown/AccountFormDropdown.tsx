@@ -1,7 +1,11 @@
-import type { FieldValues, Path } from 'react-hook-form'
-
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
+import {
+  useFormContext,
+  type FieldValues,
+  type Path,
+  type PathValue,
+} from 'react-hook-form'
 
 import { Dropdown } from '@/components/common'
 import { useAccountsContext } from '@/hooks'
@@ -28,6 +32,16 @@ export const AccountFormDropdown = <TFieldValues extends FieldValues>({
       })) ?? [],
     [accounts],
   )
+
+  const { setValue } = useFormContext<TFieldValues>()
+
+  useEffect(() => {
+    const { id } = accounts?.at(0) ?? {}
+
+    if (id != null) {
+      setValue(name, id as PathValue<TFieldValues, Path<TFieldValues>>)
+    }
+  }, [accounts, name, options, setValue])
 
   return (
     <Dropdown<TFieldValues>

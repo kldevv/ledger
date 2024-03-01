@@ -16,9 +16,10 @@ import type { ExchangeFormFieldValues } from '..'
 
 export const AddExchangeForm: React.FC = () => {
   const { t } = useTranslation('exchange')
-  const { ownerId, data: treasuryBookQueryData } = useTreasuryBookContext()
-  const toast = useToaster()
   const { data: { accounts } = {} } = useAccountsContext()
+
+  const { ownerId, data: treasuryBooks } = useTreasuryBookContext()
+  const toast = useToaster()
 
   const [addExchange] = useAddExchangeMutation({
     onCompleted: () => toast(`AddExchangeForm.success`),
@@ -63,6 +64,7 @@ export const AddExchangeForm: React.FC = () => {
       ...entryFieldDefaultValues,
       accountId: accounts?.at(0)?.id ?? '',
     }
+
     const transaction = {
       ...addExchangeTransactionDefaultValues,
       entries: [entry, entry],
@@ -72,14 +74,14 @@ export const AddExchangeForm: React.FC = () => {
       ...addExchangeDefaultValues,
       origin: {
         ...transaction,
-        treasuryBookId: treasuryBookQueryData?.treasuryBooks.at(0)?.id ?? '',
+        treasuryBookId: treasuryBooks?.treasuryBooks.at(0)?.id ?? '',
       },
       destination: {
         ...transaction,
-        treasuryBookId: treasuryBookQueryData?.treasuryBooks.at(1)?.id ?? '',
+        treasuryBookId: treasuryBooks?.treasuryBooks.at(1)?.id ?? '',
       },
     }
-  }, [accounts, treasuryBookQueryData?.treasuryBooks])
+  }, [accounts, treasuryBooks?.treasuryBooks])
 
   return (
     <ExchangeForm

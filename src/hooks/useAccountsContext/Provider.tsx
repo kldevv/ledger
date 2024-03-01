@@ -1,31 +1,37 @@
 import { useAccountsQuery } from '@/api/graphql'
 import { useTreasuryBookContext } from '@/hooks'
 
-import { AccountsContext } from './Context'
+import { AccountsContext } from './context'
 
 export interface AccountsContextProviderProps {
   /**
-   * Children component
+   * Children
    */
   children: React.ReactNode
+  /**
+   * Override treasury book id
+   */
+  treasuryBookId?: string
 }
 
 export const AccountsContextProvider: React.FC<
   AccountsContextProviderProps
-> = ({ children }) => {
+> = ({ children, treasuryBookId }) => {
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 
-  const result = useAccountsQuery({
+  const id = treasuryBookId ?? selectedTreasuryBookId ?? ''
+
+  const value = useAccountsQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: id,
       },
     },
-    skip: selectedTreasuryBookId == null,
+    skip: id == null,
   })
 
   return (
-    <AccountsContext.Provider value={{ ...result }}>
+    <AccountsContext.Provider value={value}>
       {children}
     </AccountsContext.Provider>
   )

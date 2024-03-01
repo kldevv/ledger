@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form'
 
 import { TreasuryBookFormDropdown } from '@/components/common'
 import { EntryFields, entryFieldDefaultValues } from '@/components/entry'
-import { useAccountsContext } from '@/hooks'
+import { AccountsContextProvider, useAccountsContext } from '@/hooks'
 
 import type { ExchangeFormFieldValues } from '..'
 
@@ -19,6 +19,7 @@ export const ExchangeTransaction: React.FC<ExchangeTransactionProps> = ({
   name,
 }) => {
   const { t } = useTranslation('exchange')
+
   const { data: { accounts } = {} } = useAccountsContext()
 
   const entry = useMemo(
@@ -30,6 +31,8 @@ export const ExchangeTransaction: React.FC<ExchangeTransactionProps> = ({
   )
 
   const { watch } = useFormContext<ExchangeFormFieldValues>()
+
+  const { origin, destination } = watch()
 
   return (
     <div className="flex flex-col space-y-6">
@@ -46,13 +49,23 @@ export const ExchangeTransaction: React.FC<ExchangeTransactionProps> = ({
         <div className="w-72">
           <TreasuryBookFormDropdown<ExchangeFormFieldValues>
             name={`${name}.treasuryBookId`}
-            excludeTreasuryBookId={watch(
-              `${name === 'origin' ? 'destination' : 'origin'}.treasuryBookId`,
-            )}
+            excludeTreasuryBookId={
+              name === 'destination'
+                ? origin?.treasuryBookId
+                : destination?.treasuryBookId
+            }
           />
         </div>
       </div>
-      <EntryFields name={`${name}.entries`} appendValue={entry} />
+      <AccountsContextProvider
+        treasuryBookId={
+          name === 'destination'
+            ? destination?.treasuryBookId
+            : origin?.treasuryBookId
+        }
+      >
+        <EntryFields name={`${name}.entries`} appendValue={entry} />
+      </AccountsContextProvider>
     </div>
   )
 }
