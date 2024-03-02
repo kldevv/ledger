@@ -14,6 +14,12 @@ type MonthlyAmount {
   amounts: [AmountOnMonth!]!
 }
 
+type Balance {
+  id: String!
+  name: String!
+  balance: Float!
+}
+
 input MonthlyAmountInput {
   year: Int
   treasuryBookId: String!
@@ -24,4 +30,9 @@ input MonthlyAmountInput {
 input UniqueYearsInput {
   treasuryBookId: String!
   type: DateType!
+}
+
+input AccountBalanceFilter {
+  treasuryBookId: String!
+  status: EntryStatus
 }

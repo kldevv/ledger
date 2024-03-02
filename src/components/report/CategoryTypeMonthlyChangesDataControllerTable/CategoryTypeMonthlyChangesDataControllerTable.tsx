@@ -35,7 +35,6 @@ export const CategoryTypeMonthlyChangesDataControllerTable: React.FC = () => {
         status: statusFilter,
       },
     },
-    fetchPolicy: 'cache-and-network',
     skip: selectedTreasuryBookId == null,
   })
 

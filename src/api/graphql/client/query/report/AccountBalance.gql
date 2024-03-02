@@ -1,0 +1,7 @@
+query AccountBalance($input: AccountBalanceFilter!) {
+  accountBalance(input: $input) {
+    id
+    name
+    balance
+  }
+}

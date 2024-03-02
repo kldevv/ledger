@@ -32,6 +32,11 @@ export type Account = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type AccountBalanceFilter = {
+  status?: InputMaybe<EntryStatus>;
+  treasuryBookId: Scalars['String']['input'];
+};
+
 export type AccountInput = {
   id: Scalars['String']['input'];
 };
@@ -105,6 +110,13 @@ export type AmountOnMonth = {
   __typename?: 'AmountOnMonth';
   amount: Amount;
   month: Scalars['Int']['output'];
+};
+
+export type Balance = {
+  __typename?: 'Balance';
+  balance: Scalars['Float']['output'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type CategoriesInput = {
@@ -282,6 +294,7 @@ export type MutationUpdateTreasuryBookArgs = {
 export type Query = {
   __typename?: 'Query';
   account?: Maybe<Account>;
+  accountBalance: Array<Balance>;
   accountMonthlyBalance: Array<MonthlyAmount>;
   accountMonthlyChanges: Array<MonthlyAmount>;
   accounts: Array<Account>;
@@ -305,6 +318,11 @@ export type Query = {
 
 export type QueryAccountArgs = {
   input: AccountInput;
+};
+
+
+export type QueryAccountBalanceArgs = {
+  input: AccountBalanceFilter;
 };
 
 
@@ -574,6 +592,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
+  AccountBalanceFilter: AccountBalanceFilter;
   AccountInput: AccountInput;
   AccountsInput: AccountsInput;
   AddAccountInput: AddAccountInput;
@@ -586,6 +605,7 @@ export type ResolversTypes = {
   AddTreasuryBookInput: AddTreasuryBookInput;
   Amount: ResolverTypeWrapper<Amount>;
   AmountOnMonth: ResolverTypeWrapper<AmountOnMonth>;
+  Balance: ResolverTypeWrapper<Balance>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CategoriesInput: CategoriesInput;
   Category: ResolverTypeWrapper<Category>;
@@ -627,6 +647,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Account: Account;
+  AccountBalanceFilter: AccountBalanceFilter;
   AccountInput: AccountInput;
   AccountsInput: AccountsInput;
   AddAccountInput: AddAccountInput;
@@ -639,6 +660,7 @@ export type ResolversParentTypes = {
   AddTreasuryBookInput: AddTreasuryBookInput;
   Amount: Amount;
   AmountOnMonth: AmountOnMonth;
+  Balance: Balance;
   Boolean: Scalars['Boolean']['output'];
   CategoriesInput: CategoriesInput;
   Category: Category;
@@ -692,6 +714,13 @@ export type AmountResolvers<ContextType = ApolloServerContext, ParentType extend
 export type AmountOnMonthResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AmountOnMonth'] = ResolversParentTypes['AmountOnMonth']> = {
   amount?: Resolver<ResolversTypes['Amount'], ParentType, ContextType>;
   month?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BalanceResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Balance'] = ResolversParentTypes['Balance']> = {
+  balance?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -757,6 +786,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountArgs, 'input'>>;
+  accountBalance?: Resolver<Array<ResolversTypes['Balance']>, ParentType, ContextType, RequireFields<QueryAccountBalanceArgs, 'input'>>;
   accountMonthlyBalance?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryAccountMonthlyBalanceArgs, 'input'>>;
   accountMonthlyChanges?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryAccountMonthlyChangesArgs, 'input'>>;
   accounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountsArgs, 'input'>>;
@@ -815,6 +845,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
   Amount?: AmountResolvers<ContextType>;
   AmountOnMonth?: AmountOnMonthResolvers<ContextType>;
+  Balance?: BalanceResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Entry?: EntryResolvers<ContextType>;
@@ -987,6 +1018,13 @@ export type ExchangesQueryVariables = Exact<{
 
 
 export type ExchangesQuery = { __typename?: 'Query', exchanges: Array<{ __typename?: 'Exchange', id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } }> };
+
+export type AccountBalanceQueryVariables = Exact<{
+  input: AccountBalanceFilter;
+}>;
+
+
+export type AccountBalanceQuery = { __typename?: 'Query', accountBalance: Array<{ __typename?: 'Balance', id: string, name: string, balance: number }> };
 
 export type AccountMonthlyBalanceQueryVariables = Exact<{
   input: MonthlyAmountInput;
@@ -1971,6 +2009,48 @@ export type ExchangesQueryHookResult = ReturnType<typeof useExchangesQuery>;
 export type ExchangesLazyQueryHookResult = ReturnType<typeof useExchangesLazyQuery>;
 export type ExchangesSuspenseQueryHookResult = ReturnType<typeof useExchangesSuspenseQuery>;
 export type ExchangesQueryResult = Apollo.QueryResult<ExchangesQuery, ExchangesQueryVariables>;
+export const AccountBalanceDocument = gql`
+    query AccountBalance($input: AccountBalanceFilter!) {
+  accountBalance(input: $input) {
+    id
+    name
+    balance
+  }
+}
+    `;
+
+/**
+ * __useAccountBalanceQuery__
+ *
+ * To run a query within a React component, call `useAccountBalanceQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountBalanceQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountBalanceQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAccountBalanceQuery(baseOptions: Apollo.QueryHookOptions<AccountBalanceQuery, AccountBalanceQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AccountBalanceQuery, AccountBalanceQueryVariables>(AccountBalanceDocument, options);
+      }
+export function useAccountBalanceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountBalanceQuery, AccountBalanceQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AccountBalanceQuery, AccountBalanceQueryVariables>(AccountBalanceDocument, options);
+        }
+export function useAccountBalanceSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<AccountBalanceQuery, AccountBalanceQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AccountBalanceQuery, AccountBalanceQueryVariables>(AccountBalanceDocument, options);
+        }
+export type AccountBalanceQueryHookResult = ReturnType<typeof useAccountBalanceQuery>;
+export type AccountBalanceLazyQueryHookResult = ReturnType<typeof useAccountBalanceLazyQuery>;
+export type AccountBalanceSuspenseQueryHookResult = ReturnType<typeof useAccountBalanceSuspenseQuery>;
+export type AccountBalanceQueryResult = Apollo.QueryResult<AccountBalanceQuery, AccountBalanceQueryVariables>;
 export const AccountMonthlyBalanceDocument = gql`
     query AccountMonthlyBalance($input: MonthlyAmountInput!) {
   accountMonthlyBalance(input: $input) {

@@ -39,6 +39,10 @@
     "title": "Entries",
     "description": "A table of entries of the transactions within the selected treasury book"
   },
+  "/report": {
+    "title": "Report",
+    "description": "A summary of the transactions"
+  },
   "/report/change": {
     "title": "Changes",
     "description": "A summary of the changes of the transactions and entries within the selected treasury book"
