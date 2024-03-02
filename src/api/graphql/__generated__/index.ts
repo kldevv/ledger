@@ -32,6 +32,14 @@ export type Account = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type AccountBalance = {
+  __typename?: 'AccountBalance';
+  account: Base;
+  balance: Scalars['Float']['output'];
+  category: Base;
+  type: CategoryType;
+};
+
 export type AccountBalanceFilter = {
   status?: InputMaybe<EntryStatus>;
   treasuryBookId: Scalars['String']['input'];
@@ -112,9 +120,8 @@ export type AmountOnMonth = {
   month: Scalars['Int']['output'];
 };
 
-export type Balance = {
-  __typename?: 'Balance';
-  balance: Scalars['Float']['output'];
+export type Base = {
+  __typename?: 'Base';
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
 };
@@ -294,7 +301,7 @@ export type MutationUpdateTreasuryBookArgs = {
 export type Query = {
   __typename?: 'Query';
   account?: Maybe<Account>;
-  accountBalance: Array<Balance>;
+  accountBalance: Array<AccountBalance>;
   accountMonthlyBalance: Array<MonthlyAmount>;
   accountMonthlyChanges: Array<MonthlyAmount>;
   accounts: Array<Account>;
@@ -592,6 +599,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
+  AccountBalance: ResolverTypeWrapper<AccountBalance>;
   AccountBalanceFilter: AccountBalanceFilter;
   AccountInput: AccountInput;
   AccountsInput: AccountsInput;
@@ -605,7 +613,7 @@ export type ResolversTypes = {
   AddTreasuryBookInput: AddTreasuryBookInput;
   Amount: ResolverTypeWrapper<Amount>;
   AmountOnMonth: ResolverTypeWrapper<AmountOnMonth>;
-  Balance: ResolverTypeWrapper<Balance>;
+  Base: ResolverTypeWrapper<Base>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CategoriesInput: CategoriesInput;
   Category: ResolverTypeWrapper<Category>;
@@ -647,6 +655,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Account: Account;
+  AccountBalance: AccountBalance;
   AccountBalanceFilter: AccountBalanceFilter;
   AccountInput: AccountInput;
   AccountsInput: AccountsInput;
@@ -660,7 +669,7 @@ export type ResolversParentTypes = {
   AddTreasuryBookInput: AddTreasuryBookInput;
   Amount: Amount;
   AmountOnMonth: AmountOnMonth;
-  Balance: Balance;
+  Base: Base;
   Boolean: Scalars['Boolean']['output'];
   CategoriesInput: CategoriesInput;
   Category: Category;
@@ -705,6 +714,14 @@ export type AccountResolvers<ContextType = ApolloServerContext, ParentType exten
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type AccountBalanceResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AccountBalance'] = ResolversParentTypes['AccountBalance']> = {
+  account?: Resolver<ResolversTypes['Base'], ParentType, ContextType>;
+  balance?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['Base'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['CategoryType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type AmountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Amount'] = ResolversParentTypes['Amount']> = {
   credit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
@@ -717,8 +734,7 @@ export type AmountOnMonthResolvers<ContextType = ApolloServerContext, ParentType
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type BalanceResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Balance'] = ResolversParentTypes['Balance']> = {
-  balance?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+export type BaseResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Base'] = ResolversParentTypes['Base']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -786,7 +802,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountArgs, 'input'>>;
-  accountBalance?: Resolver<Array<ResolversTypes['Balance']>, ParentType, ContextType, RequireFields<QueryAccountBalanceArgs, 'input'>>;
+  accountBalance?: Resolver<Array<ResolversTypes['AccountBalance']>, ParentType, ContextType, RequireFields<QueryAccountBalanceArgs, 'input'>>;
   accountMonthlyBalance?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryAccountMonthlyBalanceArgs, 'input'>>;
   accountMonthlyChanges?: Resolver<Array<ResolversTypes['MonthlyAmount']>, ParentType, ContextType, RequireFields<QueryAccountMonthlyChangesArgs, 'input'>>;
   accounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountsArgs, 'input'>>;
@@ -843,9 +859,10 @@ export type TreasuryBookResolvers<ContextType = ApolloServerContext, ParentType 
 
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
+  AccountBalance?: AccountBalanceResolvers<ContextType>;
   Amount?: AmountResolvers<ContextType>;
   AmountOnMonth?: AmountOnMonthResolvers<ContextType>;
-  Balance?: BalanceResolvers<ContextType>;
+  Base?: BaseResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Entry?: EntryResolvers<ContextType>;
@@ -860,6 +877,8 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 
 
 export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null };
+
+export type BaseDataFragment = { __typename?: 'Base', id: string, name: string };
 
 export type CategoryDataFragment = { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date };
 
@@ -1024,7 +1043,7 @@ export type AccountBalanceQueryVariables = Exact<{
 }>;
 
 
-export type AccountBalanceQuery = { __typename?: 'Query', accountBalance: Array<{ __typename?: 'Balance', id: string, name: string, balance: number }> };
+export type AccountBalanceQuery = { __typename?: 'Query', accountBalance: Array<{ __typename?: 'AccountBalance', type: CategoryType, balance: number, account: { __typename?: 'Base', id: string, name: string }, category: { __typename?: 'Base', id: string, name: string } }> };
 
 export type AccountMonthlyBalanceQueryVariables = Exact<{
   input: MonthlyAmountInput;
@@ -1129,6 +1148,12 @@ export const AccountDataFragmentDoc = gql`
   name
   entryCount
   createdAt
+}
+    `;
+export const BaseDataFragmentDoc = gql`
+    fragment BaseData on Base {
+  id
+  name
 }
     `;
 export const CategoryDataFragmentDoc = gql`
@@ -2012,12 +2037,17 @@ export type ExchangesQueryResult = Apollo.QueryResult<ExchangesQuery, ExchangesQ
 export const AccountBalanceDocument = gql`
     query AccountBalance($input: AccountBalanceFilter!) {
   accountBalance(input: $input) {
-    id
-    name
+    account {
+      ...BaseData
+    }
+    category {
+      ...BaseData
+    }
+    type
     balance
   }
 }
-    `;
+    ${BaseDataFragmentDoc}`;
 
 /**
  * __useAccountBalanceQuery__

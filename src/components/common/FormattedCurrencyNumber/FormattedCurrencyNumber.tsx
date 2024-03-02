@@ -19,28 +19,16 @@ export interface FormattedCurrencyNumberProps {
   /**
    * Override the selected currency
    */
-  currency?: Currency
+  currency: Currency
 }
 
 export const FormattedCurrencyNumber: React.FC<
   FormattedCurrencyNumberProps
 > = ({ value, currency, className }) => {
-  const { selectedTreasuryBookId, data: { treasuryBooks } = {} } =
-    useTreasuryBookContext()
-
-  const currencySymbol = useMemo(() => {
-    const selectedCurrency = currency
-      ? currency
-      : treasuryBooks?.find(({ id }) => id === selectedTreasuryBookId)
-          ?.currency
-
-    return getCurrencySymbol(selectedCurrency)
-  }, [currency, treasuryBooks, selectedTreasuryBookId])
-
   return (
     <div className={classNames('w-30 flex items-center', className)}>
       <div className="select-none text-xs font-medium leading-6">
-        {currencySymbol}
+        {getCurrencySymbol(currency)}
       </div>
       <div className="ml-auto pl-8 text-xs font-medium leading-6">
         {formatCurrencyNumber(value)}

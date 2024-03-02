@@ -1,7 +1,12 @@
 query AccountBalance($input: AccountBalanceFilter!) {
   accountBalance(input: $input) {
-    id
-    name
+    account {
+      ...BaseData
+    }
+    category {
+      ...BaseData
+    }
+    type
     balance
   }
 }

@@ -14,9 +14,15 @@ type MonthlyAmount {
   amounts: [AmountOnMonth!]!
 }
 
-type Balance {
+type Base {
   id: String!
   name: String!
+}
+
+type AccountBalance {
+  account: Base!
+  category: Base!
+  type: CategoryType!
   balance: Float!
 }
 
