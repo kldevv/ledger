@@ -31,10 +31,10 @@ export const ExchangeTransaction: React.FC<ExchangeTransactionProps> = ({
       (treasuryBook) =>
         treasuryBook.id ===
         (name === 'origin'
-          ? origin.treasuryBookId
-          : destination.treasuryBookId),
+          ? origin?.treasuryBookId
+          : destination?.treasuryBookId),
     )?.currency
-  }, [destination.treasuryBookId, name, origin.treasuryBookId, treasuryBooks])
+  }, [destination?.treasuryBookId, name, origin?.treasuryBookId, treasuryBooks])
 
   return (
     <div className="flex flex-col space-y-6">
