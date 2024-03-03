@@ -32,7 +32,7 @@ export const NavigationBarItemLink: React.FC<NavigationBarItemLinkProps> = ({
       <Link href={href} passHref legacyBehavior>
         <ReactNavigatioMenuLink
           active={active}
-          className="py-1 px-3 flex space-x-3 whitespace-nowrap overflow-ellipsis rounded-md text-dark-shades hover:bg-light-shades data-[active]:bg-light-shades"
+          className="text-dark-shades hover:bg-light-shades data-[active]:bg-light-shades flex space-x-3 text-ellipsis whitespace-nowrap rounded-md px-3 py-1"
         >
           {children}
         </ReactNavigatioMenuLink>

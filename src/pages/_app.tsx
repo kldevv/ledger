@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/client'
-import { appWithI18Next } from 'ni18n'
+import { appWithTranslation } from 'next-i18next'
 import { Toaster } from 'react-hot-toast'
 
 import apolloClient from '@/api/graphql/client'
@@ -7,7 +7,6 @@ import { Notification } from '@/components/common'
 import { PageHead } from '@/components/meta'
 import { AccountsContextProvider, TreasuryBookContextProvider } from '@/hooks'
 
-import { ni18nConfig } from '../../ni18n.config'
 import '../../styles/globals.css'
 
 import type { AppType } from 'next/app'
@@ -26,4 +25,4 @@ const App: AppType = ({ Component, pageProps }) => {
   )
 }
 
-export default appWithI18Next(App, ni18nConfig)
+export default appWithTranslation(App)

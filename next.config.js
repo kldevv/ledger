@@ -1,9 +1,8 @@
+const { i18n } = require('./next-i18next.config')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-  },
+  i18n,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   webpack: (config, _) => {
     /**

@@ -12,5 +12,12 @@
   },
   "Footer": {
     "copyrights": " {{ year }} Kuan-you Lin. All rights reserved."
+  },
+  "hooks": {
+    "sideNavSection": {
+      "item": {
+        "home": "Home"
+      }
+    }
   }
 }

@@ -1,18 +1,24 @@
-import '../styles/globals.css';
+import '../styles/globals.css'
 
-import React from 'react';
+import React from 'react'
 
-import type { Preview } from "@storybook/react";
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, from } from '@apollo/client'
+import type { Preview } from '@storybook/react'
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+  from,
+} from '@apollo/client'
 import { withScalars } from 'apollo-link-scalars'
 import { IntrospectionQuery, buildClientSchema } from 'graphql'
 import { DateTimeResolver } from 'graphql-scalars'
-import { initialize, mswLoader } from 'msw-storybook-addon';
+import { initialize, mswLoader } from 'msw-storybook-addon'
 
 import introspection from '../src/api/graphql/__generated__/introspection.json'
 
 // Initialize MSW
-initialize();
+initialize()
 
 const mockApolloClient = new ApolloClient({
   cache: new InMemoryCache(),
@@ -40,7 +46,7 @@ const mockApolloClient = new ApolloClient({
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -49,7 +55,15 @@ const preview: Preview = {
     },
   },
   loaders: [mswLoader],
-  decorators: [(Story) => <ApolloProvider client={mockApolloClient}><Story /></ApolloProvider>]
-};
+  decorators: [
+    (Story) => (
+      <ApolloProvider client={mockApolloClient}>
+        <div className="leading-6">
+          <Story />
+        </div>
+      </ApolloProvider>
+    ),
+  ],
+}
 
-export default preview;
+export default preview
