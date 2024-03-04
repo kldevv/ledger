@@ -42,24 +42,24 @@ export const Breadcrumbs: React.FC = () => {
     })
   }, [pathname, query])
 
-  if (pathname === route.home.pathname) {
-    return null
-  }
-
   return (
     <div className="flex h-6 flex-nowrap items-center space-x-2">
-      <Link
-        href={route.home.pathname}
-        className="hover:text-light-accent text-gray "
-      >
-        <HomeIcon className="size-3" />
-      </Link>
+      {pathname === route.home.pathname ? (
+        <HomeIcon className="text-gray size-3" />
+      ) : (
+        <Link
+          href={route.home.pathname}
+          className="hover:text-light-accent text-gray"
+        >
+          <HomeIcon className="size-3" />
+        </Link>
+      )}
       {crumbs.map(({ label, href }) => {
         return (
           <React.Fragment key={label}>
             <ChevronRightIcon className="text-gray size-3" />
             <Link href={href} className="text-gray hover:text-light-accent">
-              <span className="whitespace-nowrap text-xs font-medium leading-6">
+              <span className="whitespace-nowrap text-xs font-medium">
                 {label}
               </span>
             </Link>

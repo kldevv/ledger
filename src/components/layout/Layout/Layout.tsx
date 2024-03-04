@@ -1,12 +1,9 @@
 import classNames from 'classnames'
 
-import {
-  Breadcrumbs,
-  SideNavigationBar,
-  TopNavigationBar,
-} from '@/components/layout'
+import { Breadcrumbs, TopNavigationBar } from '@/components/layout'
 
 import { Footer } from '../Footer'
+import { SideNavBar } from '../presentationals'
 
 type LayoutProps = {
   /**
@@ -25,9 +22,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <TopNavigationBar />
       </div>
       <div className="flex size-full pt-16">
-        <div className="h-full min-w-48 overflow-hidden bg-white">
-          <SideNavigationBar />
-        </div>
+        <SideNavBar className="w-52" />
         <div className="bg-light-shades size-full overflow-auto">
           <div className="size-full min-w-full">
             <main className="size-fit min-h-full w-[80vw]">

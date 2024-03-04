@@ -9,4 +9,14 @@ const meta: Meta<typeof SideNavBar> = {
 export default meta
 type Story = StoryObj<typeof SideNavBar>
 
-export const Primary: Story = {}
+export const Primary: Story = {
+  args: {
+    className: 'w-48',
+  },
+}
+
+export const HeightOverflow: Story = {
+  args: {
+    className: 'size-48',
+  },
+}

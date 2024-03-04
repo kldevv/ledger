@@ -15,8 +15,20 @@
   },
   "hooks": {
     "sideNavSection": {
+      "title": {
+        "activities": "Activities",
+        "portfolio": "Portfolio"
+      },
       "item": {
-        "home": "Home"
+        "home": "Home",
+        "transactions": "Transactions",
+        "entries": "Entries",
+        "accounts": "Accounts",
+        "categories": "Account Groups",
+        "tags": "Tags",
+        "reports": "Reports",
+        "treasuryBooks": "Portfolio",
+        "exchange": "Exchange"
       }
     }
   }

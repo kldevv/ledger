@@ -15,11 +15,11 @@ export const SectionTitle: React.FC<SectionTitle> = ({ title, className }) => {
   return (
     <h3
       className={classNames(
-        'text-gray whitespace-nowrap text-xs font-medium',
+        'text-gray select-none text-xs font-medium',
         className,
       )}
     >
-      {title.toUpperCase()}
+      {title}
     </h3>
   )
 }

@@ -37,6 +37,8 @@
     "graphql-scalars": "^1.22.4",
     "graphql-tag": "^2.12.6",
     "i18next": "^23.10.0",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "i18next-http-backend": "^2.5.0",
     "next": "13.5.4",
     "next-i18next": "^15.2.0",
     "ni18n": "^1.1.0",

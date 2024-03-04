@@ -14,18 +14,58 @@ export const useSideNavSection = () => {
         items: [
           {
             href: route.home,
-            label: t`layout.sideNavSection.item.home`,
+            label: t`hooks.sideNavSection.item.home`,
             icon: 'Home',
+          },
+          {
+            href: route.treasuryBookHome,
+            label: t`hooks.sideNavSection.item.treasuryBooks`,
+            icon: 'Squares2x2',
           },
         ],
       },
       {
-        title: 'Activities',
+        title: t`hooks.sideNavSection.title.activities`,
         items: [
           {
+            href: route.entryHome,
+            label: t`hooks.sideNavSection.item.entries`,
+            icon: 'Bookmark',
+          },
+          {
             href: route.transactionHome,
-            label: 'Transaction',
+            label: t`hooks.sideNavSection.item.transactions`,
             icon: 'ReceiptPercent',
+          },
+          {
+            href: route.exchangeHome,
+            label: t`hooks.sideNavSection.item.exchange`,
+            icon: 'ArrowRightLeft',
+          },
+        ],
+      },
+      {
+        title: t`hooks.sideNavSection.title.portfolio`,
+        items: [
+          {
+            href: route.accountHome,
+            label: t`hooks.sideNavSection.item.accounts`,
+            icon: 'Wallet',
+          },
+          {
+            href: route.categoryHome,
+            label: t`hooks.sideNavSection.item.categories`,
+            icon: 'Folder',
+          },
+          {
+            href: route.tagHome,
+            label: t`hooks.sideNavSection.item.tags`,
+            icon: 'Tag',
+          },
+          {
+            href: route.reportAmountBalance,
+            label: t`hooks.sideNavSection.item.reports`,
+            icon: 'DocumentChartBar',
           },
         ],
       },

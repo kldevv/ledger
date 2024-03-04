@@ -3,6 +3,7 @@ import '../styles/globals.css'
 import React from 'react'
 
 import type { Preview } from '@storybook/react'
+import { I18nextProvider } from 'react-i18next'
 import {
   ApolloClient,
   ApolloProvider,
@@ -16,6 +17,7 @@ import { DateTimeResolver } from 'graphql-scalars'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 
 import introspection from '../src/api/graphql/__generated__/introspection.json'
+import i18n from './i18next'
 
 // Initialize MSW
 initialize()
@@ -45,7 +47,14 @@ const mockApolloClient = new ApolloClient({
 })
 
 const preview: Preview = {
+  globals: {
+    locale: 'en',
+    locales: {
+      en: { title: 'English', left: '🇺🇸' },
+    },
+  },
   parameters: {
+    i18n,
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
