@@ -38,7 +38,7 @@ export const Item: React.FC<ItemProps> = ({ icon, label, href }) => {
         { 'bg-light-shades': active },
       )}
     >
-      {icon && <Icon.Outline className="mr-1" stroke={1.5} name={icon} />}
+      {icon && <Icon.Outline className="mr-2" stroke={1.5} name={icon} />}
       {label}
     </Link>
   )

@@ -28,14 +28,14 @@ export const useSideNavSection = () => {
         title: t`hooks.sideNavSection.title.activities`,
         items: [
           {
-            href: route.entryHome,
-            label: t`hooks.sideNavSection.item.entries`,
-            icon: 'Bookmark',
-          },
-          {
             href: route.transactionHome,
             label: t`hooks.sideNavSection.item.transactions`,
             icon: 'ReceiptPercent',
+          },
+          {
+            href: route.entryHome,
+            label: t`hooks.sideNavSection.item.entries`,
+            icon: 'Bookmark',
           },
           {
             href: route.exchangeHome,
@@ -45,7 +45,7 @@ export const useSideNavSection = () => {
         ],
       },
       {
-        title: t`hooks.sideNavSection.title.portfolio`,
+        title: t`hooks.sideNavSection.title.branch`,
         items: [
           {
             href: route.accountHome,

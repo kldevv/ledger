@@ -126,5 +126,13 @@
       "category": "Category Monthly Changes",
       "account": "Account Monthly Changes"
     }
+  },
+  "AccountBalanceTableColumn": {
+    "header": {
+      "account": "Account",
+      "balance": "Balance",
+      "type": "Type",
+      "category": "Account Group"
+    }
   }
 }

@@ -17,7 +17,7 @@
     "sideNavSection": {
       "title": {
         "activities": "Activities",
-        "portfolio": "Portfolio"
+        "branch": "Branch"
       },
       "item": {
         "home": "Home",
@@ -27,7 +27,7 @@
         "categories": "Account Groups",
         "tags": "Tags",
         "reports": "Reports",
-        "treasuryBooks": "Portfolio",
+        "treasuryBooks": "Branch",
         "exchange": "Exchange"
       }
     }

@@ -80,7 +80,7 @@ export const AccountBalanceTableColumn: React.FC<
         ),
       }),
       columnHelper.accessor('type', {
-        header: 'type',
+        header: t`AccountBalanceTableColumn.header.type`,
         cell: ({ getValue }) => <CategoryTypeChip type={getValue()} />,
       }),
       columnHelper.accessor('category', {

@@ -1,7 +1,7 @@
 import type { Route } from '../route'
 
 export const treasuryBookHome: Route = {
-  pathname: '/treasury-book',
+  pathname: '/branch',
 }
 
 export const treasuryBookAdd: Route = {

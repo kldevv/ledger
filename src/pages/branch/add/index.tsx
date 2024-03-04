@@ -1,24 +1,15 @@
-import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { CategoryDataTable } from '@/components/category'
 import { PageHeader, Layout } from '@/components/layout'
-import { route } from '@/shared'
+import { AddTreasuryBookForm } from '@/components/treasuryBook'
 
 import type { GetStaticProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('category')
-
   return (
     <Layout>
-      <PageHeader
-        action={{
-          href: route.categoryAdd,
-          label: t`page.index.action`,
-        }}
-      />
-      <CategoryDataTable />
+      <PageHeader />
+      <AddTreasuryBookForm />
     </Layout>
   )
 }
@@ -28,8 +19,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       ...(await serverSideTranslations(locale ?? 'en', [
         'common',
-        'category',
         'layout',
+        'treasuryBook',
         'route',
       ])),
     },

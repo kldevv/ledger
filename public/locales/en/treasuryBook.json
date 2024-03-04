@@ -27,20 +27,22 @@
     }
   },
   "AddTreasuryBookForm": {
-    "submit": "Add Treasury Book",
-    "success": "Your treasury book is successfully added"
+    "submit": "Add Branch",
+    "success": "Your new branch is successfully added"
   },
   "UpdateTreasuryBookForm": {
-    "submit": "Update Treasury Book",
-    "success": "Your treasury book is successfully updated"
+    "submit": "Update Branch",
+    "success": "Your new branch is successfully updated"
   },
   "page": {
     "index": {
-      "action": "Add Treasury Book"
+      "header": "All Branches",
+      "section": "A branch, comprising account groups and individual accounts, acts as the transactional hub in a single currency.",
+      "link": "Add Branch"
     },
     "[id]": {
       "index": {
-        "action": "Edit"
+        "action": "Edit Branch"
       }
     }
   }

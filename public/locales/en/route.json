@@ -83,21 +83,21 @@
     "title": "Edit Transaction Details",
     "description": "Modify the detail information of the transaction"
   },
-  "/treasury-book": {
-    "title": "Treasury Book",
-    "description": "A table of all the treasury books"
+  "/branch": {
+    "title": "Branch",
+    "description": "A table of all the branch"
   },
-  "/treasury-book/add": {
-    "title": "Add Treasury Book",
-    "description": "Add a new treasury book to your account"
+  "/branch/add": {
+    "title": "Add Branch",
+    "description": "Add a new branch to your account"
   },
-  "/treasury-book/[id]": {
-    "title": "Treasury Book Details",
-    "description": "The detail information of the treasury book"
+  "/branch/[id]": {
+    "title": "Branch Details",
+    "description": "The detail information of the branch"
   },
-  "/treasury-book/[id]/edit": {
-    "title": "Edit Treasury Book Details",
-    "description": "Modify the detail information of the treasury book"
+  "/branch/[id]/edit": {
+    "title": "Edit Branch Details",
+    "description": "Modify the detail information of the branch"
   },
   "/exchange": {
     "title": "Exchanges",
