@@ -1,4 +1,6 @@
+import { Brand } from './Icon.Brand'
 import { Outline } from './Icon.Outline'
+import { Solid } from './Icon.Solid'
 
 export interface CoreSVGProps {
   /**
@@ -9,4 +11,6 @@ export interface CoreSVGProps {
 
 export const Icon = {
   Outline,
+  Solid,
+  Brand,
 }

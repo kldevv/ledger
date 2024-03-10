@@ -28,14 +28,10 @@ export const TreasuryBookSelector: React.FC = () => {
   }
 
   return (
-    <div className="w-96">
-      <Listbox
-        as="div"
-        className="relative mx-4 flex w-full justify-center"
-        onChange={setSelectedTreasuryBookId}
-      >
+    <Listbox onChange={setSelectedTreasuryBookId}>
+      <div className="mx-2 w-80">
         <Listbox.Button className="w-full">
-          <div className="text-dark-shades border-mid-gray flex w-full flex-auto flex-nowrap items-center truncate rounded-2xl border-2 px-6 py-1 text-left text-xs font-medium">
+          <div className=" border-mid-gray flex w-full items-center truncate rounded-md border px-4 text-left text-xs font-medium">
             {selectedTreasuryBook && (
               <TreasuryBookChip
                 name={selectedTreasuryBook?.name}
@@ -44,14 +40,14 @@ export const TreasuryBookSelector: React.FC = () => {
             )}
           </div>
         </Listbox.Button>
-        <Listbox.Options className="absolute z-30 mt-12 flex flex-col items-start space-y-2 rounded-xl bg-white p-3 shadow">
+        <Listbox.Options className="absolute z-30 flex w-80 flex-col items-start space-y-2 rounded-md bg-white p-3 shadow">
           {options.map(({ value, label }) => (
             <Listbox.Option key={value} value={value} as={React.Fragment}>
               {({ active }) => (
                 <li
                   className={classNames(
                     active ? 'bg-light-accent text-white' : 'text-dark-shades',
-                    'px-3 rounded-md text-xs w-full',
+                    'px-1 rounded-md text-xs w-full truncate',
                   )}
                 >
                   {label}
@@ -60,7 +56,7 @@ export const TreasuryBookSelector: React.FC = () => {
             </Listbox.Option>
           ))}
         </Listbox.Options>
-      </Listbox>
-    </div>
+      </div>
+    </Listbox>
   )
 }

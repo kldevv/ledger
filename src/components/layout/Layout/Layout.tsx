@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 
-import { Breadcrumbs, TopNavigationBar } from '@/components/layout'
-
+import { Breadcrumbs, TopNavBar } from '..'
 import { Footer } from '../Footer'
 import { SideNavBar } from '../presentationals'
 
@@ -19,7 +18,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="relative h-screen w-screen">
       <div className="absolute top-0 z-10 h-16 w-full bg-white">
-        <TopNavigationBar />
+        <TopNavBar />
       </div>
       <div className="flex size-full pt-16">
         <SideNavBar className="w-52" />

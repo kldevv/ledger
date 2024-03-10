@@ -10,6 +10,11 @@
       "settings": "Settings"
     }
   },
+  "topNavBar": {
+    "github": "kldevv",
+    "project": "ledger",
+    "about": "About"
+  },
   "Footer": {
     "copyrights": " {{ year }} Kuan-you Lin. All rights reserved."
   },
@@ -27,7 +32,7 @@
         "categories": "Account Groups",
         "tags": "Tags",
         "reports": "Reports",
-        "treasuryBooks": "Branch",
+        "treasuryBooks": "Branches",
         "exchange": "Exchange"
       }
     }
