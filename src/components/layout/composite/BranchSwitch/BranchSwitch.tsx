@@ -5,7 +5,7 @@ import React, { useMemo } from 'react'
 import { LoadingBox, TreasuryBookChip } from '@/components/common'
 import { useTreasuryBookContext } from '@/hooks'
 
-export const TreasuryBookSelector: React.FC = () => {
+export const BranchSwitch: React.FC = () => {
   const { selectedTreasuryBookId, setSelectedTreasuryBookId, data, state } =
     useTreasuryBookContext()
 

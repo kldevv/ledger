@@ -1,0 +1,22 @@
+{
+  "header": "Home",
+  "section": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries. Learn more in the about section.",
+  "journal": {
+    "header": "Journals",
+    "section": "TBA",
+    "link": "Add Journal",
+    "add": {
+      "header": "Add Journal",
+      "section": "TBA"
+    },
+    "details": {
+      "header": "Journal Details",
+      "section": "TBA",
+      "link": "Edit",
+      "edit": {
+        "header": "Edit Journal",
+        "section": "TBA"
+      }
+    }
+  }
+}

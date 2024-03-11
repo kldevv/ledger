@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { useSideNavSection } from '../../hooks/useSideNavSection'
+import { useSideNavSection } from '../../hooks/useSideNavSection/useSideNavSection'
 
 import { Section } from './SideNavBar.Section/Section'
 

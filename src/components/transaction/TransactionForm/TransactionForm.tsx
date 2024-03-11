@@ -38,7 +38,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   onSubmitText,
   values,
 }) => {
-  const { t } = useTranslation('transaction')
+  const { t } = useTranslation('journal')
   const { data: { accounts } = {} } = useAccountsContext()
 
   const entry = useMemo(

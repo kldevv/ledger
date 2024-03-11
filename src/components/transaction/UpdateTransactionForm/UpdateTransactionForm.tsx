@@ -12,7 +12,7 @@ import { parseCurrencyNumericFormat } from '@/shared'
 import type { TransactionFormFieldValues } from '@/components/transaction'
 
 export const UpdateTransactionForm: React.FC = () => {
-  const { t } = useTranslation('transaction')
+  const { t } = useTranslation('journal')
   const id = useResolvedQuery('id')
   const toast = useToaster()
   const { selectedTreasuryBookId } = useTreasuryBookContext()

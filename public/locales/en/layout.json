@@ -2,14 +2,6 @@
   "TreasuryBookStatus": {
     "fallback": "Not Found"
   },
-  "SideNavigationBarMenu": {
-    "groupTitle": {
-      "main": "Main",
-      "reports": "Report",
-      "treasuryBook": "Treasury Book",
-      "settings": "Settings"
-    }
-  },
   "topNavBar": {
     "github": "kldevv",
     "project": "ledger",

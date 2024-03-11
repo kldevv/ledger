@@ -6,7 +6,7 @@ import {
   exchange,
   report,
   tag,
-  transaction,
+  journal,
   treasuryBook,
 } from './routes'
 
@@ -32,6 +32,6 @@ export const route = {
   ...exchange,
   ...report,
   ...tag,
-  ...transaction,
   ...treasuryBook,
+  journal,
 }

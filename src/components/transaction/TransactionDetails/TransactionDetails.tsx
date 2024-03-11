@@ -6,7 +6,7 @@ import { TransactionDescriptionList } from '@/components/transaction'
 import { useResolvedQuery, useTreasuryBookContext } from '@/hooks'
 
 export const TransactionDetails: React.FC = () => {
-  const { t } = useTranslation('transaction')
+  const { t } = useTranslation('journal')
   const id = useResolvedQuery('id', '')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
 

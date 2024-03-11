@@ -4,9 +4,9 @@ import { useTranslation } from 'next-i18next'
 import { Icon } from '@/components/common'
 import { route } from '@/shared'
 
-import { TreasuryBookSelector } from '..'
+import { BranchSwitch } from '..'
 
-export const TopNavBar: React.FC = () => {
+export const NavMenu: React.FC = () => {
   const { t } = useTranslation('layout')
 
   return (
@@ -14,10 +14,10 @@ export const TopNavBar: React.FC = () => {
       <div className="border-b-mid-gray flex size-full min-w-max items-center border-b px-4 shadow-sm">
         <Link className="text-lg font-bold" href={route.home}>
           {/* TODO: Replace with logo svg */}
-          Pizzafund
+          PizzaFunds
         </Link>
         <div className="mx-auto">
-          <TreasuryBookSelector />
+          <BranchSwitch />
         </div>
         <Link href={route.home} className="mr-4 text-sm font-medium">
           {t`topNavBar.about`}

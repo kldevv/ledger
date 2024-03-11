@@ -11,7 +11,7 @@ import { useAccountsContext, useToaster, useTreasuryBookContext } from '@/hooks'
 import { parseCurrencyNumericFormat } from '@/shared'
 
 export const AddTransactionForm: React.FC = () => {
-  const { t } = useTranslation('transaction')
+  const { t } = useTranslation('journal')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
   const toast = useToaster()
 

@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 import { route } from '@/shared'
 
-import type { SectionProps } from '../presentationals/SideNavBar/SideNavBar.Section/Section'
+import type { SectionProps } from '../../presentationals/SideNavBar/SideNavBar.Section/Section'
 
 export const useSideNavSection = () => {
   const { t } = useTranslation('layout')

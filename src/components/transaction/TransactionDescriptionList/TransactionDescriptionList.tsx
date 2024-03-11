@@ -32,7 +32,7 @@ export const TransactionDescriptionList: React.FC<
 > = ({
   data: { id, accrualDate, note, status, createdAt, updatedAt, tags } = {},
 }) => {
-  const { t } = useTranslation('transaction')
+  const { t } = useTranslation('journal')
 
   const items: DescriptionListItem[] = useMemo(
     () => [

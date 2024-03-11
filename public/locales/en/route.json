@@ -1,7 +1,7 @@
 {
   "/": {
     "title": "Home",
-    "description": "Luca is a double-entry accounting application to help you organize the transaction activities and cashflow"
+    "description": "Pizzafund is a personal finance app that offers simple and flexbile double-entry accounting"
   },
   "/account": {
     "title": "Accounts",

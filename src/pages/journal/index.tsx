@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
 
-import { Header, Layout } from '@/components/layout'
-import { AccountBalanceTable } from '@/components/report'
-import { withTranslations } from '@/shared'
+import { Layout, Header } from '@/components/layout'
+import { TransactionDataTable } from '@/components/transaction'
+import { route, withTranslations } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
@@ -11,8 +11,12 @@ const Page: React.FC = () => {
 
   return (
     <Layout>
-      <Header header={t`header`} section={t`section`} />
-      <AccountBalanceTable />
+      <Header
+        header={t`journal.header`}
+        section={t`journal.section`}
+        link={{ label: t`journal.link`, href: route.journal.add }}
+      />
+      <TransactionDataTable />
     </Layout>
   )
 }

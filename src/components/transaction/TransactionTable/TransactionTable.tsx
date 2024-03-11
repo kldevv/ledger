@@ -33,7 +33,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
   data,
   loading,
 }) => {
-  const { t } = useTranslation('transaction')
+  const { t } = useTranslation('journal')
 
   const colDefs = useMemo(
     () => [
