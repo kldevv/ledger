@@ -8,7 +8,7 @@ import { useToaster, useTreasuryBookContext } from '@/hooks'
 import type { TreasuryBookFormFieldValues } from '@/components/treasuryBook'
 
 export const AddTreasuryBookForm: React.FC = () => {
-  const { t } = useTranslation('treasuryBook')
+  const { t } = useTranslation('branch')
   const toast = useToaster()
 
   const { ownerId } = useTreasuryBookContext()

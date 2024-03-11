@@ -22,7 +22,7 @@ export interface MonthlyChangesTableProps {
 export const MonthlyChangesTable: React.FC<MonthlyChangesTableProps> = ({
   data,
 }) => {
-  const { t } = useTranslation('report')
+  const { t } = useTranslation('summary')
 
   const colDefs = useMemo(
     () => [

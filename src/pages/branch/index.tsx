@@ -1,14 +1,13 @@
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Header, Layout } from '@/components/layout'
 import { TreasuryBookDataTable } from '@/components/treasuryBook'
-import { route } from '@/shared'
+import { route, withTranslations } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('treasuryBook')
+  const { t } = useTranslation('branch')
 
   //       // "section": [
   //   "A branch serves as the primary entity for transactions, encompassing a collection of account groups and individual accounts.",
@@ -30,14 +29,7 @@ const Page: React.FC = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
-    props: {
-      ...(await serverSideTranslations(locale ?? 'en', [
-        'common',
-        'layout',
-        'treasuryBook',
-        'route',
-      ])),
-    },
+    props: await withTranslations(locale, ['branch']),
   }
 }
 

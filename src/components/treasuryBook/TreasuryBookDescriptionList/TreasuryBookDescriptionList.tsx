@@ -25,7 +25,7 @@ export interface TreasuryBookDescriptionListProps {
 export const TreasuryBookDescriptionList: React.FC<
   TreasuryBookDescriptionListProps
 > = ({ data: { id, name, currency, createdAt, updatedAt } = {}, loading }) => {
-  const { t } = useTranslation('treasuryBook')
+  const { t } = useTranslation('branch')
 
   const items: DescriptionListItem[] = useMemo(
     () => [

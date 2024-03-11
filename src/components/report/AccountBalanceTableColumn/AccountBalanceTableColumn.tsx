@@ -53,7 +53,7 @@ const columnHelper = createColumnHelper<AccountBalanceTableRow>()
 export const AccountBalanceTableColumn: React.FC<
   AccountBalanceTableColumnProps
 > = ({ data }) => {
-  const { t } = useTranslation('report')
+  const { t } = useTranslation('summary')
 
   const colDefs = useMemo(
     () => [

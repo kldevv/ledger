@@ -1,14 +1,13 @@
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { CategoryDataTable } from '@/components/category'
 import { PageHeader, Layout } from '@/components/layout'
-import { route } from '@/shared'
+import { route, withTranslations } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('category')
+  const { t } = useTranslation('accountGroup')
 
   return (
     <Layout>
@@ -25,14 +24,7 @@ const Page: React.FC = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
-    props: {
-      ...(await serverSideTranslations(locale ?? 'en', [
-        'common',
-        'category',
-        'layout',
-        'route',
-      ])),
-    },
+    props: await withTranslations(locale, ['accountGroup']),
   }
 }
 

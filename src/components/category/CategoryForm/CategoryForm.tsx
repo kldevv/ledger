@@ -36,7 +36,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   onSubmitText,
   values,
 }) => {
-  const { t } = useTranslation('category')
+  const { t } = useTranslation('accountGroup')
 
   const context = useForm<CategoryFormFieldValues>({
     schema: addCategorySchema,

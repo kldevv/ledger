@@ -1,15 +1,14 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { PageHeader, Layout } from '@/components/layout'
 import { TreasuryBookDetails } from '@/components/treasuryBook'
-import { route } from '@/shared'
+import { route, withTranslations } from '@/shared'
 
-import type { GetStaticProps } from 'next'
+import type { GetServerSideProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('treasuryBook')
+  const { t } = useTranslation('branch')
   const { query } = useRouter()
 
   return (
@@ -28,16 +27,9 @@ const Page: React.FC = () => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
-    props: {
-      ...(await serverSideTranslations(locale ?? 'en', [
-        'common',
-        'layout',
-        'treasuryBook',
-        'route',
-      ])),
-    },
+    props: await withTranslations(locale, ['branch']),
   }
 }
 

@@ -1,19 +1,19 @@
 import { PageHeader, Layout } from '@/components/layout'
-import { AddTagForm } from '@/components/tag'
+import { UpdateTagForm } from '@/components/tag/UpdateTagForm'
 import { withTranslations } from '@/shared'
 
-import type { GetStaticProps } from 'next'
+import type { GetServerSideProps } from 'next'
 
 const Page: React.FC = () => {
   return (
     <Layout>
       <PageHeader />
-      <AddTagForm />
+      <UpdateTagForm />
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: await withTranslations(locale, ['tag']),
   }

@@ -8,7 +8,7 @@ import { EntryFilteredTable } from '@/components/entry'
 import { useResolvedQuery, useTreasuryBookContext } from '@/hooks'
 
 export const CategoryDetails: React.FC = () => {
-  const { t } = useTranslation('category')
+  const { t } = useTranslation('accountGroup')
   const id = useResolvedQuery('id', '')
 
   const { selectedTreasuryBookId } = useTreasuryBookContext()

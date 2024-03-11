@@ -46,7 +46,7 @@ export const TreasuryBookForm: React.FC<TreasuryBookFormProps> = ({
   onSubmitText,
   values,
 }) => {
-  const { t } = useTranslation('treasuryBook')
+  const { t } = useTranslation('branch')
 
   const context = useForm<TreasuryBookFormFieldValues>({
     schema: treasuryBookFormSchema,

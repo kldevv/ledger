@@ -30,7 +30,7 @@ export interface TreasuryBookTableProps {
 export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
   data,
 }) => {
-  const { t } = useTranslation('treasuryBook')
+  const { t } = useTranslation('branch')
   const { selectedTreasuryBookId, setSelectedTreasuryBookId } =
     useTreasuryBookContext()
 

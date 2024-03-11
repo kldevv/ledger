@@ -12,7 +12,7 @@ import { useResolvedQuery, useToaster } from '@/hooks'
 import type { CategoryFormFieldValues } from '@/components/category'
 
 export const UpdateCategoryForm: React.FC = () => {
-  const { t } = useTranslation('category')
+  const { t } = useTranslation('accountGroup')
   const id = useResolvedQuery('id')
   const toast = useToaster()
 

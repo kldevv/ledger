@@ -8,7 +8,7 @@ import { useResolvedQuery, useToaster, useTreasuryBookContext } from '@/hooks'
 import type { TreasuryBookFormFieldValues } from '@/components/treasuryBook'
 
 export const UpdateTreasuryBookForm: React.FC = () => {
-  const { t } = useTranslation('treasuryBook')
+  const { t } = useTranslation('branch')
   const toast = useToaster()
   const id = useResolvedQuery('id')
   const { data: { treasuryBooks } = {} } = useTreasuryBookContext()

@@ -27,7 +27,7 @@ export const MonthlyBalanceTable: React.FC<MonthlyBalanceTableProps> = ({
   data,
   loading,
 }) => {
-  const { t } = useTranslation('report')
+  const { t } = useTranslation('summary')
 
   const colDefs = useMemo(
     () => [

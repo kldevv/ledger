@@ -9,7 +9,7 @@ import {
 } from '..'
 
 export const MonthlyBalanceTableGroup: React.FC = () => {
-  const { t } = useTranslation('report')
+  const { t } = useTranslation('summary')
 
   return (
     <div className="mt-4 flex size-full flex-col">

@@ -25,7 +25,7 @@ export interface CategoryTableProps {
 const columnHelper = createColumnHelper<CategoryTableData>()
 
 export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
-  const { t } = useTranslation('category')
+  const { t } = useTranslation('accountGroup')
 
   const colDefs = useMemo(
     () => [

@@ -18,7 +18,7 @@ export interface CategoryDescriptionListProps {
 export const CategoryDescriptionList: React.FC<
   CategoryDescriptionListProps
 > = ({ data }) => {
-  const { t } = useTranslation('category')
+  const { t } = useTranslation('accountGroup')
   const { id, name, type, createdAt, updatedAt } = data ?? {}
 
   const items: DescriptionListItem[] = useMemo(

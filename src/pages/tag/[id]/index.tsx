@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout, PageHeader } from '@/components/layout'
 import { TagDetails } from '@/components/tag'
-import { route } from '@/shared'
+import { route, withTranslations } from '@/shared'
 
-import type { GetStaticProps } from 'next'
+import type { GetServerSideProps } from 'next'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('tag')
@@ -28,16 +27,9 @@ const Page: React.FC = () => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
-    props: {
-      ...(await serverSideTranslations(locale ?? 'en', [
-        'common',
-        'tag',
-        'layout',
-        'route',
-      ])),
-    },
+    props: await withTranslations(locale, ['tag']),
   }
 }
 

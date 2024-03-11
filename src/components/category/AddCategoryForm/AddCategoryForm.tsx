@@ -8,7 +8,7 @@ import { useToaster, useTreasuryBookContext } from '@/hooks'
 import type { CategoryFormFieldValues } from '@/components/category'
 
 export const AddCategoryFrom: React.FC = () => {
-  const { t } = useTranslation('category')
+  const { t } = useTranslation('accountGroup')
   const { selectedTreasuryBookId } = useTreasuryBookContext()
   const toast = useToaster()
 
