@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { Fragment } from 'react'
 
 import { useExchangeDetailsQuery } from '@/api/graphql'
-import { PageTab } from '@/components/common'
+import { PageTab } from '@/components/core'
 import { EntryFilteredTable } from '@/components/entry'
 import { useResolvedQuery } from '@/hooks'
 

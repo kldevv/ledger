@@ -8,7 +8,7 @@ import {
   Table,
   LinkButton,
   TagTypeChip,
-} from '@/components/common'
+} from '@/components/core'
 import { route } from '@/shared'
 
 import type { TagsQuery } from '@/api/graphql'

@@ -3,7 +3,7 @@ import { appWithTranslation } from 'next-i18next'
 import { Toaster } from 'react-hot-toast'
 
 import apolloClient from '@/api/graphql/client'
-import { Notification } from '@/components/common'
+import { Notification } from '@/components/core'
 import { PageHead } from '@/components/meta'
 import { AccountsContextProvider, TreasuryBookContextProvider } from '@/hooks'
 

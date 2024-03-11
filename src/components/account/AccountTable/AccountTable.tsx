@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate, Table, LinkButton } from '@/components/common'
+import { FormattedDate, Table, LinkButton } from '@/components/core'
 import { route } from '@/shared'
 
 import type { AccountsQuery } from '@/api/graphql'

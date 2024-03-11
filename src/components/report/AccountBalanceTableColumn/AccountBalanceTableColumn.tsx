@@ -8,7 +8,7 @@ import {
   CategoryTypeChip,
   FormattedCurrencyNumber,
   Table,
-} from '@/components/common'
+} from '@/components/core'
 import { route } from '@/shared'
 
 export interface AccountBalanceTableColumnProps {

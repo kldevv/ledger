@@ -7,14 +7,14 @@ import {
   InputText,
   PageTab,
   SubmitButton,
-} from '@/components/common'
+} from '@/components/core'
 import { useForm } from '@/hooks'
 import { addExchangeSchema } from '@/shared'
 import { addExchangeDefaultValues } from '@/shared/zod/defaultValues'
 
 import { ExchangeRate, ExchangeTransaction } from '.'
 
-import type { FormProps } from '@/components/common'
+import type { FormProps } from '@/components/core'
 import type { z } from 'zod'
 
 export type ExchangeFormFieldValues = z.infer<typeof addExchangeSchema>

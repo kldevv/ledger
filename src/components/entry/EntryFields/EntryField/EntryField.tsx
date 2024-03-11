@@ -7,7 +7,7 @@ import {
   InputDate,
   EntryStatusFromDropdown,
   AccountFormDropdown,
-} from '@/components/common'
+} from '@/components/core'
 
 import type { Currency } from '@/api/graphql'
 

@@ -2,7 +2,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate, Table, LinkButton } from '@/components/common'
+import { FormattedDate, Table, LinkButton } from '@/components/core'
 import { TreasuryBookDetailLink } from '@/components/treasuryBook'
 import { formatCurrencyNumber, route } from '@/shared'
 

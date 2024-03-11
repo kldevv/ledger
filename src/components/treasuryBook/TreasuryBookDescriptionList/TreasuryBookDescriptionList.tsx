@@ -1,14 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import {
-  DescriptionList,
-  FormattedDate,
-  CurrencyChip,
-} from '@/components/common'
+import { DescriptionList, FormattedDate, CurrencyChip } from '@/components/core'
 
 import type { TreasuryBooksQuery } from '@/api/graphql'
-import type { DescriptionListItem } from '@/components/common'
+import type { DescriptionListItem } from '@/components/core'
 
 type TreasuryBookDescriptionListData = Exclude<
   TreasuryBooksQuery['treasuryBooks'][number],

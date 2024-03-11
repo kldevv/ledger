@@ -6,9 +6,9 @@ import {
   DescriptionList,
   FormattedDate,
   EntryStatusChip,
-} from '@/components/common'
+} from '@/components/core'
 
-import type { DescriptionListItem } from '@/components/common'
+import type { DescriptionListItem } from '@/components/core'
 
 export type ExchangeDescriptionListData = ExchangeDetailsQuery['exchange']
 

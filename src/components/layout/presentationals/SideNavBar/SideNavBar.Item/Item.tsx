@@ -2,9 +2,9 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { Icon } from '@/components/common'
+import { Icon } from '@/components/core'
 
-import type { OutlineIconProps } from '@/components/common'
+import type { OutlineIconProps } from '@/components/core'
 import type { UrlObject } from 'url'
 
 export interface ItemProps {

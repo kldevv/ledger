@@ -1,6 +1,6 @@
 import { useCategoriesQuery } from '@/api/graphql'
 import { CategoryTable } from '@/components/category'
-import { Card } from '@/components/common'
+import { Card } from '@/components/core'
 import { useTreasuryBookContext } from '@/hooks'
 
 export const CategoryDataTable: React.FC = () => {

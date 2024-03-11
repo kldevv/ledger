@@ -6,10 +6,10 @@ import {
   FormattedDate,
   EntryStatusChip,
   TagChip,
-} from '@/components/common'
+} from '@/components/core'
 
 import type { EntryStatus, TransactionDetailsQuery } from '@/api/graphql'
-import type { DescriptionListItem } from '@/components/common'
+import type { DescriptionListItem } from '@/components/core'
 
 type TransactionDescriptionListData = Partial<
   Exclude<TransactionDetailsQuery['transaction'], null>

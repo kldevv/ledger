@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedCurrencyNumber, Table } from '@/components/common'
+import { FormattedCurrencyNumber, Table } from '@/components/core'
 import { route } from '@/shared'
 
 import type { MonthlyAmountDataFragment } from '@/api/graphql'

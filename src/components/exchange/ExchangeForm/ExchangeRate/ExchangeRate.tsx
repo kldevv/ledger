@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 import { Currency } from '@/api/graphql'
-import { ExchangeRateChip } from '@/components/common'
+import { ExchangeRateChip } from '@/components/core'
 import { useTreasuryBookContext } from '@/hooks'
 import { parseCurrencyNumericFormat } from '@/shared'
 

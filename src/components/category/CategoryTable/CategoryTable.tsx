@@ -8,7 +8,7 @@ import {
   FormattedDate,
   Table,
   LinkButton,
-} from '@/components/common'
+} from '@/components/core'
 import { route } from '@/shared'
 
 import type { CategoriesQuery } from '@/api/graphql'

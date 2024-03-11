@@ -1,5 +1,5 @@
 import { useAccountsQuery } from '@/api/graphql'
-import { Card } from '@/components/common'
+import { Card } from '@/components/core'
 import { useTreasuryBookContext } from '@/hooks'
 
 import { AccountTable } from '..'

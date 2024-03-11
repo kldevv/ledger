@@ -7,13 +7,13 @@ import {
   SubmitButton,
   Card,
   TagFormDropdown,
-} from '@/components/common'
-import { InputDate } from '@/components/common/Form/InputDate'
+} from '@/components/core'
+import { InputDate } from '@/components/core/Form/InputDate'
 import { EntryFields, entryFieldDefaultValues } from '@/components/entry'
 import { useAccountsContext, useForm } from '@/hooks'
 import { addTransactionSchema } from '@/shared'
 
-import type { FormProps } from '@/components/common'
+import type { FormProps } from '@/components/core'
 import type { z } from 'zod'
 
 export type TransactionFormFieldValues = z.infer<typeof addTransactionSchema>

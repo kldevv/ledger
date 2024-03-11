@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { TableTitle } from '@/components/common'
+import { TableTitle } from '@/components/core'
 
 import {
   AccountMonthlyChangesDataControllerTable,

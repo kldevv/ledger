@@ -1,14 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import {
-  DescriptionList,
-  FormattedDate,
-  TagTypeChip,
-} from '@/components/common'
+import { DescriptionList, FormattedDate, TagTypeChip } from '@/components/core'
 
 import type { TagDetailsQuery } from '@/api/graphql'
-import type { DescriptionListItem } from '@/components/common'
+import type { DescriptionListItem } from '@/components/core'
 
 export type TagDescriptionListData = TagDetailsQuery['tag']
 

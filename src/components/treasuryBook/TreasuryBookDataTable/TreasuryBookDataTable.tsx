@@ -1,4 +1,4 @@
-import { Card } from '@/components/common'
+import { Card } from '@/components/core'
 
 import { TreasuryBookTable } from '..'
 import { useTreasuryBookContext } from '@/hooks'

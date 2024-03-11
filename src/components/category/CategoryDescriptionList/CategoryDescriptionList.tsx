@@ -1,10 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { DescriptionList, FormattedDate } from '@/components/common'
+import { DescriptionList, FormattedDate } from '@/components/core'
 
 import type { CategoryQuery } from '@/api/graphql'
-import type { DescriptionListItem } from '@/components/common'
+import type { DescriptionListItem } from '@/components/core'
 
 export type CategoryDescriptionListData = CategoryQuery['category']
 

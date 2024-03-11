@@ -1,10 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
-import {
-  Card,
-  EntryStatusDropdownFilter,
-  Pagination,
-} from '@/components/common'
+import { Card, EntryStatusDropdownFilter, Pagination } from '@/components/core'
 
 import { TransactionTable } from '..'
 

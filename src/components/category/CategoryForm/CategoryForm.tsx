@@ -7,11 +7,11 @@ import {
   SubmitButton,
   CategoryTypeFormDropdown,
   Card,
-} from '@/components/common'
+} from '@/components/core'
 import { useForm } from '@/hooks'
 import { addCategorySchema } from '@/shared'
 
-import type { FormProps } from '@/components/common'
+import type { FormProps } from '@/components/core'
 import type { z } from 'zod'
 
 export type CategoryFormFieldValues = z.infer<typeof addCategorySchema>

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 import { useTagsQuery } from '@/api/graphql'
-import { Card } from '@/components/common'
-import { TagTypeDropdownFilter } from '@/components/common/Customized/Filters/TagTypeDropdownFilter'
+import { Card } from '@/components/core'
+import { TagTypeDropdownFilter } from '@/components/core/Customized/Filters/TagTypeDropdownFilter'
 import { TagTable } from '@/components/tag'
 import { useTreasuryBookContext } from '@/hooks'
 

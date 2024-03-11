@@ -6,10 +6,10 @@ import {
   DescriptionList,
   EntryStatusChip,
   CurrencyChip,
-} from '@/components/common'
+} from '@/components/core'
 import { useTreasuryBookContext } from '@/hooks'
 
-import type { DescriptionListItem } from '@/components/common'
+import type { DescriptionListItem } from '@/components/core'
 
 export type ExchangeTransactionDescriptionListData = Exclude<
   ExchangeDetailsQuery['exchange'],

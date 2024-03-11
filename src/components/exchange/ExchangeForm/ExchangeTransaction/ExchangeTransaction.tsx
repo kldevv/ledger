@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { TreasuryBookFormDropdown } from '@/components/common'
+import { TreasuryBookFormDropdown } from '@/components/core'
 import { EntryFields, entryFieldDefaultValues } from '@/components/entry'
 import { AccountsContextProvider, useTreasuryBookContext } from '@/hooks'
 

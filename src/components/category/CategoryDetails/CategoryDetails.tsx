@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useCategoryDetailQuery } from '@/api/graphql'
 import { AccountTable } from '@/components/account'
 import { CategoryDescriptionList } from '@/components/category'
-import { Card } from '@/components/common'
+import { Card } from '@/components/core'
 import { EntryFilteredTable } from '@/components/entry'
 import { useResolvedQuery, useTreasuryBookContext } from '@/hooks'
 

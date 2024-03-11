@@ -8,10 +8,10 @@ import {
   SubmitButton,
   CurrencyFormDropdown,
   Card,
-} from '@/components/common'
+} from '@/components/core'
 import { useForm } from '@/hooks'
 
-import type { FormProps } from '@/components/common'
+import type { FormProps } from '@/components/core'
 
 export const treasuryBookFormSchema = z.object({
   /**

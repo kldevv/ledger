@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 import { useFieldArray } from 'react-hook-form'
 
-import { Button } from '@/components/common'
+import { Button } from '@/components/core'
 
 import { EntryField } from '.'
 

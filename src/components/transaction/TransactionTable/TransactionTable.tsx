@@ -8,7 +8,7 @@ import {
   Table,
   LinkButton,
   FormattedCurrencyNumber,
-} from '@/components/common'
+} from '@/components/core'
 import { route } from '@/shared'
 
 import type { TransactionsQuery } from '@/api/graphql'

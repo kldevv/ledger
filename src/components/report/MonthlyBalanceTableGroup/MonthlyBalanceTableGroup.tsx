@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { TableTitle } from '@/components/common'
+import { TableTitle } from '@/components/core'
 
 import {
   AccountMonthlyBalanceDataControllerTable,
@@ -12,12 +12,12 @@ export const MonthlyBalanceTableGroup: React.FC = () => {
   const { t } = useTranslation('report')
 
   return (
-    <div className="w-full h-full flex flex-col mt-4">
-      <div className="flex flex-col space-y-2 pb-12 border-b border-mid-gray">
+    <div className="mt-4 flex size-full flex-col">
+      <div className="border-mid-gray flex flex-col space-y-2 border-b pb-12">
         <TableTitle className="text-center">{t`MonthlyBalanceTableGroup.title.categoryType`}</TableTitle>
         <CategoryTypeMonthlyBalanceDataControllerTable />
       </div>
-      <div className="flex flex-col space-y-2 py-12 border-b border-mid-gray">
+      <div className="border-mid-gray flex flex-col space-y-2 border-b py-12">
         <TableTitle className="text-center">{t`MonthlyBalanceTableGroup.title.category`}</TableTitle>
         <CategoryMonthlyBalanceDataControllerTable />
       </div>

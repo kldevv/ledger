@@ -6,7 +6,7 @@ import {
   DateTypeRadioGroupFilter,
   EntryStatusDropdownFilter,
   YearDropdownFilter,
-} from '@/components/common'
+} from '@/components/core'
 import { useTreasuryBookContext } from '@/hooks'
 
 import { MonthlyChangesTable } from '..'
