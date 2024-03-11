@@ -1,9 +1,9 @@
 import type { Route } from '..'
 
 const home: Route = {
-  pathname: '/entry',
+  pathname: '/summary',
 }
 
-export const entry = {
+export const summary = {
   home,
 } as const

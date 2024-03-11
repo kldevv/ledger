@@ -1,9 +1,9 @@
 import type { Route } from '..'
 
 const home: Route = {
-  pathname: '/entry',
+  pathname: '/',
 }
 
-export const entry = {
+export const core = {
   home,
 } as const

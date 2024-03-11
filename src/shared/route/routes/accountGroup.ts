@@ -1,7 +1,7 @@
 import type { Route } from '..'
 
 const home: Route = {
-  pathname: '/journal',
+  pathname: '/account/group',
 }
 
 const add: Route = {
@@ -16,7 +16,7 @@ const edit: Route = {
   pathname: `${details.pathname}/edit`,
 }
 
-export const journal = {
+export const accountGroup = {
   home,
   add,
   details,

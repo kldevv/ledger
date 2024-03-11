@@ -1,17 +1,24 @@
-import type { Route } from '../route'
+import type { Route } from '..'
 
-export const tagHome: Route = {
+const home: Route = {
   pathname: '/tag',
 }
 
-export const tagAdd: Route = {
-  pathname: `${tagHome.pathname}/add`,
+const add: Route = {
+  pathname: `${home.pathname}/add`,
 }
 
-export const tagDetail: Route = {
-  pathname: `${tagHome.pathname}/[id]`,
+const details: Route = {
+  pathname: `${home.pathname}/[id]`,
 }
 
-export const tagDetailEdit: Route = {
-  pathname: `${tagDetail.pathname}/edit`,
+const edit: Route = {
+  pathname: `${details.pathname}/edit`,
 }
+
+export const tag = {
+  home,
+  add,
+  details,
+  edit,
+} as const

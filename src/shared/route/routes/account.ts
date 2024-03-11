@@ -1,17 +1,24 @@
-import type { Route } from '../route'
+import type { Route } from '..'
 
-export const accountHome: Route = {
+const home: Route = {
   pathname: '/account',
 }
 
-export const accountAdd: Route = {
-  pathname: `${accountHome.pathname}/add`,
+const add: Route = {
+  pathname: `${home.pathname}/add`,
 }
 
-export const accountDetail: Route = {
-  pathname: `${accountHome.pathname}/[id]`,
+const details: Route = {
+  pathname: `${home.pathname}/[id]`,
 }
 
-export const accountDetailEdit: Route = {
-  pathname: `${accountDetail.pathname}/edit`,
+const edit: Route = {
+  pathname: `${details.pathname}/edit`,
 }
+
+export const account = {
+  home,
+  add,
+  details,
+  edit,
+} as const
