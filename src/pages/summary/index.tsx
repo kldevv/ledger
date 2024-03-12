@@ -1,12 +1,16 @@
-import { Layout, PageHeader } from '@/components/layout'
+import { useTranslation } from 'next-i18next'
+
+import { Header, Layout } from '@/components/layout'
 import { withTranslations } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
 const Page: React.FC = () => {
+  const { t } = useTranslation('pages')
+
   return (
     <Layout>
-      <PageHeader />
+      <Header header={t`summary.header`} section={t`summary.section`} />
     </Layout>
   )
 }

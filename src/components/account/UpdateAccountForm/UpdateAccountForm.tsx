@@ -9,7 +9,7 @@ import type { AccountFormFieldValues } from '@/components/account'
 
 export const UpdateAccountForm: React.FC = () => {
   const { t } = useTranslation('account')
-  const id = useResolvedQuery('id', '')
+  const id = useResolvedQuery('id')
   const toast = useToaster()
 
   const { data: { account } = {} } = useAccountQuery({

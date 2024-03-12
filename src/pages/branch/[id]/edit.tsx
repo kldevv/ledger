@@ -1,13 +1,20 @@
-import { PageHeader, Layout } from '@/components/layout'
+import { useTranslation } from 'next-i18next'
+
+import { Layout, Header } from '@/components/layout'
 import { UpdateTreasuryBookForm } from '@/components/treasuryBook'
 import { withTranslations } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 
 const Page: React.FC = () => {
+  const { t } = useTranslation('pages')
+
   return (
     <Layout>
-      <PageHeader />
+      <Header
+        header={t`branch.details.edit.header`}
+        section={t`branch.details.edit.section`}
+      />
       <UpdateTreasuryBookForm />
     </Layout>
   )

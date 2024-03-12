@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { Layout, Header } from '@/components/layout'
@@ -8,13 +9,17 @@ import type { GetServerSideProps } from 'next'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('pages')
+  const { query } = useRouter()
 
   return (
     <Layout>
       <Header
         header={t`journal.details.header`}
         section={t`journal.details.section`}
-        link={{ label: t`journal.details.link`, href: route.journal.details }}
+        link={{
+          label: t`journal.details.link`,
+          href: { pathname: route.journal.edit.pathname, query },
+        }}
       />
       <TransactionDetails />
     </Layout>

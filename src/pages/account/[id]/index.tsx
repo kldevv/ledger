@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { AccountDetails } from '@/components/account'
-import { PageHeader, Layout } from '@/components/layout'
+import { Layout, Header } from '@/components/layout'
 import { route, withTranslations } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
@@ -13,13 +13,12 @@ const Page: React.FC = () => {
 
   return (
     <Layout>
-      <PageHeader
-        action={{
-          href: {
-            pathname: route.accountDetailEdit.pathname,
-            query,
-          },
-          label: t('page.[id].index.action'),
+      <Header
+        header={t`account.details.header`}
+        section={t`account.details.section`}
+        link={{
+          href: { pathname: route.account.edit.pathname, query },
+          label: t`account.details.link`,
         }}
       />
       <AccountDetails />

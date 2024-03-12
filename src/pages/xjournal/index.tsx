@@ -1,22 +1,20 @@
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ExchangeDataTable } from '@/components/exchange'
-import { PageHeader, Layout } from '@/components/layout'
-import { route } from '@/shared'
+import { Layout, Header } from '@/components/layout'
+import { route, withTranslations } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('exchange')
+  const { t } = useTranslation('pages')
 
   return (
     <Layout>
-      <PageHeader
-        action={{
-          href: route.exchangeAdd.pathname,
-          label: t`page.index.action`,
-        }}
+      <Header
+        header={t`xjournal.header`}
+        section={t`xjournal.section`}
+        link={{ label: t`xjournal.link`, href: route.xjournal.add }}
       />
       <ExchangeDataTable />
     </Layout>
@@ -25,14 +23,7 @@ const Page: React.FC = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
-    props: {
-      ...(await serverSideTranslations(locale ?? 'en', [
-        'common',
-        'exchange',
-        'layout',
-        'route',
-      ])),
-    },
+    props: await withTranslations(locale, ['xjournal']),
   }
 }
 

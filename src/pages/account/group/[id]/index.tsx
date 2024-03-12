@@ -2,24 +2,23 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import { CategoryDetails } from '@/components/category'
-import { PageHeader, Layout } from '@/components/layout'
+import { Layout, Header } from '@/components/layout'
 import { route, withTranslations } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('accountGroup')
+  const { t } = useTranslation('pages')
   const { query } = useRouter()
 
   return (
     <Layout>
-      <PageHeader
-        action={{
-          href: {
-            pathname: route.categoryDetailEdit.pathname,
-            query,
-          },
-          label: t`page.[id].index.action`,
+      <Header
+        header={t`account.details.header`}
+        section={t`account.details.section`}
+        link={{
+          href: { pathname: route.accountGroup.edit.pathname, query },
+          label: t`account.details.link`,
         }}
       />
       <CategoryDetails />

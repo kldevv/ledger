@@ -1,25 +1,24 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { PageHeader, Layout } from '@/components/layout'
+import { Layout, Header } from '@/components/layout'
 import { TreasuryBookDetails } from '@/components/treasuryBook'
 import { route, withTranslations } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('branch')
+  const { t } = useTranslation('pages')
   const { query } = useRouter()
 
   return (
     <Layout>
-      <PageHeader
-        action={{
-          href: {
-            pathname: route.treasuryBookDetailEdit.pathname,
-            query,
-          },
-          label: t`page.[id].index.action`,
+      <Header
+        header={t`branch.details.header`}
+        section={t`branch.details.section`}
+        link={{
+          href: { pathname: route.branch.edit.pathname, query },
+          label: t`branch.details.link`,
         }}
       />
       <TreasuryBookDetails />

@@ -1,21 +1,20 @@
 import { useTranslation } from 'next-i18next'
 
 import { CategoryDataTable } from '@/components/category'
-import { PageHeader, Layout } from '@/components/layout'
+import { Layout, Header } from '@/components/layout'
 import { route, withTranslations } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('accountGroup')
+  const { t } = useTranslation('pages')
 
   return (
     <Layout>
-      <PageHeader
-        action={{
-          href: route.categoryAdd,
-          label: t`page.index.action`,
-        }}
+      <Header
+        header={t`accountGroup.header`}
+        section={t`accountGroup.section`}
+        link={{ href: route.accountGroup.add, label: t`accountGroup.link` }}
       />
       <CategoryDataTable />
     </Layout>

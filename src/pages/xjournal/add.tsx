@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { AddAccountFrom } from '@/components/account'
+import { AddExchangeForm } from '@/components/exchange'
 import { Layout, Header } from '@/components/layout'
 import { withTranslations } from '@/shared'
 
@@ -11,15 +11,18 @@ const Page: React.FC = () => {
 
   return (
     <Layout>
-      <Header header={t`account.add.header`} section={t`account.add.section`} />
-      <AddAccountFrom />
+      <Header
+        header={t`xjournal.add.header`}
+        section={t`xjournal.add.section`}
+      />
+      <AddExchangeForm />
     </Layout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
-    props: await withTranslations(locale, ['account']),
+    props: await withTranslations(locale, ['xjournal']),
   }
 }
 

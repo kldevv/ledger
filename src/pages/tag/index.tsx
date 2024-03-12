@@ -7,7 +7,7 @@ import { route, withTranslations } from '@/shared'
 import type { GetStaticProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('tag')
+  const { t } = useTranslation('pages')
 
   return (
     <Layout>

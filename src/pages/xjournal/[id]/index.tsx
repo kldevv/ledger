@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ExchangeDetails } from '@/components/exchange'
-import { PageHeader, Layout } from '@/components/layout'
-import { route } from '@/shared'
+import { Layout, Header } from '@/components/layout'
+import { route, withTranslations } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
@@ -14,10 +13,12 @@ const Page: React.FC = () => {
 
   return (
     <Layout>
-      <PageHeader
-        action={{
-          href: { pathname: route.exchangeDetailsEdit.pathname, query },
-          label: t`page.[id].index.action`,
+      <Header
+        header={t`xjournal.details.header`}
+        section={t`xjournal.details.section`}
+        link={{
+          label: t`xjournal.details.link`,
+          href: { pathname: route.xjournal.edit.pathname, query },
         }}
       />
       <ExchangeDetails />
@@ -27,14 +28,7 @@ const Page: React.FC = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
-    props: {
-      ...(await serverSideTranslations(locale ?? 'en', [
-        'common',
-        'exchange',
-        'layout',
-        'route',
-      ])),
-    },
+    props: await withTranslations(locale, ['xjournal']),
   }
 }
 

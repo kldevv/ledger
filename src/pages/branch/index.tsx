@@ -7,7 +7,7 @@ import { route, withTranslations } from '@/shared'
 import type { GetStaticProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('branch')
+  const { t } = useTranslation('pages')
 
   //       // "section": [
   //   "A branch serves as the primary entity for transactions, encompassing a collection of account groups and individual accounts.",
@@ -18,9 +18,9 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <Header
-        header={t`page.index.header`}
-        section={t`page.index.section`}
-        link={{ href: route.treasuryBookAdd, label: t`page.index.link` }}
+        header={t`branch.header`}
+        section={t`branch.section`}
+        link={{ href: route.branch.add, label: t`branch.link` }}
       />
       <TreasuryBookDataTable />
     </Layout>

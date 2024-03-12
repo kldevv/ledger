@@ -1,13 +1,20 @@
+import { useTranslation } from 'next-i18next'
+
 import { UpdateCategoryForm } from '@/components/category'
-import { PageHeader, Layout } from '@/components/layout'
+import { Layout, Header } from '@/components/layout'
 import { withTranslations } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 
 const Page: React.FC = () => {
+  const { t } = useTranslation('pages')
+
   return (
     <Layout>
-      <PageHeader />
+      <Header
+        header={t`accountGroup.edit.header`}
+        section={t`accountGroup.edit.section`}
+      />
       <UpdateCategoryForm />
     </Layout>
   )
