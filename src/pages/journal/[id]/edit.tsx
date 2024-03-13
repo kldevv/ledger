@@ -1,8 +1,10 @@
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { TextLink } from '@/components/core'
 import { Layout, Header } from '@/components/layout'
 import { UpdateTransactionForm } from '@/components/transaction'
+import { route } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 
@@ -13,7 +15,14 @@ const Page: React.FC = () => {
     <Layout>
       <Header
         header={t`journal.details.edit.header`}
-        section={t`journal.details.edit.section`}
+        section={
+          <Trans
+            i18nKey={'pages:journal.details.edit.section'}
+            components={{
+              entry: <TextLink href={route.entry.home} />,
+            }}
+          />
+        }
       />
       <UpdateTransactionForm />
     </Layout>

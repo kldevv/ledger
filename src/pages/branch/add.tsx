@@ -1,8 +1,10 @@
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { TextLink } from '@/components/core'
 import { Layout, Header } from '@/components/layout'
 import { AddTreasuryBookForm } from '@/components/treasuryBook'
+import { route } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 
@@ -11,7 +13,19 @@ const Page: React.FC = () => {
 
   return (
     <Layout>
-      <Header header={t`branch.add.header`} section={t`branch.add.section`} />
+      <Header
+        header={t`branch.add.header`}
+        section={
+          <Trans
+            i18nKey={'pages:branch.add.section'}
+            components={{
+              journal: <TextLink href={route.journal.home} />,
+              account: <TextLink href={route.account.home} />,
+              tag: <TextLink href={route.tag.home} />,
+            }}
+          />
+        }
+      />
       <AddTreasuryBookForm />
     </Layout>
   )

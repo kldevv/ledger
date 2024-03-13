@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { TextLink } from '@/components/core'
 import { Layout, Header } from '@/components/layout'
 import { TreasuryBookDetails } from '@/components/treasuryBook'
 import { route } from '@/shared'
@@ -16,7 +17,15 @@ const Page: React.FC = () => {
     <Layout>
       <Header
         header={t`branch.details.header`}
-        section={t`branch.details.section`}
+        section={
+          <Trans
+            i18nKey={'pages:branch.details.section'}
+            components={{
+              accountGroup: <TextLink href={route.accountGroup.home} />,
+              account: <TextLink href={route.account.home} />,
+            }}
+          />
+        }
         link={{
           href: { pathname: route.branch.edit.pathname, query },
           label: t`branch.details.link`,

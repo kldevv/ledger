@@ -42,19 +42,20 @@
   "branch": {
     "add": {
       "header": "Add Branch",
-      "section": "TBA"
+      "section": "Create a new branch to efficiently organize <journal>journals</journal>, <account>accounts</account>, <tag>tags</tag>, and more in an isolated environment within a specific currency."
     },
     "details": {
       "edit": {
         "header": "Edit Branch",
-        "section": "TBA"
+        "section": "Edit the branch, and all associated elements linked to it will be seamlessly synchronized."
       },
       "header": "Branch Details",
-      "section": "TBA"
+      "section": "A branch, comprising <accountGroup>account groups</accountGroup> and individual <account>accounts</account>, acts as the transactional hub in a single currency.",
+      "link": "Edit"
     },
     "header": "Branches",
     "link": "Add Branch",
-    "section": "A branch, comprising account groups and individual accounts, acts as the transactional hub in a single currency."
+    "section": "A branch, comprising <accountGroup>account groups</accountGroup> and individual <account>accounts</account>, acts as the transactional hub in a single currency."
   },
   "entry": {
     "header": "Entries",
@@ -64,20 +65,20 @@
   "journal": {
     "add": {
       "header": "Add Journal",
-      "section": "TBA"
+      "section": "Add a new journal to the current <branch>branch</branch> to record your transactions. Ensure a balanced ledger by including at least two <entry>entries</entry>, with each entry having either a credit or debit to maintain zero values."
     },
     "details": {
       "edit": {
         "header": "Edit Journal",
-        "section": "TBA"
+        "section": "Edit the journal to update data; you can also include more entries or exclude some attached <entry>entries</entry> as long as the updated journal remains balanced."
       },
       "header": "Journal Details",
       "link": "Edit",
-      "section": "TBA"
+      "section": "A journal, grouping multiple <entry>entries</entry> into a unified entity, is the most common way to record transactions, revenues, expenses, and more for a specific <branch>branch</branch>."
     },
     "header": "Journals",
     "link": "Add Journal",
-    "section": "TBA"
+    "section": "A journal, grouping multiple <entry>entries</entry> into a unified entity, is the most common way to record transactions, revenues, expenses, and more for a specific <branch>branch</branch>."
   },
   "section": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries. Learn more in the <about>about</about> page.",
   "summary": {

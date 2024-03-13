@@ -45,7 +45,7 @@ export const Header: React.FC<HeaderProps> = ({
     if (Array.isArray(section)) {
       return section.map((s) => (
         <div
-          className="text-gray mt-3 flex max-w-[40rem] flex-col space-y-2 text-sm"
+          className="text-gray mt-3 flex max-w-[50rem] flex-col space-y-2 text-sm"
           key={String(s)}
         >
           <p>{s}</p>
@@ -53,7 +53,7 @@ export const Header: React.FC<HeaderProps> = ({
       ))
     }
 
-    return <p className="text-gray mt-3 max-w-[40rem] text-base">{section}</p>
+    return <p className="text-gray mt-3 max-w-[50rem] text-base">{section}</p>
   }, [section])
 
   return (
