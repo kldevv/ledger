@@ -73,7 +73,7 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
           cell: ({ getValue }) => (
             <Link
               href={{
-                pathname: route.treasuryBookDetail.pathname,
+                pathname: route.branch.details.pathname,
                 query: {
                   id: getValue().id,
                 },
@@ -98,7 +98,7 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
         cell: ({ getValue }) => (
           <LinkButton
             href={{
-              pathname: route.treasuryBookDetail.pathname,
+              pathname: route.branch.details.pathname,
               query: {
                 id: getValue(),
               },

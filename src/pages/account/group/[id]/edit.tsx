@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { UpdateCategoryForm } from '@/components/category'
 import { Layout, Header } from '@/components/layout'
-import { withTranslations } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 
@@ -12,8 +12,8 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <Header
-        header={t`accountGroup.edit.header`}
-        section={t`accountGroup.edit.section`}
+        header={t`account.group.edit.header`}
+        section={t`account.group.edit.section`}
       />
       <UpdateCategoryForm />
     </Layout>
@@ -22,7 +22,15 @@ const Page: React.FC = () => {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
-    props: await withTranslations(locale, ['account']),
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'account',
+        'layout',
+        'common',
+        'pages',
+        'route',
+      ])),
+    },
   }
 }
 

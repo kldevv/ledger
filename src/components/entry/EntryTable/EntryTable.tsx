@@ -51,7 +51,7 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
         cell: ({ getValue }) => (
           <Link
             href={{
-              pathname: route.accountDetail.pathname,
+              pathname: route.account.details.pathname,
               query: { id: getValue()?.id },
             }}
             className="hover:text-light-accent"
@@ -76,7 +76,7 @@ export const EntryTable: React.FC<EntryTableProps> = ({ data }) => {
         cell: ({ getValue }) => (
           <Link
             href={{
-              pathname: route.transactionDetail.pathname,
+              pathname: route.journal.details.pathname,
               query: { id: getValue() },
             }}
             className="hover:text-light-accent"

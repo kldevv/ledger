@@ -66,7 +66,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
         cell: ({ getValue }) => (
           <LinkButton
             href={{
-              pathname: route.transactionDetail.pathname,
+              pathname: route.journal.details.pathname,
               query: { id: getValue() },
             }}
             label={t`TransactionTable.link.view`}

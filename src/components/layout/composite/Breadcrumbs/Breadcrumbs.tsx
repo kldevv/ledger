@@ -44,11 +44,11 @@ export const Breadcrumbs: React.FC = () => {
 
   return (
     <div className="flex h-6 flex-nowrap items-center space-x-2">
-      {pathname === route.home.pathname ? (
+      {pathname === route.core.home.pathname ? (
         <HomeIcon className="text-gray size-3" />
       ) : (
         <Link
-          href={route.home.pathname}
+          href={route.core.home.pathname}
           className="hover:text-light-accent text-gray"
         >
           <HomeIcon className="size-3" />

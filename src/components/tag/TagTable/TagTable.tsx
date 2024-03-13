@@ -34,7 +34,7 @@ export const TagTable: React.FC<TagTableProps> = ({ data }) => {
         cell: ({ getValue }) => (
           <Link
             href={{
-              pathname: route.tagDetail.pathname,
+              pathname: route.tag.details.pathname,
               query: {
                 id: getValue().id,
               },
@@ -62,7 +62,7 @@ export const TagTable: React.FC<TagTableProps> = ({ data }) => {
         cell: ({ getValue }) => (
           <LinkButton
             href={{
-              pathname: route.tagDetail.pathname,
+              pathname: route.tag.details.pathname,
               query: { id: getValue() },
             }}
             label={t`TagTable.link.view`}

@@ -34,7 +34,7 @@ export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
           cell: ({ getValue }) => (
             <Link
               href={{
-                pathname: route.accountDetail.pathname,
+                pathname: route.account.details.pathname,
                 query: {
                   id: getValue().id,
                 },
@@ -51,7 +51,7 @@ export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
         cell: ({ getValue }) => (
           <Link
             href={{
-              pathname: route.categoryDetail.pathname,
+              pathname: route.accountGroup.details.pathname,
               query: {
                 id: getValue()?.id,
               },
@@ -74,7 +74,7 @@ export const AccountTable: React.FC<AccountTableProps> = ({ data }) => {
         cell: ({ getValue }) => (
           <LinkButton
             href={{
-              pathname: route.accountDetail.pathname,
+              pathname: route.account.details.pathname,
               query: { id: getValue() },
             }}
             label={t`AccountTable.link.view`}

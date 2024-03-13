@@ -2,30 +2,33 @@
   "TreasuryBookStatus": {
     "fallback": "Not Found"
   },
-  "topNavBar": {
+  "navMenu": {
     "github": "kldevv",
     "project": "ledger",
     "about": "About"
   },
-  "Footer": {
+  "footer": {
     "copyrights": " {{ year }} Kuan-you Lin. All rights reserved."
   },
   "hooks": {
     "sideNavSection": {
       "title": {
-        "activities": "Activities",
-        "branch": "Branch"
+        "journal": "Journal",
+        "branch": "Branch",
+        "feature": "Feature",
+        "info": "Information"
       },
       "item": {
         "home": "Home",
-        "transactions": "Transactions",
+        "journals": "Journals",
         "entries": "Entries",
         "accounts": "Accounts",
-        "categories": "Account Groups",
+        "accountGroups": "Account Groups",
         "tags": "Tags",
-        "reports": "Reports",
-        "treasuryBooks": "Branches",
-        "exchange": "Exchange"
+        "summary": "Summary",
+        "branches": "Branches",
+        "xjournals": "X-Journals",
+        "about": "About"
       }
     }
   }

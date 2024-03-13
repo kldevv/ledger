@@ -29,8 +29,6 @@ export const UpdateCategoryForm: React.FC = () => {
     onCompleted: () => toast(t`UpdateCategoryForm.success`),
   })
 
-  console.log(category)
-
   const values = useMemo(() => {
     return {
       name: category?.name ?? '',

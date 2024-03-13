@@ -17,7 +17,7 @@ export const TagChip: React.FC<TagChipProps> = ({
   return (
     <Link
       href={{
-        pathname: route.tagDetail.pathname,
+        pathname: route.tag.details.pathname,
         query: {
           id,
         },

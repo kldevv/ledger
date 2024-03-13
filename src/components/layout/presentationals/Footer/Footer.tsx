@@ -19,7 +19,7 @@ export const Footer: React.FC<Footer> = ({ className }) => {
       )}
     >
       &copy;
-      {t('Footer.copyrights', {
+      {t('footer.copyrights', {
         year: new Date().getFullYear(),
       })}
     </footer>

@@ -12,15 +12,15 @@ export const NavMenu: React.FC = () => {
   return (
     <div className="h-full overflow-auto">
       <div className="border-b-mid-gray flex size-full min-w-max items-center border-b px-4 shadow-sm">
-        <Link className="text-lg font-bold" href={route.home}>
+        <Link className="text-lg font-bold" href={route.core.home}>
           {/* TODO: Replace with logo svg */}
           PizzaFunds
         </Link>
         <div className="mx-auto">
           <BranchSwitch />
         </div>
-        <Link href={route.home} className="mr-4 text-sm font-medium">
-          {t`topNavBar.about`}
+        <Link href={route.core.home} className="mr-4 text-sm font-medium">
+          {t`navMenu.about`}
         </Link>
         <div className="flex text-sm font-medium">
           <Icon.Brand name="Invertocat" className="mr-2 size-3" />
@@ -30,7 +30,7 @@ export const NavMenu: React.FC = () => {
             target="_blank"
             href="https://github.com/kldevv"
           >
-            {t`topNavBar.github`}
+            {t`navMenu.github`}
           </a>
           <Icon.Solid name="Slash" />
           <a
@@ -38,7 +38,7 @@ export const NavMenu: React.FC = () => {
             className="hover:text-light-accent"
             target="_blank"
             href="https://github.com/kldevv/ledger"
-          >{t`topNavBar.project`}</a>
+          >{t`navMenu.project`}</a>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { UpdateAccountForm } from '@/components/account'
 import { Layout, Header } from '@/components/layout'
-import { withTranslations } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 
@@ -22,7 +22,15 @@ const Page: React.FC = () => {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
-    props: await withTranslations(locale, ['account']),
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'account',
+        'layout',
+        'common',
+        'pages',
+        'route',
+      ])),
+    },
   }
 }
 

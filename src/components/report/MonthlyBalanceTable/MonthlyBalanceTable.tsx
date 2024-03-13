@@ -36,7 +36,7 @@ export const MonthlyBalanceTable: React.FC<MonthlyBalanceTableProps> = ({
         cell: ({ getValue }) => (
           <Link
             href={{
-              pathname: route.accountDetail.pathname,
+              pathname: route.account.details.pathname,
               query: { id: getValue().id },
             }}
             className="hover:text-light-accent"

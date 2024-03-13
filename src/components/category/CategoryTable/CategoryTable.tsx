@@ -39,7 +39,7 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
           cell: ({ getValue }) => (
             <Link
               href={{
-                pathname: route.categoryDetail.pathname,
+                pathname: route.accountGroup.details.pathname,
                 query: {
                   id: getValue().id,
                 },
@@ -55,7 +55,7 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
         header: t`CategoryTable.header.type`,
         cell: ({ getValue }) => (
           <Link
-            href={route.entryHome.pathname}
+            href={route.entry.home.pathname}
             className="hover:text-light-accent text-dark-shades flex items-center"
           >
             <CategoryTypeChip type={getValue()} />
@@ -74,7 +74,7 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ data }) => {
         cell: ({ getValue }) => (
           <LinkButton
             href={{
-              pathname: route.categoryDetail.pathname,
+              pathname: route.accountGroup.details.pathname,
               query: {
                 id: getValue(),
               },

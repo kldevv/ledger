@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { AddCategoryFrom } from '@/components/category'
 import { Layout, Header } from '@/components/layout'
-import { withTranslations } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
@@ -12,8 +12,8 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <Header
-        header={t`accountGroup.add.header`}
-        section={t`accountGroup.add.section`}
+        header={t`account.group.add.header`}
+        section={t`account.group.add.section`}
       />
       <AddCategoryFrom />
     </Layout>
@@ -22,7 +22,15 @@ const Page: React.FC = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
-    props: await withTranslations(locale, ['accountGroup']),
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'account',
+        'layout',
+        'common',
+        'pages',
+        'route',
+      ])),
+    },
   }
 }
 

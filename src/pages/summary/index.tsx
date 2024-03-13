@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Header, Layout } from '@/components/layout'
-import { withTranslations } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
@@ -17,7 +17,15 @@ const Page: React.FC = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
-    props: await withTranslations(locale, ['summary']),
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'summary',
+        'layout',
+        'common',
+        'pages',
+        'route',
+      ])),
+    },
   }
 }
 

@@ -13,34 +13,29 @@ export const useSideNavSection = () => {
       {
         items: [
           {
-            href: route.home,
+            href: route.core.home,
             label: t`hooks.sideNavSection.item.home`,
             icon: 'Home',
           },
           {
-            href: route.treasuryBookHome,
-            label: t`hooks.sideNavSection.item.treasuryBooks`,
+            href: route.branch.home,
+            label: t`hooks.sideNavSection.item.branches`,
             icon: 'Squares2x2',
           },
         ],
       },
       {
-        title: t`hooks.sideNavSection.title.activities`,
+        title: t`hooks.sideNavSection.title.journal`,
         items: [
           {
-            href: route.transactionHome,
-            label: t`hooks.sideNavSection.item.transactions`,
+            href: route.journal.home,
+            label: t`hooks.sideNavSection.item.journals`,
             icon: 'ReceiptPercent',
           },
           {
-            href: route.entryHome,
+            href: route.entry.home,
             label: t`hooks.sideNavSection.item.entries`,
             icon: 'Bookmark',
-          },
-          {
-            href: route.exchangeHome,
-            label: t`hooks.sideNavSection.item.exchange`,
-            icon: 'ArrowRightLeft',
           },
         ],
       },
@@ -48,24 +43,44 @@ export const useSideNavSection = () => {
         title: t`hooks.sideNavSection.title.branch`,
         items: [
           {
-            href: route.accountHome,
+            href: route.account.home,
             label: t`hooks.sideNavSection.item.accounts`,
             icon: 'Wallet',
           },
           {
-            href: route.categoryHome,
-            label: t`hooks.sideNavSection.item.categories`,
+            href: route.accountGroup.home,
+            label: t`hooks.sideNavSection.item.accountGroups`,
             icon: 'Folder',
           },
           {
-            href: route.tagHome,
+            href: route.tag.home,
             label: t`hooks.sideNavSection.item.tags`,
             icon: 'Tag',
           },
           {
-            href: route.reportAmountBalance,
-            label: t`hooks.sideNavSection.item.reports`,
+            href: route.summary.home,
+            label: t`hooks.sideNavSection.item.summary`,
             icon: 'DocumentChartBar',
+          },
+        ],
+      },
+      {
+        title: t`hooks.sideNavSection.title.feature`,
+        items: [
+          {
+            href: route.xjournal.home,
+            label: t`hooks.sideNavSection.item.xjournals`,
+            icon: 'ArrowRightLeft',
+          },
+        ],
+      },
+      {
+        title: t`hooks.sideNavSection.title.info`,
+        items: [
+          {
+            href: route.core.about,
+            label: t`hooks.sideNavSection.item.about`,
+            icon: 'Language',
           },
         ],
       },

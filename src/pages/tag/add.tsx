@@ -1,8 +1,8 @@
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout, Header } from '@/components/layout'
 import { AddTagForm } from '@/components/tag'
-import { withTranslations } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
@@ -19,7 +19,15 @@ const Page: React.FC = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
-    props: await withTranslations(locale, ['tag']),
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'tag',
+        'layout',
+        'common',
+        'pages',
+        'route',
+      ])),
+    },
   }
 }
 

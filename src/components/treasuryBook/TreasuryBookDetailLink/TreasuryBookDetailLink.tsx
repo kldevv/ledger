@@ -14,13 +14,12 @@ export const TreasuryBookDetailLink: React.FC<TreasuryBookDetailLinkProps> = ({
 }) => {
   const { data } = useTreasuryBookContext()
 
-  const name = data?.treasuryBooks.find(({ id }) => id === treasuryBookId)
-    ?.name
+  const name = data?.treasuryBooks.find(({ id }) => id === treasuryBookId)?.name
 
   return (
     <Link
       href={{
-        pathname: route.treasuryBookDetail.pathname,
+        pathname: route.branch.details.pathname,
         query: {
           id: treasuryBookId,
         },

@@ -31,7 +31,7 @@ export const MonthlyChangesTable: React.FC<MonthlyChangesTableProps> = ({
         cell: ({ getValue }) => (
           <Link
             href={{
-              pathname: route.accountDetail.pathname,
+              pathname: route.account.details.pathname,
               query: { id: getValue().id },
             }}
             className="hover:text-light-accent"

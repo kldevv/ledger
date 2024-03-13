@@ -1,101 +1,105 @@
 {
-  "header": "Home",
-  "section": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries. Learn more in the about section.",
-  "journal": {
-    "header": "Journals",
-    "section": "TBA",
-    "link": "Add Journal",
-    "add": {
-      "header": "Add Journal",
-      "section": "TBA"
-    },
-    "details": {
-      "header": "Journal Details",
-      "section": "TBA",
-      "link": "Edit",
-      "edit": {
-        "header": "Edit Journal",
-        "section": "TBA"
-      }
-    }
-  },
-  "tag": {
-    "header": "Tags",
-    "section": "TBA",
-    "link": "Add Tag",
-    "add": {
-      "header": "Add Tag",
-      "section": "TBA"
-    },
-    "details": {
-      "header": "Tag Details",
-      "section": "TBA",
-      "link": "Edit",
-      "edit": {
-        "header": "Edit Tag",
-        "section": "TBA"
-      }
-    }
-  },
-  "summary": {
-    "header": "Summary",
-    "section": "TBA"
-  },
-  "entry": {
-    "header": "Entries",
-    "section": "TBA"
-  },
-  "branch": {
-    "header": "Branches",
-    "section": "A branch, comprising account groups and individual accounts, acts as the transactional hub in a single currency.",
-    "link": "Add Branch",
-    "add": {
-      "header": "Add Branch",
-      "section": "TBA"
-    },
-    "details": {
-      "header": "Branch Details",
-      "section": "TBA",
-      "edit": {
-        "header": "Edit Branch",
-        "section": "TBA"
-      }
-    }
-  },
   "account": {
-    "header": "Accounts",
-    "section": "TBA",
-    "link": "Add Account",
     "add": {
       "header": "Add Account",
       "section": "TBA"
     },
     "details": {
-      "header": "Account Details",
-      "section": "TBA",
-      "link": "Edit",
       "edit": {
         "header": "Edit Account",
         "section": "TBA"
-      }
+      },
+      "header": "Account Details",
+      "link": "Edit",
+      "section": "TBA"
     },
     "group": {
-      "header": "Account Groups",
-      "section": "TBA",
-      "link": "Add Account Group",
       "add": {
         "header": "Add Account Group",
         "section": "TBA"
       },
       "details": {
-        "header": "Account Group Details",
-        "section": "TBA",
-        "link": "Edit",
         "edit": {
           "header": "Edit Account Group",
           "section": "TBA"
-        }
-      }
-    }
+        },
+        "header": "Account Group Details",
+        "link": "Edit",
+        "section": "TBA"
+      },
+      "header": "Account Groups",
+      "link": "Add Account Group",
+      "section": "TBA"
+    },
+    "header": "Accounts",
+    "link": "Add Account",
+    "section": "TBA"
+  },
+  "branch": {
+    "add": {
+      "header": "Add Branch",
+      "section": "TBA"
+    },
+    "details": {
+      "edit": {
+        "header": "Edit Branch",
+        "section": "TBA"
+      },
+      "header": "Branch Details",
+      "section": "TBA"
+    },
+    "header": "Branches",
+    "link": "Add Branch",
+    "section": "A branch, comprising account groups and individual accounts, acts as the transactional hub in a single currency."
+  },
+  "entry": {
+    "header": "Entries",
+    "section": "TBA"
+  },
+  "header": "Home",
+  "journal": {
+    "add": {
+      "header": "Add Journal",
+      "section": "TBA"
+    },
+    "details": {
+      "edit": {
+        "header": "Edit Journal",
+        "section": "TBA"
+      },
+      "header": "Journal Details",
+      "link": "Edit",
+      "section": "TBA"
+    },
+    "header": "Journals",
+    "link": "Add Journal",
+    "section": "TBA"
+  },
+  "section": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries. Learn more in the about section.",
+  "summary": {
+    "header": "Summary",
+    "section": "TBA"
+  },
+  "tag": {
+    "add": {
+      "header": "Add Tag",
+      "section": "TBA"
+    },
+    "details": {
+      "edit": {
+        "header": "Edit Tag",
+        "section": "TBA"
+      },
+      "header": "Tag Details",
+      "link": "Edit",
+      "section": "TBA"
+    },
+    "header": "Tags",
+    "link": "Add Tag",
+    "section": "TBA"
+  },
+  "xjournal": {
+    "header": "Cross Journals",
+    "section": "TBA"
   }
 }

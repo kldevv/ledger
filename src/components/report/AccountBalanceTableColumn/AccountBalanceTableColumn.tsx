@@ -62,7 +62,7 @@ export const AccountBalanceTableColumn: React.FC<
         cell: ({ getValue }) => (
           <Link
             href={{
-              pathname: route.accountDetail.pathname,
+              pathname: route.account.details.pathname,
               query: {
                 id: getValue().id,
               },
@@ -88,7 +88,7 @@ export const AccountBalanceTableColumn: React.FC<
         cell: ({ getValue }) => (
           <Link
             href={{
-              pathname: route.categoryDetail.pathname,
+              pathname: route.accountGroup.details.pathname,
               query: {
                 id: getValue()?.id,
               },

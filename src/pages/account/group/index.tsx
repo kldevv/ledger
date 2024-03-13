@@ -1,8 +1,9 @@
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { CategoryDataTable } from '@/components/category'
 import { Layout, Header } from '@/components/layout'
-import { route, withTranslations } from '@/shared'
+import { route } from '@/shared'
 
 import type { GetStaticProps } from 'next'
 
@@ -12,9 +13,9 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <Header
-        header={t`accountGroup.header`}
-        section={t`accountGroup.section`}
-        link={{ href: route.accountGroup.add, label: t`accountGroup.link` }}
+        header={t`account.group.header`}
+        section={t`account.group.section`}
+        link={{ href: route.accountGroup.add, label: t`account.group.link` }}
       />
       <CategoryDataTable />
     </Layout>
@@ -23,7 +24,15 @@ const Page: React.FC = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
-    props: await withTranslations(locale, ['accountGroup']),
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'account',
+        'layout',
+        'common',
+        'pages',
+        'route',
+      ])),
+    },
   }
 }
 
