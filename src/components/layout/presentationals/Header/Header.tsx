@@ -13,7 +13,7 @@ export interface HeaderProps {
   /**
    * A section of messages about what the page is about
    */
-  section?: string | string[]
+  section?: React.ReactNode | React.ReactNode[]
   /**
    * A link on the right side of the header
    */
@@ -46,7 +46,7 @@ export const Header: React.FC<HeaderProps> = ({
       return section.map((s) => (
         <div
           className="text-gray mt-3 flex max-w-[40rem] flex-col space-y-2 text-sm"
-          key={s}
+          key={String(s)}
         >
           <p>{s}</p>
         </div>

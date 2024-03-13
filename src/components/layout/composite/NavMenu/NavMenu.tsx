@@ -19,9 +19,6 @@ export const NavMenu: React.FC = () => {
         <div className="mx-auto">
           <BranchSwitch />
         </div>
-        <Link href={route.core.home} className="mr-4 text-sm font-medium">
-          {t`navMenu.about`}
-        </Link>
         <div className="flex text-sm font-medium">
           <Icon.Brand name="Invertocat" className="mr-2 size-3" />
           <a

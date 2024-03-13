@@ -1,1 +1,2 @@
-export * from './Icon'
+export * from './Icon/Icon'
+export * from './TextLink/TextLink'

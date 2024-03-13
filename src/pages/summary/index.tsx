@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Header, Layout } from '@/components/layout'
 
-import type { GetStaticProps } from 'next'
+import type { GetServerSideProps } from 'next'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('pages')
@@ -15,7 +15,7 @@ const Page: React.FC = () => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'en', [

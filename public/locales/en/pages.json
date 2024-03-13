@@ -1,4 +1,8 @@
 {
+  "about": {
+    "header": "About",
+    "section": "TBA"
+  },
   "account": {
     "add": {
       "header": "Add Account",
@@ -75,7 +79,7 @@
     "link": "Add Journal",
     "section": "TBA"
   },
-  "section": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries. Learn more in the about section.",
+  "section": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries. Learn more in the <about>about</about> page.",
   "summary": {
     "header": "Summary",
     "section": "TBA"
