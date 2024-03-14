@@ -18,7 +18,7 @@ export const Section: React.FC<SectionProps> = ({ title, items }) => {
       {title != null && <SectionTitle title={title} className="mb-2 ml-2" />}
       <div className="flex flex-col space-y-2">
         {items.map((props) => (
-          <Item {...props} key={String(props.href)} />
+          <Item {...props} key={props.label} />
         ))}
       </div>
     </div>

@@ -19,6 +19,7 @@ export interface SolidIconProps extends SolidSVGProps {
 }
 
 export const Solid: React.FC<SolidIconProps> = ({ name, className }) => {
+  // eslint-disable-next-line import/namespace
   const Icon = SolidSVG[name]
 
   return <Icon className={classNames('size-5', className)} />

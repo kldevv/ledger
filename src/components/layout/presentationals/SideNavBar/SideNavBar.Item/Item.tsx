@@ -26,19 +26,19 @@ export const Item: React.FC<ItemProps> = ({ icon, label, href }) => {
   const { pathname } = useRouter()
 
   const active =
-    typeof pathname === 'string'
-      ? pathname === href
-      : pathname === (href as UrlObject).pathname
+    typeof href === 'string' ? pathname === href : pathname === href.pathname
 
   return (
     <Link
       href={href}
       className={classNames(
         ' hover:bg-light-shades flex items-start rounded-md px-3 py-2 text-sm font-medium',
-        { 'bg-light-shades': active },
+        { 'bg-light-shades': active, 'font-semibold': active },
       )}
     >
-      {icon && <Icon.Outline className="mr-2" stroke={1.5} name={icon} />}
+      {icon != null && (
+        <Icon.Outline className="mr-2" stroke={1.5} name={icon} />
+      )}
       {label}
     </Link>
   )

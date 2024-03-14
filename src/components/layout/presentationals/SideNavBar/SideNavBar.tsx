@@ -21,9 +21,9 @@ export const SideNavBar: React.FC<SideNavBarProps> = ({ className }) => {
         className,
       )}
     >
-      {section.map(({ title, items }) => {
-        return <Section items={items} title={title} key={title} />
-      })}
+      {section.map(({ title, items }) => (
+        <Section items={items} title={title} key={title} />
+      ))}
     </div>
   )
 }

@@ -23,6 +23,7 @@ export const Outline: React.FC<OutlineIconProps> = ({
   className,
   stroke,
 }) => {
+  // eslint-disable-next-line import/namespace
   const Icon = OutlineSVG[name]
 
   return (
