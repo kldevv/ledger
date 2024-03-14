@@ -25,14 +25,14 @@ export const TableBody = <TData extends RowData>({
       <tbody>
         {range({ count: 3 }).map((rowIndex) => (
           <tr key={rowIndex}>
-            <TableCell variant={rowIndex & 1 ? 'white' : 'gray'}>
+            <TableCell variant={rowIndex & 1 ? 'primary' : 'secondary'}>
               {rowIndex}
             </TableCell>
             {range({ count: table.getAllColumns().length }).map(
               (columnIndex) => (
                 <TableCell
                   key={columnIndex}
-                  variant={rowIndex & 1 ? 'white' : 'gray'}
+                  variant={rowIndex & 1 ? 'primary' : 'secondary'}
                 >
                   <LoadingBox />
                 </TableCell>
@@ -48,11 +48,14 @@ export const TableBody = <TData extends RowData>({
     <tbody>
       {table.getRowModel().rows.map((row, index) => (
         <tr key={row.id}>
-          <TableCell variant={index & 1 ? 'white' : 'gray'}>
-            {row.index}
+          <TableCell variant={index & 1 ? 'primary' : 'secondary'}>
+            {index}
           </TableCell>
           {row.getVisibleCells().map((cell) => (
-            <TableCell key={cell.id} variant={index & 1 ? 'white' : 'gray'}>
+            <TableCell
+              key={cell.id}
+              variant={index & 1 ? 'primary' : 'secondary'}
+            >
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </TableCell>
           ))}

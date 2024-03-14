@@ -63,6 +63,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
       columnHelper.accessor('id', {
         id: 'view-link',
         header: '',
+        enableSorting: false,
         cell: ({ getValue }) => (
           <LinkButton
             href={{

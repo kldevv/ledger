@@ -1,9 +1,12 @@
 import {
   getCoreRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+
+import { Pagination } from '..'
 
 import { TableBody } from './TableBody'
 import { TableHead } from './TableHead'
@@ -33,15 +36,28 @@ export const Table = <TData extends RowData>({
 }: TableProps<TData>) => {
   const [sorting, setSorting] = useState<SortingState>([])
 
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  })
+
+  const pageCount = useMemo(
+    () => Math.ceil((data?.length ?? 0) / pagination.pageSize),
+    [data?.length, pagination.pageSize],
+  )
+
   const table = useReactTable({
     data: data ?? [],
     columns: colDefs,
     state: {
       sorting,
+      pagination,
     },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
   })
 
   return (
@@ -50,6 +66,15 @@ export const Table = <TData extends RowData>({
         <TableHead table={table} />
         <TableBody table={table} loading={loading} />
       </table>
+      {pageCount > 1 && (
+        <div className="border-t-mid-gray flex w-full items-center justify-center border-t pt-5">
+          <Pagination
+            pageCount={pageCount}
+            selectedPage={pagination.pageIndex}
+            setSelectedPage={table.setPageIndex}
+          />
+        </div>
+      )}
     </div>
   )
 }

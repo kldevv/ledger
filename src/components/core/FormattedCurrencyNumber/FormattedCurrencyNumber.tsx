@@ -19,7 +19,7 @@ export interface FormattedCurrencyNumberProps {
   /**
    * Override the selected currency
    */
-  currency: Currency
+  currency?: Currency
 }
 
 export const FormattedCurrencyNumber: React.FC<

@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
-import { Card, EntryStatusDropdownFilter, Pagination } from '@/components/core'
+import { Card, EntryStatusDropdownFilter } from '@/components/core'
 
 import { EntryTable } from '..'
 
@@ -14,18 +14,14 @@ export interface EntryFilteredTableProps {
   data: EntryTableData[]
 }
 
-const pageSize = 10
-
 export const EntryFilteredTable: React.FC<EntryFilteredTableProps> = ({
   data,
 }) => {
   const [statusFilter, setStatusFilter] = useState<EntryStatus | null>(null)
-  const [selectedPage, setSelectedPage] = useState(0)
 
   const handleOnStatusFilterChange = useCallback(
     (value: EntryStatus | null) => {
       setStatusFilter(value)
-      setSelectedPage(0)
     },
     [],
   )
@@ -38,17 +34,6 @@ export const EntryFilteredTable: React.FC<EntryFilteredTableProps> = ({
     [data, statusFilter],
   )
 
-  const paginatedDate = useMemo(() => {
-    const indexStart = selectedPage * pageSize
-
-    return filteredData.slice(indexStart, indexStart + pageSize)
-  }, [filteredData, selectedPage])
-
-  const pageCount = useMemo(
-    () => Math.ceil(filteredData.length / pageSize),
-    [filteredData.length],
-  )
-
   return (
     <Card>
       <div className="flex flex-col space-y-3">
@@ -58,16 +43,7 @@ export const EntryFilteredTable: React.FC<EntryFilteredTableProps> = ({
             onChange={handleOnStatusFilterChange}
           />
         </div>
-        <EntryTable data={paginatedDate} />
-        {pageCount > 1 && (
-          <div className="border-t-mid-gray flex w-full items-center justify-center border-t pt-5">
-            <Pagination
-              pageCount={pageCount}
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-            />
-          </div>
-        )}
+        <EntryTable data={filteredData} />
       </div>
     </Card>
   )

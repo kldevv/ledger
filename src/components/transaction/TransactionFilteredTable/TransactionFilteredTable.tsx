@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
-import { Card, EntryStatusDropdownFilter, Pagination } from '@/components/core'
+import { Card, EntryStatusDropdownFilter } from '@/components/core'
 
 import { TransactionTable } from '..'
 
@@ -18,18 +18,14 @@ export interface TransactionFilteredTableProps {
   loading?: boolean
 }
 
-const pageSize = 10
-
 export const TransactionFilteredTable: React.FC<
   TransactionFilteredTableProps
 > = ({ data, loading }) => {
   const [statusFilter, setStatusFilter] = useState<EntryStatus | null>(null)
-  const [selectedPage, setSelectedPage] = useState(0)
 
   const handleOnStatusFilterChange = useCallback(
     (value: EntryStatus | null) => {
       setStatusFilter(value)
-      setSelectedPage(0)
     },
     [],
   )
@@ -42,18 +38,6 @@ export const TransactionFilteredTable: React.FC<
     [data, statusFilter],
   )
 
-  const paginatedDate = useMemo(() => {
-    const indexStart = selectedPage * pageSize
-
-    return filteredData?.slice(indexStart, indexStart + pageSize)
-  }, [filteredData, selectedPage])
-
-  const pageCount = useMemo(
-    () =>
-      filteredData == null ? 0 : Math.ceil(filteredData.length / pageSize),
-    [filteredData],
-  )
-
   return (
     <Card className="w-full">
       <div className="flex flex-col space-y-3">
@@ -63,16 +47,7 @@ export const TransactionFilteredTable: React.FC<
             onChange={handleOnStatusFilterChange}
           />
         </div>
-        <TransactionTable data={paginatedDate} loading={loading} />
-        {pageCount > 1 && (
-          <div className="border-t-mid-gray flex w-full items-center justify-center border-t pt-5">
-            <Pagination
-              pageCount={pageCount}
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-            />
-          </div>
-        )}
+        <TransactionTable data={filteredData} loading={loading} />
       </div>
     </Card>
   )

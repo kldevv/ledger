@@ -12,15 +12,15 @@ export type TableCellProps = {
   /**
    * Variant
    */
-  variant?: 'gray' | 'white'
+  variant?: 'primary' | 'secondary'
 }
 
 export const TableCell: React.FC<TableCellProps> = ({
   children,
   className,
-  variant = 'white',
+  variant = 'primary',
 }) => {
-  const bgColor = variant === 'white' ? 'bg-white' : 'bg-light-shades'
+  const bgColor = variant === 'primary' ? 'bg-white' : 'bg-light-shades'
 
   return (
     <td
