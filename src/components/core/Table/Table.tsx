@@ -1,9 +1,14 @@
-import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import {
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from '@tanstack/react-table'
+import { useState } from 'react'
 
 import { TableBody } from './TableBody'
 import { TableHead } from './TableHead'
 
-import type { ColumnDef, RowData } from '@tanstack/react-table'
+import type { ColumnDef, RowData, SortingState } from '@tanstack/react-table'
 
 export type TableProps<TData extends RowData> = {
   /**
@@ -26,10 +31,17 @@ export const Table = <TData extends RowData>({
   colDefs,
   loading,
 }: TableProps<TData>) => {
+  const [sorting, setSorting] = useState<SortingState>([])
+
   const table = useReactTable({
     data: data ?? [],
     columns: colDefs,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   })
 
   return (

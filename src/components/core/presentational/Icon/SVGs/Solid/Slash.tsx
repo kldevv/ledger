@@ -1,4 +1,4 @@
-import type { CoreSVGProps } from '../..'
+import type { CoreSVGProps } from '../../Icon'
 
 export const Slash: React.FC<CoreSVGProps> = ({ className }) => {
   return (
