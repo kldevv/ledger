@@ -38,14 +38,14 @@ export const TableHead = <TData extends RowData>({
                     {header.column.getIsSorted() === 'asc' ? (
                       <Icon.Outline
                         name="ChevronDown"
-                        className="text-gray size-2.5"
-                        stroke={3}
+                        className="text-gray size-[0.75rem]"
+                        stroke={1.5}
                       />
                     ) : header.column.getIsSorted() === 'desc' ? (
                       <Icon.Outline
                         name="ChevronUp"
-                        stroke={3}
-                        className="text-gray size-2.5"
+                        stroke={1.5}
+                        className="text-gray size-[0.75rem]"
                       />
                     ) : null}
                   </span>

@@ -1,7 +1,8 @@
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { AccountDataTable } from '@/components/account'
+import { TextLink } from '@/components/core'
 import { Layout, Header } from '@/components/layout'
 import { route } from '@/shared'
 
@@ -14,7 +15,15 @@ const Page: React.FC = () => {
     <Layout>
       <Header
         header={t`account.header`}
-        section={t`account.section`}
+        section={
+          <Trans
+            i18nKey={'pages:account.section'}
+            components={{
+              journal: <TextLink href={route.journal.home} />,
+              entry: <TextLink href={route.entry.home} />,
+            }}
+          />
+        }
         link={{ href: route.account.add, label: t`account.link` }}
       />
       <AccountDataTable />

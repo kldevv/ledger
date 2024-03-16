@@ -27,12 +27,17 @@ export type TableProps<TData extends RowData> = {
    * Loading?
    */
   loading?: boolean
+  /**
+   * Pagination?
+   */
+  enabledPagination?: boolean
 }
 
 export const Table = <TData extends RowData>({
   data,
   colDefs,
   loading,
+  enabledPagination = true,
 }: TableProps<TData>) => {
   const [sorting, setSorting] = useState<SortingState>([])
 
@@ -58,6 +63,7 @@ export const Table = <TData extends RowData>({
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: setPagination,
+    manualPagination: !enabledPagination,
   })
 
   return (
@@ -66,7 +72,7 @@ export const Table = <TData extends RowData>({
         <TableHead table={table} />
         <TableBody table={table} loading={loading} />
       </table>
-      {pageCount > 1 && (
+      {pageCount > 1 && enabledPagination && (
         <div className="border-t-mid-gray flex w-full items-center justify-center border-t pt-5">
           <Pagination
             pageCount={pageCount}

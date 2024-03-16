@@ -1,43 +1,43 @@
 {
   "about": {
     "header": "About",
-    "section": "TBA"
+    "section": "About is coming soon..."
   },
   "account": {
     "add": {
       "header": "Add Account",
-      "section": "TBA"
+      "section": "Create a new account to handle debits and credits with <entry>entries</entry>, ensuring it's assigned to an <accountGroup>account group</accountGroup>."
     },
     "details": {
       "edit": {
         "header": "Edit Account",
-        "section": "TBA"
+        "section": "Update an account with the latest information."
       },
       "header": "Account Details",
       "link": "Edit",
-      "section": "TBA"
+      "section": "An account, functioning as a storage for accumulated debits and credits, constitutes the fundamental building block for <journal>journals</journal> and their respective <entry>entries</entry>."
     },
     "group": {
       "add": {
         "header": "Add Account Group",
-        "section": "TBA"
+        "section": "Create an account group to organize your <account>accounts</account>."
       },
       "details": {
         "edit": {
           "header": "Edit Account Group",
-          "section": "TBA"
+          "section": "Update an account group with the latest information."
         },
         "header": "Account Group Details",
         "link": "Edit",
-        "section": "TBA"
+        "section": "An account group serves as the parent element for <account>accounts</account>, categorized as Assets, Liabilities, or Equity, aligning with their respective accounting semantics."
       },
       "header": "Account Groups",
       "link": "Add Account Group",
-      "section": "TBA"
+      "section": "An account group serves as the parent element for <account>accounts</account>, categorized as Assets, Liabilities, or Equity, aligning with their respective accounting semantics."
     },
     "header": "Accounts",
     "link": "Add Account",
-    "section": "TBA"
+    "section": "An account, functioning as a storage for accumulated debits and credits, constitutes the fundamental building block for <journal>journals</journal> and their respective <entry>entries</entry>."
   },
   "branch": {
     "add": {
@@ -59,7 +59,7 @@
   },
   "entry": {
     "header": "Entries",
-    "section": "TBA"
+    "section": "An entry, symbolizing either a debit or credit to an <account>account</account>, serves as the fundamental unit composing a <journal>journal</journal>."
   },
   "header": "Home",
   "journal": {
@@ -88,20 +88,20 @@
   "tag": {
     "add": {
       "header": "Add Tag",
-      "section": "TBA"
+      "section": "Add a tag to group your <journal>journals</journal> together"
     },
     "details": {
       "edit": {
         "header": "Edit Tag",
-        "section": "TBA"
+        "section": "Update a tag with the latest information."
       },
       "header": "Tag Details",
       "link": "Edit",
-      "section": "TBA"
+      "section": "Tags provide a convenient method for grouping your <journal>journals</journal> within a branch. They are also categorized to enhance organization."
     },
     "header": "Tags",
     "link": "Add Tag",
-    "section": "TBA"
+    "section": "Tags provide a convenient method for grouping your <journal>journals</journal> within a branch. They are also categorized to enhance organization."
   },
   "xjournal": {
     "header": "Cross Journals",

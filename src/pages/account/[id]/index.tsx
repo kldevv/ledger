@@ -1,22 +1,31 @@
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { AccountDetails } from '@/components/account'
+import { TextLink } from '@/components/core'
 import { Layout, Header } from '@/components/layout'
 import { route } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 
 const Page: React.FC = () => {
-  const { t } = useTranslation('account')
+  const { t } = useTranslation('pages')
   const { query } = useRouter()
 
   return (
     <Layout>
       <Header
         header={t`account.details.header`}
-        section={t`account.details.section`}
+        section={
+          <Trans
+            i18nKey={'pages:account.details.section'}
+            components={{
+              journal: <TextLink href={route.journal.home} />,
+              entry: <TextLink href={route.entry.home} />,
+            }}
+          />
+        }
         link={{
           href: { pathname: route.account.edit.pathname, query },
           label: t`account.details.link`,
@@ -32,6 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
     props: {
       ...(await serverSideTranslations(locale ?? 'en', [
         'account',
+        'entry',
         'layout',
         'common',
         'pages',

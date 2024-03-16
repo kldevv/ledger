@@ -44,12 +44,14 @@ export const TableBody = <TData extends RowData>({
     )
   }
 
+  const { pageSize, pageIndex } = table.getState().pagination
+
   return (
     <tbody>
       {table.getRowModel().rows.map((row, index) => (
         <tr key={row.id}>
           <TableCell variant={index & 1 ? 'primary' : 'secondary'}>
-            {index}
+            {pageIndex * pageSize + index}
           </TableCell>
           {row.getVisibleCells().map((cell) => (
             <TableCell

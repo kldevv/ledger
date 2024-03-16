@@ -1,7 +1,8 @@
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { CategoryDataTable } from '@/components/category'
+import { TextLink } from '@/components/core'
 import { Layout, Header } from '@/components/layout'
 import { route } from '@/shared'
 
@@ -14,7 +15,12 @@ const Page: React.FC = () => {
     <Layout>
       <Header
         header={t`account.group.header`}
-        section={t`account.group.section`}
+        section={
+          <Trans
+            i18nKey={'pages:account.group.section'}
+            components={{ account: <TextLink href={route.account.home} /> }}
+          />
+        }
         link={{ href: route.accountGroup.add, label: t`account.group.link` }}
       />
       <CategoryDataTable />
@@ -26,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'en', [
-        'account',
+        'accountGroup',
         'layout',
         'common',
         'pages',

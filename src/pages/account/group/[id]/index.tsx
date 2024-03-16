@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { CategoryDetails } from '@/components/category'
+import { TextLink } from '@/components/core'
 import { Layout, Header } from '@/components/layout'
 import { route } from '@/shared'
 
@@ -16,7 +17,12 @@ const Page: React.FC = () => {
     <Layout>
       <Header
         header={t`account.group.details.header`}
-        section={t`account.group.details.section`}
+        section={
+          <Trans
+            i18nKey={'pages:account.group.details.section'}
+            components={{ account: <TextLink href={route.account.home} /> }}
+          />
+        }
         link={{
           href: { pathname: route.accountGroup.edit.pathname, query },
           label: t`account.group.details.link`,
@@ -31,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'en', [
-        'account',
+        'accountGroup',
         'layout',
         'common',
         'pages',

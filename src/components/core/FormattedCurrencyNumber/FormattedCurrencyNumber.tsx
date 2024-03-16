@@ -1,7 +1,5 @@
 import classNames from 'classnames'
-import { useMemo } from 'react'
 
-import { useTreasuryBookContext } from '@/hooks'
 import { formatCurrencyNumber } from '@/shared'
 import { getCurrencySymbol } from '@/shared/utils/getCurrencySymbol/getCurrencySymbol'
 
@@ -27,10 +25,10 @@ export const FormattedCurrencyNumber: React.FC<
 > = ({ value, currency, className }) => {
   return (
     <div className={classNames('w-30 flex items-center', className)}>
-      <div className="select-none text-xs font-medium leading-6">
+      <div className="mr-3 select-none text-xs font-medium">
         {getCurrencySymbol(currency)}
       </div>
-      <div className="ml-auto pl-8 text-xs font-medium leading-6">
+      <div className="ml-auto text-xs font-medium">
         {formatCurrencyNumber(value)}
       </div>
     </div>
