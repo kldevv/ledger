@@ -2,7 +2,11 @@ import { Listbox } from '@headlessui/react'
 import classNames from 'classnames'
 import React, { useMemo } from 'react'
 
-import { LoadingBox, TreasuryBookChip } from '@/components/core'
+import {
+  LoadingBox,
+  TreasuryBookChip,
+  useCurrentBranch,
+} from '@/components/core'
 import { useTreasuryBookContext } from '@/hooks'
 
 export const BranchSwitch: React.FC = () => {

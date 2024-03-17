@@ -956,7 +956,7 @@ export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, cr
 
 export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string };
 
-export type TreasuryBookDataFragment = { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, createdAt: Date };
+export type TreasuryBookDataFragment = { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date };
 
 export type AddAccountMutationVariables = Exact<{
   input: AddAccountInput;
@@ -1026,14 +1026,14 @@ export type AddTreasuryBookMutationVariables = Exact<{
 }>;
 
 
-export type AddTreasuryBookMutation = { __typename?: 'Mutation', addTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, createdAt: Date } };
+export type AddTreasuryBookMutation = { __typename?: 'Mutation', addTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date } };
 
 export type UpdateTreasuryBookMutationVariables = Exact<{
   input: UpdateTreasuryBookInput;
 }>;
 
 
-export type UpdateTreasuryBookMutation = { __typename?: 'Mutation', updateTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, createdAt: Date } };
+export type UpdateTreasuryBookMutation = { __typename?: 'Mutation', updateTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date } };
 
 export type AccountQueryVariables = Exact<{
   input: AccountInput;
@@ -1207,7 +1207,7 @@ export type TreasuryBooksQueryVariables = Exact<{
 }>;
 
 
-export type TreasuryBooksQuery = { __typename?: 'Query', treasuryBooks: Array<{ __typename?: 'TreasuryBook', updatedAt: Date, id: string, name: string, currency: Currency, createdAt: Date }> };
+export type TreasuryBooksQuery = { __typename?: 'Query', treasuryBooks: Array<{ __typename?: 'TreasuryBook', updatedAt: Date, id: string, name: string, currency: Currency, ownerId: string, createdAt: Date }> };
 
 export const AccountDataFragmentDoc = gql`
     fragment AccountData on Account {
@@ -1308,6 +1308,7 @@ export const TreasuryBookDataFragmentDoc = gql`
   id
   name
   currency
+  ownerId
   createdAt
 }
     `;
