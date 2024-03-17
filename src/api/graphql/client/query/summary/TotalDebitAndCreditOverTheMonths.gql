@@ -1,0 +1,12 @@
+query TotalDebitAndCreditOverTheMonths(
+  $input: TotalDebitAndCreditOverTheMonthsInput!
+) {
+  totalDebitAndCreditOverTheMonths(input: $input) {
+    id
+    name
+    total {
+      debit
+      credit
+    }
+  }
+}

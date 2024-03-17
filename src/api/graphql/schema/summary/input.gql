@@ -1,0 +1,7 @@
+input TotalDebitAndCreditOverTheMonthsInput {
+  branchId: String!
+  standard: DateStandard!
+  groupByElement: ElementType!
+  year: Int
+  status: EntryStatus
+}

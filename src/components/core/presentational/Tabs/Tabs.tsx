@@ -1,38 +1,49 @@
 import { Tab } from '@headlessui/react'
 import classNames from 'classnames'
 import { Fragment } from 'react'
+import { Button } from '../..'
 
-import { Button } from '..'
+type Option = {
+  /**
+   * Tab label
+   */
+  label: React.ReactNode
+  /**
+   * Tab content
+   */
+  content: React.ReactNode
+}
 
-export interface PageTabProps {
+export interface TabsProps {
   /**
    * Tab options
    */
-  options: Array<{
-    /**
-     * Tab label
-     */
-    label: React.ReactNode
-    /**
-     * Tab content
-     */
-    content: React.ReactNode
-  }>
+  options: [Option, Option, ...Option[]]
+  /**
+   * Full width?
+   */
+  fullWidth?: boolean
 }
 
-export const PageTab: React.FC<PageTabProps> = ({ options }) => {
+export const Tabs: React.FC<TabsProps> = ({ options, fullWidth = true }) => {
   return (
     <Tab.Group>
-      <Tab.List className="border-b-mid-gray flex w-full items-center space-x-1 border-b">
+      <Tab.List
+        className={classNames(
+          'border-b-mid-gray flex items-center border-b',
+          fullWidth ? 'w-full' : 'w-max',
+        )}
+      >
         {options.map(({ label }) => (
           <Tab key={String(label)} as={Fragment}>
             {({ selected }) => (
               <Button
                 className={classNames(
-                  'size-full outline-none text-xs font-medium',
+                  'outline-none text-xs font-medium',
                   selected
                     ? 'text-light-accent border-b-2 border-b-light-accents'
                     : 'text-gray',
+                  { 'w-full': fullWidth },
                 )}
               >
                 <div className="hover:bg-light-accent-halo size-full rounded-md p-1">

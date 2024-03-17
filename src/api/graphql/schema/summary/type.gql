@@ -1,0 +1,10 @@
+type TotalDebitAndCreditOverTheMonths {
+  id: String!
+  name: String!
+  total: [DebitAndCredit!]!
+}
+
+type DebitAndCredit {
+  debit: Float!
+  credit: Float!
+}

@@ -28,3 +28,14 @@ enum DateType {
   TRANSACTION
   ACCRUAL
 }
+
+enum DateStandard {
+  TRANSACTION
+  ACCRUAL
+}
+
+enum ElementType {
+  ACCOUNT
+  ACCOUNT_GROUP
+  ACCOUNTING_TYPE
+}

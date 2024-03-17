@@ -160,12 +160,31 @@ export const Currency = {
 } as const;
 
 export type Currency = typeof Currency[keyof typeof Currency];
+export const DateStandard = {
+  ACCRUAL: 'ACCRUAL',
+  TRANSACTION: 'TRANSACTION'
+} as const;
+
+export type DateStandard = typeof DateStandard[keyof typeof DateStandard];
 export const DateType = {
   ACCRUAL: 'ACCRUAL',
   TRANSACTION: 'TRANSACTION'
 } as const;
 
 export type DateType = typeof DateType[keyof typeof DateType];
+export type DebitAndCredit = {
+  __typename?: 'DebitAndCredit';
+  credit: Scalars['Float']['output'];
+  debit: Scalars['Float']['output'];
+};
+
+export const ElementType = {
+  ACCOUNT: 'ACCOUNT',
+  ACCOUNTING_TYPE: 'ACCOUNTING_TYPE',
+  ACCOUNT_GROUP: 'ACCOUNT_GROUP'
+} as const;
+
+export type ElementType = typeof ElementType[keyof typeof ElementType];
 export type EntriesInput = {
   accountId?: InputMaybe<Scalars['String']['input']>;
   categoryId?: InputMaybe<Scalars['String']['input']>;
@@ -316,6 +335,7 @@ export type Query = {
   exchanges: Array<Exchange>;
   tag?: Maybe<Tag>;
   tags: Array<Tag>;
+  totalDebitAndCreditOverTheMonths: Array<TotalDebitAndCreditOverTheMonths>;
   transaction?: Maybe<Transaction>;
   transactions: Array<Transaction>;
   treasuryBooks: Array<TreasuryBook>;
@@ -403,6 +423,11 @@ export type QueryTagsArgs = {
 };
 
 
+export type QueryTotalDebitAndCreditOverTheMonthsArgs = {
+  input: TotalDebitAndCreditOverTheMonthsInput;
+};
+
+
 export type QueryTransactionArgs = {
   input: TransactionInput;
 };
@@ -449,6 +474,21 @@ export type TagType = typeof TagType[keyof typeof TagType];
 export type TagsInput = {
   treasuryBookId: Scalars['String']['input'];
   type?: InputMaybe<TagType>;
+};
+
+export type TotalDebitAndCreditOverTheMonths = {
+  __typename?: 'TotalDebitAndCreditOverTheMonths';
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  total: Array<DebitAndCredit>;
+};
+
+export type TotalDebitAndCreditOverTheMonthsInput = {
+  branchId: Scalars['String']['input'];
+  groupByElement: ElementType;
+  standard: DateStandard;
+  status?: InputMaybe<EntryStatus>;
+  year?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type Transaction = {
@@ -620,8 +660,11 @@ export type ResolversTypes = {
   CategoryInput: CategoryInput;
   CategoryType: CategoryType;
   Currency: Currency;
+  DateStandard: DateStandard;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   DateType: DateType;
+  DebitAndCredit: ResolverTypeWrapper<DebitAndCredit>;
+  ElementType: ElementType;
   EntriesInput: EntriesInput;
   Entry: ResolverTypeWrapper<Entry>;
   EntryStatus: EntryStatus;
@@ -639,6 +682,8 @@ export type ResolversTypes = {
   TagInput: TagInput;
   TagType: TagType;
   TagsInput: TagsInput;
+  TotalDebitAndCreditOverTheMonths: ResolverTypeWrapper<TotalDebitAndCreditOverTheMonths>;
+  TotalDebitAndCreditOverTheMonthsInput: TotalDebitAndCreditOverTheMonthsInput;
   Transaction: ResolverTypeWrapper<Transaction>;
   TransactionInput: TransactionInput;
   TransactionsInput: TransactionsInput;
@@ -675,6 +720,7 @@ export type ResolversParentTypes = {
   Category: Category;
   CategoryInput: CategoryInput;
   DateTime: Scalars['DateTime']['output'];
+  DebitAndCredit: DebitAndCredit;
   EntriesInput: EntriesInput;
   Entry: Entry;
   Exchange: Exchange;
@@ -690,6 +736,8 @@ export type ResolversParentTypes = {
   Tag: Tag;
   TagInput: TagInput;
   TagsInput: TagsInput;
+  TotalDebitAndCreditOverTheMonths: TotalDebitAndCreditOverTheMonths;
+  TotalDebitAndCreditOverTheMonthsInput: TotalDebitAndCreditOverTheMonthsInput;
   Transaction: Transaction;
   TransactionInput: TransactionInput;
   TransactionsInput: TransactionsInput;
@@ -755,6 +803,12 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
   name: 'DateTime';
 }
 
+export type DebitAndCreditResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['DebitAndCredit'] = ResolversParentTypes['DebitAndCredit']> = {
+  credit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Entry'] = ResolversParentTypes['Entry']> = {
   account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
@@ -817,6 +871,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   exchanges?: Resolver<Array<ResolversTypes['Exchange']>, ParentType, ContextType, RequireFields<QueryExchangesArgs, 'input'>>;
   tag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagArgs, 'input'>>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagsArgs, 'input'>>;
+  totalDebitAndCreditOverTheMonths?: Resolver<Array<ResolversTypes['TotalDebitAndCreditOverTheMonths']>, ParentType, ContextType, RequireFields<QueryTotalDebitAndCreditOverTheMonthsArgs, 'input'>>;
   transaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryTransactionArgs, 'input'>>;
   transactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryTransactionsArgs, 'input'>>;
   treasuryBooks?: Resolver<Array<ResolversTypes['TreasuryBook']>, ParentType, ContextType, RequireFields<QueryTreasuryBooksArgs, 'input'>>;
@@ -831,6 +886,13 @@ export type TagResolvers<ContextType = ApolloServerContext, ParentType extends R
   treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['TagType'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TotalDebitAndCreditOverTheMonthsResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['TotalDebitAndCreditOverTheMonths'] = ResolversParentTypes['TotalDebitAndCreditOverTheMonths']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  total?: Resolver<Array<ResolversTypes['DebitAndCredit']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -865,12 +927,14 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   Base?: BaseResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
+  DebitAndCredit?: DebitAndCreditResolvers<ContextType>;
   Entry?: EntryResolvers<ContextType>;
   Exchange?: ExchangeResolvers<ContextType>;
   MonthlyAmount?: MonthlyAmountResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
+  TotalDebitAndCreditOverTheMonths?: TotalDebitAndCreditOverTheMonthsResolvers<ContextType>;
   Transaction?: TransactionResolvers<ContextType>;
   TreasuryBook?: TreasuryBookResolvers<ContextType>;
 };
@@ -1093,6 +1157,13 @@ export type UniqueYearsQueryVariables = Exact<{
 
 
 export type UniqueYearsQuery = { __typename?: 'Query', uniqueYears: Array<number> };
+
+export type TotalDebitAndCreditOverTheMonthsQueryVariables = Exact<{
+  input: TotalDebitAndCreditOverTheMonthsInput;
+}>;
+
+
+export type TotalDebitAndCreditOverTheMonthsQuery = { __typename?: 'Query', totalDebitAndCreditOverTheMonths: Array<{ __typename?: 'TotalDebitAndCreditOverTheMonths', id: string, name: string, total: Array<{ __typename?: 'DebitAndCredit', debit: number, credit: number }> }> };
 
 export type TagQueryVariables = Exact<{
   input: TagInput;
@@ -1673,7 +1744,7 @@ export const AccountDocument = gql`
  *   },
  * });
  */
-export function useAccountQuery(baseOptions: Apollo.QueryHookOptions<AccountQuery, AccountQueryVariables>) {
+export function useAccountQuery(baseOptions: Apollo.QueryHookOptions<AccountQuery, AccountQueryVariables> & ({ variables: AccountQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<AccountQuery, AccountQueryVariables>(AccountDocument, options);
       }
@@ -1719,7 +1790,7 @@ ${EntryDataFragmentDoc}`;
  *   },
  * });
  */
-export function useAccountDetailQuery(baseOptions: Apollo.QueryHookOptions<AccountDetailQuery, AccountDetailQueryVariables>) {
+export function useAccountDetailQuery(baseOptions: Apollo.QueryHookOptions<AccountDetailQuery, AccountDetailQueryVariables> & ({ variables: AccountDetailQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<AccountDetailQuery, AccountDetailQueryVariables>(AccountDetailDocument, options);
       }
@@ -1759,7 +1830,7 @@ export const AccountsDocument = gql`
  *   },
  * });
  */
-export function useAccountsQuery(baseOptions: Apollo.QueryHookOptions<AccountsQuery, AccountsQueryVariables>) {
+export function useAccountsQuery(baseOptions: Apollo.QueryHookOptions<AccountsQuery, AccountsQueryVariables> & ({ variables: AccountsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<AccountsQuery, AccountsQueryVariables>(AccountsDocument, options);
       }
@@ -1800,7 +1871,7 @@ export const CategoriesDocument = gql`
  *   },
  * });
  */
-export function useCategoriesQuery(baseOptions: Apollo.QueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
+export function useCategoriesQuery(baseOptions: Apollo.QueryHookOptions<CategoriesQuery, CategoriesQueryVariables> & ({ variables: CategoriesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
       }
@@ -1841,7 +1912,7 @@ export const CategoryDocument = gql`
  *   },
  * });
  */
-export function useCategoryQuery(baseOptions: Apollo.QueryHookOptions<CategoryQuery, CategoryQueryVariables>) {
+export function useCategoryQuery(baseOptions: Apollo.QueryHookOptions<CategoryQuery, CategoryQueryVariables> & ({ variables: CategoryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<CategoryQuery, CategoryQueryVariables>(CategoryDocument, options);
       }
@@ -1892,7 +1963,7 @@ ${EntryDataFragmentDoc}`;
  *   },
  * });
  */
-export function useCategoryDetailQuery(baseOptions: Apollo.QueryHookOptions<CategoryDetailQuery, CategoryDetailQueryVariables>) {
+export function useCategoryDetailQuery(baseOptions: Apollo.QueryHookOptions<CategoryDetailQuery, CategoryDetailQueryVariables> & ({ variables: CategoryDetailQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<CategoryDetailQuery, CategoryDetailQueryVariables>(CategoryDetailDocument, options);
       }
@@ -1932,7 +2003,7 @@ export const EntriesDocument = gql`
  *   },
  * });
  */
-export function useEntriesQuery(baseOptions: Apollo.QueryHookOptions<EntriesQuery, EntriesQueryVariables>) {
+export function useEntriesQuery(baseOptions: Apollo.QueryHookOptions<EntriesQuery, EntriesQueryVariables> & ({ variables: EntriesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<EntriesQuery, EntriesQueryVariables>(EntriesDocument, options);
       }
@@ -1978,7 +2049,7 @@ ${EntryDataFragmentDoc}`;
  *   },
  * });
  */
-export function useExchangeDetailsQuery(baseOptions: Apollo.QueryHookOptions<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>) {
+export function useExchangeDetailsQuery(baseOptions: Apollo.QueryHookOptions<ExchangeDetailsQuery, ExchangeDetailsQueryVariables> & ({ variables: ExchangeDetailsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>(ExchangeDetailsDocument, options);
       }
@@ -2018,7 +2089,7 @@ export const ExchangesDocument = gql`
  *   },
  * });
  */
-export function useExchangesQuery(baseOptions: Apollo.QueryHookOptions<ExchangesQuery, ExchangesQueryVariables>) {
+export function useExchangesQuery(baseOptions: Apollo.QueryHookOptions<ExchangesQuery, ExchangesQueryVariables> & ({ variables: ExchangesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<ExchangesQuery, ExchangesQueryVariables>(ExchangesDocument, options);
       }
@@ -2065,7 +2136,7 @@ export const AccountBalanceDocument = gql`
  *   },
  * });
  */
-export function useAccountBalanceQuery(baseOptions: Apollo.QueryHookOptions<AccountBalanceQuery, AccountBalanceQueryVariables>) {
+export function useAccountBalanceQuery(baseOptions: Apollo.QueryHookOptions<AccountBalanceQuery, AccountBalanceQueryVariables> & ({ variables: AccountBalanceQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<AccountBalanceQuery, AccountBalanceQueryVariables>(AccountBalanceDocument, options);
       }
@@ -2105,7 +2176,7 @@ export const AccountMonthlyBalanceDocument = gql`
  *   },
  * });
  */
-export function useAccountMonthlyBalanceQuery(baseOptions: Apollo.QueryHookOptions<AccountMonthlyBalanceQuery, AccountMonthlyBalanceQueryVariables>) {
+export function useAccountMonthlyBalanceQuery(baseOptions: Apollo.QueryHookOptions<AccountMonthlyBalanceQuery, AccountMonthlyBalanceQueryVariables> & ({ variables: AccountMonthlyBalanceQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<AccountMonthlyBalanceQuery, AccountMonthlyBalanceQueryVariables>(AccountMonthlyBalanceDocument, options);
       }
@@ -2145,7 +2216,7 @@ export const AccountMonthlyChangesDocument = gql`
  *   },
  * });
  */
-export function useAccountMonthlyChangesQuery(baseOptions: Apollo.QueryHookOptions<AccountMonthlyChangesQuery, AccountMonthlyChangesQueryVariables>) {
+export function useAccountMonthlyChangesQuery(baseOptions: Apollo.QueryHookOptions<AccountMonthlyChangesQuery, AccountMonthlyChangesQueryVariables> & ({ variables: AccountMonthlyChangesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<AccountMonthlyChangesQuery, AccountMonthlyChangesQueryVariables>(AccountMonthlyChangesDocument, options);
       }
@@ -2185,7 +2256,7 @@ export const CategoryMonthlyBalanceDocument = gql`
  *   },
  * });
  */
-export function useCategoryMonthlyBalanceQuery(baseOptions: Apollo.QueryHookOptions<CategoryMonthlyBalanceQuery, CategoryMonthlyBalanceQueryVariables>) {
+export function useCategoryMonthlyBalanceQuery(baseOptions: Apollo.QueryHookOptions<CategoryMonthlyBalanceQuery, CategoryMonthlyBalanceQueryVariables> & ({ variables: CategoryMonthlyBalanceQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<CategoryMonthlyBalanceQuery, CategoryMonthlyBalanceQueryVariables>(CategoryMonthlyBalanceDocument, options);
       }
@@ -2225,7 +2296,7 @@ export const CategoryMonthlyChangesDocument = gql`
  *   },
  * });
  */
-export function useCategoryMonthlyChangesQuery(baseOptions: Apollo.QueryHookOptions<CategoryMonthlyChangesQuery, CategoryMonthlyChangesQueryVariables>) {
+export function useCategoryMonthlyChangesQuery(baseOptions: Apollo.QueryHookOptions<CategoryMonthlyChangesQuery, CategoryMonthlyChangesQueryVariables> & ({ variables: CategoryMonthlyChangesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<CategoryMonthlyChangesQuery, CategoryMonthlyChangesQueryVariables>(CategoryMonthlyChangesDocument, options);
       }
@@ -2265,7 +2336,7 @@ export const CategoryTypeMonthlyBalanceDocument = gql`
  *   },
  * });
  */
-export function useCategoryTypeMonthlyBalanceQuery(baseOptions: Apollo.QueryHookOptions<CategoryTypeMonthlyBalanceQuery, CategoryTypeMonthlyBalanceQueryVariables>) {
+export function useCategoryTypeMonthlyBalanceQuery(baseOptions: Apollo.QueryHookOptions<CategoryTypeMonthlyBalanceQuery, CategoryTypeMonthlyBalanceQueryVariables> & ({ variables: CategoryTypeMonthlyBalanceQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<CategoryTypeMonthlyBalanceQuery, CategoryTypeMonthlyBalanceQueryVariables>(CategoryTypeMonthlyBalanceDocument, options);
       }
@@ -2305,7 +2376,7 @@ export const CategoryTypeMonthlyChangesDocument = gql`
  *   },
  * });
  */
-export function useCategoryTypeMonthlyChangesQuery(baseOptions: Apollo.QueryHookOptions<CategoryTypeMonthlyChangesQuery, CategoryTypeMonthlyChangesQueryVariables>) {
+export function useCategoryTypeMonthlyChangesQuery(baseOptions: Apollo.QueryHookOptions<CategoryTypeMonthlyChangesQuery, CategoryTypeMonthlyChangesQueryVariables> & ({ variables: CategoryTypeMonthlyChangesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<CategoryTypeMonthlyChangesQuery, CategoryTypeMonthlyChangesQueryVariables>(CategoryTypeMonthlyChangesDocument, options);
       }
@@ -2343,7 +2414,7 @@ export const UniqueYearsDocument = gql`
  *   },
  * });
  */
-export function useUniqueYearsQuery(baseOptions: Apollo.QueryHookOptions<UniqueYearsQuery, UniqueYearsQueryVariables>) {
+export function useUniqueYearsQuery(baseOptions: Apollo.QueryHookOptions<UniqueYearsQuery, UniqueYearsQueryVariables> & ({ variables: UniqueYearsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<UniqueYearsQuery, UniqueYearsQueryVariables>(UniqueYearsDocument, options);
       }
@@ -2359,6 +2430,51 @@ export type UniqueYearsQueryHookResult = ReturnType<typeof useUniqueYearsQuery>;
 export type UniqueYearsLazyQueryHookResult = ReturnType<typeof useUniqueYearsLazyQuery>;
 export type UniqueYearsSuspenseQueryHookResult = ReturnType<typeof useUniqueYearsSuspenseQuery>;
 export type UniqueYearsQueryResult = Apollo.QueryResult<UniqueYearsQuery, UniqueYearsQueryVariables>;
+export const TotalDebitAndCreditOverTheMonthsDocument = gql`
+    query TotalDebitAndCreditOverTheMonths($input: TotalDebitAndCreditOverTheMonthsInput!) {
+  totalDebitAndCreditOverTheMonths(input: $input) {
+    id
+    name
+    total {
+      debit
+      credit
+    }
+  }
+}
+    `;
+
+/**
+ * __useTotalDebitAndCreditOverTheMonthsQuery__
+ *
+ * To run a query within a React component, call `useTotalDebitAndCreditOverTheMonthsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTotalDebitAndCreditOverTheMonthsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTotalDebitAndCreditOverTheMonthsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTotalDebitAndCreditOverTheMonthsQuery(baseOptions: Apollo.QueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables> & ({ variables: TotalDebitAndCreditOverTheMonthsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
+      }
+export function useTotalDebitAndCreditOverTheMonthsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
+        }
+export function useTotalDebitAndCreditOverTheMonthsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
+        }
+export type TotalDebitAndCreditOverTheMonthsQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsQuery>;
+export type TotalDebitAndCreditOverTheMonthsLazyQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsLazyQuery>;
+export type TotalDebitAndCreditOverTheMonthsSuspenseQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsSuspenseQuery>;
+export type TotalDebitAndCreditOverTheMonthsQueryResult = Apollo.QueryResult<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>;
 export const TagDocument = gql`
     query Tag($input: TagInput!) {
   tag(input: $input) {
@@ -2383,7 +2499,7 @@ export const TagDocument = gql`
  *   },
  * });
  */
-export function useTagQuery(baseOptions: Apollo.QueryHookOptions<TagQuery, TagQueryVariables>) {
+export function useTagQuery(baseOptions: Apollo.QueryHookOptions<TagQuery, TagQueryVariables> & ({ variables: TagQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<TagQuery, TagQueryVariables>(TagDocument, options);
       }
@@ -2429,7 +2545,7 @@ ${TransactionDataFragmentDoc}`;
  *   },
  * });
  */
-export function useTagDetailsQuery(baseOptions: Apollo.QueryHookOptions<TagDetailsQuery, TagDetailsQueryVariables>) {
+export function useTagDetailsQuery(baseOptions: Apollo.QueryHookOptions<TagDetailsQuery, TagDetailsQueryVariables> & ({ variables: TagDetailsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<TagDetailsQuery, TagDetailsQueryVariables>(TagDetailsDocument, options);
       }
@@ -2469,7 +2585,7 @@ export const TagsDocument = gql`
  *   },
  * });
  */
-export function useTagsQuery(baseOptions: Apollo.QueryHookOptions<TagsQuery, TagsQueryVariables>) {
+export function useTagsQuery(baseOptions: Apollo.QueryHookOptions<TagsQuery, TagsQueryVariables> & ({ variables: TagsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<TagsQuery, TagsQueryVariables>(TagsDocument, options);
       }
@@ -2519,7 +2635,7 @@ ${EntryDataFragmentDoc}`;
  *   },
  * });
  */
-export function useTransactionDetailsQuery(baseOptions: Apollo.QueryHookOptions<TransactionDetailsQuery, TransactionDetailsQueryVariables>) {
+export function useTransactionDetailsQuery(baseOptions: Apollo.QueryHookOptions<TransactionDetailsQuery, TransactionDetailsQueryVariables> & ({ variables: TransactionDetailsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<TransactionDetailsQuery, TransactionDetailsQueryVariables>(TransactionDetailsDocument, options);
       }
@@ -2559,7 +2675,7 @@ export const TransactionsDocument = gql`
  *   },
  * });
  */
-export function useTransactionsQuery(baseOptions: Apollo.QueryHookOptions<TransactionsQuery, TransactionsQueryVariables>) {
+export function useTransactionsQuery(baseOptions: Apollo.QueryHookOptions<TransactionsQuery, TransactionsQueryVariables> & ({ variables: TransactionsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<TransactionsQuery, TransactionsQueryVariables>(TransactionsDocument, options);
       }
@@ -2600,7 +2716,7 @@ export const TreasuryBooksDocument = gql`
  *   },
  * });
  */
-export function useTreasuryBooksQuery(baseOptions: Apollo.QueryHookOptions<TreasuryBooksQuery, TreasuryBooksQueryVariables>) {
+export function useTreasuryBooksQuery(baseOptions: Apollo.QueryHookOptions<TreasuryBooksQuery, TreasuryBooksQueryVariables> & ({ variables: TreasuryBooksQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<TreasuryBooksQuery, TreasuryBooksQueryVariables>(TreasuryBooksDocument, options);
       }

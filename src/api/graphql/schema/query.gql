@@ -34,4 +34,9 @@ type Query {
   # Exchange
   exchanges(input: ExchangesInput!): [Exchange!]!
   exchange(input: ExchangeInput!): Exchange
+
+  # Summary
+  totalDebitAndCreditOverTheMonths(
+    input: TotalDebitAndCreditOverTheMonthsInput!
+  ): [TotalDebitAndCreditOverTheMonths!]!
 }

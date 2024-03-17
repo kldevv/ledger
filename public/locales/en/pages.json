@@ -105,6 +105,20 @@
   },
   "xjournal": {
     "header": "Cross Journals",
-    "section": "TBA"
+    "section": "TBA",
+    "link": "Add Cross Journal",
+    "add": {
+      "header": "Add Cross Journal",
+      "section": "TBA"
+    },
+    "details": {
+      "header": "Cross Journal Details",
+      "section": "TBA",
+      "link": "Edit",
+      "edit": {
+        "header": "Edit Cross Journal",
+        "section": "TBA"
+      }
+    }
   }
 }
