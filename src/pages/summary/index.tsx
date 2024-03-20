@@ -5,16 +5,8 @@ import { Header, Layout } from '@/components/layout'
 
 import type { GetServerSideProps } from 'next'
 import { PageTab } from '@/components/core'
-import {
-  MonthlyBalanceTableGroup,
-  MonthlyChangesTableGroup,
-} from '@/components/report'
-import {
-  DateStandard,
-  ElementType,
-  useTotalDebitAndCreditOverTheMonthsQuery,
-} from '@/api/graphql'
-import { useTreasuryBookContext } from '@/hooks'
+import { MonthlyChangesTableGroup } from '@/components/report'
+import { TotalDebitAndCreditOverTheMonthsTable } from '@/components/summary'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('pages')
@@ -26,7 +18,7 @@ const Page: React.FC = () => {
         options={[
           {
             label: 'Balance Over the Months',
-            content: <MonthlyBalanceTableGroup />,
+            content: <TotalDebitAndCreditOverTheMonthsTable />,
           },
           {
             label: 'Total Credit / Debit on Months',

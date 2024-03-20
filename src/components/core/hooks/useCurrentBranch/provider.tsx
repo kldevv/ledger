@@ -15,13 +15,12 @@ export const CurrentBranchProvider: React.FC<CurrentBranchProviderProps> = ({
   useTreasuryBooksQuery({
     variables: {
       input: {
-        ownerId: process.env.OWNER_ID ?? '',
+        ownerId: '81087108-3748-446a-b033-a85d7c9ace7b',
       },
     },
     onCompleted: (data) => {
       setCurrentBranch(data.treasuryBooks?.at(0))
     },
-    skip: !process.env.OWNER_ID,
   })
 
   return (
