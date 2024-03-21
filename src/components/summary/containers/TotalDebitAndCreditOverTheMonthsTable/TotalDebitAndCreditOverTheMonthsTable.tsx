@@ -68,7 +68,7 @@ export const TotalDebitAndCreditOverTheMonthsTable: React.FC = () => {
 
   return (
     <Card>
-      <div className="mb-4 border-b border-mid-gray pb-4 flex space-x-2">
+      <div className="mb-4 border-b border-mid-gray pb-4 flex gap-2 flex-wrap">
         <DateStandardFilter
           value={filter.standard}
           onChange={handleStandardChange}

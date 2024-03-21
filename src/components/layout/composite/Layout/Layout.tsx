@@ -23,7 +23,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <SideNavBar className="w-52" />
         <div className="bg-light-shades size-full overflow-auto">
           <div className="size-full min-w-full">
-            <main className="size-fit min-h-full w-[80vw]">
+            <main className="size-fit min-h-full w-[80vw] min-w-96">
               <div className="ml-6 mt-3 flex items-center">
                 <Breadcrumbs />
               </div>
