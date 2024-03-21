@@ -3,6 +3,7 @@ import {
   CategoryDao,
   EntryDao,
   ExchangeDao,
+  LinkDao,
   TagDao,
   TransactionDao,
   TreasuryBookDao,
@@ -17,6 +18,7 @@ export class PrismaDataSource {
   public tag: typeof TagDao
   public transaction: typeof TransactionDao
   public treasuryBook: typeof TreasuryBookDao
+  public link: typeof LinkDao
   public repository: typeof repository
 
   constructor() {
@@ -27,6 +29,7 @@ export class PrismaDataSource {
     this.tag = TagDao
     this.transaction = TransactionDao
     this.treasuryBook = TreasuryBookDao
+    this.link = LinkDao
     this.repository = repository
   }
 }
