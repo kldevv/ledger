@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "PizzaFunds - Financial Management App",
+    "desc": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries, and more."
+  },
   "CategoryTypeChip": {
     "label": {
       "ASSETS": "Assets",

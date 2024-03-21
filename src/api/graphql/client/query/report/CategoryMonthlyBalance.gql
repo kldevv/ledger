@@ -1,5 +1,0 @@
-query CategoryMonthlyBalance($input: MonthlyAmountInput!) {
-  categoryMonthlyBalance(input: $input) {
-    ...MonthlyAmountData
-  }
-}

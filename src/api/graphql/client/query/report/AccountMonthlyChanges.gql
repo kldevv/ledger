@@ -1,5 +1,0 @@
-query AccountMonthlyChanges($input: MonthlyAmountInput!) {
-  accountMonthlyChanges(input: $input) {
-    ...MonthlyAmountData
-  }
-}

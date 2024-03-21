@@ -11,13 +11,7 @@ type Query {
   entries(input: EntriesInput!): [Entry!]!
 
   # Report
-  accountMonthlyChanges(input: MonthlyAmountInput!): [MonthlyAmount!]!
-  categoryMonthlyChanges(input: MonthlyAmountInput!): [MonthlyAmount!]!
-  categoryTypeMonthlyChanges(input: MonthlyAmountInput!): [MonthlyAmount!]!
   accountBalance(input: AccountBalanceFilter!): [AccountBalance!]!
-  accountMonthlyBalance(input: MonthlyAmountInput!): [MonthlyAmount!]!
-  categoryMonthlyBalance(input: MonthlyAmountInput!): [MonthlyAmount!]!
-  categoryTypeMonthlyBalance(input: MonthlyAmountInput!): [MonthlyAmount!]!
   uniqueYears(input: UniqueYearsInput!): [Int!]!
 
   # Tag

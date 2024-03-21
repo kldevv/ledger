@@ -5,7 +5,6 @@ import { Header, Layout } from '@/components/layout'
 
 import type { GetServerSideProps } from 'next'
 import { PageTab } from '@/components/core'
-import { MonthlyChangesTableGroup } from '@/components/report'
 import { TotalDebitAndCreditOverTheMonthsTable } from '@/components/summary'
 
 const Page: React.FC = () => {
@@ -22,7 +21,7 @@ const Page: React.FC = () => {
           },
           {
             label: 'Total Credit / Debit on Months',
-            content: <MonthlyChangesTableGroup />,
+            content: 'TBA',
           },
         ]}
       />
