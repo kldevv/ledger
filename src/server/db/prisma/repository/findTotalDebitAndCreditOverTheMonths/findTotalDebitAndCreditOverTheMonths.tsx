@@ -143,7 +143,7 @@ const createAndYearFilterSql = (
 
   return standard === DateStandard.TRANSACTION
     ? Prisma.sql`AND EXTRACT(YEAR FROM e.transaction_date) = ${year}`
-    : Prisma.sql`AND EXTRACT(MONTH FROM t.accrual_date) = ${year}`
+    : Prisma.sql`AND EXTRACT(YEAR FROM t.accrual_date) = ${year}`
 }
 
 const createAndStatusFilterSql = (status?: EntryStatus | null) => {
