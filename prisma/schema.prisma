@@ -26,9 +26,9 @@ model Account {
   id             String       @id @default(uuid())
   name           String
   category       Category     @relation(fields: [categoryId], references: [id])
-  categoryId     String @map("category_id")
+  categoryId     String       @map("category_id")
   treasuryBook   TreasuryBook @relation(fields: [treasuryBookId], references: [id])
-  treasuryBookId String @map("treasury_book_id")
+  treasuryBookId String       @map("treasury_book_id")
   entries        Entry[]
   createdAt      DateTime     @default(now()) @map("created_at")
   updatedAt      DateTime     @updatedAt @map("updated_at")
@@ -48,6 +48,7 @@ model Transaction {
   exchange       Exchange?    @relation(fields: [exchangeId], references: [id])
   entries        Entry[]
   tags           Tag[]
+  links          Link[]
   createdAt      DateTime     @default(now()) @map("created_at")
   updatedAt      DateTime     @updatedAt @map("updated_at")
   deletedAt      DateTime?    @map("deleted_at")
@@ -87,6 +88,19 @@ model Tag {
 
   @@unique([treasuryBookId, name])
   @@map("tags")
+}
+
+model Link {
+  id           String        @id @default(uuid())
+  name         String
+  transactions Transaction[]
+  type         LinkType
+  userId       String        @map("user_id")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  deletedAt    DateTime?     @map("deleted_at")
+
+  @@map("links")
 }
 
 model Exchange {
@@ -153,6 +167,11 @@ enum TagType {
   ORGANIZATION
 
   @@map("tag_type")
+}
+
+enum LinkType {
+  GENERAL
+  FX
 }
 
 enum Currency {
