@@ -7,12 +7,13 @@ import {
   TransactionForm,
   type TransactionFormFieldValues,
 } from '@/components/transaction'
-import { useAccountsContext, useToaster, useTreasuryBookContext } from '@/hooks'
+import { useAccountsContext, useToaster } from '@/hooks'
 import { parseCurrencyNumericFormat } from '@/shared'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const AddTransactionForm: React.FC = () => {
   const { t } = useTranslation('journal')
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
   const toast = useToaster()
 
   const { data: { accounts } = {} } = useAccountsContext()
@@ -36,7 +37,7 @@ export const AddTransactionForm: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: TransactionFormFieldValues) => {
-      if (selectedTreasuryBookId == null) return
+      if (!currentBranch?.id) return
 
       void addTransaction({
         variables: {
@@ -49,12 +50,12 @@ export const AddTransactionForm: React.FC = () => {
               // remove currency numeric format
               credit: parseCurrencyNumericFormat(entry.credit),
             })),
-            treasuryBookId: selectedTreasuryBookId,
+            treasuryBookId: currentBranch?.id,
           },
         },
       })
     },
-    [addTransaction, selectedTreasuryBookId],
+    [addTransaction, currentBranch?.id],
   )
 
   return (

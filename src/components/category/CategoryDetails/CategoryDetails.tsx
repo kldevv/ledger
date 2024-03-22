@@ -5,13 +5,14 @@ import { AccountTable } from '@/components/account'
 import { CategoryDescriptionList } from '@/components/category'
 import { Card } from '@/components/core'
 import { EntryFilteredTable } from '@/components/entry'
-import { useResolvedQuery, useTreasuryBookContext } from '@/hooks'
+import { useResolvedQuery } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const CategoryDetails: React.FC = () => {
   const { t } = useTranslation('accountGroup')
-  const id = useResolvedQuery('id', '')
+  const id = useResolvedQuery('id')
 
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
 
   const { data } = useCategoryDetailQuery({
     variables: {
@@ -20,14 +21,14 @@ export const CategoryDetails: React.FC = () => {
       },
       entriesInput: {
         categoryId: id,
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
       },
       accountsInput: {
         categoryId: id,
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
       },
     },
-    skip: id == null || selectedTreasuryBookId == null,
+    skip: id == null || !currentBranch?.id,
   })
 
   return (

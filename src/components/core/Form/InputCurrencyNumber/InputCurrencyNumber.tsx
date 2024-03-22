@@ -5,7 +5,7 @@ import { useController } from 'react-hook-form'
 import { NumericFormat } from 'react-number-format'
 
 import { ErrorMessage, InputCore, Label } from '@/components/core'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 import { getCurrencySymbol } from '@/shared'
 
 import type { Currency } from '@/api/graphql'
@@ -53,18 +53,12 @@ export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
     control,
   })
 
-  const { selectedTreasuryBookId, data: { treasuryBooks } = {} } =
-    useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
 
-  const currencySymbol = useMemo(() => {
-    const selectedCurrency =
-      currency != null
-        ? currency
-        : treasuryBooks?.find(({ id }) => id === selectedTreasuryBookId)
-            ?.currency
-
-    return getCurrencySymbol(selectedCurrency)
-  }, [currency, treasuryBooks, selectedTreasuryBookId])
+  const currencySymbol = useMemo(
+    () => getCurrencySymbol(currentBranch?.currency),
+    [currency, currentBranch?.currency, currentBranch?.id],
+  )
 
   return (
     <div className="flex w-full min-w-fit flex-col">

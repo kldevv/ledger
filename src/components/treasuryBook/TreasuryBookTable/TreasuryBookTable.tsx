@@ -11,7 +11,7 @@ import {
   Table,
   LinkButton,
 } from '@/components/core'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 import { route } from '@/shared'
 
 import type { TreasuryBooksQuery } from '@/api/graphql'
@@ -31,14 +31,12 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
   data,
 }) => {
   const { t } = useTranslation('branch')
-  const { selectedTreasuryBookId, setSelectedTreasuryBookId } =
-    useTreasuryBookContext()
+  const [currentBranch, setCurrentBranch] = useCurrentBranch()
 
   const createHandleOnTreasuryBookSwitch = useCallback(
-    (id: string) => {
-      return () => setSelectedTreasuryBookId?.(id)
-    },
-    [setSelectedTreasuryBookId],
+    (id: string) => () =>
+      setCurrentBranch(data.find((branch) => branch.id === id)),
+    [currentBranch?.id],
   )
 
   const colDefs = useMemo(
@@ -47,7 +45,7 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
         header: '',
         id: 'is-selected',
         cell: ({ getValue }) =>
-          getValue() === selectedTreasuryBookId ? (
+          getValue() === currentBranch?.id ? (
             <CheckCircleIcon className="text-light-accent size-5" />
           ) : null,
       }),
@@ -108,7 +106,7 @@ export const TreasuryBookTable: React.FC<TreasuryBookTableProps> = ({
         ),
       }),
     ],
-    [createHandleOnTreasuryBookSwitch, selectedTreasuryBookId, t],
+    [createHandleOnTreasuryBookSwitch, currentBranch?.id, t],
   )
 
   return <Table data={data} colDefs={colDefs} />

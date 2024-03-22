@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-import { useTreasuryBookContext } from '@/hooks'
 import { route } from '@/shared'
+import { useTreasuryBooksQuery } from '@/api/graphql'
 
 export interface TreasuryBookDetailLinkProps {
   /**
@@ -12,7 +12,13 @@ export interface TreasuryBookDetailLinkProps {
 export const TreasuryBookDetailLink: React.FC<TreasuryBookDetailLinkProps> = ({
   treasuryBookId,
 }) => {
-  const { data } = useTreasuryBookContext()
+  const { data } = useTreasuryBooksQuery({
+    variables: {
+      input: {
+        ownerId: '81087108-3748-446a-b033-a85d7c9ace7b',
+      },
+    },
+  })
 
   const name = data?.treasuryBooks.find(({ id }) => id === treasuryBookId)?.name
 

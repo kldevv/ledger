@@ -5,12 +5,12 @@ import { useMemo } from 'react'
 import { useAccountDetailQuery } from '@/api/graphql'
 import { AccountDescriptionList } from '@/components/account'
 import { EntryFilteredTable } from '@/components/entry'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const AccountDetails: React.FC = () => {
   const router = useRouter()
   const { t } = useTranslation('account')
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
 
   const { id } = router.query
   const accountId = useMemo(() => {
@@ -23,11 +23,11 @@ export const AccountDetails: React.FC = () => {
         id: accountId ?? '',
       },
       entriesInput: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
         accountId: accountId,
       },
     },
-    skip: accountId == null || selectedTreasuryBookId == null,
+    skip: accountId == null || !currentBranch?.id,
   })
 
   return (

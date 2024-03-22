@@ -1,19 +1,18 @@
 import { useAccountsQuery } from '@/api/graphql'
 import { Card } from '@/components/core'
-import { useTreasuryBookContext } from '@/hooks'
 
 import { AccountTable } from '..'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const AccountDataTable: React.FC = () => {
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
   const { data } = useAccountsQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
       },
     },
-    fetchPolicy: 'cache-and-network',
-    skip: selectedTreasuryBookId == null,
+    skip: !currentBranch?.id,
   })
 
   return (

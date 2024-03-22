@@ -3,13 +3,14 @@ import { useCallback } from 'react'
 
 import { useAddCategoryMutation } from '@/api/graphql'
 import { CategoryForm } from '@/components/category'
-import { useToaster, useTreasuryBookContext } from '@/hooks'
+import { useToaster } from '@/hooks'
 
 import type { CategoryFormFieldValues } from '@/components/category'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const AddCategoryFrom: React.FC = () => {
   const { t } = useTranslation('accountGroup')
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
   const toast = useToaster()
 
   const [addCategory] = useAddCategoryMutation({
@@ -18,18 +19,18 @@ export const AddCategoryFrom: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: CategoryFormFieldValues) => {
-      if (selectedTreasuryBookId == null) return
+      if (!currentBranch) return
 
       void addCategory({
         variables: {
           input: {
             ...values,
-            treasuryBookId: selectedTreasuryBookId,
+            treasuryBookId: currentBranch.id,
           },
         },
       })
     },
-    [selectedTreasuryBookId, addCategory],
+    [currentBranch?.id, addCategory],
   )
 
   return (

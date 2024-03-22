@@ -1,18 +1,18 @@
 import { useCategoriesQuery } from '@/api/graphql'
 import { CategoryTable } from '@/components/category'
 import { Card } from '@/components/core'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const CategoryDataTable: React.FC = () => {
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
 
   const { data: { categories } = {} } = useCategoriesQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
       },
     },
-    skip: selectedTreasuryBookId == null,
+    skip: !currentBranch?.id,
   })
 
   return (

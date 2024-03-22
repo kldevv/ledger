@@ -3,22 +3,23 @@ import { useTranslation } from 'next-i18next'
 import { useTagDetailsQuery } from '@/api/graphql'
 import { TagDescriptionList } from '@/components/tag'
 import { TransactionFilteredTable } from '@/components/transaction'
-import { useResolvedQuery, useTreasuryBookContext } from '@/hooks'
+import { useResolvedQuery } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const TagDetails: React.FC = () => {
   const { t } = useTranslation('tag')
   const id = useResolvedQuery('id')
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
 
   const { data: { tag, transactions } = {} } = useTagDetailsQuery({
     variables: {
       tagInput: { id: id ?? '' },
       transactionsInput: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
         tagId: id ?? '',
       },
     },
-    skip: id == null || selectedTreasuryBookId == null,
+    skip: id == null || !currentBranch?.id,
   })
 
   return (

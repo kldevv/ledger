@@ -3,12 +3,13 @@ import { useTranslation } from 'next-i18next'
 import { EntryStatus, useTransactionDetailsQuery } from '@/api/graphql'
 import { EntryFilteredTable } from '@/components/entry'
 import { TransactionDescriptionList } from '@/components/transaction'
-import { useResolvedQuery, useTreasuryBookContext } from '@/hooks'
+import { useResolvedQuery } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const TransactionDetails: React.FC = () => {
   const { t } = useTranslation('journal')
-  const id = useResolvedQuery('id', '')
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const id = useResolvedQuery('id')
+  const [currentBranch] = useCurrentBranch()
 
   const { data: { transaction, entries } = {} } = useTransactionDetailsQuery({
     variables: {
@@ -17,10 +18,10 @@ export const TransactionDetails: React.FC = () => {
       },
       entriesInput: {
         transactionId: id,
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
       },
     },
-    skip: id == null || selectedTreasuryBookId == null,
+    skip: id == null || !currentBranch?.id,
   })
 
   return (

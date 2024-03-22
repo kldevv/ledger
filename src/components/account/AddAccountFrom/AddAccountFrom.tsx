@@ -3,13 +3,14 @@ import { useCallback, useMemo } from 'react'
 
 import { useAddAccountMutation, useCategoriesQuery } from '@/api/graphql'
 import { AccountForm } from '@/components/account'
-import { useToaster, useTreasuryBookContext } from '@/hooks'
+import { useToaster } from '@/hooks'
 
 import type { AccountFormFieldValues } from '@/components/account'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const AddAccountFrom: React.FC = () => {
   const { t } = useTranslation('account')
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
   const toast = useToaster()
 
   const [addAccount] = useAddAccountMutation({
@@ -19,10 +20,10 @@ export const AddAccountFrom: React.FC = () => {
   const { data: { categories } = {} } = useCategoriesQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
       },
     },
-    skip: selectedTreasuryBookId == null,
+    skip: !currentBranch?.id,
   })
 
   const values = useMemo(
@@ -39,12 +40,12 @@ export const AddAccountFrom: React.FC = () => {
         variables: {
           input: {
             ...values,
-            treasuryBookId: selectedTreasuryBookId ?? '',
+            treasuryBookId: currentBranch?.id ?? '',
           },
         },
       })
     },
-    [selectedTreasuryBookId, addAccount],
+    [currentBranch?.id, addAccount],
   )
 
   return (

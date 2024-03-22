@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 
 import { useCategoriesQuery } from '@/api/graphql'
 import { Dropdown } from '@/components/core'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export interface CategoryFormDropdownProps<TFieldValues extends FieldValues> {
   /**
@@ -19,14 +19,14 @@ export const CategoryFormDropdown = <TFieldValues extends FieldValues>({
 }: CategoryFormDropdownProps<TFieldValues>) => {
   const { t } = useTranslation('common')
 
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
   const { data: { categories } = {} } = useCategoriesQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
       },
     },
-    skip: selectedTreasuryBookId == null,
+    skip: !currentBranch?.id,
   })
 
   const options = useMemo(

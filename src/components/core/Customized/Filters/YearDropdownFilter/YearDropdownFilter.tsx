@@ -2,11 +2,11 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { useUniqueYearsQuery } from '@/api/graphql'
-import { useTreasuryBookContext } from '@/hooks'
 
 import { DropdownFilter } from '../../../Filters'
 
 import type { DateType } from '@/api/graphql'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export interface YearDropdownFilterProps {
   /**
@@ -34,16 +34,16 @@ export const YearDropdownFilter: React.FC<YearDropdownFilterProps> = ({
   disableAllYear = false,
 }) => {
   const { t } = useTranslation('common')
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
 
   const { data } = useUniqueYearsQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
         type,
       },
     },
-    skip: selectedTreasuryBookId == null,
+    skip: !currentBranch?.id,
   })
 
   const options = useMemo(() => {

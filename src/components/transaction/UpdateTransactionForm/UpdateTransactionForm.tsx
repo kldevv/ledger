@@ -6,16 +6,17 @@ import {
   useUpdateTransactionMutation,
 } from '@/api/graphql'
 import { TransactionForm } from '@/components/transaction'
-import { useResolvedQuery, useToaster, useTreasuryBookContext } from '@/hooks'
+import { useResolvedQuery, useToaster } from '@/hooks'
 import { parseCurrencyNumericFormat } from '@/shared'
 
 import type { TransactionFormFieldValues } from '@/components/transaction'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const UpdateTransactionForm: React.FC = () => {
   const { t } = useTranslation('journal')
   const id = useResolvedQuery('id')
   const toast = useToaster()
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
 
   const { data: { transaction, entries } = {} } = useTransactionDetailsQuery({
     variables: {
@@ -24,10 +25,10 @@ export const UpdateTransactionForm: React.FC = () => {
       },
       entriesInput: {
         transactionId: id,
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
       },
     },
-    skip: id == null || selectedTreasuryBookId == null,
+    skip: id == null || !currentBranch?.id,
   })
 
   const values = useMemo(() => {

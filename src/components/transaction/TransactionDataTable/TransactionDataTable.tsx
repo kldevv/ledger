@@ -1,18 +1,18 @@
 import { useTransactionsQuery } from '@/api/graphql'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 import { TransactionFilteredTable } from '..'
 
 export const TransactionDataTable: React.FC = () => {
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
 
   const { data, loading } = useTransactionsQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId,
+        treasuryBookId: currentBranch?.id,
       },
     },
-    skip: selectedTreasuryBookId == null,
+    skip: !currentBranch?.id,
   })
 
   return (

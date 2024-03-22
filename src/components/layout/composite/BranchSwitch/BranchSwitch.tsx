@@ -1,17 +1,20 @@
 import { Listbox } from '@headlessui/react'
 import classNames from 'classnames'
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 
-import {
-  LoadingBox,
-  TreasuryBookChip,
-  useCurrentBranch,
-} from '@/components/core'
-import { useTreasuryBookContext } from '@/hooks'
+import { TreasuryBookChip } from '@/components/core'
+import { useCurrentBranch } from '@/components/core/hooks'
+import { useTreasuryBooksQuery } from '@/api/graphql'
 
 export const BranchSwitch: React.FC = () => {
-  const { selectedTreasuryBookId, setSelectedTreasuryBookId, data, state } =
-    useTreasuryBookContext()
+  const [currentBranch, setCurrentBranch] = useCurrentBranch()
+  const { data } = useTreasuryBooksQuery({
+    variables: {
+      input: {
+        ownerId: '81087108-3748-446a-b033-a85d7c9ace7b',
+      },
+    },
+  })
 
   const options = useMemo(
     () =>
@@ -22,24 +25,20 @@ export const BranchSwitch: React.FC = () => {
     [data?.treasuryBooks],
   )
 
-  const selectedTreasuryBook = useMemo(
-    () => data?.treasuryBooks.find(({ id }) => id === selectedTreasuryBookId),
-    [data?.treasuryBooks, selectedTreasuryBookId],
+  const handleSetCurrentBranch = useCallback(
+    (value: string) => data?.treasuryBooks.find(({ id }) => id === value),
+    [data?.treasuryBooks, currentBranch?.id],
   )
 
-  if (state.loading) {
-    return <LoadingBox className="w-96" />
-  }
-
   return (
-    <Listbox onChange={setSelectedTreasuryBookId}>
+    <Listbox onChange={handleSetCurrentBranch}>
       <div className="mx-2 w-80">
         <Listbox.Button className="w-full">
           <div className=" border-mid-gray flex w-full items-center truncate rounded-md border px-4 text-left text-xs font-medium">
-            {selectedTreasuryBook && (
+            {currentBranch && (
               <TreasuryBookChip
-                name={selectedTreasuryBook?.name}
-                currency={selectedTreasuryBook?.currency}
+                name={currentBranch?.name}
+                currency={currentBranch?.currency}
               />
             )}
           </div>

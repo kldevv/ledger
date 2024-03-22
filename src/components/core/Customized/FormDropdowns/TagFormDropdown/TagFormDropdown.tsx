@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 import { useTagsQuery } from '@/api/graphql'
 import { Dropdown } from '@/components/core'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export interface TagFormDropdownProps<TFieldValues extends FieldValues> {
   /**
@@ -21,14 +21,14 @@ export const TagFormDropdown = <TFieldValues extends FieldValues>({
   label,
   name,
 }: TagFormDropdownProps<TFieldValues>) => {
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
   const { data: { tags } = {}, loading } = useTagsQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
       },
     },
-    skip: selectedTreasuryBookId == null,
+    skip: !currentBranch?.id,
   })
 
   const options = useMemo(

@@ -1,5 +1,5 @@
 import { useAccountsQuery } from '@/api/graphql'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 import { AccountsContext } from './context'
 
@@ -17,9 +17,9 @@ export interface AccountsContextProviderProps {
 export const AccountsContextProvider: React.FC<
   AccountsContextProviderProps
 > = ({ children, treasuryBookId }) => {
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
 
-  const id = treasuryBookId ?? selectedTreasuryBookId ?? ''
+  const id = treasuryBookId ?? currentBranch?.id ?? ''
 
   const value = useAccountsQuery({
     variables: {

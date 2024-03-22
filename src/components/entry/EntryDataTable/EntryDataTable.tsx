@@ -1,16 +1,16 @@
 import { useEntriesQuery } from '@/api/graphql'
 import { EntryFilteredTable } from '@/components/entry'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const EntryDataTable: React.FC = () => {
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
   const { data } = useEntriesQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
       },
     },
-    skip: selectedTreasuryBookId == null,
+    skip: !currentBranch?.id,
   })
 
   return <EntryFilteredTable data={data?.entries ?? []} />

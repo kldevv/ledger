@@ -4,22 +4,22 @@ import { useTagsQuery } from '@/api/graphql'
 import { Card } from '@/components/core'
 import { TagTypeDropdownFilter } from '@/components/core/Customized/Filters/TagTypeDropdownFilter'
 import { TagTable } from '@/components/tag'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 import type { TagType } from '@/api/graphql'
 
 export const TagDataTable: React.FC = () => {
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
   const [typeFilter, setTypeFilter] = useState<TagType | null>(null)
 
   const { data: { tags } = {} } = useTagsQuery({
     variables: {
       input: {
-        treasuryBookId: selectedTreasuryBookId ?? '',
+        treasuryBookId: currentBranch?.id ?? '',
         type: typeFilter,
       },
     },
-    skip: selectedTreasuryBookId == null,
+    skip: !currentBranch?.id,
   })
 
   return (

@@ -4,7 +4,8 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { Dropdown, TreasuryBookChip } from '@/components/core'
-import { useTreasuryBookContext } from '@/hooks'
+import { useCurrentBranch } from '@/components/core/hooks'
+import { useTreasuryBooksQuery } from '@/api/graphql'
 
 export interface TreasuryBookFormDropdownProps<
   TFieldValues extends FieldValues,
@@ -25,7 +26,13 @@ export const TreasuryBookFormDropdown = <TFieldValues extends FieldValues>({
 }: TreasuryBookFormDropdownProps<TFieldValues>) => {
   const { t } = useTranslation('common')
 
-  const { data: { treasuryBooks } = {} } = useTreasuryBookContext()
+  const { data: { treasuryBooks } = {} } = useTreasuryBooksQuery({
+    variables: {
+      input: {
+        ownerId: '81087108-3748-446a-b033-a85d7c9ace7b',
+      },
+    },
+  })
 
   const options = useMemo(
     () =>

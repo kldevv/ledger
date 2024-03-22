@@ -3,13 +3,14 @@ import { useCallback } from 'react'
 
 import { useAddTagMutation } from '@/api/graphql'
 import { TagForm } from '@/components/tag'
-import { useToaster, useTreasuryBookContext } from '@/hooks'
+import { useToaster } from '@/hooks'
 
 import type { TagFormFieldValues } from '@/components/tag'
+import { useCurrentBranch } from '@/components/core/hooks'
 
 export const AddTagForm: React.FC = () => {
   const { t } = useTranslation('tag')
-  const { selectedTreasuryBookId } = useTreasuryBookContext()
+  const [currentBranch] = useCurrentBranch()
   const toast = useToaster()
 
   const [addTag] = useAddTagMutation({
@@ -18,18 +19,18 @@ export const AddTagForm: React.FC = () => {
 
   const handleOnSubmit = useCallback(
     (values: TagFormFieldValues) => {
-      if (selectedTreasuryBookId == null) return
+      if (!currentBranch?.id) return
 
       void addTag({
         variables: {
           input: {
             ...values,
-            treasuryBookId: selectedTreasuryBookId,
+            treasuryBookId: currentBranch?.id,
           },
         },
       })
     },
-    [selectedTreasuryBookId, addTag],
+    [currentBranch?.id, addTag],
   )
 
   return (

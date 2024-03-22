@@ -3,15 +3,13 @@ import { useCallback } from 'react'
 
 import { useAddTreasuryBookMutation } from '@/api/graphql'
 import { TreasuryBookForm } from '@/components/treasuryBook'
-import { useToaster, useTreasuryBookContext } from '@/hooks'
+import { useToaster } from '@/hooks'
 
 import type { TreasuryBookFormFieldValues } from '@/components/treasuryBook'
 
 export const AddTreasuryBookForm: React.FC = () => {
   const { t } = useTranslation('branch')
   const toast = useToaster()
-
-  const { ownerId } = useTreasuryBookContext()
 
   const [addTreasuryBook] = useAddTreasuryBookMutation({
     onCompleted: () => toast(t`AddTreasuryBookForm.success`),
@@ -23,12 +21,12 @@ export const AddTreasuryBookForm: React.FC = () => {
         variables: {
           input: {
             ...values,
-            ownerId,
+            ownerId: '81087108-3748-446a-b033-a85d7c9ace7b',
           },
         },
       })
     },
-    [addTreasuryBook, ownerId],
+    [addTreasuryBook],
   )
 
   return (
