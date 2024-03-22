@@ -1,7 +1,8 @@
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 
 import { TableHeader } from '..'
-import { Button, Icon } from '../..'
+import { Button } from '../..'
+import { Icon } from '../../presentationals'
 
 export interface TableHeadProps<TData extends RowData> {
   /**
@@ -35,19 +36,16 @@ export const TableHead = <TData extends RowData>({
                         )}
                   </span>
                   <span className="ml-auto pl-2">
-                    {header.column.getIsSorted() === 'asc' ? (
+                    {Boolean(header.column.getIsSorted()) && (
                       <Icon.Outline
-                        name="ChevronDown"
-                        className="text-gray size-[0.75rem]"
-                        stroke={1.5}
+                        name={
+                          header.column.getIsSorted() === 'asc'
+                            ? 'ChevronDown'
+                            : 'ChevronUp'
+                        }
+                        className="text-gray size-[0.7rem]"
                       />
-                    ) : header.column.getIsSorted() === 'desc' ? (
-                      <Icon.Outline
-                        name="ChevronUp"
-                        stroke={1.5}
-                        className="text-gray size-[0.75rem]"
-                      />
-                    ) : null}
+                    )}
                   </span>
                 </Button>
               ) : header.isPlaceholder ? null : (

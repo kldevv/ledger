@@ -6,7 +6,6 @@ import { Toaster } from 'react-hot-toast'
 import apolloClient from '@/api/graphql/client'
 import { Notification } from '@/components/core'
 import { CurrentBranchProvider } from '@/components/core/hooks'
-import { AccountsContextProvider } from '@/hooks'
 
 import '../../styles/globals.css'
 
@@ -29,10 +28,8 @@ const App: AppType = ({ Component, pageProps }) => {
       </Head>
       <ApolloProvider client={apolloClient}>
         <CurrentBranchProvider>
-          <AccountsContextProvider>
-            <Component {...pageProps} />
-            <Toaster>{(t) => <Notification {...t} />}</Toaster>
-          </AccountsContextProvider>
+          <Component {...pageProps} />
+          <Toaster>{(t) => <Notification {...t} />}</Toaster>
         </CurrentBranchProvider>
       </ApolloProvider>
     </>
