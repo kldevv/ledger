@@ -3,7 +3,6 @@ import '../styles/globals.css'
 import React from 'react'
 
 import type { Preview } from '@storybook/react'
-import { I18nextProvider } from 'react-i18next'
 import {
   ApolloClient,
   ApolloProvider,

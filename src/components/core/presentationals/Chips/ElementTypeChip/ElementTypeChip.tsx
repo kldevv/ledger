@@ -1,5 +1,7 @@
-import { ElementType } from '@/api/graphql'
 import { useTranslation } from 'next-i18next'
+
+import { ElementType } from '@/api/graphql'
+
 import { Icon } from '../..'
 
 export interface ElementTypeChipProps {

@@ -2,7 +2,7 @@ import prisma from '@/server/db/prisma/client'
 
 import type { Link } from '@prisma/client'
 
-export type FindLinksProps = Partial<Pick<Link, 'userId'>>
+export type FindLinksProps = Pick<Link, 'userId'>
 
 export const findLinks = async (where: FindLinksProps) => {
   return await prisma.link.findMany({

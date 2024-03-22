@@ -29,4 +29,7 @@ type Query {
   totalDebitAndCreditOverTheMonths(
     input: TotalDebitAndCreditOverTheMonthsInput!
   ): [TotalDebitAndCreditOverTheMonths!]!
+
+  # Link
+  links(input: LinksInput!): [Link!]!
 }

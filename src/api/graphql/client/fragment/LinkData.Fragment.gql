@@ -1,0 +1,8 @@
+fragment LinkData on Link {
+  id
+  name
+  createdAt
+  userId
+  type
+  count
+}

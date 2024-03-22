@@ -3,7 +3,7 @@ import i18n from 'i18next'
 import Backend from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-const ns = ['common', 'layout']
+const ns = ['common', 'layout', 'link']
 const supportedLngs = ['en']
 const resources = ns.reduce((acc, n) => {
   supportedLngs.forEach((lng) => {

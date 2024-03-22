@@ -15,11 +15,11 @@
       "title": {
         "journal": "Journal",
         "branch": "Branch",
-        "feature": "Feature",
         "info": "Information"
       },
       "item": {
         "home": "Home",
+        "links": "Links",
         "journals": "Journals",
         "entries": "Entries",
         "accounts": "Accounts",

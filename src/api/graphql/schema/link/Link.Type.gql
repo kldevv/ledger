@@ -1,0 +1,9 @@
+type Link {
+  name: String!
+  id: String!
+  count: Int!
+  type: LinkType!
+  userId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}

@@ -189,6 +189,27 @@ export const EntryStatus = {
 } as const;
 
 export type EntryStatus = typeof EntryStatus[keyof typeof EntryStatus];
+export type Link = {
+  __typename?: 'Link';
+  count: Scalars['Int']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  type: LinkType;
+  updatedAt: Scalars['DateTime']['output'];
+  userId: Scalars['String']['output'];
+};
+
+export const LinkType = {
+  FX: 'FX',
+  GENERAL: 'GENERAL'
+} as const;
+
+export type LinkType = typeof LinkType[keyof typeof LinkType];
+export type LinksInput = {
+  userId: Scalars['String']['input'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addAccount: Account;
@@ -261,6 +282,7 @@ export type Query = {
   categories: Array<Category>;
   category?: Maybe<Category>;
   entries: Array<Entry>;
+  links: Array<Link>;
   tag?: Maybe<Tag>;
   tags: Array<Tag>;
   totalDebitAndCreditOverTheMonths: Array<TotalDebitAndCreditOverTheMonths>;
@@ -298,6 +320,11 @@ export type QueryCategoryArgs = {
 
 export type QueryEntriesArgs = {
   input: EntriesInput;
+};
+
+
+export type QueryLinksArgs = {
+  input: LinksInput;
 };
 
 
@@ -554,6 +581,9 @@ export type ResolversTypes = {
   EntryStatus: EntryStatus;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Link: ResolverTypeWrapper<Link>;
+  LinkType: LinkType;
+  LinksInput: LinksInput;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -600,6 +630,8 @@ export type ResolversParentTypes = {
   Entry: Entry;
   Float: Scalars['Float']['output'];
   Int: Scalars['Int']['output'];
+  Link: Link;
+  LinksInput: LinksInput;
   Mutation: {};
   Query: {};
   String: Scalars['String']['output'];
@@ -681,6 +713,17 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type LinkResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Link'] = ResolversParentTypes['Link']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['LinkType'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
   addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
@@ -701,6 +744,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoriesArgs, 'input'>>;
   category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoryArgs, 'input'>>;
   entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryEntriesArgs, 'input'>>;
+  links?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QueryLinksArgs, 'input'>>;
   tag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagArgs, 'input'>>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagsArgs, 'input'>>;
   totalDebitAndCreditOverTheMonths?: Resolver<Array<ResolversTypes['TotalDebitAndCreditOverTheMonths']>, ParentType, ContextType, RequireFields<QueryTotalDebitAndCreditOverTheMonthsArgs, 'input'>>;
@@ -759,6 +803,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   DateTime?: GraphQLScalarType;
   DebitAndCredit?: DebitAndCreditResolvers<ContextType>;
   Entry?: EntryResolvers<ContextType>;
+  Link?: LinkResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
@@ -775,6 +820,8 @@ export type BaseDataFragment = { __typename?: 'Base', id: string, name: string }
 export type CategoryDataFragment = { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date };
 
 export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null };
+
+export type LinkDataFragment = { __typename?: 'Link', id: string, name: string, createdAt: Date, userId: string, type: LinkType, count: number };
 
 export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number };
 
@@ -851,6 +898,13 @@ export type UpdateTreasuryBookMutationVariables = Exact<{
 
 
 export type UpdateTreasuryBookMutation = { __typename?: 'Mutation', updateTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date } };
+
+export type LinksQueryVariables = Exact<{
+  input: LinksInput;
+}>;
+
+
+export type LinksQuery = { __typename?: 'Query', links: Array<{ __typename?: 'Link', id: string, name: string, createdAt: Date, userId: string, type: LinkType, count: number }> };
 
 export type AccountQueryVariables = Exact<{
   input: AccountInput;
@@ -1015,6 +1069,16 @@ export const EntryDataFragmentDoc = gql`
   status
   transactionId
   createdAt
+}
+    `;
+export const LinkDataFragmentDoc = gql`
+    fragment LinkData on Link {
+  id
+  name
+  createdAt
+  userId
+  type
+  count
 }
     `;
 export const TagDataFragmentDoc = gql`
@@ -1408,6 +1472,46 @@ export function useUpdateTreasuryBookMutation(baseOptions?: Apollo.MutationHookO
 export type UpdateTreasuryBookMutationHookResult = ReturnType<typeof useUpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationResult = Apollo.MutationResult<UpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationOptions = Apollo.BaseMutationOptions<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>;
+export const LinksDocument = gql`
+    query Links($input: LinksInput!) {
+  links(input: $input) {
+    ...LinkData
+  }
+}
+    ${LinkDataFragmentDoc}`;
+
+/**
+ * __useLinksQuery__
+ *
+ * To run a query within a React component, call `useLinksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLinksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLinksQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useLinksQuery(baseOptions: Apollo.QueryHookOptions<LinksQuery, LinksQueryVariables> & ({ variables: LinksQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LinksQuery, LinksQueryVariables>(LinksDocument, options);
+      }
+export function useLinksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LinksQuery, LinksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LinksQuery, LinksQueryVariables>(LinksDocument, options);
+        }
+export function useLinksSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<LinksQuery, LinksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<LinksQuery, LinksQueryVariables>(LinksDocument, options);
+        }
+export type LinksQueryHookResult = ReturnType<typeof useLinksQuery>;
+export type LinksLazyQueryHookResult = ReturnType<typeof useLinksLazyQuery>;
+export type LinksSuspenseQueryHookResult = ReturnType<typeof useLinksSuspenseQuery>;
+export type LinksQueryResult = Apollo.QueryResult<LinksQuery, LinksQueryVariables>;
 export const AccountDocument = gql`
     query Account($input: AccountInput!) {
   account(input: $input) {

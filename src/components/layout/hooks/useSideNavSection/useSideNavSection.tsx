@@ -22,6 +22,11 @@ export const useSideNavSection = () => {
             label: t`hooks.sideNavSection.item.branches`,
             icon: 'Squares2x2',
           },
+          {
+            href: route.link.home,
+            label: t`hooks.sideNavSection.item.links`,
+            icon: 'GlobeAlt',
+          },
         ],
       },
       {

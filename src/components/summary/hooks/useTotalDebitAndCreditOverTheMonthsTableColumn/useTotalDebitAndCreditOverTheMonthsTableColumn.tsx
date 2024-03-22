@@ -1,10 +1,12 @@
-import { TotalDebitAndCreditOverTheMonths } from '@/api/graphql'
-import { FormattedCurrencyNumber } from '@/components/core'
-import { route } from '@/shared'
 import { createColumnHelper } from '@tanstack/react-table'
 import classNames from 'classnames'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+
+import { FormattedCurrencyNumber } from '@/components/core'
+import { route } from '@/shared'
+
+import type { TotalDebitAndCreditOverTheMonths } from '@/api/graphql'
 
 const columnHelper = createColumnHelper<TotalDebitAndCreditOverTheMonths>()
 

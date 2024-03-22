@@ -39,3 +39,8 @@ enum ElementType {
   ACCOUNT_GROUP
   ACCOUNTING_TYPE
 }
+
+enum LinkType {
+  GENERAL
+  FX
+}

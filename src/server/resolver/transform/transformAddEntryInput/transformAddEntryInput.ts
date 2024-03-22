@@ -1,5 +1,5 @@
-import { AddEntryInput } from '@/api/graphql'
-import { CreateEntryProps } from '@/server/db/prisma/dao/transaction'
+import type { AddEntryInput } from '@/api/graphql'
+import type { CreateEntryProps } from '@/server/db/prisma/dao/transaction'
 
 export type TransformAddEntryInputProps = {
   /**
