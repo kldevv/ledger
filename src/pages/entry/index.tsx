@@ -1,7 +1,7 @@
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { TextLink } from '@/components/core'
+import { TextLink } from '@/components/core/presentationals'
 import { EntryDataTable } from '@/components/entry'
 import { Layout, Header } from '@/components/layout'
 import { route } from '@/shared'

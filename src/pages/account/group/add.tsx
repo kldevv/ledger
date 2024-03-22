@@ -2,7 +2,7 @@ import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { AddCategoryFrom } from '@/components/category'
-import { TextLink } from '@/components/core'
+import { TextLink } from '@/components/core/presentationals'
 import { Layout, Header } from '@/components/layout'
 import { route } from '@/shared'
 
