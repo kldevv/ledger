@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
+import { useAccountsQuery } from '@/api/graphql'
 import {
   Form,
   InputText,
@@ -9,8 +10,9 @@ import {
   TagFormDropdown,
 } from '@/components/core'
 import { InputDate } from '@/components/core/Form/InputDate'
+import { useCurrentBranch } from '@/components/core/hooks'
 import { EntryFields, entryFieldDefaultValues } from '@/components/entry'
-import { useAccountsContext, useForm } from '@/hooks'
+import { useForm } from '@/hooks'
 import { addTransactionSchema } from '@/shared'
 
 import type { FormProps } from '@/components/core'
@@ -39,14 +41,22 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   values,
 }) => {
   const { t } = useTranslation('journal')
-  const { data: { accounts } = {} } = useAccountsContext()
+  const [currentBranch] = useCurrentBranch()
+  const { data } = useAccountsQuery({
+    variables: {
+      input: {
+        treasuryBookId: currentBranch?.id ?? '',
+      },
+    },
+    skip: currentBranch?.id == null,
+  })
 
   const entry = useMemo(
     () => ({
       ...entryFieldDefaultValues,
-      accountId: accounts?.at(0)?.id ?? '',
+      accountId: data?.accounts?.at(0)?.id ?? '',
     }),
-    [accounts],
+    [data?.accounts],
   )
 
   const context = useForm<TransactionFormFieldValues>({
