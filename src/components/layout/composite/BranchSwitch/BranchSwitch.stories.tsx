@@ -1,4 +1,3 @@
-import { TreasuryBookContextProvider } from '@/hooks'
 import { useTreasuryBooksQuery } from '@/shared'
 
 import { BranchSwitch } from './BranchSwitch'
@@ -7,11 +6,6 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof BranchSwitch> = {
   component: BranchSwitch,
-  decorators: (Story) => (
-    <TreasuryBookContextProvider>
-      <Story />
-    </TreasuryBookContextProvider>
-  ),
   parameters: {
     msw: {
       handlers: {

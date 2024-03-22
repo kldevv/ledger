@@ -2,9 +2,9 @@ import { Listbox } from '@headlessui/react'
 import classNames from 'classnames'
 import React, { useCallback, useMemo } from 'react'
 
+import { useTreasuryBooksQuery } from '@/api/graphql'
 import { TreasuryBookChip } from '@/components/core'
 import { useCurrentBranch } from '@/components/core/hooks'
-import { useTreasuryBooksQuery } from '@/api/graphql'
 
 export const BranchSwitch: React.FC = () => {
   const [currentBranch, setCurrentBranch] = useCurrentBranch()
@@ -26,8 +26,9 @@ export const BranchSwitch: React.FC = () => {
   )
 
   const handleSetCurrentBranch = useCallback(
-    (value: string) => data?.treasuryBooks.find(({ id }) => id === value),
-    [data?.treasuryBooks, currentBranch?.id],
+    (value: string) =>
+      setCurrentBranch(data?.treasuryBooks.find(({ id }) => id === value)),
+    [data?.treasuryBooks, setCurrentBranch],
   )
 
   return (
