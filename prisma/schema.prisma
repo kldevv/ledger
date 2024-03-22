@@ -44,8 +44,6 @@ model Transaction {
   note           String
   treasuryBook   TreasuryBook @relation(fields: [treasuryBookId], references: [id])
   treasuryBookId String       @map("treasury_book_id")
-  exchangeId     String?      @map("exchange_id")
-  exchange       Exchange?    @relation(fields: [exchangeId], references: [id])
   entries        Entry[]
   tags           Tag[]
   links          Link[]
@@ -101,17 +99,6 @@ model Link {
   deletedAt    DateTime?     @map("deleted_at")
 
   @@map("links")
-}
-
-model Exchange {
-  id           String        @id @default(uuid())
-  ownerId      String        @map("owner_id")
-  transactions Transaction[]
-  createdAt    DateTime      @default(now()) @map("created_at")
-  updatedAt    DateTime      @updatedAt @map("updated_at")
-  deletedAt    DateTime?     @map("deleted_at")
-
-  @@map("exchanges")
 }
 
 model TreasuryBook {

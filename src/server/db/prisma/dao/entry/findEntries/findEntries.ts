@@ -2,19 +2,17 @@ import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
 import logger from '@/server/logger'
 
-import type { Account, Category, Entry, Transaction } from '@prisma/client'
+import type { Account, Category, Entry } from '@prisma/client'
 
 export type FindEntriesProps = Partial<
   Pick<Entry, 'accountId' | 'status' | 'transactionId' | 'treasuryBookId'> &
     Pick<Account, 'categoryId'> &
-    Pick<Category, 'type'> &
-    Pick<Transaction, 'exchangeId'>
+    Pick<Category, 'type'>
 >
 
 export const findEntries = async ({
   categoryId,
   type,
-  exchangeId,
   ...props
 }: FindEntriesProps) => {
   try {
@@ -26,9 +24,6 @@ export const findEntries = async ({
           category: {
             type,
           },
-        },
-        transaction: {
-          exchangeId,
         },
       },
       include: {

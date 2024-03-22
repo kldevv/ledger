@@ -25,10 +25,6 @@ type Query {
   # TreasuryBook
   treasuryBooks(input: TreasuryBooksInput!): [TreasuryBook!]!
 
-  # Exchange
-  exchanges(input: ExchangesInput!): [Exchange!]!
-  exchange(input: ExchangeInput!): Exchange
-
   # Summary
   totalDebitAndCreditOverTheMonths(
     input: TotalDebitAndCreditOverTheMonthsInput!

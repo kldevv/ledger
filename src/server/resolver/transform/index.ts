@@ -1,7 +1,5 @@
 export * from './transformAddEntryInput'
-export * from './transformAddExchangeTransactionInput'
 export * from './transformEntry'
-export * from './transformExchange'
 export * from './transformMonthlyBalance'
 export * from './transformMonthlyChanges'
 export * from './transformTag'

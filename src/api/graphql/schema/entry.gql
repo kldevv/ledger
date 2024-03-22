@@ -22,7 +22,6 @@ input AddEntryInput {
 
 input EntriesInput {
   treasuryBookId: String
-  exchangeId: String
   transactionId: String
   status: EntryStatus
   accountId: String

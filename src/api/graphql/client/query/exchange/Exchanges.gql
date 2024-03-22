@@ -1,5 +1,0 @@
-query Exchanges($input: ExchangesInput!) {
-  exchanges(input: $input) {
-    ...ExchangeData
-  }
-}

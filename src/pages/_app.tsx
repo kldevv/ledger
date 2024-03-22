@@ -1,16 +1,16 @@
 import { ApolloProvider } from '@apollo/client'
+import Head from 'next/head'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Toaster } from 'react-hot-toast'
 
 import apolloClient from '@/api/graphql/client'
 import { Notification } from '@/components/core'
+import { CurrentBranchProvider } from '@/components/core/hooks'
 import { AccountsContextProvider } from '@/hooks'
 
 import '../../styles/globals.css'
 
 import type { AppType } from 'next/app'
-import Head from 'next/head'
-import { CurrentBranchProvider } from '@/components/core/hooks'
 
 const App: AppType = ({ Component, pageProps }) => {
   const { t } = useTranslation('common')

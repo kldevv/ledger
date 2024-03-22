@@ -65,16 +65,6 @@ export const useSideNavSection = () => {
         ],
       },
       {
-        title: t`hooks.sideNavSection.title.feature`,
-        items: [
-          {
-            href: route.xjournal.home,
-            label: t`hooks.sideNavSection.item.xjournals`,
-            icon: 'ArrowRightLeft',
-          },
-        ],
-      },
-      {
         title: t`hooks.sideNavSection.title.info`,
         items: [
           {

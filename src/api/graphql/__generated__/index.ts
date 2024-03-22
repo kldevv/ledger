@@ -75,19 +75,6 @@ export type AddEntryInput = {
   transactionDate: Scalars['DateTime']['input'];
 };
 
-export type AddExchangeInput = {
-  accrualDate: Scalars['DateTime']['input'];
-  destination: AddExchangeTransactionInput;
-  note: Scalars['String']['input'];
-  origin: AddExchangeTransactionInput;
-  ownerId: Scalars['String']['input'];
-};
-
-export type AddExchangeTransactionInput = {
-  entries: Array<AddEntryInput>;
-  treasuryBookId: Scalars['String']['input'];
-};
-
 export type AddTagInput = {
   name: Scalars['String']['input'];
   treasuryBookId: Scalars['String']['input'];
@@ -177,7 +164,6 @@ export type EntriesInput = {
   accountId?: InputMaybe<Scalars['String']['input']>;
   categoryId?: InputMaybe<Scalars['String']['input']>;
   categoryType?: InputMaybe<Scalars['String']['input']>;
-  exchangeId?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<EntryStatus>;
   transactionId?: InputMaybe<Scalars['String']['input']>;
   treasuryBookId?: InputMaybe<Scalars['String']['input']>;
@@ -203,29 +189,10 @@ export const EntryStatus = {
 } as const;
 
 export type EntryStatus = typeof EntryStatus[keyof typeof EntryStatus];
-export type Exchange = {
-  __typename?: 'Exchange';
-  createdAt: Scalars['DateTime']['output'];
-  destination: Transaction;
-  id: Scalars['String']['output'];
-  origin: Transaction;
-  ownerId: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-export type ExchangeInput = {
-  id: Scalars['String']['input'];
-};
-
-export type ExchangesInput = {
-  ownerId: Scalars['String']['input'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   addAccount: Account;
   addCategory: Category;
-  addExchange: Exchange;
   addTag: Tag;
   addTransaction: Transaction;
   addTreasuryBook: TreasuryBook;
@@ -244,11 +211,6 @@ export type MutationAddAccountArgs = {
 
 export type MutationAddCategoryArgs = {
   input: AddCategoryInput;
-};
-
-
-export type MutationAddExchangeArgs = {
-  input: AddExchangeInput;
 };
 
 
@@ -299,8 +261,6 @@ export type Query = {
   categories: Array<Category>;
   category?: Maybe<Category>;
   entries: Array<Entry>;
-  exchange?: Maybe<Exchange>;
-  exchanges: Array<Exchange>;
   tag?: Maybe<Tag>;
   tags: Array<Tag>;
   totalDebitAndCreditOverTheMonths: Array<TotalDebitAndCreditOverTheMonths>;
@@ -338,16 +298,6 @@ export type QueryCategoryArgs = {
 
 export type QueryEntriesArgs = {
   input: EntriesInput;
-};
-
-
-export type QueryExchangeArgs = {
-  input: ExchangeInput;
-};
-
-
-export type QueryExchangesArgs = {
-  input: ExchangesInput;
 };
 
 
@@ -584,8 +534,6 @@ export type ResolversTypes = {
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
-  AddExchangeInput: AddExchangeInput;
-  AddExchangeTransactionInput: AddExchangeTransactionInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
   AddTreasuryBookInput: AddTreasuryBookInput;
@@ -604,9 +552,6 @@ export type ResolversTypes = {
   EntriesInput: EntriesInput;
   Entry: ResolverTypeWrapper<Entry>;
   EntryStatus: EntryStatus;
-  Exchange: ResolverTypeWrapper<Exchange>;
-  ExchangeInput: ExchangeInput;
-  ExchangesInput: ExchangesInput;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -641,8 +586,6 @@ export type ResolversParentTypes = {
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
-  AddExchangeInput: AddExchangeInput;
-  AddExchangeTransactionInput: AddExchangeTransactionInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
   AddTreasuryBookInput: AddTreasuryBookInput;
@@ -655,9 +598,6 @@ export type ResolversParentTypes = {
   DebitAndCredit: DebitAndCredit;
   EntriesInput: EntriesInput;
   Entry: Entry;
-  Exchange: Exchange;
-  ExchangeInput: ExchangeInput;
-  ExchangesInput: ExchangesInput;
   Float: Scalars['Float']['output'];
   Int: Scalars['Int']['output'];
   Mutation: {};
@@ -741,20 +681,9 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type ExchangeResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Exchange'] = ResolversParentTypes['Exchange']> = {
-  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  destination?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  origin?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType>;
-  ownerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
   addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
-  addExchange?: Resolver<ResolversTypes['Exchange'], ParentType, ContextType, RequireFields<MutationAddExchangeArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
   addTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
   addTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationAddTreasuryBookArgs, 'input'>>;
@@ -772,8 +701,6 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoriesArgs, 'input'>>;
   category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoryArgs, 'input'>>;
   entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryEntriesArgs, 'input'>>;
-  exchange?: Resolver<Maybe<ResolversTypes['Exchange']>, ParentType, ContextType, RequireFields<QueryExchangeArgs, 'input'>>;
-  exchanges?: Resolver<Array<ResolversTypes['Exchange']>, ParentType, ContextType, RequireFields<QueryExchangesArgs, 'input'>>;
   tag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagArgs, 'input'>>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagsArgs, 'input'>>;
   totalDebitAndCreditOverTheMonths?: Resolver<Array<ResolversTypes['TotalDebitAndCreditOverTheMonths']>, ParentType, ContextType, RequireFields<QueryTotalDebitAndCreditOverTheMonthsArgs, 'input'>>;
@@ -832,7 +759,6 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   DateTime?: GraphQLScalarType;
   DebitAndCredit?: DebitAndCreditResolvers<ContextType>;
   Entry?: EntryResolvers<ContextType>;
-  Exchange?: ExchangeResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
@@ -849,8 +775,6 @@ export type BaseDataFragment = { __typename?: 'Base', id: string, name: string }
 export type CategoryDataFragment = { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date };
 
 export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null };
-
-export type ExchangeDataFragment = { __typename?: 'Exchange', id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } };
 
 export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number };
 
@@ -885,13 +809,6 @@ export type UpdateCategoryMutationVariables = Exact<{
 
 
 export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory: { __typename?: 'Category', id: string, name: string, type: CategoryType, treasuryBookId: string, createdAt: Date, updatedAt: Date } };
-
-export type AddExchangeMutationVariables = Exact<{
-  input: AddExchangeInput;
-}>;
-
-
-export type AddExchangeMutation = { __typename?: 'Mutation', addExchange: { __typename?: 'Exchange', id: string, ownerId: string, origin: { __typename?: 'Transaction', id: string }, destination: { __typename?: 'Transaction', id: string } } };
 
 export type AddTagMutationVariables = Exact<{
   input: AddTagInput;
@@ -986,21 +903,6 @@ export type EntriesQueryVariables = Exact<{
 
 
 export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
-
-export type ExchangeDetailsQueryVariables = Exact<{
-  exchangeInput: ExchangeInput;
-  entriesInput: EntriesInput;
-}>;
-
-
-export type ExchangeDetailsQuery = { __typename?: 'Query', exchange?: { __typename?: 'Exchange', updatedAt: Date, id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
-
-export type ExchangesQueryVariables = Exact<{
-  input: ExchangesInput;
-}>;
-
-
-export type ExchangesQuery = { __typename?: 'Query', exchanges: Array<{ __typename?: 'Exchange', id: string, ownerId: string, createdAt: Date, origin: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }, destination: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } }> };
 
 export type AccountBalanceQueryVariables = Exact<{
   input: AccountBalanceFilter;
@@ -1115,6 +1017,15 @@ export const EntryDataFragmentDoc = gql`
   createdAt
 }
     `;
+export const TagDataFragmentDoc = gql`
+    fragment TagData on Tag {
+  id
+  name
+  createdAt
+  type
+  count
+}
+    `;
 export const TransactionDataFragmentDoc = gql`
     fragment TransactionData on Transaction {
   id
@@ -1124,28 +1035,6 @@ export const TransactionDataFragmentDoc = gql`
   amount
   createdAt
   treasuryBookId
-}
-    `;
-export const ExchangeDataFragmentDoc = gql`
-    fragment ExchangeData on Exchange {
-  id
-  ownerId
-  origin {
-    ...TransactionData
-  }
-  destination {
-    ...TransactionData
-  }
-  createdAt
-}
-    ${TransactionDataFragmentDoc}`;
-export const TagDataFragmentDoc = gql`
-    fragment TagData on Tag {
-  id
-  name
-  createdAt
-  type
-  count
 }
     `;
 export const TreasuryBookDataFragmentDoc = gql`
@@ -1313,46 +1202,6 @@ export function useUpdateCategoryMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateCategoryMutationHookResult = ReturnType<typeof useUpdateCategoryMutation>;
 export type UpdateCategoryMutationResult = Apollo.MutationResult<UpdateCategoryMutation>;
 export type UpdateCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
-export const AddExchangeDocument = gql`
-    mutation addExchange($input: AddExchangeInput!) {
-  addExchange(input: $input) {
-    id
-    ownerId
-    origin {
-      id
-    }
-    destination {
-      id
-    }
-  }
-}
-    `;
-export type AddExchangeMutationFn = Apollo.MutationFunction<AddExchangeMutation, AddExchangeMutationVariables>;
-
-/**
- * __useAddExchangeMutation__
- *
- * To run a mutation, you first call `useAddExchangeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddExchangeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addExchangeMutation, { data, loading, error }] = useAddExchangeMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useAddExchangeMutation(baseOptions?: Apollo.MutationHookOptions<AddExchangeMutation, AddExchangeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddExchangeMutation, AddExchangeMutationVariables>(AddExchangeDocument, options);
-      }
-export type AddExchangeMutationHookResult = ReturnType<typeof useAddExchangeMutation>;
-export type AddExchangeMutationResult = Apollo.MutationResult<AddExchangeMutation>;
-export type AddExchangeMutationOptions = Apollo.BaseMutationOptions<AddExchangeMutation, AddExchangeMutationVariables>;
 export const AddTagDocument = gql`
     mutation addTag($input: AddTagInput!) {
   addTag(input: $input) {
@@ -1865,92 +1714,6 @@ export type EntriesQueryHookResult = ReturnType<typeof useEntriesQuery>;
 export type EntriesLazyQueryHookResult = ReturnType<typeof useEntriesLazyQuery>;
 export type EntriesSuspenseQueryHookResult = ReturnType<typeof useEntriesSuspenseQuery>;
 export type EntriesQueryResult = Apollo.QueryResult<EntriesQuery, EntriesQueryVariables>;
-export const ExchangeDetailsDocument = gql`
-    query ExchangeDetails($exchangeInput: ExchangeInput!, $entriesInput: EntriesInput!) {
-  exchange(input: $exchangeInput) {
-    ...ExchangeData
-    updatedAt
-  }
-  entries(input: $entriesInput) {
-    ...EntryData
-  }
-}
-    ${ExchangeDataFragmentDoc}
-${EntryDataFragmentDoc}`;
-
-/**
- * __useExchangeDetailsQuery__
- *
- * To run a query within a React component, call `useExchangeDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useExchangeDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useExchangeDetailsQuery({
- *   variables: {
- *      exchangeInput: // value for 'exchangeInput'
- *      entriesInput: // value for 'entriesInput'
- *   },
- * });
- */
-export function useExchangeDetailsQuery(baseOptions: Apollo.QueryHookOptions<ExchangeDetailsQuery, ExchangeDetailsQueryVariables> & ({ variables: ExchangeDetailsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>(ExchangeDetailsDocument, options);
-      }
-export function useExchangeDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>(ExchangeDetailsDocument, options);
-        }
-export function useExchangeDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>(ExchangeDetailsDocument, options);
-        }
-export type ExchangeDetailsQueryHookResult = ReturnType<typeof useExchangeDetailsQuery>;
-export type ExchangeDetailsLazyQueryHookResult = ReturnType<typeof useExchangeDetailsLazyQuery>;
-export type ExchangeDetailsSuspenseQueryHookResult = ReturnType<typeof useExchangeDetailsSuspenseQuery>;
-export type ExchangeDetailsQueryResult = Apollo.QueryResult<ExchangeDetailsQuery, ExchangeDetailsQueryVariables>;
-export const ExchangesDocument = gql`
-    query Exchanges($input: ExchangesInput!) {
-  exchanges(input: $input) {
-    ...ExchangeData
-  }
-}
-    ${ExchangeDataFragmentDoc}`;
-
-/**
- * __useExchangesQuery__
- *
- * To run a query within a React component, call `useExchangesQuery` and pass it any options that fit your needs.
- * When your component renders, `useExchangesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useExchangesQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useExchangesQuery(baseOptions: Apollo.QueryHookOptions<ExchangesQuery, ExchangesQueryVariables> & ({ variables: ExchangesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ExchangesQuery, ExchangesQueryVariables>(ExchangesDocument, options);
-      }
-export function useExchangesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExchangesQuery, ExchangesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ExchangesQuery, ExchangesQueryVariables>(ExchangesDocument, options);
-        }
-export function useExchangesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ExchangesQuery, ExchangesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ExchangesQuery, ExchangesQueryVariables>(ExchangesDocument, options);
-        }
-export type ExchangesQueryHookResult = ReturnType<typeof useExchangesQuery>;
-export type ExchangesLazyQueryHookResult = ReturnType<typeof useExchangesLazyQuery>;
-export type ExchangesSuspenseQueryHookResult = ReturnType<typeof useExchangesSuspenseQuery>;
-export type ExchangesQueryResult = Apollo.QueryResult<ExchangesQuery, ExchangesQueryVariables>;
 export const AccountBalanceDocument = gql`
     query AccountBalance($input: AccountBalanceFilter!) {
   accountBalance(input: $input) {

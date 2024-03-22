@@ -5,7 +5,7 @@ import logger from '@/server/logger'
 import type { EntryStatus, Transaction } from '@prisma/client'
 
 export type FindTransactionsProps = Partial<
-  Pick<Transaction, 'exchangeId' | 'treasuryBookId'>
+  Pick<Transaction, 'treasuryBookId'>
 > & {
   /**
    * Relational field: tag id
