@@ -12,19 +12,19 @@ export const useLinksTableCol = () => {
 
   return [
     columnHelper.accessor(({ id, name }) => ({ id, name }), {
-      header: t`useLinksTableCol.name`,
+      header: t`linksTable.col.name`,
       cell: ({ getValue }) => (
         <TextLink href={getValue().id}>{getValue().name}</TextLink>
       ),
     }),
     columnHelper.accessor('type', {
-      header: t`useLinksTableCol.type`,
+      header: t`linksTable.col.type`,
     }),
     columnHelper.accessor('count', {
-      header: t`useLinksTableCol.count`,
+      header: t`linksTable.col.count`,
     }),
     columnHelper.accessor('createdAt', {
-      header: t`useLinksTableCol.createdAt`,
+      header: t`linksTable.col.createdAt`,
     }),
   ]
 }

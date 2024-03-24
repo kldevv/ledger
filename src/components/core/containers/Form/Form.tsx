@@ -3,6 +3,9 @@ import type { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form'
 import { useCallback } from 'react'
 import { FormProvider } from 'react-hook-form'
 
+import { FormInput } from './Form.Input/Form.Input'
+import { FormSubmit } from './Form.Submit/Form.Submit'
+
 export interface FormProps<TFieldValues extends FieldValues>
   extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> {
   /**
@@ -23,6 +26,7 @@ export const Form = <TFieldValues extends FieldValues>({
   children,
   onSubmit,
   context,
+  className,
   ...props
 }: FormProps<TFieldValues>) => {
   const { handleSubmit } = context
@@ -39,8 +43,11 @@ export const Form = <TFieldValues extends FieldValues>({
   return (
     <FormProvider {...context}>
       <form {...props} className="w-full" onSubmit={handleOnSubmit}>
-        {children}
+        <div className={className}>{children}</div>
       </form>
     </FormProvider>
   )
 }
+
+Form.Input = FormInput
+Form.Submit = FormSubmit

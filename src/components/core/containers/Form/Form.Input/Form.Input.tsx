@@ -11,10 +11,16 @@ export interface FormInputProps<TFieldValues extends FieldValues> {
    * Input name
    */
   name: Path<TFieldValues>
+  /**
+   * Input placeholder
+   */
+  placeholder?: string
 }
 
 export const FormInput = <TFieldValues extends FieldValues>({
   name,
+  label,
+  placeholder,
 }: FormInputProps<TFieldValues>) => {
   const {
     field: { onChange, onBlur, value, ref, disabled },
@@ -24,13 +30,14 @@ export const FormInput = <TFieldValues extends FieldValues>({
   })
 
   return (
-    <Input error={error?.message}>
+    <Input error={error?.message} label={label}>
       <Input.Text
         onChange={onChange}
         onBlur={onBlur}
         value={value ?? ''}
         ref={ref}
         disabled={disabled}
+        placeholder={placeholder}
       />
     </Input>
   )

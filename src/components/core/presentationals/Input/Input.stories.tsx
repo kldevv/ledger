@@ -19,7 +19,7 @@ export const Text: Story = {
 
 export const WithError: Story = {
   render: (args) => (
-    <Input {...args} error="Error text.">
+    <Input {...args} error="This is an error.">
       <Input.Text />
     </Input>
   ),
@@ -27,8 +27,24 @@ export const WithError: Story = {
 
 export const WithLabel: Story = {
   render: (args) => (
-    <Input {...args} label="label">
+    <Input {...args} label="Input label">
       <Input.Text />
+    </Input>
+  ),
+}
+
+export const WithLabelAndError: Story = {
+  render: (args) => (
+    <Input {...args} label="Input label" error="This is an error.">
+      <Input.Text />
+    </Input>
+  ),
+}
+
+export const Placeholder: Story = {
+  render: (args) => (
+    <Input {...args}>
+      <Input.Text placeholder="This is a placeholder..." />
     </Input>
   ),
 }

@@ -1,8 +1,20 @@
 {
-  "useLinksTableCol": {
-    "name": "Name",
-    "type": "Type",
-    "createdAt": "Create Date",
-    "count": "Transaction Count"
+  "linksTable": {
+    "col": {
+      "name": "Name",
+      "type": "Type",
+      "createdAt": "Create Date",
+      "count": "Transaction Count"
+    }
+  },
+  "addLinkForm": {
+    "label": {
+      "name": "Name",
+      "type": "Type"
+    },
+    "placeholder": {
+      "name": "Enter link name",
+      "type": "Select link type"
+    }
   }
 }
