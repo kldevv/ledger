@@ -1,4 +1,5 @@
-export * from './Icon/Icon'
-export * from './TextLink/TextLink'
 export * from './Chips'
+export * from './Icon/Icon'
+export * from './Input/Input'
 export * from './Table.Filters'
+export * from './TextLink/TextLink'

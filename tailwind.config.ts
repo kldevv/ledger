@@ -29,6 +29,7 @@ const config: Config = {
 
       // rainbow color palette
       red: 'rgb(255, 96, 92)', // #FF605C
+      'dark-red': 'rgb(139, 0, 0)', // #8B0000
       yellow: 'rgb(255, 189, 68)', // #FFBD44
       green: 'rgb(0, 202, 78)', // #FFBD44
 

@@ -18,6 +18,7 @@ const AddLinkPage: React.FC = () => {
           <Trans
             i18nKey={'pages:link.add.section'}
             components={{
+              journal: <TextLink href={route.journal.home} />,
               branch: <TextLink href={route.branch.home} />,
             }}
           />

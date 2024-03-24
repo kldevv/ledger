@@ -1,5 +1,6 @@
-import { TreasuryBook } from '@/api/graphql'
 import { createContext } from 'react'
+
+import type { TreasuryBook } from '@/api/graphql'
 
 type CurrentBranch = TreasuryBook | undefined
 
