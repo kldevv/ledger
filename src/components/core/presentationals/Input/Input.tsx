@@ -34,7 +34,7 @@ export const Input = ({ children, error, label, className }: InputProps) => {
           {label}
         </label>
       )}
-      <div className="border-mid-gray w-full min-w-32 rounded-md border px-2 py-1 text-xs">
+      <div className="border-mid-gray w-full min-w-32 rounded-md border bg-white px-2 py-1 text-xs">
         {React.isValidElement<InputTextProps>(children) && children}
       </div>
       {error != null && (

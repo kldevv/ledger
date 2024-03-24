@@ -15,6 +15,11 @@
     "placeholder": {
       "name": "Enter link name",
       "type": "Select link type"
-    }
+    },
+    "linkType": {
+      "FX": "Foreign Transaction",
+      "GENERAL": "General"
+    },
+    "submit": "Create New Link"
   }
 }

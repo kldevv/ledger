@@ -9,11 +9,15 @@ import {
   type DropdownSelectProps,
 } from './Dropdown.Select/Dropdown.Select'
 
+import type { OutlineIconProps, SolidIconProps } from '..'
+
 export type DropdownItem<T> = {
   id: string
   value: T
-  title: React.ReactNode
-  desc?: React.ReactNode
+  outlineIcon?: OutlineIconProps['name']
+  solidIcon?: SolidIconProps['name']
+  title: string
+  desc?: string
 }
 
 export interface DropdownProps {

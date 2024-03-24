@@ -1,9 +1,11 @@
 import classNames from 'classnames'
 
+import { Icon } from '../..'
+
 import type { DropdownItem } from '../Dropdown'
 import type { UseSelectPropGetters } from 'downshift'
 
-export interface DropdownOptionsProps<ItemValue>
+export interface DropdownOptionsProps<ItemValue = string>
   extends Partial<
     Omit<
       UseSelectPropGetters<ItemValue>,
@@ -57,8 +59,17 @@ export const DropdownOptions = <ItemValue,>({
             {...getItemProps?.({ item: item.value, index })}
           >
             <span
-              className={classNames({ 'font-semibold': selectedItem === item })}
+              className={classNames('flex gap-2 items-center', {
+                'font-semibold': selectedItem === item,
+              })}
             >
+              {item?.outlineIcon != null ? (
+                <Icon.Outline name={item.outlineIcon} className="size-2.5" />
+              ) : (
+                item?.solidIcon && (
+                  <Icon.Solid name={item.solidIcon} className="size-2.5" />
+                )
+              )}
               {item.title}
             </span>
             {item.desc != null && (

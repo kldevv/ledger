@@ -3,6 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { TextLink } from '@/components/core/presentationals'
 import { Layout, Header } from '@/components/layout'
+import { AddLinkForm } from '@/components/link/containers'
 import { route } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
@@ -24,6 +25,7 @@ const AddLinkPage: React.FC = () => {
           />
         }
       />
+      <AddLinkForm />
     </Layout>
   )
 }

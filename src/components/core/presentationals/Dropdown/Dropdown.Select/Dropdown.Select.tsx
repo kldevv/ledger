@@ -6,6 +6,7 @@ import { Icon } from '../..'
 
 import type { DropdownItem } from '../Dropdown'
 import type { DropdownOptionsProps } from '../Dropdown.Options/Dropdown.Options'
+import type { UseSelectSelectedItemChange } from 'downshift'
 
 export interface DropdownSelectProps<ItemValue> {
   /**
@@ -24,6 +25,16 @@ export interface DropdownSelectProps<ItemValue> {
    * Children
    */
   children: React.ReactNode
+  /**
+   * On change
+   */
+  onChange?: (
+    change: UseSelectSelectedItemChange<DropdownItem<ItemValue>> | null,
+  ) => void
+  /**
+   * Value
+   */
+  value?: DropdownItem<ItemValue>
 }
 
 export const DropdownSelect = <ItemValue,>({
@@ -31,6 +42,8 @@ export const DropdownSelect = <ItemValue,>({
   placeholder,
   children,
   className,
+  onChange,
+  value,
 }: DropdownSelectProps<ItemValue>) => {
   const {
     isOpen,
@@ -41,6 +54,9 @@ export const DropdownSelect = <ItemValue,>({
     getItemProps,
   } = useSelect({
     items,
+    onSelectedItemChange: onChange,
+    selectedItem: value ?? null,
+    itemToString: (item) => item?.title ?? '',
   })
 
   return (
@@ -53,7 +69,22 @@ export const DropdownSelect = <ItemValue,>({
         {...getToggleButtonProps()}
       >
         {selectedItem ? (
-          <span>{selectedItem.title}</span>
+          <span className="flex items-center gap-2">
+            {selectedItem?.outlineIcon != null ? (
+              <Icon.Outline
+                name={selectedItem.outlineIcon}
+                className="size-2.5"
+              />
+            ) : (
+              selectedItem?.solidIcon && (
+                <Icon.Solid
+                  name={selectedItem.solidIcon}
+                  className="size-2.5"
+                />
+              )
+            )}
+            {selectedItem.title}
+          </span>
         ) : (
           <span className="text-gray min-h-4 min-w-20 select-none">
             {placeholder}
@@ -62,7 +93,7 @@ export const DropdownSelect = <ItemValue,>({
         <span className="px-2">
           <Icon.Outline
             name="ChevronDown"
-            className={classNames('size-2 text-gray', {
+            className={classNames('size-1.5 text-gray', {
               'transform rotate-180': isOpen,
             })}
           />

@@ -3,6 +3,7 @@ import type { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form'
 import { useCallback } from 'react'
 import { FormProvider } from 'react-hook-form'
 
+import { FormDropdown } from './Form.Dropdown/Form.Dropdown'
 import { FormInput } from './Form.Input/Form.Input'
 import { FormSubmit } from './Form.Submit/Form.Submit'
 
@@ -50,4 +51,5 @@ export const Form = <TFieldValues extends FieldValues>({
 }
 
 Form.Input = FormInput
+Form.Dropdown = FormDropdown
 Form.Submit = FormSubmit
