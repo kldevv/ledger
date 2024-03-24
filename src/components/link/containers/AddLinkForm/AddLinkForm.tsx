@@ -30,7 +30,7 @@ export const AddLinkForm = () => {
         <Form.Input<AddLinkFormValues>
           label={t`addLinkForm.label.name`}
           name="name"
-          placeholder="addLinkForm.placeholder.name"
+          placeholder={t`addLinkForm.placeholder.name`}
         />
         <Form.Input<AddLinkFormValues>
           label={t`addLinkForm.label.type`}

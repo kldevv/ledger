@@ -33,17 +33,17 @@ export const WithLabel: Story = {
   ),
 }
 
-export const WithLabelAndError: Story = {
+export const WithPlaceholder: Story = {
   render: (args) => (
-    <Input {...args} label="Input label" error="This is an error.">
-      <Input.Text />
+    <Input {...args}>
+      <Input.Text placeholder="This is a placeholder..." />
     </Input>
   ),
 }
 
-export const Placeholder: Story = {
+export const WithAll: Story = {
   render: (args) => (
-    <Input {...args}>
+    <Input {...args} label="Input label" error="This is an error.">
       <Input.Text placeholder="This is a placeholder..." />
     </Input>
   ),

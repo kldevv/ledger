@@ -8,7 +8,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
   ({ className, ...props }, ref) => {
     return (
       <input
-        className={classNames('cursor-text outline-none', className)}
+        className={classNames('cursor-text outline-none w-full', className)}
         ref={ref}
         autoComplete="on"
         {...props}

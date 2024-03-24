@@ -1,73 +1,76 @@
-import { Listbox } from '@headlessui/react'
-import { useMemo } from 'react'
+import classNames from 'classnames'
+import React from 'react'
 
-import { Label } from './Dropdown.Label'
-import { Options, type OptionsProps } from './Dropdown.Options'
-import { Trigger } from './Dropdown.Trigger'
+import { Icon } from '..'
+
+import { DropdownOptions } from './Dropdown.Options/Dropdown.Options'
+import {
+  DropdownSelect,
+  type DropdownSelectProps,
+} from './Dropdown.Select/Dropdown.Select'
+
+export type DropdownItem<T> = {
+  id: string
+  value: T
+  title: React.ReactNode
+  desc?: React.ReactNode
+}
 
 export interface DropdownProps {
   /**
-   * Value
+   * Error message
    */
-  value: string | string[]
-  /**
-   * Options
-   */
-  options: OptionsProps['options']
-  /**
-   * On value change
-   */
-  onChange: (value: string) => null
-  /**
-   * On blur
-   */
-  onBlur: () => null
+  error?: string
   /**
    * Label
    */
-  label: string
+  label?: string
   /**
-   * Is loading?
+   * Children
    */
-  loading?: boolean
+  children: React.ReactElement
   /**
-   * Is multiple selection
+   * Overriding class name
    */
-  multiple?: boolean
-  /**
-   * Name
-   */
-  name: string
-  /**
-   * Is disable?
-   */
-  disable?: boolean
+  className?: string
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({
-  options,
+export const Dropdown = <ItemValue,>({
   label,
-  value,
-  multiple = false,
-  ...props
+  error,
+  children,
+  className,
 }: DropdownProps) => {
-  const display = useMemo(() => {
-    return multiple
-      ? options.find((option) => option.value === value)?.label
-      : options
-          .filter((option) => value.includes(option.value))
-          .map(({ label }) => label)
-  }, [multiple, options, value])
-
   return (
-    <Listbox {...props} value={value} multiple={multiple}>
-      {({ open }) => (
-        <div className="relative flex w-full flex-col">
-          <Label label={label} />
-          <Trigger open={open} display={display} />
-          <Options options={options} />
+    <div className={classNames('w-full', className)}>
+      {label != null && (
+        <label className="text-gray whitespace-nowrap text-[0.625rem] font-medium">
+          {label}
+        </label>
+      )}
+      <div className="border-mid-gray w-full rounded-md border text-xs">
+        {React.isValidElement<DropdownSelectProps<ItemValue>>(children) &&
+          React.cloneElement(children, { className: 'px-2 py-1 rounded-md' })}
+      </div>
+      {error != null && (
+        <div
+          className={classNames(
+            'text-dark-red/90 flex leading-4 text-[0.625rem] overflow-auto',
+            className,
+          )}
+        >
+          <span>
+            <Icon.Solid
+              name="ExclamationCircle"
+              className="mt-1 size-[0.7rem]"
+            />
+          </span>
+          <span className="ml-0.5">{error}</span>
         </div>
       )}
-    </Listbox>
+    </div>
   )
 }
+
+Dropdown.Select = DropdownSelect
+Dropdown.Options = DropdownOptions

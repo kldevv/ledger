@@ -5,6 +5,8 @@ import { Icon } from '..'
 
 import { InputText } from './Input.Text/Input.Text'
 
+import type { InputTextProps } from './Input.Text/Input.Text'
+
 export interface InputProps {
   /**
    * Error message
@@ -26,28 +28,21 @@ export interface InputProps {
 
 export const Input = ({ children, error, label, className }: InputProps) => {
   return (
-    <div className="w-min">
+    <div className={classNames('w-full', className)}>
       {label != null && (
-        <div>
-          <label className="text-gray text-[0.625rem] font-medium">
-            {label}
-          </label>
-        </div>
+        <label className="text-gray whitespace-nowrap text-[0.625rem] font-medium">
+          {label}
+        </label>
       )}
-      <div className="border-mid-gray w-fit rounded-md border px-2 py-1 text-xs">
-        {children}
+      <div className="border-mid-gray w-full min-w-32 rounded-md border px-2 py-1 text-xs">
+        {React.isValidElement<InputTextProps>(children) && children}
       </div>
       {error != null && (
-        <div
-          className={classNames(
-            'text-dark-red/90 flex leading-4 text-[0.625rem]',
-            className,
-          )}
-        >
+        <div className="text-dark-red/90 flex text-[0.625rem] leading-4">
           <span>
             <Icon.Solid
               name="ExclamationCircle"
-              className="mt-1 size-[0.7rem]"
+              className="mt-0.5 size-[0.7rem]"
             />
           </span>
           <span className="ml-0.5">{error}</span>
