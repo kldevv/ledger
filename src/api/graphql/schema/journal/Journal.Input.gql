@@ -1,0 +1,6 @@
+input JournalsInput {
+  branchId: String
+  tagId: String
+  status: EntryStatus
+  linkId: String
+}

@@ -1,0 +1,13 @@
+type Journal {
+  id: String!
+  accrualDate: DateTime!
+  note: String!
+  tags: [Tag!]
+  links: [Link!]
+  branchId: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+  status: EntryStatus!
+  amount: Float!
+}

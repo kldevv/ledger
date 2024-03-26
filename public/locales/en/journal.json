@@ -43,14 +43,15 @@
       "tags": "Tags"
     }
   },
-  "page": {
-    "index": {
-      "action": "Add Transaction"
+  "journalsTable": {
+    "col": {
+      "note": "Note",
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status",
+      "createdAt": "Create Date",
+      "details": "Details"
     },
-    "[id]": {
-      "index": {
-        "action": "Edit"
-      }
-    }
+    "viewer": "Viewer"
   }
 }

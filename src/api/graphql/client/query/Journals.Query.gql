@@ -1,0 +1,5 @@
+query Journals($input: JournalsInput!) {
+  journals(input: $input) {
+    ...JournalData
+  }
+}

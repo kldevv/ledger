@@ -1,0 +1,5 @@
+query Link($input: LinkInput!) {
+  link(input: $input) {
+    ...LinkData
+  }
+}

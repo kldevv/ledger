@@ -66,5 +66,8 @@
   "dateStandardFilter": {
     "ACCRUAL": "By Accrual Standard",
     "TRANSACTION": "By Transaction (Cash) Standard"
+  },
+  "table": {
+    "empty": "No Data Found"
   }
 }

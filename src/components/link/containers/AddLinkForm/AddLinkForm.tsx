@@ -1,7 +1,7 @@
 import { Trans, useTranslation } from 'next-i18next'
 import { z } from 'zod'
 
-import { LinkType, useAddLinkMutation } from '@/api/graphql'
+import { LinkType, LinksDocument, useAddLinkMutation } from '@/api/graphql'
 import { Card } from '@/components/core'
 import { Form } from '@/components/core/containers'
 import { useForm } from '@/components/core/hooks'
@@ -42,6 +42,14 @@ export const AddLinkForm: React.FC = () => {
           values={{ name: addLink.name }}
         />
       )),
+    refetchQueries: [
+      {
+        query: LinksDocument,
+        variables: {
+          input: { userId: '81087108-3748-446a-b033-a85d7c9ace7b' },
+        },
+      },
+    ],
   })
 
   const handleSubmit = ({ name, type }: AddLinkFormValues) => {

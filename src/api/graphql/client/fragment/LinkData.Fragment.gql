@@ -6,4 +6,5 @@ fragment LinkData on Link {
   count
   createdAt
   updatedAt
+  deletedAt
 }

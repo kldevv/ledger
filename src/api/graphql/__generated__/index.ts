@@ -195,15 +195,42 @@ export const EntryStatus = {
 } as const;
 
 export type EntryStatus = typeof EntryStatus[keyof typeof EntryStatus];
+export type Journal = {
+  __typename?: 'Journal';
+  accrualDate: Scalars['DateTime']['output'];
+  amount: Scalars['Float']['output'];
+  branchId?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['String']['output'];
+  links?: Maybe<Array<Link>>;
+  note: Scalars['String']['output'];
+  status: EntryStatus;
+  tags?: Maybe<Array<Tag>>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type JournalsInput = {
+  branchId?: InputMaybe<Scalars['String']['input']>;
+  linkId?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<EntryStatus>;
+  tagId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Link = {
   __typename?: 'Link';
   count: Scalars['Int']['output'];
   createdAt: Scalars['DateTime']['output'];
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   type: LinkType;
   updatedAt: Scalars['DateTime']['output'];
   userId: Scalars['String']['output'];
+};
+
+export type LinkInput = {
+  id: Scalars['String']['input'];
 };
 
 export const LinkType = {
@@ -294,6 +321,8 @@ export type Query = {
   categories: Array<Category>;
   category?: Maybe<Category>;
   entries: Array<Entry>;
+  journals: Array<Journal>;
+  link?: Maybe<Link>;
   links: Array<Link>;
   tag?: Maybe<Tag>;
   tags: Array<Tag>;
@@ -332,6 +361,16 @@ export type QueryCategoryArgs = {
 
 export type QueryEntriesArgs = {
   input: EntriesInput;
+};
+
+
+export type QueryJournalsArgs = {
+  input: JournalsInput;
+};
+
+
+export type QueryLinkArgs = {
+  input: LinkInput;
 };
 
 
@@ -594,7 +633,10 @@ export type ResolversTypes = {
   EntryStatus: EntryStatus;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Journal: ResolverTypeWrapper<Journal>;
+  JournalsInput: JournalsInput;
   Link: ResolverTypeWrapper<Link>;
+  LinkInput: LinkInput;
   LinkType: LinkType;
   LinksInput: LinksInput;
   Mutation: ResolverTypeWrapper<{}>;
@@ -644,7 +686,10 @@ export type ResolversParentTypes = {
   Entry: Entry;
   Float: Scalars['Float']['output'];
   Int: Scalars['Int']['output'];
+  Journal: Journal;
+  JournalsInput: JournalsInput;
   Link: Link;
+  LinkInput: LinkInput;
   LinksInput: LinksInput;
   Mutation: {};
   Query: {};
@@ -727,9 +772,25 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type JournalResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Journal'] = ResolversParentTypes['Journal']> = {
+  accrualDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  amount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  branchId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  links?: Resolver<Maybe<Array<ResolversTypes['Link']>>, ParentType, ContextType>;
+  note?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['EntryStatus'], ParentType, ContextType>;
+  tags?: Resolver<Maybe<Array<ResolversTypes['Tag']>>, ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type LinkResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Link'] = ResolversParentTypes['Link']> = {
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['LinkType'], ParentType, ContextType>;
@@ -759,6 +820,8 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoriesArgs, 'input'>>;
   category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoryArgs, 'input'>>;
   entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryEntriesArgs, 'input'>>;
+  journals?: Resolver<Array<ResolversTypes['Journal']>, ParentType, ContextType, RequireFields<QueryJournalsArgs, 'input'>>;
+  link?: Resolver<Maybe<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QueryLinkArgs, 'input'>>;
   links?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QueryLinksArgs, 'input'>>;
   tag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagArgs, 'input'>>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagsArgs, 'input'>>;
@@ -818,6 +881,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   DateTime?: GraphQLScalarType;
   DebitAndCredit?: DebitAndCreditResolvers<ContextType>;
   Entry?: EntryResolvers<ContextType>;
+  Journal?: JournalResolvers<ContextType>;
   Link?: LinkResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
@@ -836,7 +900,9 @@ export type CategoryDataFragment = { __typename?: 'Category', id: string, name: 
 
 export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null };
 
-export type LinkDataFragment = { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date };
+export type JournalDataFragment = { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date };
+
+export type LinkDataFragment = { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null };
 
 export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number };
 
@@ -849,7 +915,7 @@ export type AddLinkMutationVariables = Exact<{
 }>;
 
 
-export type AddLinkMutation = { __typename?: 'Mutation', addLink: { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date } };
+export type AddLinkMutation = { __typename?: 'Mutation', addLink: { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
 
 export type AddAccountMutationVariables = Exact<{
   input: AddAccountInput;
@@ -921,12 +987,26 @@ export type UpdateTreasuryBookMutationVariables = Exact<{
 
 export type UpdateTreasuryBookMutation = { __typename?: 'Mutation', updateTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date } };
 
+export type JournalsQueryVariables = Exact<{
+  input: JournalsInput;
+}>;
+
+
+export type JournalsQuery = { __typename?: 'Query', journals: Array<{ __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date }> };
+
+export type LinkQueryVariables = Exact<{
+  input: LinkInput;
+}>;
+
+
+export type LinkQuery = { __typename?: 'Query', link?: { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } | null };
+
 export type LinksQueryVariables = Exact<{
   input: LinksInput;
 }>;
 
 
-export type LinksQuery = { __typename?: 'Query', links: Array<{ __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date }> };
+export type LinksQuery = { __typename?: 'Query', links: Array<{ __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null }> };
 
 export type AccountQueryVariables = Exact<{
   input: AccountInput;
@@ -1093,6 +1173,16 @@ export const EntryDataFragmentDoc = gql`
   createdAt
 }
     `;
+export const JournalDataFragmentDoc = gql`
+    fragment JournalData on Journal {
+  id
+  accrualDate
+  note
+  status
+  amount
+  createdAt
+}
+    `;
 export const LinkDataFragmentDoc = gql`
     fragment LinkData on Link {
   id
@@ -1102,6 +1192,7 @@ export const LinkDataFragmentDoc = gql`
   count
   createdAt
   updatedAt
+  deletedAt
 }
     `;
 export const TagDataFragmentDoc = gql`
@@ -1528,6 +1619,86 @@ export function useUpdateTreasuryBookMutation(baseOptions?: Apollo.MutationHookO
 export type UpdateTreasuryBookMutationHookResult = ReturnType<typeof useUpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationResult = Apollo.MutationResult<UpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationOptions = Apollo.BaseMutationOptions<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>;
+export const JournalsDocument = gql`
+    query Journals($input: JournalsInput!) {
+  journals(input: $input) {
+    ...JournalData
+  }
+}
+    ${JournalDataFragmentDoc}`;
+
+/**
+ * __useJournalsQuery__
+ *
+ * To run a query within a React component, call `useJournalsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useJournalsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useJournalsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useJournalsQuery(baseOptions: Apollo.QueryHookOptions<JournalsQuery, JournalsQueryVariables> & ({ variables: JournalsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<JournalsQuery, JournalsQueryVariables>(JournalsDocument, options);
+      }
+export function useJournalsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<JournalsQuery, JournalsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<JournalsQuery, JournalsQueryVariables>(JournalsDocument, options);
+        }
+export function useJournalsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<JournalsQuery, JournalsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<JournalsQuery, JournalsQueryVariables>(JournalsDocument, options);
+        }
+export type JournalsQueryHookResult = ReturnType<typeof useJournalsQuery>;
+export type JournalsLazyQueryHookResult = ReturnType<typeof useJournalsLazyQuery>;
+export type JournalsSuspenseQueryHookResult = ReturnType<typeof useJournalsSuspenseQuery>;
+export type JournalsQueryResult = Apollo.QueryResult<JournalsQuery, JournalsQueryVariables>;
+export const LinkDocument = gql`
+    query Link($input: LinkInput!) {
+  link(input: $input) {
+    ...LinkData
+  }
+}
+    ${LinkDataFragmentDoc}`;
+
+/**
+ * __useLinkQuery__
+ *
+ * To run a query within a React component, call `useLinkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLinkQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLinkQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useLinkQuery(baseOptions: Apollo.QueryHookOptions<LinkQuery, LinkQueryVariables> & ({ variables: LinkQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LinkQuery, LinkQueryVariables>(LinkDocument, options);
+      }
+export function useLinkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LinkQuery, LinkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LinkQuery, LinkQueryVariables>(LinkDocument, options);
+        }
+export function useLinkSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<LinkQuery, LinkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<LinkQuery, LinkQueryVariables>(LinkDocument, options);
+        }
+export type LinkQueryHookResult = ReturnType<typeof useLinkQuery>;
+export type LinkLazyQueryHookResult = ReturnType<typeof useLinkLazyQuery>;
+export type LinkSuspenseQueryHookResult = ReturnType<typeof useLinkSuspenseQuery>;
+export type LinkQueryResult = Apollo.QueryResult<LinkQuery, LinkQueryVariables>;
 export const LinksDocument = gql`
     query Links($input: LinksInput!) {
   links(input: $input) {

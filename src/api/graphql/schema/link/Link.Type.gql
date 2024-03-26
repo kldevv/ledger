@@ -6,4 +6,5 @@ type Link {
   userId: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  deletedAt: DateTime
 }

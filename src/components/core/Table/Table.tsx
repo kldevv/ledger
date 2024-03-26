@@ -4,9 +4,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
 
 import { Pagination } from '..'
+import { Icon } from '../presentationals'
 
 import { TableBody } from './TableBody'
 import { TableHead } from './TableHead'
@@ -36,10 +38,10 @@ export type TableProps<TData extends RowData> = {
 export const Table = <TData extends RowData>({
   data,
   colDefs,
-  loading,
   enabledPagination = true,
 }: TableProps<TData>) => {
   const [sorting, setSorting] = useState<SortingState>([])
+  const { t } = useTranslation('common')
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -70,7 +72,25 @@ export const Table = <TData extends RowData>({
     <div className="size-full overflow-auto">
       <table className="size-full table-auto">
         <TableHead table={table} />
-        <TableBody table={table} loading={loading} />
+        {data && data.length > 0 ? (
+          <TableBody table={table} />
+        ) : (
+          <tbody>
+            <tr>
+              <td colSpan={colDefs.length}>
+                <div className="text-gray flex items-center justify-center space-x-1 py-20 text-sm font-normal">
+                  <span>
+                    <Icon.Solid
+                      className="text-light-accent/50"
+                      name="ExclamationCircle"
+                    />
+                  </span>
+                  <span>{t`table.empty`}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        )}
       </table>
       {pageCount > 1 && enabledPagination && (
         <div className="border-t-mid-gray flex w-full items-center justify-center border-t pt-5">

@@ -15,7 +15,10 @@ export interface TextLinkProps {
 
 export const TextLink: React.FC<TextLinkProps> = ({ children, href }) => {
   return (
-    <Link href={href} className="text-light-accent hover:text-light-accent/80">
+    <Link
+      href={href}
+      className="text-light-accent hover:text-light-accent/80 font-medium"
+    >
       {children}
     </Link>
   )

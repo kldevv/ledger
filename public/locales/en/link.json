@@ -22,7 +22,17 @@
       "FX": "Foreign Transaction",
       "GENERAL": "General"
     },
-    "toast": "You have successfully added the new link \"<b>{{ name }}</b>.\"",
+    "toast": "You have successfully added the new link \"<b>{{ name }}</b>\".",
     "submit": "Add New Link"
+  },
+  "linkDetails": {
+    "id": "ID",
+    "name": "Name",
+    "type": "Type",
+    "count": "Transaction Count",
+    "createdAt": "Create Date",
+    "updatedAt": "Update Date",
+    "deletedAt": "Delete Date",
+    "journals": "Related Journals"
   }
 }

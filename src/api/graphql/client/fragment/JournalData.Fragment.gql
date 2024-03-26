@@ -1,0 +1,8 @@
+fragment JournalData on Journal {
+  id
+  accrualDate
+  note
+  status
+  amount
+  createdAt
+}

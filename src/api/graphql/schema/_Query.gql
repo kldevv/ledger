@@ -32,4 +32,8 @@ type Query {
 
   # Link
   links(input: LinksInput!): [Link!]!
+  link(input: LinkInput!): Link
+
+  # Journal
+  journals(input: JournalsInput!): [Journal!]!
 }

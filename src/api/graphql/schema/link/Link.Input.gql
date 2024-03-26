@@ -2,6 +2,10 @@ input LinksInput {
   userId: String!
 }
 
+input LinkInput {
+  id: String!
+}
+
 input AddLinkInput {
   userId: String!
   name: String!

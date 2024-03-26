@@ -108,6 +108,11 @@
       "header": "Add Link",
       "section": "Add a tag to group your <journal>journals</journal> across <branch>branches</branch> together."
     },
+    "details": {
+      "header": "Link Details",
+      "section": "A link connects <journal>journals</journal> across different <branch>branches</branch>, unlike tags, which are solely used for grouping journals within the same branch.",
+      "link": "Edit Link"
+    },
     "header": "Links",
     "link": "Add Link",
     "section": "A link connects <journal>journals</journal> across different <branch>branches</branch>, unlike tags, which are solely used for grouping journals within the same branch."
