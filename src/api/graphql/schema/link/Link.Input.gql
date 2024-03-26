@@ -1,3 +1,9 @@
 input LinksInput {
   userId: String!
 }
+
+input AddLinkInput {
+  userId: String!
+  name: String!
+  type: LinkType!
+}

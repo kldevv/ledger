@@ -19,4 +19,6 @@ type Mutation {
   addTreasuryBook(input: AddTreasuryBookInput!): TreasuryBook!
   updateTreasuryBook(input: UpdateTreasuryBookInput!): TreasuryBook!
 
+  # Link
+  addLink(input: AddLinkInput!): Link!
 }

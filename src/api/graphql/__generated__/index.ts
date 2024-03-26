@@ -75,6 +75,12 @@ export type AddEntryInput = {
   transactionDate: Scalars['DateTime']['input'];
 };
 
+export type AddLinkInput = {
+  name: Scalars['String']['input'];
+  type: LinkType;
+  userId: Scalars['String']['input'];
+};
+
 export type AddTagInput = {
   name: Scalars['String']['input'];
   treasuryBookId: Scalars['String']['input'];
@@ -214,6 +220,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addAccount: Account;
   addCategory: Category;
+  addLink: Link;
   addTag: Tag;
   addTransaction: Transaction;
   addTreasuryBook: TreasuryBook;
@@ -232,6 +239,11 @@ export type MutationAddAccountArgs = {
 
 export type MutationAddCategoryArgs = {
   input: AddCategoryInput;
+};
+
+
+export type MutationAddLinkArgs = {
+  input: AddLinkInput;
 };
 
 
@@ -561,6 +573,7 @@ export type ResolversTypes = {
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
+  AddLinkInput: AddLinkInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
   AddTreasuryBookInput: AddTreasuryBookInput;
@@ -616,6 +629,7 @@ export type ResolversParentTypes = {
   AddAccountInput: AddAccountInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
+  AddLinkInput: AddLinkInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
   AddTreasuryBookInput: AddTreasuryBookInput;
@@ -727,6 +741,7 @@ export type LinkResolvers<ContextType = ApolloServerContext, ParentType extends 
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
   addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
+  addLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationAddLinkArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
   addTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
   addTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationAddTreasuryBookArgs, 'input'>>;
@@ -821,13 +836,20 @@ export type CategoryDataFragment = { __typename?: 'Category', id: string, name: 
 
 export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null };
 
-export type LinkDataFragment = { __typename?: 'Link', id: string, name: string, createdAt: Date, userId: string, type: LinkType, count: number };
+export type LinkDataFragment = { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date };
 
 export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number };
 
 export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string };
 
 export type TreasuryBookDataFragment = { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date };
+
+export type AddLinkMutationVariables = Exact<{
+  input: AddLinkInput;
+}>;
+
+
+export type AddLinkMutation = { __typename?: 'Mutation', addLink: { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date } };
 
 export type AddAccountMutationVariables = Exact<{
   input: AddAccountInput;
@@ -904,7 +926,7 @@ export type LinksQueryVariables = Exact<{
 }>;
 
 
-export type LinksQuery = { __typename?: 'Query', links: Array<{ __typename?: 'Link', id: string, name: string, createdAt: Date, userId: string, type: LinkType, count: number }> };
+export type LinksQuery = { __typename?: 'Query', links: Array<{ __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date }> };
 
 export type AccountQueryVariables = Exact<{
   input: AccountInput;
@@ -1075,10 +1097,11 @@ export const LinkDataFragmentDoc = gql`
     fragment LinkData on Link {
   id
   name
-  createdAt
   userId
   type
   count
+  createdAt
+  updatedAt
 }
     `;
 export const TagDataFragmentDoc = gql`
@@ -1110,6 +1133,39 @@ export const TreasuryBookDataFragmentDoc = gql`
   createdAt
 }
     `;
+export const AddLinkDocument = gql`
+    mutation AddLink($input: AddLinkInput!) {
+  addLink(input: $input) {
+    ...LinkData
+  }
+}
+    ${LinkDataFragmentDoc}`;
+export type AddLinkMutationFn = Apollo.MutationFunction<AddLinkMutation, AddLinkMutationVariables>;
+
+/**
+ * __useAddLinkMutation__
+ *
+ * To run a mutation, you first call `useAddLinkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddLinkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addLinkMutation, { data, loading, error }] = useAddLinkMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddLinkMutation(baseOptions?: Apollo.MutationHookOptions<AddLinkMutation, AddLinkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddLinkMutation, AddLinkMutationVariables>(AddLinkDocument, options);
+      }
+export type AddLinkMutationHookResult = ReturnType<typeof useAddLinkMutation>;
+export type AddLinkMutationResult = Apollo.MutationResult<AddLinkMutation>;
+export type AddLinkMutationOptions = Apollo.BaseMutationOptions<AddLinkMutation, AddLinkMutationVariables>;
 export const AddAccountDocument = gql`
     mutation addAccount($input: AddAccountInput!) {
   addAccount(input: $input) {

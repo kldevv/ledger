@@ -38,6 +38,7 @@ export const FormInput = <TFieldValues extends FieldValues>({
         ref={ref}
         disabled={disabled}
         placeholder={placeholder}
+        className="h-5"
       />
     </Input>
   )

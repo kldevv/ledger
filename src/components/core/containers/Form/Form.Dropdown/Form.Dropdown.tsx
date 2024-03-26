@@ -54,6 +54,7 @@ export const FormDropdown = <TFieldValues extends FieldValues, ItemValue>({
         value={items.find((item) => item.value === value)}
         placeholder={placeholder}
         items={items}
+        className="h-5"
       >
         <Dropdown.Options />
       </Dropdown.Select>

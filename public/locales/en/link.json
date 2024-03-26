@@ -4,8 +4,10 @@
       "name": "Name",
       "type": "Type",
       "createdAt": "Create Date",
-      "count": "Transaction Count"
-    }
+      "count": "Transaction Count",
+      "details": "Details"
+    },
+    "view": "View"
   },
   "addLinkForm": {
     "label": {
@@ -20,6 +22,7 @@
       "FX": "Foreign Transaction",
       "GENERAL": "General"
     },
-    "submit": "Create New Link"
+    "toast": "You have successfully added the new link \"<b>{{ name }}</b>.\"",
+    "submit": "Add New Link"
   }
 }

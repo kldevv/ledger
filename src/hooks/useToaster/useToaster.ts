@@ -1,4 +1,4 @@
-import type { ToastOptions } from 'react-hot-toast'
+import type { Renderable, ToastOptions } from 'react-hot-toast'
 
 import { useCallback } from 'react'
 import reactHotToast from 'react-hot-toast'
@@ -15,7 +15,10 @@ const defaultOptions: UseToasterOptions = {
 
 export const useToaster = (options?: UseToasterOptions) => {
   const toast = useCallback(
-    (message: string, overrideOptions?: UseToasterOptions) =>
+    (
+      message: string | (() => Renderable),
+      overrideOptions?: UseToasterOptions,
+    ) =>
       reactHotToast(message, {
         ...defaultOptions,
         ...options,

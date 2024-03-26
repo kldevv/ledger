@@ -29,13 +29,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
       >
         {loading ? (
-          <div className="px-6 py-1.5">
+          <div className="flex items-center justify-center px-6 py-1.5">
             <ButtonSpinner className="size-3" />
           </div>
         ) : (
           <ButtonCore
             ref={ref}
-            className="px-2 py-1.5 "
+            className="px-2 py-1.5"
             {...props}
             disabled={disabled}
           >

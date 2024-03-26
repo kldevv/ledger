@@ -49,7 +49,12 @@ export const TableHead = <TData extends RowData>({
                   </span>
                 </Button>
               ) : header.isPlaceholder ? null : (
-                flexRender(header.column.columnDef.header, header.getContext())
+                <span className="select-none">
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext(),
+                  )}
+                </span>
               )}
             </TableHeader>
           ))}

@@ -1,10 +1,11 @@
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { z } from 'zod'
 
-import { LinkType } from '@/api/graphql'
+import { LinkType, useAddLinkMutation } from '@/api/graphql'
 import { Card } from '@/components/core'
 import { Form } from '@/components/core/containers'
 import { useForm } from '@/components/core/hooks'
+import { useToaster } from '@/hooks'
 
 const schema = z.object({
   /**
@@ -21,6 +22,7 @@ export type AddLinkFormValues = z.infer<typeof schema>
 
 export const AddLinkForm: React.FC = () => {
   const { t } = useTranslation('link')
+  const toast = useToaster()
   const context = useForm<AddLinkFormValues>({
     schema,
     defaultValues: {
@@ -29,12 +31,33 @@ export const AddLinkForm: React.FC = () => {
     },
   })
 
+  const [addLink, { loading }] = useAddLinkMutation({
+    onCompleted: ({ addLink }) =>
+      toast(() => (
+        <Trans
+          i18nKey={'link:addLinkForm.toast'}
+          components={{
+            b: <b />,
+          }}
+          values={{ name: addLink.name }}
+        />
+      )),
+  })
+
+  const handleSubmit = ({ name, type }: AddLinkFormValues) => {
+    void addLink({
+      variables: {
+        input: {
+          userId: '81087108-3748-446a-b033-a85d7c9ace7b',
+          name,
+          type: type ?? LinkType.GENERAL,
+        },
+      },
+    })
+  }
+
   return (
-    <Form
-      context={context}
-      onSubmit={(value) => console.log(value)}
-      className="w-fit"
-    >
+    <Form context={context} onSubmit={handleSubmit} className="w-fit">
       <Card className="w-80">
         <div className="space-y-1">
           <Form.Input<AddLinkFormValues>
@@ -53,7 +76,10 @@ export const AddLinkForm: React.FC = () => {
             }))}
           />
         </div>
-        <Form.Submit className="mt-8 w-full">{t`addLinkForm.submit`}</Form.Submit>
+        <Form.Submit
+          className="mt-8 w-full"
+          loading={loading}
+        >{t`addLinkForm.submit`}</Form.Submit>
       </Card>
     </Form>
   )

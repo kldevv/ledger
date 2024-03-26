@@ -1,6 +1,6 @@
 import { findLinks } from '@/server/db/prisma/dao/link'
 
-import { tLink } from '../transform'
+import { tLink } from '../../transform'
 
 import type { QueryResolvers } from '@/api/graphql'
 
