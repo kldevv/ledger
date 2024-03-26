@@ -1,6 +1,6 @@
 import type { CoreSVGProps } from '../../Icon'
 
-export const ExclamationCircle: React.FC<CoreSVGProps> = ({ className }) => {
+export const ChevronUp: React.FC<CoreSVGProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +10,7 @@ export const ExclamationCircle: React.FC<CoreSVGProps> = ({ className }) => {
     >
       <path
         fillRule="evenodd"
-        d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+        d="M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z"
         clipRule="evenodd"
       />
     </svg>

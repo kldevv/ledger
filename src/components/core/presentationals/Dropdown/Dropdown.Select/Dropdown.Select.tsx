@@ -91,10 +91,10 @@ export const DropdownSelect = <ItemValue,>({
           </span>
         )}
         <span className="px-2">
-          <Icon.Outline
-            name="ChevronDown"
+          <Icon.Solid
+            name="ChevronUp"
             className={classNames('size-1.5 text-gray', {
-              'transform rotate-180': isOpen,
+              'transform rotate-180': !isOpen,
             })}
           />
         </span>

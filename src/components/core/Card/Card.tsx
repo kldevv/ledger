@@ -12,15 +12,13 @@ export type CardProps = {
 }
 
 export const Card: React.FC<CardProps> = ({ children, className }) => {
-  const cn = classNames(
-    'rounded-lg shadow box-shadow shadow-mid-gray',
-    'w-full',
-    'bg-white',
-    className,
-  )
-
   return (
-    <div className={cn}>
+    <div
+      className={classNames(
+        'rounded-lg shadow box-shadow shadow-mid-gray bg-white',
+        className,
+      )}
+    >
       <div className="w-full p-6">{children}</div>
     </div>
   )

@@ -7,10 +7,24 @@ const meta: Meta<typeof Button> = {
 }
 
 export default meta
-type Story = StoryObj<typeof Button>
+type Story = StoryObj
 
 export const Primary: Story = {
   args: {
     children: 'Button Text',
+  },
+}
+
+export const Disabled: Story = {
+  args: {
+    children: 'Button Text',
+    disabled: true,
+  },
+}
+
+export const Loading: Story = {
+  args: {
+    children: 'Button Text',
+    loading: true,
   },
 }

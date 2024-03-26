@@ -12,11 +12,16 @@ export interface FormSubmitProps {
    * Class name
    */
   className?: string
+  /**
+   * Is loading?
+   */
+  loading?: boolean
 }
 
 export const FormSubmit: React.FC<FormSubmitProps> = ({
   children,
   className,
+  loading = false,
 }) => {
   const {
     isLoading: isFormLoading,
@@ -31,7 +36,12 @@ export const FormSubmit: React.FC<FormSubmitProps> = ({
   }, [isValid, isValidating, isFormLoading, isDirty])
 
   return (
-    <Button disabled={isDisabled} type="submit" className={className}>
+    <Button
+      disabled={isDisabled}
+      type="submit"
+      className={className}
+      loading={loading}
+    >
       {children}
     </Button>
   )

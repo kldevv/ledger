@@ -35,7 +35,7 @@ export const AddLinkForm: React.FC = () => {
       onSubmit={(value) => console.log(value)}
       className="w-fit"
     >
-      <Card className="w-72">
+      <Card className="w-80">
         <div className="space-y-1">
           <Form.Input<AddLinkFormValues>
             label={t`addLinkForm.label.name`}
