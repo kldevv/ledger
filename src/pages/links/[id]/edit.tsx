@@ -4,34 +4,22 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { TextLink } from '@/components/core/presentationals'
 import { Layout, Header } from '@/components/layout'
-import { LinkDetails } from '@/components/link/containers'
+import { EditLinkForm } from '@/components/link/containers'
 import { route } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 
-const LinkDetailsPage: React.FC = () => {
+const EditLinkPage: React.FC = () => {
   const { t } = useTranslation('pages')
   const { query } = useRouter()
 
   return (
     <Layout>
       <Header
-        header={t`link.details.header`}
-        section={
-          <Trans
-            i18nKey={'pages:link.details.section'}
-            components={{
-              journal: <TextLink href={route.journal.home} />,
-              branch: <TextLink href={route.branch.home} />,
-            }}
-          />
-        }
-        link={{
-          href: { pathname: route.link.edit.pathname, query },
-          label: t`link.details.link`,
-        }}
+        header={t`link.details.edit.header`}
+        section={t`link.details.edit.section`}
       />
-      <LinkDetails />
+      <EditLinkForm />
     </Layout>
   )
 }
@@ -40,7 +28,6 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'en', [
-        'journal',
         'link',
         'layout',
         'common',
@@ -50,4 +37,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   }
 }
 
-export default LinkDetailsPage
+export default EditLinkPage

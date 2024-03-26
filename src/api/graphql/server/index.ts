@@ -4,6 +4,7 @@ import { loadFilesSync } from '@graphql-tools/load-files'
 import { DateTimeResolver } from 'graphql-scalars'
 
 import { PrismaDataSource } from '@/server/db/prisma'
+import logger from '@/server/logger'
 import { resolvers } from '@/server/resolver'
 
 import type { ApolloServerContext } from './context'
@@ -13,6 +14,7 @@ const typeDefs = loadFilesSync('src/api/graphql/schema/**/*.gql')
 
 const server = new ApolloServer<ApolloServerContext>({
   typeDefs,
+  logger,
   resolvers: {
     ...resolvers,
     // Serialize JS date to transmit

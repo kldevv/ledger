@@ -25,6 +25,22 @@
     "toast": "You have successfully added the new link \"<b>{{ name }}</b>\".",
     "submit": "Add New Link"
   },
+  "editLinkForm": {
+    "label": {
+      "id": "ID",
+      "name": "Name",
+      "type": "Type",
+      "createdAt": "Create Date",
+      "updatedAt": "Update Date",
+      "deletedAt": "Delete Date"
+    },
+    "linkType": {
+      "FX": "Foreign Transaction",
+      "GENERAL": "General"
+    },
+    "toast": "You have successfully updated the link \"<b>{{ name }}</b>\".",
+    "submit": "Update Link"
+  },
   "linkDetails": {
     "id": "ID",
     "name": "Name",

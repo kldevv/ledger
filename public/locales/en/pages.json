@@ -93,7 +93,7 @@
     "details": {
       "edit": {
         "header": "Edit Tag",
-        "section": "Update a tag with the latest information."
+        "section": "Update the tag with the latest information."
       },
       "header": "Tag Details",
       "link": "Edit",
@@ -111,7 +111,11 @@
     "details": {
       "header": "Link Details",
       "section": "A link connects <journal>journals</journal> across different <branch>branches</branch>, unlike tags, which are solely used for grouping journals within the same branch.",
-      "link": "Edit Link"
+      "link": "Edit Link",
+      "edit": {
+        "header": "Edit Link",
+        "section": "Update the link with the latest information."
+      }
     },
     "header": "Links",
     "link": "Add Link",

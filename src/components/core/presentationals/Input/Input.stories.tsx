@@ -48,3 +48,11 @@ export const WithAll: Story = {
     </Input>
   ),
 }
+
+export const Static: Story = {
+  render: (args) => (
+    <Input {...args} label="Input label" error="This is an error.">
+      <Input.Static>Static information</Input.Static>
+    </Input>
+  ),
+}

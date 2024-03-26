@@ -21,4 +21,5 @@ type Mutation {
 
   # Link
   addLink(input: AddLinkInput!): Link!
+  updateLink(input: UpdateLinkInput!): Link!
 }

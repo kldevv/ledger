@@ -3,6 +3,7 @@ import React from 'react'
 
 import { Icon } from '..'
 
+import { InputStatic } from './Input.Static/Input.Static'
 import { InputText } from './Input.Text/Input.Text'
 
 import type { InputTextProps } from './Input.Text/Input.Text'
@@ -28,13 +29,18 @@ export interface InputProps {
 
 export const Input = ({ children, error, label, className }: InputProps) => {
   return (
-    <div className={classNames('w-full', className)}>
+    <div className="w-full">
       {label != null && (
         <label className="text-gray whitespace-nowrap text-[0.625rem] font-medium">
           {label}
         </label>
       )}
-      <div className="border-mid-gray w-full min-w-32 rounded-md border bg-white px-2 py-1 text-xs">
+      <div
+        className={classNames(
+          'border-mid-gray w-full min-w-32 rounded-md border bg-white px-2 py-1 text-xs',
+          className,
+        )}
+      >
         {React.isValidElement<InputTextProps>(children) && children}
       </div>
       {error != null && (
@@ -53,3 +59,4 @@ export const Input = ({ children, error, label, className }: InputProps) => {
 }
 
 Input.Text = InputText
+Input.Static = InputStatic

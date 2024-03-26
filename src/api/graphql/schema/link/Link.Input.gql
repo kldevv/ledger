@@ -11,3 +11,9 @@ input AddLinkInput {
   name: String!
   type: LinkType!
 }
+
+input UpdateLinkInput {
+  id: String!
+  name: String!
+  type: LinkType!
+}

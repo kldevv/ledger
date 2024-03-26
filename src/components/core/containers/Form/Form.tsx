@@ -5,6 +5,7 @@ import { FormProvider } from 'react-hook-form'
 
 import { FormDropdown } from './Form.Dropdown/Form.Dropdown'
 import { FormInput } from './Form.Input/Form.Input'
+import { FormStatic } from './Form.Static/Form.Static'
 import { FormSubmit } from './Form.Submit/Form.Submit'
 
 export interface FormProps<TFieldValues extends FieldValues>
@@ -51,5 +52,6 @@ export const Form = <TFieldValues extends FieldValues>({
 }
 
 Form.Input = FormInput
+Form.Static = FormStatic
 Form.Dropdown = FormDropdown
 Form.Submit = FormSubmit

@@ -253,6 +253,7 @@ export type Mutation = {
   addTreasuryBook: TreasuryBook;
   updateAccount: Account;
   updateCategory: Category;
+  updateLink: Link;
   updateTag: Tag;
   updateTransaction: Transaction;
   updateTreasuryBook: TreasuryBook;
@@ -296,6 +297,11 @@ export type MutationUpdateAccountArgs = {
 
 export type MutationUpdateCategoryArgs = {
   input: UpdateCategoryInput;
+};
+
+
+export type MutationUpdateLinkArgs = {
+  input: UpdateLinkInput;
 };
 
 
@@ -512,6 +518,12 @@ export type UpdateCategoryInput = {
   type: CategoryType;
 };
 
+export type UpdateLinkInput = {
+  id: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  type: LinkType;
+};
+
 export type UpdateTagInput = {
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -656,6 +668,7 @@ export type ResolversTypes = {
   UniqueYearsInput: UniqueYearsInput;
   UpdateAccountInput: UpdateAccountInput;
   UpdateCategoryInput: UpdateCategoryInput;
+  UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
   UpdateTreasuryBookInput: UpdateTreasuryBookInput;
@@ -707,6 +720,7 @@ export type ResolversParentTypes = {
   UniqueYearsInput: UniqueYearsInput;
   UpdateAccountInput: UpdateAccountInput;
   UpdateCategoryInput: UpdateCategoryInput;
+  UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
   UpdateTreasuryBookInput: UpdateTreasuryBookInput;
@@ -808,6 +822,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationAddTreasuryBookArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
   updateCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'input'>>;
+  updateLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationUpdateLinkArgs, 'input'>>;
   updateTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationUpdateTagArgs, 'input'>>;
   updateTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationUpdateTransactionArgs, 'input'>>;
   updateTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationUpdateTreasuryBookArgs, 'input'>>;
@@ -916,6 +931,13 @@ export type AddLinkMutationVariables = Exact<{
 
 
 export type AddLinkMutation = { __typename?: 'Mutation', addLink: { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
+
+export type UpdateLinkMutationVariables = Exact<{
+  input: UpdateLinkInput;
+}>;
+
+
+export type UpdateLinkMutation = { __typename?: 'Mutation', updateLink: { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
 
 export type AddAccountMutationVariables = Exact<{
   input: AddAccountInput;
@@ -1257,6 +1279,39 @@ export function useAddLinkMutation(baseOptions?: Apollo.MutationHookOptions<AddL
 export type AddLinkMutationHookResult = ReturnType<typeof useAddLinkMutation>;
 export type AddLinkMutationResult = Apollo.MutationResult<AddLinkMutation>;
 export type AddLinkMutationOptions = Apollo.BaseMutationOptions<AddLinkMutation, AddLinkMutationVariables>;
+export const UpdateLinkDocument = gql`
+    mutation UpdateLink($input: UpdateLinkInput!) {
+  updateLink(input: $input) {
+    ...LinkData
+  }
+}
+    ${LinkDataFragmentDoc}`;
+export type UpdateLinkMutationFn = Apollo.MutationFunction<UpdateLinkMutation, UpdateLinkMutationVariables>;
+
+/**
+ * __useUpdateLinkMutation__
+ *
+ * To run a mutation, you first call `useUpdateLinkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLinkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLinkMutation, { data, loading, error }] = useUpdateLinkMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateLinkMutation(baseOptions?: Apollo.MutationHookOptions<UpdateLinkMutation, UpdateLinkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateLinkMutation, UpdateLinkMutationVariables>(UpdateLinkDocument, options);
+      }
+export type UpdateLinkMutationHookResult = ReturnType<typeof useUpdateLinkMutation>;
+export type UpdateLinkMutationResult = Apollo.MutationResult<UpdateLinkMutation>;
+export type UpdateLinkMutationOptions = Apollo.BaseMutationOptions<UpdateLinkMutation, UpdateLinkMutationVariables>;
 export const AddAccountDocument = gql`
     mutation addAccount($input: AddAccountInput!) {
   addAccount(input: $input) {
