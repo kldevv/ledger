@@ -4,7 +4,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { CategoryDetails } from '@/components/category'
 import { TextLink } from '@/components/core/presentationals'
-import { Layout, Header } from '@/components/layout'
+import { Layout } from '@/components/layout/containers'
+import { Header } from '@/components/layout/presentationals'
 import { route } from '@/shared'
 
 import type { GetServerSideProps } from 'next'

@@ -1,11 +1,12 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Header, Layout } from '@/components/layout'
+import { PageTab } from '@/components/core'
+import { Layout } from '@/components/layout/containers'
+import { Header } from '@/components/layout/presentationals'
+import { TotalDebitAndCreditOverTheMonthsTable } from '@/components/summary'
 
 import type { GetServerSideProps } from 'next'
-import { PageTab } from '@/components/core'
-import { TotalDebitAndCreditOverTheMonthsTable } from '@/components/summary'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('pages')

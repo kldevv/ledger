@@ -3,7 +3,8 @@ import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { TextLink } from '@/components/core/presentationals'
-import { Layout, Header } from '@/components/layout'
+import { Layout } from '@/components/layout/containers'
+import { Header } from '@/components/layout/presentationals'
 import { TransactionDetails } from '@/components/transaction'
 import { route } from '@/shared'
 

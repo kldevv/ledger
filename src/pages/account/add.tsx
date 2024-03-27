@@ -3,7 +3,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { AddAccountFrom } from '@/components/account'
 import { TextLink } from '@/components/core/presentationals'
-import { Layout, Header } from '@/components/layout'
+import { Layout } from '@/components/layout/containers'
+import { Header } from '@/components/layout/presentationals'
 import { route } from '@/shared'
 
 import type { GetServerSideProps } from 'next'

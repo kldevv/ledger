@@ -2,7 +2,8 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { UpdateCategoryForm } from '@/components/category'
-import { Layout, Header } from '@/components/layout'
+import { Layout } from '@/components/layout/containers'
+import { Header } from '@/components/layout/presentationals'
 
 import type { GetServerSideProps } from 'next'
 

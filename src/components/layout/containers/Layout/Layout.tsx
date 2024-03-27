@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 
 import { Breadcrumbs, NavMenu } from '..'
-import { Footer, SideNav } from '../..'
+import { Footer, SideNav } from '../../presentationals'
 
 type LayoutProps = {
   /**
