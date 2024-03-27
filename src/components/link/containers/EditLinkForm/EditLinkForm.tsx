@@ -14,6 +14,8 @@ import { useForm } from '@/components/core/hooks'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared'
 
+import { DropdownLinkType } from '../../presentationals'
+
 const schema = z.object({
   /**
    * Link id
@@ -26,7 +28,10 @@ const schema = z.object({
   /**
    * Link type
    */
-  type: z.nativeEnum(LinkType).nullable(),
+  type: z
+    .nativeEnum(LinkType)
+    .nullable()
+    .refine((value) => value != null),
   /**
    * Link created at
    */
@@ -46,7 +51,7 @@ export const EditLinkForm: React.FC = () => {
   } = useRouter()
   const id = Array.isArray(_id) ? _id.at(0) : _id
   const toast = useToaster()
-  const { data } = useLinkQuery({
+  const { data: { link } = {} } = useLinkQuery({
     variables: {
       input: {
         id: id ?? '',
@@ -57,21 +62,13 @@ export const EditLinkForm: React.FC = () => {
 
   const context = useForm<EditLinkFormValues>({
     schema,
-    defaultValues: {
-      id: '',
-      name: '',
-      type: null,
-      createdAt: '',
-      updatedAt: '',
+    values: {
+      id: link?.id ?? '',
+      name: link?.name ?? '',
+      type: link?.type ?? null,
+      createdAt: formatDate(link?.createdAt),
+      updatedAt: formatDate(link?.updatedAt),
     },
-    values:
-      data?.link != null
-        ? {
-            ...data.link,
-            createdAt: formatDate(data.link.createdAt),
-            updatedAt: formatDate(data.link.updatedAt),
-          }
-        : undefined,
   })
 
   const [updateLink, { loading }] = useUpdateLinkMutation({
@@ -121,14 +118,9 @@ export const EditLinkForm: React.FC = () => {
             label={t`editLinkForm.label.name`}
             name="name"
           />
-          <Form.Dropdown<EditLinkFormValues, string>
+          <DropdownLinkType<EditLinkFormValues>
             label={t`editLinkForm.label.type`}
             name="type"
-            items={[LinkType.GENERAL, LinkType.FX].map((type) => ({
-              id: type,
-              value: type,
-              title: t(`editLinkForm.linkType.${type}`),
-            }))}
           />
           <Form.Static<EditLinkFormValues>
             label={t`editLinkForm.label.createdAt`}

@@ -17,6 +17,7 @@ export const useLinksTableCol = () => {
       header: t`linksTable.col.name`,
       cell: ({ getValue }) => (
         <TextLink
+          intent="table"
           href={{
             pathname: route.link.details.pathname,
             query: { id: getValue().id },

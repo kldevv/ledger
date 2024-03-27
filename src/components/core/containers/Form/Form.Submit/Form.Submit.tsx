@@ -25,22 +25,26 @@ export const FormSubmit: React.FC<FormSubmitProps> = ({
 }) => {
   const {
     isLoading: isFormLoading,
+    isSubmitting,
     isValid,
-    isValidating,
     isDirty,
   } = useFormState()
 
   // Disable button if the form states are not ready
   const isDisabled = useMemo(() => {
-    return !isValid || isValidating || isFormLoading || !isDirty
-  }, [isValid, isValidating, isFormLoading, isDirty])
+    return !isValid || isFormLoading || !isDirty
+  }, [isValid, isFormLoading, isDirty])
+
+  const isLoading = useMemo(() => {
+    return loading === true || isSubmitting
+  }, [loading, isSubmitting])
 
   return (
     <Button
+      className={className}
+      loading={isLoading}
       disabled={isDisabled}
       type="submit"
-      className={className}
-      loading={loading}
     >
       {children}
     </Button>

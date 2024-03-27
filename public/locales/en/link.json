@@ -18,10 +18,6 @@
       "name": "Enter link name",
       "type": "Select link type"
     },
-    "linkType": {
-      "FX": "Foreign Transaction",
-      "GENERAL": "General"
-    },
     "toast": "You have successfully added the new link \"<b>{{ name }}</b>\".",
     "submit": "Add New Link"
   },
@@ -33,10 +29,6 @@
       "createdAt": "Create Date",
       "updatedAt": "Update Date",
       "deletedAt": "Delete Date"
-    },
-    "linkType": {
-      "FX": "Foreign Transaction",
-      "GENERAL": "General"
     },
     "toast": "You have successfully updated the link \"<b>{{ name }}</b>\".",
     "submit": "Update Link"
@@ -50,5 +42,9 @@
     "updatedAt": "Update Date",
     "deletedAt": "Delete Date",
     "journals": "Related Journals"
+  },
+  "linkType": {
+    "FX": "Foreign Transaction",
+    "GENERAL": "General"
   }
 }

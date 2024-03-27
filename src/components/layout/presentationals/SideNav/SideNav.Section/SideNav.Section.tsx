@@ -21,10 +21,9 @@ export const SideNavSection: React.FC<SideNavSectionProps> = ({
   return (
     <div className="flex flex-col">
       {title != null && (
-        <h3
-          title={title}
-          className="text-gray mb-2 ml-2 select-none text-xs font-medium"
-        />
+        <h3 className="text-gray mb-2 ml-2 select-none text-xs font-medium">
+          {title}
+        </h3>
       )}
       <div className="flex flex-col space-y-2">
         {items.map((props) => (

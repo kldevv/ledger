@@ -52,8 +52,8 @@ export const DropdownOptions = <ItemValue,>({
         items?.map((item, index) => (
           <li
             className={classNames(
-              highlightedIndex === index && 'bg-mid-gray',
-              'px-2 py-1 cursor-pointer flex flex-col',
+              highlightedIndex === index && 'bg-mid-gray/50',
+              'px-2 py-1 cursor-pointer flex flex-col select-none',
             )}
             key={item.id}
             {...getItemProps?.({ item: item.value, index })}

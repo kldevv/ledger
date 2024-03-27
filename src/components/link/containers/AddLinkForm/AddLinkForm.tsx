@@ -7,6 +7,8 @@ import { Form } from '@/components/core/containers'
 import { useForm } from '@/components/core/hooks'
 import { useToaster } from '@/hooks'
 
+import { DropdownLinkType } from '../../presentationals'
+
 const schema = z.object({
   /**
    * Link name
@@ -15,7 +17,10 @@ const schema = z.object({
   /**
    * Link type
    */
-  type: z.nativeEnum(LinkType).nullable(),
+  type: z
+    .nativeEnum(LinkType)
+    .nullable()
+    .refine((value) => value != null),
 })
 
 export type AddLinkFormValues = z.infer<typeof schema>
@@ -73,15 +78,10 @@ export const AddLinkForm: React.FC = () => {
             name="name"
             placeholder={t`addLinkForm.placeholder.name`}
           />
-          <Form.Dropdown<AddLinkFormValues, string>
+          <DropdownLinkType<AddLinkFormValues>
             label={t`addLinkForm.label.type`}
             name="type"
             placeholder={t`addLinkForm.placeholder.type`}
-            items={[LinkType.GENERAL, LinkType.FX].map((type) => ({
-              id: type,
-              value: type,
-              title: t(`addLinkForm.linkType.${type}`),
-            }))}
           />
         </div>
         <Form.Submit

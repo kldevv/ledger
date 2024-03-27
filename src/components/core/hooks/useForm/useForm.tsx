@@ -10,28 +10,23 @@ import { useForm as useReactHookForm } from 'react-hook-form'
 import type { z } from 'zod'
 
 export interface UseFormProps<TFieldValues extends FieldValues>
-  extends Omit<ReactHookFormProps<TFieldValues>, 'resolver' | 'defaultValues'> {
+  extends Omit<ReactHookFormProps<TFieldValues>, 'resolver'> {
   /**
    * Zod schema of the form fields.
    */
   schema: z.Schema
-  /**
-   * Values
-   */
-  defaultValues: TFieldValues
 }
 
 export const useForm = <TFieldValues extends FieldValues>({
   schema,
   values,
-  defaultValues,
   ...props
 }: UseFormProps<TFieldValues>) => {
   const methods = useReactHookForm<TFieldValues>({
     // When set to all, all errors from each field will be gathered.
     criteriaMode: 'all',
     // Validation is triggered on both blur and change events.
-    mode: 'onTouched',
+    mode: 'all',
     shouldUnregister: true,
     ...props,
     values,
@@ -45,9 +40,9 @@ export const useForm = <TFieldValues extends FieldValues>({
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset(defaultValues)
+      reset()
     }
-  }, [isSubmitSuccessful, reset, defaultValues])
+  }, [isSubmitSuccessful, reset])
 
   return methods
 }

@@ -19,7 +19,6 @@ export interface UseFormProps<TFieldValues extends FieldValues>
 
 export const useForm = <TFieldValues extends FieldValues>({
   schema,
-  values,
   ...props
 }: UseFormProps<TFieldValues>) => {
   const methods = useReactHookForm<TFieldValues>({
@@ -31,7 +30,6 @@ export const useForm = <TFieldValues extends FieldValues>({
 
     ...props,
 
-    values,
     resolver: zodResolver(schema),
   })
 
@@ -42,9 +40,9 @@ export const useForm = <TFieldValues extends FieldValues>({
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset(values)
+      reset()
     }
-  }, [values, isSubmitSuccessful, reset])
+  }, [isSubmitSuccessful, reset])
 
   return methods
 }
