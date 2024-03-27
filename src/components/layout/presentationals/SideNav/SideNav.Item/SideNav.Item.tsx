@@ -1,11 +1,13 @@
-import { Icon, OutlineIconProps } from '@/components/core/presentationals'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
+import { Icon } from '@/components/core/presentationals'
+
+import type { OutlineIconProps } from '@/components/core/presentationals'
 import type { UrlObject } from 'url'
 
-export interface ItemProps {
+export interface SideNavItemProps {
   /**
    * Icon name
    */
@@ -20,7 +22,11 @@ export interface ItemProps {
   href: string | UrlObject
 }
 
-export const Item: React.FC<ItemProps> = ({ icon, label, href }) => {
+export const SideNavItem: React.FC<SideNavItemProps> = ({
+  icon,
+  label,
+  href,
+}) => {
   const { pathname } = useRouter()
 
   const active =

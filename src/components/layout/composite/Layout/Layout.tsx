@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 
 import { Breadcrumbs, NavMenu } from '..'
-import { Footer, SideNavBar } from '../..'
+import { Footer, SideNav } from '../..'
 
 type LayoutProps = {
   /**
@@ -20,7 +20,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <NavMenu />
       </div>
       <div className="flex size-full pt-16">
-        <SideNavBar className="w-52" />
+        <SideNav className="w-52" />
         <div className="bg-light-shades size-full overflow-auto">
           <div className="size-full min-w-full">
             <main className="size-fit min-h-full w-[80vw] min-w-96">

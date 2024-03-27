@@ -1,13 +1,13 @@
-import { Item } from './Item'
+import { SideNavItem } from './SideNav.Item'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-const meta: Meta<typeof Item> = {
-  component: Item,
+const meta: Meta<typeof SideNavItem> = {
+  component: SideNavItem,
 }
 
 export default meta
-type Story = StoryObj<typeof Item>
+type Story = StoryObj<typeof SideNavItem>
 
 export const Active: Story = {
   args: {

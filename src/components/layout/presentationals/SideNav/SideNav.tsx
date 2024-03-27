@@ -2,16 +2,16 @@ import classNames from 'classnames'
 
 import { useSideNavSection } from '../../hooks/useSideNavSection/useSideNavSection'
 
-import { Section } from './SideNavBar.Section/Section'
+import { SideNavSection } from './SideNav.Section/SideNav.Section'
 
-export interface SideNavBarProps {
+export interface SideNavProps {
   /**
    * Override class name
    */
   className?: string
 }
 
-export const SideNavBar: React.FC<SideNavBarProps> = ({ className }) => {
+export const SideNav: React.FC<SideNavProps> = ({ className }) => {
   const section = useSideNavSection()
 
   return (
@@ -21,8 +21,8 @@ export const SideNavBar: React.FC<SideNavBarProps> = ({ className }) => {
         className,
       )}
     >
-      {section.map(({ title, items }) => (
-        <Section items={items} title={title} key={title} />
+      {section.map(({ title, items, id }) => (
+        <SideNavSection items={items} title={title} key={id} />
       ))}
     </div>
   )

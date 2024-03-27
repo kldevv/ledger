@@ -1,4 +1,4 @@
-import { Section } from './Section'
+import { Section } from './SideNav.Section'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
