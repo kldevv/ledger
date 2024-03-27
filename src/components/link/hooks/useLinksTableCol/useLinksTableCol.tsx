@@ -29,6 +29,7 @@ export const useLinksTableCol = () => {
     }),
     columnHelper.accessor('type', {
       header: t`linksTable.col.type`,
+      cell: ({ getValue }) => <span>{t(`linkType.${getValue()}`)}</span>,
     }),
     columnHelper.accessor('count', {
       header: t`linksTable.col.count`,

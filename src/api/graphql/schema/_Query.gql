@@ -36,4 +36,7 @@ type Query {
 
   # Journal
   journals(input: JournalsInput!): [Journal!]!
+
+  # Branch
+  branches(input: BranchesInput!): [Branch!]!
 }

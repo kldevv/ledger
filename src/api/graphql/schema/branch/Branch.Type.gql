@@ -1,0 +1,9 @@
+type Branch {
+  id: String!
+  name: String!
+  currency: Currency!
+  userId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}

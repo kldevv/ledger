@@ -107,6 +107,22 @@ export type Base = {
   name: Scalars['String']['output'];
 };
 
+export type Branch = {
+  __typename?: 'Branch';
+  createdAt: Scalars['DateTime']['output'];
+  currency: Currency;
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  userId: Scalars['String']['output'];
+};
+
+export type BranchesInput = {
+  currency?: InputMaybe<Currency>;
+  userId: Scalars['String']['input'];
+};
+
 export type CategoriesInput = {
   treasuryBookId: Scalars['String']['input'];
 };
@@ -324,6 +340,7 @@ export type Query = {
   account?: Maybe<Account>;
   accountBalance: Array<AccountBalance>;
   accounts: Array<Account>;
+  branches: Array<Branch>;
   categories: Array<Category>;
   category?: Maybe<Category>;
   entries: Array<Entry>;
@@ -352,6 +369,11 @@ export type QueryAccountBalanceArgs = {
 
 export type QueryAccountsArgs = {
   input: AccountsInput;
+};
+
+
+export type QueryBranchesArgs = {
+  input: BranchesInput;
 };
 
 
@@ -630,6 +652,8 @@ export type ResolversTypes = {
   AddTreasuryBookInput: AddTreasuryBookInput;
   Base: ResolverTypeWrapper<Base>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Branch: ResolverTypeWrapper<Branch>;
+  BranchesInput: BranchesInput;
   CategoriesInput: CategoriesInput;
   Category: ResolverTypeWrapper<Category>;
   CategoryInput: CategoryInput;
@@ -690,6 +714,8 @@ export type ResolversParentTypes = {
   AddTreasuryBookInput: AddTreasuryBookInput;
   Base: Base;
   Boolean: Scalars['Boolean']['output'];
+  Branch: Branch;
+  BranchesInput: BranchesInput;
   CategoriesInput: CategoriesInput;
   Category: Category;
   CategoryInput: CategoryInput;
@@ -748,6 +774,17 @@ export type AccountBalanceResolvers<ContextType = ApolloServerContext, ParentTyp
 export type BaseResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Base'] = ResolversParentTypes['Base']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BranchResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Branch'] = ResolversParentTypes['Branch']> = {
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  currency?: Resolver<ResolversTypes['Currency'], ParentType, ContextType>;
+  deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -832,6 +869,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountArgs, 'input'>>;
   accountBalance?: Resolver<Array<ResolversTypes['AccountBalance']>, ParentType, ContextType, RequireFields<QueryAccountBalanceArgs, 'input'>>;
   accounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountsArgs, 'input'>>;
+  branches?: Resolver<Array<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchesArgs, 'input'>>;
   categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoriesArgs, 'input'>>;
   category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoryArgs, 'input'>>;
   entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryEntriesArgs, 'input'>>;
@@ -892,6 +930,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
   AccountBalance?: AccountBalanceResolvers<ContextType>;
   Base?: BaseResolvers<ContextType>;
+  Branch?: BranchResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   DebitAndCredit?: DebitAndCreditResolvers<ContextType>;
@@ -910,6 +949,8 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null };
 
 export type BaseDataFragment = { __typename?: 'Base', id: string, name: string };
+
+export type BranchDataFragment = { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null };
 
 export type CategoryDataFragment = { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date };
 
@@ -1008,6 +1049,13 @@ export type UpdateTreasuryBookMutationVariables = Exact<{
 
 
 export type UpdateTreasuryBookMutation = { __typename?: 'Mutation', updateTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date } };
+
+export type BranchesQueryVariables = Exact<{
+  input: BranchesInput;
+}>;
+
+
+export type BranchesQuery = { __typename?: 'Query', branches: Array<{ __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null }> };
 
 export type JournalsQueryVariables = Exact<{
   input: JournalsInput;
@@ -1163,6 +1211,17 @@ export const BaseDataFragmentDoc = gql`
     fragment BaseData on Base {
   id
   name
+}
+    `;
+export const BranchDataFragmentDoc = gql`
+    fragment BranchData on Branch {
+  id
+  name
+  userId
+  currency
+  createdAt
+  updatedAt
+  deletedAt
 }
     `;
 export const CategoryDataFragmentDoc = gql`
@@ -1674,6 +1733,46 @@ export function useUpdateTreasuryBookMutation(baseOptions?: Apollo.MutationHookO
 export type UpdateTreasuryBookMutationHookResult = ReturnType<typeof useUpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationResult = Apollo.MutationResult<UpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationOptions = Apollo.BaseMutationOptions<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>;
+export const BranchesDocument = gql`
+    query Branches($input: BranchesInput!) {
+  branches(input: $input) {
+    ...BranchData
+  }
+}
+    ${BranchDataFragmentDoc}`;
+
+/**
+ * __useBranchesQuery__
+ *
+ * To run a query within a React component, call `useBranchesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBranchesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBranchesQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useBranchesQuery(baseOptions: Apollo.QueryHookOptions<BranchesQuery, BranchesQueryVariables> & ({ variables: BranchesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BranchesQuery, BranchesQueryVariables>(BranchesDocument, options);
+      }
+export function useBranchesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BranchesQuery, BranchesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BranchesQuery, BranchesQueryVariables>(BranchesDocument, options);
+        }
+export function useBranchesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<BranchesQuery, BranchesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<BranchesQuery, BranchesQueryVariables>(BranchesDocument, options);
+        }
+export type BranchesQueryHookResult = ReturnType<typeof useBranchesQuery>;
+export type BranchesLazyQueryHookResult = ReturnType<typeof useBranchesLazyQuery>;
+export type BranchesSuspenseQueryHookResult = ReturnType<typeof useBranchesSuspenseQuery>;
+export type BranchesQueryResult = Apollo.QueryResult<BranchesQuery, BranchesQueryVariables>;
 export const JournalsDocument = gql`
     query Journals($input: JournalsInput!) {
   journals(input: $input) {

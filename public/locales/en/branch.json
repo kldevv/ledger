@@ -34,16 +34,16 @@
     "submit": "Update Branch",
     "success": "Your new branch is successfully updated"
   },
-  "page": {
-    "index": {
-      "header": "All Branches",
-      "section": "A branch, comprising account groups and individual accounts, acts as the transactional hub in a single currency.",
-      "link": "Add Branch"
+  "branchesTable": {
+    "col": {
+      "name": "Name",
+      "currency": "Currency",
+      "createdAt": "Create Date",
+      "details": "Details",
+      "on": "On",
+      "switch": "Switch Branch"
     },
-    "[id]": {
-      "index": {
-        "action": "Edit Branch"
-      }
-    }
+    "switch": "Switch",
+    "view": "View"
   }
 }

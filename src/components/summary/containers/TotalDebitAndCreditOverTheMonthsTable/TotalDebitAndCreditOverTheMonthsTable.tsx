@@ -1,21 +1,25 @@
-import {
-  Card,
-  DateStandardFilter,
-  DateTypeRadioGroupFilter,
-  ElementTypeFilter,
-  EntryStatusDropdownFilter,
-  Table,
-  YearDropdownFilter,
-  useCurrentBranch,
-} from '@/components/core'
-import { useTotalDebitAndCreditOverTheMonthsTableColumn } from '../..'
+import { useCallback, useState } from 'react'
+
 import {
   DateStandard,
   ElementType,
-  EntryStatus,
   useTotalDebitAndCreditOverTheMonthsQuery,
 } from '@/api/graphql'
-import { useCallback, useState } from 'react'
+import {
+  Card,
+  EntryStatusDropdownFilter,
+  Table,
+  YearDropdownFilter,
+} from '@/components/core'
+import { useCurrentBranch } from '@/components/core/hooks'
+import {
+  DateStandardFilter,
+  ElementTypeFilter,
+} from '@/components/core/presentationals'
+
+import { useTotalDebitAndCreditOverTheMonthsTableColumn } from '../..'
+
+import type { EntryStatus } from '@/api/graphql'
 
 type FilterSchema = {
   year: number | null
@@ -68,7 +72,7 @@ export const TotalDebitAndCreditOverTheMonthsTable: React.FC = () => {
 
   return (
     <Card>
-      <div className="mb-4 border-b border-mid-gray pb-4 flex gap-2 flex-wrap">
+      <div className="border-mid-gray mb-4 flex flex-wrap gap-2 border-b pb-4">
         <DateStandardFilter
           value={filter.standard}
           onChange={handleStandardChange}

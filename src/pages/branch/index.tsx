@@ -1,10 +1,10 @@
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { BranchesTable } from '@/components/branch/containers'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { TreasuryBookDataTable } from '@/components/treasuryBook'
 import { route } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
@@ -27,7 +27,7 @@ const Page: React.FC = () => {
         }
         link={{ href: route.branch.add, label: t`branch.link` }}
       />
-      <TreasuryBookDataTable />
+      <BranchesTable />
     </Layout>
   )
 }

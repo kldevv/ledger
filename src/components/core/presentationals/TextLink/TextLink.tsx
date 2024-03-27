@@ -29,8 +29,8 @@ export const TextLink: React.FC<TextLinkProps> = ({
       className={classNames(
         'font-medium',
         intent === 'section'
-          ? 'text-light-accent hover:text-light-accent/80'
-          : 'text-dark-shades hover:text-dark-shades/80',
+          ? 'text-light-accent hover:text-light-accent/60'
+          : 'text-dark-shades hover:text-dark-shades/60',
       )}
     >
       {children}

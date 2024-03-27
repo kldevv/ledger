@@ -6,6 +6,8 @@ import { ButtonSpinner } from './Button.Spinner/Button.Spinner'
 
 import type { ButtonCoreProps } from './Button.Core/Button.Core'
 
+export * from './Button.Core/Button.Core'
+
 export interface ButtonProps extends ButtonCoreProps {
   /**
    * Is loading?
@@ -24,7 +26,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ' text-light-shades w-fit rounded-md text-xs',
           disabled || loading
             ? 'bg-mid-gray'
-            : 'hover:bg-light-accent/90 bg-light-accent',
+            : 'hover:bg-light-accent/60 bg-light-accent',
           className,
         )}
       >

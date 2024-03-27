@@ -1,0 +1,9 @@
+fragment BranchData on Branch {
+  id
+  name
+  userId
+  currency
+  createdAt
+  updatedAt
+  deletedAt
+}

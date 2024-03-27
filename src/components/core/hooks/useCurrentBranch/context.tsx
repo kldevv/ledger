@@ -1,10 +1,10 @@
 import { createContext } from 'react'
 
-import type { TreasuryBook } from '@/api/graphql'
+import type { Branch, TreasuryBook } from '@/api/graphql'
 
-type CurrentBranch = TreasuryBook | undefined
+type CurrentBranch = TreasuryBook | undefined | Branch
 
-type SetCurrentBranch = (newBranch: TreasuryBook | undefined) => void
+type SetCurrentBranch = (newBranch: TreasuryBook | Branch | undefined) => void
 
 export const CurrentBranchContext = createContext<
   [CurrentBranch, SetCurrentBranch]
