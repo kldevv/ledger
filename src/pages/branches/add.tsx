@@ -1,10 +1,10 @@
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { AddBranchForm } from '@/components/branch/containers'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { AddTreasuryBookForm } from '@/components/treasuryBook'
 import { route } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
@@ -27,7 +27,7 @@ const Page: React.FC = () => {
           />
         }
       />
-      <AddTreasuryBookForm />
+      <AddBranchForm />
     </Layout>
   )
 }

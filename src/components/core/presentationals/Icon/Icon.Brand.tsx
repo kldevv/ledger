@@ -12,6 +12,7 @@ export interface BrandIconProps extends CoreSVGProps {
 }
 
 export const Brand: React.FC<BrandIconProps> = ({ name, className }) => {
+  // eslint-disable-next-line import/namespace
   const Icon = BrandSVG[name]
 
   return <Icon className={classNames('size-5', className)} />

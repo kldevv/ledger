@@ -25,7 +25,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={classNames(
           ' text-light-shades w-fit rounded-md text-xs',
           disabled || loading
-            ? 'bg-mid-gray'
+            ? 'bg-light-accent/20'
             : 'hover:bg-light-accent/60 bg-light-accent',
           className,
         )}

@@ -45,5 +45,23 @@
     },
     "switch": "Switch",
     "view": "View"
+  },
+  "addBranch": {
+    "label": {
+      "name": "Branch name",
+      "currency": "Branch Currency"
+    },
+    "placeholder": {
+      "name": "Enter branch name",
+      "currency": "Select branch currency"
+    },
+    "toast": "You have successfully added the new branch \"<b>{{ name }}</b>\".",
+    "submit": "Add Branch"
+  },
+  "currency": {
+    "USD": "United States Dollar ($)",
+    "NTD": "New Taiwan Dollar (NT$)",
+    "EUR": "Euro (€)",
+    "RMB": "Renminbi (¥)"
   }
 }

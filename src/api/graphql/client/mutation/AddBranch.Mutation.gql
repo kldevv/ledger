@@ -1,0 +1,5 @@
+mutation AddBranch($input: AddBranchInput!) {
+  addBranch(input: $input) {
+    ...BranchData
+  }
+}

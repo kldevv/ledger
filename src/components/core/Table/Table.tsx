@@ -77,7 +77,7 @@ export const Table = <TData extends RowData>({
         ) : (
           <tbody>
             <tr>
-              <td colSpan={colDefs.length}>
+              <td colSpan={colDefs.length + 1}>
                 <div className="text-gray flex items-center justify-center space-x-1 py-20 text-sm font-normal">
                   <span>
                     <Icon.Solid

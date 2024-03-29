@@ -60,6 +60,12 @@ export type AddAccountInput = {
   treasuryBookId: Scalars['String']['input'];
 };
 
+export type AddBranchInput = {
+  currency: Currency;
+  name: Scalars['String']['input'];
+  userId: Scalars['String']['input'];
+};
+
 export type AddCategoryInput = {
   name: Scalars['String']['input'];
   treasuryBookId: Scalars['String']['input'];
@@ -262,6 +268,7 @@ export type LinksInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addAccount: Account;
+  addBranch: Branch;
   addCategory: Category;
   addLink: Link;
   addTag: Tag;
@@ -278,6 +285,11 @@ export type Mutation = {
 
 export type MutationAddAccountArgs = {
   input: AddAccountInput;
+};
+
+
+export type MutationAddBranchArgs = {
+  input: AddBranchInput;
 };
 
 
@@ -644,6 +656,7 @@ export type ResolversTypes = {
   AccountInput: AccountInput;
   AccountsInput: AccountsInput;
   AddAccountInput: AddAccountInput;
+  AddBranchInput: AddBranchInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
   AddLinkInput: AddLinkInput;
@@ -706,6 +719,7 @@ export type ResolversParentTypes = {
   AccountInput: AccountInput;
   AccountsInput: AccountsInput;
   AddAccountInput: AddAccountInput;
+  AddBranchInput: AddBranchInput;
   AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
   AddLinkInput: AddLinkInput;
@@ -852,6 +866,7 @@ export type LinkResolvers<ContextType = ApolloServerContext, ParentType extends 
 
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
+  addBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationAddBranchArgs, 'input'>>;
   addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
   addLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationAddLinkArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
@@ -965,6 +980,13 @@ export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, cr
 export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string };
 
 export type TreasuryBookDataFragment = { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date };
+
+export type AddBranchMutationVariables = Exact<{
+  input: AddBranchInput;
+}>;
+
+
+export type AddBranchMutation = { __typename?: 'Mutation', addBranch: { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
 
 export type AddLinkMutationVariables = Exact<{
   input: AddLinkInput;
@@ -1305,6 +1327,39 @@ export const TreasuryBookDataFragmentDoc = gql`
   createdAt
 }
     `;
+export const AddBranchDocument = gql`
+    mutation AddBranch($input: AddBranchInput!) {
+  addBranch(input: $input) {
+    ...BranchData
+  }
+}
+    ${BranchDataFragmentDoc}`;
+export type AddBranchMutationFn = Apollo.MutationFunction<AddBranchMutation, AddBranchMutationVariables>;
+
+/**
+ * __useAddBranchMutation__
+ *
+ * To run a mutation, you first call `useAddBranchMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddBranchMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addBranchMutation, { data, loading, error }] = useAddBranchMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddBranchMutation(baseOptions?: Apollo.MutationHookOptions<AddBranchMutation, AddBranchMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddBranchMutation, AddBranchMutationVariables>(AddBranchDocument, options);
+      }
+export type AddBranchMutationHookResult = ReturnType<typeof useAddBranchMutation>;
+export type AddBranchMutationResult = Apollo.MutationResult<AddBranchMutation>;
+export type AddBranchMutationOptions = Apollo.BaseMutationOptions<AddBranchMutation, AddBranchMutationVariables>;
 export const AddLinkDocument = gql`
     mutation AddLink($input: AddLinkInput!) {
   addLink(input: $input) {

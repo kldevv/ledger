@@ -1,9 +1,6 @@
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 
-import { range } from '@/shared'
-
 import { TableCell } from '..'
-import { LoadingBox } from '../..'
 
 export interface TableBodyProps<TData extends RowData> {
   /**
@@ -18,32 +15,7 @@ export interface TableBodyProps<TData extends RowData> {
 
 export const TableBody = <TData extends RowData>({
   table,
-  loading,
 }: TableBodyProps<TData>) => {
-  if (loading === true) {
-    return (
-      <tbody>
-        {range({ count: 3 }).map((rowIndex) => (
-          <tr key={rowIndex}>
-            <TableCell variant={rowIndex & 1 ? 'primary' : 'secondary'}>
-              {rowIndex}
-            </TableCell>
-            {range({ count: table.getAllColumns().length }).map(
-              (columnIndex) => (
-                <TableCell
-                  key={columnIndex}
-                  variant={rowIndex & 1 ? 'primary' : 'secondary'}
-                >
-                  <LoadingBox />
-                </TableCell>
-              ),
-            )}
-          </tr>
-        ))}
-      </tbody>
-    )
-  }
-
   const { pageSize, pageIndex } = table.getState().pagination
 
   return (

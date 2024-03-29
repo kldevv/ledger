@@ -2,3 +2,9 @@ input BranchesInput {
   userId: String!
   currency: Currency
 }
+
+input AddBranchInput {
+  userId: String!
+  name: String!
+  currency: Currency!
+}

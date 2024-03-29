@@ -75,12 +75,11 @@ export const DropdownSelect = <ItemValue,>({
                 name={selectedItem.outlineIcon}
                 className="size-2.5"
               />
+            ) : selectedItem?.solidIcon != null ? (
+              <Icon.Solid name={selectedItem.solidIcon} className="size-2.5" />
             ) : (
-              selectedItem?.solidIcon && (
-                <Icon.Solid
-                  name={selectedItem.solidIcon}
-                  className="size-2.5"
-                />
+              selectedItem.flagIcon && (
+                <Icon.Flag name={selectedItem.flagIcon} className="size-2.5" />
               )
             )}
             {selectedItem.title}

@@ -1,4 +1,4 @@
-import type { CoreSVGProps } from '../..'
+import type { CoreSVGProps } from '../../Icon'
 
 // https://github.com/logos
 export const Invertocat: React.FC<CoreSVGProps> = ({ className }) => {

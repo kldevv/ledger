@@ -75,7 +75,7 @@ export const EditLinkForm: React.FC = () => {
     onCompleted: ({ updateLink }) =>
       toast(() => (
         <Trans
-          i18nKey={'link:editLinkForm.toast'}
+          i18nKey={'link:editLink.toast'}
           components={{
             b: <b />,
           }}
@@ -111,30 +111,30 @@ export const EditLinkForm: React.FC = () => {
       <Card className="w-80">
         <div className="space-y-1">
           <Form.Static<EditLinkFormValues>
-            label={t`editLinkForm.label.id`}
+            label={t`editLink.label.id`}
             name="id"
           />
           <Form.Input<EditLinkFormValues>
-            label={t`editLinkForm.label.name`}
+            label={t`editLink.label.name`}
             name="name"
           />
           <DropdownLinkType<EditLinkFormValues>
-            label={t`editLinkForm.label.type`}
+            label={t`editLink.label.type`}
             name="type"
           />
           <Form.Static<EditLinkFormValues>
-            label={t`editLinkForm.label.createdAt`}
+            label={t`editLink.label.createdAt`}
             name="createdAt"
           />
           <Form.Static<EditLinkFormValues>
-            label={t`editLinkForm.label.updatedAt`}
+            label={t`editLink.label.updatedAt`}
             name="updatedAt"
           />
         </div>
         <Form.Submit
           className="mt-8 w-full"
           loading={loading}
-        >{t`editLinkForm.submit`}</Form.Submit>
+        >{t`editLink.submit`}</Form.Submit>
       </Card>
     </Form>
   )

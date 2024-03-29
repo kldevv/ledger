@@ -40,7 +40,7 @@ export const AddLinkForm: React.FC = () => {
     onCompleted: ({ addLink }) =>
       toast(() => (
         <Trans
-          i18nKey={'link:addLinkForm.toast'}
+          i18nKey={'link:addLink.toast'}
           components={{
             b: <b />,
           }}
@@ -57,12 +57,12 @@ export const AddLinkForm: React.FC = () => {
     ],
   })
 
-  const handleSubmit = ({ name, type }: AddLinkFormValues) => {
+  const handleSubmit = ({ type, ...rest }: AddLinkFormValues) => {
     void addLink({
       variables: {
         input: {
+          ...rest,
           userId: '81087108-3748-446a-b033-a85d7c9ace7b',
-          name,
           type: type ?? LinkType.GENERAL,
         },
       },
@@ -74,20 +74,20 @@ export const AddLinkForm: React.FC = () => {
       <Card className="w-80">
         <div className="space-y-1">
           <Form.Input<AddLinkFormValues>
-            label={t`addLinkForm.label.name`}
+            label={t`addLink.label.name`}
             name="name"
-            placeholder={t`addLinkForm.placeholder.name`}
+            placeholder={t`addLink.placeholder.name`}
           />
           <DropdownLinkType<AddLinkFormValues>
-            label={t`addLinkForm.label.type`}
+            label={t`addLink.label.type`}
             name="type"
-            placeholder={t`addLinkForm.placeholder.type`}
+            placeholder={t`addLink.placeholder.type`}
           />
         </div>
         <Form.Submit
           className="mt-8 w-full"
           loading={loading}
-        >{t`addLinkForm.submit`}</Form.Submit>
+        >{t`addLink.submit`}</Form.Submit>
       </Card>
     </Form>
   )

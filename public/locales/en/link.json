@@ -9,10 +9,9 @@
     },
     "view": "View"
   },
-  "addLinkForm": {
+  "addLink": {
     "label": {
-      "name": "Name",
-      "type": "Type"
+      "name": "Link name"
     },
     "placeholder": {
       "name": "Enter link name",
@@ -21,11 +20,10 @@
     "toast": "You have successfully added the new link \"<b>{{ name }}</b>\".",
     "submit": "Add New Link"
   },
-  "editLinkForm": {
+  "editLink": {
     "label": {
       "id": "ID",
-      "name": "Name",
-      "type": "Type",
+      "name": "Link name",
       "createdAt": "Create Date",
       "updatedAt": "Update Date",
       "deletedAt": "Delete Date"

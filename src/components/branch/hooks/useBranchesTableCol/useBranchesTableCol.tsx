@@ -35,7 +35,7 @@ export const useBranchesTableCol = () => {
       cell: ({ getValue }) => (
         <ButtonCore
           onClick={handleSwitch(getValue())}
-          className="text-light-accent border-light-accent hover:bg-light-accent-halo rounded-md border px-1 text-xs font-medium leading-6"
+          className="text-light-accent border-light-accent hover:bg-light-accent-halo h-fit rounded-md border px-1 text-xs font-medium leading-6"
         >
           {t`branchesTable.switch`}
         </ButtonCore>

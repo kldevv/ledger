@@ -9,13 +9,14 @@ import {
   type DropdownSelectProps,
 } from './Dropdown.Select/Dropdown.Select'
 
-import type { OutlineIconProps, SolidIconProps } from '..'
+import type { FlagIconProps, OutlineIconProps, SolidIconProps } from '..'
 
 export type DropdownItem<T> = {
   id: string
   value: T
   outlineIcon?: OutlineIconProps['name']
   solidIcon?: SolidIconProps['name']
+  flagIcon?: FlagIconProps['name']
   title: string
   desc?: string
 }
