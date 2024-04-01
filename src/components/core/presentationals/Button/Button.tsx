@@ -26,7 +26,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ' text-light-shades w-fit rounded-md text-xs',
           disabled || loading
             ? 'bg-light-accent/20'
-            : 'hover:bg-light-accent/60 bg-light-accent',
+            : 'hover:bg-light-accent/80 bg-light-accent',
           className,
         )}
       >

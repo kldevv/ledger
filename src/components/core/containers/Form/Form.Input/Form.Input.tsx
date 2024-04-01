@@ -1,5 +1,6 @@
 import { useController, type FieldValues, type Path } from 'react-hook-form'
 
+import { useFormError } from '@/components/core/hooks'
 import { Input } from '@/components/core/presentationals'
 
 export interface FormInputProps<TFieldValues extends FieldValues> {
@@ -29,8 +30,10 @@ export const FormInput = <TFieldValues extends FieldValues>({
     name,
   })
 
+  const errorMsg = useFormError(error)
+
   return (
-    <Input error={error?.message} label={label}>
+    <Input error={errorMsg} label={label}>
       <Input.Text
         onChange={onChange}
         onBlur={onBlur}

@@ -1,5 +1,6 @@
 import { useController, type FieldValues, type Path } from 'react-hook-form'
 
+import { useFormError } from '@/components/core/hooks'
 import { Input } from '@/components/core/presentationals'
 
 export interface FormStaticProps<TFieldValues extends FieldValues> {
@@ -24,8 +25,10 @@ export const FormStatic = <TFieldValues extends FieldValues>({
     name,
   })
 
+  const errorMsg = useFormError(error)
+
   return (
-    <Input error={error?.message} label={label} className="border-0">
+    <Input error={errorMsg} label={label} className="border-0">
       <Input.Static className="h-5">{value}</Input.Static>
     </Input>
   )

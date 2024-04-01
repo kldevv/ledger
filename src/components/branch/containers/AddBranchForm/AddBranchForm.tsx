@@ -11,9 +11,13 @@ import { DropdownCurrency } from '../../presentationals'
 
 const schema = z.object({
   /**
-   * Branch name
+   * Branch nam
    */
-  name: z.string().min(3),
+  name: z
+    .string()
+    .min(5, { message: 'name.min' })
+    .max(20)
+    .regex(/^[a-zA-Z0-9]+$/, { message: 'name.regex' }),
   /**
    * Branch currency
    */

@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useController, type FieldValues, type Path } from 'react-hook-form'
 
+import { useFormError } from '@/components/core/hooks'
 import { Dropdown } from '@/components/core/presentationals'
 
 import type { DropdownItem } from '@/components/core/presentationals'
@@ -41,6 +42,8 @@ export const FormDropdown = <TFieldValues extends FieldValues, ItemValue>({
     name,
   })
 
+  const errorMsg = useFormError(error)
+
   const handleOnChange = useCallback(
     (change: UseSelectSelectedItemChange<DropdownItem<ItemValue>> | null) =>
       onChange(change?.selectedItem.value),
@@ -48,7 +51,7 @@ export const FormDropdown = <TFieldValues extends FieldValues, ItemValue>({
   )
 
   return (
-    <Dropdown error={error?.message} label={label}>
+    <Dropdown error={errorMsg} label={label}>
       <Dropdown.Select
         onChange={handleOnChange}
         value={items.find((item) => item.value === value)}

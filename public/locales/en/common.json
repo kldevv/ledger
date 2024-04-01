@@ -69,5 +69,14 @@
   },
   "table": {
     "empty": "No Data Found"
+  },
+  "form": {
+    "error": {
+      "name": {
+        "min": "Name must contain at least 5 characters.",
+        "max": "Name must contain at most 20 characters.",
+        "regex": "Name must contain only alphanumeric characters."
+      }
+    }
   }
 }
