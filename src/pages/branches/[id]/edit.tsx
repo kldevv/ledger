@@ -1,9 +1,9 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { EditBranchForm } from '@/components/branch/containers'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { UpdateTreasuryBookForm } from '@/components/treasuryBook'
 
 import type { GetServerSideProps } from 'next'
 
@@ -16,7 +16,7 @@ const Page: React.FC = () => {
         header={t`branch.details.edit.header`}
         section={t`branch.details.edit.section`}
       />
-      <UpdateTreasuryBookForm />
+      <EditBranchForm />
     </Layout>
   )
 }

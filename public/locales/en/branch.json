@@ -46,6 +46,17 @@
     "switch": "Switch",
     "view": "View"
   },
+  "editBranch": {
+    "label": {
+      "id": "ID",
+      "name": "Branch name",
+      "currency": "Branch Currency",
+      "createdAt": "Create Date",
+      "updatedAt": "Update Date"
+    },
+    "toast": "You have successfully update the branch \"<b>{{ name }}</b>\".",
+    "submit": "Update Branch"
+  },
   "addBranch": {
     "label": {
       "name": "Branch name",

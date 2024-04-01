@@ -1,0 +1,5 @@
+query Branch($input: BranchInput!) {
+  branch(input: $input) {
+    ...BranchData
+  }
+}

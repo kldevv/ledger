@@ -1,4 +1,5 @@
 export * from './account'
+export * from './branch/branch'
 export * from './branches/branches'
 export * from './category'
 export * from './entry'

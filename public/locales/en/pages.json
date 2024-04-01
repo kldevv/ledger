@@ -51,7 +51,7 @@
       },
       "header": "Branch Details",
       "section": "A branch, comprising <accountGroup>account groups</accountGroup> and individual <account>accounts</account>, acts as the transactional hub in a single currency.",
-      "link": "Edit"
+      "link": "Edit Branch"
     },
     "header": "Branches",
     "link": "Add Branch",

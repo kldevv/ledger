@@ -11,7 +11,8 @@
   },
   "addLink": {
     "label": {
-      "name": "Link name"
+      "name": "Link name",
+      "type": "Link Type"
     },
     "placeholder": {
       "name": "Enter link name",
@@ -24,9 +25,9 @@
     "label": {
       "id": "ID",
       "name": "Link name",
+      "type": "Link Type",
       "createdAt": "Create Date",
-      "updatedAt": "Update Date",
-      "deletedAt": "Delete Date"
+      "updatedAt": "Update Date"
     },
     "toast": "You have successfully updated the link \"<b>{{ name }}</b>\".",
     "submit": "Update Link"

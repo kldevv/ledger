@@ -25,4 +25,5 @@ type Mutation {
 
   # Branch
   addBranch(input: AddBranchInput!): Branch!
+  updateBranch(input: UpdateBranchInput!): Branch!
 }

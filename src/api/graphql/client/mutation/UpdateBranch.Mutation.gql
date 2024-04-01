@@ -1,0 +1,5 @@
+mutation UpdateBranch($input: UpdateBranchInput!) {
+  updateBranch(input: $input) {
+    ...BranchData
+  }
+}

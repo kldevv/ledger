@@ -124,6 +124,10 @@ export type Branch = {
   userId: Scalars['String']['output'];
 };
 
+export type BranchInput = {
+  id: Scalars['String']['input'];
+};
+
 export type BranchesInput = {
   currency?: InputMaybe<Currency>;
   userId: Scalars['String']['input'];
@@ -275,6 +279,7 @@ export type Mutation = {
   addTransaction: Transaction;
   addTreasuryBook: TreasuryBook;
   updateAccount: Account;
+  updateBranch: Branch;
   updateCategory: Category;
   updateLink: Link;
   updateTag: Tag;
@@ -323,6 +328,11 @@ export type MutationUpdateAccountArgs = {
 };
 
 
+export type MutationUpdateBranchArgs = {
+  input: UpdateBranchInput;
+};
+
+
 export type MutationUpdateCategoryArgs = {
   input: UpdateCategoryInput;
 };
@@ -352,6 +362,7 @@ export type Query = {
   account?: Maybe<Account>;
   accountBalance: Array<AccountBalance>;
   accounts: Array<Account>;
+  branch?: Maybe<Branch>;
   branches: Array<Branch>;
   categories: Array<Category>;
   category?: Maybe<Category>;
@@ -381,6 +392,11 @@ export type QueryAccountBalanceArgs = {
 
 export type QueryAccountsArgs = {
   input: AccountsInput;
+};
+
+
+export type QueryBranchArgs = {
+  input: BranchInput;
 };
 
 
@@ -546,6 +562,12 @@ export type UpdateAccountInput = {
   name: Scalars['String']['input'];
 };
 
+export type UpdateBranchInput = {
+  currency: Currency;
+  id: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+};
+
 export type UpdateCategoryInput = {
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -666,6 +688,7 @@ export type ResolversTypes = {
   Base: ResolverTypeWrapper<Base>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Branch: ResolverTypeWrapper<Branch>;
+  BranchInput: BranchInput;
   BranchesInput: BranchesInput;
   CategoriesInput: CategoriesInput;
   Category: ResolverTypeWrapper<Category>;
@@ -704,6 +727,7 @@ export type ResolversTypes = {
   TreasuryBooksInput: TreasuryBooksInput;
   UniqueYearsInput: UniqueYearsInput;
   UpdateAccountInput: UpdateAccountInput;
+  UpdateBranchInput: UpdateBranchInput;
   UpdateCategoryInput: UpdateCategoryInput;
   UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
@@ -729,6 +753,7 @@ export type ResolversParentTypes = {
   Base: Base;
   Boolean: Scalars['Boolean']['output'];
   Branch: Branch;
+  BranchInput: BranchInput;
   BranchesInput: BranchesInput;
   CategoriesInput: CategoriesInput;
   Category: Category;
@@ -759,6 +784,7 @@ export type ResolversParentTypes = {
   TreasuryBooksInput: TreasuryBooksInput;
   UniqueYearsInput: UniqueYearsInput;
   UpdateAccountInput: UpdateAccountInput;
+  UpdateBranchInput: UpdateBranchInput;
   UpdateCategoryInput: UpdateCategoryInput;
   UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
@@ -873,6 +899,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
   addTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationAddTreasuryBookArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
+  updateBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationUpdateBranchArgs, 'input'>>;
   updateCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'input'>>;
   updateLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationUpdateLinkArgs, 'input'>>;
   updateTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationUpdateTagArgs, 'input'>>;
@@ -884,6 +911,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountArgs, 'input'>>;
   accountBalance?: Resolver<Array<ResolversTypes['AccountBalance']>, ParentType, ContextType, RequireFields<QueryAccountBalanceArgs, 'input'>>;
   accounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountsArgs, 'input'>>;
+  branch?: Resolver<Maybe<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchArgs, 'input'>>;
   branches?: Resolver<Array<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchesArgs, 'input'>>;
   categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoriesArgs, 'input'>>;
   category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoryArgs, 'input'>>;
@@ -995,6 +1023,13 @@ export type AddLinkMutationVariables = Exact<{
 
 export type AddLinkMutation = { __typename?: 'Mutation', addLink: { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
 
+export type UpdateBranchMutationVariables = Exact<{
+  input: UpdateBranchInput;
+}>;
+
+
+export type UpdateBranchMutation = { __typename?: 'Mutation', updateBranch: { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
+
 export type UpdateLinkMutationVariables = Exact<{
   input: UpdateLinkInput;
 }>;
@@ -1071,6 +1106,13 @@ export type UpdateTreasuryBookMutationVariables = Exact<{
 
 
 export type UpdateTreasuryBookMutation = { __typename?: 'Mutation', updateTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date } };
+
+export type BranchQueryVariables = Exact<{
+  input: BranchInput;
+}>;
+
+
+export type BranchQuery = { __typename?: 'Query', branch?: { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } | null };
 
 export type BranchesQueryVariables = Exact<{
   input: BranchesInput;
@@ -1393,6 +1435,39 @@ export function useAddLinkMutation(baseOptions?: Apollo.MutationHookOptions<AddL
 export type AddLinkMutationHookResult = ReturnType<typeof useAddLinkMutation>;
 export type AddLinkMutationResult = Apollo.MutationResult<AddLinkMutation>;
 export type AddLinkMutationOptions = Apollo.BaseMutationOptions<AddLinkMutation, AddLinkMutationVariables>;
+export const UpdateBranchDocument = gql`
+    mutation UpdateBranch($input: UpdateBranchInput!) {
+  updateBranch(input: $input) {
+    ...BranchData
+  }
+}
+    ${BranchDataFragmentDoc}`;
+export type UpdateBranchMutationFn = Apollo.MutationFunction<UpdateBranchMutation, UpdateBranchMutationVariables>;
+
+/**
+ * __useUpdateBranchMutation__
+ *
+ * To run a mutation, you first call `useUpdateBranchMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBranchMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateBranchMutation, { data, loading, error }] = useUpdateBranchMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateBranchMutation(baseOptions?: Apollo.MutationHookOptions<UpdateBranchMutation, UpdateBranchMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateBranchMutation, UpdateBranchMutationVariables>(UpdateBranchDocument, options);
+      }
+export type UpdateBranchMutationHookResult = ReturnType<typeof useUpdateBranchMutation>;
+export type UpdateBranchMutationResult = Apollo.MutationResult<UpdateBranchMutation>;
+export type UpdateBranchMutationOptions = Apollo.BaseMutationOptions<UpdateBranchMutation, UpdateBranchMutationVariables>;
 export const UpdateLinkDocument = gql`
     mutation UpdateLink($input: UpdateLinkInput!) {
   updateLink(input: $input) {
@@ -1788,6 +1863,46 @@ export function useUpdateTreasuryBookMutation(baseOptions?: Apollo.MutationHookO
 export type UpdateTreasuryBookMutationHookResult = ReturnType<typeof useUpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationResult = Apollo.MutationResult<UpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationOptions = Apollo.BaseMutationOptions<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>;
+export const BranchDocument = gql`
+    query Branch($input: BranchInput!) {
+  branch(input: $input) {
+    ...BranchData
+  }
+}
+    ${BranchDataFragmentDoc}`;
+
+/**
+ * __useBranchQuery__
+ *
+ * To run a query within a React component, call `useBranchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBranchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBranchQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useBranchQuery(baseOptions: Apollo.QueryHookOptions<BranchQuery, BranchQueryVariables> & ({ variables: BranchQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BranchQuery, BranchQueryVariables>(BranchDocument, options);
+      }
+export function useBranchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BranchQuery, BranchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BranchQuery, BranchQueryVariables>(BranchDocument, options);
+        }
+export function useBranchSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<BranchQuery, BranchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<BranchQuery, BranchQueryVariables>(BranchDocument, options);
+        }
+export type BranchQueryHookResult = ReturnType<typeof useBranchQuery>;
+export type BranchLazyQueryHookResult = ReturnType<typeof useBranchLazyQuery>;
+export type BranchSuspenseQueryHookResult = ReturnType<typeof useBranchSuspenseQuery>;
+export type BranchQueryResult = Apollo.QueryResult<BranchQuery, BranchQueryVariables>;
 export const BranchesDocument = gql`
     query Branches($input: BranchesInput!) {
   branches(input: $input) {
