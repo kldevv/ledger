@@ -6,6 +6,8 @@ import { Card } from '@/components/core'
 import { Form } from '@/components/core/containers'
 import { useForm } from '@/components/core/hooks'
 import { useToaster } from '@/hooks'
+import { generateDropdownSchema } from '@/shared/zod/generators'
+import { nameSchema } from '@/shared/zod/schemas'
 
 import { DropdownLinkType } from '../../presentationals'
 
@@ -13,14 +15,11 @@ const schema = z.object({
   /**
    * Link name
    */
-  name: z.string().min(3),
+  name: nameSchema,
   /**
    * Link type
    */
-  type: z
-    .nativeEnum(LinkType)
-    .nullable()
-    .refine((value) => value != null),
+  type: generateDropdownSchema(LinkType),
 })
 
 export type AddLinkFormValues = z.infer<typeof schema>

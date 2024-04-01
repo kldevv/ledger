@@ -6,6 +6,8 @@ import { Card } from '@/components/core'
 import { Form } from '@/components/core/containers'
 import { useForm } from '@/components/core/hooks'
 import { useToaster } from '@/hooks'
+import { generateDropdownSchema } from '@/shared/zod/generators'
+import { nameSchema } from '@/shared/zod/schemas'
 
 import { DropdownCurrency } from '../../presentationals'
 
@@ -13,18 +15,11 @@ const schema = z.object({
   /**
    * Branch nam
    */
-  name: z
-    .string()
-    .min(5, { message: 'name.min' })
-    .max(20)
-    .regex(/^[a-zA-Z0-9]+$/, { message: 'name.regex' }),
+  name: nameSchema,
   /**
    * Branch currency
    */
-  currency: z
-    .nativeEnum(Currency)
-    .nullable()
-    .refine((value) => value != null),
+  currency: generateDropdownSchema(Currency),
 })
 
 export type AddBranchFormValues = z.infer<typeof schema>
