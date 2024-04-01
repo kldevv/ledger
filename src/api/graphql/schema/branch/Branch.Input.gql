@@ -1,6 +1,5 @@
 input BranchesInput {
   userId: String!
-  currency: Currency
 }
 
 input BranchInput {

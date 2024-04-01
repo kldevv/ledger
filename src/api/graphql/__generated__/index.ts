@@ -129,7 +129,6 @@ export type BranchInput = {
 };
 
 export type BranchesInput = {
-  currency?: InputMaybe<Currency>;
   userId: Scalars['String']['input'];
 };
 
