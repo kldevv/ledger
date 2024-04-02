@@ -1,6 +1,6 @@
 import { findBranches } from '@/server/db/prisma/dao/branch'
 
-import { tBranch } from '../../transform'
+import { transformBranch } from '../../transform'
 
 import type { QueryResolvers } from '@/api/graphql'
 
@@ -12,5 +12,5 @@ export const branches: QueryResolvers['branches'] = async (
     userId,
   })
 
-  return branches.map(tBranch)
+  return branches.map(transformBranch)
 }

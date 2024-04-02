@@ -1,6 +1,6 @@
 import { updateLink as _updateLink } from '@/server/db/prisma/dao/link'
 
-import { tLink } from '../../transform'
+import { transformLink } from '../../transform'
 
 import type { MutationResolvers } from '@/api/graphql'
 
@@ -10,5 +10,5 @@ export const updateLink: MutationResolvers['updateLink'] = async (
 ) => {
   const link = await _updateLink(input)
 
-  return tLink(link)
+  return transformLink(link)
 }
