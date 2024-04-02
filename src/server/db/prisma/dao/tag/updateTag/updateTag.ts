@@ -1,38 +1,37 @@
-import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
-import logger from '@/server/logger'
 
-import type { Tag } from '@prisma/client'
+import type { TagType } from '@prisma/client'
 
-export type UpdateTagProps = Pick<Tag, 'id'> & {
+export interface UpdateTagArgs {
   /**
-   * Data
+   * Tag id
    */
-  data: Pick<Tag, 'name'>
+  id: string
+  /**
+   * Updated tag name
+   */
+  name: string
+  /**
+   * Updated tag type
+   */
+  type: TagType
 }
 
-export const updateTag = async ({ id, data }: UpdateTagProps) => {
-  try {
-    return await prisma.tag.update({
-      where: {
-        id,
-      },
-      data,
-      include: {
-        _count: {
-          select: {
-            transactions: true,
-          },
+export const updateTag = async ({ id, name, type }: UpdateTagArgs) => {
+  return await prisma.tag.update({
+    where: {
+      id,
+    },
+    data: {
+      name,
+      type,
+    },
+    include: {
+      _count: {
+        select: {
+          transactions: true,
         },
       },
-    })
-  } catch (e) {
-    logger.log({
-      level: 'info',
-      message: 'Error in Tag DAO: updateTag',
-      error: parsePrismaError(e),
-    })
-
-    throw e
-  }
+    },
+  })
 }

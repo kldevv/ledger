@@ -1,30 +1,23 @@
-import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
-import logger from '@/server/logger'
 
-import type { Tag } from '@prisma/client'
+export interface FindTagsArgs {
+  /**
+   * Branch id
+   */
+  branchId: string
+}
 
-export type FindTagsProps = Partial<Pick<Tag, 'treasuryBookId' | 'type'>>
-
-export const findTags = async (where: FindTagsProps) => {
-  try {
-    return await prisma.tag.findMany({
-      where,
-      include: {
-        _count: {
-          select: {
-            transactions: true,
-          },
+export const findTags = async ({ branchId }: FindTagsArgs) => {
+  return await prisma.tag.findMany({
+    where: {
+      treasuryBookId: branchId,
+    },
+    include: {
+      _count: {
+        select: {
+          transactions: true,
         },
       },
-    })
-  } catch (e) {
-    logger.log({
-      level: 'info',
-      message: 'Error in Tag DAO: findTags',
-      error: parsePrismaError(e),
-    })
-
-    throw e
-  }
+    },
+  })
 }
