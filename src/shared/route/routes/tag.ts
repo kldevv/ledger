@@ -1,7 +1,7 @@
 import type { Route } from '..'
 
 const home: Route = {
-  pathname: '/tag',
+  pathname: '/tags',
 }
 
 const add: Route = {

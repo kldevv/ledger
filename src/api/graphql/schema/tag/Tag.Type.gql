@@ -1,0 +1,9 @@
+type Tag {
+  name: String!
+  id: String!
+  count: Int!
+  type: TagType!
+  treasuryBookId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}

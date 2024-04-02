@@ -2,7 +2,7 @@
   "linksTable": {
     "col": {
       "name": "Name",
-      "type": "Type",
+      "type": "Link Type",
       "createdAt": "Create Date",
       "count": "Transaction Count",
       "details": "Details"

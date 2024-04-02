@@ -47,14 +47,17 @@
       "name": "Name"
     }
   },
-  "page": {
-    "index": {
-      "action": "Add Tag"
+  "tagsTable": {
+    "col": {
+      "name": "Name",
+      "type": "Tag Type",
+      "count": "Transaction Count",
+      "createdAt": "Create Date",
+      "details": "Details"
     },
-    "[id]": {
-      "index": {
-        "action": "Edit"
-      }
-    }
+    "view": "View"
+  },
+  "tagType": {
+    
   }
 }

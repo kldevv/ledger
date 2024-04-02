@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { Currency, type LinkType } from '@/api/graphql'
 import { Form } from '@/components/core/containers'
-import { currencyToFlagIconName } from '@/shared/utils/currencyToFlagIconName/currencyToFlagIconName'
+import { currencyToFlagIconName } from '@/shared/utils'
 
 import type { FormDropdownProps } from '@/components/core/containers/Form/Form.Dropdown/Form.Dropdown'
 

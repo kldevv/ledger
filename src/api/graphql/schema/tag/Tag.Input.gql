@@ -1,0 +1,19 @@
+input TagInput {
+  id: String!
+}
+
+input TagsInput {
+  branchId: String!
+}
+
+input AddTagInput {
+  name: String!
+  branchId: String!
+  type: TagType!
+}
+
+input UpdateTagInput {
+  id: String!
+  name: String!
+  type: TagType!
+}

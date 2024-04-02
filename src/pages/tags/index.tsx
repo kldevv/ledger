@@ -4,8 +4,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { TagDataTable } from '@/components/tag'
-import { route } from '@/shared'
+import { TagsTable } from '@/components/tag/containers'
+import { route } from '@/shared/route'
 
 import type { GetServerSideProps } from 'next'
 
@@ -24,7 +24,7 @@ const Page: React.FC = () => {
         }
         link={{ label: t`tag.link`, href: route.tag.add }}
       />
-      <TagDataTable />
+      <TagsTable />
     </Layout>
   )
 }
