@@ -1,6 +1,7 @@
-import type { Tag } from '@prisma/client'
+import type { Tag } from '@/api/graphql'
+import type { Tag as PrismaTag } from '@prisma/client'
 
-export type TransformTagProps = Tag & {
+export type TransformTagArgs = PrismaTag & {
   /**
    * Aggregate relation field: count
    */
@@ -9,7 +10,7 @@ export type TransformTagProps = Tag & {
   }
 }
 
-export const transformTag = ({ _count, ...tag }: TransformTagProps) => {
+export const transformTag = ({ _count, ...tag }: TransformTagArgs): Tag => {
   return {
     ...tag,
     count: _count.transactions,

@@ -1,9 +1,16 @@
 import type { Link } from '@/api/graphql'
-import type { findLinks } from '@/server/db/prisma/dao/link'
+import type { Link as PrismaLink } from '@prisma/client'
 
-export const transformLink = (
-  link: Awaited<ReturnType<typeof findLinks>>[number],
-): Link => ({
+export type TransformLinkArgs = PrismaLink & {
+  /**
+   * Aggregate relation field: count
+   */
+  _count: {
+    transactions: number
+  }
+}
+
+export const transformLink = (link: TransformLinkArgs): Link => ({
   ...link,
   count: link._count.transactions,
 })

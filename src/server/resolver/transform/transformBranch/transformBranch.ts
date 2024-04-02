@@ -1,10 +1,12 @@
 import type { Branch } from '@/api/graphql'
-import type { findBranches } from '@/server/db/prisma/dao/branch'
+import type { TreasuryBook as PrismaBranch } from '@prisma/client'
+
+type TransformBranchArgs = PrismaBranch
 
 export const transformBranch = ({
   ownerId,
   ...rest
-}: Awaited<ReturnType<typeof findBranches>>[number]): Branch => ({
+}: TransformBranchArgs): Branch => ({
   ...rest,
   userId: ownerId,
 })
