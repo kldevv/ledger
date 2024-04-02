@@ -17,10 +17,15 @@ export interface CreateBranchArgs {
   currency: Currency
 }
 
-export const createBranch = async ({ userId, ...rest }: CreateBranchArgs) => {
+export const createBranch = async ({
+  userId,
+  name,
+  currency,
+}: CreateBranchArgs) => {
   return await prisma.treasuryBook.create({
     data: {
-      ...rest,
+      name,
+      currency,
       ownerId: userId,
     },
   })

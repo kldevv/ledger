@@ -13,7 +13,7 @@ export const findBranches = async ({ userId }: FindBranchesArgs) => {
       ownerId: userId,
     },
     orderBy: {
-      currency: 'asc',
+      createdAt: 'desc',
     },
   })
 }

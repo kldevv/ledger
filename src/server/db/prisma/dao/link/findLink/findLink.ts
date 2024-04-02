@@ -1,10 +1,13 @@
 import prisma from '@/server/db/prisma/client'
 
-import type { Link } from '@prisma/client'
+export interface FindLinkArgs {
+  /**
+   * Link id
+   */
+  id: string
+}
 
-export type FindLinkProps = Pick<Link, 'id'>
-
-export const findLink = async (where: FindLinkProps) => {
+export const findLink = async (where: FindLinkArgs) => {
   return await prisma.link.findUnique({
     where,
     include: {

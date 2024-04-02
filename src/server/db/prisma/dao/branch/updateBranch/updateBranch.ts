@@ -8,11 +8,11 @@ export interface UpdateBranchArgs {
    */
   id: string
   /**
-   * Branch name
+   * Updated branch name
    */
   name: string
   /**
-   * Branch currency
+   * Updated branch currency
    */
   currency: Currency
 }

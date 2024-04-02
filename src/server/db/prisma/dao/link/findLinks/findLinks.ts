@@ -1,12 +1,15 @@
 import prisma from '@/server/db/prisma/client'
 
-import type { Link } from '@prisma/client'
+export interface FindLinksArgs {
+  /**
+   * User id
+   */
+  userId: string
+}
 
-export type FindLinksProps = Pick<Link, 'userId'>
-
-export const findLinks = async (where: FindLinksProps) => {
+export const findLinks = async ({ userId }: FindLinksArgs) => {
   return await prisma.link.findMany({
-    where,
+    where: { userId },
     include: {
       _count: {
         select: {
@@ -15,7 +18,7 @@ export const findLinks = async (where: FindLinksProps) => {
       },
     },
     orderBy: {
-      name: 'asc',
+      createdAt: 'desc',
     },
   })
 }
