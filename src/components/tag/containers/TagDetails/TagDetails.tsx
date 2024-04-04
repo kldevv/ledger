@@ -3,11 +3,12 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { useTagQuery } from '@/api/graphql'
-import { Card, FormattedDate } from '@/components/core'
+import { FormattedDate } from '@/components/core'
 import {
   DescList,
   Icon,
   type DescListItem,
+  Card,
 } from '@/components/core/presentationals'
 import { tagTypeToSolidIconName } from '@/shared/utils'
 

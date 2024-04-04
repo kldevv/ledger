@@ -6,13 +6,13 @@ import {
   useTotalDebitAndCreditOverTheMonthsQuery,
 } from '@/api/graphql'
 import {
-  Card,
   EntryStatusDropdownFilter,
   Table,
   YearDropdownFilter,
 } from '@/components/core'
 import { useCurrentBranch } from '@/components/core/hooks'
 import {
+  Card,
   DateStandardFilter,
   ElementTypeFilter,
 } from '@/components/core/presentationals'

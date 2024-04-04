@@ -8,9 +8,9 @@ import {
   useLinkQuery,
   useUpdateLinkMutation,
 } from '@/api/graphql'
-import { Card } from '@/components/core'
 import { Form } from '@/components/core/containers'
 import { useForm } from '@/components/core/hooks'
+import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
 import { generateDropdownSchema } from '@/shared/zod/generators'

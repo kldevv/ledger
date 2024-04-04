@@ -1,7 +1,8 @@
 import { useTranslation } from 'next-i18next'
 
 import { useJournalsQuery } from '@/api/graphql'
-import { Card, Table } from '@/components/core'
+import { Table } from '@/components/core'
+import { Card } from '@/components/core/presentationals'
 import { useJournalsTableCol } from '@/components/journal/hooks'
 
 export interface LinkDetailsJournalsProps {

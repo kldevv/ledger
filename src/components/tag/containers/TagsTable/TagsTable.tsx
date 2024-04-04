@@ -2,9 +2,9 @@ import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo, useState } from 'react'
 
 import { TagType, useTagsQuery } from '@/api/graphql'
-import { Card, Table } from '@/components/core'
+import { Table } from '@/components/core'
 import { useCurrentBranch } from '@/components/core/hooks'
-import { Dropdown } from '@/components/core/presentationals'
+import { Card, Dropdown } from '@/components/core/presentationals'
 import { tagTypeToSolidIconName } from '@/shared/utils'
 
 import { useTagsTableCol } from '../../hooks'

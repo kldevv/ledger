@@ -8,9 +8,9 @@ import {
   TagsDocument,
   useAddTagMutation,
 } from '@/api/graphql'
-import { Card } from '@/components/core'
 import { Form } from '@/components/core/containers'
 import { useCurrentBranch, useForm } from '@/components/core/hooks'
+import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { generateDropdownSchema } from '@/shared/zod/generators'
 import { nameSchema } from '@/shared/zod/schemas'

@@ -1,5 +1,6 @@
 import { useLinksQuery } from '@/api/graphql'
-import { Card, Table } from '@/components/core'
+import { Table } from '@/components/core'
+import { Card } from '@/components/core/presentationals'
 
 import { useLinksTableCol } from '../../hooks'
 
