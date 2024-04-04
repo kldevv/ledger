@@ -25,7 +25,7 @@ export const TableHead = <TData extends RowData>({
               {header.column.getCanSort() ? (
                 <Button
                   onClick={header.column.getToggleSortingHandler()}
-                  className="hover:bg-mid-gray/50 flex size-full items-center rounded-lg px-3 py-1"
+                  className="hover:bg-mid-gray/50 my-2 -ml-3 flex size-full items-center justify-start rounded-lg px-3 py-1"
                 >
                   <span>
                     {header.isPlaceholder
