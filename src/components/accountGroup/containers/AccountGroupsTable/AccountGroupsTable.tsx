@@ -1,9 +1,8 @@
 import { useAccountGroupsQuery } from '@/api/graphql'
-import { Table } from '@/components/core'
 import { useCurrentBranch } from '@/components/core/hooks'
+import { Card, Table } from '@/components/core/presentationals'
 
 import { useAccountGroupsTableCol } from '../../hooks'
-import { Card } from '@/components/core/presentationals'
 
 export const AccountGroupsTable: React.FC = () => {
   const colDefs = useAccountGroupsTableCol()

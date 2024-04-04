@@ -7,7 +7,7 @@ import {
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
 
-import { Icon, Pagination } from '../presentationals'
+import { Icon, Pagination } from '..'
 
 import { TableBody } from './TableBody'
 import { TableHead } from './TableHead'

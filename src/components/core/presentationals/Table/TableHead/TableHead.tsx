@@ -1,8 +1,8 @@
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 
 import { TableHeader } from '..'
-import { Button } from '../..'
-import { Icon } from '../../presentationals'
+import { Button } from '../../..'
+import { Icon } from '../..'
 
 export interface TableHeadProps<TData extends RowData> {
   /**

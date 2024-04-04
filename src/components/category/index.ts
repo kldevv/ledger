@@ -1,7 +1,6 @@
 export * from './CategoryDataTable'
 export * from './CategoryDescriptionList'
 export * from './CategoryDetails'
-export * from './CategoryTable'
 export * from './AddCategoryForm'
 export * from './UpdateCategoryForm'
 export * from './CategoryForm'
