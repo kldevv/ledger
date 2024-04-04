@@ -16,7 +16,7 @@ import { formatDate } from '@/shared/utils'
 import { generateDropdownSchema } from '@/shared/zod/generators'
 import { nameSchema } from '@/shared/zod/schemas'
 
-import { DropdownLinkType } from '../../presentationals'
+import { useLinkTypeDropdown } from '../../hooks'
 
 const schema = z.object({
   /**
@@ -50,6 +50,7 @@ export const EditLinkForm: React.FC = () => {
   } = useRouter()
   const id = Array.isArray(_id) ? _id.at(0) : _id
   const toast = useToaster()
+  const linkTypeDropdown = useLinkTypeDropdown()
   const { data: { link } = {} } = useLinkQuery({
     variables: {
       input: {
@@ -117,7 +118,8 @@ export const EditLinkForm: React.FC = () => {
             label={t`editLink.label.name`}
             name="name"
           />
-          <DropdownLinkType<EditLinkFormValues>
+          <Form.Dropdown<EditLinkFormValues, LinkType>
+            {...linkTypeDropdown}
             label={t`editLink.label.type`}
             name="type"
           />

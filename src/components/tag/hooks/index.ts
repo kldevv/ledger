@@ -1,2 +1,2 @@
 export * from './useTagsTableCol/useTagsTableCol'
-export * from './useTagTypeDropdownItems/useTagTypeDropdownItems'
+export * from './useTagTypeDropdown/useTagTypeDropdown'

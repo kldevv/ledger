@@ -9,7 +9,7 @@ import { useToaster } from '@/hooks'
 import { generateDropdownSchema } from '@/shared/zod/generators'
 import { nameSchema } from '@/shared/zod/schemas'
 
-import { DropdownCurrency } from '../../presentationals'
+import { useCurrencyDropdown } from '../../hooks'
 
 const schema = z.object({
   /**
@@ -27,6 +27,7 @@ export type AddBranchFormValues = z.infer<typeof schema>
 export const AddBranchForm: React.FC = () => {
   const { t } = useTranslation('branch')
   const toast = useToaster()
+  const currencyDropdown = useCurrencyDropdown()
   const [addBranch] = useAddBranchMutation({
     onCompleted: ({ addBranch }) =>
       toast(() => (
@@ -76,7 +77,8 @@ export const AddBranchForm: React.FC = () => {
             name="name"
             placeholder={t`addBranch.placeholder.name`}
           />
-          <DropdownCurrency<AddBranchFormValues>
+          <Form.Dropdown<AddBranchFormValues, Currency>
+            {...currencyDropdown}
             label={t`addBranch.label.currency`}
             name="currency"
             placeholder={t`addBranch.placeholder.currency`}

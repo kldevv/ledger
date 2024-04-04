@@ -16,7 +16,7 @@ import { formatDate } from '@/shared/utils'
 import { generateDropdownSchema } from '@/shared/zod/generators'
 import { nameSchema } from '@/shared/zod/schemas'
 
-import { useTagTypeDropdownItems } from '../../hooks'
+import { useTagTypeDropdown } from '../../hooks'
 
 const schema = z.object({
   /**
@@ -53,7 +53,7 @@ export const EditTagForm: React.FC = () => {
     query: { id: _id },
   } = useRouter()
   const id = Array.isArray(_id) ? _id.at(0) : _id
-  const tagTypeItems = useTagTypeDropdownItems()
+  const tagTypeDropdown = useTagTypeDropdown()
   const toast = useToaster()
   const { data: { tag } = {} } = useTagQuery({
     variables: {
@@ -124,8 +124,8 @@ export const EditTagForm: React.FC = () => {
             name="name"
           />
           <Form.Dropdown<EditTagFormValues, TagType>
+            {...tagTypeDropdown}
             label={t`editTag.label.type`}
-            items={tagTypeItems}
             name="type"
           />
           <Form.Static<EditTagFormValues>

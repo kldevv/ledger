@@ -15,7 +15,7 @@ import { useToaster } from '@/hooks'
 import { generateDropdownSchema } from '@/shared/zod/generators'
 import { nameSchema } from '@/shared/zod/schemas'
 
-import { useTagTypeDropdownItems } from '../../hooks'
+import { useTagTypeDropdown } from '../../hooks'
 
 const schema = z.object({
   /**
@@ -38,7 +38,7 @@ export const AddTagForm: React.FC = () => {
   const { t } = useTranslation('tag')
   const toast = useToaster()
   const [currentBranch] = useCurrentBranch()
-  const tagTypeItems = useTagTypeDropdownItems()
+  const tagTypeDropdown = useTagTypeDropdown()
   const { setValue, ...context } = useForm<AddTagFormValues>({
     schema,
     defaultValues: {
@@ -100,9 +100,9 @@ export const AddTagForm: React.FC = () => {
             placeholder={t`addTag.placeholder.name`}
           />
           <Form.Dropdown<AddTagFormValues, TagType>
+            {...tagTypeDropdown}
             label={t`addTag.label.type`}
             name="type"
-            items={tagTypeItems}
             placeholder={t`addTag.placeholder.type`}
           />
           <Form.Static<AddTagFormValues>

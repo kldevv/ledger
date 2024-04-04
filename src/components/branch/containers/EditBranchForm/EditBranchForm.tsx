@@ -16,7 +16,7 @@ import { formatDate } from '@/shared/utils'
 import { generateDropdownSchema } from '@/shared/zod/generators'
 import { nameSchema } from '@/shared/zod/schemas'
 
-import { DropdownCurrency } from '../../presentationals'
+import { useCurrencyDropdown } from '../../hooks'
 
 const schema = z.object({
   /**
@@ -50,6 +50,7 @@ export const EditBranchForm: React.FC = () => {
   } = useRouter()
   const id = Array.isArray(_id) ? _id.at(0) : _id
   const toast = useToaster()
+  const currencyDropdown = useCurrencyDropdown()
   const { data: { branch } = {} } = useBranchQuery({
     variables: {
       input: {
@@ -114,7 +115,8 @@ export const EditBranchForm: React.FC = () => {
             name="name"
             placeholder={t`editBranch.placeholder.name`}
           />
-          <DropdownCurrency<EditBranchFormValues>
+          <Form.Dropdown<EditBranchFormValues, Currency>
+            {...currencyDropdown}
             label={t`editBranch.label.currency`}
             name="currency"
             placeholder={t`editBranch.placeholder.currency`}

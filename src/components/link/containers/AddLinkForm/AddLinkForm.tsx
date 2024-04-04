@@ -9,7 +9,7 @@ import { useToaster } from '@/hooks'
 import { generateDropdownSchema } from '@/shared/zod/generators'
 import { nameSchema } from '@/shared/zod/schemas'
 
-import { DropdownLinkType } from '../../presentationals'
+import { useLinkTypeDropdown } from '../../hooks'
 
 const schema = z.object({
   /**
@@ -27,6 +27,7 @@ export type AddLinkFormValues = z.infer<typeof schema>
 export const AddLinkForm: React.FC = () => {
   const { t } = useTranslation('link')
   const toast = useToaster()
+  const linkTypeDropdown = useLinkTypeDropdown()
   const context = useForm<AddLinkFormValues>({
     schema,
     defaultValues: {
@@ -77,7 +78,8 @@ export const AddLinkForm: React.FC = () => {
             name="name"
             placeholder={t`addLink.placeholder.name`}
           />
-          <DropdownLinkType<AddLinkFormValues>
+          <Form.Dropdown<AddLinkFormValues, LinkType>
+            {...linkTypeDropdown}
             label={t`addLink.label.type`}
             name="type"
             placeholder={t`addLink.placeholder.type`}
