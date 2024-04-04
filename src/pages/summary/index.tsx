@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { PageTab } from '@/components/core'
+import { PageTab } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
 import { TotalDebitAndCreditOverTheMonthsTable } from '@/components/summary'
@@ -18,11 +18,11 @@ const Page: React.FC = () => {
         options={[
           {
             label: 'Balance Over the Months',
-            content: <TotalDebitAndCreditOverTheMonthsTable />,
+            content: 'TODO',
           },
           {
             label: 'Total Credit / Debit on Months',
-            content: 'TBA',
+            content: <TotalDebitAndCreditOverTheMonthsTable />,
           },
         ]}
       />

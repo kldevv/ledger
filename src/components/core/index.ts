@@ -1,7 +1,3 @@
 export * from './Button'
 export * from './Customized'
-export * from './InputCore'
-export * from './LoadingBox'
-export * from './PageTab'
 export * from './Table'
-export * from './TableTitle'

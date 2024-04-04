@@ -2,7 +2,7 @@ import { Tab } from '@headlessui/react'
 import classNames from 'classnames'
 import { Fragment } from 'react'
 
-import { Button } from '..'
+import { Button } from '../..'
 
 export interface PageTabProps {
   /**
