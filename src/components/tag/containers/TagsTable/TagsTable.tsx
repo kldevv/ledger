@@ -52,7 +52,7 @@ export const TagsTable: React.FC = () => {
       <div className="flex flex-col">
         <div className="border-b-mid-gray flex items-center space-x-4 border-b pb-6">
           <div className="w-48">
-            <Dropdown label="Tag Type">
+            <Dropdown label={t`tagsTable.tagType`}>
               <Dropdown.Select
                 items={tags}
                 onChange={hanldeFilterChange}

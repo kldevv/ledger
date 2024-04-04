@@ -43,7 +43,8 @@
       "createdAt": "Create Date",
       "details": "Details"
     },
-    "view": "View"
+    "view": "View",
+    "tagType": "Tag Type"
   },
   "tagType": {
     "GENERAL": "General",
@@ -51,6 +52,6 @@
     "PROPERTY": "Property",
     "TRAVEL": "Travel",
     "ORGANIZATION": "Organization",
-    "null": "All Types"
+    "null": "All Tag Types"
   }
 }
