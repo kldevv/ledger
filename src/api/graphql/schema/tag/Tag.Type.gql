@@ -3,7 +3,8 @@ type Tag {
   id: String!
   count: Int!
   type: TagType!
-  treasuryBookId: String!
+  branchId: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  deletedAt: DateTime
 }

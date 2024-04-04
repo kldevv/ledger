@@ -72,7 +72,7 @@ export const LinkDetails: React.FC = () => {
       <Card>
         <DescList items={descItems} />
       </Card>
-      {id != null && !Array.isArray(id) && <LinkDetailsJournals linkId={id} />}
+      {typeof id === 'string' && <LinkDetailsJournals linkId={id} />}
     </div>
   )
 }

@@ -66,5 +66,16 @@
     },
     "toast": "You have successfully added the new tag \"<b>{{ name }}</b>\".",
     "submit": "Add New Tag"
+  },
+  "tagDetails": {
+    "id": "ID",
+    "name": "Name",
+    "type": "Tag Type",
+    "branchId": "Branch ID",
+    "count": "Transaction Count",
+    "createdAt": "Create Date",
+    "updatedAt": "Update Date",
+    "deletedAt": "Delete Date",
+    "journals": "Related Journals"
   }
 }

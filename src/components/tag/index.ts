@@ -1,6 +1,3 @@
-export * from './AddTagForm'
 export * from './TagDataTable'
 export * from './TagDescriptionList'
-export * from './TagDetails'
-export * from './TagTable'
 export * from './TagForm'

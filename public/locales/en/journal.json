@@ -52,6 +52,6 @@
       "createdAt": "Create Date",
       "details": "Details"
     },
-    "viewer": "Viewer"
+    "view": "View"
   }
 }

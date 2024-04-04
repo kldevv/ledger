@@ -35,7 +35,7 @@
   "linkDetails": {
     "id": "ID",
     "name": "Name",
-    "type": "Type",
+    "type": "Tag Type",
     "count": "Transaction Count",
     "createdAt": "Create Date",
     "updatedAt": "Update Date",

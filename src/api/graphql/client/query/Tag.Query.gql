@@ -1,5 +1,8 @@
 query Tag($input: TagInput!) {
   tag(input: $input) {
     ...TagData
+    updatedAt
+    deletedAt
+    branchId
   }
 }

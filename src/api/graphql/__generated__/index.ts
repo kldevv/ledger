@@ -470,11 +470,12 @@ export type QueryUniqueYearsArgs = {
 
 export type Tag = {
   __typename?: 'Tag';
+  branchId: Scalars['String']['output'];
   count: Scalars['Int']['output'];
   createdAt: Scalars['DateTime']['output'];
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
-  treasuryBookId: Scalars['String']['output'];
   type: TagType;
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -927,11 +928,12 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
 };
 
 export type TagResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
+  branchId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['TagType'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1068,14 +1070,14 @@ export type AddTagMutationVariables = Exact<{
 }>;
 
 
-export type AddTagMutation = { __typename?: 'Mutation', addTag: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } };
+export type AddTagMutation = { __typename?: 'Mutation', addTag: { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number } };
 
 export type UpdateTagMutationVariables = Exact<{
   input: UpdateTagInput;
 }>;
 
 
-export type UpdateTagMutation = { __typename?: 'Mutation', updateTag: { __typename?: 'Tag', id: string, name: string, treasuryBookId: string, createdAt: Date, updatedAt: Date } };
+export type UpdateTagMutation = { __typename?: 'Mutation', updateTag: { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number } };
 
 export type AddTransactionMutationVariables = Exact<{
   input: AddTransactionInput;
@@ -1145,7 +1147,7 @@ export type TagQueryVariables = Exact<{
 }>;
 
 
-export type TagQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number } | null };
+export type TagQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', updatedAt: Date, deletedAt?: Date | null, branchId: string, id: string, name: string, createdAt: Date, type: TagType, count: number } | null };
 
 export type TagsQueryVariables = Exact<{
   input: TagsInput;
@@ -1658,14 +1660,10 @@ export type UpdateCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateCat
 export const AddTagDocument = gql`
     mutation addTag($input: AddTagInput!) {
   addTag(input: $input) {
-    id
-    name
-    treasuryBookId
-    createdAt
-    updatedAt
+    ...TagData
   }
 }
-    `;
+    ${TagDataFragmentDoc}`;
 export type AddTagMutationFn = Apollo.MutationFunction<AddTagMutation, AddTagMutationVariables>;
 
 /**
@@ -1695,14 +1693,10 @@ export type AddTagMutationOptions = Apollo.BaseMutationOptions<AddTagMutation, A
 export const UpdateTagDocument = gql`
     mutation updateTag($input: UpdateTagInput!) {
   updateTag(input: $input) {
-    id
-    name
-    treasuryBookId
-    createdAt
-    updatedAt
+    ...TagData
   }
 }
-    `;
+    ${TagDataFragmentDoc}`;
 export type UpdateTagMutationFn = Apollo.MutationFunction<UpdateTagMutation, UpdateTagMutationVariables>;
 
 /**
@@ -2065,6 +2059,9 @@ export const TagDocument = gql`
     query Tag($input: TagInput!) {
   tag(input: $input) {
     ...TagData
+    updatedAt
+    deletedAt
+    branchId
   }
 }
     ${TagDataFragmentDoc}`;

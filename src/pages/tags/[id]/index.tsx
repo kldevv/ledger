@@ -5,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { TagDetails } from '@/components/tag'
+import { TagDetails } from '@/components/tag/containers'
 import { route } from '@/shared/route'
 
 import type { GetServerSideProps } from 'next'
@@ -38,6 +38,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'en', [
+        'journal',
         'tag',
         'layout',
         'common',
