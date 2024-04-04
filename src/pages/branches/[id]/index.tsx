@@ -5,8 +5,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
+import { route } from '@/shared/route'
+
 import { TreasuryBookDetails } from '@/components/treasuryBook'
-import { route } from '@/shared'
 
 import type { GetServerSideProps } from 'next'
 

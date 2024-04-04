@@ -55,7 +55,7 @@ export const DropdownOptions = <ItemValue,>({
               highlightedIndex === index && 'bg-mid-gray/50',
               'px-2 py-1 cursor-pointer flex flex-col select-none',
             )}
-            key={item.id}
+            key={String(item.value)}
             {...getItemProps?.({ item: item.value, index })}
           >
             <span

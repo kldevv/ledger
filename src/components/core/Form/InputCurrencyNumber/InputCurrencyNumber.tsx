@@ -6,7 +6,7 @@ import { NumericFormat } from 'react-number-format'
 
 import { ErrorMessage, InputCore, Label } from '@/components/core'
 import { useCurrentBranch } from '@/components/core/hooks'
-import { getCurrencySymbol } from '@/shared'
+import { getCurrencySymbol } from '@/shared/utils'
 
 import type { Currency } from '@/api/graphql'
 import type { InputCoreProps } from '@/components/core'
@@ -57,7 +57,7 @@ export const InputCurrencyNumber = <TFieldValues extends FieldValues>({
 
   const currencySymbol = useMemo(
     () => getCurrencySymbol(currentBranch?.currency),
-    [currency, currentBranch?.currency, currentBranch?.id],
+    [currentBranch?.currency],
   )
 
   return (

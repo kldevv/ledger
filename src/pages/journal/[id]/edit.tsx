@@ -5,7 +5,7 @@ import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
 import { UpdateTransactionForm } from '@/components/transaction'
-import { route } from '@/shared'
+import { route } from '@/shared/route'
 
 import type { GetServerSideProps } from 'next'
 

@@ -5,7 +5,7 @@ import { useCallback } from 'react'
 import { CurrencyChip, FormattedDate } from '@/components/core'
 import { useCurrentBranch } from '@/components/core/hooks'
 import { ButtonCore, Icon, TextLink } from '@/components/core/presentationals'
-import { route } from '@/shared'
+import { route } from '@/shared/route'
 
 import type { BranchesQuery, Branch } from '@/api/graphql'
 

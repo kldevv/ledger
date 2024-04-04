@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
-import { getTagTypeIcon, route } from '@/shared'
+import { route } from '@/shared/route'
+import { getTagTypeIcon } from '@/shared/utils'
 
 import type { Tag } from '@/api/graphql'
 

@@ -12,7 +12,7 @@ import { Card } from '@/components/core'
 import { Form } from '@/components/core/containers'
 import { useForm } from '@/components/core/hooks'
 import { useToaster } from '@/hooks'
-import { formatDate } from '@/shared'
+import { formatDate } from '@/shared/utils'
 import { generateDropdownSchema } from '@/shared/zod/generators'
 import { nameSchema } from '@/shared/zod/schemas'
 

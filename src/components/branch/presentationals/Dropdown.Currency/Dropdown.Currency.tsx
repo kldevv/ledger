@@ -21,7 +21,6 @@ export const DropdownCurrency = <TFieldValues extends FieldValues>(
       {...props}
       items={[Currency.USD, Currency.NTD, Currency.EUR, Currency.RMB].map(
         (currency) => ({
-          id: currency,
           value: currency,
           title: t(`currency.${currency}`),
           flagIcon: currencyToFlagIconName(currency),

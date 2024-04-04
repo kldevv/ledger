@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { TagType } from '@/api/graphql'
+import { Dropdown } from '@/components/core/presentationals'
 
 import { TagTypeChip } from '../../..'
 import { DropdownFilter } from '../../../Filters'
@@ -23,7 +24,7 @@ export const TagTypeDropdownFilter: React.FC<TagTypeDropdownFilterProps> = ({
 }) => {
   const { t } = useTranslation('common')
 
-  const statusFilterOptions = useMemo(() => {
+  const items = useMemo(() => {
     const options = Object.values(TagType).map((type) => ({
       value: type,
       label: <TagTypeChip type={type} />,
@@ -39,10 +40,10 @@ export const TagTypeDropdownFilter: React.FC<TagTypeDropdownFilterProps> = ({
   }, [t])
 
   return (
-    <DropdownFilter
-      value={value}
-      onChange={onChange}
-      options={statusFilterOptions}
-    />
+    <Dropdown>
+      <Dropdown.Select items={}>
+        <Dropdown.Options />
+      </Dropdown.Select>
+    </Dropdown>
   )
 }

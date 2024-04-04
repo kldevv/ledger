@@ -19,7 +19,6 @@ export const DropdownLinkType = <TFieldValues extends FieldValues>(
     <Form.Dropdown<TFieldValues, LinkType>
       {...props}
       items={Object.values(LinkType).map((type) => ({
-        id: type,
         value: type,
         title: t(`linkType.${type}`),
       }))}

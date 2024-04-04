@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
 import { FormattedCurrencyNumber } from '@/components/core'
-import { route } from '@/shared'
+import { route } from '@/shared/route'
 
 import type { TotalDebitAndCreditOverTheMonths } from '@/api/graphql'
 

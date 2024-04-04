@@ -45,7 +45,7 @@ export const FormDropdown = <TFieldValues extends FieldValues, ItemValue>({
   const errorMsg = useFormError(error)
 
   const handleOnChange = useCallback(
-    (change: UseSelectSelectedItemChange<DropdownItem<ItemValue>> | null) =>
+    (change: UseSelectSelectedItemChange<DropdownItem<ItemValue>>) =>
       onChange(change?.selectedItem.value),
     [onChange],
   )

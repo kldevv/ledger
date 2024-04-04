@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import { useController } from 'react-hook-form'
 
 import { InputCore, ErrorMessage, Label } from '@/components/core'
-import { formatDate } from '@/shared'
+import { formatDate } from '@/shared/utils'
 
 export interface InputDateProps<TFieldValues extends FieldValues>
   extends Omit<

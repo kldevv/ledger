@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 
-import { parseQueryValue, route } from '@/shared'
+import { route } from '@/shared/route'
+import { parseQueryValue } from '@/shared/utils'
 
 export const Breadcrumbs: React.FC = () => {
   const { pathname, query } = useRouter()

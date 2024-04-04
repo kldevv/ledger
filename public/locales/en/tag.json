@@ -22,18 +22,6 @@
       "transactions": "Tag Transactions"
     }
   },
-  "TagTable": {
-    "header": {
-      "id": "ID",
-      "name": "Name",
-      "transaction": "Transactions",
-      "type": "Type",
-      "createdAt": "Create Date"
-    },
-    "link": {
-      "view": "View"
-    }
-  },
   "UpdateTagForm": {
     "submit": "Update Tag",
     "success": "Your tag is successfully updated"
@@ -58,6 +46,11 @@
     "view": "View"
   },
   "tagType": {
-    
+    "GENERAL": "General",
+    "PEOPLE": "People",
+    "PROPERTY": "Property",
+    "TRAVEL": "Travel",
+    "ORGANIZATION": "Organization",
+    "null": "None"
   }
 }

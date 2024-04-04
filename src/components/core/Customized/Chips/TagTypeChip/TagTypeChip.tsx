@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { getTagTypeIcon } from '@/shared'
+import { getTagTypeIcon } from '@/shared/utils'
 
 import type { TagType } from '@/api/graphql'
 

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
 import { Icon } from '@/components/core/presentationals'
-import { route } from '@/shared'
+import { route } from '@/shared/route'
 
 import { BranchSwitch } from '..'
 

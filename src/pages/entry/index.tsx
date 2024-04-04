@@ -5,7 +5,7 @@ import { TextLink } from '@/components/core/presentationals'
 import { EntryDataTable } from '@/components/entry'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { route } from '@/shared'
+import { route } from '@/shared/route'
 
 import type { GetServerSideProps } from 'next'
 

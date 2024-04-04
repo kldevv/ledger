@@ -29,7 +29,7 @@ export interface DropdownSelectProps<ItemValue> {
    * On change
    */
   onChange?: (
-    change: UseSelectSelectedItemChange<DropdownItem<ItemValue>> | null,
+    change: UseSelectSelectedItemChange<DropdownItem<ItemValue>>,
   ) => void
   /**
    * Value

@@ -12,7 +12,6 @@ import {
 import type { FlagIconProps, OutlineIconProps, SolidIconProps } from '..'
 
 export type DropdownItem<T> = {
-  id: string
   value: T
   outlineIcon?: OutlineIconProps['name']
   solidIcon?: SolidIconProps['name']

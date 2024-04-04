@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { formatCurrencyNumber } from '@/shared'
+import { formatCurrencyNumber } from '@/shared/utils'
 import { getCurrencySymbol } from '@/shared/utils/getCurrencySymbol/getCurrencySymbol'
 
 import type { Currency } from '@/api/graphql'

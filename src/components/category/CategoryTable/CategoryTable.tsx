@@ -9,7 +9,7 @@ import {
   Table,
   LinkButton,
 } from '@/components/core'
-import { route } from '@/shared'
+import { route } from '@/shared/route'
 
 import type { CategoriesQuery } from '@/api/graphql'
 

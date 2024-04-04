@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { getCategoryTypeIcon } from '@/shared'
+import { getCategoryTypeIcon } from '@/shared/utils'
 
 import type { CategoryType } from '@/api/graphql'
 

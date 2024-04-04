@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 
 import { FormattedDate } from '@/components/core'
 import { TextLink } from '@/components/core/presentationals'
-import { route } from '@/shared'
+import { route } from '@/shared/route'
 
 import type { LinksQuery } from '@/api/graphql'
 

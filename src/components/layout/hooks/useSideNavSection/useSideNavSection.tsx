@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { route } from '@/shared'
+import { route } from '@/shared/route'
 
 import type { SideNavSectionProps } from '../../presentationals/SideNav/SideNav.Section/SideNav.Section'
 
