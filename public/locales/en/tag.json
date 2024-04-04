@@ -1,40 +1,4 @@
 {
-  "add-tag-form": {
-    "label": {
-      "name": "Name"
-    },
-    "placeholder": {
-      "name": "Enter a name"
-    },
-    "submit": "Create"
-  },
-  "TagDescriptionList": {
-    "title": {
-      "id": "ID",
-      "name": "Name",
-      "type": "Type",
-      "updatedAt": "Update Date",
-      "createdAt": "Create Date"
-    }
-  },
-  "TagDetails": {
-    "title": {
-      "transactions": "Tag Transactions"
-    }
-  },
-  "UpdateTagForm": {
-    "submit": "Update Tag",
-    "success": "Your tag is successfully updated"
-  },
-  "AddTagForm": {
-    "submit": "Add Tag",
-    "success": "Your tag is successfully added"
-  },
-  "TagForm": {
-    "label": {
-      "name": "Name"
-    }
-  },
   "tagsTable": {
     "col": {
       "name": "Name",
@@ -66,6 +30,18 @@
     },
     "toast": "You have successfully added the new tag \"<b>{{ name }}</b>\".",
     "submit": "Add New Tag"
+  },
+  "editTag": {
+    "label": {
+      "id": "ID",
+      "name": "Tag Name",
+      "type": "Tag Type",
+      "branchId": "Branch ID",
+      "createdAt": "Create Date",
+      "updatedAt": "Update Date"
+    },
+    "toast": "You have successfully updated the tag \"<b>{{ name }}</b>\".",
+    "submit": "Update Tag"
   },
   "tagDetails": {
     "id": "ID",

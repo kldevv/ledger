@@ -1,7 +1,7 @@
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { CategoryDataTable } from '@/components/category'
+import { AccountGroupsTable } from '@/components/accountGroup/containers'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
@@ -24,7 +24,7 @@ const Page: React.FC = () => {
         }
         link={{ href: route.accountGroup.add, label: t`account.group.link` }}
       />
-      <CategoryDataTable />
+      <AccountGroupsTable />
     </Layout>
   )
 }

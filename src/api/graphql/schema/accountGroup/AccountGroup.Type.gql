@@ -1,0 +1,10 @@
+type AccountGroup {
+  id: String!
+  name: String!
+  type: AccountingType!
+  branchId: String!
+  count: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}

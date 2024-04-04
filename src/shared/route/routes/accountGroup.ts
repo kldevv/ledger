@@ -1,7 +1,7 @@
 import type { Route } from '..'
 
 const home: Route = {
-  pathname: '/account/group',
+  pathname: '/account-group',
 }
 
 const add: Route = {

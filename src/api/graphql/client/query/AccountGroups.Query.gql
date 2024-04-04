@@ -1,0 +1,5 @@
+query AccountGroups($input: AccountGroupsInput!) {
+  accountGroups(input: $input) {
+    ...AccountGroupData
+  }
+}

@@ -1,0 +1,7 @@
+fragment AccountGroupData on AccountGroup {
+  id
+  name
+  type
+  createdAt
+  count
+}

@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { UpdateTagForm } from '@/components/tag/UpdateTagForm'
+import { EditTagForm } from '@/components/tag/containers'
 
 import type { GetServerSideProps } from 'next'
 
@@ -16,7 +16,7 @@ const Page: React.FC = () => {
         header={t`tag.details.edit.header`}
         section={t`tag.details.edit.section`}
       />
-      <UpdateTagForm />
+      <EditTagForm />
     </Layout>
   )
 }

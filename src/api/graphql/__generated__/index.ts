@@ -45,10 +45,33 @@ export type AccountBalanceFilter = {
   treasuryBookId: Scalars['String']['input'];
 };
 
+export type AccountGroup = {
+  __typename?: 'AccountGroup';
+  branchId: Scalars['String']['output'];
+  count: Scalars['Int']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  type: AccountingType;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type AccountGroupsInput = {
+  branchId: Scalars['String']['input'];
+};
+
 export type AccountInput = {
   id: Scalars['String']['input'];
 };
 
+export const AccountingType = {
+  ASSETS: 'ASSETS',
+  EQUITY: 'EQUITY',
+  LIABILITIES: 'LIABILITIES'
+} as const;
+
+export type AccountingType = typeof AccountingType[keyof typeof AccountingType];
 export type AccountsInput = {
   categoryId?: InputMaybe<Scalars['String']['input']>;
   treasuryBookId: Scalars['String']['input'];
@@ -360,6 +383,7 @@ export type Query = {
   __typename?: 'Query';
   account?: Maybe<Account>;
   accountBalance: Array<AccountBalance>;
+  accountGroups: Array<AccountGroup>;
   accounts: Array<Account>;
   branch?: Maybe<Branch>;
   branches: Array<Branch>;
@@ -386,6 +410,11 @@ export type QueryAccountArgs = {
 
 export type QueryAccountBalanceArgs = {
   input: AccountBalanceFilter;
+};
+
+
+export type QueryAccountGroupsArgs = {
+  input: AccountGroupsInput;
 };
 
 
@@ -674,7 +703,10 @@ export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
   AccountBalance: ResolverTypeWrapper<AccountBalance>;
   AccountBalanceFilter: AccountBalanceFilter;
+  AccountGroup: ResolverTypeWrapper<AccountGroup>;
+  AccountGroupsInput: AccountGroupsInput;
   AccountInput: AccountInput;
+  AccountingType: AccountingType;
   AccountsInput: AccountsInput;
   AddAccountInput: AddAccountInput;
   AddBranchInput: AddBranchInput;
@@ -739,6 +771,8 @@ export type ResolversParentTypes = {
   Account: Account;
   AccountBalance: AccountBalance;
   AccountBalanceFilter: AccountBalanceFilter;
+  AccountGroup: AccountGroup;
+  AccountGroupsInput: AccountGroupsInput;
   AccountInput: AccountInput;
   AccountsInput: AccountsInput;
   AddAccountInput: AddAccountInput;
@@ -807,6 +841,18 @@ export type AccountBalanceResolvers<ContextType = ApolloServerContext, ParentTyp
   balance?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   category?: Resolver<ResolversTypes['Base'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['CategoryType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AccountGroupResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AccountGroup'] = ResolversParentTypes['AccountGroup']> = {
+  branchId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['AccountingType'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -909,6 +955,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountArgs, 'input'>>;
   accountBalance?: Resolver<Array<ResolversTypes['AccountBalance']>, ParentType, ContextType, RequireFields<QueryAccountBalanceArgs, 'input'>>;
+  accountGroups?: Resolver<Array<ResolversTypes['AccountGroup']>, ParentType, ContextType, RequireFields<QueryAccountGroupsArgs, 'input'>>;
   accounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountsArgs, 'input'>>;
   branch?: Resolver<Maybe<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchArgs, 'input'>>;
   branches?: Resolver<Array<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchesArgs, 'input'>>;
@@ -972,6 +1019,7 @@ export type TreasuryBookResolvers<ContextType = ApolloServerContext, ParentType 
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
   AccountBalance?: AccountBalanceResolvers<ContextType>;
+  AccountGroup?: AccountGroupResolvers<ContextType>;
   Base?: BaseResolvers<ContextType>;
   Branch?: BranchResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
@@ -990,6 +1038,8 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 
 
 export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null };
+
+export type AccountGroupDataFragment = { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number };
 
 export type BaseDataFragment = { __typename?: 'Base', id: string, name: string };
 
@@ -1106,6 +1156,13 @@ export type UpdateTreasuryBookMutationVariables = Exact<{
 
 
 export type UpdateTreasuryBookMutation = { __typename?: 'Mutation', updateTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date } };
+
+export type AccountGroupsQueryVariables = Exact<{
+  input: AccountGroupsInput;
+}>;
+
+
+export type AccountGroupsQuery = { __typename?: 'Query', accountGroups: Array<{ __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number }> };
 
 export type BranchQueryVariables = Exact<{
   input: BranchInput;
@@ -1269,6 +1326,15 @@ export const AccountDataFragmentDoc = gql`
   name
   entryCount
   createdAt
+}
+    `;
+export const AccountGroupDataFragmentDoc = gql`
+    fragment AccountGroupData on AccountGroup {
+  id
+  name
+  type
+  createdAt
+  count
 }
     `;
 export const BaseDataFragmentDoc = gql`
@@ -1855,6 +1921,46 @@ export function useUpdateTreasuryBookMutation(baseOptions?: Apollo.MutationHookO
 export type UpdateTreasuryBookMutationHookResult = ReturnType<typeof useUpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationResult = Apollo.MutationResult<UpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationOptions = Apollo.BaseMutationOptions<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>;
+export const AccountGroupsDocument = gql`
+    query AccountGroups($input: AccountGroupsInput!) {
+  accountGroups(input: $input) {
+    ...AccountGroupData
+  }
+}
+    ${AccountGroupDataFragmentDoc}`;
+
+/**
+ * __useAccountGroupsQuery__
+ *
+ * To run a query within a React component, call `useAccountGroupsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountGroupsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountGroupsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAccountGroupsQuery(baseOptions: Apollo.QueryHookOptions<AccountGroupsQuery, AccountGroupsQueryVariables> & ({ variables: AccountGroupsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AccountGroupsQuery, AccountGroupsQueryVariables>(AccountGroupsDocument, options);
+      }
+export function useAccountGroupsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountGroupsQuery, AccountGroupsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AccountGroupsQuery, AccountGroupsQueryVariables>(AccountGroupsDocument, options);
+        }
+export function useAccountGroupsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<AccountGroupsQuery, AccountGroupsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AccountGroupsQuery, AccountGroupsQueryVariables>(AccountGroupsDocument, options);
+        }
+export type AccountGroupsQueryHookResult = ReturnType<typeof useAccountGroupsQuery>;
+export type AccountGroupsLazyQueryHookResult = ReturnType<typeof useAccountGroupsLazyQuery>;
+export type AccountGroupsSuspenseQueryHookResult = ReturnType<typeof useAccountGroupsSuspenseQuery>;
+export type AccountGroupsQueryResult = Apollo.QueryResult<AccountGroupsQuery, AccountGroupsQueryVariables>;
 export const BranchDocument = gql`
     query Branch($input: BranchInput!) {
   branch(input: $input) {

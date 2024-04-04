@@ -36,14 +36,19 @@
   "CategoryForm": {
     "name": "Name"
   },
-  "page": {
-    "index": {
-      "action": "Add Category"
+  "accountGroupsTable": {
+    "col": {
+      "name": "Name",
+      "type": "Accounting Type",
+      "createdAt": "Create Date",
+      "count": "Account Count",
+      "details": "Details"
     },
-    "[id]": {
-      "index": {
-        "action": "Edit"
-      }
-    }
+    "view": "View"
+  },
+  "accountingType": {
+    "ASSETS": "Assets",
+    "LIABILITIES": "Liabilities",
+    "EQUITY": "Equity"
   }
 }

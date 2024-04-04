@@ -40,4 +40,7 @@ type Query {
   # Branch
   branches(input: BranchesInput!): [Branch!]!
   branch(input: BranchInput!): Branch
+
+  # Account Group
+  accountGroups(input: AccountGroupsInput!): [AccountGroup!]!
 }
