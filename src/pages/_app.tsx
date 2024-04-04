@@ -4,8 +4,8 @@ import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Toaster } from 'react-hot-toast'
 
 import apolloClient from '@/api/graphql/client'
-import { Notification } from '@/components/core'
 import { CurrentBranchProvider } from '@/components/core/hooks'
+import { Toast } from '@/components/core/presentationals'
 
 import '../../styles/globals.css'
 
@@ -29,7 +29,7 @@ const App: AppType = ({ Component, pageProps }) => {
       <ApolloProvider client={apolloClient}>
         <CurrentBranchProvider>
           <Component {...pageProps} />
-          <Toaster>{(t) => <Notification {...t} />}</Toaster>
+          <Toaster>{(t) => <Toast {...t} />}</Toaster>
         </CurrentBranchProvider>
       </ApolloProvider>
     </>

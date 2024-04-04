@@ -2,7 +2,10 @@ import { RadioGroup } from '@headlessui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { useCallback, useMemo } from 'react'
 
-import { Button, PaginationEllipsis, PaginationPage } from '..'
+import { Button } from '../..'
+
+import { PaginationEllipsis } from './Pagination.Ellipsis/Pagination.Ellipsis'
+import { PaginationPage } from './Pagination.Page/Pagination.Page'
 
 export interface PaginationProps {
   /**

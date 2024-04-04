@@ -1,13 +1,13 @@
-import { Notification } from './Notification'
+import { Toast } from './Toast'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-const meta: Meta<typeof Notification> = {
-  component: Notification,
+const meta: Meta<typeof Toast> = {
+  component: Toast,
 }
 
 export default meta
-type Story = StoryObj<typeof Notification>
+type Story = StoryObj<typeof Toast>
 
 export const Primary: Story = {
   args: {
