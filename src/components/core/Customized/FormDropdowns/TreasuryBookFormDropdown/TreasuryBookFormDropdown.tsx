@@ -3,9 +3,8 @@ import type { FieldValues, Path } from 'react-hook-form'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
+import { useBranchesQuery } from '@/api/graphql'
 import { Dropdown, TreasuryBookChip } from '@/components/core'
-import { useCurrentBranch } from '@/components/core/hooks'
-import { useTreasuryBooksQuery } from '@/api/graphql'
 
 export interface TreasuryBookFormDropdownProps<
   TFieldValues extends FieldValues,
@@ -26,23 +25,23 @@ export const TreasuryBookFormDropdown = <TFieldValues extends FieldValues>({
 }: TreasuryBookFormDropdownProps<TFieldValues>) => {
   const { t } = useTranslation('common')
 
-  const { data: { treasuryBooks } = {} } = useTreasuryBooksQuery({
+  const { data: { branches } = {} } = useBranchesQuery({
     variables: {
       input: {
-        ownerId: '81087108-3748-446a-b033-a85d7c9ace7b',
+        userId: '81087108-3748-446a-b033-a85d7c9ace7b',
       },
     },
   })
 
   const options = useMemo(
     () =>
-      treasuryBooks
+      branches
         ?.filter(({ id }) => id !== excludeTreasuryBookId)
         .map(({ id, name, currency }) => ({
           label: <TreasuryBookChip name={name} currency={currency} />,
           value: id,
         })) ?? [],
-    [treasuryBooks, excludeTreasuryBookId],
+    [branches, excludeTreasuryBookId],
   )
 
   return (

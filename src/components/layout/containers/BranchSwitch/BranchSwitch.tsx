@@ -2,33 +2,33 @@ import { Listbox } from '@headlessui/react'
 import classNames from 'classnames'
 import React, { useCallback, useMemo } from 'react'
 
-import { useTreasuryBooksQuery } from '@/api/graphql'
+import { useBranchesQuery } from '@/api/graphql'
 import { TreasuryBookChip } from '@/components/core'
 import { useCurrentBranch } from '@/components/core/hooks'
 
 export const BranchSwitch: React.FC = () => {
   const [currentBranch, setCurrentBranch] = useCurrentBranch()
-  const { data } = useTreasuryBooksQuery({
+  const { data: { branches } = {} } = useBranchesQuery({
     variables: {
       input: {
-        ownerId: '81087108-3748-446a-b033-a85d7c9ace7b',
+        userId: '81087108-3748-446a-b033-a85d7c9ace7b',
       },
     },
   })
 
   const options = useMemo(
     () =>
-      data?.treasuryBooks.map(({ id, name, currency }) => ({
+      branches?.map(({ id, name, currency }) => ({
         value: id,
         label: <TreasuryBookChip name={name} currency={currency} />,
       })) ?? [],
-    [data?.treasuryBooks],
+    [branches],
   )
 
   const handleSetCurrentBranch = useCallback(
     (value: string) =>
-      setCurrentBranch(data?.treasuryBooks.find(({ id }) => id === value)),
-    [data?.treasuryBooks, setCurrentBranch],
+      setCurrentBranch(branches?.find(({ id }) => id === value)),
+    [branches, setCurrentBranch],
   )
 
   return (

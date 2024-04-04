@@ -16,6 +16,7 @@ export const TagsTable: React.FC = () => {
   const { t } = useTranslation('tag')
   const [currentBranch] = useCurrentBranch()
   const [filter, setFilter] = useState<TagType | null>(null)
+  const colDefs = useTagsTableCol()
 
   const hanldeFilterChange = useCallback(
     (change: UseSelectSelectedItemChange<DropdownItem<TagType | null>>) =>
@@ -31,31 +32,38 @@ export const TagsTable: React.FC = () => {
     },
     skip: currentBranch == null,
   })
-  const colDefs = useTagsTableCol()
 
   const tags = useMemo<DropdownItem<TagType | null>[]>(() => {
-    return ([...Object.values(TagType), null] as const).map((value) => ({
+    return ([null, ...Object.values(TagType)] as const).map((value) => ({
       title: t(`tagType.${value}`),
       value,
       solidIcon: value != null ? tagTypeToSolidIconName(value) : undefined,
     }))
   }, [t])
 
+  const filteredData = useMemo(() => {
+    return (data?.tags ?? []).filter(
+      (tag) => filter == null || tag.type === filter,
+    )
+  }, [data?.tags, filter])
+
   return (
     <Card>
-      <div className="flex flex-col space-y-2">
-        <div className="border-b-mid-gray flex items-center space-x-2 border-b pb-3 pt-1">
-          <Dropdown>
-            <Dropdown.Select
-              items={tags}
-              onChange={hanldeFilterChange}
-              value={tags.find(({ value }) => value === filter)}
-            >
-              <Dropdown.Options />
-            </Dropdown.Select>
-          </Dropdown>
+      <div className="flex flex-col">
+        <div className="border-b-mid-gray flex items-center space-x-4 border-b pb-6">
+          <div className="w-48">
+            <Dropdown label="Tag Type">
+              <Dropdown.Select
+                items={tags}
+                onChange={hanldeFilterChange}
+                value={tags.find(({ value }) => value === filter)}
+              >
+                <Dropdown.Options />
+              </Dropdown.Select>
+            </Dropdown>
+          </div>
         </div>
-        <Table data={data?.tags ?? []} colDefs={colDefs} />
+        <Table data={filteredData} colDefs={colDefs} />
       </div>
     </Card>
   )

@@ -1,6 +1,10 @@
-import { TreasuryBook, useTreasuryBooksQuery } from '@/api/graphql'
-import { CurrentBranchContext } from './context'
 import { useState } from 'react'
+
+import { useBranchesQuery } from '@/api/graphql'
+
+import { CurrentBranchContext } from './context'
+
+import type { Branch } from '@/api/graphql'
 
 export interface CurrentBranchProviderProps {
   children: React.ReactNode
@@ -9,17 +13,16 @@ export interface CurrentBranchProviderProps {
 export const CurrentBranchProvider: React.FC<CurrentBranchProviderProps> = ({
   children,
 }) => {
-  const [currentBranch, setCurrentBranch] = useState<TreasuryBook>()
+  const [currentBranch, setCurrentBranch] = useState<Branch>()
 
-  // Initial the the first branch to be the current branch
-  useTreasuryBooksQuery({
+  useBranchesQuery({
     variables: {
       input: {
-        ownerId: '81087108-3748-446a-b033-a85d7c9ace7b',
+        userId: '81087108-3748-446a-b033-a85d7c9ace7b',
       },
     },
     onCompleted: (data) => {
-      setCurrentBranch(data.treasuryBooks?.at(0))
+      setCurrentBranch(data.branches?.at(0))
     },
   })
 

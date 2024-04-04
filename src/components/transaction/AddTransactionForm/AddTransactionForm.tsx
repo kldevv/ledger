@@ -9,7 +9,7 @@ import {
   type TransactionFormFieldValues,
 } from '@/components/transaction'
 import { useToaster } from '@/hooks'
-import { parseCurrencyNumericFormat } from '@/shared'
+import { parseCurrencyNumericFormat } from '@/shared/utils'
 
 export const AddTransactionForm: React.FC = () => {
   const { t } = useTranslation('journal')
