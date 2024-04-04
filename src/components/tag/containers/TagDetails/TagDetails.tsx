@@ -3,10 +3,10 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { useTagQuery } from '@/api/graphql'
-import { FormattedDate } from '@/components/core'
 import {
   DescList,
   Icon,
+  FormattedDate,
   type DescListItem,
   Card,
 } from '@/components/core/presentationals'

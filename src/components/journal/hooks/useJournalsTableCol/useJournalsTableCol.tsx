@@ -1,12 +1,12 @@
 import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 
+import { EntryStatusChip } from '@/components/core'
 import {
-  EntryStatusChip,
   FormattedCurrencyNumber,
   FormattedDate,
-} from '@/components/core'
-import { TextLink } from '@/components/core/presentationals'
+  TextLink,
+} from '@/components/core/presentationals'
 import { route } from '@/shared/route'
 
 import type { JournalsQuery } from '@/api/graphql'

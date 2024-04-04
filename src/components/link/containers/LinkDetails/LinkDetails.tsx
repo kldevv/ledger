@@ -3,8 +3,11 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { useLinkQuery } from '@/api/graphql'
-import { FormattedDate } from '@/components/core'
-import { Card, DescList } from '@/components/core/presentationals'
+import {
+  Card,
+  DescList,
+  FormattedDate,
+} from '@/components/core/presentationals'
 
 import { LinkDetailsJournals } from './LinkDetails.Journals/LinkDetails.Journals'
 

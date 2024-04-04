@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
-import { FormattedCurrencyNumber } from '@/components/core'
+import { FormattedCurrencyNumber } from '@/components/core/presentationals'
 import { route } from '@/shared/route'
 
 import type { TotalDebitAndCreditOverTheMonths } from '@/api/graphql'

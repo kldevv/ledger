@@ -2,9 +2,14 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { CurrencyChip, FormattedDate } from '@/components/core'
+import { CurrencyChip } from '@/components/core'
 import { useCurrentBranch } from '@/components/core/hooks'
-import { ButtonCore, Icon, TextLink } from '@/components/core/presentationals'
+import {
+  ButtonCore,
+  FormattedDate,
+  Icon,
+  TextLink,
+} from '@/components/core/presentationals'
 import { route } from '@/shared/route'
 
 import type { BranchesQuery, Branch } from '@/api/graphql'

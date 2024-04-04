@@ -1,7 +1,5 @@
 export * from './Button'
 export * from './Customized'
-export * from './FormattedCurrencyNumber'
-export * from './FormattedDate'
 export * from './InputCore'
 export * from './LoadingBox'
 export * from './PageTab'

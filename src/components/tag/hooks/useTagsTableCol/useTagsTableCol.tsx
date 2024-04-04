@@ -2,8 +2,11 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate } from '@/components/core'
-import { Icon, TextLink } from '@/components/core/presentationals'
+import {
+  Icon,
+  TextLink,
+  FormattedDate,
+} from '@/components/core/presentationals'
 import { route } from '@/shared/route'
 import { tagTypeToSolidIconName } from '@/shared/utils'
 
