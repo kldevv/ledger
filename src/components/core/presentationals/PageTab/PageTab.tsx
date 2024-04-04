@@ -2,7 +2,7 @@ import { Tab } from '@headlessui/react'
 import classNames from 'classnames'
 import { Fragment } from 'react'
 
-import { Button } from '../..'
+import { ButtonCore } from '..'
 
 export interface PageTabProps {
   /**
@@ -27,7 +27,7 @@ export const PageTab: React.FC<PageTabProps> = ({ options }) => {
         {options.map(({ label }) => (
           <Tab key={String(label)} as={Fragment}>
             {({ selected }) => (
-              <Button
+              <ButtonCore
                 className={classNames(
                   'size-full outline-none text-xs font-medium',
                   selected
@@ -38,7 +38,7 @@ export const PageTab: React.FC<PageTabProps> = ({ options }) => {
                 <div className="hover:bg-light-accent-halo size-full rounded-md p-1">
                   {label}
                 </div>
-              </Button>
+              </ButtonCore>
             )}
           </Tab>
         ))}

@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 import { useFieldArray } from 'react-hook-form'
 
-import { Button } from '@/components/core'
+import { ButtonCore } from '@/components/core/presentationals'
 
 import { EntryField } from '.'
 
@@ -62,9 +62,9 @@ export const EntryFields = <TFieldValues extends FieldValues>({
                 })}
               </div>
               {fields.length > 2 && (
-                <Button className="ml-auto" onClick={handleOnRemove(index)}>
+                <ButtonCore className="ml-auto" onClick={handleOnRemove(index)}>
                   <XMarkIcon className="text-gray size-4" />
-                </Button>
+                </ButtonCore>
               )}
             </div>
             <EntryField
@@ -74,11 +74,11 @@ export const EntryFields = <TFieldValues extends FieldValues>({
           </div>
         ))}
       </div>
-      <Button onClick={handleOnAppend} className="mt-4">
+      <ButtonCore onClick={handleOnAppend} className="mt-4">
         <div className=" bg-light-shades text-gray hover:bg-mid-gray flex place-content-center items-center rounded-md py-2 text-xs font-semibold">
           <PlusIcon className="size-5" />
         </div>
-      </Button>
+      </ButtonCore>
     </div>
   )
 }

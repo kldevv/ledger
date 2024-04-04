@@ -2,7 +2,7 @@ import { RadioGroup } from '@headlessui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { useCallback, useMemo } from 'react'
 
-import { Button } from '../..'
+import { ButtonCore } from '..'
 
 import { PaginationEllipsis } from './Pagination.Ellipsis/Pagination.Ellipsis'
 import { PaginationPage } from './Pagination.Page/Pagination.Page'
@@ -45,11 +45,11 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className="flex items-center">
-      <Button onClick={handleOnPageIncrement(-1)}>
+      <ButtonCore onClick={handleOnPageIncrement(-1)}>
         <div className="border-mid-gray rounded-l-lg border border-r-0 px-4 py-1">
           <ChevronLeftIcon className="text-gray size-6" />
         </div>
-      </Button>
+      </ButtonCore>
       <RadioGroup
         as="div"
         className="flex"
@@ -92,11 +92,11 @@ export const Pagination: React.FC<PaginationProps> = ({
           </>
         )}
       </RadioGroup>
-      <Button onClick={handleOnPageIncrement(1)}>
+      <ButtonCore onClick={handleOnPageIncrement(1)}>
         <div className="border-mid-gray rounded-r-lg border px-4 py-1">
           <ChevronRightIcon className="text-gray size-6" />
         </div>
-      </Button>
+      </ButtonCore>
     </div>
   )
 }
