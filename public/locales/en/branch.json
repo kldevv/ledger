@@ -49,7 +49,7 @@
   "editBranch": {
     "label": {
       "id": "ID",
-      "name": "Branch name",
+      "name": "Branch Name",
       "currency": "Branch Currency",
       "createdAt": "Create Date",
       "updatedAt": "Update Date"
@@ -59,7 +59,7 @@
   },
   "addBranch": {
     "label": {
-      "name": "Branch name",
+      "name": "Branch Name",
       "currency": "Branch Currency"
     },
     "placeholder": {

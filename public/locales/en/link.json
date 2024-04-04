@@ -11,7 +11,7 @@
   },
   "addLink": {
     "label": {
-      "name": "Link name",
+      "name": "Link Name",
       "type": "Link Type"
     },
     "placeholder": {
@@ -24,7 +24,7 @@
   "editLink": {
     "label": {
       "id": "ID",
-      "name": "Link name",
+      "name": "Link Name",
       "type": "Link Type",
       "createdAt": "Create Date",
       "updatedAt": "Update Date"

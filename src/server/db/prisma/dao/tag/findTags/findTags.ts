@@ -19,5 +19,8 @@ export const findTags = async ({ branchId }: FindTagsArgs) => {
         },
       },
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   })
 }

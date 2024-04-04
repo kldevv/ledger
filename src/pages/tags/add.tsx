@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { AddTagForm } from '@/components/tag'
+import { AddTagForm } from '@/components/tag/containers'
 import { route } from '@/shared/route'
 
 import type { GetServerSideProps } from 'next'

@@ -53,5 +53,18 @@
     "TRAVEL": "Travel",
     "ORGANIZATION": "Organization",
     "null": "All Tag Types"
+  },
+  "addTag": {
+    "label": {
+      "name": "Tag Name",
+      "type": "Tag Type",
+      "branchId": "Branch ID (current branch)"
+    },
+    "placeholder": {
+      "name": "Enter tag name",
+      "type": "Select tag type"
+    },
+    "toast": "You have successfully added the new tag \"<b>{{ name }}</b>\".",
+    "submit": "Add New Tag"
   }
 }
