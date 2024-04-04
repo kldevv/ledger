@@ -52,7 +52,7 @@ export const Dropdown = <ItemValue,>({
           {label}
         </label>
       )}
-      <div className="border-mid-gray w-full rounded-md border text-xs">
+      <div className={'border-mid-gray w-full rounded-md border text-xs'}>
         {React.isValidElement<DropdownSelectProps<ItemValue>>(children) &&
           React.cloneElement(children, { className: 'px-2 py-1 rounded-md' })}
       </div>

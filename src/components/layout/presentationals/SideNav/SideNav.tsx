@@ -1,5 +1,7 @@
 import classNames from 'classnames'
 
+import { BranchSwitch } from '@/components/branch/containers'
+
 import { useSideNavSection } from '../../hooks/useSideNavSection/useSideNavSection'
 
 import { SideNavSection } from './SideNav.Section/SideNav.Section'

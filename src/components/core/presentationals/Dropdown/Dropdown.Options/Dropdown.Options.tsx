@@ -54,24 +54,23 @@ export const DropdownOptions = <ItemValue,>({
             className={classNames(
               highlightedIndex === index && 'bg-mid-gray/50',
               'px-2 py-1 cursor-pointer flex flex-col select-none',
+              { 'font-semibold': selectedItem === item },
             )}
             key={String(item.value)}
             {...getItemProps?.({ item: item.value, index })}
           >
-            <span
-              className={classNames('flex gap-2 items-center', {
-                'font-semibold': selectedItem === item,
-              })}
-            >
-              {item?.outlineIcon != null ? (
-                <Icon.Outline name={item.outlineIcon} className="size-2.5" />
-              ) : item?.solidIcon != null ? (
-                <Icon.Solid name={item.solidIcon} className="size-2.5" />
-              ) : (
-                item.flagIcon && (
-                  <Icon.Flag name={item.flagIcon} className="size-2.5" />
-                )
-              )}
+            <span className={classNames('flex gap-2 items-center')}>
+              <span className="min-w-max">
+                {item?.outlineIcon != null ? (
+                  <Icon.Outline name={item.outlineIcon} className="size-2.5" />
+                ) : item?.solidIcon != null ? (
+                  <Icon.Solid name={item.solidIcon} className="size-2.5" />
+                ) : (
+                  item.flagIcon && (
+                    <Icon.Flag name={item.flagIcon} className="size-2.5" />
+                  )
+                )}
+              </span>
               {item.title}
             </span>
             {item.desc != null && (

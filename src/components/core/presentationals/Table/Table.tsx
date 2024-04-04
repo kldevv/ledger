@@ -9,8 +9,8 @@ import { useMemo, useState } from 'react'
 
 import { Icon, Pagination } from '..'
 
-import { TableBody } from './TableBody'
-import { TableHead } from './TableHead'
+import { TableBody } from './TableBody/TableBody'
+import { TableHead } from './TableHead/TableHead'
 
 import type { ColumnDef, RowData, SortingState } from '@tanstack/react-table'
 

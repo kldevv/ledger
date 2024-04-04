@@ -63,29 +63,42 @@ export const DropdownSelect = <ItemValue,>({
     <div className="relative w-full">
       <div
         className={classNames(
-          'flex size-full cursor-pointer items-center justify-between bg-white whitespace-nowrap overflow-hidden',
+          'flex size-full cursor-pointer items-center justify-start bg-white',
           className,
+          {
+            'outline outline-light-accent': isOpen,
+          },
         )}
         {...getToggleButtonProps()}
       >
         {selectedItem ? (
-          <span className="flex items-center gap-2">
-            {selectedItem?.outlineIcon != null ? (
-              <Icon.Outline
-                name={selectedItem.outlineIcon}
-                className="size-2.5"
-              />
-            ) : selectedItem?.solidIcon != null ? (
-              <Icon.Solid name={selectedItem.solidIcon} className="size-2.5" />
-            ) : (
-              selectedItem.flagIcon && (
-                <Icon.Flag name={selectedItem.flagIcon} className="size-2.5" />
-              )
-            )}
-            {selectedItem.title}
-          </span>
+          <>
+            <span className="mr-2">
+              {selectedItem?.outlineIcon != null ? (
+                <Icon.Outline
+                  name={selectedItem.outlineIcon}
+                  className="size-2.5"
+                />
+              ) : selectedItem?.solidIcon != null ? (
+                <Icon.Solid
+                  name={selectedItem.solidIcon}
+                  className="size-2.5"
+                />
+              ) : (
+                selectedItem.flagIcon && (
+                  <Icon.Flag
+                    name={selectedItem.flagIcon}
+                    className="size-2.5"
+                  />
+                )
+              )}
+            </span>
+            <span className="flex w-full select-none items-center truncate">
+              {selectedItem.title}
+            </span>
+          </>
         ) : (
-          <span className="text-gray min-h-4 min-w-20 select-none">
+          <span className="text-gray min-h-4 w-full min-w-20 select-none truncate">
             {placeholder}
           </span>
         )}

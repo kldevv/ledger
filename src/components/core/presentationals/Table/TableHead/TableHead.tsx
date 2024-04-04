@@ -1,8 +1,7 @@
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 
-import { TableHeader } from '..'
-import { Button } from '../../..'
-import { Icon } from '../..'
+import { ButtonCore, Icon } from '../..'
+import { TableHeader } from '../TableHeader/TableHeader'
 
 export interface TableHeadProps<TData extends RowData> {
   /**
@@ -23,7 +22,7 @@ export const TableHead = <TData extends RowData>({
           {headers.map((header) => (
             <TableHeader key={header.id} colSpan={header.colSpan}>
               {header.column.getCanSort() ? (
-                <Button
+                <ButtonCore
                   onClick={header.column.getToggleSortingHandler()}
                   className="hover:bg-mid-gray/50 my-2 -ml-3 flex size-full items-center justify-start rounded-lg px-3 py-1"
                 >
@@ -47,7 +46,7 @@ export const TableHead = <TData extends RowData>({
                       />
                     )}
                   </span>
-                </Button>
+                </ButtonCore>
               ) : header.isPlaceholder ? null : (
                 <span className="select-none">
                   {flexRender(

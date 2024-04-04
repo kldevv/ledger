@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { AccountBalanceTable } from '@/components/report'
+// import { AccountBalanceTable } from '@/components/report'
 import { route } from '@/shared/route'
 
 import type { GetServerSideProps } from 'next'
@@ -23,7 +23,7 @@ const Page: React.FC = () => {
           />
         }
       />
-      <AccountBalanceTable />
+      {/* <AccountBalanceTable /> */}
     </Layout>
   )
 }

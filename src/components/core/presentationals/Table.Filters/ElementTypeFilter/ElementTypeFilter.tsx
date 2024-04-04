@@ -1,9 +1,8 @@
 import { useMemo } from 'react'
 
-import { ElementType } from '@/api/graphql'
-
 import { ElementTypeChip } from '../..'
-import { DropdownFilter } from '../../../Filters'
+
+import type { ElementType } from '@/api/graphql'
 
 export interface ElementTypeFilterProps {
   /**
@@ -20,18 +19,19 @@ export const ElementTypeFilter: React.FC<ElementTypeFilterProps> = ({
   value,
   onChange,
 }) => {
-  const options = useMemo(
-    () =>
-      [
-        ElementType.ACCOUNT,
-        ElementType.ACCOUNT_GROUP,
-        ElementType.ACCOUNTING_TYPE,
-      ].map((value) => ({
-        value,
-        label: <ElementTypeChip type={value} />,
-      })),
-    [],
-  )
+  return null
+  // const options = useMemo(
+  //   () =>
+  //     [
+  //       ElementType.ACCOUNT,
+  //       ElementType.ACCOUNT_GROUP,
+  //       ElementType.ACCOUNTING_TYPE,
+  //     ].map((value) => ({
+  //       value,
+  //       label: <ElementTypeChip type={value} />,
+  //     })),
+  //   [],
+  // )
 
-  return <DropdownFilter value={value} onChange={onChange} options={options} />
+  // return <DropdownFilter value={value} onChange={onChange} options={options} />
 }

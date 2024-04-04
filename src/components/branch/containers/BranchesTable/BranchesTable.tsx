@@ -1,6 +1,5 @@
 import { useBranchesQuery } from '@/api/graphql'
-import { Table } from '@/components/core'
-import { Card } from '@/components/core/presentationals'
+import { Card, Table } from '@/components/core/presentationals'
 
 import { useBranchesTableCol } from '../../hooks'
 

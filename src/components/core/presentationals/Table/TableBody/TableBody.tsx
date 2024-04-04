@@ -1,6 +1,6 @@
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 
-import { TableCell } from '..'
+import { TableCell } from '../TableCell/TableCell'
 
 export interface TableBodyProps<TData extends RowData> {
   /**

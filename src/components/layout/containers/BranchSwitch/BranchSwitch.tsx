@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import React, { useCallback, useMemo } from 'react'
 
 import { useBranchesQuery } from '@/api/graphql'
-import { TreasuryBookChip } from '@/components/core'
 import { useCurrentBranch } from '@/components/core/hooks'
 
 export const BranchSwitch: React.FC = () => {
