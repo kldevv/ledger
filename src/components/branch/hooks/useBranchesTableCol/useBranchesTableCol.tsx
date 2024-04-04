@@ -2,7 +2,6 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
-import { CurrencyChip } from '@/components/core'
 import { useCurrentBranch } from '@/components/core/hooks'
 import {
   ButtonCore,
@@ -11,6 +10,7 @@ import {
   TextLink,
 } from '@/components/core/presentationals'
 import { route } from '@/shared/route'
+import { currencyToFlagIconName } from '@/shared/utils'
 
 import type { BranchesQuery, Branch } from '@/api/graphql'
 
@@ -74,7 +74,14 @@ export const useBranchesTableCol = () => {
       ),
       columnHelper.accessor('currency', {
         header: t`branchesTable.col.currency`,
-        cell: ({ getValue }) => <CurrencyChip currency={getValue()} />,
+        cell: ({ getValue }) => (
+          <div className="border-mid-gray flex w-fit select-none items-center rounded-xl border bg-white px-3">
+            <span className="text-dark-shades pr-2 text-xs font-medium leading-6">
+              {getValue()}
+            </span>
+            <Icon.Flag name={currencyToFlagIconName(getValue())} />
+          </div>
+        ),
       }),
       columnHelper.accessor('createdAt', {
         header: t`branchesTable.col.createdAt`,

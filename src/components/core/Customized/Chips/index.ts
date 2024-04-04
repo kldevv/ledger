@@ -1,6 +1,0 @@
-export * from './CategoryTypeChip'
-export * from './CurrencyChip'
-export * from './EntryStatusChip'
-export * from './TreasuryBookChip'
-export * from './TagTypeChip'
-export * from './TagChip'
