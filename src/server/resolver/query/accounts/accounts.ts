@@ -1,17 +1,17 @@
+import { findAccounts } from '@/server/db/prisma/dao/account'
+
+import { transformAccount } from '../../transform'
+
 import type { QueryResolvers } from '@/api/graphql'
 
 export const accounts: QueryResolvers['accounts'] = async (
   _,
-  { input: { treasuryBookId, categoryId } },
-  { dataSources: { prisma } },
+  { input: { branchId, accountGroupId } },
 ) => {
-  const accounts = await prisma.account.findAccounts({
-    treasuryBookId: treasuryBookId,
-    categoryId: categoryId ?? undefined,
+  const accounts = await findAccounts({
+    branchId,
+    accountGroupId: accountGroupId ?? undefined,
   })
 
-  return accounts.map(({ _count, ...account }) => ({
-    ...account,
-    entryCount: _count.entries,
-  }))
+  return accounts.map(transformAccount)
 }

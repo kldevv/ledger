@@ -1,7 +1,0 @@
-export * from './AccountDataTable'
-export * from './AccountDescriptionList'
-export * from './AccountDetails'
-export * from './AccountTable'
-export * from './AddAccountFrom'
-export * from './UpdateAccountForm'
-export * from './AccountForm'

@@ -1,50 +1,12 @@
 {
-  "AccountDescriptionList": {
-    "title": {
-      "id": "ID",
+  "accountsTable": {
+    "col": {
       "name": "Name",
-      "updatedAt": "Update Date",
+      "group": "Account Group",
       "createdAt": "Create Date",
-      "category": "Category"
-    }
-  },
-  "AccountDetails": {
-    "title": {
-      "entries": "Account Entries"
-    }
-  },
-  "AccountTable": {
-    "header": {
-      "name": "Name",
-      "category": "Category",
-      "entryCount": "Entries",
-      "createdAt": "Create Date"
+      "count": "Entry Count",
+      "details": "Details"
     },
-    "link": {
-      "view": "View"
-    }
-  },
-  "AddAccountFrom": {
-    "submit": "Add Account",
-    "success": "Your Account is successfully added"
-  },
-  "UpdateAccountForm": {
-    "submit": "Update Account",
-    "success": "Your Account is successfully updated"
-  },
-  "AccountForm": {
-    "label": {
-      "name": "Name"
-    }
-  },
-  "page": {
-    "index": {
-      "action": "Add Account"
-    },
-    "[id]": {
-      "index": {
-        "action": "Edit"
-      }
-    }
+    "view": "View"
   }
 }

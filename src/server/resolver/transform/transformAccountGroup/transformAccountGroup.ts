@@ -5,7 +5,7 @@ type TransformAccountGroupArgs = PrismaAccountGroup & {
   /**
    * Aggregate relation field: count
    */
-  _count: {
+  _count?: {
     accounts: number
   }
 }
@@ -16,6 +16,6 @@ export const transformAccountGroup = ({
   ...rest
 }: TransformAccountGroupArgs): AccountGroup => ({
   ...rest,
-  count: _count.accounts,
+  count: _count?.accounts,
   branchId: treasuryBookId,
 })

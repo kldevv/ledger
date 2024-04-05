@@ -1,7 +1,7 @@
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { AccountDataTable } from '@/components/account'
+import { AccountsTable } from '@/components/account/containers'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
@@ -27,7 +27,7 @@ const Page: React.FC = () => {
         }
         link={{ href: route.account.add, label: t`account.link` }}
       />
-      <AccountDataTable />
+      <AccountsTable />
     </Layout>
   )
 }

@@ -3,7 +3,7 @@ type AccountGroup {
   name: String!
   type: AccountingType!
   branchId: String!
-  count: Int!
+  count: Int
   createdAt: DateTime!
   updatedAt: DateTime!
   deletedAt: DateTime

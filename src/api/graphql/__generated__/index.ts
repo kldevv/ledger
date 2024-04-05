@@ -49,7 +49,7 @@ export type AccountBalanceFilter = {
 export type AccountGroup = {
   __typename?: 'AccountGroup';
   branchId: Scalars['String']['output'];
-  count: Scalars['Int']['output'];
+  count?: Maybe<Scalars['Int']['output']>;
   createdAt: Scalars['DateTime']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['String']['output'];
@@ -824,7 +824,7 @@ export type AccountBalanceResolvers<ContextType = ApolloServerContext, ParentTyp
 
 export type AccountGroupResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AccountGroup'] = ResolversParentTypes['AccountGroup']> = {
   branchId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1004,7 +1004,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 
 export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, count: number, createdAt: Date, group: { __typename?: 'AccountGroup', id: string, name: string } };
 
-export type AccountGroupDataFragment = { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number };
+export type AccountGroupDataFragment = { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count?: number | null };
 
 export type BranchDataFragment = { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null };
 
@@ -1030,7 +1030,7 @@ export type AddAccountGroupMutationVariables = Exact<{
 }>;
 
 
-export type AddAccountGroupMutation = { __typename?: 'Mutation', addAccountGroup: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number } };
+export type AddAccountGroupMutation = { __typename?: 'Mutation', addAccountGroup: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count?: number | null } };
 
 export type AddBranchMutationVariables = Exact<{
   input: AddBranchInput;
@@ -1065,7 +1065,7 @@ export type UpdateAccountGroupMutationVariables = Exact<{
 }>;
 
 
-export type UpdateAccountGroupMutation = { __typename?: 'Mutation', updateAccountGroup: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number } };
+export type UpdateAccountGroupMutation = { __typename?: 'Mutation', updateAccountGroup: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count?: number | null } };
 
 export type UpdateBranchMutationVariables = Exact<{
   input: UpdateBranchInput;
@@ -1114,14 +1114,14 @@ export type AccountGroupQueryVariables = Exact<{
 }>;
 
 
-export type AccountGroupQuery = { __typename?: 'Query', accountGroup?: { __typename?: 'AccountGroup', updatedAt: Date, deletedAt?: Date | null, branchId: string, id: string, name: string, type: AccountingType, createdAt: Date, count: number } | null };
+export type AccountGroupQuery = { __typename?: 'Query', accountGroup?: { __typename?: 'AccountGroup', updatedAt: Date, deletedAt?: Date | null, branchId: string, id: string, name: string, type: AccountingType, createdAt: Date, count?: number | null } | null };
 
 export type AccountGroupsQueryVariables = Exact<{
   input: AccountGroupsInput;
 }>;
 
 
-export type AccountGroupsQuery = { __typename?: 'Query', accountGroups: Array<{ __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number }> };
+export type AccountGroupsQuery = { __typename?: 'Query', accountGroups: Array<{ __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count?: number | null }> };
 
 export type AccountsQueryVariables = Exact<{
   input: AccountsInput;

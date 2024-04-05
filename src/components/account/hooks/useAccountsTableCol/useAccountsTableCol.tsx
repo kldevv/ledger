@@ -5,22 +5,22 @@ import { useMemo } from 'react'
 import { TextLink, FormattedDate } from '@/components/core/presentationals'
 import { route } from '@/shared/route'
 
-import type { LinksQuery } from '@/api/graphql'
+import type { AccountsQuery } from '@/api/graphql'
 
-const columnHelper = createColumnHelper<LinksQuery['links'][number]>()
+const columnHelper = createColumnHelper<AccountsQuery['accounts'][number]>()
 
-export const useLinksTableCol = () => {
-  const { t } = useTranslation('link')
+export const useAccountsTableCol = () => {
+  const { t } = useTranslation('account')
 
   return useMemo(
     () => [
       columnHelper.accessor(({ id, name }) => ({ id, name }), {
-        header: t`linksTable.col.name`,
+        header: t`accountsTable.col.name`,
         cell: ({ getValue }) => (
           <TextLink
             intent="table"
             href={{
-              pathname: route.link.details.pathname,
+              pathname: route.account.details.pathname,
               query: { id: getValue().id },
             }}
           >
@@ -28,28 +28,38 @@ export const useLinksTableCol = () => {
           </TextLink>
         ),
       }),
-      columnHelper.accessor('type', {
-        header: t`linksTable.col.type`,
-        cell: ({ getValue }) => <span>{t(`linkType.${getValue()}`)}</span>,
+      columnHelper.accessor('group', {
+        header: t`accountsTable.col.group`,
+        cell: ({ getValue }) => (
+          <TextLink
+            intent="table"
+            href={{
+              pathname: route.accountGroup.details.pathname,
+              query: { id: getValue().id },
+            }}
+          >
+            {getValue().name}
+          </TextLink>
+        ),
       }),
       columnHelper.accessor('count', {
-        header: t`linksTable.col.count`,
+        header: t`accountsTable.col.count`,
       }),
       columnHelper.accessor('createdAt', {
-        header: t`linksTable.col.createdAt`,
+        header: t`accountsTable.col.createdAt`,
         cell: ({ getValue }) => <FormattedDate dateTime={getValue()} />,
       }),
       columnHelper.accessor('id', {
-        header: t`linksTable.col.details`,
+        header: t`accountsTable.col.details`,
         enableSorting: false,
         cell: ({ getValue }) => (
           <TextLink
             href={{
-              pathname: route.link.details.pathname,
+              pathname: route.account.details.pathname,
               query: { id: getValue() },
             }}
           >
-            {t`linksTable.view`}
+            {t`accountsTable.view`}
           </TextLink>
         ),
       }),
