@@ -1,0 +1,5 @@
+mutation UpdateAccountGroup($input: UpdateAccountGroupInput!) {
+  updateAccountGroup(input: $input) {
+    ...AccountGroupData
+  }
+}

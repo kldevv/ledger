@@ -57,6 +57,10 @@ export type AccountGroup = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type AccountGroupInput = {
+  id: Scalars['String']['input'];
+};
+
 export type AccountGroupsInput = {
   branchId: Scalars['String']['input'];
 };
@@ -75,6 +79,12 @@ export type AccountingType = typeof AccountingType[keyof typeof AccountingType];
 export type AccountsInput = {
   categoryId?: InputMaybe<Scalars['String']['input']>;
   treasuryBookId: Scalars['String']['input'];
+};
+
+export type AddAccountGroupInput = {
+  branchId: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  type: AccountingType;
 };
 
 export type AddAccountInput = {
@@ -294,6 +304,7 @@ export type LinksInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addAccount: Account;
+  addAccountGroup: AccountGroup;
   addBranch: Branch;
   addCategory: Category;
   addLink: Link;
@@ -301,6 +312,7 @@ export type Mutation = {
   addTransaction: Transaction;
   addTreasuryBook: TreasuryBook;
   updateAccount: Account;
+  updateAccountGroup: AccountGroup;
   updateBranch: Branch;
   updateCategory: Category;
   updateLink: Link;
@@ -312,6 +324,11 @@ export type Mutation = {
 
 export type MutationAddAccountArgs = {
   input: AddAccountInput;
+};
+
+
+export type MutationAddAccountGroupArgs = {
+  input: AddAccountGroupInput;
 };
 
 
@@ -350,6 +367,11 @@ export type MutationUpdateAccountArgs = {
 };
 
 
+export type MutationUpdateAccountGroupArgs = {
+  input: UpdateAccountGroupInput;
+};
+
+
 export type MutationUpdateBranchArgs = {
   input: UpdateBranchInput;
 };
@@ -383,6 +405,7 @@ export type Query = {
   __typename?: 'Query';
   account?: Maybe<Account>;
   accountBalance: Array<AccountBalance>;
+  accountGroup?: Maybe<AccountGroup>;
   accountGroups: Array<AccountGroup>;
   accounts: Array<Account>;
   branch?: Maybe<Branch>;
@@ -410,6 +433,11 @@ export type QueryAccountArgs = {
 
 export type QueryAccountBalanceArgs = {
   input: AccountBalanceFilter;
+};
+
+
+export type QueryAccountGroupArgs = {
+  input: AccountGroupInput;
 };
 
 
@@ -584,6 +612,12 @@ export type UniqueYearsInput = {
   type: DateType;
 };
 
+export type UpdateAccountGroupInput = {
+  id: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  type: AccountingType;
+};
+
 export type UpdateAccountInput = {
   categoryId: Scalars['String']['input'];
   id: Scalars['String']['input'];
@@ -704,10 +738,12 @@ export type ResolversTypes = {
   AccountBalance: ResolverTypeWrapper<AccountBalance>;
   AccountBalanceFilter: AccountBalanceFilter;
   AccountGroup: ResolverTypeWrapper<AccountGroup>;
+  AccountGroupInput: AccountGroupInput;
   AccountGroupsInput: AccountGroupsInput;
   AccountInput: AccountInput;
   AccountingType: AccountingType;
   AccountsInput: AccountsInput;
+  AddAccountGroupInput: AddAccountGroupInput;
   AddAccountInput: AddAccountInput;
   AddBranchInput: AddBranchInput;
   AddCategoryInput: AddCategoryInput;
@@ -757,6 +793,7 @@ export type ResolversTypes = {
   TreasuryBook: ResolverTypeWrapper<TreasuryBook>;
   TreasuryBooksInput: TreasuryBooksInput;
   UniqueYearsInput: UniqueYearsInput;
+  UpdateAccountGroupInput: UpdateAccountGroupInput;
   UpdateAccountInput: UpdateAccountInput;
   UpdateBranchInput: UpdateBranchInput;
   UpdateCategoryInput: UpdateCategoryInput;
@@ -772,9 +809,11 @@ export type ResolversParentTypes = {
   AccountBalance: AccountBalance;
   AccountBalanceFilter: AccountBalanceFilter;
   AccountGroup: AccountGroup;
+  AccountGroupInput: AccountGroupInput;
   AccountGroupsInput: AccountGroupsInput;
   AccountInput: AccountInput;
   AccountsInput: AccountsInput;
+  AddAccountGroupInput: AddAccountGroupInput;
   AddAccountInput: AddAccountInput;
   AddBranchInput: AddBranchInput;
   AddCategoryInput: AddCategoryInput;
@@ -816,6 +855,7 @@ export type ResolversParentTypes = {
   TreasuryBook: TreasuryBook;
   TreasuryBooksInput: TreasuryBooksInput;
   UniqueYearsInput: UniqueYearsInput;
+  UpdateAccountGroupInput: UpdateAccountGroupInput;
   UpdateAccountInput: UpdateAccountInput;
   UpdateBranchInput: UpdateBranchInput;
   UpdateCategoryInput: UpdateCategoryInput;
@@ -937,6 +977,7 @@ export type LinkResolvers<ContextType = ApolloServerContext, ParentType extends 
 
 export type MutationResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
+  addAccountGroup?: Resolver<ResolversTypes['AccountGroup'], ParentType, ContextType, RequireFields<MutationAddAccountGroupArgs, 'input'>>;
   addBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationAddBranchArgs, 'input'>>;
   addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
   addLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationAddLinkArgs, 'input'>>;
@@ -944,6 +985,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
   addTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationAddTreasuryBookArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
+  updateAccountGroup?: Resolver<ResolversTypes['AccountGroup'], ParentType, ContextType, RequireFields<MutationUpdateAccountGroupArgs, 'input'>>;
   updateBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationUpdateBranchArgs, 'input'>>;
   updateCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'input'>>;
   updateLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationUpdateLinkArgs, 'input'>>;
@@ -955,6 +997,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountArgs, 'input'>>;
   accountBalance?: Resolver<Array<ResolversTypes['AccountBalance']>, ParentType, ContextType, RequireFields<QueryAccountBalanceArgs, 'input'>>;
+  accountGroup?: Resolver<Maybe<ResolversTypes['AccountGroup']>, ParentType, ContextType, RequireFields<QueryAccountGroupArgs, 'input'>>;
   accountGroups?: Resolver<Array<ResolversTypes['AccountGroup']>, ParentType, ContextType, RequireFields<QueryAccountGroupsArgs, 'input'>>;
   accounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountsArgs, 'input'>>;
   branch?: Resolver<Maybe<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchArgs, 'input'>>;
@@ -1059,6 +1102,13 @@ export type TransactionDataFragment = { __typename?: 'Transaction', id: string, 
 
 export type TreasuryBookDataFragment = { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date };
 
+export type AddAccountGroupMutationVariables = Exact<{
+  input: AddAccountGroupInput;
+}>;
+
+
+export type AddAccountGroupMutation = { __typename?: 'Mutation', addAccountGroup: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number } };
+
 export type AddBranchMutationVariables = Exact<{
   input: AddBranchInput;
 }>;
@@ -1072,6 +1122,13 @@ export type AddLinkMutationVariables = Exact<{
 
 
 export type AddLinkMutation = { __typename?: 'Mutation', addLink: { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
+
+export type UpdateAccountGroupMutationVariables = Exact<{
+  input: UpdateAccountGroupInput;
+}>;
+
+
+export type UpdateAccountGroupMutation = { __typename?: 'Mutation', updateAccountGroup: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number } };
 
 export type UpdateBranchMutationVariables = Exact<{
   input: UpdateBranchInput;
@@ -1156,6 +1213,13 @@ export type UpdateTreasuryBookMutationVariables = Exact<{
 
 
 export type UpdateTreasuryBookMutation = { __typename?: 'Mutation', updateTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date } };
+
+export type AccountGroupQueryVariables = Exact<{
+  input: AccountGroupInput;
+}>;
+
+
+export type AccountGroupQuery = { __typename?: 'Query', accountGroup?: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number } | null };
 
 export type AccountGroupsQueryVariables = Exact<{
   input: AccountGroupsInput;
@@ -1435,6 +1499,39 @@ export const TreasuryBookDataFragmentDoc = gql`
   createdAt
 }
     `;
+export const AddAccountGroupDocument = gql`
+    mutation AddAccountGroup($input: AddAccountGroupInput!) {
+  addAccountGroup(input: $input) {
+    ...AccountGroupData
+  }
+}
+    ${AccountGroupDataFragmentDoc}`;
+export type AddAccountGroupMutationFn = Apollo.MutationFunction<AddAccountGroupMutation, AddAccountGroupMutationVariables>;
+
+/**
+ * __useAddAccountGroupMutation__
+ *
+ * To run a mutation, you first call `useAddAccountGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddAccountGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addAccountGroupMutation, { data, loading, error }] = useAddAccountGroupMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddAccountGroupMutation(baseOptions?: Apollo.MutationHookOptions<AddAccountGroupMutation, AddAccountGroupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddAccountGroupMutation, AddAccountGroupMutationVariables>(AddAccountGroupDocument, options);
+      }
+export type AddAccountGroupMutationHookResult = ReturnType<typeof useAddAccountGroupMutation>;
+export type AddAccountGroupMutationResult = Apollo.MutationResult<AddAccountGroupMutation>;
+export type AddAccountGroupMutationOptions = Apollo.BaseMutationOptions<AddAccountGroupMutation, AddAccountGroupMutationVariables>;
 export const AddBranchDocument = gql`
     mutation AddBranch($input: AddBranchInput!) {
   addBranch(input: $input) {
@@ -1501,6 +1598,39 @@ export function useAddLinkMutation(baseOptions?: Apollo.MutationHookOptions<AddL
 export type AddLinkMutationHookResult = ReturnType<typeof useAddLinkMutation>;
 export type AddLinkMutationResult = Apollo.MutationResult<AddLinkMutation>;
 export type AddLinkMutationOptions = Apollo.BaseMutationOptions<AddLinkMutation, AddLinkMutationVariables>;
+export const UpdateAccountGroupDocument = gql`
+    mutation UpdateAccountGroup($input: UpdateAccountGroupInput!) {
+  updateAccountGroup(input: $input) {
+    ...AccountGroupData
+  }
+}
+    ${AccountGroupDataFragmentDoc}`;
+export type UpdateAccountGroupMutationFn = Apollo.MutationFunction<UpdateAccountGroupMutation, UpdateAccountGroupMutationVariables>;
+
+/**
+ * __useUpdateAccountGroupMutation__
+ *
+ * To run a mutation, you first call `useUpdateAccountGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAccountGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAccountGroupMutation, { data, loading, error }] = useUpdateAccountGroupMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAccountGroupMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAccountGroupMutation, UpdateAccountGroupMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateAccountGroupMutation, UpdateAccountGroupMutationVariables>(UpdateAccountGroupDocument, options);
+      }
+export type UpdateAccountGroupMutationHookResult = ReturnType<typeof useUpdateAccountGroupMutation>;
+export type UpdateAccountGroupMutationResult = Apollo.MutationResult<UpdateAccountGroupMutation>;
+export type UpdateAccountGroupMutationOptions = Apollo.BaseMutationOptions<UpdateAccountGroupMutation, UpdateAccountGroupMutationVariables>;
 export const UpdateBranchDocument = gql`
     mutation UpdateBranch($input: UpdateBranchInput!) {
   updateBranch(input: $input) {
@@ -1921,6 +2051,46 @@ export function useUpdateTreasuryBookMutation(baseOptions?: Apollo.MutationHookO
 export type UpdateTreasuryBookMutationHookResult = ReturnType<typeof useUpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationResult = Apollo.MutationResult<UpdateTreasuryBookMutation>;
 export type UpdateTreasuryBookMutationOptions = Apollo.BaseMutationOptions<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>;
+export const AccountGroupDocument = gql`
+    query AccountGroup($input: AccountGroupInput!) {
+  accountGroup(input: $input) {
+    ...AccountGroupData
+  }
+}
+    ${AccountGroupDataFragmentDoc}`;
+
+/**
+ * __useAccountGroupQuery__
+ *
+ * To run a query within a React component, call `useAccountGroupQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountGroupQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountGroupQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAccountGroupQuery(baseOptions: Apollo.QueryHookOptions<AccountGroupQuery, AccountGroupQueryVariables> & ({ variables: AccountGroupQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AccountGroupQuery, AccountGroupQueryVariables>(AccountGroupDocument, options);
+      }
+export function useAccountGroupLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountGroupQuery, AccountGroupQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AccountGroupQuery, AccountGroupQueryVariables>(AccountGroupDocument, options);
+        }
+export function useAccountGroupSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<AccountGroupQuery, AccountGroupQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AccountGroupQuery, AccountGroupQueryVariables>(AccountGroupDocument, options);
+        }
+export type AccountGroupQueryHookResult = ReturnType<typeof useAccountGroupQuery>;
+export type AccountGroupLazyQueryHookResult = ReturnType<typeof useAccountGroupLazyQuery>;
+export type AccountGroupSuspenseQueryHookResult = ReturnType<typeof useAccountGroupSuspenseQuery>;
+export type AccountGroupQueryResult = Apollo.QueryResult<AccountGroupQuery, AccountGroupQueryVariables>;
 export const AccountGroupsDocument = gql`
     query AccountGroups($input: AccountGroupsInput!) {
   accountGroups(input: $input) {

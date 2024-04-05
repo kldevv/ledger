@@ -14,10 +14,6 @@ type Query {
   accountBalance(input: AccountBalanceFilter!): [AccountBalance!]!
   uniqueYears(input: UniqueYearsInput!): [Int!]!
 
-  # Tag
-  tag(input: TagInput!): Tag
-  tags(input: TagsInput!): [Tag!]!
-
   # Transaction
   transaction(input: TransactionInput!): Transaction
   transactions(input: TransactionsInput!): [Transaction!]!
@@ -37,10 +33,15 @@ type Query {
   # Journal
   journals(input: JournalsInput!): [Journal!]!
 
+  # Tag
+  tag(input: TagInput!): Tag
+  tags(input: TagsInput!): [Tag!]!
+
   # Branch
   branches(input: BranchesInput!): [Branch!]!
   branch(input: BranchInput!): Branch
 
   # Account Group
   accountGroups(input: AccountGroupsInput!): [AccountGroup!]!
+  accountGroup(input: AccountGroupInput!): AccountGroup
 }

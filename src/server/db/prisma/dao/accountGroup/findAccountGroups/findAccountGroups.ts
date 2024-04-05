@@ -1,13 +1,15 @@
 import prisma from '../../../client'
 
-export interface FindBranchesArgs {
+export interface FindAccountGroupsArgs {
   /**
    * Branch id
    */
   branchId: string
 }
 
-export const findAccountGroups = async ({ branchId }: FindBranchesArgs) => {
+export const findAccountGroups = async ({
+  branchId,
+}: FindAccountGroupsArgs) => {
   return await prisma.category.findMany({
     where: {
       treasuryBookId: branchId,

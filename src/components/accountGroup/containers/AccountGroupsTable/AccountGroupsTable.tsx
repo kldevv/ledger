@@ -7,7 +7,7 @@ import { useAccountGroupsTableCol } from '../../hooks'
 export const AccountGroupsTable: React.FC = () => {
   const colDefs = useAccountGroupsTableCol()
   const [currentBranch] = useCurrentBranch()
-  const { data } = useAccountGroupsQuery({
+  const { data, loading } = useAccountGroupsQuery({
     variables: {
       input: {
         branchId: currentBranch?.id ?? '',
@@ -18,7 +18,11 @@ export const AccountGroupsTable: React.FC = () => {
 
   return (
     <Card>
-      <Table data={data?.accountGroups ?? []} colDefs={colDefs} />
+      <Table
+        data={data?.accountGroups ?? []}
+        colDefs={colDefs}
+        loading={loading || !data}
+      />
     </Card>
   )
 }

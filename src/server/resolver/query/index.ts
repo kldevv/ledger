@@ -1,4 +1,5 @@
 export * from './account/account'
+export * from './accountGroup/accountGroup'
 export * from './accountGroups/accountGroups'
 export * from './accounts/accounts'
 export * from './branch/branch'

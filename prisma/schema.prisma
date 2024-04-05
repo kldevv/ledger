@@ -159,6 +159,8 @@ enum TagType {
 enum LinkType {
   GENERAL
   FX
+
+  @@map("link_type")
 }
 
 enum Currency {
@@ -168,4 +170,12 @@ enum Currency {
   RMB
 
   @@map("currency")
+}
+
+enum AccountingType {
+  ASSETS
+  LIABILITIES
+  EQUITY
+
+  @@map("accounting_type")
 }

@@ -7,10 +7,6 @@ type Mutation {
   addCategory(input: AddCategoryInput!): Category!
   updateCategory(input: UpdateCategoryInput!): Category!
 
-  # Tag
-  addTag(input: AddTagInput!): Tag!
-  updateTag(input: UpdateTagInput!): Tag!
-
   # Transaction
   addTransaction(input: AddTransactionInput!): Transaction!
   updateTransaction(input: UpdateTransactionInput!): Transaction!
@@ -23,7 +19,15 @@ type Mutation {
   addLink(input: AddLinkInput!): Link!
   updateLink(input: UpdateLinkInput!): Link!
 
+  # Tag
+  addTag(input: AddTagInput!): Tag!
+  updateTag(input: UpdateTagInput!): Tag!
+
   # Branch
   addBranch(input: AddBranchInput!): Branch!
   updateBranch(input: UpdateBranchInput!): Branch!
+
+  # Account Group
+  addAccountGroup(input: AddAccountGroupInput!): AccountGroup!
+  updateAccountGroup(input: UpdateAccountGroupInput!): AccountGroup!
 }
