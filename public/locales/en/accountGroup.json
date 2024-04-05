@@ -74,5 +74,17 @@
     "updatedAt": "Update Date",
     "deletedAt": "Delete Date",
     "journals": "Related Journals"
+  },
+  "editAccountGroup": {
+    "label": {
+      "id": "ID",
+      "name": "Account Group Name",
+      "type": "Accounting Type",
+      "branchId": "Branch ID",
+      "createdAt": "Create Date",
+      "updatedAt": "Update Date"
+    },
+    "toast": "You have successfully updated the account group \"<b>{{ name }}</b>\".",
+    "submit": "Update Account Group"
   }
 }

@@ -19,7 +19,7 @@ import { useTagTypeDropdown } from '../../hooks'
 
 const schema = z.object({
   /**
-   * Link name
+   * Tag name
    */
   name: nameSchema,
   /**

@@ -18,7 +18,7 @@ import { useAccountingTypeDropdown } from '../../hooks'
 
 const schema = z.object({
   /**
-   * Link name
+   * Account group name
    */
   name: nameSchema,
   /**

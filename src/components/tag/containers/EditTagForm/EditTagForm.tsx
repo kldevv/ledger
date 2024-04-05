@@ -62,7 +62,6 @@ export const EditTagForm: React.FC = () => {
       },
     },
     skip: id == null,
-    notifyOnNetworkStatusChange: true,
   })
 
   const context = useForm<EditTagFormValues>({

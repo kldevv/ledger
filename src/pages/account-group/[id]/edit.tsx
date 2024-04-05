@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { UpdateCategoryForm } from '@/components/category'
+import { EditAccountGroupForm } from '@/components/accountGroup/containers'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
 
@@ -16,7 +16,7 @@ const Page: React.FC = () => {
         header={t`accountGroup.edit.header`}
         section={t`accountGroup.edit.section`}
       />
-      <UpdateCategoryForm />
+      <EditAccountGroupForm />
     </Layout>
   )
 }
