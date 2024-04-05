@@ -1,41 +1,10 @@
-import Link from 'next/link'
-import { useTranslation } from 'next-i18next'
-
 import { BranchSwitch } from '@/components/branch/containers'
-import { Icon } from '@/components/core/presentationals'
-import { route } from '@/shared/route'
 
 export const NavMenu: React.FC = () => {
-  const { t } = useTranslation('layout')
-
   return (
-    <div className="h-full">
-      <div className="border-b-mid-gray flex size-full min-w-max items-center border-b px-4 shadow-sm">
-        <Link className="text-lg font-bold" href={route.core.home}>
-          {/* TODO: Replace with logo svg */}
-          PizzaFunds
-        </Link>
-        <div className="ml-20">
-          <BranchSwitch />
-        </div>
-        <div className="ml-auto flex text-sm font-medium">
-          <Icon.Brand name="Invertocat" className="mr-2 size-3" />
-          <a
-            rel="noopener noreferrer"
-            className="hover:text-light-accent"
-            target="_blank"
-            href="https://github.com/kldevv"
-          >
-            {t`navMenu.github`}
-          </a>
-          <Icon.Solid name="Slash" />
-          <a
-            rel="noopener noreferrer"
-            className="hover:text-light-accent"
-            target="_blank"
-            href="https://github.com/kldevv/ledger"
-          >{t`navMenu.project`}</a>
-        </div>
+    <div className="border-b-mid-gray sticky top-0 z-10 flex h-14 w-full items-center border-b bg-white shadow-sm">
+      <div className="ml-4">
+        <BranchSwitch />
       </div>
     </div>
   )

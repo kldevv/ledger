@@ -63,7 +63,7 @@ export const DropdownSelect = <ItemValue,>({
     <div className="relative w-full">
       <div
         className={classNames(
-          'flex size-full cursor-pointer items-center justify-start bg-white',
+          'flex size-full cursor-pointer items-center justify-start bg-white gap-2',
           className,
           {
             'outline outline-light-accent': isOpen,
@@ -73,26 +73,18 @@ export const DropdownSelect = <ItemValue,>({
       >
         {selectedItem ? (
           <>
-            <span className="mr-2">
-              {selectedItem?.outlineIcon != null ? (
-                <Icon.Outline
-                  name={selectedItem.outlineIcon}
-                  className="size-2.5"
-                />
-              ) : selectedItem?.solidIcon != null ? (
-                <Icon.Solid
-                  name={selectedItem.solidIcon}
-                  className="size-2.5"
-                />
-              ) : (
-                selectedItem.flagIcon && (
-                  <Icon.Flag
-                    name={selectedItem.flagIcon}
-                    className="size-2.5"
-                  />
-                )
-              )}
-            </span>
+            {selectedItem?.outlineIcon != null ? (
+              <Icon.Outline
+                name={selectedItem.outlineIcon}
+                className="size-2.5"
+              />
+            ) : selectedItem?.solidIcon != null ? (
+              <Icon.Solid name={selectedItem.solidIcon} className="size-2.5" />
+            ) : (
+              selectedItem.flagIcon && (
+                <Icon.Flag name={selectedItem.flagIcon} className="size-2.5" />
+              )
+            )}
             <span className="flex w-full select-none items-center truncate">
               {selectedItem.title}
             </span>

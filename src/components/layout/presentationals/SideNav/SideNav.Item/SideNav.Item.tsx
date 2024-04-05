@@ -36,7 +36,7 @@ export const SideNavItem: React.FC<SideNavItemProps> = ({
     <Link
       href={href}
       className={classNames(
-        ' hover:bg-light-shades flex items-start rounded-md px-3 py-2 text-sm font-medium',
+        ' hover:bg-light-shades flex items-start rounded-md px-3 py-2 text-sm font-medium min-w-max',
         { 'bg-light-shades': active, 'font-semibold': active },
       )}
     >

@@ -41,7 +41,7 @@
       "createdAt": "Create Date",
       "details": "Details",
       "on": "On",
-      "switch": "Switch Branch"
+      "switch": "Switch"
     },
     "switch": "Switch",
     "view": "View"
@@ -74,5 +74,8 @@
     "NTD": "New Taiwan Dollar (NT$)",
     "EUR": "Euro (€)",
     "RMB": "Renminbi (¥)"
+  },
+  "branchSwitch": {
+    "error": "Something went wrong. Please try again."
   }
 }

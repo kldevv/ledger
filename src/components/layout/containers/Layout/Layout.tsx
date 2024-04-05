@@ -15,31 +15,24 @@ type LayoutProps = {
  */
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="relative h-screen w-screen">
-      <div className="absolute top-0 z-10 h-16 w-full bg-white">
+    <div className="flex h-screen w-screen">
+      <SideNav className="z-20 min-w-48 max-w-48" />
+      <div className="bg-light-shades size-full min-w-96 overflow-scroll">
         <NavMenu />
-      </div>
-      <div className="flex size-full pt-16">
-        <SideNav className="w-52" />
-        <div className="bg-light-shades size-full overflow-auto">
-          <div className="size-full min-w-full">
-            <main className="size-fit min-h-full w-[80vw] min-w-96">
-              <div className="ml-6 mt-3 flex items-center">
-                <Breadcrumbs />
-              </div>
-              <div
-                className={classNames(
-                  'px-16 pb-32',
-                  'mt-3',
-                  'flex flex-col gap-y-5',
-                  'w-full ',
-                )}
-              >
-                {children}
-              </div>
-            </main>
-            <Footer className="bottom-0" />
+        <div className="flex min-h-full min-w-full max-w-full flex-col px-16">
+          <div className="mt-3">
+            <Breadcrumbs />
           </div>
+          <div
+            className={classNames(
+              'mt-3',
+              'flex flex-col gap-y-5',
+              'w-full h-full',
+            )}
+          >
+            {children}
+          </div>
+          <Footer className="mt-auto" />
         </div>
       </div>
     </div>

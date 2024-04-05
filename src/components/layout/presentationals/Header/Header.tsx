@@ -57,10 +57,8 @@ export const Header: React.FC<HeaderProps> = ({
   }, [section])
 
   return (
-    <div
-      className={classNames('flex w-full items-center min-w-min', className)}
-    >
-      <div className="flex min-w-min flex-col">
+    <div className={classNames('flex w-full items-center', className)}>
+      <div className="flex flex-col pr-6">
         <h1 className="whitespace-nowrap text-3xl font-extrabold">{header}</h1>
         {sections}
       </div>
