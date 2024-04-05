@@ -3,10 +3,9 @@ import { useEffect } from 'react'
 import { z } from 'zod'
 
 import {
+  AccountGroupsDocument,
   AccountingType,
-  LinkType,
-  TagsDocument,
-  useAddTagMutation,
+  useAddAccountGroupMutation,
 } from '@/api/graphql'
 import { Form } from '@/components/core/containers'
 import { useCurrentBranch, useForm } from '@/components/core/hooks'
@@ -15,7 +14,7 @@ import { useToaster } from '@/hooks'
 import { generateDropdownSchema } from '@/shared/zod/generators'
 import { nameSchema } from '@/shared/zod/schemas'
 
-import type { TagType } from '@/api/graphql'
+import { useAccountingTypeDropdown } from '../../hooks'
 
 const schema = z.object({
   /**
@@ -38,6 +37,7 @@ export const AddAccountGroupForm: React.FC = () => {
   const { t } = useTranslation('accountGroup')
   const toast = useToaster()
   const [currentBranch] = useCurrentBranch()
+  const accountingTypeDropdown = useAccountingTypeDropdown()
   const { setValue, ...context } = useForm<AddAccountGroupFormValues>({
     schema,
     defaultValues: {
@@ -47,20 +47,20 @@ export const AddAccountGroupForm: React.FC = () => {
     },
   })
 
-  const [addTag, { loading }] = useAddTagMutation({
-    onCompleted: ({ addTag }) =>
+  const [addAccountGroup, { loading }] = useAddAccountGroupMutation({
+    onCompleted: ({ addAccountGroup }) =>
       toast(() => (
         <Trans
-          i18nKey={'tag:addTag.toast'}
+          i18nKey={'accountGroup:addAccountGroup.toast'}
           components={{
             b: <b />,
           }}
-          values={{ name: addTag.name }}
+          values={{ name: addAccountGroup.name }}
         />
       )),
     refetchQueries: [
       {
-        query: TagsDocument,
+        query: AccountGroupsDocument,
         variables: {
           input: { branchId: currentBranch?.id },
         },
@@ -69,11 +69,11 @@ export const AddAccountGroupForm: React.FC = () => {
   })
 
   const handleSubmit = ({ type, ...rest }: AddAccountGroupFormValues) => {
-    void addTag({
+    void addAccountGroup({
       variables: {
         input: {
           ...rest,
-          type: type ?? LinkType.GENERAL,
+          type: type ?? AccountingType.ASSETS,
         },
       },
     })
@@ -94,25 +94,25 @@ export const AddAccountGroupForm: React.FC = () => {
       <Card className="w-80">
         <div className="space-y-1">
           <Form.Input<AddAccountGroupFormValues>
-            label={t`addTag.label.name`}
+            label={t`addAccountGroup.label.name`}
             name="name"
-            placeholder={t`addTag.placeholder.name`}
+            placeholder={t`addAccountGroup.placeholder.name`}
           />
-          <Form.Dropdown<AddAccountGroupFormValues, TagType>
-            {...tagTypeDropdown}
-            label={t`addTag.label.type`}
+          <Form.Dropdown<AddAccountGroupFormValues, AccountingType>
+            {...accountingTypeDropdown}
+            label={t`addAccountGroup.label.type`}
             name="type"
-            placeholder={t`addTag.placeholder.type`}
+            placeholder={t`addAccountGroup.placeholder.type`}
           />
           <Form.Static<AddAccountGroupFormValues>
-            label={t`addTag.label.branchId`}
+            label={t`addAccountGroup.label.branchId`}
             name="branchId"
           />
         </div>
         <Form.Submit
           className="mt-8 w-full"
           loading={loading}
-        >{t`addTag.submit`}</Form.Submit>
+        >{t`addAccountGroup.submit`}</Form.Submit>
       </Card>
     </Form>
   )

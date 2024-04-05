@@ -50,5 +50,18 @@
     "ASSETS": "Assets",
     "LIABILITIES": "Liabilities",
     "EQUITY": "Equity"
+  },
+  "addAccountGroup": {
+    "label": {
+      "name": "Account Group Name",
+      "type": "Accounting Type",
+      "branchId": "Branch ID (Current Branch)"
+    },
+    "placeholder": {
+      "name": "Enter account group name",
+      "type": "Select accounting type"
+    },
+    "toast": "You have successfully added the new account group \"<b>{{ name }}</b>\".",
+    "submit": "Add New Account Group"
   }
 }

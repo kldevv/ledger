@@ -22,7 +22,7 @@
     "label": {
       "name": "Tag Name",
       "type": "Tag Type",
-      "branchId": "Branch ID (current branch)"
+      "branchId": "Branch ID (Current Branch)"
     },
     "placeholder": {
       "name": "Enter tag name",

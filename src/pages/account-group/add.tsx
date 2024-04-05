@@ -1,7 +1,7 @@
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { AddCategoryFrom } from '@/components/category'
+import { AddAccountGroupForm } from '@/components/accountGroup/containers'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
@@ -23,7 +23,7 @@ const Page: React.FC = () => {
           />
         }
       />
-      <AddCategoryFrom />
+      <AddAccountGroupForm />
     </Layout>
   )
 }
