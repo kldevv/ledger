@@ -1,4 +1,4 @@
-mutation updateTag($input: UpdateTagInput!) {
+mutation UpdateTag($input: UpdateTagInput!) {
   updateTag(input: $input) {
     ...TagData
   }

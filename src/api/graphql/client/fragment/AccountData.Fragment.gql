@@ -1,10 +1,10 @@
 fragment AccountData on Account {
   id
-  accountGroup {
+  group {
     id
     name
   }
   name
-  entryCount
+  count
   createdAt
 }

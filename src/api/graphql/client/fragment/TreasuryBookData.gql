@@ -1,7 +1,0 @@
-fragment TreasuryBookData on TreasuryBook {
-  id
-  name
-  currency
-  ownerId
-  createdAt
-}

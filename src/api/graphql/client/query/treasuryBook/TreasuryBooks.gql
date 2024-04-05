@@ -1,6 +1,0 @@
-query TreasuryBooks($input: TreasuryBooksInput!) {
-  treasuryBooks(input: $input) {
-    ...TreasuryBookData
-    updatedAt
-  }
-}

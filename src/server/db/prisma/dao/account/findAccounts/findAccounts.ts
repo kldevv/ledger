@@ -1,38 +1,37 @@
-import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
-import logger from '@/server/logger'
 
-import type { Account } from '@prisma/client'
+export interface FindAccountsArgs {
+  /**
+   * Branch id
+   */
+  branchId?: string
+  /**
+   * Account group id
+   */
+  accountGroupId?: string
+}
 
-export type FindAccountsProps = Partial<
-  Pick<Account, 'name' | 'categoryId' | 'treasuryBookId'>
->
-
-export const findAccounts = async (where: FindAccountsProps) => {
-  try {
-    return await prisma.account.findMany({
-      where,
-      include: {
-        category: true,
-        _count: {
-          select: {
-            entries: true,
-          },
+export const findAccounts = async ({
+  branchId,
+  accountGroupId,
+}: FindAccountsArgs) => {
+  return await prisma.account.findMany({
+    where: {
+      treasuryBookId: branchId,
+      categoryId: accountGroupId,
+    },
+    include: {
+      category: true,
+      _count: {
+        select: {
+          entries: true,
         },
       },
-      orderBy: {
-        category: {
-          name: 'asc',
-        },
+    },
+    orderBy: {
+      category: {
+        name: 'asc',
       },
-    })
-  } catch (e) {
-    logger.log({
-      level: 'info',
-      message: 'Error in Account DAO: findAccounts',
-      error: parsePrismaError(e),
-    })
-
-    throw e
-  }
+    },
+  })
 }

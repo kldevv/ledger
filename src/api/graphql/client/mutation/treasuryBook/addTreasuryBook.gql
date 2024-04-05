@@ -1,5 +1,0 @@
-mutation addTreasuryBook($input: AddTreasuryBookInput!) {
-  addTreasuryBook(input: $input) {
-    ...TreasuryBookData
-  }
-}

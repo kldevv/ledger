@@ -1,10 +1,12 @@
 query AccountBalance($input: AccountBalanceFilter!) {
   accountBalance(input: $input) {
     account {
-      ...BaseData
+      id
+      name
     }
     accountGroup {
-      ...BaseData
+      id
+      name
     }
     type
     balance

@@ -1,0 +1,5 @@
+mutation AddAccount($input: AddAccountInput!) {
+  addAccount(input: $input) {
+    ...AccountData
+  }
+}

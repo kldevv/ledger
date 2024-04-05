@@ -1,0 +1,6 @@
+query Account($input: AccountInput!) {
+  account(input: $input) {
+    ...AccountData
+    deletedAt
+  }
+}

@@ -1,9 +1,0 @@
-query TagDetails($tagInput: TagInput!, $transactionsInput: TransactionsInput!) {
-  tag(input: $tagInput) {
-    ...TagData
-    updatedAt
-  }
-  transactions(input: $transactionsInput) {
-    ...TransactionData
-  }
-}

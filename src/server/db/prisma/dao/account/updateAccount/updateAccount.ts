@@ -1,34 +1,42 @@
-import { parsePrismaError } from '@/server/db/prisma'
 import prisma from '@/server/db/prisma/client'
-import logger from '@/server/logger'
 
-import type { Account } from '@prisma/client'
-
-export type UpdateAccountProps = Pick<Account, 'id'> & {
+export interface UpdateAccountArgs {
   /**
-   * Update data
+   * Account id
    */
-  data: Partial<Pick<Account, 'name' | 'categoryId'>>
+  id: string
+  /**
+   * Account name
+   */
+  name: string
+  /**
+   * Account group id
+   */
+  accountGroupId: string
 }
 
-export const updateAccount = async ({ id, data }: UpdateAccountProps) => {
-  try {
-    return await prisma.account.update({
-      where: {
-        id,
+export const updateAccount = async ({
+  id,
+  name,
+  accountGroupId,
+}: UpdateAccountArgs) => {
+  return await prisma.account.update({
+    where: {
+      id,
+    },
+    data: {
+      name,
+      category: {
+        connect: { id: accountGroupId },
       },
-      data,
-      include: {
-        category: true,
+    },
+    include: {
+      category: true,
+      _count: {
+        select: {
+          entries: true,
+        },
       },
-    })
-  } catch (e) {
-    logger.log({
-      level: 'info',
-      message: 'Error in Account DAO: updateAccount',
-      error: parsePrismaError(e),
-    })
-
-    throw e
-  }
+    },
+  })
 }

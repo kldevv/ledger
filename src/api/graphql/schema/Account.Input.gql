@@ -1,0 +1,20 @@
+input AddAccountInput {
+  name: String!
+  branchId: String!
+  accountGroupId: String!
+}
+
+input UpdateAccountInput {
+  id: String!
+  name: String!
+  accountGroupId: String!
+}
+
+input AccountInput {
+  id: String!
+}
+
+input AccountsInput {
+  branchId: String!
+  accountGroupId: String
+}

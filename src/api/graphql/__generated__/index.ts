@@ -23,12 +23,13 @@ export type Scalars = {
 
 export type Account = {
   __typename?: 'Account';
-  accountGroup?: Maybe<AccountGroup>;
+  branchId: Scalars['String']['output'];
+  count: Scalars['Int']['output'];
   createdAt: Scalars['DateTime']['output'];
-  entryCount?: Maybe<Scalars['Int']['output']>;
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  group: AccountGroup;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
-  treasuryBookId: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -77,8 +78,8 @@ export const AccountingType = {
 
 export type AccountingType = typeof AccountingType[keyof typeof AccountingType];
 export type AccountsInput = {
-  categoryId?: InputMaybe<Scalars['String']['input']>;
-  treasuryBookId: Scalars['String']['input'];
+  accountGroupId?: InputMaybe<Scalars['String']['input']>;
+  branchId: Scalars['String']['input'];
 };
 
 export type AddAccountGroupInput = {
@@ -88,9 +89,9 @@ export type AddAccountGroupInput = {
 };
 
 export type AddAccountInput = {
-  categoryId: Scalars['String']['input'];
+  accountGroupId: Scalars['String']['input'];
+  branchId: Scalars['String']['input'];
   name: Scalars['String']['input'];
-  treasuryBookId: Scalars['String']['input'];
 };
 
 export type AddBranchInput = {
@@ -571,7 +572,7 @@ export type UpdateAccountGroupInput = {
 };
 
 export type UpdateAccountInput = {
-  categoryId: Scalars['String']['input'];
+  accountGroupId: Scalars['String']['input'];
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
 };
@@ -802,12 +803,13 @@ export type ResolversParentTypes = {
 };
 
 export type AccountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
-  accountGroup?: Resolver<Maybe<ResolversTypes['AccountGroup']>, ParentType, ContextType>;
+  branchId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  entryCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  group?: Resolver<ResolversTypes['AccountGroup'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -1000,15 +1002,13 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 };
 
 
-export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null };
+export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, count: number, createdAt: Date, group: { __typename?: 'AccountGroup', id: string, name: string } };
 
 export type AccountGroupDataFragment = { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number };
 
-export type BaseDataFragment = { __typename?: 'Base', id: string, name: string };
-
 export type BranchDataFragment = { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null };
 
-export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } | null } | null };
+export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, group: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } } | null };
 
 export type JournalDataFragment = { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date };
 
@@ -1018,7 +1018,12 @@ export type TagDataFragment = { __typename?: 'Tag', id: string, name: string, cr
 
 export type TransactionDataFragment = { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string };
 
-export type TreasuryBookDataFragment = { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date };
+export type AddAccountMutationVariables = Exact<{
+  input: AddAccountInput;
+}>;
+
+
+export type AddAccountMutation = { __typename?: 'Mutation', addAccount: { __typename?: 'Account', id: string, name: string, count: number, createdAt: Date, group: { __typename?: 'AccountGroup', id: string, name: string } } };
 
 export type AddAccountGroupMutationVariables = Exact<{
   input: AddAccountGroupInput;
@@ -1041,6 +1046,20 @@ export type AddLinkMutationVariables = Exact<{
 
 export type AddLinkMutation = { __typename?: 'Mutation', addLink: { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
 
+export type AddTagMutationVariables = Exact<{
+  input: AddTagInput;
+}>;
+
+
+export type AddTagMutation = { __typename?: 'Mutation', addTag: { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number } };
+
+export type UpdateAccountMutationVariables = Exact<{
+  input: UpdateAccountInput;
+}>;
+
+
+export type UpdateAccountMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'Account', id: string, name: string, count: number, createdAt: Date, group: { __typename?: 'AccountGroup', id: string, name: string } } };
+
 export type UpdateAccountGroupMutationVariables = Exact<{
   input: UpdateAccountGroupInput;
 }>;
@@ -1061,27 +1080,6 @@ export type UpdateLinkMutationVariables = Exact<{
 
 
 export type UpdateLinkMutation = { __typename?: 'Mutation', updateLink: { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
-
-export type AddAccountMutationVariables = Exact<{
-  input: AddAccountInput;
-}>;
-
-
-export type AddAccountMutation = { __typename?: 'Mutation', addAccount: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null } };
-
-export type UpdateAccountMutationVariables = Exact<{
-  input: UpdateAccountInput;
-}>;
-
-
-export type UpdateAccountMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null } };
-
-export type AddTagMutationVariables = Exact<{
-  input: AddTagInput;
-}>;
-
-
-export type AddTagMutation = { __typename?: 'Mutation', addTag: { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number } };
 
 export type UpdateTagMutationVariables = Exact<{
   input: UpdateTagInput;
@@ -1104,19 +1102,12 @@ export type UpdateTransactionMutationVariables = Exact<{
 
 export type UpdateTransactionMutation = { __typename?: 'Mutation', updateTransaction: { __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string } };
 
-export type AddTreasuryBookMutationVariables = Exact<{
-  input: AddTreasuryBookInput;
+export type AccountQueryVariables = Exact<{
+  input: AccountInput;
 }>;
 
 
-export type AddTreasuryBookMutation = { __typename?: 'Mutation', addTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date } };
-
-export type UpdateTreasuryBookMutationVariables = Exact<{
-  input: UpdateTreasuryBookInput;
-}>;
-
-
-export type UpdateTreasuryBookMutation = { __typename?: 'Mutation', updateTreasuryBook: { __typename?: 'TreasuryBook', id: string, name: string, currency: Currency, ownerId: string, createdAt: Date } };
+export type AccountQuery = { __typename?: 'Query', account?: { __typename?: 'Account', deletedAt?: Date | null, id: string, name: string, count: number, createdAt: Date, group: { __typename?: 'AccountGroup', id: string, name: string } } | null };
 
 export type AccountGroupQueryVariables = Exact<{
   input: AccountGroupInput;
@@ -1131,6 +1122,13 @@ export type AccountGroupsQueryVariables = Exact<{
 
 
 export type AccountGroupsQuery = { __typename?: 'Query', accountGroups: Array<{ __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number }> };
+
+export type AccountsQueryVariables = Exact<{
+  input: AccountsInput;
+}>;
+
+
+export type AccountsQuery = { __typename?: 'Query', accounts: Array<{ __typename?: 'Account', id: string, name: string, count: number, createdAt: Date, group: { __typename?: 'AccountGroup', id: string, name: string } }> };
 
 export type BranchQueryVariables = Exact<{
   input: BranchInput;
@@ -1181,34 +1179,12 @@ export type TagsQueryVariables = Exact<{
 
 export type TagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number }> };
 
-export type AccountQueryVariables = Exact<{
-  input: AccountInput;
-}>;
-
-
-export type AccountQuery = { __typename?: 'Query', account?: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null } | null };
-
-export type AccountDetailQueryVariables = Exact<{
-  accountInput: AccountInput;
-  entriesInput: EntriesInput;
-}>;
-
-
-export type AccountDetailQuery = { __typename?: 'Query', account?: { __typename?: 'Account', updatedAt: Date, id: string, name: string, entryCount?: number | null, createdAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } | null } | null }> };
-
-export type AccountsQueryVariables = Exact<{
-  input: AccountsInput;
-}>;
-
-
-export type AccountsQuery = { __typename?: 'Query', accounts: Array<{ __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null }> };
-
 export type EntriesQueryVariables = Exact<{
   input: EntriesInput;
 }>;
 
 
-export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } | null } | null }> };
+export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, group: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } } | null }> };
 
 export type AccountBalanceQueryVariables = Exact<{
   input: AccountBalanceFilter;
@@ -1231,21 +1207,13 @@ export type TotalDebitAndCreditOverTheMonthsQueryVariables = Exact<{
 
 export type TotalDebitAndCreditOverTheMonthsQuery = { __typename?: 'Query', totalDebitAndCreditOverTheMonths: Array<{ __typename?: 'TotalDebitAndCreditOverTheMonths', id: string, name: string, total: Array<{ __typename?: 'DebitAndCredit', debit: number, credit: number }> }> };
 
-export type TagDetailsQueryVariables = Exact<{
-  tagInput: TagInput;
-  transactionsInput: TransactionsInput;
-}>;
-
-
-export type TagDetailsQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', updatedAt: Date, id: string, name: string, createdAt: Date, type: TagType, count: number } | null, transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
-
 export type TransactionDetailsQueryVariables = Exact<{
   TransactionInput: TransactionInput;
   entriesInput: EntriesInput;
 }>;
 
 
-export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } | null } | null }> };
+export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, group: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } } | null }> };
 
 export type TransactionsQueryVariables = Exact<{
   input: TransactionsInput;
@@ -1254,22 +1222,15 @@ export type TransactionsQueryVariables = Exact<{
 
 export type TransactionsQuery = { __typename?: 'Query', transactions: Array<{ __typename?: 'Transaction', id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string }> };
 
-export type TreasuryBooksQueryVariables = Exact<{
-  input: TreasuryBooksInput;
-}>;
-
-
-export type TreasuryBooksQuery = { __typename?: 'Query', treasuryBooks: Array<{ __typename?: 'TreasuryBook', updatedAt: Date, id: string, name: string, currency: Currency, ownerId: string, createdAt: Date }> };
-
 export const AccountDataFragmentDoc = gql`
     fragment AccountData on Account {
   id
-  accountGroup {
+  group {
     id
     name
   }
   name
-  entryCount
+  count
   createdAt
 }
     `;
@@ -1280,12 +1241,6 @@ export const AccountGroupDataFragmentDoc = gql`
   type
   createdAt
   count
-}
-    `;
-export const BaseDataFragmentDoc = gql`
-    fragment BaseData on Base {
-  id
-  name
 }
     `;
 export const BranchDataFragmentDoc = gql`
@@ -1310,7 +1265,7 @@ export const EntryDataFragmentDoc = gql`
   account {
     id
     name
-    accountGroup {
+    group {
       id
       name
       type
@@ -1363,15 +1318,39 @@ export const TransactionDataFragmentDoc = gql`
   treasuryBookId
 }
     `;
-export const TreasuryBookDataFragmentDoc = gql`
-    fragment TreasuryBookData on TreasuryBook {
-  id
-  name
-  currency
-  ownerId
-  createdAt
+export const AddAccountDocument = gql`
+    mutation AddAccount($input: AddAccountInput!) {
+  addAccount(input: $input) {
+    ...AccountData
+  }
 }
-    `;
+    ${AccountDataFragmentDoc}`;
+export type AddAccountMutationFn = Apollo.MutationFunction<AddAccountMutation, AddAccountMutationVariables>;
+
+/**
+ * __useAddAccountMutation__
+ *
+ * To run a mutation, you first call `useAddAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addAccountMutation, { data, loading, error }] = useAddAccountMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddAccountMutation(baseOptions?: Apollo.MutationHookOptions<AddAccountMutation, AddAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddAccountMutation, AddAccountMutationVariables>(AddAccountDocument, options);
+      }
+export type AddAccountMutationHookResult = ReturnType<typeof useAddAccountMutation>;
+export type AddAccountMutationResult = Apollo.MutationResult<AddAccountMutation>;
+export type AddAccountMutationOptions = Apollo.BaseMutationOptions<AddAccountMutation, AddAccountMutationVariables>;
 export const AddAccountGroupDocument = gql`
     mutation AddAccountGroup($input: AddAccountGroupInput!) {
   addAccountGroup(input: $input) {
@@ -1471,6 +1450,72 @@ export function useAddLinkMutation(baseOptions?: Apollo.MutationHookOptions<AddL
 export type AddLinkMutationHookResult = ReturnType<typeof useAddLinkMutation>;
 export type AddLinkMutationResult = Apollo.MutationResult<AddLinkMutation>;
 export type AddLinkMutationOptions = Apollo.BaseMutationOptions<AddLinkMutation, AddLinkMutationVariables>;
+export const AddTagDocument = gql`
+    mutation AddTag($input: AddTagInput!) {
+  addTag(input: $input) {
+    ...TagData
+  }
+}
+    ${TagDataFragmentDoc}`;
+export type AddTagMutationFn = Apollo.MutationFunction<AddTagMutation, AddTagMutationVariables>;
+
+/**
+ * __useAddTagMutation__
+ *
+ * To run a mutation, you first call `useAddTagMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddTagMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addTagMutation, { data, loading, error }] = useAddTagMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddTagMutation(baseOptions?: Apollo.MutationHookOptions<AddTagMutation, AddTagMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddTagMutation, AddTagMutationVariables>(AddTagDocument, options);
+      }
+export type AddTagMutationHookResult = ReturnType<typeof useAddTagMutation>;
+export type AddTagMutationResult = Apollo.MutationResult<AddTagMutation>;
+export type AddTagMutationOptions = Apollo.BaseMutationOptions<AddTagMutation, AddTagMutationVariables>;
+export const UpdateAccountDocument = gql`
+    mutation UpdateAccount($input: UpdateAccountInput!) {
+  updateAccount(input: $input) {
+    ...AccountData
+  }
+}
+    ${AccountDataFragmentDoc}`;
+export type UpdateAccountMutationFn = Apollo.MutationFunction<UpdateAccountMutation, UpdateAccountMutationVariables>;
+
+/**
+ * __useUpdateAccountMutation__
+ *
+ * To run a mutation, you first call `useUpdateAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAccountMutation, { data, loading, error }] = useUpdateAccountMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAccountMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAccountMutation, UpdateAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateAccountMutation, UpdateAccountMutationVariables>(UpdateAccountDocument, options);
+      }
+export type UpdateAccountMutationHookResult = ReturnType<typeof useUpdateAccountMutation>;
+export type UpdateAccountMutationResult = Apollo.MutationResult<UpdateAccountMutation>;
+export type UpdateAccountMutationOptions = Apollo.BaseMutationOptions<UpdateAccountMutation, UpdateAccountMutationVariables>;
 export const UpdateAccountGroupDocument = gql`
     mutation UpdateAccountGroup($input: UpdateAccountGroupInput!) {
   updateAccountGroup(input: $input) {
@@ -1570,121 +1615,8 @@ export function useUpdateLinkMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateLinkMutationHookResult = ReturnType<typeof useUpdateLinkMutation>;
 export type UpdateLinkMutationResult = Apollo.MutationResult<UpdateLinkMutation>;
 export type UpdateLinkMutationOptions = Apollo.BaseMutationOptions<UpdateLinkMutation, UpdateLinkMutationVariables>;
-export const AddAccountDocument = gql`
-    mutation addAccount($input: AddAccountInput!) {
-  addAccount(input: $input) {
-    id
-    name
-    accountGroup {
-      id
-      name
-    }
-    createdAt
-    updatedAt
-  }
-}
-    `;
-export type AddAccountMutationFn = Apollo.MutationFunction<AddAccountMutation, AddAccountMutationVariables>;
-
-/**
- * __useAddAccountMutation__
- *
- * To run a mutation, you first call `useAddAccountMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddAccountMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addAccountMutation, { data, loading, error }] = useAddAccountMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useAddAccountMutation(baseOptions?: Apollo.MutationHookOptions<AddAccountMutation, AddAccountMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddAccountMutation, AddAccountMutationVariables>(AddAccountDocument, options);
-      }
-export type AddAccountMutationHookResult = ReturnType<typeof useAddAccountMutation>;
-export type AddAccountMutationResult = Apollo.MutationResult<AddAccountMutation>;
-export type AddAccountMutationOptions = Apollo.BaseMutationOptions<AddAccountMutation, AddAccountMutationVariables>;
-export const UpdateAccountDocument = gql`
-    mutation updateAccount($input: UpdateAccountInput!) {
-  updateAccount(input: $input) {
-    id
-    name
-    accountGroup {
-      id
-      name
-    }
-    createdAt
-    updatedAt
-  }
-}
-    `;
-export type UpdateAccountMutationFn = Apollo.MutationFunction<UpdateAccountMutation, UpdateAccountMutationVariables>;
-
-/**
- * __useUpdateAccountMutation__
- *
- * To run a mutation, you first call `useUpdateAccountMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateAccountMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateAccountMutation, { data, loading, error }] = useUpdateAccountMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateAccountMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAccountMutation, UpdateAccountMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateAccountMutation, UpdateAccountMutationVariables>(UpdateAccountDocument, options);
-      }
-export type UpdateAccountMutationHookResult = ReturnType<typeof useUpdateAccountMutation>;
-export type UpdateAccountMutationResult = Apollo.MutationResult<UpdateAccountMutation>;
-export type UpdateAccountMutationOptions = Apollo.BaseMutationOptions<UpdateAccountMutation, UpdateAccountMutationVariables>;
-export const AddTagDocument = gql`
-    mutation addTag($input: AddTagInput!) {
-  addTag(input: $input) {
-    ...TagData
-  }
-}
-    ${TagDataFragmentDoc}`;
-export type AddTagMutationFn = Apollo.MutationFunction<AddTagMutation, AddTagMutationVariables>;
-
-/**
- * __useAddTagMutation__
- *
- * To run a mutation, you first call `useAddTagMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddTagMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addTagMutation, { data, loading, error }] = useAddTagMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useAddTagMutation(baseOptions?: Apollo.MutationHookOptions<AddTagMutation, AddTagMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddTagMutation, AddTagMutationVariables>(AddTagDocument, options);
-      }
-export type AddTagMutationHookResult = ReturnType<typeof useAddTagMutation>;
-export type AddTagMutationResult = Apollo.MutationResult<AddTagMutation>;
-export type AddTagMutationOptions = Apollo.BaseMutationOptions<AddTagMutation, AddTagMutationVariables>;
 export const UpdateTagDocument = gql`
-    mutation updateTag($input: UpdateTagInput!) {
+    mutation UpdateTag($input: UpdateTagInput!) {
   updateTag(input: $input) {
     ...TagData
   }
@@ -1782,72 +1714,47 @@ export function useUpdateTransactionMutation(baseOptions?: Apollo.MutationHookOp
 export type UpdateTransactionMutationHookResult = ReturnType<typeof useUpdateTransactionMutation>;
 export type UpdateTransactionMutationResult = Apollo.MutationResult<UpdateTransactionMutation>;
 export type UpdateTransactionMutationOptions = Apollo.BaseMutationOptions<UpdateTransactionMutation, UpdateTransactionMutationVariables>;
-export const AddTreasuryBookDocument = gql`
-    mutation addTreasuryBook($input: AddTreasuryBookInput!) {
-  addTreasuryBook(input: $input) {
-    ...TreasuryBookData
+export const AccountDocument = gql`
+    query Account($input: AccountInput!) {
+  account(input: $input) {
+    ...AccountData
+    deletedAt
   }
 }
-    ${TreasuryBookDataFragmentDoc}`;
-export type AddTreasuryBookMutationFn = Apollo.MutationFunction<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>;
+    ${AccountDataFragmentDoc}`;
 
 /**
- * __useAddTreasuryBookMutation__
+ * __useAccountQuery__
  *
- * To run a mutation, you first call `useAddTreasuryBookMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddTreasuryBookMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useAccountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [addTreasuryBookMutation, { data, loading, error }] = useAddTreasuryBookMutation({
+ * const { data, loading, error } = useAccountQuery({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useAddTreasuryBookMutation(baseOptions?: Apollo.MutationHookOptions<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>) {
+export function useAccountQuery(baseOptions: Apollo.QueryHookOptions<AccountQuery, AccountQueryVariables> & ({ variables: AccountQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>(AddTreasuryBookDocument, options);
+        return Apollo.useQuery<AccountQuery, AccountQueryVariables>(AccountDocument, options);
       }
-export type AddTreasuryBookMutationHookResult = ReturnType<typeof useAddTreasuryBookMutation>;
-export type AddTreasuryBookMutationResult = Apollo.MutationResult<AddTreasuryBookMutation>;
-export type AddTreasuryBookMutationOptions = Apollo.BaseMutationOptions<AddTreasuryBookMutation, AddTreasuryBookMutationVariables>;
-export const UpdateTreasuryBookDocument = gql`
-    mutation updateTreasuryBook($input: UpdateTreasuryBookInput!) {
-  updateTreasuryBook(input: $input) {
-    ...TreasuryBookData
-  }
-}
-    ${TreasuryBookDataFragmentDoc}`;
-export type UpdateTreasuryBookMutationFn = Apollo.MutationFunction<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>;
-
-/**
- * __useUpdateTreasuryBookMutation__
- *
- * To run a mutation, you first call `useUpdateTreasuryBookMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateTreasuryBookMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateTreasuryBookMutation, { data, loading, error }] = useUpdateTreasuryBookMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateTreasuryBookMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>(UpdateTreasuryBookDocument, options);
-      }
-export type UpdateTreasuryBookMutationHookResult = ReturnType<typeof useUpdateTreasuryBookMutation>;
-export type UpdateTreasuryBookMutationResult = Apollo.MutationResult<UpdateTreasuryBookMutation>;
-export type UpdateTreasuryBookMutationOptions = Apollo.BaseMutationOptions<UpdateTreasuryBookMutation, UpdateTreasuryBookMutationVariables>;
+export function useAccountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountQuery, AccountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AccountQuery, AccountQueryVariables>(AccountDocument, options);
+        }
+export function useAccountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<AccountQuery, AccountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AccountQuery, AccountQueryVariables>(AccountDocument, options);
+        }
+export type AccountQueryHookResult = ReturnType<typeof useAccountQuery>;
+export type AccountLazyQueryHookResult = ReturnType<typeof useAccountLazyQuery>;
+export type AccountSuspenseQueryHookResult = ReturnType<typeof useAccountSuspenseQuery>;
+export type AccountQueryResult = Apollo.QueryResult<AccountQuery, AccountQueryVariables>;
 export const AccountGroupDocument = gql`
     query AccountGroup($input: AccountGroupInput!) {
   accountGroup(input: $input) {
@@ -1931,6 +1838,46 @@ export type AccountGroupsQueryHookResult = ReturnType<typeof useAccountGroupsQue
 export type AccountGroupsLazyQueryHookResult = ReturnType<typeof useAccountGroupsLazyQuery>;
 export type AccountGroupsSuspenseQueryHookResult = ReturnType<typeof useAccountGroupsSuspenseQuery>;
 export type AccountGroupsQueryResult = Apollo.QueryResult<AccountGroupsQuery, AccountGroupsQueryVariables>;
+export const AccountsDocument = gql`
+    query Accounts($input: AccountsInput!) {
+  accounts(input: $input) {
+    ...AccountData
+  }
+}
+    ${AccountDataFragmentDoc}`;
+
+/**
+ * __useAccountsQuery__
+ *
+ * To run a query within a React component, call `useAccountsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAccountsQuery(baseOptions: Apollo.QueryHookOptions<AccountsQuery, AccountsQueryVariables> & ({ variables: AccountsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AccountsQuery, AccountsQueryVariables>(AccountsDocument, options);
+      }
+export function useAccountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountsQuery, AccountsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AccountsQuery, AccountsQueryVariables>(AccountsDocument, options);
+        }
+export function useAccountsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<AccountsQuery, AccountsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AccountsQuery, AccountsQueryVariables>(AccountsDocument, options);
+        }
+export type AccountsQueryHookResult = ReturnType<typeof useAccountsQuery>;
+export type AccountsLazyQueryHookResult = ReturnType<typeof useAccountsLazyQuery>;
+export type AccountsSuspenseQueryHookResult = ReturnType<typeof useAccountsSuspenseQuery>;
+export type AccountsQueryResult = Apollo.QueryResult<AccountsQuery, AccountsQueryVariables>;
 export const BranchDocument = gql`
     query Branch($input: BranchInput!) {
   branch(input: $input) {
@@ -2214,139 +2161,6 @@ export type TagsQueryHookResult = ReturnType<typeof useTagsQuery>;
 export type TagsLazyQueryHookResult = ReturnType<typeof useTagsLazyQuery>;
 export type TagsSuspenseQueryHookResult = ReturnType<typeof useTagsSuspenseQuery>;
 export type TagsQueryResult = Apollo.QueryResult<TagsQuery, TagsQueryVariables>;
-export const AccountDocument = gql`
-    query Account($input: AccountInput!) {
-  account(input: $input) {
-    id
-    name
-    accountGroup {
-      id
-      name
-    }
-    createdAt
-    updatedAt
-  }
-}
-    `;
-
-/**
- * __useAccountQuery__
- *
- * To run a query within a React component, call `useAccountQuery` and pass it any options that fit your needs.
- * When your component renders, `useAccountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAccountQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useAccountQuery(baseOptions: Apollo.QueryHookOptions<AccountQuery, AccountQueryVariables> & ({ variables: AccountQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AccountQuery, AccountQueryVariables>(AccountDocument, options);
-      }
-export function useAccountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountQuery, AccountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AccountQuery, AccountQueryVariables>(AccountDocument, options);
-        }
-export function useAccountSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<AccountQuery, AccountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<AccountQuery, AccountQueryVariables>(AccountDocument, options);
-        }
-export type AccountQueryHookResult = ReturnType<typeof useAccountQuery>;
-export type AccountLazyQueryHookResult = ReturnType<typeof useAccountLazyQuery>;
-export type AccountSuspenseQueryHookResult = ReturnType<typeof useAccountSuspenseQuery>;
-export type AccountQueryResult = Apollo.QueryResult<AccountQuery, AccountQueryVariables>;
-export const AccountDetailDocument = gql`
-    query AccountDetail($accountInput: AccountInput!, $entriesInput: EntriesInput!) {
-  account(input: $accountInput) {
-    ...AccountData
-    updatedAt
-  }
-  entries(input: $entriesInput) {
-    ...EntryData
-  }
-}
-    ${AccountDataFragmentDoc}
-${EntryDataFragmentDoc}`;
-
-/**
- * __useAccountDetailQuery__
- *
- * To run a query within a React component, call `useAccountDetailQuery` and pass it any options that fit your needs.
- * When your component renders, `useAccountDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAccountDetailQuery({
- *   variables: {
- *      accountInput: // value for 'accountInput'
- *      entriesInput: // value for 'entriesInput'
- *   },
- * });
- */
-export function useAccountDetailQuery(baseOptions: Apollo.QueryHookOptions<AccountDetailQuery, AccountDetailQueryVariables> & ({ variables: AccountDetailQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AccountDetailQuery, AccountDetailQueryVariables>(AccountDetailDocument, options);
-      }
-export function useAccountDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountDetailQuery, AccountDetailQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AccountDetailQuery, AccountDetailQueryVariables>(AccountDetailDocument, options);
-        }
-export function useAccountDetailSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<AccountDetailQuery, AccountDetailQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<AccountDetailQuery, AccountDetailQueryVariables>(AccountDetailDocument, options);
-        }
-export type AccountDetailQueryHookResult = ReturnType<typeof useAccountDetailQuery>;
-export type AccountDetailLazyQueryHookResult = ReturnType<typeof useAccountDetailLazyQuery>;
-export type AccountDetailSuspenseQueryHookResult = ReturnType<typeof useAccountDetailSuspenseQuery>;
-export type AccountDetailQueryResult = Apollo.QueryResult<AccountDetailQuery, AccountDetailQueryVariables>;
-export const AccountsDocument = gql`
-    query Accounts($input: AccountsInput!) {
-  accounts(input: $input) {
-    ...AccountData
-  }
-}
-    ${AccountDataFragmentDoc}`;
-
-/**
- * __useAccountsQuery__
- *
- * To run a query within a React component, call `useAccountsQuery` and pass it any options that fit your needs.
- * When your component renders, `useAccountsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAccountsQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useAccountsQuery(baseOptions: Apollo.QueryHookOptions<AccountsQuery, AccountsQueryVariables> & ({ variables: AccountsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AccountsQuery, AccountsQueryVariables>(AccountsDocument, options);
-      }
-export function useAccountsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountsQuery, AccountsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AccountsQuery, AccountsQueryVariables>(AccountsDocument, options);
-        }
-export function useAccountsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<AccountsQuery, AccountsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<AccountsQuery, AccountsQueryVariables>(AccountsDocument, options);
-        }
-export type AccountsQueryHookResult = ReturnType<typeof useAccountsQuery>;
-export type AccountsLazyQueryHookResult = ReturnType<typeof useAccountsLazyQuery>;
-export type AccountsSuspenseQueryHookResult = ReturnType<typeof useAccountsSuspenseQuery>;
-export type AccountsQueryResult = Apollo.QueryResult<AccountsQuery, AccountsQueryVariables>;
 export const EntriesDocument = gql`
     query Entries($input: EntriesInput!) {
   entries(input: $input) {
@@ -2391,16 +2205,18 @@ export const AccountBalanceDocument = gql`
     query AccountBalance($input: AccountBalanceFilter!) {
   accountBalance(input: $input) {
     account {
-      ...BaseData
+      id
+      name
     }
     accountGroup {
-      ...BaseData
+      id
+      name
     }
     type
     balance
   }
 }
-    ${BaseDataFragmentDoc}`;
+    `;
 
 /**
  * __useAccountBalanceQuery__
@@ -2517,52 +2333,6 @@ export type TotalDebitAndCreditOverTheMonthsQueryHookResult = ReturnType<typeof 
 export type TotalDebitAndCreditOverTheMonthsLazyQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsLazyQuery>;
 export type TotalDebitAndCreditOverTheMonthsSuspenseQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsSuspenseQuery>;
 export type TotalDebitAndCreditOverTheMonthsQueryResult = Apollo.QueryResult<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>;
-export const TagDetailsDocument = gql`
-    query TagDetails($tagInput: TagInput!, $transactionsInput: TransactionsInput!) {
-  tag(input: $tagInput) {
-    ...TagData
-    updatedAt
-  }
-  transactions(input: $transactionsInput) {
-    ...TransactionData
-  }
-}
-    ${TagDataFragmentDoc}
-${TransactionDataFragmentDoc}`;
-
-/**
- * __useTagDetailsQuery__
- *
- * To run a query within a React component, call `useTagDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useTagDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTagDetailsQuery({
- *   variables: {
- *      tagInput: // value for 'tagInput'
- *      transactionsInput: // value for 'transactionsInput'
- *   },
- * });
- */
-export function useTagDetailsQuery(baseOptions: Apollo.QueryHookOptions<TagDetailsQuery, TagDetailsQueryVariables> & ({ variables: TagDetailsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TagDetailsQuery, TagDetailsQueryVariables>(TagDetailsDocument, options);
-      }
-export function useTagDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TagDetailsQuery, TagDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TagDetailsQuery, TagDetailsQueryVariables>(TagDetailsDocument, options);
-        }
-export function useTagDetailsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TagDetailsQuery, TagDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<TagDetailsQuery, TagDetailsQueryVariables>(TagDetailsDocument, options);
-        }
-export type TagDetailsQueryHookResult = ReturnType<typeof useTagDetailsQuery>;
-export type TagDetailsLazyQueryHookResult = ReturnType<typeof useTagDetailsLazyQuery>;
-export type TagDetailsSuspenseQueryHookResult = ReturnType<typeof useTagDetailsSuspenseQuery>;
-export type TagDetailsQueryResult = Apollo.QueryResult<TagDetailsQuery, TagDetailsQueryVariables>;
 export const TransactionDetailsDocument = gql`
     query TransactionDetails($TransactionInput: TransactionInput!, $entriesInput: EntriesInput!) {
   transaction(input: $TransactionInput) {
@@ -2653,44 +2423,3 @@ export type TransactionsQueryHookResult = ReturnType<typeof useTransactionsQuery
 export type TransactionsLazyQueryHookResult = ReturnType<typeof useTransactionsLazyQuery>;
 export type TransactionsSuspenseQueryHookResult = ReturnType<typeof useTransactionsSuspenseQuery>;
 export type TransactionsQueryResult = Apollo.QueryResult<TransactionsQuery, TransactionsQueryVariables>;
-export const TreasuryBooksDocument = gql`
-    query TreasuryBooks($input: TreasuryBooksInput!) {
-  treasuryBooks(input: $input) {
-    ...TreasuryBookData
-    updatedAt
-  }
-}
-    ${TreasuryBookDataFragmentDoc}`;
-
-/**
- * __useTreasuryBooksQuery__
- *
- * To run a query within a React component, call `useTreasuryBooksQuery` and pass it any options that fit your needs.
- * When your component renders, `useTreasuryBooksQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTreasuryBooksQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTreasuryBooksQuery(baseOptions: Apollo.QueryHookOptions<TreasuryBooksQuery, TreasuryBooksQueryVariables> & ({ variables: TreasuryBooksQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TreasuryBooksQuery, TreasuryBooksQueryVariables>(TreasuryBooksDocument, options);
-      }
-export function useTreasuryBooksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TreasuryBooksQuery, TreasuryBooksQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TreasuryBooksQuery, TreasuryBooksQueryVariables>(TreasuryBooksDocument, options);
-        }
-export function useTreasuryBooksSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TreasuryBooksQuery, TreasuryBooksQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<TreasuryBooksQuery, TreasuryBooksQueryVariables>(TreasuryBooksDocument, options);
-        }
-export type TreasuryBooksQueryHookResult = ReturnType<typeof useTreasuryBooksQuery>;
-export type TreasuryBooksLazyQueryHookResult = ReturnType<typeof useTreasuryBooksLazyQuery>;
-export type TreasuryBooksSuspenseQueryHookResult = ReturnType<typeof useTreasuryBooksSuspenseQuery>;
-export type TreasuryBooksQueryResult = Apollo.QueryResult<TreasuryBooksQuery, TreasuryBooksQueryVariables>;

@@ -1,4 +1,0 @@
-fragment BaseData on Base {
-  id
-  name
-}
