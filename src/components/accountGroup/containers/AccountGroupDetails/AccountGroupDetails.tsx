@@ -12,6 +12,7 @@ import {
 } from '@/components/core/presentationals'
 import { accountingTypeToOutlineIconName } from '@/shared/utils'
 
+import { AccountGroupDetailsAccounts } from './AccountGroupDetails.Accounts/AccountGroupDetails.Accounts'
 import { AccountGroupDetailsJournals } from './AccountGroupDetails.Journals/AccountGroupDetails.Journals'
 
 export const AccountGroupDetails: React.FC = () => {
@@ -89,7 +90,10 @@ export const AccountGroupDetails: React.FC = () => {
         <DescList items={descItems} loading={loading} />
       </Card>
       {typeof id === 'string' && (
-        <AccountGroupDetailsJournals accountGroupId={id} />
+        <div className="flex flex-col gap-y-4">
+          <AccountGroupDetailsAccounts accountGroupId={id} />
+          <AccountGroupDetailsJournals accountGroupId={id} />
+        </div>
       )}
     </div>
   )

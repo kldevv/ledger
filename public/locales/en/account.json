@@ -8,5 +8,18 @@
       "details": "Details"
     },
     "view": "View"
+  },
+  "addAccount": {
+    "label": {
+      "name": "Account Name",
+      "accountGroupId": "Account Group",
+      "branchId": "Branch ID (Current Branch)"
+    },
+    "placeholder": {
+      "name": "Enter account name",
+      "accountGroupId": "Select account group"
+    },
+    "toast": "You have successfully added the new account \"<b>{{ name }}</b>\".",
+    "submit": "Add New Account"
   }
 }

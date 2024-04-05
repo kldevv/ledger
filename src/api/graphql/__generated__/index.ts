@@ -79,7 +79,7 @@ export const AccountingType = {
 export type AccountingType = typeof AccountingType[keyof typeof AccountingType];
 export type AccountsInput = {
   accountGroupId?: InputMaybe<Scalars['String']['input']>;
-  branchId: Scalars['String']['input'];
+  branchId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AddAccountGroupInput = {

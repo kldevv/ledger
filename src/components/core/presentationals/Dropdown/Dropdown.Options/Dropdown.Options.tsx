@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { Icon } from '../..'
+import { Icon, Spinner } from '../..'
 
 import type { DropdownItem } from '../Dropdown'
 import type { UseSelectPropGetters } from 'downshift'
@@ -28,6 +28,10 @@ export interface DropdownOptionsProps<ItemValue = string>
    * Is open?
    */
   isOpen?: boolean
+  /**
+   * Is loading
+   */
+  loading?: boolean
 }
 
 export const DropdownOptions = <ItemValue,>({
@@ -37,6 +41,7 @@ export const DropdownOptions = <ItemValue,>({
   getMenuProps,
   isOpen = false,
   selectedItem,
+  loading = false,
 }: DropdownOptionsProps<ItemValue>) => {
   return (
     <ul
@@ -48,7 +53,11 @@ export const DropdownOptions = <ItemValue,>({
       )}
       {...getMenuProps?.()}
     >
-      {isOpen &&
+      {isOpen && loading ? (
+        <li className="flex h-24 w-full items-center justify-center">
+          <Spinner className="size-8" />
+        </li>
+      ) : (
         items?.map((item, index) => (
           <li
             className={classNames(
@@ -79,7 +88,8 @@ export const DropdownOptions = <ItemValue,>({
               </span>
             )}
           </li>
-        ))}
+        ))
+      )}
     </ul>
   )
 }

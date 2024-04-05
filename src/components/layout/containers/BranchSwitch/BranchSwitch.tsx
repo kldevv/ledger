@@ -109,16 +109,19 @@ export const BranchSwitch: React.FC = () => {
   }
 
   return (
-    <div className="w-60">
-      <Dropdown>
-        <Dropdown.Select
-          items={items}
-          value={items.find((item) => item.value === currentBranch?.id)}
-          onChange={handleBranchChange}
-        >
-          <Dropdown.Options />
-        </Dropdown.Select>
-      </Dropdown>
+    <div className="flex items-center gap-x-2">
+      <Icon.Outline name="Squares2x2" />
+      <div className="w-60">
+        <Dropdown>
+          <Dropdown.Select
+            items={items}
+            value={items.find((item) => item.value === currentBranch?.id)}
+            onChange={handleBranchChange}
+          >
+            <Dropdown.Options />
+          </Dropdown.Select>
+        </Dropdown>
+      </div>
     </div>
   )
 }

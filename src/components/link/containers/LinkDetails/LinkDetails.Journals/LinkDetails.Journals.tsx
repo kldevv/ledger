@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 
 import { useJournalsQuery } from '@/api/graphql'
-import { Card, Table } from '@/components/core/presentationals'
+import { Card, Icon, Table } from '@/components/core/presentationals'
 import { useJournalsTableCol } from '@/components/journal/hooks'
 
 export interface LinkDetailsJournalsProps {
@@ -28,7 +28,8 @@ export const LinkDetailsJournals: React.FC<LinkDetailsJournalsProps> = ({
 
   return (
     <Card>
-      <div className="border-b-mid-gray text-gray mb-4 border-b py-4 text-xs font-normal">
+      <div className="border-b-mid-gray text-gray mb-4 flex items-center gap-x-2 border-b py-4 text-xs font-normal">
+        <Icon.Outline name="ReceiptPercent" />
         {t`linkDetails.journals`}
       </div>
       <Table colDefs={colDefs} data={data?.journals ?? []} />

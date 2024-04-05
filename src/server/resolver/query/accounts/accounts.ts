@@ -9,7 +9,7 @@ export const accounts: QueryResolvers['accounts'] = async (
   { input: { branchId, accountGroupId } },
 ) => {
   const accounts = await findAccounts({
-    branchId,
+    branchId: branchId ?? undefined,
     accountGroupId: accountGroupId ?? undefined,
   })
 

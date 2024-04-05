@@ -36,7 +36,8 @@
     "createdAt": "Create Date",
     "updatedAt": "Update Date",
     "deletedAt": "Delete Date",
-    "journals": "Related Journals"
+    "journals": "Related Journals",
+    "accounts": "Related Accounts"
   },
   "editAccountGroup": {
     "label": {

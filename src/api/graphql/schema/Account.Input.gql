@@ -15,6 +15,6 @@ input AccountInput {
 }
 
 input AccountsInput {
-  branchId: String!
+  branchId: String
   accountGroupId: String
 }
