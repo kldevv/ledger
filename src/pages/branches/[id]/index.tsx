@@ -2,12 +2,11 @@ import { useRouter } from 'next/router'
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import { BranchDetails } from '@/components/branch/containers'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
 import { route } from '@/shared/route'
-
-import { TreasuryBookDetails } from '@/components/treasuryBook'
 
 import type { GetServerSideProps } from 'next'
 
@@ -33,7 +32,7 @@ const Page: React.FC = () => {
           label: t`branch.details.link`,
         }}
       />
-      <TreasuryBookDetails />
+      <BranchDetails />
     </Layout>
   )
 }

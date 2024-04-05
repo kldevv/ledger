@@ -1,39 +1,4 @@
 {
-  "TreasuryBookTable": {
-    "header": {
-      "name": "Name",
-      "currency": "Currency",
-      "createdAt": "Create Date"
-    },
-    "button": {
-      "select": "Select"
-    },
-    "link": {
-      "view": "View"
-    }
-  },
-  "TreasuryBookDescriptionList": {
-    "title": {
-      "id": "ID",
-      "name": "Name",
-      "currency": "Currency",
-      "updatedAt": "Update Date",
-      "createdAt": "Create Date"
-    }
-  },
-  "TreasuryBookForm": {
-    "label": {
-      "name": "Name"
-    }
-  },
-  "AddTreasuryBookForm": {
-    "submit": "Add Branch",
-    "success": "Your new branch is successfully added"
-  },
-  "UpdateTreasuryBookForm": {
-    "submit": "Update Branch",
-    "success": "Your new branch is successfully updated"
-  },
   "branchesTable": {
     "col": {
       "name": "Name",
@@ -74,5 +39,13 @@
     "NTD": "New Taiwan Dollar (NT$)",
     "EUR": "Euro (€)",
     "RMB": "Renminbi (¥)"
+  },
+  "branchDetails": {
+    "id": "ID",
+    "name": "Name",
+    "currency": "Currency",
+    "createdAt": "Create Date",
+    "updatedAt": "Update Date",
+    "deletedAt": "Delete Date"
   }
 }
