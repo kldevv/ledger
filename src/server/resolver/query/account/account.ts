@@ -1,3 +1,5 @@
+import { transformAccount } from '../../transform'
+
 import type { QueryResolvers } from '@/api/graphql'
 
 export const account: QueryResolvers['account'] = async (
@@ -5,5 +7,9 @@ export const account: QueryResolvers['account'] = async (
   { input: { id } },
   { dataSources: { prisma } },
 ) => {
-  return await prisma.account.findAccount({ id })
+  const account = await prisma.account.findAccount({ id })
+
+  if (account == null) return null
+
+  return transformAccount(account)
 }

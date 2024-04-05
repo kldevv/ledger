@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { UpdateAccountForm } from '@/components/account'
+import { EditAccountForm } from '@/components/account/containers'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
 
@@ -13,10 +13,10 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <Header
-        header={t`account.edit.header`}
-        section={t`account.edit.section`}
+        header={t`account.details.edit.header`}
+        section={t`account.details.edit.section`}
       />
-      <UpdateAccountForm />
+      <EditAccountForm />
     </Layout>
   )
 }

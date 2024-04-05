@@ -14,7 +14,7 @@
         "section": "Update an account with the latest information."
       },
       "header": "Account Details",
-      "link": "Edit",
+      "link": "Edit Account",
       "section": "An account, functioning as a storage for accumulated debits and credits, constitutes the fundamental building block for <journal>journals</journal> and their respective <entry>entries</entry>."
     },
     "header": "Accounts",

@@ -61,7 +61,10 @@
     "TRANSACTION": "By Transaction (Cash) Standard"
   },
   "table": {
-    "empty": "No Data Found"
+    "empty": "No Data Available"
+  },
+  "dropdown": {
+    "empty": "No Options Available"
   },
   "form": {
     "error": {

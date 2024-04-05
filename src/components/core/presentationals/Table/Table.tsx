@@ -88,14 +88,9 @@ export const Table = <TData extends RowData>({
           <tbody>
             <tr>
               <td colSpan={colDefs.length + 1}>
-                <div className="text-gray flex w-full items-center justify-center space-x-1 py-20 text-sm font-normal">
-                  <span>
-                    <Icon.Solid
-                      className="text-light-accent/50"
-                      name="ExclamationCircle"
-                    />
-                  </span>
-                  <span>{t`table.empty`}</span>
+                <div className="text-gray flex w-full select-none items-center justify-center gap-x-2 py-20 text-sm font-normal">
+                  <Icon.Solid name="ExclamationCircle" />
+                  {t`table.empty`}
                 </div>
               </td>
             </tr>

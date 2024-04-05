@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { AccountDetails } from '@/components/account'
+import { AccountDetails } from '@/components/account/containers'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'

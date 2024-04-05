@@ -110,7 +110,7 @@ export const BranchSwitch: React.FC = () => {
 
   return (
     <div className="flex items-center gap-x-2">
-      <Icon.Outline name="Squares2x2" />
+      <Icon.Outline name="Squares2x2" className="text-gray" />
       <div className="w-60">
         <Dropdown>
           <Dropdown.Select

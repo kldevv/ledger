@@ -1107,7 +1107,7 @@ export type AccountQueryVariables = Exact<{
 }>;
 
 
-export type AccountQuery = { __typename?: 'Query', account?: { __typename?: 'Account', deletedAt?: Date | null, id: string, name: string, count: number, createdAt: Date, group: { __typename?: 'AccountGroup', id: string, name: string } } | null };
+export type AccountQuery = { __typename?: 'Query', account?: { __typename?: 'Account', deletedAt?: Date | null, updatedAt: Date, branchId: string, id: string, name: string, count: number, createdAt: Date, group: { __typename?: 'AccountGroup', id: string, name: string } } | null };
 
 export type AccountGroupQueryVariables = Exact<{
   input: AccountGroupInput;
@@ -1719,6 +1719,8 @@ export const AccountDocument = gql`
   account(input: $input) {
     ...AccountData
     deletedAt
+    updatedAt
+    branchId
   }
 }
     ${AccountDataFragmentDoc}`;

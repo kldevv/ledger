@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { useTranslation } from 'next-i18next'
 
 import { Icon, Spinner } from '../..'
 
@@ -43,6 +44,8 @@ export const DropdownOptions = <ItemValue,>({
   selectedItem,
   loading = false,
 }: DropdownOptionsProps<ItemValue>) => {
+  const { t } = useTranslation('common')
+
   return (
     <ul
       className={classNames(
@@ -56,6 +59,11 @@ export const DropdownOptions = <ItemValue,>({
       {isOpen && loading ? (
         <li className="flex h-24 w-full items-center justify-center">
           <Spinner className="size-8" />
+        </li>
+      ) : items == null || items.length === 0 ? (
+        <li className="text-gray flex h-24 w-full select-none items-center justify-center gap-x-2">
+          <Icon.Solid name="ExclamationCircle" />
+          {t`dropdown.empty`}
         </li>
       ) : (
         items?.map((item, index) => (
