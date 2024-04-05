@@ -74,8 +74,5 @@
     "NTD": "New Taiwan Dollar (NT$)",
     "EUR": "Euro (€)",
     "RMB": "Renminbi (¥)"
-  },
-  "branchSwitch": {
-    "error": "Something went wrong. Please try again."
   }
 }

@@ -23,7 +23,7 @@ export type Scalars = {
 
 export type Account = {
   __typename?: 'Account';
-  category?: Maybe<Category>;
+  accountGroup?: Maybe<AccountGroup>;
   createdAt: Scalars['DateTime']['output'];
   entryCount?: Maybe<Scalars['Int']['output']>;
   id: Scalars['String']['output'];
@@ -35,8 +35,8 @@ export type Account = {
 export type AccountBalance = {
   __typename?: 'AccountBalance';
   account: Base;
+  accountGroup: Base;
   balance: Scalars['Float']['output'];
-  category: Base;
   type: CategoryType;
 };
 
@@ -99,12 +99,6 @@ export type AddBranchInput = {
   userId: Scalars['String']['input'];
 };
 
-export type AddCategoryInput = {
-  name: Scalars['String']['input'];
-  treasuryBookId: Scalars['String']['input'];
-  type: CategoryType;
-};
-
 export type AddEntryInput = {
   accountId: Scalars['String']['input'];
   credit: Scalars['Float']['input'];
@@ -163,25 +157,6 @@ export type BranchInput = {
 
 export type BranchesInput = {
   userId: Scalars['String']['input'];
-};
-
-export type CategoriesInput = {
-  treasuryBookId: Scalars['String']['input'];
-};
-
-export type Category = {
-  __typename?: 'Category';
-  accountCount?: Maybe<Scalars['Int']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  treasuryBookId: Scalars['String']['output'];
-  type: CategoryType;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-export type CategoryInput = {
-  id: Scalars['String']['input'];
 };
 
 export const CategoryType = {
@@ -307,7 +282,6 @@ export type Mutation = {
   addAccount: Account;
   addAccountGroup: AccountGroup;
   addBranch: Branch;
-  addCategory: Category;
   addLink: Link;
   addTag: Tag;
   addTransaction: Transaction;
@@ -315,7 +289,6 @@ export type Mutation = {
   updateAccount: Account;
   updateAccountGroup: AccountGroup;
   updateBranch: Branch;
-  updateCategory: Category;
   updateLink: Link;
   updateTag: Tag;
   updateTransaction: Transaction;
@@ -335,11 +308,6 @@ export type MutationAddAccountGroupArgs = {
 
 export type MutationAddBranchArgs = {
   input: AddBranchInput;
-};
-
-
-export type MutationAddCategoryArgs = {
-  input: AddCategoryInput;
 };
 
 
@@ -378,11 +346,6 @@ export type MutationUpdateBranchArgs = {
 };
 
 
-export type MutationUpdateCategoryArgs = {
-  input: UpdateCategoryInput;
-};
-
-
 export type MutationUpdateLinkArgs = {
   input: UpdateLinkInput;
 };
@@ -411,8 +374,6 @@ export type Query = {
   accounts: Array<Account>;
   branch?: Maybe<Branch>;
   branches: Array<Branch>;
-  categories: Array<Category>;
-  category?: Maybe<Category>;
   entries: Array<Entry>;
   journals: Array<Journal>;
   link?: Maybe<Link>;
@@ -459,16 +420,6 @@ export type QueryBranchArgs = {
 
 export type QueryBranchesArgs = {
   input: BranchesInput;
-};
-
-
-export type QueryCategoriesArgs = {
-  input: CategoriesInput;
-};
-
-
-export type QueryCategoryArgs = {
-  input: CategoryInput;
 };
 
 
@@ -631,12 +582,6 @@ export type UpdateBranchInput = {
   name: Scalars['String']['input'];
 };
 
-export type UpdateCategoryInput = {
-  id: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  type: CategoryType;
-};
-
 export type UpdateLinkInput = {
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -747,7 +692,6 @@ export type ResolversTypes = {
   AddAccountGroupInput: AddAccountGroupInput;
   AddAccountInput: AddAccountInput;
   AddBranchInput: AddBranchInput;
-  AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
   AddLinkInput: AddLinkInput;
   AddTagInput: AddTagInput;
@@ -758,9 +702,6 @@ export type ResolversTypes = {
   Branch: ResolverTypeWrapper<Branch>;
   BranchInput: BranchInput;
   BranchesInput: BranchesInput;
-  CategoriesInput: CategoriesInput;
-  Category: ResolverTypeWrapper<Category>;
-  CategoryInput: CategoryInput;
   CategoryType: CategoryType;
   Currency: Currency;
   DateStandard: DateStandard;
@@ -797,7 +738,6 @@ export type ResolversTypes = {
   UpdateAccountGroupInput: UpdateAccountGroupInput;
   UpdateAccountInput: UpdateAccountInput;
   UpdateBranchInput: UpdateBranchInput;
-  UpdateCategoryInput: UpdateCategoryInput;
   UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
@@ -817,7 +757,6 @@ export type ResolversParentTypes = {
   AddAccountGroupInput: AddAccountGroupInput;
   AddAccountInput: AddAccountInput;
   AddBranchInput: AddBranchInput;
-  AddCategoryInput: AddCategoryInput;
   AddEntryInput: AddEntryInput;
   AddLinkInput: AddLinkInput;
   AddTagInput: AddTagInput;
@@ -828,9 +767,6 @@ export type ResolversParentTypes = {
   Branch: Branch;
   BranchInput: BranchInput;
   BranchesInput: BranchesInput;
-  CategoriesInput: CategoriesInput;
-  Category: Category;
-  CategoryInput: CategoryInput;
   DateTime: Scalars['DateTime']['output'];
   DebitAndCredit: DebitAndCredit;
   EntriesInput: EntriesInput;
@@ -859,7 +795,6 @@ export type ResolversParentTypes = {
   UpdateAccountGroupInput: UpdateAccountGroupInput;
   UpdateAccountInput: UpdateAccountInput;
   UpdateBranchInput: UpdateBranchInput;
-  UpdateCategoryInput: UpdateCategoryInput;
   UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
@@ -867,7 +802,7 @@ export type ResolversParentTypes = {
 };
 
 export type AccountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
-  category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType>;
+  accountGroup?: Resolver<Maybe<ResolversTypes['AccountGroup']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   entryCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -879,8 +814,8 @@ export type AccountResolvers<ContextType = ApolloServerContext, ParentType exten
 
 export type AccountBalanceResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['AccountBalance'] = ResolversParentTypes['AccountBalance']> = {
   account?: Resolver<ResolversTypes['Base'], ParentType, ContextType>;
+  accountGroup?: Resolver<ResolversTypes['Base'], ParentType, ContextType>;
   balance?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  category?: Resolver<ResolversTypes['Base'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['CategoryType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -911,17 +846,6 @@ export type BranchResolvers<ContextType = ApolloServerContext, ParentType extend
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type CategoryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
-  accountCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['CategoryType'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -980,7 +904,6 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
   addAccountGroup?: Resolver<ResolversTypes['AccountGroup'], ParentType, ContextType, RequireFields<MutationAddAccountGroupArgs, 'input'>>;
   addBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationAddBranchArgs, 'input'>>;
-  addCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationAddCategoryArgs, 'input'>>;
   addLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationAddLinkArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
   addTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
@@ -988,7 +911,6 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   updateAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
   updateAccountGroup?: Resolver<ResolversTypes['AccountGroup'], ParentType, ContextType, RequireFields<MutationUpdateAccountGroupArgs, 'input'>>;
   updateBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationUpdateBranchArgs, 'input'>>;
-  updateCategory?: Resolver<ResolversTypes['Category'], ParentType, ContextType, RequireFields<MutationUpdateCategoryArgs, 'input'>>;
   updateLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationUpdateLinkArgs, 'input'>>;
   updateTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationUpdateTagArgs, 'input'>>;
   updateTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationUpdateTransactionArgs, 'input'>>;
@@ -1003,8 +925,6 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   accounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountsArgs, 'input'>>;
   branch?: Resolver<Maybe<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchArgs, 'input'>>;
   branches?: Resolver<Array<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchesArgs, 'input'>>;
-  categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoriesArgs, 'input'>>;
-  category?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoryArgs, 'input'>>;
   entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryEntriesArgs, 'input'>>;
   journals?: Resolver<Array<ResolversTypes['Journal']>, ParentType, ContextType, RequireFields<QueryJournalsArgs, 'input'>>;
   link?: Resolver<Maybe<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QueryLinkArgs, 'input'>>;
@@ -1066,7 +986,6 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   AccountGroup?: AccountGroupResolvers<ContextType>;
   Base?: BaseResolvers<ContextType>;
   Branch?: BranchResolvers<ContextType>;
-  Category?: CategoryResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   DebitAndCredit?: DebitAndCreditResolvers<ContextType>;
   Entry?: EntryResolvers<ContextType>;
@@ -1081,7 +1000,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
 };
 
 
-export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null };
+export type AccountDataFragment = { __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null };
 
 export type AccountGroupDataFragment = { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number };
 
@@ -1089,9 +1008,7 @@ export type BaseDataFragment = { __typename?: 'Base', id: string, name: string }
 
 export type BranchDataFragment = { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null };
 
-export type CategoryDataFragment = { __typename?: 'Category', id: string, name: string, type: CategoryType, createdAt: Date };
-
-export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null };
+export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } | null } | null };
 
 export type JournalDataFragment = { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date };
 
@@ -1150,28 +1067,14 @@ export type AddAccountMutationVariables = Exact<{
 }>;
 
 
-export type AddAccountMutation = { __typename?: 'Mutation', addAccount: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } };
+export type AddAccountMutation = { __typename?: 'Mutation', addAccount: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null } };
 
 export type UpdateAccountMutationVariables = Exact<{
   input: UpdateAccountInput;
 }>;
 
 
-export type UpdateAccountMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } };
-
-export type AddCategoryMutationVariables = Exact<{
-  input: AddCategoryInput;
-}>;
-
-
-export type AddCategoryMutation = { __typename?: 'Mutation', addCategory: { __typename?: 'Category', id: string, name: string, type: CategoryType, treasuryBookId: string, createdAt: Date, updatedAt: Date } };
-
-export type UpdateCategoryMutationVariables = Exact<{
-  input: UpdateCategoryInput;
-}>;
-
-
-export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory: { __typename?: 'Category', id: string, name: string, type: CategoryType, treasuryBookId: string, createdAt: Date, updatedAt: Date } };
+export type UpdateAccountMutation = { __typename?: 'Mutation', updateAccount: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null } };
 
 export type AddTagMutationVariables = Exact<{
   input: AddTagInput;
@@ -1283,7 +1186,7 @@ export type AccountQueryVariables = Exact<{
 }>;
 
 
-export type AccountQuery = { __typename?: 'Query', account?: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } | null };
+export type AccountQuery = { __typename?: 'Query', account?: { __typename?: 'Account', id: string, name: string, createdAt: Date, updatedAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null } | null };
 
 export type AccountDetailQueryVariables = Exact<{
   accountInput: AccountInput;
@@ -1291,51 +1194,28 @@ export type AccountDetailQueryVariables = Exact<{
 }>;
 
 
-export type AccountDetailQuery = { __typename?: 'Query', account?: { __typename?: 'Account', updatedAt: Date, id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type AccountDetailQuery = { __typename?: 'Query', account?: { __typename?: 'Account', updatedAt: Date, id: string, name: string, entryCount?: number | null, createdAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } | null } | null }> };
 
 export type AccountsQueryVariables = Exact<{
   input: AccountsInput;
 }>;
 
 
-export type AccountsQuery = { __typename?: 'Query', accounts: Array<{ __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }> };
-
-export type CategoriesQueryVariables = Exact<{
-  input: CategoriesInput;
-}>;
-
-
-export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', accountCount?: number | null, id: string, name: string, type: CategoryType, createdAt: Date }> };
-
-export type CategoryQueryVariables = Exact<{
-  input: CategoryInput;
-}>;
-
-
-export type CategoryQuery = { __typename?: 'Query', category?: { __typename?: 'Category', updatedAt: Date, id: string, name: string, type: CategoryType, createdAt: Date } | null };
-
-export type CategoryDetailQueryVariables = Exact<{
-  categoryInput: CategoryInput;
-  accountsInput: AccountsInput;
-  entriesInput: EntriesInput;
-}>;
-
-
-export type CategoryDetailQuery = { __typename?: 'Query', category?: { __typename?: 'Category', updatedAt: Date, id: string, name: string, type: CategoryType, createdAt: Date } | null, accounts: Array<{ __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, category?: { __typename?: 'Category', id: string, name: string } | null }>, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type AccountsQuery = { __typename?: 'Query', accounts: Array<{ __typename?: 'Account', id: string, name: string, entryCount?: number | null, createdAt: Date, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string } | null }> };
 
 export type EntriesQueryVariables = Exact<{
   input: EntriesInput;
 }>;
 
 
-export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } | null } | null }> };
 
 export type AccountBalanceQueryVariables = Exact<{
   input: AccountBalanceFilter;
 }>;
 
 
-export type AccountBalanceQuery = { __typename?: 'Query', accountBalance: Array<{ __typename?: 'AccountBalance', type: CategoryType, balance: number, account: { __typename?: 'Base', id: string, name: string }, category: { __typename?: 'Base', id: string, name: string } }> };
+export type AccountBalanceQuery = { __typename?: 'Query', accountBalance: Array<{ __typename?: 'AccountBalance', type: CategoryType, balance: number, account: { __typename?: 'Base', id: string, name: string }, accountGroup: { __typename?: 'Base', id: string, name: string } }> };
 
 export type UniqueYearsQueryVariables = Exact<{
   input: UniqueYearsInput;
@@ -1365,7 +1245,7 @@ export type TransactionDetailsQueryVariables = Exact<{
 }>;
 
 
-export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, category?: { __typename?: 'Category', id: string, name: string, type: CategoryType } | null } | null }> };
+export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, accountGroup?: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } | null } | null }> };
 
 export type TransactionsQueryVariables = Exact<{
   input: TransactionsInput;
@@ -1384,7 +1264,7 @@ export type TreasuryBooksQuery = { __typename?: 'Query', treasuryBooks: Array<{ 
 export const AccountDataFragmentDoc = gql`
     fragment AccountData on Account {
   id
-  category {
+  accountGroup {
     id
     name
   }
@@ -1419,14 +1299,6 @@ export const BranchDataFragmentDoc = gql`
   deletedAt
 }
     `;
-export const CategoryDataFragmentDoc = gql`
-    fragment CategoryData on Category {
-  id
-  name
-  type
-  createdAt
-}
-    `;
 export const EntryDataFragmentDoc = gql`
     fragment EntryData on Entry {
   id
@@ -1438,7 +1310,7 @@ export const EntryDataFragmentDoc = gql`
   account {
     id
     name
-    category {
+    accountGroup {
       id
       name
       type
@@ -1703,7 +1575,7 @@ export const AddAccountDocument = gql`
   addAccount(input: $input) {
     id
     name
-    category {
+    accountGroup {
       id
       name
     }
@@ -1743,7 +1615,7 @@ export const UpdateAccountDocument = gql`
   updateAccount(input: $input) {
     id
     name
-    category {
+    accountGroup {
       id
       name
     }
@@ -1778,82 +1650,6 @@ export function useUpdateAccountMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateAccountMutationHookResult = ReturnType<typeof useUpdateAccountMutation>;
 export type UpdateAccountMutationResult = Apollo.MutationResult<UpdateAccountMutation>;
 export type UpdateAccountMutationOptions = Apollo.BaseMutationOptions<UpdateAccountMutation, UpdateAccountMutationVariables>;
-export const AddCategoryDocument = gql`
-    mutation addCategory($input: AddCategoryInput!) {
-  addCategory(input: $input) {
-    id
-    name
-    type
-    treasuryBookId
-    createdAt
-    updatedAt
-  }
-}
-    `;
-export type AddCategoryMutationFn = Apollo.MutationFunction<AddCategoryMutation, AddCategoryMutationVariables>;
-
-/**
- * __useAddCategoryMutation__
- *
- * To run a mutation, you first call `useAddCategoryMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddCategoryMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addCategoryMutation, { data, loading, error }] = useAddCategoryMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useAddCategoryMutation(baseOptions?: Apollo.MutationHookOptions<AddCategoryMutation, AddCategoryMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddCategoryMutation, AddCategoryMutationVariables>(AddCategoryDocument, options);
-      }
-export type AddCategoryMutationHookResult = ReturnType<typeof useAddCategoryMutation>;
-export type AddCategoryMutationResult = Apollo.MutationResult<AddCategoryMutation>;
-export type AddCategoryMutationOptions = Apollo.BaseMutationOptions<AddCategoryMutation, AddCategoryMutationVariables>;
-export const UpdateCategoryDocument = gql`
-    mutation updateCategory($input: UpdateCategoryInput!) {
-  updateCategory(input: $input) {
-    id
-    name
-    type
-    treasuryBookId
-    createdAt
-    updatedAt
-  }
-}
-    `;
-export type UpdateCategoryMutationFn = Apollo.MutationFunction<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
-
-/**
- * __useUpdateCategoryMutation__
- *
- * To run a mutation, you first call `useUpdateCategoryMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateCategoryMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateCategoryMutation, { data, loading, error }] = useUpdateCategoryMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateCategoryMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateCategoryMutation, UpdateCategoryMutationVariables>(UpdateCategoryDocument, options);
-      }
-export type UpdateCategoryMutationHookResult = ReturnType<typeof useUpdateCategoryMutation>;
-export type UpdateCategoryMutationResult = Apollo.MutationResult<UpdateCategoryMutation>;
-export type UpdateCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
 export const AddTagDocument = gql`
     mutation addTag($input: AddTagInput!) {
   addTag(input: $input) {
@@ -2423,7 +2219,7 @@ export const AccountDocument = gql`
   account(input: $input) {
     id
     name
-    category {
+    accountGroup {
       id
       name
     }
@@ -2551,139 +2347,6 @@ export type AccountsQueryHookResult = ReturnType<typeof useAccountsQuery>;
 export type AccountsLazyQueryHookResult = ReturnType<typeof useAccountsLazyQuery>;
 export type AccountsSuspenseQueryHookResult = ReturnType<typeof useAccountsSuspenseQuery>;
 export type AccountsQueryResult = Apollo.QueryResult<AccountsQuery, AccountsQueryVariables>;
-export const CategoriesDocument = gql`
-    query Categories($input: CategoriesInput!) {
-  categories(input: $input) {
-    ...CategoryData
-    accountCount
-  }
-}
-    ${CategoryDataFragmentDoc}`;
-
-/**
- * __useCategoriesQuery__
- *
- * To run a query within a React component, call `useCategoriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCategoriesQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCategoriesQuery(baseOptions: Apollo.QueryHookOptions<CategoriesQuery, CategoriesQueryVariables> & ({ variables: CategoriesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
-      }
-export function useCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
-        }
-export function useCategoriesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
-        }
-export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
-export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
-export type CategoriesSuspenseQueryHookResult = ReturnType<typeof useCategoriesSuspenseQuery>;
-export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
-export const CategoryDocument = gql`
-    query Category($input: CategoryInput!) {
-  category(input: $input) {
-    ...CategoryData
-    updatedAt
-  }
-}
-    ${CategoryDataFragmentDoc}`;
-
-/**
- * __useCategoryQuery__
- *
- * To run a query within a React component, call `useCategoryQuery` and pass it any options that fit your needs.
- * When your component renders, `useCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCategoryQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCategoryQuery(baseOptions: Apollo.QueryHookOptions<CategoryQuery, CategoryQueryVariables> & ({ variables: CategoryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<CategoryQuery, CategoryQueryVariables>(CategoryDocument, options);
-      }
-export function useCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoryQuery, CategoryQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<CategoryQuery, CategoryQueryVariables>(CategoryDocument, options);
-        }
-export function useCategorySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<CategoryQuery, CategoryQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<CategoryQuery, CategoryQueryVariables>(CategoryDocument, options);
-        }
-export type CategoryQueryHookResult = ReturnType<typeof useCategoryQuery>;
-export type CategoryLazyQueryHookResult = ReturnType<typeof useCategoryLazyQuery>;
-export type CategorySuspenseQueryHookResult = ReturnType<typeof useCategorySuspenseQuery>;
-export type CategoryQueryResult = Apollo.QueryResult<CategoryQuery, CategoryQueryVariables>;
-export const CategoryDetailDocument = gql`
-    query CategoryDetail($categoryInput: CategoryInput!, $accountsInput: AccountsInput!, $entriesInput: EntriesInput!) {
-  category(input: $categoryInput) {
-    ...CategoryData
-    updatedAt
-  }
-  accounts(input: $accountsInput) {
-    ...AccountData
-  }
-  entries(input: $entriesInput) {
-    ...EntryData
-  }
-}
-    ${CategoryDataFragmentDoc}
-${AccountDataFragmentDoc}
-${EntryDataFragmentDoc}`;
-
-/**
- * __useCategoryDetailQuery__
- *
- * To run a query within a React component, call `useCategoryDetailQuery` and pass it any options that fit your needs.
- * When your component renders, `useCategoryDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCategoryDetailQuery({
- *   variables: {
- *      categoryInput: // value for 'categoryInput'
- *      accountsInput: // value for 'accountsInput'
- *      entriesInput: // value for 'entriesInput'
- *   },
- * });
- */
-export function useCategoryDetailQuery(baseOptions: Apollo.QueryHookOptions<CategoryDetailQuery, CategoryDetailQueryVariables> & ({ variables: CategoryDetailQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<CategoryDetailQuery, CategoryDetailQueryVariables>(CategoryDetailDocument, options);
-      }
-export function useCategoryDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoryDetailQuery, CategoryDetailQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<CategoryDetailQuery, CategoryDetailQueryVariables>(CategoryDetailDocument, options);
-        }
-export function useCategoryDetailSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<CategoryDetailQuery, CategoryDetailQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<CategoryDetailQuery, CategoryDetailQueryVariables>(CategoryDetailDocument, options);
-        }
-export type CategoryDetailQueryHookResult = ReturnType<typeof useCategoryDetailQuery>;
-export type CategoryDetailLazyQueryHookResult = ReturnType<typeof useCategoryDetailLazyQuery>;
-export type CategoryDetailSuspenseQueryHookResult = ReturnType<typeof useCategoryDetailSuspenseQuery>;
-export type CategoryDetailQueryResult = Apollo.QueryResult<CategoryDetailQuery, CategoryDetailQueryVariables>;
 export const EntriesDocument = gql`
     query Entries($input: EntriesInput!) {
   entries(input: $input) {
@@ -2730,7 +2393,7 @@ export const AccountBalanceDocument = gql`
     account {
       ...BaseData
     }
-    category {
+    accountGroup {
       ...BaseData
     }
     type

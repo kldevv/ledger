@@ -14,7 +14,7 @@ export type BranchSwitchItem = DropdownItem<BranchesQuery['branches'][number]>
 
 export const BranchSwitch: React.FC = () => {
   const [currentBranch, setCurrentBranch] = useCurrentBranch()
-  const { t } = useTranslation('branch')
+  const { t } = useTranslation('layout')
   const {
     data: { branches } = {},
     loading,

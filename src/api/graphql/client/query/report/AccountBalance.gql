@@ -3,7 +3,7 @@ query AccountBalance($input: AccountBalanceFilter!) {
     account {
       ...BaseData
     }
-    category {
+    accountGroup {
       ...BaseData
     }
     type

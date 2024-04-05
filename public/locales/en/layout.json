@@ -30,5 +30,8 @@
         "about": "About"
       }
     }
+  },
+  "branchSwitch": {
+    "error": "Something went wrong. Please try again."
   }
 }

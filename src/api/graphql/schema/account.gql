@@ -1,7 +1,7 @@
 type Account {
   id: String!
   name: String!
-  category: Category
+  accountGroup: AccountGroup
   entryCount: Int
   treasuryBookId: String!
   createdAt: DateTime!

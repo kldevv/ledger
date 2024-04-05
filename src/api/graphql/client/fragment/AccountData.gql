@@ -1,6 +1,6 @@
 fragment AccountData on Account {
   id
-  category {
+  accountGroup {
     id
     name
   }

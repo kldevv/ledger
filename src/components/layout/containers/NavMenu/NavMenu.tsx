@@ -1,4 +1,4 @@
-import { BranchSwitch } from '@/components/branch/containers'
+import { BranchSwitch } from '..'
 
 export const NavMenu: React.FC = () => {
   return (

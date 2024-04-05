@@ -8,7 +8,7 @@ fragment EntryData on Entry {
   account {
     id
     name
-    category {
+    accountGroup {
       id
       name
       type

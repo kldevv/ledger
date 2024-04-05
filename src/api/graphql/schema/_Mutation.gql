@@ -3,10 +3,6 @@ type Mutation {
   addAccount(input: AddAccountInput!): Account!
   updateAccount(input: UpdateAccountInput!): Account!
 
-  # Category
-  addCategory(input: AddCategoryInput!): Category!
-  updateCategory(input: UpdateCategoryInput!): Category!
-
   # Transaction
   addTransaction(input: AddTransactionInput!): Transaction!
   updateTransaction(input: UpdateTransactionInput!): Transaction!

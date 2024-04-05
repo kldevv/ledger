@@ -2,7 +2,7 @@ mutation updateAccount($input: UpdateAccountInput!) {
   updateAccount(input: $input) {
     id
     name
-    category {
+    accountGroup {
       id
       name
     }

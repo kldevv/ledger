@@ -3,10 +3,6 @@ type Query {
   account(input: AccountInput!): Account
   accounts(input: AccountsInput!): [Account!]!
 
-  # Category
-  categories(input: CategoriesInput!): [Category!]!
-  category(input: CategoryInput!): Category
-
   # Entry
   entries(input: EntriesInput!): [Entry!]!
 

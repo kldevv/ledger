@@ -5,7 +5,7 @@ type Base {
 
 type AccountBalance {
   account: Base!
-  category: Base!
+  accountGroup: Base!
   type: CategoryType!
   balance: Float!
 }

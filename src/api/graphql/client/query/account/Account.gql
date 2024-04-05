@@ -2,7 +2,7 @@ query Account($input: AccountInput!) {
   account(input: $input) {
     id
     name
-    category {
+    accountGroup {
       id
       name
     }
