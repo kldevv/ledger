@@ -23,7 +23,7 @@ export const TagsTable: React.FC = () => {
     [],
   )
 
-  const { data } = useTagsQuery({
+  const { data, loading } = useTagsQuery({
     variables: {
       input: {
         branchId: currentBranch?.id ?? '',
@@ -62,7 +62,11 @@ export const TagsTable: React.FC = () => {
             </Dropdown>
           </div>
         </div>
-        <Table data={filteredData} colDefs={colDefs} />
+        <Table
+          data={filteredData}
+          colDefs={colDefs}
+          loading={loading || !data}
+        />
       </div>
     </Card>
   )

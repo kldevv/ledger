@@ -5,7 +5,7 @@ import { useLinksTableCol } from '../../hooks'
 
 export const LinksTable: React.FC = () => {
   const colDefs = useLinksTableCol()
-  const { data } = useLinksQuery({
+  const { data, loading } = useLinksQuery({
     variables: {
       input: {
         userId: '81087108-3748-446a-b033-a85d7c9ace7b',
@@ -15,7 +15,7 @@ export const LinksTable: React.FC = () => {
 
   return (
     <Card>
-      <Table colDefs={colDefs} data={data?.links ?? []} />
+      <Table colDefs={colDefs} data={data?.links ?? []} loading={loading} />
     </Card>
   )
 }

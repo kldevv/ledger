@@ -82,9 +82,9 @@ export const AddTagForm: React.FC = () => {
 
   useEffect(() => {
     if (currentBranch) {
-      setValue('branchId', currentBranch.id)
+      setValue('branchId', currentBranch?.id)
     }
-  }, [setValue, currentBranch])
+  }, [setValue, currentBranch, context.formState.isSubmitSuccessful])
 
   return (
     <Form

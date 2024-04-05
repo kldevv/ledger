@@ -46,13 +46,13 @@ export const BranchSwitch: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="ml-8">
+      <div className="text-gray/30 ml-8">
         <svg
           version="1.1"
           id="L4"
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
-          className="size-14"
+          className="size-20"
           y="0px"
           viewBox="0 0 100 100"
           enableBackground="new 0 0 0 0"

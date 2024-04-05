@@ -19,7 +19,7 @@ export const TagDetails: React.FC = () => {
     query: { id },
   } = useRouter()
   const { t } = useTranslation('tag')
-  const { data: { tag } = {} } = useTagQuery({
+  const { data: { tag } = {}, loading } = useTagQuery({
     variables: {
       input: {
         id: (Array.isArray(id) ? id.at(0) : id) ?? '',
@@ -84,7 +84,7 @@ export const TagDetails: React.FC = () => {
   return (
     <div className="flex flex-col space-y-4">
       <Card>
-        <DescList items={descItems} />
+        <DescList items={descItems} loading={loading} />
       </Card>
       {typeof id === 'string' && <TagDetailsJournals tagId={id} />}
     </div>

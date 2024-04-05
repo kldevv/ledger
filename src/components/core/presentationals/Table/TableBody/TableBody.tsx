@@ -7,10 +7,6 @@ export interface TableBodyProps<TData extends RowData> {
    * Table
    */
   table: Table<TData>
-  /**
-   * Loading?
-   */
-  loading?: boolean
 }
 
 export const TableBody = <TData extends RowData>({

@@ -18,7 +18,7 @@ export const LinkDetails: React.FC = () => {
     query: { id },
   } = useRouter()
   const { t } = useTranslation('link')
-  const { data: { link } = {} } = useLinkQuery({
+  const { data: { link } = {}, loading } = useLinkQuery({
     variables: {
       input: {
         id: (Array.isArray(id) ? id.at(0) : id) ?? '',
@@ -73,7 +73,7 @@ export const LinkDetails: React.FC = () => {
   return (
     <div className="flex flex-col space-y-4">
       <Card>
-        <DescList items={descItems} />
+        <DescList items={descItems} loading={loading} />
       </Card>
       {typeof id === 'string' && <LinkDetailsJournals linkId={id} />}
     </div>

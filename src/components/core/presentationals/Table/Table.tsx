@@ -7,7 +7,7 @@ import {
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
 
-import { Icon, Pagination } from '..'
+import { Icon, Pagination, Spinner } from '..'
 
 import { TableBody } from './TableBody/TableBody'
 import { TableHead } from './TableHead/TableHead'
@@ -37,6 +37,7 @@ export type TableProps<TData extends RowData> = {
 export const Table = <TData extends RowData>({
   data,
   colDefs,
+  loading = false,
   enabledPagination = true,
 }: TableProps<TData>) => {
   const [sorting, setSorting] = useState<SortingState>([])
@@ -71,13 +72,23 @@ export const Table = <TData extends RowData>({
     <div className="size-full overflow-auto">
       <table className="size-full table-auto">
         <TableHead table={table} />
-        {data && data.length > 0 ? (
+        {loading ? (
+          <tbody>
+            <tr>
+              <td colSpan={colDefs.length + 1}>
+                <div className="flex h-60 w-full items-center justify-center">
+                  <Spinner className="size-14" />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        ) : data && data.length > 0 ? (
           <TableBody table={table} />
         ) : (
           <tbody>
             <tr>
               <td colSpan={colDefs.length + 1}>
-                <div className="text-gray flex items-center justify-center space-x-1 py-20 text-sm font-normal">
+                <div className="text-gray flex w-full items-center justify-center space-x-1 py-20 text-sm font-normal">
                   <span>
                     <Icon.Solid
                       className="text-light-accent/50"
