@@ -15,10 +15,10 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <Header
-        header={t`account.group.add.header`}
+        header={t`accountGroup.add.header`}
         section={
           <Trans
-            i18nKey={'pages:account.group.add.section'}
+            i18nKey={'pages:accountGroup.add.section'}
             components={{ account: <TextLink href={route.account.home} /> }}
           />
         }

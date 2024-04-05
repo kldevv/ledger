@@ -1,5 +1,8 @@
 query AccountGroup($input: AccountGroupInput!) {
   accountGroup(input: $input) {
     ...AccountGroupData
+    updatedAt
+    deletedAt
+    branchId
   }
 }

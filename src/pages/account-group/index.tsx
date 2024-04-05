@@ -15,14 +15,14 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <Header
-        header={t`account.group.header`}
+        header={t`accountGroup.header`}
         section={
           <Trans
-            i18nKey={'pages:account.group.section'}
+            i18nKey={'pages:accountGroup.section'}
             components={{ account: <TextLink href={route.account.home} /> }}
           />
         }
-        link={{ href: route.accountGroup.add, label: t`account.group.link` }}
+        link={{ href: route.accountGroup.add, label: t`accountGroup.link` }}
       />
       <AccountGroupsTable />
     </Layout>

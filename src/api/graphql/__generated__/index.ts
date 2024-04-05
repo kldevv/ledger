@@ -269,6 +269,7 @@ export type Journal = {
 };
 
 export type JournalsInput = {
+  accountGroupId?: InputMaybe<Scalars['String']['input']>;
   branchId?: InputMaybe<Scalars['String']['input']>;
   linkId?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<EntryStatus>;
@@ -1219,7 +1220,7 @@ export type AccountGroupQueryVariables = Exact<{
 }>;
 
 
-export type AccountGroupQuery = { __typename?: 'Query', accountGroup?: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType, createdAt: Date, count: number } | null };
+export type AccountGroupQuery = { __typename?: 'Query', accountGroup?: { __typename?: 'AccountGroup', updatedAt: Date, deletedAt?: Date | null, branchId: string, id: string, name: string, type: AccountingType, createdAt: Date, count: number } | null };
 
 export type AccountGroupsQueryVariables = Exact<{
   input: AccountGroupsInput;
@@ -2055,6 +2056,9 @@ export const AccountGroupDocument = gql`
     query AccountGroup($input: AccountGroupInput!) {
   accountGroup(input: $input) {
     ...AccountGroupData
+    updatedAt
+    deletedAt
+    branchId
   }
 }
     ${AccountGroupDataFragmentDoc}`;

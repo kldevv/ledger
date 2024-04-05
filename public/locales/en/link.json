@@ -4,7 +4,7 @@
       "name": "Name",
       "type": "Link Type",
       "createdAt": "Create Date",
-      "count": "Transaction Count",
+      "count": "Journal Count",
       "details": "Details"
     },
     "view": "View"
@@ -36,7 +36,7 @@
     "id": "ID",
     "name": "Name",
     "type": "Tag Type",
-    "count": "Transaction Count",
+    "count": "Journal Count",
     "createdAt": "Create Date",
     "updatedAt": "Update Date",
     "deletedAt": "Delete Date",

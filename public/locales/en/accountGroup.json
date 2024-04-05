@@ -63,5 +63,16 @@
     },
     "toast": "You have successfully added the new account group \"<b>{{ name }}</b>\".",
     "submit": "Add New Account Group"
+  },
+  "accountGroupDetails": {
+    "id": "ID",
+    "name": "Name",
+    "type": "Accounting Type",
+    "branchId": "Branch ID",
+    "count": "Account Count",
+    "createdAt": "Create Date",
+    "updatedAt": "Update Date",
+    "deletedAt": "Delete Date",
+    "journals": "Related Journals"
   }
 }

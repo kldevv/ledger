@@ -1,4 +1,5 @@
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
+import classNames from 'classnames'
 
 import { ButtonCore, Icon } from '../..'
 import { TableHeader } from '../TableHeader/TableHeader'
@@ -24,7 +25,10 @@ export const TableHead = <TData extends RowData>({
               {header.column.getCanSort() ? (
                 <ButtonCore
                   onClick={header.column.getToggleSortingHandler()}
-                  className="hover:text-light-accent my-2 -ml-3 flex size-full items-center justify-start rounded-lg px-3 py-1"
+                  className={classNames(
+                    'hover:text-gray my-2 -ml-3 flex size-full items-center justify-start rounded-lg px-3 py-1',
+                    { 'text-gray': header.column.getIsSorted() },
+                  )}
                 >
                   <span>
                     {header.isPlaceholder

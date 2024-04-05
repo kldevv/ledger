@@ -3,7 +3,7 @@
     "col": {
       "name": "Name",
       "type": "Tag Type",
-      "count": "Transaction Count",
+      "count": "Journal Count",
       "createdAt": "Create Date",
       "details": "Details"
     },
@@ -48,7 +48,7 @@
     "name": "Name",
     "type": "Tag Type",
     "branchId": "Branch ID",
-    "count": "Transaction Count",
+    "count": "Journal Count",
     "createdAt": "Create Date",
     "updatedAt": "Update Date",
     "deletedAt": "Delete Date",

@@ -17,27 +17,27 @@
       "link": "Edit",
       "section": "An account, functioning as a storage for accumulated debits and credits, constitutes the fundamental building block for <journal>journals</journal> and their respective <entry>entries</entry>."
     },
-    "group": {
-      "add": {
-        "header": "Add Account Group",
-        "section": "Create an account group to organize your <account>accounts</account>."
-      },
-      "details": {
-        "edit": {
-          "header": "Edit Account Group",
-          "section": "Update an account group with the latest information."
-        },
-        "header": "Account Group Details",
-        "link": "Edit",
-        "section": "An account group serves as the parent element for <account>accounts</account>, categorized as Assets, Liabilities, or Equity, aligning with their respective accounting semantics."
-      },
-      "header": "Account Groups",
-      "link": "Add Account Group",
-      "section": "An account group serves as the parent element for <account>accounts</account>, categorized as Assets, Liabilities, or Equity, aligning with their respective accounting semantics."
-    },
     "header": "Accounts",
     "link": "Add Account",
     "section": "An account, functioning as a storage for accumulated debits and credits, constitutes the fundamental building block for <journal>journals</journal> and their respective <entry>entries</entry>."
+  },
+  "accountGroup": {
+    "add": {
+      "header": "Add Account Group",
+      "section": "Create an account group to organize your <account>accounts</account>."
+    },
+    "details": {
+      "edit": {
+        "header": "Edit Account Group",
+        "section": "Update an account group with the latest information."
+      },
+      "header": "Account Group Details",
+      "link": "Edit Account Group",
+      "section": "An account group serves as the parent element for <account>accounts</account>, categorized as Assets, Liabilities, or Equity, aligning with their respective accounting semantics."
+    },
+    "header": "Account Groups",
+    "link": "Add Account Group",
+    "section": "An account group serves as the parent element for <account>accounts</account>, categorized as Assets, Liabilities, or Equity, aligning with their respective accounting semantics."
   },
   "branch": {
     "add": {

@@ -13,8 +13,8 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <Header
-        header={t`account.group.edit.header`}
-        section={t`account.group.edit.section`}
+        header={t`accountGroup.edit.header`}
+        section={t`accountGroup.edit.section`}
       />
       <UpdateCategoryForm />
     </Layout>
