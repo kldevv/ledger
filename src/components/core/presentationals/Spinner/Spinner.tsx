@@ -1,13 +1,13 @@
 import classNames from 'classnames'
 
-export interface ButtonSpinnerProps {
+export interface SpinnerProps {
   /**
    * Overriding class name
    */
   className?: string
 }
 
-export const ButtonSpinner: React.FC<ButtonSpinnerProps> = ({ className }) => {
+export const Spinner: React.FC<SpinnerProps> = ({ className }) => {
   return (
     <svg
       className={classNames('text-gray animate-spin', className)}

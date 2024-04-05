@@ -15,11 +15,16 @@ export interface UseFormProps<TFieldValues extends FieldValues>
    * Zod schema of the form fields.
    */
   schema: z.Schema
+  /**
+   * Disable reset
+   */
+  disableReset?: boolean
 }
 
 export const useForm = <TFieldValues extends FieldValues>({
   schema,
   values,
+  disableReset = false,
   ...props
 }: UseFormProps<TFieldValues>) => {
   const methods = useReactHookForm<TFieldValues>({
@@ -39,10 +44,10 @@ export const useForm = <TFieldValues extends FieldValues>({
   } = methods
 
   useEffect(() => {
-    if (isSubmitSuccessful) {
+    if (isSubmitSuccessful && !disableReset) {
       reset()
     }
-  }, [isSubmitSuccessful, reset])
+  }, [disableReset, isSubmitSuccessful, reset])
 
   return methods
 }

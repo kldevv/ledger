@@ -51,7 +51,7 @@ export const EditLinkForm: React.FC = () => {
   const id = Array.isArray(_id) ? _id.at(0) : _id
   const toast = useToaster()
   const linkTypeDropdown = useLinkTypeDropdown()
-  const { data: { link } = {} } = useLinkQuery({
+  const { data: { link } = {}, loading: queryLoading } = useLinkQuery({
     variables: {
       input: {
         id: id ?? '',
@@ -108,7 +108,7 @@ export const EditLinkForm: React.FC = () => {
 
   return (
     <Form context={context} onSubmit={handleSubmit} className="w-fit">
-      <Card className="w-80">
+      <Card className="w-80" loading={queryLoading}>
         <div className="space-y-1">
           <Form.Static<EditLinkFormValues>
             label={t`editLink.label.id`}

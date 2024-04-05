@@ -41,7 +41,7 @@ export const DropdownOptions = <ItemValue,>({
   return (
     <ul
       className={classNames(
-        'shadow-mid-gray absolute z-10 mt-1 w-full min-w-min overflow-y-scroll rounded text-xs shadow-md bg-white',
+        'shadow-mid-gray absolute z-10 mt-1 w-full max-h-48 overflow-y-scroll rounded text-xs shadow-md bg-white',
         {
           hidden: !isOpen,
         },

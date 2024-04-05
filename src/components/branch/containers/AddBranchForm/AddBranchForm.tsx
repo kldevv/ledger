@@ -28,7 +28,7 @@ export const AddBranchForm: React.FC = () => {
   const { t } = useTranslation('branch')
   const toast = useToaster()
   const currencyDropdown = useCurrencyDropdown()
-  const [addBranch] = useAddBranchMutation({
+  const [addBranch, { loading }] = useAddBranchMutation({
     onCompleted: ({ addBranch }) =>
       toast(() => (
         <Trans
@@ -86,7 +86,7 @@ export const AddBranchForm: React.FC = () => {
         </div>
         <Form.Submit
           className="mt-8 w-full"
-          // loading={loading}
+          loading={loading}
         >{t`addBranch.submit`}</Form.Submit>
       </Card>
     </Form>

@@ -51,7 +51,7 @@ export const EditBranchForm: React.FC = () => {
   const id = Array.isArray(_id) ? _id.at(0) : _id
   const toast = useToaster()
   const currencyDropdown = useCurrencyDropdown()
-  const { data: { branch } = {} } = useBranchQuery({
+  const { data: { branch } = {}, loading: queryLoading } = useBranchQuery({
     variables: {
       input: {
         id: id ?? '',
@@ -59,7 +59,7 @@ export const EditBranchForm: React.FC = () => {
     },
     skip: id == null,
   })
-  const [updateBranch] = useUpdateBranchMutation({
+  const [updateBranch, { loading }] = useUpdateBranchMutation({
     onCompleted: ({ updateBranch }) =>
       toast(() => (
         <Trans
@@ -104,7 +104,7 @@ export const EditBranchForm: React.FC = () => {
 
   return (
     <Form context={context} onSubmit={handleSubmit} className="w-fit">
-      <Card className="w-80">
+      <Card className="w-80" loading={queryLoading}>
         <div className="space-y-1">
           <Form.Static<EditBranchFormValues>
             label={t`editBranch.label.id`}
@@ -132,7 +132,7 @@ export const EditBranchForm: React.FC = () => {
         </div>
         <Form.Submit
           className="mt-8 w-full"
-          // loading={loading}
+          loading={loading}
         >{t`editBranch.submit`}</Form.Submit>
       </Card>
     </Form>

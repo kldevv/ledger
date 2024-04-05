@@ -1,8 +1,9 @@
 import classNames from 'classnames'
 import { forwardRef } from 'react'
 
+import { Spinner } from '..'
+
 import { ButtonCore } from './Button.Core/Button.Core'
-import { ButtonSpinner } from './Button.Spinner/Button.Spinner'
 
 import type { ButtonCoreProps } from './Button.Core/Button.Core'
 
@@ -32,7 +33,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading ? (
           <div className="flex items-center justify-center px-6 py-1.5">
-            <ButtonSpinner className="size-3" />
+            <Spinner className="size-3" />
           </div>
         ) : (
           <ButtonCore

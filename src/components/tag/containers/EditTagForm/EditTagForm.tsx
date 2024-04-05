@@ -55,13 +55,14 @@ export const EditTagForm: React.FC = () => {
   const id = Array.isArray(_id) ? _id.at(0) : _id
   const tagTypeDropdown = useTagTypeDropdown()
   const toast = useToaster()
-  const { data: { tag } = {} } = useTagQuery({
+  const { data: { tag } = {}, loading: queryLoading } = useTagQuery({
     variables: {
       input: {
         id: id ?? '',
       },
     },
     skip: id == null,
+    notifyOnNetworkStatusChange: true,
   })
 
   const context = useForm<EditTagFormValues>({
@@ -113,7 +114,7 @@ export const EditTagForm: React.FC = () => {
 
   return (
     <Form context={context} onSubmit={handleSubmit} className="w-fit">
-      <Card className="w-80">
+      <Card className="w-80" loading={queryLoading}>
         <div className="space-y-1">
           <Form.Static<EditTagFormValues>
             label={t`editTag.label.id`}
