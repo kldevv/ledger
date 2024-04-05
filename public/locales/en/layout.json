@@ -32,6 +32,7 @@
     }
   },
   "branchSwitch": {
-    "error": "Something went wrong. Please try again."
+    "error": "Something went wrong. Please try again.",
+    "retry": "Retry"
   }
 }

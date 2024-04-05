@@ -3,14 +3,13 @@ import { useCallback, useMemo } from 'react'
 
 import { useBranchesQuery } from '@/api/graphql'
 import { useCurrentBranch } from '@/components/core/hooks'
-import { Dropdown, Icon } from '@/components/core/presentationals'
+import { ButtonCore, Dropdown, Icon } from '@/components/core/presentationals'
 import { currencyToFlagIconName } from '@/shared/utils'
 
-import type { BranchesQuery } from '@/api/graphql'
 import type { DropdownItem } from '@/components/core/presentationals'
 import type { UseSelectSelectedItemChange } from 'downshift'
 
-export type BranchSwitchItem = DropdownItem<BranchesQuery['branches'][number]>
+export type BranchSwitchItem = DropdownItem<string>
 
 export const BranchSwitch: React.FC = () => {
   const [currentBranch, setCurrentBranch] = useCurrentBranch()
@@ -19,6 +18,7 @@ export const BranchSwitch: React.FC = () => {
     data: { branches } = {},
     loading,
     error,
+    refetch,
   } = useBranchesQuery({
     variables: {
       input: {
@@ -30,7 +30,7 @@ export const BranchSwitch: React.FC = () => {
   const items = useMemo<BranchSwitchItem[]>(
     () =>
       branches?.map((branch) => ({
-        value: branch,
+        value: branch.id,
         title: branch.name,
         desc: branch.id,
         flagIcon: currencyToFlagIconName(branch.currency),
@@ -40,9 +40,13 @@ export const BranchSwitch: React.FC = () => {
 
   const handleBranchChange = useCallback(
     (change: UseSelectSelectedItemChange<BranchSwitchItem>) =>
-      setCurrentBranch(change.selectedItem.value),
-    [setCurrentBranch],
+      setCurrentBranch(
+        branches?.find((branch) => branch.id === change.selectedItem.value),
+      ),
+    [branches, setCurrentBranch],
   )
+
+  const handleRetry = useCallback(() => void refetch(), [refetch])
 
   if (loading) {
     return (
@@ -91,9 +95,15 @@ export const BranchSwitch: React.FC = () => {
 
   if (error || !currentBranch) {
     return (
-      <div className="text-dark-red flex items-center gap-x-2 text-xs">
+      <div className="text-dark-red flex w-full items-center gap-x-2 text-xs">
         <Icon.Solid name="ExclamationCircle" />
         <span>{t`branchSwitch.error`}</span>
+        <ButtonCore
+          className="text-dark-shades hover:text-gray w-fit font-medium underline"
+          onClick={handleRetry}
+        >
+          {t`branchSwitch.retry`}
+        </ButtonCore>
       </div>
     )
   }
@@ -103,7 +113,7 @@ export const BranchSwitch: React.FC = () => {
       <Dropdown>
         <Dropdown.Select
           items={items}
-          value={items.find((item) => item.value.id === currentBranch?.id)}
+          value={items.find((item) => item.value === currentBranch?.id)}
           onChange={handleBranchChange}
         >
           <Dropdown.Options />
