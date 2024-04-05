@@ -1,41 +1,4 @@
 {
-  "CategoryDescriptionList": {
-    "title": {
-      "id": "ID",
-      "name": "Name",
-      "type": "Category Type",
-      "updatedAt": "Update Date",
-      "createdAt": "Create Date"
-    }
-  },
-  "CategoryDetail": {
-    "title": {
-      "accounts": "Category Accounts",
-      "entries": "Category Entries"
-    }
-  },
-  "CategoryTable": {
-    "header": {
-      "name": "Name",
-      "type": "Category Type",
-      "accountCount": "Accounts",
-      "createdAt": "Create Date"
-    },
-    "link": {
-      "view": "View"
-    }
-  },
-  "AddCategoryFrom": {
-    "submit": "Add Category",
-    "success": "Your category is successfully added"
-  },
-  "UpdateCategoryForm": {
-    "submit": "Update Category",
-    "success": "Your category is successfully updated"
-  },
-  "CategoryForm": {
-    "name": "Name"
-  },
   "accountGroupsTable": {
     "col": {
       "name": "Name",
