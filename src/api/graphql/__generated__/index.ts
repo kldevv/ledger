@@ -201,26 +201,38 @@ export const ElementType = {
 
 export type ElementType = typeof ElementType[keyof typeof ElementType];
 export type EntriesInput = {
+  accountGroupId?: InputMaybe<Scalars['String']['input']>;
   accountId?: InputMaybe<Scalars['String']['input']>;
-  categoryId?: InputMaybe<Scalars['String']['input']>;
-  categoryType?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<EntryStatus>;
-  transactionId?: InputMaybe<Scalars['String']['input']>;
-  treasuryBookId?: InputMaybe<Scalars['String']['input']>;
+  branchId?: InputMaybe<Scalars['String']['input']>;
+  journalId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Entry = {
   __typename?: 'Entry';
-  account?: Maybe<Account>;
+  account: EntryAccountInfo;
+  branchId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   credit: Scalars['Float']['output'];
   debit: Scalars['Float']['output'];
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['String']['output'];
+  journal: EntryJournalInfo;
   memo: Scalars['String']['output'];
   status: EntryStatus;
   transactionDate: Scalars['DateTime']['output'];
-  transactionId: Scalars['String']['output'];
-  treasuryBookId: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type EntryAccountInfo = {
+  __typename?: 'EntryAccountInfo';
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type EntryJournalInfo = {
+  __typename?: 'EntryJournalInfo';
+  id: Scalars['String']['output'];
+  note: Scalars['String']['output'];
 };
 
 export const EntryStatus = {
@@ -712,6 +724,8 @@ export type ResolversTypes = {
   ElementType: ElementType;
   EntriesInput: EntriesInput;
   Entry: ResolverTypeWrapper<Entry>;
+  EntryAccountInfo: ResolverTypeWrapper<EntryAccountInfo>;
+  EntryJournalInfo: ResolverTypeWrapper<EntryJournalInfo>;
   EntryStatus: EntryStatus;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
@@ -772,6 +786,8 @@ export type ResolversParentTypes = {
   DebitAndCredit: DebitAndCredit;
   EntriesInput: EntriesInput;
   Entry: Entry;
+  EntryAccountInfo: EntryAccountInfo;
+  EntryJournalInfo: EntryJournalInfo;
   Float: Scalars['Float']['output'];
   Int: Scalars['Int']['output'];
   Journal: Journal;
@@ -862,16 +878,30 @@ export type DebitAndCreditResolvers<ContextType = ApolloServerContext, ParentTyp
 };
 
 export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Entry'] = ResolversParentTypes['Entry']> = {
-  account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
+  account?: Resolver<ResolversTypes['EntryAccountInfo'], ParentType, ContextType>;
+  branchId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   credit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  journal?: Resolver<ResolversTypes['EntryJournalInfo'], ParentType, ContextType>;
   memo?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['EntryStatus'], ParentType, ContextType>;
   transactionDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  transactionId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  treasuryBookId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EntryAccountInfoResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['EntryAccountInfo'] = ResolversParentTypes['EntryAccountInfo']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EntryJournalInfoResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['EntryJournalInfo'] = ResolversParentTypes['EntryJournalInfo']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  note?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -991,6 +1021,8 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   DateTime?: GraphQLScalarType;
   DebitAndCredit?: DebitAndCreditResolvers<ContextType>;
   Entry?: EntryResolvers<ContextType>;
+  EntryAccountInfo?: EntryAccountInfoResolvers<ContextType>;
+  EntryJournalInfo?: EntryJournalInfoResolvers<ContextType>;
   Journal?: JournalResolvers<ContextType>;
   Link?: LinkResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
@@ -1008,7 +1040,7 @@ export type AccountGroupDataFragment = { __typename?: 'AccountGroup', id: string
 
 export type BranchDataFragment = { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null };
 
-export type EntryDataFragment = { __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, group: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } } | null };
+export type EntryDataFragment = { __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } };
 
 export type JournalDataFragment = { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date };
 
@@ -1144,6 +1176,13 @@ export type BranchesQueryVariables = Exact<{
 
 export type BranchesQuery = { __typename?: 'Query', branches: Array<{ __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null }> };
 
+export type EntriesQueryVariables = Exact<{
+  input: EntriesInput;
+}>;
+
+
+export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
+
 export type JournalsQueryVariables = Exact<{
   input: JournalsInput;
 }>;
@@ -1179,13 +1218,6 @@ export type TagsQueryVariables = Exact<{
 
 export type TagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number }> };
 
-export type EntriesQueryVariables = Exact<{
-  input: EntriesInput;
-}>;
-
-
-export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, group: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } } | null }> };
-
 export type AccountBalanceQueryVariables = Exact<{
   input: AccountBalanceFilter;
 }>;
@@ -1213,7 +1245,7 @@ export type TransactionDetailsQueryVariables = Exact<{
 }>;
 
 
-export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, treasuryBookId: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, transactionId: string, createdAt: Date, account?: { __typename?: 'Account', id: string, name: string, group: { __typename?: 'AccountGroup', id: string, name: string, type: AccountingType } } | null }> };
+export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
 
 export type TransactionsQueryVariables = Exact<{
   input: TransactionsInput;
@@ -1257,7 +1289,6 @@ export const BranchDataFragmentDoc = gql`
 export const EntryDataFragmentDoc = gql`
     fragment EntryData on Entry {
   id
-  treasuryBookId
   transactionDate
   debit
   credit
@@ -1265,14 +1296,12 @@ export const EntryDataFragmentDoc = gql`
   account {
     id
     name
-    group {
-      id
-      name
-      type
-    }
+  }
+  journal {
+    id
+    note
   }
   status
-  transactionId
   createdAt
 }
     `;
@@ -1960,6 +1989,46 @@ export type BranchesQueryHookResult = ReturnType<typeof useBranchesQuery>;
 export type BranchesLazyQueryHookResult = ReturnType<typeof useBranchesLazyQuery>;
 export type BranchesSuspenseQueryHookResult = ReturnType<typeof useBranchesSuspenseQuery>;
 export type BranchesQueryResult = Apollo.QueryResult<BranchesQuery, BranchesQueryVariables>;
+export const EntriesDocument = gql`
+    query Entries($input: EntriesInput!) {
+  entries(input: $input) {
+    ...EntryData
+  }
+}
+    ${EntryDataFragmentDoc}`;
+
+/**
+ * __useEntriesQuery__
+ *
+ * To run a query within a React component, call `useEntriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEntriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEntriesQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useEntriesQuery(baseOptions: Apollo.QueryHookOptions<EntriesQuery, EntriesQueryVariables> & ({ variables: EntriesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EntriesQuery, EntriesQueryVariables>(EntriesDocument, options);
+      }
+export function useEntriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EntriesQuery, EntriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EntriesQuery, EntriesQueryVariables>(EntriesDocument, options);
+        }
+export function useEntriesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<EntriesQuery, EntriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<EntriesQuery, EntriesQueryVariables>(EntriesDocument, options);
+        }
+export type EntriesQueryHookResult = ReturnType<typeof useEntriesQuery>;
+export type EntriesLazyQueryHookResult = ReturnType<typeof useEntriesLazyQuery>;
+export type EntriesSuspenseQueryHookResult = ReturnType<typeof useEntriesSuspenseQuery>;
+export type EntriesQueryResult = Apollo.QueryResult<EntriesQuery, EntriesQueryVariables>;
 export const JournalsDocument = gql`
     query Journals($input: JournalsInput!) {
   journals(input: $input) {
@@ -2163,46 +2232,6 @@ export type TagsQueryHookResult = ReturnType<typeof useTagsQuery>;
 export type TagsLazyQueryHookResult = ReturnType<typeof useTagsLazyQuery>;
 export type TagsSuspenseQueryHookResult = ReturnType<typeof useTagsSuspenseQuery>;
 export type TagsQueryResult = Apollo.QueryResult<TagsQuery, TagsQueryVariables>;
-export const EntriesDocument = gql`
-    query Entries($input: EntriesInput!) {
-  entries(input: $input) {
-    ...EntryData
-  }
-}
-    ${EntryDataFragmentDoc}`;
-
-/**
- * __useEntriesQuery__
- *
- * To run a query within a React component, call `useEntriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useEntriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEntriesQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useEntriesQuery(baseOptions: Apollo.QueryHookOptions<EntriesQuery, EntriesQueryVariables> & ({ variables: EntriesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<EntriesQuery, EntriesQueryVariables>(EntriesDocument, options);
-      }
-export function useEntriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EntriesQuery, EntriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<EntriesQuery, EntriesQueryVariables>(EntriesDocument, options);
-        }
-export function useEntriesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<EntriesQuery, EntriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<EntriesQuery, EntriesQueryVariables>(EntriesDocument, options);
-        }
-export type EntriesQueryHookResult = ReturnType<typeof useEntriesQuery>;
-export type EntriesLazyQueryHookResult = ReturnType<typeof useEntriesLazyQuery>;
-export type EntriesSuspenseQueryHookResult = ReturnType<typeof useEntriesSuspenseQuery>;
-export type EntriesQueryResult = Apollo.QueryResult<EntriesQuery, EntriesQueryVariables>;
 export const AccountBalanceDocument = gql`
     query AccountBalance($input: AccountBalanceFilter!) {
   accountBalance(input: $input) {

@@ -1,0 +1,15 @@
+input AddEntryInput {
+  transactionDate: DateTime!
+  debit: Float!
+  credit: Float!
+  accountId: String!
+  status: EntryStatus!
+  memo: String!
+}
+
+input EntriesInput {
+  branchId: String
+  journalId: String
+  accountId: String
+  accountGroupId: String
+}

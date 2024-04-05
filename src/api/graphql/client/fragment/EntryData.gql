@@ -1,6 +1,5 @@
 fragment EntryData on Entry {
   id
-  treasuryBookId
   transactionDate
   debit
   credit
@@ -8,13 +7,11 @@ fragment EntryData on Entry {
   account {
     id
     name
-    group {
-      id
-      name
-      type
-    }
+  }
+  journal {
+    id
+    note
   }
   status
-  transactionId
   createdAt
 }

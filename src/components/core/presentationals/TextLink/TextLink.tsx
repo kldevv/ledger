@@ -5,9 +5,9 @@ import type { UrlObject } from 'url'
 
 export interface TextLinkProps {
   /**
-   * Text
+   * Children
    */
-  children?: string
+  children?: React.ReactNode
   /**
    * Link href
    */

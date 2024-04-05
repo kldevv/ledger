@@ -7,8 +7,7 @@
       "createdAt": "Create Date",
       "details": "Details"
     },
-    "view": "View",
-    "tagType": "Tag Type"
+    "view": "View"
   },
   "tagType": {
     "GENERAL": "General",

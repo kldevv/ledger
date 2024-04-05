@@ -15,7 +15,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
   return (
     <th
       className={classNames(
-        'text-left text-xs font-medium text-dark-shades py-2 whitespace-nowrap',
+        'text-left text-xs font-medium text-dark-shades py-2 whitespace-nowrap pr-3',
         className,
       )}
       {...props}

@@ -6,13 +6,13 @@ import type { QueryResolvers } from '@/api/graphql'
 
 export const entries: QueryResolvers['entries'] = async (
   _,
-  { input: { treasuryBookId, transactionId, accountId, categoryId } },
+  { input: { branchId, accountGroupId, accountId, journalId } },
 ) => {
   const entries = await findEntries({
-    treasuryBookId: treasuryBookId ?? undefined,
-    transactionId: transactionId ?? undefined,
+    branchId: branchId ?? undefined,
+    journalId: journalId ?? undefined,
     accountId: accountId ?? undefined,
-    categoryId: categoryId ?? undefined,
+    accountGroupId: accountGroupId ?? undefined,
   })
 
   return entries.map(transformEntry)

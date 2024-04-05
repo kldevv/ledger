@@ -9,28 +9,24 @@ export interface FormattedCurrencyNumberProps {
   /**
    * Value
    */
-  value?: number | string | null
+  value: number | string | null
   /**
    * Customized class name
    */
   className?: string
   /**
-   * Override the selected currency
+   * Currency
    */
-  currency?: Currency
+  currency: Currency
 }
 
 export const FormattedCurrencyNumber: React.FC<
   FormattedCurrencyNumberProps
 > = ({ value, currency, className }) => {
   return (
-    <div className={classNames('w-30 flex items-center', className)}>
-      <div className="mr-3 select-none text-xs font-medium">
-        {getCurrencySymbol(currency)}
-      </div>
-      <div className="ml-auto text-xs font-medium">
-        {formatCurrencyNumber(value)}
-      </div>
+    <div className={classNames('flex items-center gap-x-2', className)}>
+      <span className="select-none">{getCurrencySymbol(currency)}</span>
+      <span className="text-xs font-medium">{formatCurrencyNumber(value)}</span>
     </div>
   )
 }

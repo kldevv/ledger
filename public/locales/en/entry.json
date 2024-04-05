@@ -1,23 +1,15 @@
 {
-  "EntryTable": {
-    "header": {
-      "date": "Date",
+  "entriesTable": {
+    "col": {
+      "transactionDate": "Transaction Date",
+      "status": "Status",
       "debit": "Debit",
       "credit": "Credit",
-      "memo": "Memo",
-      "transaction": "Transaction",
       "account": "Account",
-      "status": "Status",
-      "createdAt": "Create Date"
-    }
-  },
-  "EntryField": {
-    "memo": "Memo",
-    "transactionDate": "Transaction Date",
-    "debit": "Debit",
-    "credit": "Credit"
-  },
-  "EntryFields": {
-    "entry": "Entry - {{ index }}"
+      "journal": "Journal",
+      "createdAt": "Create Date",
+      "details": "Details"
+    },
+    "view": "View"
   }
 }

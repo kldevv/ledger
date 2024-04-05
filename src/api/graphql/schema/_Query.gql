@@ -1,11 +1,4 @@
 type Query {
-  # Account
-  account(input: AccountInput!): Account
-  accounts(input: AccountsInput!): [Account!]!
-
-  # Entry
-  entries(input: EntriesInput!): [Entry!]!
-
   # Report
   accountBalance(input: AccountBalanceFilter!): [AccountBalance!]!
   uniqueYears(input: UniqueYearsInput!): [Int!]!
@@ -40,4 +33,11 @@ type Query {
   # Account Group
   accountGroups(input: AccountGroupsInput!): [AccountGroup!]!
   accountGroup(input: AccountGroupInput!): AccountGroup
+
+  # Account
+  account(input: AccountInput!): Account
+  accounts(input: AccountsInput!): [Account!]!
+
+  # Entry
+  entries(input: EntriesInput!): [Entry!]!
 }

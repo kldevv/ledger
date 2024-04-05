@@ -1,0 +1,24 @@
+type EntryAccountInfo {
+  id: String!
+  name: String!
+}
+
+type EntryJournalInfo {
+  id: String!
+  note: String!
+}
+
+type Entry {
+  id: String!
+  branchId: String!
+  transactionDate: DateTime!
+  debit: Float!
+  credit: Float!
+  memo: String!
+  account: EntryAccountInfo!
+  journal: EntryJournalInfo!
+  status: EntryStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}

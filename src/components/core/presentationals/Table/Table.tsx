@@ -69,34 +69,36 @@ export const Table = <TData extends RowData>({
   })
 
   return (
-    <div className="size-full overflow-auto">
-      <table className="size-full table-auto">
-        <TableHead table={table} />
-        {loading ? (
-          <tbody>
-            <tr>
-              <td colSpan={colDefs.length + 1}>
-                <div className="flex h-60 w-full items-center justify-center">
-                  <Spinner className="size-14" />
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        ) : data && data.length > 0 ? (
-          <TableBody table={table} />
-        ) : (
-          <tbody>
-            <tr>
-              <td colSpan={colDefs.length + 1}>
-                <div className="text-gray flex w-full select-none items-center justify-center gap-x-2 py-20 text-sm font-normal">
-                  <Icon.Solid name="ExclamationCircle" />
-                  {t`table.empty`}
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        )}
-      </table>
+    <div className="size-full">
+      <div className="size-full overflow-auto">
+        <table className="size-full">
+          <TableHead table={table} />
+          {loading ? (
+            <tbody>
+              <tr>
+                <td colSpan={colDefs.length + 1}>
+                  <div className="flex h-60 w-full items-center justify-center">
+                    <Spinner className="size-14" />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          ) : data && data.length > 0 ? (
+            <TableBody table={table} />
+          ) : (
+            <tbody>
+              <tr>
+                <td colSpan={colDefs.length + 1}>
+                  <div className="text-gray flex w-full select-none items-center justify-center gap-x-2 py-20 text-sm font-normal">
+                    <Icon.Solid name="ExclamationCircle" />
+                    {t`table.empty`}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          )}
+        </table>
+      </div>
       {pageCount > 1 && enabledPagination && (
         <div className="border-t-mid-gray flex w-full items-center justify-center border-t pt-5">
           <Pagination

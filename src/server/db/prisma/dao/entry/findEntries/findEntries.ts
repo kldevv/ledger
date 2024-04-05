@@ -1,34 +1,53 @@
 import prisma from '@/server/db/prisma/client'
 
-import type { Account, Category, Entry } from '@prisma/client'
-
-export type FindEntriesProps = Partial<
-  Pick<Entry, 'accountId' | 'status' | 'transactionId' | 'treasuryBookId'> &
-    Pick<Account, 'categoryId'> &
-    Pick<Category, 'type'>
->
+export interface FindEntriesArgs {
+  /**
+   * Branch id
+   */
+  branchId?: string
+  /**
+   * Account id
+   */
+  accountId?: string
+  /**
+   * Journal id
+   */
+  journalId?: string
+  /**
+   * Account group id
+   */
+  accountGroupId?: string
+}
 
 export const findEntries = async ({
-  categoryId,
-  type,
-  ...props
-}: FindEntriesProps) => {
+  branchId,
+  accountGroupId,
+  accountId,
+  journalId,
+}: FindEntriesArgs) => {
   return await prisma.entry.findMany({
     where: {
-      ...props,
+      accountId,
+      transactionId: journalId,
+      treasuryBookId: branchId,
       account: {
-        categoryId,
-        category: {
-          type,
-        },
+        categoryId: accountGroupId,
       },
     },
     include: {
-      account: {
-        include: {
-          category: true,
+      transaction: {
+        select: {
+          note: true,
         },
       },
+      account: {
+        select: {
+          name: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
     },
   })
 }

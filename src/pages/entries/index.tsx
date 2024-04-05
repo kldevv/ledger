@@ -2,7 +2,7 @@ import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { TextLink } from '@/components/core/presentationals'
-import { EntryDataTable } from '@/components/entry'
+import { EntriesTable } from '@/components/entry/containers'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
 import { route } from '@/shared/route'
@@ -26,7 +26,7 @@ const Page: React.FC = () => {
           />
         }
       />
-      <EntryDataTable />
+      <EntriesTable />
     </Layout>
   )
 }
