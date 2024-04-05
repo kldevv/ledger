@@ -9,7 +9,9 @@ import {
   FormattedDate,
   type DescListItem,
   Card,
+  TextLink,
 } from '@/components/core/presentationals'
+import { route } from '@/shared/route'
 import { accountingTypeToOutlineIconName } from '@/shared/utils'
 
 import { AccountGroupDetailsAccounts } from './AccountGroupDetails.Accounts/AccountGroupDetails.Accounts'
@@ -56,7 +58,17 @@ export const AccountGroupDetails: React.FC = () => {
       },
       {
         title: t`accountGroupDetails.branchId`,
-        desc: accountGroup?.branchId,
+        desc: (
+          <TextLink
+            intent="table"
+            href={{
+              pathname: route.branch.details.pathname,
+              query: { id: accountGroup?.branchId },
+            }}
+          >
+            {accountGroup?.branchId}
+          </TextLink>
+        ),
       },
       {
         title: t`accountGroupDetails.createdAt`,

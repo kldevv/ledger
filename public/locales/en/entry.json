@@ -11,5 +11,21 @@
       "details": "Details"
     },
     "view": "View"
+  },
+  "entryDetails": {
+    "id": "ID",
+    "memo": "Memo",
+    "status": "Status",
+    "debit": "Debit",
+    "credit": "Credit",
+    "account": "Account",
+    "journal": "Journal",
+    "currency": "Currency",
+    "branchId": "Branch ID",
+    "transactionDate": "Transaction Date",
+    "accrualDate": "Accrual Date",
+    "createdAt": "Create Date",
+    "updatedAt": "Update Date",
+    "deletedAt": "Delete Date"
   }
 }

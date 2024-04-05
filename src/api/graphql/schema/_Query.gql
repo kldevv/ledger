@@ -40,4 +40,5 @@ type Query {
 
   # Entry
   entries(input: EntriesInput!): [Entry!]!
+  entry(input: EntryInput!): Entry!
 }

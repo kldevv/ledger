@@ -48,8 +48,10 @@ export const AccountDetails: React.FC = () => {
               }}
             >
               {account?.group.name}
+              <div className="text-gray hover:text-gray/50 text-xs font-normal">
+                {account?.group.id}
+              </div>
             </TextLink>
-            <div className="text-gray text-xs">{account?.group.id}</div>
           </div>
         ),
       },
@@ -59,7 +61,17 @@ export const AccountDetails: React.FC = () => {
       },
       {
         title: t`accountDetails.branchId`,
-        desc: account?.branchId,
+        desc: (
+          <TextLink
+            intent="table"
+            href={{
+              pathname: route.branch.details.pathname,
+              query: { id: account?.branchId },
+            }}
+          >
+            {account?.branchId}
+          </TextLink>
+        ),
       },
       {
         title: t`accountDetails.createdAt`,

@@ -6,12 +6,14 @@ type EntryAccountInfo {
 type EntryJournalInfo {
   id: String!
   note: String!
+  accrualDate: DateTime!
 }
 
 type Entry {
   id: String!
   branchId: String!
   transactionDate: DateTime!
+  currency: Currency!
   debit: Float!
   credit: Float!
   memo: String!

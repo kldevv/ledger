@@ -35,9 +35,15 @@ export const findEntries = async ({
       },
     },
     include: {
+      treasuryBook: {
+        select: {
+          currency: true,
+        },
+      },
       transaction: {
         select: {
           note: true,
+          accrualDate: true,
         },
       },
       account: {

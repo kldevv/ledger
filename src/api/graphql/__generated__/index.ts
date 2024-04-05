@@ -213,6 +213,7 @@ export type Entry = {
   branchId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   credit: Scalars['Float']['output'];
+  currency: Currency;
   debit: Scalars['Float']['output'];
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['String']['output'];
@@ -229,8 +230,13 @@ export type EntryAccountInfo = {
   name: Scalars['String']['output'];
 };
 
+export type EntryInput = {
+  id: Scalars['String']['input'];
+};
+
 export type EntryJournalInfo = {
   __typename?: 'EntryJournalInfo';
+  accrualDate: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   note: Scalars['String']['output'];
 };
@@ -388,6 +394,7 @@ export type Query = {
   branch?: Maybe<Branch>;
   branches: Array<Branch>;
   entries: Array<Entry>;
+  entry: Entry;
   journals: Array<Journal>;
   link?: Maybe<Link>;
   links: Array<Link>;
@@ -438,6 +445,11 @@ export type QueryBranchesArgs = {
 
 export type QueryEntriesArgs = {
   input: EntriesInput;
+};
+
+
+export type QueryEntryArgs = {
+  input: EntryInput;
 };
 
 
@@ -725,6 +737,7 @@ export type ResolversTypes = {
   EntriesInput: EntriesInput;
   Entry: ResolverTypeWrapper<Entry>;
   EntryAccountInfo: ResolverTypeWrapper<EntryAccountInfo>;
+  EntryInput: EntryInput;
   EntryJournalInfo: ResolverTypeWrapper<EntryJournalInfo>;
   EntryStatus: EntryStatus;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
@@ -787,6 +800,7 @@ export type ResolversParentTypes = {
   EntriesInput: EntriesInput;
   Entry: Entry;
   EntryAccountInfo: EntryAccountInfo;
+  EntryInput: EntryInput;
   EntryJournalInfo: EntryJournalInfo;
   Float: Scalars['Float']['output'];
   Int: Scalars['Int']['output'];
@@ -882,6 +896,7 @@ export type EntryResolvers<ContextType = ApolloServerContext, ParentType extends
   branchId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   credit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  currency?: Resolver<ResolversTypes['Currency'], ParentType, ContextType>;
   debit?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -900,6 +915,7 @@ export type EntryAccountInfoResolvers<ContextType = ApolloServerContext, ParentT
 };
 
 export type EntryJournalInfoResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['EntryJournalInfo'] = ResolversParentTypes['EntryJournalInfo']> = {
+  accrualDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   note?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -958,6 +974,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   branch?: Resolver<Maybe<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchArgs, 'input'>>;
   branches?: Resolver<Array<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchesArgs, 'input'>>;
   entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryEntriesArgs, 'input'>>;
+  entry?: Resolver<ResolversTypes['Entry'], ParentType, ContextType, RequireFields<QueryEntryArgs, 'input'>>;
   journals?: Resolver<Array<ResolversTypes['Journal']>, ParentType, ContextType, RequireFields<QueryJournalsArgs, 'input'>>;
   link?: Resolver<Maybe<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QueryLinkArgs, 'input'>>;
   links?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QueryLinksArgs, 'input'>>;
@@ -1040,7 +1057,7 @@ export type AccountGroupDataFragment = { __typename?: 'AccountGroup', id: string
 
 export type BranchDataFragment = { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null };
 
-export type EntryDataFragment = { __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } };
+export type EntryDataFragment = { __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } };
 
 export type JournalDataFragment = { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date };
 
@@ -1181,7 +1198,14 @@ export type EntriesQueryVariables = Exact<{
 }>;
 
 
-export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
+export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
+
+export type EntryQueryVariables = Exact<{
+  input: EntryInput;
+}>;
+
+
+export type EntryQuery = { __typename?: 'Query', entry: { __typename?: 'Entry', memo: string, updatedAt: Date, deletedAt?: Date | null, branchId: string, currency: Currency, id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, journal: { __typename?: 'EntryJournalInfo', accrualDate: Date, id: string, note: string }, account: { __typename?: 'EntryAccountInfo', id: string, name: string } } };
 
 export type JournalsQueryVariables = Exact<{
   input: JournalsInput;
@@ -1218,6 +1242,13 @@ export type TagsQueryVariables = Exact<{
 
 export type TagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number }> };
 
+export type TotalDebitAndCreditOverTheMonthsQueryVariables = Exact<{
+  input: TotalDebitAndCreditOverTheMonthsInput;
+}>;
+
+
+export type TotalDebitAndCreditOverTheMonthsQuery = { __typename?: 'Query', totalDebitAndCreditOverTheMonths: Array<{ __typename?: 'TotalDebitAndCreditOverTheMonths', id: string, name: string, total: Array<{ __typename?: 'DebitAndCredit', debit: number, credit: number }> }> };
+
 export type AccountBalanceQueryVariables = Exact<{
   input: AccountBalanceFilter;
 }>;
@@ -1232,20 +1263,13 @@ export type UniqueYearsQueryVariables = Exact<{
 
 export type UniqueYearsQuery = { __typename?: 'Query', uniqueYears: Array<number> };
 
-export type TotalDebitAndCreditOverTheMonthsQueryVariables = Exact<{
-  input: TotalDebitAndCreditOverTheMonthsInput;
-}>;
-
-
-export type TotalDebitAndCreditOverTheMonthsQuery = { __typename?: 'Query', totalDebitAndCreditOverTheMonths: Array<{ __typename?: 'TotalDebitAndCreditOverTheMonths', id: string, name: string, total: Array<{ __typename?: 'DebitAndCredit', debit: number, credit: number }> }> };
-
 export type TransactionDetailsQueryVariables = Exact<{
   TransactionInput: TransactionInput;
   entriesInput: EntriesInput;
 }>;
 
 
-export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, memo: string, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
+export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
 
 export type TransactionsQueryVariables = Exact<{
   input: TransactionsInput;
@@ -1292,7 +1316,6 @@ export const EntryDataFragmentDoc = gql`
   transactionDate
   debit
   credit
-  memo
   account {
     id
     name
@@ -2029,6 +2052,54 @@ export type EntriesQueryHookResult = ReturnType<typeof useEntriesQuery>;
 export type EntriesLazyQueryHookResult = ReturnType<typeof useEntriesLazyQuery>;
 export type EntriesSuspenseQueryHookResult = ReturnType<typeof useEntriesSuspenseQuery>;
 export type EntriesQueryResult = Apollo.QueryResult<EntriesQuery, EntriesQueryVariables>;
+export const EntryDocument = gql`
+    query Entry($input: EntryInput!) {
+  entry(input: $input) {
+    ...EntryData
+    memo
+    updatedAt
+    deletedAt
+    journal {
+      accrualDate
+    }
+    branchId
+    currency
+  }
+}
+    ${EntryDataFragmentDoc}`;
+
+/**
+ * __useEntryQuery__
+ *
+ * To run a query within a React component, call `useEntryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEntryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEntryQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useEntryQuery(baseOptions: Apollo.QueryHookOptions<EntryQuery, EntryQueryVariables> & ({ variables: EntryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EntryQuery, EntryQueryVariables>(EntryDocument, options);
+      }
+export function useEntryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EntryQuery, EntryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EntryQuery, EntryQueryVariables>(EntryDocument, options);
+        }
+export function useEntrySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<EntryQuery, EntryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<EntryQuery, EntryQueryVariables>(EntryDocument, options);
+        }
+export type EntryQueryHookResult = ReturnType<typeof useEntryQuery>;
+export type EntryLazyQueryHookResult = ReturnType<typeof useEntryLazyQuery>;
+export type EntrySuspenseQueryHookResult = ReturnType<typeof useEntrySuspenseQuery>;
+export type EntryQueryResult = Apollo.QueryResult<EntryQuery, EntryQueryVariables>;
 export const JournalsDocument = gql`
     query Journals($input: JournalsInput!) {
   journals(input: $input) {
@@ -2232,6 +2303,51 @@ export type TagsQueryHookResult = ReturnType<typeof useTagsQuery>;
 export type TagsLazyQueryHookResult = ReturnType<typeof useTagsLazyQuery>;
 export type TagsSuspenseQueryHookResult = ReturnType<typeof useTagsSuspenseQuery>;
 export type TagsQueryResult = Apollo.QueryResult<TagsQuery, TagsQueryVariables>;
+export const TotalDebitAndCreditOverTheMonthsDocument = gql`
+    query TotalDebitAndCreditOverTheMonths($input: TotalDebitAndCreditOverTheMonthsInput!) {
+  totalDebitAndCreditOverTheMonths(input: $input) {
+    id
+    name
+    total {
+      debit
+      credit
+    }
+  }
+}
+    `;
+
+/**
+ * __useTotalDebitAndCreditOverTheMonthsQuery__
+ *
+ * To run a query within a React component, call `useTotalDebitAndCreditOverTheMonthsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTotalDebitAndCreditOverTheMonthsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTotalDebitAndCreditOverTheMonthsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTotalDebitAndCreditOverTheMonthsQuery(baseOptions: Apollo.QueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables> & ({ variables: TotalDebitAndCreditOverTheMonthsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
+      }
+export function useTotalDebitAndCreditOverTheMonthsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
+        }
+export function useTotalDebitAndCreditOverTheMonthsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
+        }
+export type TotalDebitAndCreditOverTheMonthsQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsQuery>;
+export type TotalDebitAndCreditOverTheMonthsLazyQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsLazyQuery>;
+export type TotalDebitAndCreditOverTheMonthsSuspenseQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsSuspenseQuery>;
+export type TotalDebitAndCreditOverTheMonthsQueryResult = Apollo.QueryResult<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>;
 export const AccountBalanceDocument = gql`
     query AccountBalance($input: AccountBalanceFilter!) {
   accountBalance(input: $input) {
@@ -2319,51 +2435,6 @@ export type UniqueYearsQueryHookResult = ReturnType<typeof useUniqueYearsQuery>;
 export type UniqueYearsLazyQueryHookResult = ReturnType<typeof useUniqueYearsLazyQuery>;
 export type UniqueYearsSuspenseQueryHookResult = ReturnType<typeof useUniqueYearsSuspenseQuery>;
 export type UniqueYearsQueryResult = Apollo.QueryResult<UniqueYearsQuery, UniqueYearsQueryVariables>;
-export const TotalDebitAndCreditOverTheMonthsDocument = gql`
-    query TotalDebitAndCreditOverTheMonths($input: TotalDebitAndCreditOverTheMonthsInput!) {
-  totalDebitAndCreditOverTheMonths(input: $input) {
-    id
-    name
-    total {
-      debit
-      credit
-    }
-  }
-}
-    `;
-
-/**
- * __useTotalDebitAndCreditOverTheMonthsQuery__
- *
- * To run a query within a React component, call `useTotalDebitAndCreditOverTheMonthsQuery` and pass it any options that fit your needs.
- * When your component renders, `useTotalDebitAndCreditOverTheMonthsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTotalDebitAndCreditOverTheMonthsQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTotalDebitAndCreditOverTheMonthsQuery(baseOptions: Apollo.QueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables> & ({ variables: TotalDebitAndCreditOverTheMonthsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
-      }
-export function useTotalDebitAndCreditOverTheMonthsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
-        }
-export function useTotalDebitAndCreditOverTheMonthsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
-        }
-export type TotalDebitAndCreditOverTheMonthsQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsQuery>;
-export type TotalDebitAndCreditOverTheMonthsLazyQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsLazyQuery>;
-export type TotalDebitAndCreditOverTheMonthsSuspenseQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsSuspenseQuery>;
-export type TotalDebitAndCreditOverTheMonthsQueryResult = Apollo.QueryResult<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>;
 export const TransactionDetailsDocument = gql`
     query TransactionDetails($TransactionInput: TransactionInput!, $entriesInput: EntriesInput!) {
   transaction(input: $TransactionInput) {

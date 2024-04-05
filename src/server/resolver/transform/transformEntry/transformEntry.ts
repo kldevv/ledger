@@ -1,12 +1,19 @@
 import type { Entry } from '@/api/graphql/__generated__'
-import type { Entry as PrismaEntry } from '@prisma/client'
+import type { Currency, Entry as PrismaEntry } from '@prisma/client'
 
 type TransformEntryArgs = PrismaEntry & {
+  /**
+   * Relation field: treasury book
+   */
+  treasuryBook: {
+    currency: Currency
+  }
   /**
    * Relation field: transaction
    */
   transaction: {
     note: string
+    accrualDate: Date
   }
   /**
    * Relation field: account
@@ -23,13 +30,16 @@ export const transformEntry = ({
   accountId,
   amount,
   treasuryBookId,
+  treasuryBook,
   ...rest
 }: TransformEntryArgs): Entry => {
   return {
     ...rest,
+    currency: treasuryBook.currency,
     journal: {
       id: transactionId,
       note: transaction.note,
+      accrualDate: transaction.accrualDate,
     },
     account: {
       id: accountId,

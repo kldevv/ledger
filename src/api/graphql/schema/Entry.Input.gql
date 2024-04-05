@@ -13,3 +13,7 @@ input EntriesInput {
   accountId: String
   accountGroupId: String
 }
+
+input EntryInput {
+  id: String!
+}

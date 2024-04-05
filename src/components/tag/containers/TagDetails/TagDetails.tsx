@@ -9,7 +9,9 @@ import {
   FormattedDate,
   type DescListItem,
   Card,
+  TextLink,
 } from '@/components/core/presentationals'
+import { route } from '@/shared/route'
 import { tagTypeToSolidIconName } from '@/shared/utils'
 
 import { TagDetailsJournals } from './TagDetails.Journals/TagDetails.Journals'
@@ -53,7 +55,17 @@ export const TagDetails: React.FC = () => {
       },
       {
         title: t`tagDetails.branchId`,
-        desc: tag?.branchId,
+        desc: (
+          <TextLink
+            intent="table"
+            href={{
+              pathname: route.branch.details.pathname,
+              query: { id: tag?.branchId },
+            }}
+          >
+            {tag?.branchId}
+          </TextLink>
+        ),
       },
       {
         title: t`tagDetails.createdAt`,

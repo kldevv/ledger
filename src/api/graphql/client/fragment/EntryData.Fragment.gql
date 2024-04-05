@@ -3,7 +3,6 @@ fragment EntryData on Entry {
   transactionDate
   debit
   credit
-  memo
   account {
     id
     name

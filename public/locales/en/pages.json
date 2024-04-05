@@ -59,7 +59,11 @@
   },
   "entry": {
     "header": "Entries",
-    "section": "An entry, symbolizing either a debit or credit to an <account>account</account>, serves as the fundamental unit composing a <journal>journal</journal>."
+    "section": "An entry, symbolizing either a debit or credit to an <account>account</account>, serves as the fundamental unit composing a <journal>journal</journal>.",
+    "details": {
+      "header": "Entry Details",
+      "section": "An entry, symbolizing either a debit or credit to an <account>account</account>, serves as the fundamental unit composing a <journal>journal</journal>."
+    }
   },
   "header": "Home",
   "journal": {

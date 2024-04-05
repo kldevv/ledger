@@ -100,7 +100,7 @@ export const useEntriesTableCol = () => {
         cell: ({ getValue }) => (
           <TextLink
             href={{
-              pathname: route.entry.home.pathname,
+              pathname: route.entry.details.pathname,
               query: { id: getValue() },
             }}
           >

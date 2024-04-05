@@ -1,0 +1,13 @@
+query Entry($input: EntryInput!) {
+  entry(input: $input) {
+    ...EntryData
+    memo
+    updatedAt
+    deletedAt
+    journal {
+      accrualDate
+    }
+    branchId
+    currency
+  }
+}
