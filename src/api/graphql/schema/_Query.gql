@@ -10,11 +10,6 @@ type Query {
   # TreasuryBook
   treasuryBooks(input: TreasuryBooksInput!): [TreasuryBook!]!
 
-  # Summary
-  totalDebitAndCreditOverTheMonths(
-    input: TotalDebitAndCreditOverTheMonthsInput!
-  ): [TotalDebitAndCreditOverTheMonths!]!
-
   # Link
   links(input: LinksInput!): [Link!]!
   link(input: LinkInput!): Link
@@ -41,4 +36,7 @@ type Query {
   # Entry
   entries(input: EntriesInput!): [Entry!]!
   entry(input: EntryInput!): Entry!
+
+  # Summary
+  totalOverMonths(input: TotalOverMonthsInput!): [TotalOverMonths!]!
 }

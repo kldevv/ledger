@@ -1,13 +1,11 @@
 import { Prisma } from '@prisma/client'
 
-import { parsePrismaError } from '@/server/db/prisma'
+import { DateStandard, ElementType } from '@/api/graphql'
 import prisma from '@/server/db/prisma/client'
-import logger from '@/server/logger'
 
 import type { EntryStatus } from '@prisma/client'
-import { DateStandard, ElementType } from '@/api/graphql'
 
-export type GroupByMonthAndAccountProps = {
+export type FindTotalOverMonthsArgs = {
   /**
    * Branch id
    */
@@ -30,7 +28,7 @@ export type GroupByMonthAndAccountProps = {
   status?: EntryStatus | null
 }
 
-export type FindTotalDebitAndCreditOverTheMonthsReturns = {
+export type FindTotalOverMonthsReturns = {
   /**
    * ID
    */
@@ -53,15 +51,14 @@ export type FindTotalDebitAndCreditOverTheMonthsReturns = {
   credit: number
 }[]
 
-export const findTotalDebitAndCreditOverTheMonths = async ({
+export const findTotalOverMonths = async ({
   branchId,
   standard,
   groupByElement,
   year,
   status,
-}: GroupByMonthAndAccountProps) => {
-  try {
-    return await prisma.$queryRaw<FindTotalDebitAndCreditOverTheMonthsReturns>`
+}: FindTotalOverMonthsArgs) => {
+  return await prisma.$queryRaw<FindTotalOverMonthsReturns>`
       SELECT
         SUM(CASE WHEN e.amount > 0 THEN e.amount ELSE 0 END) as debit,
         SUM(CASE WHEN e.amount < 0 THEN -e.amount ELSE 0 END) as credit,
@@ -82,15 +79,6 @@ export const findTotalDebitAndCreditOverTheMonths = async ({
       ORDER BY
         element_name, month;
     `
-  } catch (e) {
-    logger.log({
-      level: 'info',
-      message: 'Error in Entry DAO: groupByMonthAndAccount',
-      error: parsePrismaError(e),
-    })
-
-    throw e
-  }
 }
 
 const createMonthSql = (standard: DateStandard) => {

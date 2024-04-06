@@ -1,9 +1,9 @@
 import type { Route } from '..'
 
-const home: Route = {
-  pathname: '/summary',
+const totalOverMonths: Route = {
+  pathname: '/total-over-months',
 }
 
 export const summary = {
-  home,
+  totalOverMonths,
 } as const

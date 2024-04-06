@@ -30,13 +30,11 @@ export const useEntriesTableCol = () => {
         cell: ({ getValue }) =>
           getValue() === 0 ? (
             '-'
-          ) : currentBranch ? (
+          ) : (
             <FormattedCurrencyNumber
               currency={currentBranch?.currency}
               value={getValue()}
             />
-          ) : (
-            getValue()
           ),
       }),
       columnHelper.accessor('credit', {
@@ -44,13 +42,11 @@ export const useEntriesTableCol = () => {
         cell: ({ getValue }) =>
           getValue() === 0 ? (
             '-'
-          ) : currentBranch ? (
+          ) : (
             <FormattedCurrencyNumber
               currency={currentBranch?.currency}
               value={getValue()}
             />
-          ) : (
-            getValue()
           ),
       }),
       columnHelper.accessor('account', {

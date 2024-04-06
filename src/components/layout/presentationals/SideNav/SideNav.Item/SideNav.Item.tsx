@@ -36,12 +36,14 @@ export const SideNavItem: React.FC<SideNavItemProps> = ({
     <Link
       href={href}
       className={classNames(
-        ' hover:bg-light-shades flex items-start rounded-md px-3 py-2 text-sm font-medium min-w-max',
+        ' hover:bg-light-shades flex items-center rounded-md px-3 py-2 text-sm font-medium',
         { 'bg-light-shades': active, 'font-semibold': active },
       )}
     >
       {icon != null && (
-        <Icon.Outline className="mr-2" stroke={1.5} name={icon} />
+        <span className="mr-2 min-w-max">
+          <Icon.Outline stroke={1.5} name={icon} />
+        </span>
       )}
       {label}
     </Link>

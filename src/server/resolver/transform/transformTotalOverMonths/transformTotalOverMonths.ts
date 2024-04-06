@@ -1,5 +1,5 @@
-import type { TotalDebitAndCreditOverTheMonths } from '@/api/graphql'
-import type { FindTotalDebitAndCreditOverTheMonthsReturns } from '@/server/db/prisma/repository'
+import type { TotalOverMonths } from '@/api/graphql'
+import type { FindTotalOverMonthsReturns } from '@/server/db/prisma/repository'
 
 // Intermediary grouped data
 type GroupedData = {
@@ -12,12 +12,11 @@ type GroupedData = {
   }[]
 }
 
-export type TransformTotalDebitAndCreditOverTheMonthsArgs =
-  FindTotalDebitAndCreditOverTheMonthsReturns
+export type TransformTotalOverMonthsArgs = FindTotalOverMonthsReturns
 
-export const transformTotalDebitAndCreditOverTheMonths = (
-  data: TransformTotalDebitAndCreditOverTheMonthsArgs,
-): TotalDebitAndCreditOverTheMonths[] => {
+export const transformTotalOverMonths = (
+  data: TransformTotalOverMonthsArgs,
+): TotalOverMonths[] => {
   // Grouping data by id and name
   const groupedData: GroupedData[] = data.reduce((acc: GroupedData[], curr) => {
     let group = acc.find(

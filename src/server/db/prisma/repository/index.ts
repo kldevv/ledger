@@ -1,1 +1,1 @@
-export * from './findTotalDebitAndCreditOverTheMonths/findTotalDebitAndCreditOverTheMonths'
+export * from './totalOverMonths/totalOverMonths'

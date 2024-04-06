@@ -1,10 +1,11 @@
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { PageTab } from '@/components/core/presentationals'
+import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { TotalDebitAndCreditOverTheMonthsTable } from '@/components/summary'
+import { TotalOverMonthsTable } from '@/components/summary'
+import { route } from '@/shared/route'
 
 import type { GetServerSideProps } from 'next'
 
@@ -13,19 +14,18 @@ const Page: React.FC = () => {
 
   return (
     <Layout>
-      <Header header={t`summary.header`} section={t`summary.section`} />
-      <PageTab
-        options={[
-          {
-            label: 'Balance Over the Months',
-            content: 'TODO',
-          },
-          {
-            label: 'Total Credit / Debit on Months',
-            content: <TotalDebitAndCreditOverTheMonthsTable />,
-          },
-        ]}
+      <Header
+        header={t`summary.totalOverMonths.header`}
+        section={
+          <Trans
+            i18nKey={'pages:summary.totalOverMonths.section'}
+            components={{
+              entry: <TextLink href={route.entry.home} />,
+            }}
+          />
+        }
       />
+      <TotalOverMonthsTable />
     </Layout>
   )
 }

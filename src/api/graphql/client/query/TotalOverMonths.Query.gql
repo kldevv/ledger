@@ -1,0 +1,10 @@
+query TotalOverMonths($input: TotalOverMonthsInput!) {
+  totalOverMonths(input: $input) {
+    id
+    name
+    total {
+      debit
+      credit
+    }
+  }
+}

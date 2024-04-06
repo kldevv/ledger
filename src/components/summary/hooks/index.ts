@@ -1,1 +1,1 @@
-export * from './useTotalDebitAndCreditOverTheMonthsTableColumn/useTotalDebitAndCreditOverTheMonthsTableColumn'
+export * from './useTotalOverMonthsTableCol/useTotalOverMonthsTableCol'

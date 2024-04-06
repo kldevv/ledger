@@ -1,4 +1,4 @@
-input TotalDebitAndCreditOverTheMonthsInput {
+input TotalOverMonthsInput {
   branchId: String!
   standard: DateStandard!
   groupByElement: ElementType!

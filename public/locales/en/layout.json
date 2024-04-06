@@ -10,25 +10,24 @@
   "footer": {
     "copyrights": " {{ year }} Kuan-you Lin. All rights reserved."
   },
-  "hooks": {
-    "sideNavSection": {
-      "title": {
-        "journal": "Journal",
-        "branch": "Branch",
-        "info": "Information"
-      },
-      "item": {
-        "home": "Home",
-        "links": "Links",
-        "journals": "Journals",
-        "entries": "Entries",
-        "accounts": "Accounts",
-        "accountGroups": "Account Groups",
-        "tags": "Tags",
-        "summary": "Summary",
-        "branches": "Branches",
-        "about": "About"
-      }
+  "sideNavSection": {
+    "title": {
+      "journal": "Journal",
+      "branch": "Branch",
+      "summary": "Summary",
+      "info": "Information"
+    },
+    "item": {
+      "home": "Home",
+      "links": "Links",
+      "journals": "Journals",
+      "entries": "Entries",
+      "accounts": "Accounts",
+      "accountGroups": "Account Groups",
+      "tags": "Tags",
+      "branches": "Branches",
+      "totalOverMonths": "Total Over Months",
+      "about": "About"
     }
   },
   "branchSwitch": {

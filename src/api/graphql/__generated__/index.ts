@@ -400,7 +400,7 @@ export type Query = {
   links: Array<Link>;
   tag?: Maybe<Tag>;
   tags: Array<Tag>;
-  totalDebitAndCreditOverTheMonths: Array<TotalDebitAndCreditOverTheMonths>;
+  totalOverMonths: Array<TotalOverMonths>;
   transaction?: Maybe<Transaction>;
   transactions: Array<Transaction>;
   treasuryBooks: Array<TreasuryBook>;
@@ -478,8 +478,8 @@ export type QueryTagsArgs = {
 };
 
 
-export type QueryTotalDebitAndCreditOverTheMonthsArgs = {
-  input: TotalDebitAndCreditOverTheMonthsInput;
+export type QueryTotalOverMonthsArgs = {
+  input: TotalOverMonthsInput;
 };
 
 
@@ -531,14 +531,14 @@ export type TagsInput = {
   branchId: Scalars['String']['input'];
 };
 
-export type TotalDebitAndCreditOverTheMonths = {
-  __typename?: 'TotalDebitAndCreditOverTheMonths';
+export type TotalOverMonths = {
+  __typename?: 'TotalOverMonths';
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   total: Array<DebitAndCredit>;
 };
 
-export type TotalDebitAndCreditOverTheMonthsInput = {
+export type TotalOverMonthsInput = {
   branchId: Scalars['String']['input'];
   groupByElement: ElementType;
   standard: DateStandard;
@@ -755,8 +755,8 @@ export type ResolversTypes = {
   TagInput: TagInput;
   TagType: TagType;
   TagsInput: TagsInput;
-  TotalDebitAndCreditOverTheMonths: ResolverTypeWrapper<TotalDebitAndCreditOverTheMonths>;
-  TotalDebitAndCreditOverTheMonthsInput: TotalDebitAndCreditOverTheMonthsInput;
+  TotalOverMonths: ResolverTypeWrapper<TotalOverMonths>;
+  TotalOverMonthsInput: TotalOverMonthsInput;
   Transaction: ResolverTypeWrapper<Transaction>;
   TransactionInput: TransactionInput;
   TransactionsInput: TransactionsInput;
@@ -815,8 +815,8 @@ export type ResolversParentTypes = {
   Tag: Tag;
   TagInput: TagInput;
   TagsInput: TagsInput;
-  TotalDebitAndCreditOverTheMonths: TotalDebitAndCreditOverTheMonths;
-  TotalDebitAndCreditOverTheMonthsInput: TotalDebitAndCreditOverTheMonthsInput;
+  TotalOverMonths: TotalOverMonths;
+  TotalOverMonthsInput: TotalOverMonthsInput;
   Transaction: Transaction;
   TransactionInput: TransactionInput;
   TransactionsInput: TransactionsInput;
@@ -980,7 +980,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   links?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QueryLinksArgs, 'input'>>;
   tag?: Resolver<Maybe<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagArgs, 'input'>>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagsArgs, 'input'>>;
-  totalDebitAndCreditOverTheMonths?: Resolver<Array<ResolversTypes['TotalDebitAndCreditOverTheMonths']>, ParentType, ContextType, RequireFields<QueryTotalDebitAndCreditOverTheMonthsArgs, 'input'>>;
+  totalOverMonths?: Resolver<Array<ResolversTypes['TotalOverMonths']>, ParentType, ContextType, RequireFields<QueryTotalOverMonthsArgs, 'input'>>;
   transaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryTransactionArgs, 'input'>>;
   transactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryTransactionsArgs, 'input'>>;
   treasuryBooks?: Resolver<Array<ResolversTypes['TreasuryBook']>, ParentType, ContextType, RequireFields<QueryTreasuryBooksArgs, 'input'>>;
@@ -999,7 +999,7 @@ export type TagResolvers<ContextType = ApolloServerContext, ParentType extends R
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type TotalDebitAndCreditOverTheMonthsResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['TotalDebitAndCreditOverTheMonths'] = ResolversParentTypes['TotalDebitAndCreditOverTheMonths']> = {
+export type TotalOverMonthsResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['TotalOverMonths'] = ResolversParentTypes['TotalOverMonths']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   total?: Resolver<Array<ResolversTypes['DebitAndCredit']>, ParentType, ContextType>;
@@ -1045,7 +1045,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
-  TotalDebitAndCreditOverTheMonths?: TotalDebitAndCreditOverTheMonthsResolvers<ContextType>;
+  TotalOverMonths?: TotalOverMonthsResolvers<ContextType>;
   Transaction?: TransactionResolvers<ContextType>;
   TreasuryBook?: TreasuryBookResolvers<ContextType>;
 };
@@ -1242,12 +1242,12 @@ export type TagsQueryVariables = Exact<{
 
 export type TagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number }> };
 
-export type TotalDebitAndCreditOverTheMonthsQueryVariables = Exact<{
-  input: TotalDebitAndCreditOverTheMonthsInput;
+export type TotalOverMonthsQueryVariables = Exact<{
+  input: TotalOverMonthsInput;
 }>;
 
 
-export type TotalDebitAndCreditOverTheMonthsQuery = { __typename?: 'Query', totalDebitAndCreditOverTheMonths: Array<{ __typename?: 'TotalDebitAndCreditOverTheMonths', id: string, name: string, total: Array<{ __typename?: 'DebitAndCredit', debit: number, credit: number }> }> };
+export type TotalOverMonthsQuery = { __typename?: 'Query', totalOverMonths: Array<{ __typename?: 'TotalOverMonths', id: string, name: string, total: Array<{ __typename?: 'DebitAndCredit', debit: number, credit: number }> }> };
 
 export type AccountBalanceQueryVariables = Exact<{
   input: AccountBalanceFilter;
@@ -2303,9 +2303,9 @@ export type TagsQueryHookResult = ReturnType<typeof useTagsQuery>;
 export type TagsLazyQueryHookResult = ReturnType<typeof useTagsLazyQuery>;
 export type TagsSuspenseQueryHookResult = ReturnType<typeof useTagsSuspenseQuery>;
 export type TagsQueryResult = Apollo.QueryResult<TagsQuery, TagsQueryVariables>;
-export const TotalDebitAndCreditOverTheMonthsDocument = gql`
-    query TotalDebitAndCreditOverTheMonths($input: TotalDebitAndCreditOverTheMonthsInput!) {
-  totalDebitAndCreditOverTheMonths(input: $input) {
+export const TotalOverMonthsDocument = gql`
+    query TotalOverMonths($input: TotalOverMonthsInput!) {
+  totalOverMonths(input: $input) {
     id
     name
     total {
@@ -2317,37 +2317,37 @@ export const TotalDebitAndCreditOverTheMonthsDocument = gql`
     `;
 
 /**
- * __useTotalDebitAndCreditOverTheMonthsQuery__
+ * __useTotalOverMonthsQuery__
  *
- * To run a query within a React component, call `useTotalDebitAndCreditOverTheMonthsQuery` and pass it any options that fit your needs.
- * When your component renders, `useTotalDebitAndCreditOverTheMonthsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useTotalOverMonthsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTotalOverMonthsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useTotalDebitAndCreditOverTheMonthsQuery({
+ * const { data, loading, error } = useTotalOverMonthsQuery({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useTotalDebitAndCreditOverTheMonthsQuery(baseOptions: Apollo.QueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables> & ({ variables: TotalDebitAndCreditOverTheMonthsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useTotalOverMonthsQuery(baseOptions: Apollo.QueryHookOptions<TotalOverMonthsQuery, TotalOverMonthsQueryVariables> & ({ variables: TotalOverMonthsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
+        return Apollo.useQuery<TotalOverMonthsQuery, TotalOverMonthsQueryVariables>(TotalOverMonthsDocument, options);
       }
-export function useTotalDebitAndCreditOverTheMonthsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>) {
+export function useTotalOverMonthsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TotalOverMonthsQuery, TotalOverMonthsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
+          return Apollo.useLazyQuery<TotalOverMonthsQuery, TotalOverMonthsQueryVariables>(TotalOverMonthsDocument, options);
         }
-export function useTotalDebitAndCreditOverTheMonthsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>) {
+export function useTotalOverMonthsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TotalOverMonthsQuery, TotalOverMonthsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>(TotalDebitAndCreditOverTheMonthsDocument, options);
+          return Apollo.useSuspenseQuery<TotalOverMonthsQuery, TotalOverMonthsQueryVariables>(TotalOverMonthsDocument, options);
         }
-export type TotalDebitAndCreditOverTheMonthsQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsQuery>;
-export type TotalDebitAndCreditOverTheMonthsLazyQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsLazyQuery>;
-export type TotalDebitAndCreditOverTheMonthsSuspenseQueryHookResult = ReturnType<typeof useTotalDebitAndCreditOverTheMonthsSuspenseQuery>;
-export type TotalDebitAndCreditOverTheMonthsQueryResult = Apollo.QueryResult<TotalDebitAndCreditOverTheMonthsQuery, TotalDebitAndCreditOverTheMonthsQueryVariables>;
+export type TotalOverMonthsQueryHookResult = ReturnType<typeof useTotalOverMonthsQuery>;
+export type TotalOverMonthsLazyQueryHookResult = ReturnType<typeof useTotalOverMonthsLazyQuery>;
+export type TotalOverMonthsSuspenseQueryHookResult = ReturnType<typeof useTotalOverMonthsSuspenseQuery>;
+export type TotalOverMonthsQueryResult = Apollo.QueryResult<TotalOverMonthsQuery, TotalOverMonthsQueryVariables>;
 export const AccountBalanceDocument = gql`
     query AccountBalance($input: AccountBalanceFilter!) {
   accountBalance(input: $input) {

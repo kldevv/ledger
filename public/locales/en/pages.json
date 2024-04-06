@@ -86,8 +86,10 @@
   },
   "section": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries. Learn more in the <about>about</about> page.",
   "summary": {
-    "header": "Summary",
-    "section": "TBA"
+    "totalOverMonths": {
+      "header": "Total Over Months",
+      "section": "Total over months represents the total debit and credit of <entry>entries</entry> over 12 months, grouped by different accounts, account groups, or accounting types."
+    }
   },
   "tag": {
     "add": {

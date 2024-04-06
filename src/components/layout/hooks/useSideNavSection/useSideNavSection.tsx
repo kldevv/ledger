@@ -17,70 +17,76 @@ export const useSideNavSection = (): SideNavSection[] => {
       items: [
         {
           href: route.core.home,
-          label: t`hooks.sideNavSection.item.home`,
+          label: t`sideNavSection.item.home`,
           icon: 'Home',
         },
         {
           href: route.branch.home,
-          label: t`hooks.sideNavSection.item.branches`,
+          label: t`sideNavSection.item.branches`,
           icon: 'Squares2x2',
         },
         {
           href: route.link.home,
-          label: t`hooks.sideNavSection.item.links`,
+          label: t`sideNavSection.item.links`,
           icon: 'GlobeAlt',
         },
       ],
     },
     {
       id: 'b0f223f0-6c5c-43d3-842d-d6764c945f2b',
-      title: t`hooks.sideNavSection.title.journal`,
+      title: t`sideNavSection.title.journal`,
       items: [
         {
           href: route.journal.home,
-          label: t`hooks.sideNavSection.item.journals`,
+          label: t`sideNavSection.item.journals`,
           icon: 'ReceiptPercent',
         },
         {
           href: route.entry.home,
-          label: t`hooks.sideNavSection.item.entries`,
+          label: t`sideNavSection.item.entries`,
           icon: 'Bookmark',
         },
       ],
     },
     {
       id: '804f333a-b435-4c13-b7dd-62d7b00932d7',
-      title: t`hooks.sideNavSection.title.branch`,
+      title: t`sideNavSection.title.branch`,
       items: [
         {
           href: route.account.home,
-          label: t`hooks.sideNavSection.item.accounts`,
+          label: t`sideNavSection.item.accounts`,
           icon: 'Wallet',
         },
         {
           href: route.accountGroup.home,
-          label: t`hooks.sideNavSection.item.accountGroups`,
+          label: t`sideNavSection.item.accountGroups`,
           icon: 'Folder',
         },
         {
           href: route.tag.home,
-          label: t`hooks.sideNavSection.item.tags`,
+          label: t`sideNavSection.item.tags`,
           icon: 'Tag',
         },
+      ],
+    },
+    {
+      id: '9755af24-b6bb-4249-a683-2ff65e60d194',
+      title: t`sideNavSection.title.summary`,
+      items: [
         {
-          href: route.summary.home,
-          label: t`hooks.sideNavSection.item.summary`,
+          href: route.summary.totalOverMonths,
+          label: t`sideNavSection.item.totalOverMonths`,
           icon: 'DocumentChartBar',
         },
       ],
     },
     {
       id: 'b502c7dc-2f2e-4654-ab75-9be6dec137b2',
-      title: t`hooks.sideNavSection.title.info`,
+      title: t`sideNavSection.title.info`,
       items: [
         {
           href: route.core.about,
-          label: t`hooks.sideNavSection.item.about`,
+          label: t`sideNavSection.item.about`,
           icon: 'Language',
         },
       ],

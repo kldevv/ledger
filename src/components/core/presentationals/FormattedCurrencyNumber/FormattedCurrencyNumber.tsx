@@ -17,12 +17,16 @@ export interface FormattedCurrencyNumberProps {
   /**
    * Currency
    */
-  currency: Currency
+  currency?: Currency
 }
 
 export const FormattedCurrencyNumber: React.FC<
   FormattedCurrencyNumberProps
 > = ({ value, currency, className }) => {
+  if (String(value) === '0') return '-'
+
+  if (currency == null) return formatCurrencyNumber(value)
+
   return (
     <div className={classNames('flex items-center gap-x-2', className)}>
       <span className="select-none">{getCurrencySymbol(currency)}</span>
