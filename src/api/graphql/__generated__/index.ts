@@ -136,12 +136,6 @@ export type AddTransactionInput = {
   treasuryBookId: Scalars['String']['input'];
 };
 
-export type AddTreasuryBookInput = {
-  currency: Currency;
-  name: Scalars['String']['input'];
-  ownerId: Scalars['String']['input'];
-};
-
 export type Base = {
   __typename?: 'Base';
   id: Scalars['String']['output'];
@@ -304,14 +298,12 @@ export type Mutation = {
   addLink: Link;
   addTag: Tag;
   addTransaction: Transaction;
-  addTreasuryBook: TreasuryBook;
   updateAccount: Account;
   updateAccountGroup: AccountGroup;
   updateBranch: Branch;
   updateLink: Link;
   updateTag: Tag;
   updateTransaction: Transaction;
-  updateTreasuryBook: TreasuryBook;
 };
 
 
@@ -345,11 +337,6 @@ export type MutationAddTransactionArgs = {
 };
 
 
-export type MutationAddTreasuryBookArgs = {
-  input: AddTreasuryBookInput;
-};
-
-
 export type MutationUpdateAccountArgs = {
   input: UpdateAccountInput;
 };
@@ -379,11 +366,6 @@ export type MutationUpdateTransactionArgs = {
   input: UpdateTransactionInput;
 };
 
-
-export type MutationUpdateTreasuryBookArgs = {
-  input: UpdateTreasuryBookInput;
-};
-
 export type Query = {
   __typename?: 'Query';
   account?: Maybe<Account>;
@@ -403,7 +385,6 @@ export type Query = {
   totalOverMonths: Array<TotalOverMonths>;
   transaction?: Maybe<Transaction>;
   transactions: Array<Transaction>;
-  treasuryBooks: Array<TreasuryBook>;
   uniqueYears: Array<Scalars['Int']['output']>;
 };
 
@@ -493,11 +474,6 @@ export type QueryTransactionsArgs = {
 };
 
 
-export type QueryTreasuryBooksArgs = {
-  input: TreasuryBooksInput;
-};
-
-
 export type QueryUniqueYearsArgs = {
   input: UniqueYearsInput;
 };
@@ -569,21 +545,6 @@ export type TransactionsInput = {
   treasuryBookId?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type TreasuryBook = {
-  __typename?: 'TreasuryBook';
-  createdAt: Scalars['DateTime']['output'];
-  currency: Currency;
-  id: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  ownerId: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-export type TreasuryBooksInput = {
-  currency?: InputMaybe<Currency>;
-  ownerId: Scalars['String']['input'];
-};
-
 export type UniqueYearsInput = {
   treasuryBookId: Scalars['String']['input'];
   type: DateType;
@@ -626,12 +587,6 @@ export type UpdateTransactionInput = {
   note: Scalars['String']['input'];
   tagIds: Array<Scalars['String']['input']>;
   treasuryBookId: Scalars['String']['input'];
-};
-
-export type UpdateTreasuryBookInput = {
-  currency: Currency;
-  id: Scalars['String']['input'];
-  name: Scalars['String']['input'];
 };
 
 
@@ -722,7 +677,6 @@ export type ResolversTypes = {
   AddLinkInput: AddLinkInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
-  AddTreasuryBookInput: AddTreasuryBookInput;
   Base: ResolverTypeWrapper<Base>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Branch: ResolverTypeWrapper<Branch>;
@@ -760,8 +714,6 @@ export type ResolversTypes = {
   Transaction: ResolverTypeWrapper<Transaction>;
   TransactionInput: TransactionInput;
   TransactionsInput: TransactionsInput;
-  TreasuryBook: ResolverTypeWrapper<TreasuryBook>;
-  TreasuryBooksInput: TreasuryBooksInput;
   UniqueYearsInput: UniqueYearsInput;
   UpdateAccountGroupInput: UpdateAccountGroupInput;
   UpdateAccountInput: UpdateAccountInput;
@@ -769,7 +721,6 @@ export type ResolversTypes = {
   UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
-  UpdateTreasuryBookInput: UpdateTreasuryBookInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -789,7 +740,6 @@ export type ResolversParentTypes = {
   AddLinkInput: AddLinkInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
-  AddTreasuryBookInput: AddTreasuryBookInput;
   Base: Base;
   Boolean: Scalars['Boolean']['output'];
   Branch: Branch;
@@ -820,8 +770,6 @@ export type ResolversParentTypes = {
   Transaction: Transaction;
   TransactionInput: TransactionInput;
   TransactionsInput: TransactionsInput;
-  TreasuryBook: TreasuryBook;
-  TreasuryBooksInput: TreasuryBooksInput;
   UniqueYearsInput: UniqueYearsInput;
   UpdateAccountGroupInput: UpdateAccountGroupInput;
   UpdateAccountInput: UpdateAccountInput;
@@ -829,7 +777,6 @@ export type ResolversParentTypes = {
   UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
-  UpdateTreasuryBookInput: UpdateTreasuryBookInput;
 };
 
 export type AccountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
@@ -955,14 +902,12 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationAddLinkArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
   addTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
-  addTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationAddTreasuryBookArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
   updateAccountGroup?: Resolver<ResolversTypes['AccountGroup'], ParentType, ContextType, RequireFields<MutationUpdateAccountGroupArgs, 'input'>>;
   updateBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationUpdateBranchArgs, 'input'>>;
   updateLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationUpdateLinkArgs, 'input'>>;
   updateTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationUpdateTagArgs, 'input'>>;
   updateTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationUpdateTransactionArgs, 'input'>>;
-  updateTreasuryBook?: Resolver<ResolversTypes['TreasuryBook'], ParentType, ContextType, RequireFields<MutationUpdateTreasuryBookArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -983,7 +928,6 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   totalOverMonths?: Resolver<Array<ResolversTypes['TotalOverMonths']>, ParentType, ContextType, RequireFields<QueryTotalOverMonthsArgs, 'input'>>;
   transaction?: Resolver<Maybe<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryTransactionArgs, 'input'>>;
   transactions?: Resolver<Array<ResolversTypes['Transaction']>, ParentType, ContextType, RequireFields<QueryTransactionsArgs, 'input'>>;
-  treasuryBooks?: Resolver<Array<ResolversTypes['TreasuryBook']>, ParentType, ContextType, RequireFields<QueryTreasuryBooksArgs, 'input'>>;
   uniqueYears?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<QueryUniqueYearsArgs, 'input'>>;
 };
 
@@ -1019,16 +963,6 @@ export type TransactionResolvers<ContextType = ApolloServerContext, ParentType e
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type TreasuryBookResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['TreasuryBook'] = ResolversParentTypes['TreasuryBook']> = {
-  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  currency?: Resolver<ResolversTypes['Currency'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  ownerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
   AccountBalance?: AccountBalanceResolvers<ContextType>;
@@ -1047,7 +981,6 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   Tag?: TagResolvers<ContextType>;
   TotalOverMonths?: TotalOverMonthsResolvers<ContextType>;
   Transaction?: TransactionResolvers<ContextType>;
-  TreasuryBook?: TreasuryBookResolvers<ContextType>;
 };
 
 

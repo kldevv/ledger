@@ -1,12 +1,4 @@
 {
-  "TreasuryBookStatus": {
-    "fallback": "Not Found"
-  },
-  "navMenu": {
-    "github": "kldevv",
-    "project": "ledger",
-    "about": "About"
-  },
   "footer": {
     "copyrights": " {{ year }} Kuan-you Lin. All rights reserved."
   },

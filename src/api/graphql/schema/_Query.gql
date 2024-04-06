@@ -7,9 +7,6 @@ type Query {
   transaction(input: TransactionInput!): Transaction
   transactions(input: TransactionsInput!): [Transaction!]!
 
-  # TreasuryBook
-  treasuryBooks(input: TreasuryBooksInput!): [TreasuryBook!]!
-
   # Link
   links(input: LinksInput!): [Link!]!
   link(input: LinkInput!): Link

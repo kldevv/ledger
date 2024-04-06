@@ -30,9 +30,6 @@
     "ACCRUAL": "Accrual Date",
     "TRANSACTION": "Transaction Date"
   },
-  "TreasuryBookFormDropdown": {
-    "label": "Treasury Book"
-  },
   "EntryStatusFromDropdown": {
     "label": "Status"
   },

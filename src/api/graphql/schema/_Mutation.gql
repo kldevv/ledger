@@ -7,10 +7,6 @@ type Mutation {
   addTransaction(input: AddTransactionInput!): Transaction!
   updateTransaction(input: UpdateTransactionInput!): Transaction!
 
-  # TreasuryBook
-  addTreasuryBook(input: AddTreasuryBookInput!): TreasuryBook!
-  updateTreasuryBook(input: UpdateTreasuryBookInput!): TreasuryBook!
-
   # Link
   addLink(input: AddLinkInput!): Link!
   updateLink(input: UpdateLinkInput!): Link!
