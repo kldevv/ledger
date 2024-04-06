@@ -42,7 +42,7 @@ export const useTotalOverMonthsTableCol = () => {
         ),
         columns: [
           columnHelper.accessor(({ total }) => total.at(index)?.debit, {
-            header: t`totalOverMonthsTable.debit`,
+            header: t(`totalOverMonthsTable.debit`, { month }),
             id: `${month}.debit`,
             cell: ({ getValue }) => (
               <FormattedCurrencyNumber
@@ -52,7 +52,7 @@ export const useTotalOverMonthsTableCol = () => {
             ),
           }),
           columnHelper.accessor(({ total }) => total.at(index)?.credit, {
-            header: t`totalOverMonthsTable.credit`,
+            header: t(`totalOverMonthsTable.credit`, { month }),
             id: `${month}.credit`,
             cell: ({ getValue }) => (
               <FormattedCurrencyNumber

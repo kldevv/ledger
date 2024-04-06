@@ -74,23 +74,35 @@ export const DropdownSelect = <ItemValue,>({
         {selectedItem ? (
           <>
             {selectedItem?.outlineIcon != null ? (
-              <Icon.Outline
-                name={selectedItem.outlineIcon}
-                className="size-2.5"
-              />
+              <span className="min-w-fit">
+                <Icon.Outline
+                  name={selectedItem.outlineIcon}
+                  className="size-2.5"
+                />
+              </span>
             ) : selectedItem?.solidIcon != null ? (
-              <Icon.Solid name={selectedItem.solidIcon} className="size-2.5" />
+              <span className="min-w-fit">
+                <Icon.Solid
+                  name={selectedItem.solidIcon}
+                  className="size-2.5"
+                />
+              </span>
             ) : (
               selectedItem.flagIcon && (
-                <Icon.Flag name={selectedItem.flagIcon} className="size-2.5" />
+                <span className="min-w-fit">
+                  <Icon.Flag
+                    name={selectedItem.flagIcon}
+                    className="size-2.5"
+                  />
+                </span>
               )
             )}
-            <span className="flex w-full select-none items-center truncate">
+            <span className="w-full select-none truncate">
               {selectedItem.title}
             </span>
           </>
         ) : (
-          <span className="text-gray min-h-4 w-full min-w-20 select-none truncate">
+          <span className="text-gray w-full select-none truncate">
             {placeholder}
           </span>
         )}

@@ -51,11 +51,6 @@
   "TagTypeFormDropdown": {
     "label": "Tag Type"
   },
-  "elementTypeChip": {
-    "ACCOUNT": "Account",
-    "ACCOUNT_GROUP": "Account Group",
-    "ACCOUNTING_TYPE": "Accounting Type"
-  },
   "dateStandardFilter": {
     "ACCRUAL": "By Accrual Standard",
     "TRANSACTION": "By Transaction (Cash) Standard"

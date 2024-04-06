@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client'
 
-import { DateStandard, ElementType } from '@/api/graphql'
+import { DateStandard, AccountingElement } from '@/api/graphql'
 import prisma from '@/server/db/prisma/client'
 
 import type { EntryStatus } from '@prisma/client'
@@ -17,7 +17,7 @@ export type FindTotalOverMonthsArgs = {
   /**
    * Group by element
    */
-  groupByElement: ElementType
+  groupByElement: AccountingElement
   /**
    * Filter by year
    */
@@ -87,14 +87,14 @@ const createMonthSql = (standard: DateStandard) => {
     : Prisma.sql`EXTRACT(MONTH FROM t.accrual_date) as month`
 }
 
-const createSelectElementAttributes = (element: ElementType) => {
+const createSelectElementAttributes = (element: AccountingElement) => {
   switch (element) {
-    case ElementType.ACCOUNT:
+    case AccountingElement.ACCOUNT:
       return Prisma.sql`
         a.id as element_id,
         a.name as element_name
       `
-    case ElementType.ACCOUNT_GROUP:
+    case AccountingElement.ACCOUNT_GROUP:
       return Prisma.sql`
         c.id as element_id,
         c.name as element_name
@@ -107,10 +107,10 @@ const createSelectElementAttributes = (element: ElementType) => {
   }
 }
 
-const createJoinCategoryTableSql = (element: ElementType) => {
+const createJoinCategoryTableSql = (element: AccountingElement) => {
   switch (element) {
-    case ElementType.ACCOUNT_GROUP:
-    case ElementType.ACCOUNTING_TYPE:
+    case AccountingElement.ACCOUNT_GROUP:
+    case AccountingElement.ACCOUNTING_TYPE:
       return Prisma.sql`JOIN categories c ON c.id = a.category_id`
     default:
       return Prisma.empty

@@ -9,7 +9,7 @@ export interface FormattedCurrencyNumberProps {
   /**
    * Value
    */
-  value: number | string | null
+  value?: number | string | null
   /**
    * Customized class name
    */
@@ -23,7 +23,7 @@ export interface FormattedCurrencyNumberProps {
 export const FormattedCurrencyNumber: React.FC<
   FormattedCurrencyNumberProps
 > = ({ value, currency, className }) => {
-  if (String(value) === '0') return '-'
+  if (value === null || String(value) === '0') return '-'
 
   if (currency == null) return formatCurrencyNumber(value)
 

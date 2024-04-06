@@ -76,18 +76,22 @@ export const DropdownOptions = <ItemValue,>({
             key={String(item.value)}
             {...getItemProps?.({ item: item.value, index })}
           >
-            <span className={classNames('flex gap-2 items-center')}>
-              <span className="min-w-fit">
-                {item?.outlineIcon != null ? (
+            <span className="flex items-center gap-2">
+              {item?.outlineIcon != null ? (
+                <span className="min-w-fit">
                   <Icon.Outline name={item.outlineIcon} className="size-2.5" />
-                ) : item?.solidIcon != null ? (
+                </span>
+              ) : item?.solidIcon != null ? (
+                <span className="min-w-fit">
                   <Icon.Solid name={item.solidIcon} className="size-2.5" />
-                ) : (
-                  item.flagIcon && (
+                </span>
+              ) : (
+                item.flagIcon && (
+                  <span className="min-w-fit">
                     <Icon.Flag name={item.flagIcon} className="size-2.5" />
-                  )
-                )}
-              </span>
+                  </span>
+                )
+              )}
               {item.title}
             </span>
             {item.desc != null && (

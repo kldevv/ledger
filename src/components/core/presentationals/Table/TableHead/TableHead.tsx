@@ -52,12 +52,12 @@ export const TableHead = <TData extends RowData>({
                   </span>
                 </ButtonCore>
               ) : header.isPlaceholder ? null : (
-                <span className="select-none pr-3">
+                <div className="select-none py-1 pr-3">
                   {flexRender(
                     header.column.columnDef.header,
                     header.getContext(),
                   )}
-                </span>
+                </div>
               )}
             </TableHeader>
           ))}

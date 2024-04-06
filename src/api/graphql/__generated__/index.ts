@@ -70,6 +70,13 @@ export type AccountInput = {
   id: Scalars['String']['input'];
 };
 
+export const AccountingElement = {
+  ACCOUNT: 'ACCOUNT',
+  ACCOUNTING_TYPE: 'ACCOUNTING_TYPE',
+  ACCOUNT_GROUP: 'ACCOUNT_GROUP'
+} as const;
+
+export type AccountingElement = typeof AccountingElement[keyof typeof AccountingElement];
 export const AccountingType = {
   ASSETS: 'ASSETS',
   EQUITY: 'EQUITY',
@@ -193,13 +200,6 @@ export type DebitAndCredit = {
   debit: Scalars['Float']['output'];
 };
 
-export const ElementType = {
-  ACCOUNT: 'ACCOUNT',
-  ACCOUNTING_TYPE: 'ACCOUNTING_TYPE',
-  ACCOUNT_GROUP: 'ACCOUNT_GROUP'
-} as const;
-
-export type ElementType = typeof ElementType[keyof typeof ElementType];
 export type EntriesInput = {
   accountGroupId?: InputMaybe<Scalars['String']['input']>;
   accountId?: InputMaybe<Scalars['String']['input']>;
@@ -540,7 +540,7 @@ export type TotalOverMonths = {
 
 export type TotalOverMonthsInput = {
   branchId: Scalars['String']['input'];
-  groupByElement: ElementType;
+  groupByElement: AccountingElement;
   standard: DateStandard;
   status?: InputMaybe<EntryStatus>;
   year?: InputMaybe<Scalars['Int']['input']>;
@@ -712,6 +712,7 @@ export type ResolversTypes = {
   AccountGroupInput: AccountGroupInput;
   AccountGroupsInput: AccountGroupsInput;
   AccountInput: AccountInput;
+  AccountingElement: AccountingElement;
   AccountingType: AccountingType;
   AccountsInput: AccountsInput;
   AddAccountGroupInput: AddAccountGroupInput;
@@ -733,7 +734,6 @@ export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   DateType: DateType;
   DebitAndCredit: ResolverTypeWrapper<DebitAndCredit>;
-  ElementType: ElementType;
   EntriesInput: EntriesInput;
   Entry: ResolverTypeWrapper<Entry>;
   EntryAccountInfo: ResolverTypeWrapper<EntryAccountInfo>;

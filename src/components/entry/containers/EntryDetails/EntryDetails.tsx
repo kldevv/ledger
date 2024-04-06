@@ -41,27 +41,21 @@ export const EntryDetails: React.FC = () => {
       },
       {
         title: t`entryDetails.debit`,
-        desc:
-          entry && entry.debit > 0 ? (
-            <FormattedCurrencyNumber
-              value={entry.debit}
-              currency={entry.currency}
-            />
-          ) : (
-            '-'
-          ),
+        desc: (
+          <FormattedCurrencyNumber
+            value={entry?.debit}
+            currency={entry?.currency}
+          />
+        ),
       },
       {
         title: t`entryDetails.credit`,
-        desc:
-          entry && entry.credit > 0 ? (
-            <FormattedCurrencyNumber
-              value={entry.credit}
-              currency={entry.currency}
-            />
-          ) : (
-            '-'
-          ),
+        desc: (
+          <FormattedCurrencyNumber
+            value={entry?.debit}
+            currency={entry?.currency}
+          />
+        ),
       },
       {
         title: t`entryDetails.currency`,

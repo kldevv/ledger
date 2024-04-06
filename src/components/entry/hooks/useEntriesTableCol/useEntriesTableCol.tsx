@@ -39,15 +39,12 @@ export const useEntriesTableCol = () => {
       }),
       columnHelper.accessor('credit', {
         header: t`entriesTable.col.credit`,
-        cell: ({ getValue }) =>
-          getValue() === 0 ? (
-            '-'
-          ) : (
-            <FormattedCurrencyNumber
-              currency={currentBranch?.currency}
-              value={getValue()}
-            />
-          ),
+        cell: ({ getValue }) => (
+          <FormattedCurrencyNumber
+            currency={currentBranch?.currency}
+            value={getValue()}
+          />
+        ),
       }),
       columnHelper.accessor('account', {
         header: t`entriesTable.col.account`,

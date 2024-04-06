@@ -7,10 +7,19 @@
       "category": "Account Group"
     }
   },
+  "accountingElement": {
+    "ACCOUNT": "Account",
+    "ACCOUNT_GROUP": "Account Group",
+    "ACCOUNTING_TYPE": "Accounting Type"
+  },
+  "dateStandard": {
+    "TRANSACTION": "Transaction (Cash)",
+    "ACCRUAL": "Accrual"
+  },
   "totalOverMonthsTable": {
     "name": "Name",
-    "debit": "Debit",
-    "credit": "Credit",
+    "debit": "Debit ({{ month }})",
+    "credit": "Credit ({{ month }})",
     "1": "1 - January",
     "2": "2 - February",
     "3": "3 - March",
@@ -23,6 +32,11 @@
     "10": "10 - October",
     "11": "11 - November",
     "12": "12 - December",
-    "current": "(Current)"
+    "current": "(Now)",
+    "placeholder": {
+      "status": "Filter By Status",
+      "year": "Filter By Year"
+    },
+    "reset": "Reset Filter"
   }
 }

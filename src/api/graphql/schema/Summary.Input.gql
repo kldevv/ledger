@@ -1,7 +1,7 @@
 input TotalOverMonthsInput {
   branchId: String!
   standard: DateStandard!
-  groupByElement: ElementType!
+  groupByElement: AccountingElement!
   year: Int
   status: EntryStatus
 }

@@ -13,7 +13,7 @@ enum EntryStatus {
 enum AccountingType {
   ASSETS
   LIABILITIES
-  EQUITY  
+  EQUITY
 }
 
 enum CategoryType {
@@ -40,7 +40,7 @@ enum DateStandard {
   ACCRUAL
 }
 
-enum ElementType {
+enum AccountingElement {
   ACCOUNT
   ACCOUNT_GROUP
   ACCOUNTING_TYPE

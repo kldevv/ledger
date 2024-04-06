@@ -1,17 +1,19 @@
 import { useTranslation } from 'next-i18next'
 
-import { ElementType } from '@/api/graphql'
+import { AccountingElement } from '@/api/graphql'
 
 import { Icon } from '../..'
 
-export interface ElementTypeChipProps {
+export interface AccountingElementChipProps {
   /**
    * Element type
    */
-  type: ElementType
+  type: AccountingElement
 }
 
-export const ElementTypeChip: React.FC<ElementTypeChipProps> = ({ type }) => {
+export const AccountingElementChip: React.FC<AccountingElementChipProps> = ({
+  type,
+}) => {
   const { t } = useTranslation('common')
 
   return (
@@ -25,7 +27,7 @@ export const ElementTypeChip: React.FC<ElementTypeChipProps> = ({ type }) => {
 }
 
 const iconName = {
-  [ElementType.ACCOUNT]: 'Wallet',
-  [ElementType.ACCOUNT_GROUP]: 'Folder',
-  [ElementType.ACCOUNTING_TYPE]: 'ViewColumns',
+  [AccountingElement.ACCOUNT]: 'Wallet',
+  [AccountingElement.ACCOUNT_GROUP]: 'Folder',
+  [AccountingElement.ACCOUNTING_TYPE]: 'ViewColumns',
 } as const

@@ -1,56 +1,59 @@
 {
-  "tagsTable": {
-    "col": {
-      "name": "Name",
-      "type": "Tag Type",
-      "count": "Journal Count",
-      "createdAt": "Create Date",
-      "details": "Details"
-    },
-    "view": "View"
-  },
-  "tagType": {
-    "GENERAL": "General",
-    "PEOPLE": "People",
-    "PROPERTY": "Property",
-    "TRAVEL": "Travel",
-    "ORGANIZATION": "Organization",
-    "null": "All Tag Types"
-  },
   "addTag": {
     "label": {
+      "branchId": "Branch ID (Current Branch)",
       "name": "Tag Name",
-      "type": "Tag Type",
-      "branchId": "Branch ID (Current Branch)"
+      "type": "Tag Type"
     },
     "placeholder": {
       "name": "Enter tag name",
       "type": "Select tag type"
     },
-    "toast": "You have successfully added the new tag \"<b>{{ name }}</b>\".",
-    "submit": "Add New Tag"
+    "submit": "Add New Tag",
+    "toast": "You have successfully added the new tag \"<b>{{ name }}</b>\"."
   },
   "editTag": {
     "label": {
+      "branchId": "Branch ID",
+      "createdAt": "Create Date",
       "id": "ID",
       "name": "Tag Name",
       "type": "Tag Type",
-      "branchId": "Branch ID",
-      "createdAt": "Create Date",
       "updatedAt": "Update Date"
     },
-    "toast": "You have successfully updated the tag \"<b>{{ name }}</b>\".",
-    "submit": "Update Tag"
+    "submit": "Update Tag",
+    "toast": "You have successfully updated the tag \"<b>{{ name }}</b>\"."
   },
   "tagDetails": {
-    "id": "ID",
-    "name": "Name",
-    "type": "Tag Type",
     "branchId": "Branch ID",
     "count": "Journal Count",
     "createdAt": "Create Date",
-    "updatedAt": "Update Date",
     "deletedAt": "Delete Date",
-    "journals": "Related Journals"
+    "id": "ID",
+    "journals": "Related Journals",
+    "name": "Name",
+    "type": "Tag Type",
+    "updatedAt": "Update Date"
+  },
+  "tagsTable": {
+    "col": {
+      "count": "Journal Count",
+      "createdAt": "Create Date",
+      "details": "Details",
+      "name": "Name",
+      "type": "Tag Type"
+    },
+    "view": "View",
+    "reset": "Reset Filter",
+    "placeholder": {
+      "type": "Filter By Type"
+    }
+  },
+  "tagType": {
+    "GENERAL": "General",
+    "ORGANIZATION": "Organization",
+    "PEOPLE": "People",
+    "PROPERTY": "Property",
+    "TRAVEL": "Travel"
   }
 }

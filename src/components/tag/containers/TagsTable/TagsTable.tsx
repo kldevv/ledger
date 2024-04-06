@@ -3,7 +3,12 @@ import { useCallback, useMemo, useState } from 'react'
 
 import { TagType, useTagsQuery } from '@/api/graphql'
 import { useCurrentBranch } from '@/components/core/hooks'
-import { Card, Dropdown, Table } from '@/components/core/presentationals'
+import {
+  ButtonCore,
+  Card,
+  Dropdown,
+  Table,
+} from '@/components/core/presentationals'
 import { tagTypeToSolidIconName } from '@/shared/utils'
 
 import { useTagsTableCol } from '../../hooks'
@@ -14,11 +19,11 @@ import type { UseSelectSelectedItemChange } from 'downshift'
 export const TagsTable: React.FC = () => {
   const { t } = useTranslation('tag')
   const [currentBranch] = useCurrentBranch()
-  const [filter, setFilter] = useState<TagType | null>(null)
+  const [filter, setFilter] = useState<TagType | undefined>(undefined)
   const colDefs = useTagsTableCol()
 
   const hanldeFilterChange = useCallback(
-    (change: UseSelectSelectedItemChange<DropdownItem<TagType | null>>) =>
+    (change: UseSelectSelectedItemChange<DropdownItem<TagType>>) =>
       setFilter(change.selectedItem.value),
     [],
   )
@@ -32,11 +37,11 @@ export const TagsTable: React.FC = () => {
     skip: currentBranch == null,
   })
 
-  const tags = useMemo<DropdownItem<TagType | null>[]>(() => {
-    return ([null, ...Object.values(TagType)] as const).map((value) => ({
+  const types = useMemo(() => {
+    return Object.values(TagType).map((value) => ({
       title: t(`tagType.${value}`),
       value,
-      solidIcon: value != null ? tagTypeToSolidIconName(value) : undefined,
+      solidIcon: tagTypeToSolidIconName(value),
     }))
   }, [t])
 
@@ -53,14 +58,23 @@ export const TagsTable: React.FC = () => {
           <div className="w-48">
             <Dropdown>
               <Dropdown.Select
-                items={tags}
+                items={types}
                 onChange={hanldeFilterChange}
-                value={tags.find(({ value }) => value === filter)}
+                placeholder={t`tagsTable.placeholder.type`}
+                value={types.find(({ value }) => value === filter)}
               >
                 <Dropdown.Options />
               </Dropdown.Select>
             </Dropdown>
           </div>
+          {filter != null && (
+            <ButtonCore
+              className="text-light-accent w-fit text-xs font-medium hover:underline"
+              onClick={() => setFilter(undefined)}
+            >
+              {t`tagsTable.reset`}
+            </ButtonCore>
+          )}
         </div>
         <Table
           data={filteredData}
