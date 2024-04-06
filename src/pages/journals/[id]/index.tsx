@@ -5,7 +5,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
-import { TransactionDetails } from '@/components/transaction'
 import { route } from '@/shared/route'
 
 import type { GetServerSideProps } from 'next'
@@ -32,7 +31,6 @@ const Page: React.FC = () => {
           href: { pathname: route.journal.edit.pathname, query },
         }}
       />
-      <TransactionDetails />
     </Layout>
   )
 }

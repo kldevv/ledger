@@ -1,7 +1,7 @@
 import type { Route } from '..'
 
 const home: Route = {
-  pathname: '/journal',
+  pathname: '/journals',
 }
 
 const add: Route = {

@@ -52,7 +52,7 @@ export const EntryDetails: React.FC = () => {
         title: t`entryDetails.credit`,
         desc: (
           <FormattedCurrencyNumber
-            value={entry?.debit}
+            value={entry?.credit}
             currency={entry?.currency}
           />
         ),
@@ -100,7 +100,7 @@ export const EntryDetails: React.FC = () => {
               }}
             >
               {entry?.account.name}
-              <div className="text-gray hover:text-gray/50 text-xs font-normal">
+              <div className="text-gray  text-xs font-normal">
                 {entry?.account.id}
               </div>
             </TextLink>
@@ -119,7 +119,7 @@ export const EntryDetails: React.FC = () => {
               }}
             >
               {entry?.journal.note}
-              <div className="text-gray hover:text-gray/50 text-xs font-normal">
+              <div className="text-gray text-xs font-normal">
                 {entry?.journal.id}
               </div>
             </TextLink>

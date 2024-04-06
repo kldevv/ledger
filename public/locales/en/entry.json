@@ -1,7 +1,7 @@
 {
   "entriesTable": {
     "col": {
-      "transactionDate": "Transaction Date",
+      "transactionDate": "Date",
       "status": "Status",
       "debit": "Debit",
       "credit": "Credit",
