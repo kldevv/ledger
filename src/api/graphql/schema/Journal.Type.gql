@@ -1,13 +1,25 @@
+type JournalTag {
+  id: String!
+  name: String!
+}
+
+type JournalLink {
+  id: String!
+  name: String!
+}
+
 type Journal {
   id: String!
   accrualDate: DateTime!
   note: String!
-  tags: [Tag!]
-  links: [Link!]
-  branchId: String
+  tags: [JournalTag!]
+  links: [JournalLink!]
+  branchId: String!
   createdAt: DateTime!
   updatedAt: DateTime
   deletedAt: DateTime
   status: EntryStatus!
   amount: Float!
+  currency: Currency!
+  count: Int!
 }

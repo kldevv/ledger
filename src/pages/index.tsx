@@ -15,10 +15,10 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <Header
-        header={t`header`}
+        header={t`home.header`}
         section={
           <Trans
-            i18nKey={'pages:section'}
+            i18nKey={'pages:home.section'}
             components={{ about: <TextLink href={route.core.about} /> }}
           />
         }

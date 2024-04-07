@@ -76,7 +76,7 @@ export const useEntriesTableCol = () => {
               }}
             >
               {getValue().note}
-              <div className="text-gray hover:text-gray/50 text-xs font-normal">
+              <div className="text-gray text-xs font-normal">
                 {getValue().id}
               </div>
             </TextLink>

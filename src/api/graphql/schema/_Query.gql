@@ -13,6 +13,7 @@ type Query {
 
   # Journal
   journals(input: JournalsInput!): [Journal!]!
+  journal(input: JournalInput!): Journal!
 
   # Tag
   tag(input: TagInput!): Tag

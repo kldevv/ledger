@@ -33,7 +33,7 @@ type FilterSchema = {
   year?: number
 }
 
-const back10 = Array.from({ length: 10 }).map(
+const _years = Array.from({ length: 5 }).map(
   (_, index) => new Date().getFullYear() - index,
 )
 
@@ -83,7 +83,7 @@ export const TotalOverMonthsTable: React.FC = () => {
   )
 
   const years = useMemo(
-    () => back10.map((year) => ({ value: year, title: String(year) })),
+    () => _years.map((year) => ({ value: year, title: String(year) })),
     [],
   )
 

@@ -1,7 +1,10 @@
 input JournalsInput {
   branchId: String
   tagId: String
-  status: EntryStatus
   accountGroupId: String
   linkId: String
+}
+
+input JournalInput {
+  id: String!
 }

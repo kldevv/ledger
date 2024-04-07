@@ -42,6 +42,7 @@
     "count": "Entry Count",
     "createdAt": "Create Date",
     "updatedAt": "Update Date",
-    "deletedAt": "Delete Date"
+    "deletedAt": "Delete Date",
+    "entries": "Related Entries"
   }
 }

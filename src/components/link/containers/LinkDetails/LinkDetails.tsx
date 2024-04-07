@@ -71,7 +71,7 @@ export const LinkDetails: React.FC = () => {
   )
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col gap-y-4">
       <Card>
         <DescList items={descItems} loading={loading} />
       </Card>

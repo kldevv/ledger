@@ -3,6 +3,7 @@ import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { TextLink } from '@/components/core/presentationals'
+import { JournalDetails } from '@/components/journal/containers'
 import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
 import { route } from '@/shared/route'
@@ -31,6 +32,7 @@ const Page: React.FC = () => {
           href: { pathname: route.journal.edit.pathname, query },
         }}
       />
+      <JournalDetails />
     </Layout>
   )
 }
@@ -40,6 +42,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
     props: {
       ...(await serverSideTranslations(locale ?? 'en', [
         'journal',
+        'entry',
         'layout',
         'common',
         'pages',

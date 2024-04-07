@@ -12,6 +12,8 @@ import {
 } from '@/components/core/presentationals'
 import { route } from '@/shared/route'
 
+import { AccountDetailsEntries } from './AccountDetails.Entries/AccountDetails.Entries'
+
 export const AccountDetails: React.FC = () => {
   const {
     query: { id },
@@ -48,7 +50,7 @@ export const AccountDetails: React.FC = () => {
               }}
             >
               {account?.group.name}
-              <div className="text-gray hover:text-gray/50 text-xs font-normal">
+              <div className="text-gray text-xs font-normal">
                 {account?.group.id}
               </div>
             </TextLink>
@@ -101,10 +103,11 @@ export const AccountDetails: React.FC = () => {
   )
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col gap-y-4">
       <Card>
         <DescList items={descItems} loading={loading} />
       </Card>
+      {typeof id === 'string' && <AccountDetailsEntries accountId={id} />}
     </div>
   )
 }

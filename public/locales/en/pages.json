@@ -65,7 +65,6 @@
       "section": "An entry, symbolizing either a debit or credit to an <account>account</account>, serves as the fundamental unit composing a <journal>journal</journal>."
     }
   },
-  "header": "Home",
   "journal": {
     "add": {
       "header": "Add Journal",
@@ -77,14 +76,17 @@
         "section": "Edit the journal to update data; you can also include more entries or exclude some attached <entry>entries</entry> as long as the updated journal remains balanced."
       },
       "header": "Journal Details",
-      "link": "Edit",
+      "link": "Edit Journal",
       "section": "A journal, grouping multiple <entry>entries</entry> into a unified entity, is the most common way to record transactions, revenues, expenses, and more for a specific <branch>branch</branch>."
     },
     "header": "Journals",
     "link": "Add Journal",
     "section": "A journal, grouping multiple <entry>entries</entry> into a unified entity, is the most common way to record transactions, revenues, expenses, and more for a specific <branch>branch</branch>."
   },
-  "section": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries. Learn more in the <about>about</about> page.",
+  "home": {
+    "header": "Home",
+    "section": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries. Learn more in the <about>about</about> page."
+  },
   "summary": {
     "totalOverMonths": {
       "header": "Total Over Months",

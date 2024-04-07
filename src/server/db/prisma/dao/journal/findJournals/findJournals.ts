@@ -42,11 +42,27 @@ export const findJournals = async ({
           : undefined,
     },
     include: {
-      tags: true,
+      tags: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      links: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
       entries: {
         select: {
           amount: true,
           status: true,
+        },
+      },
+      treasuryBook: {
+        select: {
+          currency: true,
         },
       },
     },

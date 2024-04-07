@@ -53,5 +53,20 @@
       "details": "Details"
     },
     "view": "View"
+  },
+  "journalDetails": {
+    "id": "ID",
+    "note": "Note",
+    "status": "Status",
+    "accrualDate": "Accrual Date",
+    "amount": "Total Amount",
+    "count": "Entry Count",
+    "branchId": "BranchId",
+    "tags": "Tags",
+    "links": "Links",
+    "createdAt": "Create Date",
+    "updatedAt": "Update Date",
+    "deletedAt": "Delete Date",
+    "entries": "Journal Entries"
   }
 }

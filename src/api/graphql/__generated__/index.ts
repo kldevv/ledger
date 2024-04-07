@@ -245,22 +245,39 @@ export type Journal = {
   __typename?: 'Journal';
   accrualDate: Scalars['DateTime']['output'];
   amount: Scalars['Float']['output'];
-  branchId?: Maybe<Scalars['String']['output']>;
+  branchId: Scalars['String']['output'];
+  count: Scalars['Int']['output'];
   createdAt: Scalars['DateTime']['output'];
+  currency: Currency;
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['String']['output'];
-  links?: Maybe<Array<Link>>;
+  links?: Maybe<Array<JournalLink>>;
   note: Scalars['String']['output'];
   status: EntryStatus;
-  tags?: Maybe<Array<Tag>>;
+  tags?: Maybe<Array<JournalTag>>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type JournalInput = {
+  id: Scalars['String']['input'];
+};
+
+export type JournalLink = {
+  __typename?: 'JournalLink';
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type JournalTag = {
+  __typename?: 'JournalTag';
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type JournalsInput = {
   accountGroupId?: InputMaybe<Scalars['String']['input']>;
   branchId?: InputMaybe<Scalars['String']['input']>;
   linkId?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<EntryStatus>;
   tagId?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -377,6 +394,7 @@ export type Query = {
   branches: Array<Branch>;
   entries: Array<Entry>;
   entry: Entry;
+  journal: Journal;
   journals: Array<Journal>;
   link?: Maybe<Link>;
   links: Array<Link>;
@@ -431,6 +449,11 @@ export type QueryEntriesArgs = {
 
 export type QueryEntryArgs = {
   input: EntryInput;
+};
+
+
+export type QueryJournalArgs = {
+  input: JournalInput;
 };
 
 
@@ -697,6 +720,9 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Journal: ResolverTypeWrapper<Journal>;
+  JournalInput: JournalInput;
+  JournalLink: ResolverTypeWrapper<JournalLink>;
+  JournalTag: ResolverTypeWrapper<JournalTag>;
   JournalsInput: JournalsInput;
   Link: ResolverTypeWrapper<Link>;
   LinkInput: LinkInput;
@@ -755,6 +781,9 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output'];
   Int: Scalars['Int']['output'];
   Journal: Journal;
+  JournalInput: JournalInput;
+  JournalLink: JournalLink;
+  JournalTag: JournalTag;
   JournalsInput: JournalsInput;
   Link: Link;
   LinkInput: LinkInput;
@@ -871,15 +900,29 @@ export type EntryJournalInfoResolvers<ContextType = ApolloServerContext, ParentT
 export type JournalResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Journal'] = ResolversParentTypes['Journal']> = {
   accrualDate?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   amount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  branchId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  branchId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  currency?: Resolver<ResolversTypes['Currency'], ParentType, ContextType>;
   deletedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  links?: Resolver<Maybe<Array<ResolversTypes['Link']>>, ParentType, ContextType>;
+  links?: Resolver<Maybe<Array<ResolversTypes['JournalLink']>>, ParentType, ContextType>;
   note?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['EntryStatus'], ParentType, ContextType>;
-  tags?: Resolver<Maybe<Array<ResolversTypes['Tag']>>, ParentType, ContextType>;
+  tags?: Resolver<Maybe<Array<ResolversTypes['JournalTag']>>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type JournalLinkResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['JournalLink'] = ResolversParentTypes['JournalLink']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type JournalTagResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['JournalTag'] = ResolversParentTypes['JournalTag']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -920,6 +963,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   branches?: Resolver<Array<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchesArgs, 'input'>>;
   entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryEntriesArgs, 'input'>>;
   entry?: Resolver<ResolversTypes['Entry'], ParentType, ContextType, RequireFields<QueryEntryArgs, 'input'>>;
+  journal?: Resolver<ResolversTypes['Journal'], ParentType, ContextType, RequireFields<QueryJournalArgs, 'input'>>;
   journals?: Resolver<Array<ResolversTypes['Journal']>, ParentType, ContextType, RequireFields<QueryJournalsArgs, 'input'>>;
   link?: Resolver<Maybe<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QueryLinkArgs, 'input'>>;
   links?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QueryLinksArgs, 'input'>>;
@@ -975,6 +1019,8 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   EntryAccountInfo?: EntryAccountInfoResolvers<ContextType>;
   EntryJournalInfo?: EntryJournalInfoResolvers<ContextType>;
   Journal?: JournalResolvers<ContextType>;
+  JournalLink?: JournalLinkResolvers<ContextType>;
+  JournalTag?: JournalTagResolvers<ContextType>;
   Link?: LinkResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
@@ -1139,6 +1185,13 @@ export type EntryQueryVariables = Exact<{
 
 
 export type EntryQuery = { __typename?: 'Query', entry: { __typename?: 'Entry', memo: string, updatedAt: Date, deletedAt?: Date | null, branchId: string, currency: Currency, id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, journal: { __typename?: 'EntryJournalInfo', accrualDate: Date, id: string, note: string }, account: { __typename?: 'EntryAccountInfo', id: string, name: string } } };
+
+export type JournalQueryVariables = Exact<{
+  input: JournalInput;
+}>;
+
+
+export type JournalQuery = { __typename?: 'Query', journal: { __typename?: 'Journal', branchId: string, updatedAt?: Date | null, deletedAt?: Date | null, count: number, currency: Currency, id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date, links?: Array<{ __typename?: 'JournalLink', id: string, name: string }> | null, tags?: Array<{ __typename?: 'JournalTag', id: string, name: string }> | null } };
 
 export type JournalsQueryVariables = Exact<{
   input: JournalsInput;
@@ -2033,6 +2086,59 @@ export type EntryQueryHookResult = ReturnType<typeof useEntryQuery>;
 export type EntryLazyQueryHookResult = ReturnType<typeof useEntryLazyQuery>;
 export type EntrySuspenseQueryHookResult = ReturnType<typeof useEntrySuspenseQuery>;
 export type EntryQueryResult = Apollo.QueryResult<EntryQuery, EntryQueryVariables>;
+export const JournalDocument = gql`
+    query Journal($input: JournalInput!) {
+  journal(input: $input) {
+    ...JournalData
+    branchId
+    updatedAt
+    deletedAt
+    links {
+      id
+      name
+    }
+    tags {
+      id
+      name
+    }
+    count
+    currency
+  }
+}
+    ${JournalDataFragmentDoc}`;
+
+/**
+ * __useJournalQuery__
+ *
+ * To run a query within a React component, call `useJournalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useJournalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useJournalQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useJournalQuery(baseOptions: Apollo.QueryHookOptions<JournalQuery, JournalQueryVariables> & ({ variables: JournalQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<JournalQuery, JournalQueryVariables>(JournalDocument, options);
+      }
+export function useJournalLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<JournalQuery, JournalQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<JournalQuery, JournalQueryVariables>(JournalDocument, options);
+        }
+export function useJournalSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<JournalQuery, JournalQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<JournalQuery, JournalQueryVariables>(JournalDocument, options);
+        }
+export type JournalQueryHookResult = ReturnType<typeof useJournalQuery>;
+export type JournalLazyQueryHookResult = ReturnType<typeof useJournalLazyQuery>;
+export type JournalSuspenseQueryHookResult = ReturnType<typeof useJournalSuspenseQuery>;
+export type JournalQueryResult = Apollo.QueryResult<JournalQuery, JournalQueryVariables>;
 export const JournalsDocument = gql`
     query Journals($input: JournalsInput!) {
   journals(input: $input) {

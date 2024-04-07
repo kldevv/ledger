@@ -1,0 +1,18 @@
+query Journal($input: JournalInput!) {
+  journal(input: $input) {
+    ...JournalData
+    branchId
+    updatedAt
+    deletedAt
+    links {
+      id
+      name
+    }
+    tags {
+      id
+      name
+    }
+    count
+    currency
+  }
+}
