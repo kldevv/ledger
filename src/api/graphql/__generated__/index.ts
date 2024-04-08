@@ -116,6 +116,24 @@ export type AddEntryInput = {
   transactionDate: Scalars['DateTime']['input'];
 };
 
+export type AddJournalEntryInput = {
+  accountId: Scalars['String']['input'];
+  credit: Scalars['Float']['input'];
+  debit: Scalars['Float']['input'];
+  memo?: InputMaybe<Scalars['String']['input']>;
+  status: EntryStatus;
+  transactionDate: Scalars['DateTime']['input'];
+};
+
+export type AddJournalInput = {
+  accrualDate: Scalars['DateTime']['input'];
+  branchId: Scalars['String']['input'];
+  entries: Array<AddJournalEntryInput>;
+  links: Array<Scalars['String']['input']>;
+  note: Scalars['String']['input'];
+  tags: Array<Scalars['String']['input']>;
+};
+
 export type AddLinkInput = {
   name: Scalars['String']['input'];
   type: LinkType;
@@ -312,6 +330,7 @@ export type Mutation = {
   addAccount: Account;
   addAccountGroup: AccountGroup;
   addBranch: Branch;
+  addJournal: Journal;
   addLink: Link;
   addTag: Tag;
   addTransaction: Transaction;
@@ -336,6 +355,11 @@ export type MutationAddAccountGroupArgs = {
 
 export type MutationAddBranchArgs = {
   input: AddBranchInput;
+};
+
+
+export type MutationAddJournalArgs = {
+  input: AddJournalInput;
 };
 
 
@@ -697,6 +721,8 @@ export type ResolversTypes = {
   AddAccountInput: AddAccountInput;
   AddBranchInput: AddBranchInput;
   AddEntryInput: AddEntryInput;
+  AddJournalEntryInput: AddJournalEntryInput;
+  AddJournalInput: AddJournalInput;
   AddLinkInput: AddLinkInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
@@ -763,6 +789,8 @@ export type ResolversParentTypes = {
   AddAccountInput: AddAccountInput;
   AddBranchInput: AddBranchInput;
   AddEntryInput: AddEntryInput;
+  AddJournalEntryInput: AddJournalEntryInput;
+  AddJournalInput: AddJournalInput;
   AddLinkInput: AddLinkInput;
   AddTagInput: AddTagInput;
   AddTransactionInput: AddTransactionInput;
@@ -942,6 +970,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationAddAccountArgs, 'input'>>;
   addAccountGroup?: Resolver<ResolversTypes['AccountGroup'], ParentType, ContextType, RequireFields<MutationAddAccountGroupArgs, 'input'>>;
   addBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationAddBranchArgs, 'input'>>;
+  addJournal?: Resolver<ResolversTypes['Journal'], ParentType, ContextType, RequireFields<MutationAddJournalArgs, 'input'>>;
   addLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationAddLinkArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
   addTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationAddTransactionArgs, 'input'>>;
@@ -1066,6 +1095,13 @@ export type AddBranchMutationVariables = Exact<{
 
 
 export type AddBranchMutation = { __typename?: 'Mutation', addBranch: { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
+
+export type AddJournalMutationVariables = Exact<{
+  input: AddJournalInput;
+}>;
+
+
+export type AddJournalMutation = { __typename?: 'Mutation', addJournal: { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date } };
 
 export type AddLinkMutationVariables = Exact<{
   input: AddLinkInput;
@@ -1455,6 +1491,39 @@ export function useAddBranchMutation(baseOptions?: Apollo.MutationHookOptions<Ad
 export type AddBranchMutationHookResult = ReturnType<typeof useAddBranchMutation>;
 export type AddBranchMutationResult = Apollo.MutationResult<AddBranchMutation>;
 export type AddBranchMutationOptions = Apollo.BaseMutationOptions<AddBranchMutation, AddBranchMutationVariables>;
+export const AddJournalDocument = gql`
+    mutation AddJournal($input: AddJournalInput!) {
+  addJournal(input: $input) {
+    ...JournalData
+  }
+}
+    ${JournalDataFragmentDoc}`;
+export type AddJournalMutationFn = Apollo.MutationFunction<AddJournalMutation, AddJournalMutationVariables>;
+
+/**
+ * __useAddJournalMutation__
+ *
+ * To run a mutation, you first call `useAddJournalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddJournalMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addJournalMutation, { data, loading, error }] = useAddJournalMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddJournalMutation(baseOptions?: Apollo.MutationHookOptions<AddJournalMutation, AddJournalMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddJournalMutation, AddJournalMutationVariables>(AddJournalDocument, options);
+      }
+export type AddJournalMutationHookResult = ReturnType<typeof useAddJournalMutation>;
+export type AddJournalMutationResult = Apollo.MutationResult<AddJournalMutation>;
+export type AddJournalMutationOptions = Apollo.BaseMutationOptions<AddJournalMutation, AddJournalMutationVariables>;
 export const AddLinkDocument = gql`
     mutation AddLink($input: AddLinkInput!) {
   addLink(input: $input) {

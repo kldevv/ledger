@@ -1,0 +1,5 @@
+mutation AddJournal($input: AddJournalInput!) {
+  addJournal(input: $input) {
+    ...JournalData
+  }
+}

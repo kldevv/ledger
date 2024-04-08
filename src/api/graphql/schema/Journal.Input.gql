@@ -8,3 +8,21 @@ input JournalsInput {
 input JournalInput {
   id: String!
 }
+
+input AddJournalInput {
+  branchId: String!
+  note: String!
+  accrualDate: DateTime!
+  tags: [String!]!
+  links: [String!]!
+  entries: [AddJournalEntryInput!]!
+}
+
+input AddJournalEntryInput {
+  memo: String
+  transactionDate: DateTime!
+  debit: Float!
+  credit: Float!
+  status: EntryStatus!
+  accountId: String!
+}
