@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import { useTranslation } from 'next-i18next'
 
 import { Icon, Spinner } from '../..'
+import { DropdownIcon } from '../Dropdown.Icon/Dropdown.Icon'
 
 import type { DropdownItem } from '../Dropdown'
 import type { UseSelectPropGetters } from 'downshift'
@@ -9,7 +10,7 @@ import type { UseSelectPropGetters } from 'downshift'
 export interface DropdownOptionsProps<ItemValue = string>
   extends Partial<
     Omit<
-      UseSelectPropGetters<ItemValue>,
+      UseSelectPropGetters<DropdownItem<ItemValue>>,
       'getLabelProps' | 'getToggleButtonProps'
     >
   > {
@@ -26,6 +27,10 @@ export interface DropdownOptionsProps<ItemValue = string>
    */
   selectedItem?: DropdownItem<ItemValue> | null
   /**
+   * Selected items
+   */
+  selectedItems?: DropdownItem<ItemValue>[] | null
+  /**
    * Is open?
    */
   isOpen?: boolean
@@ -36,12 +41,13 @@ export interface DropdownOptionsProps<ItemValue = string>
 }
 
 export const DropdownOptions = <ItemValue,>({
-  items,
+  items = [],
   highlightedIndex,
   getItemProps,
   getMenuProps,
   isOpen = false,
   selectedItem,
+  selectedItems,
   loading = false,
 }: DropdownOptionsProps<ItemValue>) => {
   const { t } = useTranslation('common')
@@ -60,38 +66,27 @@ export const DropdownOptions = <ItemValue,>({
         <li className="flex h-24 w-full items-center justify-center">
           <Spinner className="size-8" />
         </li>
-      ) : items == null || items.length === 0 ? (
+      ) : items.length === 0 ? (
         <li className="text-gray flex h-24 w-full select-none items-center justify-center gap-x-2">
           <Icon.Solid name="ExclamationCircle" />
           {t`dropdown.empty`}
         </li>
       ) : (
-        items?.map((item, index) => (
+        items.map((item, index) => (
           <li
             className={classNames(
               highlightedIndex === index && 'bg-mid-gray/50',
               'px-2 py-1 cursor-pointer flex flex-col select-none',
-              { 'font-semibold': selectedItem === item },
+              {
+                'font-semibold':
+                  selectedItem === item || selectedItems?.includes(item),
+              },
             )}
             key={String(item.value)}
-            {...getItemProps?.({ item: item.value, index })}
+            {...getItemProps?.({ item, index })}
           >
             <span className="flex items-center gap-2">
-              {item?.outlineIcon != null ? (
-                <span className="min-w-fit">
-                  <Icon.Outline name={item.outlineIcon} className="size-2.5" />
-                </span>
-              ) : item?.solidIcon != null ? (
-                <span className="min-w-fit">
-                  <Icon.Solid name={item.solidIcon} className="size-2.5" />
-                </span>
-              ) : (
-                item.flagIcon && (
-                  <span className="min-w-fit">
-                    <Icon.Flag name={item.flagIcon} className="size-2.5" />
-                  </span>
-                )
-              )}
+              <DropdownIcon {...item} />
               {item.title}
             </span>
             {item.desc != null && (

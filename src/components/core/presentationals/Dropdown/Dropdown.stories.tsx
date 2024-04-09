@@ -1,6 +1,9 @@
+import { useState } from 'react'
+
 import { Dropdown } from './Dropdown'
 import { DropdownOptions } from './Dropdown.Options/Dropdown.Options'
 
+import type { DropdownItem, DropdownProps } from './Dropdown'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof Dropdown> = {
@@ -10,103 +13,87 @@ const meta: Meta<typeof Dropdown> = {
 export default meta
 type Story = StoryObj<typeof Dropdown>
 
-const items = [
+const items: DropdownItem<string>[] = [
   {
-    id: '744ff48c-43a8-4305-a068-9cc1bf9d6530',
     title: 'Moby Dick',
     value: 'Moby Dick',
+    outlineIcon: 'Home',
   },
   {
-    id: '813df240-8790-4eb6-86ae-85bf41b1be6b',
     title: 'Snow White and the Seven Dwarfs',
     value: 'Snow White and the Seven Dwarfs',
+    solidIcon: 'ExclamationCircle',
   },
   {
-    id: '1607fc80-1c20-462e-8465-b11598055d14',
     title: 'The Lord of the Rings',
     value: 'The Lord of the Rings',
     desc: 'The Lord of the Rings is a trilogy of epic fantasy adventure films directed by Peter Jackson',
+    flagIcon: 'US',
+  },
+  {
+    title: 'Alice in Wonderland',
+    value: 'Alice in Wonderland',
   },
 ]
 
-export const Select: Story = {
-  render: (args) => (
+const MultiSelectTemplate = (args: DropdownProps) => {
+  const [value, setValue] = useState<DropdownItem<string>[]>()
+
+  return (
     <Dropdown {...args}>
-      <Dropdown.Select items={items}>
+      <Dropdown.MultiSelect
+        items={items}
+        value={value}
+        placeholder="Select item"
+        onChange={(change) => {
+          setValue(change.selectedItems)
+        }}
+      >
         <DropdownOptions />
-      </Dropdown.Select>
+      </Dropdown.MultiSelect>
     </Dropdown>
-  ),
+  )
 }
 
-export const WithLabel: Story = {
-  render: (args) => (
-    <Dropdown {...args} label="Select Dropdown">
-      <Dropdown.Select items={items}>
-        <DropdownOptions />
-      </Dropdown.Select>
-    </Dropdown>
-  ),
-}
+const SelectTemplate = (args: DropdownProps) => {
+  const [value, setValue] = useState<DropdownItem<string>>()
 
-export const WithError: Story = {
-  render: (args) => (
-    <Dropdown {...args} error="This is an error.">
-      <Dropdown.Select items={items}>
-        <DropdownOptions />
-      </Dropdown.Select>
-    </Dropdown>
-  ),
-}
-
-export const WithPlaceholder: Story = {
-  render: (args) => (
-    <Dropdown {...args}>
-      <Dropdown.Select items={items} placeholder="Select item">
-        <DropdownOptions />
-      </Dropdown.Select>
-    </Dropdown>
-  ),
-}
-
-export const WithIcon: Story = {
-  render: (args) => (
+  return (
     <Dropdown {...args}>
       <Dropdown.Select
-        items={[
-          {
-            id: '915db762-4476-409b-bc44-9808a07af085',
-            title: 'Home',
-            outlineIcon: 'Home',
-            value: 'Home',
-          },
-          {
-            id: '8a8681cc-ac25-4465-a194-d5d465a8988f',
-            title: 'Bookmark',
-            outlineIcon: 'Bookmark',
-            value: 'Bookmark',
-          },
-          {
-            id: '9850c17e-51db-4c55-a5f7-83816b435127',
-            title: 'ExclamationCircle',
-            solidIcon: 'ExclamationCircle',
-            value: 'ExclamationCircle',
-          },
-        ]}
+        items={items}
+        value={value}
         placeholder="Select item"
+        onChange={(change) =>
+          setValue(
+            items.find((item) => item.value === change.selectedItem.value),
+          )
+        }
       >
         <DropdownOptions />
       </Dropdown.Select>
     </Dropdown>
-  ),
+  )
 }
 
-export const WithAll: Story = {
-  render: (args) => (
-    <Dropdown {...args} error="This is an error." label="Select Dropdown">
-      <Dropdown.Select items={items} placeholder="Select item">
-        <DropdownOptions />
-      </Dropdown.Select>
-    </Dropdown>
-  ),
+export const Select: Story = {
+  render: (args) => <SelectTemplate {...args} />,
+}
+
+export const MultiSelect: Story = {
+  render: (args) => <MultiSelectTemplate {...args} />,
+}
+
+export const WithLabel: Story = {
+  render: (args) => <SelectTemplate {...args} />,
+  args: {
+    label: 'Select Dropdown',
+  },
+}
+
+export const WithError: Story = {
+  render: (args) => <SelectTemplate {...args} />,
+  args: {
+    error: 'This is an error.',
+  },
 }

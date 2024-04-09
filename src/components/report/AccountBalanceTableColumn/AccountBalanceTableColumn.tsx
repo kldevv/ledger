@@ -8,8 +8,8 @@ import {
   CategoryTypeChip,
   FormattedCurrencyNumber,
   Table,
-} from '@/components/core'
-import { route } from '@/shared/route'
+} from '@/components/core/presentationals'
+import { route } from '@/shared/route/routes'
 
 export interface AccountBalanceTableColumnProps {
   /**

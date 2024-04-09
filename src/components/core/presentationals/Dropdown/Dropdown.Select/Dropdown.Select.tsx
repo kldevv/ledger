@@ -3,6 +3,7 @@ import { useSelect } from 'downshift'
 import React from 'react'
 
 import { Icon } from '../..'
+import { DropdownIcon } from '../Dropdown.Icon/Dropdown.Icon'
 
 import type { DropdownItem } from '../Dropdown'
 import type { DropdownOptionsProps } from '../Dropdown.Options/Dropdown.Options'
@@ -52,7 +53,7 @@ export const DropdownSelect = <ItemValue,>({
     getMenuProps,
     highlightedIndex,
     getItemProps,
-  } = useSelect({
+  } = useSelect<DropdownItem<ItemValue>>({
     items,
     onSelectedItemChange: onChange,
     selectedItem: value ?? null,
@@ -61,9 +62,9 @@ export const DropdownSelect = <ItemValue,>({
 
   return (
     <div className="relative w-full">
-      <div
+      <span
         className={classNames(
-          'flex size-full cursor-pointer items-center justify-start bg-white gap-2',
+          'flex size-full max-w-full overflow-hidden cursor-pointer items-center bg-white',
           className,
           {
             'outline outline-light-accent': isOpen,
@@ -71,42 +72,18 @@ export const DropdownSelect = <ItemValue,>({
         )}
         {...getToggleButtonProps()}
       >
-        {selectedItem ? (
-          <>
-            {selectedItem?.outlineIcon != null ? (
-              <span className="min-w-fit">
-                <Icon.Outline
-                  name={selectedItem.outlineIcon}
-                  className="size-2.5"
-                />
-              </span>
-            ) : selectedItem?.solidIcon != null ? (
-              <span className="min-w-fit">
-                <Icon.Solid
-                  name={selectedItem.solidIcon}
-                  className="size-2.5"
-                />
-              </span>
-            ) : (
-              selectedItem.flagIcon && (
-                <span className="min-w-fit">
-                  <Icon.Flag
-                    name={selectedItem.flagIcon}
-                    className="size-2.5"
-                  />
-                </span>
-              )
-            )}
-            <span className="w-full select-none truncate">
-              {selectedItem.title}
-            </span>
-          </>
-        ) : (
-          <span className="text-gray w-full select-none truncate">
+        {selectedItem && (
+          <span className="flex grow select-none items-center gap-x-2 truncate">
+            <DropdownIcon {...selectedItem} />
+            <span className="truncate">{selectedItem.title}</span>
+          </span>
+        )}
+        {!selectedItem && (
+          <span className="text-gray flex w-full grow select-none truncate">
             {placeholder}
           </span>
         )}
-        <span className="px-2">
+        <span className="ml-auto shrink-0 px-2">
           <Icon.Solid
             name="ChevronUp"
             className={classNames('size-1.5 text-gray', {
@@ -114,7 +91,7 @@ export const DropdownSelect = <ItemValue,>({
             })}
           />
         </span>
-      </div>
+      </span>
       {React.isValidElement<DropdownOptionsProps<ItemValue>>(children) &&
         React.cloneElement(children, {
           getMenuProps,

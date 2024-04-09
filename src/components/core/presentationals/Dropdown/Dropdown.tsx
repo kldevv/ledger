@@ -3,6 +3,7 @@ import React from 'react'
 
 import { Icon } from '..'
 
+import { DropdownMultiSelect } from './Dorpdown.MultiSelect/Dorpdown.MultiSelect'
 import { DropdownOptions } from './Dropdown.Options/Dropdown.Options'
 import {
   DropdownSelect,
@@ -78,3 +79,4 @@ export const Dropdown = <ItemValue,>({
 
 Dropdown.Select = DropdownSelect
 Dropdown.Options = DropdownOptions
+Dropdown.MultiSelect = DropdownMultiSelect
