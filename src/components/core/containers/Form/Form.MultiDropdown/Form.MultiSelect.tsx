@@ -1,15 +1,13 @@
-import type { FieldValues, Path } from 'react-hook-form'
-
 import { useCallback } from 'react'
-import { useController } from 'react-hook-form'
+import { useController, type FieldValues, type Path } from 'react-hook-form'
 
 import { useFormError } from '@/components/core/hooks'
 import { Dropdown } from '@/components/core/presentationals'
 
 import type { DropdownItem } from '@/components/core/presentationals'
-import type { UseSelectSelectedItemChange } from 'downshift'
+import type { UseMultipleSelectionSelectedItemsChange } from 'downshift'
 
-export interface FormDropdownProps<
+export interface FormMultiSelectProps<
   TFieldValues extends FieldValues,
   ItemValue,
 > {
@@ -31,12 +29,12 @@ export interface FormDropdownProps<
   items: DropdownItem<ItemValue>[]
 }
 
-export const FormDropdown = <TFieldValues extends FieldValues, ItemValue>({
+export const FormMultiSelect = <TFieldValues extends FieldValues, ItemValue>({
   name,
   label,
   placeholder,
   items,
-}: FormDropdownProps<TFieldValues, ItemValue>) => {
+}: FormMultiSelectProps<TFieldValues, ItemValue>) => {
   const {
     field: { onChange, value },
     fieldState: { error },
@@ -47,22 +45,23 @@ export const FormDropdown = <TFieldValues extends FieldValues, ItemValue>({
   const errorMsg = useFormError(error)
 
   const handleOnChange = useCallback(
-    (change: UseSelectSelectedItemChange<DropdownItem<ItemValue>>) =>
-      onChange(change?.selectedItem.value),
+    (
+      change: UseMultipleSelectionSelectedItemsChange<DropdownItem<ItemValue>>,
+    ) => onChange(change.selectedItems.values()),
     [onChange],
   )
 
   return (
     <Dropdown error={errorMsg} label={label}>
-      <Dropdown.Select
+      <Dropdown.MultiSelect
         onChange={handleOnChange}
-        value={items.find((item) => item.value === value)}
+        value={items.filter((item) => item.value === value)}
         placeholder={placeholder}
         items={items}
         className="h-5"
       >
         <Dropdown.Options />
-      </Dropdown.Select>
+      </Dropdown.MultiSelect>
     </Dropdown>
   )
 }

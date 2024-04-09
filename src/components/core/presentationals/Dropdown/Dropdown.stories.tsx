@@ -64,11 +64,7 @@ const SelectTemplate = (args: DropdownProps) => {
         items={items}
         value={value}
         placeholder="Select item"
-        onChange={(change) =>
-          setValue(
-            items.find((item) => item.value === change.selectedItem.value),
-          )
-        }
+        onChange={(change) => setValue(change.selectedItem)}
       >
         <DropdownOptions />
       </Dropdown.Select>
