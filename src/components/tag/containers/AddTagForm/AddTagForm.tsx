@@ -93,7 +93,7 @@ export const AddTagForm: React.FC = () => {
       className="w-fit"
     >
       <Card className="w-80">
-        <div className="space-y-1">
+        <div className="gap-y-1">
           <Form.Input<AddTagFormValues>
             label={t`addTag.label.name`}
             name="name"

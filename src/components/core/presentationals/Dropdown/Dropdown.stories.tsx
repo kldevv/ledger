@@ -37,7 +37,7 @@ const items: DropdownItem<string>[] = [
 ]
 
 const MultiSelectTemplate = (args: DropdownProps) => {
-  const [value, setValue] = useState<DropdownItem<string>[]>()
+  const [value, setValue] = useState<string[]>()
 
   return (
     <Dropdown {...args}>
@@ -46,7 +46,7 @@ const MultiSelectTemplate = (args: DropdownProps) => {
         value={value}
         placeholder="Select item"
         onChange={(change) => {
-          setValue(change.selectedItems)
+          setValue(change.selectedItems.map(({ value }) => value))
         }}
       >
         <DropdownOptions />

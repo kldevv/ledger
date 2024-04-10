@@ -84,7 +84,7 @@ export const AddAccountForm: React.FC = () => {
       className="w-fit"
     >
       <Card className="w-80">
-        <div className="space-y-1">
+        <div className="gap-y-1">
           <Form.Input<AddAccountFormValues>
             label={t`addAccount.label.name`}
             name="name"

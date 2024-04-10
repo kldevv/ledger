@@ -52,7 +52,7 @@ export const EntryFields = <TFieldValues extends FieldValues>({
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col space-y-8">
+      <div className="flex flex-col gap-y-8">
         {fields.map((field, index) => (
           <div key={field.id}>
             <div className="mb-2 flex items-center">

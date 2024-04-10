@@ -16,7 +16,7 @@ export interface FormDropdownProps<
   /**
    * Input label
    */
-  label: string
+  label?: string
   /**
    * Input name
    */

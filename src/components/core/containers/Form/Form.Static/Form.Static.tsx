@@ -6,7 +6,7 @@ export interface FormStaticProps<TFieldValues extends FieldValues> {
   /**
    * Input label
    */
-  label: string
+  label?: string
   /**
    * Input name
    */

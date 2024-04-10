@@ -1,5 +1,8 @@
+import { useCallback, useState } from 'react'
+
 import { Input } from './Input'
 
+import type { InputProps } from './Input'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof Input> = {
@@ -9,12 +12,27 @@ const meta: Meta<typeof Input> = {
 export default meta
 type Story = StoryObj<typeof Input>
 
-export const Text: Story = {
-  render: (args) => (
+/**
+ * Date input template
+ */
+const DateTemplate = (args: InputProps) => {
+  const [value, setValue] = useState('')
+  const handleOnChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValue(event.target.value)
+    },
+    [],
+  )
+
+  return (
     <Input {...args}>
-      <Input.Text />
+      <Input.Date value={value} onChange={handleOnChange} />
     </Input>
-  ),
+  )
+}
+
+export const Date: Story = {
+  render: (args) => <DateTemplate {...args} />,
 }
 
 export const WithError: Story = {

@@ -92,7 +92,7 @@ export const AddAccountGroupForm: React.FC = () => {
       className="w-fit"
     >
       <Card className="w-80">
-        <div className="space-y-1">
+        <div className="gap-y-1">
           <Form.Input<AddAccountGroupFormValues>
             label={t`addAccountGroup.label.name`}
             name="name"

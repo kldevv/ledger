@@ -71,7 +71,7 @@ export const AddBranchForm: React.FC = () => {
   return (
     <Form context={context} onSubmit={handleSubmit} className="w-fit">
       <Card className="w-80">
-        <div className="space-y-1">
+        <div className="gap-y-1">
           <Form.Input<AddBranchFormValues>
             label={t`addBranch.label.name`}
             name="name"

@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useMultipleSelection, useSelect } from 'downshift'
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 
 import { ButtonCore, Icon } from '../..'
 import { DropdownIcon } from '../Dropdown.Icon/Dropdown.Icon'
@@ -35,7 +35,7 @@ export interface DropdownMultiSelectProps<ItemValue> {
   /**
    * Value
    */
-  value?: DropdownItem<ItemValue>[]
+  value?: ItemValue[]
 }
 
 export const DropdownMultiSelect = <ItemValue,>({
@@ -46,6 +46,11 @@ export const DropdownMultiSelect = <ItemValue,>({
   onChange,
   value,
 }: DropdownMultiSelectProps<ItemValue>) => {
+  const _selectedItems = useMemo(
+    () => items.filter((item) => value?.includes(item.value)),
+    [items, value],
+  )
+
   const {
     getSelectedItemProps,
     getDropdownProps,
@@ -53,7 +58,7 @@ export const DropdownMultiSelect = <ItemValue,>({
     removeSelectedItem,
     selectedItems,
   } = useMultipleSelection<DropdownItem<ItemValue>>({
-    selectedItems: value ?? [],
+    selectedItems: _selectedItems,
     onSelectedItemsChange: onChange,
   })
   const {
@@ -121,7 +126,7 @@ export const DropdownMultiSelect = <ItemValue,>({
             {selectedItems.map((selectedItem, index) => (
               <span
                 key={selectedItem.title}
-                className="bg-light-accent/20 flex shrink cursor-default items-center gap-x-1 truncate rounded p-1"
+                className="bg-light-accent/20 flex shrink cursor-default items-center gap-x-1 truncate rounded px-1"
                 {...getSelectedItemProps({
                   selectedItem: selectedItem,
                   index,

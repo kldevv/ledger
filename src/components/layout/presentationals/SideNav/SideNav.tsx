@@ -17,7 +17,7 @@ export const SideNav: React.FC<SideNavProps> = ({ className }) => {
   return (
     <div
       className={classNames(
-        'border-r-mid-gray flex size-full flex-col space-y-6 overflow-y-auto border-r px-2 py-4 max-w-52',
+        'border-r-mid-gray flex size-full flex-col gap-y-6 overflow-y-auto border-r px-2 py-4 max-w-52',
         className,
       )}
     >

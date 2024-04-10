@@ -3,9 +3,12 @@ import React from 'react'
 
 import { Icon } from '..'
 
+import { InputDate } from './Input.Date/Input.Date'
 import { InputStatic } from './Input.Static/Input.Static'
 import { InputText } from './Input.Text/Input.Text'
 
+import type { InputDateProps } from './Input.Date/Input.Date'
+import type { InputStaticProps } from './Input.Static/Input.Static'
 import type { InputTextProps } from './Input.Text/Input.Text'
 
 export interface InputProps {
@@ -37,11 +40,13 @@ export const Input = ({ children, error, label, className }: InputProps) => {
       )}
       <div
         className={classNames(
-          'border-mid-gray w-full min-w-32 rounded-md border bg-white px-2 py-1 text-xs',
+          'border-mid-gray w-full min-w-32 rounded-md border bg-white px-2 py-1 text-xs flex',
           className,
         )}
       >
-        {React.isValidElement<InputTextProps>(children) && children}
+        {React.isValidElement<
+          InputTextProps | InputDateProps | InputStaticProps
+        >(children) && children}
       </div>
       {error != null && (
         <div className="text-dark-red/90 flex text-[0.625rem] leading-4">
@@ -60,3 +65,4 @@ export const Input = ({ children, error, label, className }: InputProps) => {
 
 Input.Text = InputText
 Input.Static = InputStatic
+Input.Date = InputDate

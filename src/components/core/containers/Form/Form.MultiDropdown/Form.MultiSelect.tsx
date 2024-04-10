@@ -14,7 +14,7 @@ export interface FormMultiSelectProps<
   /**
    * Input label
    */
-  label: string
+  label?: string
   /**
    * Input name
    */
@@ -47,7 +47,9 @@ export const FormMultiSelect = <TFieldValues extends FieldValues, ItemValue>({
   const handleOnChange = useCallback(
     (
       change: UseMultipleSelectionSelectedItemsChange<DropdownItem<ItemValue>>,
-    ) => onChange(change.selectedItems.values()),
+    ) => {
+      onChange(change.selectedItems.map(({ value }) => value))
+    },
     [onChange],
   )
 
@@ -55,7 +57,7 @@ export const FormMultiSelect = <TFieldValues extends FieldValues, ItemValue>({
     <Dropdown error={errorMsg} label={label}>
       <Dropdown.MultiSelect
         onChange={handleOnChange}
-        value={items.filter((item) => item.value === value)}
+        value={value}
         placeholder={placeholder}
         items={items}
         className="h-5"

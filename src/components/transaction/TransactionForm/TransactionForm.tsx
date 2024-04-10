@@ -67,7 +67,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   return (
     <Form onSubmit={onSubmit} context={context}>
       <Card className="w-full">
-        <div className="w-64 space-y-3">
+        <div className="w-64 gap-y-3">
           <InputDate<TransactionFormFieldValues>
             label={t('TransactionForm.label.accrualDate')}
             name="accrualDate"

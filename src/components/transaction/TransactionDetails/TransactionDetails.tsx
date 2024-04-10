@@ -36,7 +36,7 @@ export const TransactionDetails: React.FC = () => {
               : EntryStatus.COMPLETED,
         }}
       />
-      <div className="mt-12 flex flex-col space-y-3">
+      <div className="mt-12 flex flex-col gap-y-3">
         <h3 className="text-dark-shades font-semibold">{t`TransactionDetails.title.entries`}</h3>
         <EntryFilteredTable data={entries ?? []} />
       </div>

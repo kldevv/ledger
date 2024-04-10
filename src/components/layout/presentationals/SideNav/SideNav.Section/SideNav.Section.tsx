@@ -25,7 +25,7 @@ export const SideNavSection: React.FC<SideNavSectionProps> = ({
           {title}
         </h3>
       )}
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col gap-y-2">
         {items.map((props) => (
           <SideNavItem {...props} key={props.label} />
         ))}

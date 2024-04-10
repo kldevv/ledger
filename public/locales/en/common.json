@@ -64,6 +64,11 @@
         "min": "Name must contain at least 5 characters.",
         "max": "Name must contain at most 35 characters.",
         "regex": "Name must contain only spaces and alphanumeric characters."
+      },
+      "date": {
+        "format": "Date must be in the format yyyy/MM/dd.",
+        "range": "The year must be 2018 or later.",
+        "invalid": "Must be a valid date."
       }
     }
   }

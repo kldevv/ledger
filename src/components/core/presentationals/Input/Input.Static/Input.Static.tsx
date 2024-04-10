@@ -9,7 +9,7 @@ export const InputStatic = forwardRef<HTMLDivElement, InputStaticProps>(
     return (
       <div
         className={classNames(
-          'cursor-text outline-none w-full items-center flex',
+          'cursor-text outline-none w-full items-center flex text-nowrap',
           className,
         )}
         ref={ref}

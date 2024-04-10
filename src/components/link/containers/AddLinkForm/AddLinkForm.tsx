@@ -72,7 +72,7 @@ export const AddLinkForm: React.FC = () => {
   return (
     <Form context={context} onSubmit={handleSubmit} className="w-fit">
       <Card className="w-80">
-        <div className="space-y-1">
+        <div className="gap-y-1">
           <Form.Input<AddLinkFormValues>
             label={t`addLink.label.name`}
             name="name"

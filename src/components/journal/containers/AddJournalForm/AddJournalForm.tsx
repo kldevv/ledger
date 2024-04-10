@@ -2,18 +2,23 @@ import { Trans, useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
 import { z } from 'zod'
 
-import { JournalsDocument, useAddJournalMutation } from '@/api/graphql'
+import {
+  JournalsDocument,
+  useAddJournalMutation,
+  useTagsQuery,
+} from '@/api/graphql'
 import { Form } from '@/components/core/containers'
 import { useCurrentBranch, useForm } from '@/components/core/hooks'
-import { Card } from '@/components/core/presentationals'
+import { Card, Input } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
-import { nameSchema } from '@/shared/zod/schemas'
+import { tagTypeToSolidIconName } from '@/shared/utils'
+import { dateSchema, nameSchema } from '@/shared/zod/schemas'
 
 const schema = z.object({
   /**
    * Accrual date
    */
-  accrualDate: z.date(),
+  accrualDate: dateSchema,
   /**
    * Journal note
    */
@@ -38,13 +43,14 @@ export const AddJournalForm: React.FC = () => {
   const { t } = useTranslation('journal')
   const toast = useToaster()
   const [currentBranch] = useCurrentBranch()
-  const journalGroupDropdown = useJournalGroupDropdown()
   const { setValue, ...context } = useForm<AddJournalFormValues>({
     schema,
     defaultValues: {
-      name: '',
+      accrualDate: '',
+      note: '',
       branchId: '',
-      journalGroupId: '',
+      tags: [],
+      links: [],
     },
   })
 
@@ -56,7 +62,7 @@ export const AddJournalForm: React.FC = () => {
           components={{
             b: <b />,
           }}
-          values={{ name: addJournal.name }}
+          values={addJournal}
         />
       )),
     refetchQueries: [
@@ -69,12 +75,21 @@ export const AddJournalForm: React.FC = () => {
     ],
   })
 
-  const handleSubmit = (values: AddJournalFormValues) => {
-    void addJournal({
-      variables: {
-        input: values,
+  const { data: { tags } = {} } = useTagsQuery({
+    variables: {
+      input: {
+        branchId: currentBranch?.id ?? '',
       },
-    })
+    },
+    skip: currentBranch == null,
+  })
+
+  const handleSubmit = (values: AddJournalFormValues) => {
+    // void addJournal({
+    //   variables: {
+    //     input: values,
+    //   },
+    // })
   }
 
   useEffect(() => {
@@ -89,23 +104,61 @@ export const AddJournalForm: React.FC = () => {
       onSubmit={handleSubmit}
       className="w-fit"
     >
-      <Card className="w-80">
-        <div className="space-y-1">
-          <Form.Input<AddJournalFormValues>
-            label={t`addJournal.label.name`}
-            name="name"
-            placeholder={t`addJournal.placeholder.name`}
+      <Card className="w-[37rem]">
+        <div className="gap-y-1">
+          <Form.Date<AddJournalFormValues>
+            label={t`addJournal.label.accrualDate`}
+            name="accrualDate"
+            placeholder={t`addJournal.placeholder.note`}
           />
-          <Form.Dropdown<AddJournalFormValues, string>
-            {...journalGroupDropdown}
-            label={t`addJournal.label.journalGroupId`}
-            name="journalGroupId"
-            placeholder={t`addJournal.placeholder.journalGroupId`}
+          <Form.Input<AddJournalFormValues>
+            label={t`addJournal.label.note`}
+            name="note"
+            placeholder={t`addJournal.placeholder.note`}
           />
           <Form.Static<AddJournalFormValues>
             label={t`addJournal.label.branchId`}
             name="branchId"
           />
+          <Form.MultiSelect<AddJournalFormValues, string>
+            label={t`addJournal.label.tags`}
+            name="tags"
+            items={
+              tags?.map(({ name, id, type }) => ({
+                value: id,
+                title: name,
+                solidIcon: tagTypeToSolidIconName(type),
+              })) ?? []
+            }
+          />
+        </div>
+        <div className="mt-6 flex flex-col gap-y-4 overflow-x-scroll pb-4">
+          <div className="flex w-full gap-x-2">
+            <Input className="min-w-fit border-0 pr-4" label="Index">
+              <Input.Static className="h-5 w-fit">1</Input.Static>
+            </Input>
+            <Form.Date<AddJournalFormValues>
+              name="branchId"
+              label="Trasaction Date"
+            />
+            <Form.Input<AddJournalFormValues> name="branchId" label="456" />
+            <Form.Input<AddJournalFormValues> name="note" label="786" />
+            <Form.Input<AddJournalFormValues> name="note" label="132313123" />
+            <Form.Input<AddJournalFormValues>
+              name="note"
+              label="123123123123123"
+            />
+          </div>
+          <div className="flex w-full gap-x-2">
+            <Input className="min-w-fit border-0 pr-4">
+              <Input.Static className="h-5 w-fit">2</Input.Static>
+            </Input>
+            <Form.Date<AddJournalFormValues> name="note" />
+            <Form.Input<AddJournalFormValues> name="note" />
+            <Form.Input<AddJournalFormValues> name="note" />
+            <Form.Input<AddJournalFormValues> name="note" />
+            <Form.Input<AddJournalFormValues> name="note" />
+          </div>
         </div>
         <Form.Submit
           className="mt-8 w-full"

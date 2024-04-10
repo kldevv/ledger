@@ -58,16 +58,11 @@ export const Dropdown = <ItemValue,>({
           React.cloneElement(children, { className: 'px-2 py-1 rounded-md' })}
       </div>
       {error != null && (
-        <div
-          className={classNames(
-            'text-dark-red/90 flex leading-4 text-[0.625rem] overflow-auto',
-            className,
-          )}
-        >
+        <div className="text-dark-red/90 flex text-[0.625rem] leading-4">
           <span>
             <Icon.Solid
               name="ExclamationCircle"
-              className="mt-1 size-[0.7rem]"
+              className="mt-0.5 size-[0.7rem]"
             />
           </span>
           <span className="ml-0.5">{error}</span>

@@ -33,10 +33,6 @@ type FilterSchema = {
   year?: number
 }
 
-const _years = Array.from({ length: 5 }).map(
-  (_, index) => new Date().getFullYear() - index,
-)
-
 export const TotalOverMonthsTable: React.FC = () => {
   const { t } = useTranslation('summary')
   const [currentBranch] = useCurrentBranch()
@@ -83,7 +79,11 @@ export const TotalOverMonthsTable: React.FC = () => {
   )
 
   const years = useMemo(
-    () => _years.map((year) => ({ value: year, title: String(year) })),
+    () =>
+      Array.from({ length: new Date().getFullYear() - 2017 }, (_, index) => ({
+        value: index + 2018,
+        title: String(index + 2018),
+      })),
     [],
   )
 

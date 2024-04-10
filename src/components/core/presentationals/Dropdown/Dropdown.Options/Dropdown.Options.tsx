@@ -76,7 +76,7 @@ export const DropdownOptions = <ItemValue,>({
           <li
             className={classNames(
               highlightedIndex === index && 'bg-mid-gray/50',
-              'px-2 py-1 cursor-pointer flex flex-col select-none',
+              'p-2 cursor-pointer flex flex-col select-none',
               {
                 'font-semibold':
                   selectedItem === item || selectedItems?.includes(item),

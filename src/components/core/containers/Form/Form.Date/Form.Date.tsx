@@ -3,7 +3,7 @@ import { useController, type FieldValues, type Path } from 'react-hook-form'
 import { useFormError } from '@/components/core/hooks'
 import { Input } from '@/components/core/presentationals'
 
-export interface FormInputProps<TFieldValues extends FieldValues> {
+export interface FormDateProps<TFieldValues extends FieldValues> {
   /**
    * Input label
    */
@@ -18,11 +18,11 @@ export interface FormInputProps<TFieldValues extends FieldValues> {
   placeholder?: string
 }
 
-export const FormInput = <TFieldValues extends FieldValues>({
+export const FormDate = <TFieldValues extends FieldValues>({
   name,
   label,
   placeholder,
-}: FormInputProps<TFieldValues>) => {
+}: FormDateProps<TFieldValues>) => {
   const {
     field: { onChange, onBlur, value, ref, disabled },
     fieldState: { error },
@@ -34,7 +34,7 @@ export const FormInput = <TFieldValues extends FieldValues>({
 
   return (
     <Input error={errorMsg} label={label}>
-      <Input.Text
+      <Input.Date
         onChange={onChange}
         onBlur={onBlur}
         value={value ?? ''}
