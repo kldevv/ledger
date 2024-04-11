@@ -24,12 +24,12 @@ export const AddJournalEntry: React.FC<AddJournalEntryProps> = ({ index }) => {
         placeholder={t`addJournal.placeholder.entries.transactionDate`}
       />
       <div className="flex w-full gap-x-2">
-        <Form.Input<AddJournalFormValues>
+        <Form.Money<AddJournalFormValues>
           label={t`addJournal.label.entries.debit`}
           name={`entries.${index}.debit` as const}
           placeholder={t`addJournal.placeholder.entries.debit`}
         />
-        <Form.Input<AddJournalFormValues>
+        <Form.Money<AddJournalFormValues>
           label={t`addJournal.label.entries.credit`}
           name={`entries.${index}.credit` as const}
           placeholder={t`addJournal.placeholder.entries.credit`}

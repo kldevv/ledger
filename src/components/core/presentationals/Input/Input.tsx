@@ -4,10 +4,12 @@ import React from 'react'
 import { Icon } from '..'
 
 import { InputDate } from './Input.Date/Input.Date'
+import { InputMoney } from './Input.Money/Input.Money'
 import { InputStatic } from './Input.Static/Input.Static'
 import { InputText } from './Input.Text/Input.Text'
 
 import type { InputDateProps } from './Input.Date/Input.Date'
+import type { InputMoneyProps } from './Input.Money/Input.Money'
 import type { InputStaticProps } from './Input.Static/Input.Static'
 import type { InputTextProps } from './Input.Text/Input.Text'
 
@@ -45,7 +47,7 @@ export const Input = ({ children, error, label, className }: InputProps) => {
         )}
       >
         {React.isValidElement<
-          InputTextProps | InputDateProps | InputStaticProps
+          InputTextProps | InputDateProps | InputStaticProps | InputMoneyProps
         >(children) && children}
       </div>
       {error != null && (
@@ -66,3 +68,4 @@ export const Input = ({ children, error, label, className }: InputProps) => {
 Input.Text = InputText
 Input.Static = InputStatic
 Input.Date = InputDate
+Input.Money = InputMoney

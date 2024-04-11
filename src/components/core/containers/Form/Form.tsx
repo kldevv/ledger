@@ -6,6 +6,7 @@ import { FormProvider } from 'react-hook-form'
 import { FormDate } from './Form.Date/Form.Date'
 import { FormDropdown } from './Form.Dropdown/Form.Dropdown'
 import { FormInput } from './Form.Input/Form.Input'
+import { FormMoney } from './Form.Money/Form.Money'
 import { FormMultiSelect } from './Form.MultiDropdown/Form.MultiSelect'
 import { FormStatic } from './Form.Static/Form.Static'
 import { FormSubmit } from './Form.Submit/Form.Submit'
@@ -55,6 +56,7 @@ export const Form = <TFieldValues extends FieldValues>({
 
 Form.Date = FormDate
 Form.Input = FormInput
+Form.Money = FormMoney
 Form.Static = FormStatic
 Form.Dropdown = FormDropdown
 Form.MultiSelect = FormMultiSelect
