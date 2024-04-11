@@ -25,7 +25,7 @@ export const Card: React.FC<CardProps> = ({
   return (
     <div
       className={classNames(
-        'rounded-lg shadow box-shadow shadow-mid-gray bg-white',
+        'rounded-lg shadow shadow-mid-gray bg-white',
         className,
       )}
     >

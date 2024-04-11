@@ -60,6 +60,15 @@
   },
   "form": {
     "error": {
+      "note": {
+        "min": "Note must contain at least 3 characters.",
+        "max": "Note must contain at most 50 characters.",
+        "regex": "Note must contain only spaces and alphanumeric characters."
+      },
+      "memo": {
+        "max": "Memo must contain at most 50 characters.",
+        "regex": "Memo must contain only spaces and alphanumeric characters."
+      },
       "name": {
         "min": "Name must contain at least 5 characters.",
         "max": "Name must contain at most 35 characters.",

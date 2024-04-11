@@ -40,7 +40,7 @@ export const Input = ({ children, error, label, className }: InputProps) => {
       )}
       <div
         className={classNames(
-          'border-mid-gray w-full min-w-32 rounded-md border bg-white px-2 py-1 text-xs flex',
+          'border-mid-gray w-full rounded-md border bg-white px-2 py-1 text-xs flex',
           className,
         )}
       >

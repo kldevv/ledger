@@ -27,6 +27,10 @@ export interface FormMultiSelectProps<
    * Items
    */
   items: DropdownItem<ItemValue>[]
+  /**
+   * Is loading?
+   */
+  loading?: boolean
 }
 
 export const FormMultiSelect = <TFieldValues extends FieldValues, ItemValue>({
@@ -34,6 +38,7 @@ export const FormMultiSelect = <TFieldValues extends FieldValues, ItemValue>({
   label,
   placeholder,
   items,
+  loading = false,
 }: FormMultiSelectProps<TFieldValues, ItemValue>) => {
   const {
     field: { onChange, value },
@@ -62,7 +67,7 @@ export const FormMultiSelect = <TFieldValues extends FieldValues, ItemValue>({
         items={items}
         className="h-5"
       >
-        <Dropdown.Options />
+        <Dropdown.Options loading={loading} />
       </Dropdown.MultiSelect>
     </Dropdown>
   )
