@@ -1,6 +1,7 @@
 import { EntryStatus } from '@prisma/client'
+import classNames from 'classnames'
 import { Trans, useTranslation } from 'next-i18next'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useFieldArray } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -93,8 +94,10 @@ export const AddJournalForm: React.FC = () => {
   const tagsMultiSelect = useTagsMultiSelect()
   const linksMultiSelect = useLinksMultiSelect()
   const [currentBranch] = useCurrentBranch()
+  const [entryIndex, setEntryIndex] = useState(0)
   const { setValue, control, ...context } = useForm<AddJournalFormValues>({
     schema,
+    shouldUnregister: false,
     defaultValues: {
       accrualDate: '',
       note: '',
@@ -199,29 +202,33 @@ export const AddJournalForm: React.FC = () => {
         <div className="border-b-mid-gray mt-14 border-b">
           <h4 className="text-gray mt-6 text-[0.625rem] font-medium">{t`addJournal.label.entries.title`}</h4>
         </div>
-        <div className="flex gap-x-2">
+        <div className="border-mid-gray flex h-80 gap-x-2 border-b">
           <div className="border-mid-gray flex min-w-64 flex-col items-start border-r">
-            <div className="flex h-52 w-full flex-col overflow-scroll">
+            <div className="flex w-full flex-col overflow-scroll">
               {fields.map(({ id }, index) => (
                 <ButtonCore
                   key={id}
                   type="button"
-                  className="border-mid-gray hover:text-dark-shades/60 flex h-fit w-full border-b p-2 text-xs font-normal"
+                  onClick={() => setEntryIndex(index)}
+                  className={classNames(
+                    'border-mid-gray hover:text-dark-shades/60 flex h-fit w-full border-b p-2 text-xs',
+                    { 'font-semibold': index === entryIndex },
+                  )}
                 >
                   <div>{`entries.${index}`}</div>
                   <div className="ml-auto">20</div>
                 </ButtonCore>
               ))}
+              <ButtonCore
+                className="text-light-accent hover:text-light-accent/80 hover:bg-mid-gray/20 mb-10 size-fit text-nowrap py-4 text-xs font-medium"
+                onClick={() => append(defaultEntryValue)}
+                type="button"
+              >
+                Add Entry
+              </ButtonCore>
             </div>
-            <ButtonCore
-              className="text-light-accent hover:text-light-accent/60 mx-auto mt-auto size-fit text-nowrap text-xs font-medium"
-              onClick={() => append(defaultEntryValue)}
-              type="button"
-            >
-              Add Entry
-            </ButtonCore>
           </div>
-          <AddJournalEntry index={0} />
+          <AddJournalEntry index={entryIndex} key={entryIndex} />
         </div>
         <Form.Submit
           className="mt-8 w-full"
