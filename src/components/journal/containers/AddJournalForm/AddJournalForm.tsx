@@ -8,8 +8,9 @@ import { z } from 'zod'
 import { JournalsDocument, useAddJournalMutation } from '@/api/graphql'
 import { Form } from '@/components/core/containers'
 import { useCurrentBranch, useForm } from '@/components/core/hooks'
-import { ButtonCore, Card } from '@/components/core/presentationals'
+import { ButtonCore, Card, Icon } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
+import { formatDate } from '@/shared/utils'
 import { dateSchema } from '@/shared/zod/schemas'
 
 import { useTagsMultiSelect, useLinksMultiSelect } from '../../hooks'
@@ -80,10 +81,10 @@ const schema = z.object({
 export type AddJournalFormValues = z.infer<typeof schema>
 
 const defaultEntryValue: AddJournalFormValues['entries'][number] = {
-  transactionDate: '',
+  transactionDate: formatDate(new Date()),
   memo: '',
-  debit: '',
-  credit: '',
+  debit: '0.00',
+  credit: '0.00',
   accountId: '',
   status: EntryStatus.COMPLETED,
 }
@@ -95,19 +96,20 @@ export const AddJournalForm: React.FC = () => {
   const linksMultiSelect = useLinksMultiSelect()
   const [currentBranch] = useCurrentBranch()
   const [entryIndex, setEntryIndex] = useState(0)
-  const { setValue, control, ...context } = useForm<AddJournalFormValues>({
-    schema,
-    shouldUnregister: false,
-    defaultValues: {
-      accrualDate: '',
-      note: '',
-      branchId: '',
-      tags: [],
-      links: [],
-      entries: [defaultEntryValue, defaultEntryValue],
-    },
-  })
-  const { fields, append } = useFieldArray<AddJournalFormValues>({
+  const { setValue, control, watch, ...context } =
+    useForm<AddJournalFormValues>({
+      schema,
+      shouldUnregister: false,
+      defaultValues: {
+        accrualDate: formatDate(new Date()),
+        note: '',
+        branchId: '',
+        tags: [],
+        links: [],
+        entries: [defaultEntryValue, defaultEntryValue],
+      },
+    })
+  const { fields, append, remove } = useFieldArray<AddJournalFormValues>({
     name: 'entries',
     control,
   })
@@ -166,7 +168,7 @@ export const AddJournalForm: React.FC = () => {
 
   return (
     <Form
-      context={{ setValue, control, ...context }}
+      context={{ setValue, control, watch, ...context }}
       onSubmit={handleSubmit}
       className="w-full"
     >
@@ -203,30 +205,61 @@ export const AddJournalForm: React.FC = () => {
           <h4 className="text-gray mt-6 text-[0.625rem] font-medium">{t`addJournal.label.entries.title`}</h4>
         </div>
         <div className="border-mid-gray flex h-80 gap-x-2 border-b">
-          <div className="border-mid-gray flex min-w-64 flex-col items-start border-r">
-            <div className="flex w-full flex-col overflow-scroll">
-              {fields.map(({ id }, index) => (
+          <div className="border-mid-gray flex size-full min-w-80 max-w-80 flex-col items-start overflow-scroll border-r">
+            {fields.map(({ id }, index) => (
+              <div
+                key={id}
+                className="border-mid-gray flex w-full max-w-full border-b px-2"
+              >
                 <ButtonCore
-                  key={id}
-                  type="button"
                   onClick={() => setEntryIndex(index)}
                   className={classNames(
-                    'border-mid-gray hover:text-dark-shades/60 flex h-fit w-full border-b p-2 text-xs',
+                    'border-mid-gray hover:text-dark-shades/60 flex h-fit w-full py-2 pr-2 text-xs max-w-full items-start',
                     { 'font-semibold': index === entryIndex },
                   )}
                 >
-                  <div>{`entries.${index}`}</div>
-                  <div className="ml-auto">20</div>
+                  <span className="text-gray min-w-5 text-left">{index}</span>
+                  <div className="flex max-w-full flex-col items-start">
+                    <div className="flex min-h-4 max-w-full items-start truncate">
+                      <span>{watch(`entries.${index}.transactionDate`)}</span>
+                    </div>
+                    <div className="min-h-4 max-w-36 truncate text-left">
+                      {watch(`entries.${index}.accountId`)}
+                    </div>
+                    <div className="text-gray max-w-36 truncate text-left text-xs">
+                      {watch(`entries.${index}.memo`)}
+                    </div>
+                  </div>
+                  <div className="ml-auto flex max-w-24 flex-col items-end truncate pl-5">
+                    <span className="flex items-center gap-x-1">
+                      <span className="max-w-20 truncate">
+                        {watch(`entries.${index}.debit`)}
+                      </span>
+                      <span>D</span>
+                    </span>
+                    <span className="flex items-center gap-x-1">
+                      <span className="max-w-20 truncate">
+                        {watch(`entries.${index}.credit`)}
+                      </span>
+                      <span>C</span>
+                    </span>
+                  </div>
                 </ButtonCore>
-              ))}
-              <ButtonCore
-                className="text-light-accent hover:text-light-accent/80 hover:bg-mid-gray/20 mb-10 size-fit text-nowrap py-4 text-xs font-medium"
-                onClick={() => append(defaultEntryValue)}
-                type="button"
-              >
-                Add Entry
-              </ButtonCore>
-            </div>
+                <ButtonCore
+                  onClick={() => remove(index)}
+                  className="hover:text-light-accent size-full min-w-fit max-w-fit"
+                >
+                  <Icon.Solid name="XMark" />
+                </ButtonCore>
+              </div>
+            ))}
+            <ButtonCore
+              className="text-light-accent hover:text-light-accent/80 hover:bg-mid-gray/20 mb-10 size-fit max-h-fit text-nowrap py-4 text-xs font-medium"
+              onClick={() => append(defaultEntryValue)}
+              type="button"
+            >
+              Add Entry
+            </ButtonCore>
           </div>
           <AddJournalEntry index={entryIndex} key={entryIndex} />
         </div>

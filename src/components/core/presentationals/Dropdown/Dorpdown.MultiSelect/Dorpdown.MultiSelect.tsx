@@ -122,7 +122,7 @@ export const DropdownMultiSelect = <ItemValue,>({
         )}
       >
         {selectedItems.length > 0 && (
-          <span className="flex grow select-none items-center gap-x-2 truncate">
+          <span className="flex grow select-none flex-wrap items-center gap-2">
             {selectedItems.map((selectedItem, index) => (
               <span
                 key={selectedItem.title}

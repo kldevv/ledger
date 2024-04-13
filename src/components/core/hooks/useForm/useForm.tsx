@@ -31,7 +31,7 @@ export const useForm = <TFieldValues extends FieldValues>({
     // When set to all, all errors from each field will be gathered.
     criteriaMode: 'all',
     // Validation is triggered on both blur and change events.
-    mode: 'onBlur',
+    mode: 'all',
     shouldUnregister: true,
     ...props,
     values,

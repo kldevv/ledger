@@ -65,7 +65,7 @@ export const FormMultiSelect = <TFieldValues extends FieldValues, ItemValue>({
         value={value}
         placeholder={placeholder}
         items={items}
-        className="h-5"
+        className="min-h-5"
       >
         <Dropdown.Options loading={loading} />
       </Dropdown.MultiSelect>

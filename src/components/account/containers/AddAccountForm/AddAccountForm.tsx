@@ -23,7 +23,7 @@ const schema = z.object({
   /**
    * Account group id
    */
-  accountGroupId: z.string(),
+  accountGroupId: z.string().refine((arg) => arg.length > 0),
 })
 
 export type AddAccountFormValues = z.infer<typeof schema>
@@ -74,6 +74,7 @@ export const AddAccountForm: React.FC = () => {
   useEffect(() => {
     if (currentBranch) {
       setValue('branchId', currentBranch?.id)
+      setValue('accountGroupId', '')
     }
   }, [setValue, currentBranch, context.formState.isSubmitSuccessful])
 
@@ -84,7 +85,7 @@ export const AddAccountForm: React.FC = () => {
       className="w-fit"
     >
       <Card className="w-80">
-        <div className="gap-y-1">
+        <div className="flex flex-col gap-y-2">
           <Form.Input<AddAccountFormValues>
             label={t`addAccount.label.name`}
             name="name"

@@ -23,6 +23,7 @@ export const InputMoney = forwardRef<HTMLInputElement, InputMoneyProps>(
     return (
       <NumericFormat
         decimalScale={2}
+        valueIsNumericString
         thousandSeparator={','}
         allowLeadingZeros={false}
         allowNegative={false}
