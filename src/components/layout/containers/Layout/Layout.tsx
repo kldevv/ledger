@@ -16,7 +16,7 @@ type LayoutProps = {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="flex h-screen w-screen">
-      <SideNav className="z-20 min-w-48 max-w-48" />
+      <SideNav className="z-20 min-w-44 max-w-44" />
       <div className="bg-light-shades size-full min-w-96 overflow-scroll">
         <NavMenu />
         <div className="flex min-h-full min-w-full max-w-full flex-col px-16">

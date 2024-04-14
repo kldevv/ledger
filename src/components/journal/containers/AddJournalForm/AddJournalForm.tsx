@@ -205,7 +205,7 @@ export const AddJournalForm: React.FC = () => {
       onSubmit={handleSubmit}
       className="w-full"
     >
-      <Card className="w-[45rem]" loading={currentBranch == null}>
+      <Card className="w-[40rem]" loading={currentBranch == null}>
         <div className="flex flex-col gap-y-2">
           <Form.Date<AddJournalFormValues>
             label={t`addJournal.label.accrualDate`}
