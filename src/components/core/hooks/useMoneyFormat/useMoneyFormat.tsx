@@ -19,7 +19,7 @@ export const useMoneyFormat = (props?: NumericFormatProps) => {
 
   const removeFormatting = useCallback(
     (str: string) => {
-      return new Number(_removeFormatting?.(str)).toFixed(2)
+      return Number(_removeFormatting?.(str)).toFixed(2)
     },
     [_removeFormatting],
   )

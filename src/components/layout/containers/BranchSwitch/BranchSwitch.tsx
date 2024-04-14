@@ -48,7 +48,22 @@ export const BranchSwitch: React.FC = () => {
 
   const handleRetry = useCallback(() => void refetch(), [refetch])
 
-  if (loading) {
+  if (error) {
+    return (
+      <div className="text-dark-red flex w-full items-center gap-x-2 text-xs">
+        <Icon.Solid name="ExclamationCircle" />
+        <span>{t`branchSwitch.error`}</span>
+        <ButtonCore
+          className="text-dark-shades hover:text-gray w-fit font-medium underline"
+          onClick={handleRetry}
+        >
+          {t`branchSwitch.retry`}
+        </ButtonCore>
+      </div>
+    )
+  }
+
+  if (loading || !currentBranch) {
     return (
       <div className="text-gray/30 ml-8">
         <svg
@@ -89,21 +104,6 @@ export const BranchSwitch: React.FC = () => {
             />
           </circle>
         </svg>
-      </div>
-    )
-  }
-
-  if (error || !currentBranch) {
-    return (
-      <div className="text-dark-red flex w-full items-center gap-x-2 text-xs">
-        <Icon.Solid name="ExclamationCircle" />
-        <span>{t`branchSwitch.error`}</span>
-        <ButtonCore
-          className="text-dark-shades hover:text-gray w-fit font-medium underline"
-          onClick={handleRetry}
-        >
-          {t`branchSwitch.retry`}
-        </ButtonCore>
       </div>
     )
   }

@@ -128,6 +128,7 @@ export const AddJournalForm: React.FC = () => {
     })
   const { fields, append, remove } = useFieldArray<AddJournalFormValues>({
     name: 'entries',
+    shouldUnregister: false,
     control,
   })
 
@@ -138,12 +139,15 @@ export const AddJournalForm: React.FC = () => {
 
   const handleOnEntryRemove = useCallback(
     (index: number) => () => {
+      setActiveEntry((prev) => Math.min(fields.length - 2, prev))
       remove(index)
-      if (index === fields.length - 1) {
-        setActiveEntry(index - 1)
-      }
     },
     [fields.length, remove],
+  )
+
+  const handleOnEntryAppend = useCallback(
+    () => append(defaultEntryValue),
+    [append],
   )
 
   const [addJournal, { loading }] = useAddJournalMutation({
@@ -254,15 +258,13 @@ export const AddJournalForm: React.FC = () => {
                   }}
                   active={index === activeEntry}
                   onSelect={handleOnEntrySelect(index)}
-                  onRemove={
-                    fields.length > 2 ? handleOnEntryRemove(index) : undefined
-                  }
+                  onRemove={handleOnEntryRemove(index)}
                 />
               )
             })}
             <ButtonCore
               className="text-light-accent hover:text-light-accent/80 hover:bg-mid-gray/20 mb-10 size-fit max-h-fit text-nowrap py-4 text-xs font-medium"
-              onClick={() => append(defaultEntryValue)}
+              onClick={handleOnEntryAppend}
             >
               {t`addJournal.addEntry`}
             </ButtonCore>
