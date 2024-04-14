@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 
 import { route } from '@/shared/route'
-import { parseQueryValue } from '@/shared/utils'
 
 export const Breadcrumbs: React.FC = () => {
   const { pathname, query } = useRouter()
@@ -25,13 +24,17 @@ export const Breadcrumbs: React.FC = () => {
         includedQueries.push(relevantQuery)
       }
 
+      const relevantQueryValue = relevantQuery?.at(1)
+
       const label =
         relevantQuery == null
           ? segment
               .split('-')
               .map((word) => word.at(0)?.toUpperCase() + word.slice(1))
               .join(' ')
-          : parseQueryValue(relevantQuery.at(1))
+          : Array.isArray(relevantQueryValue)
+            ? relevantQueryValue?.at(1)
+            : relevantQueryValue
 
       return {
         label,
