@@ -83,7 +83,7 @@ export const DropdownSelect = <ItemValue,>({
             {placeholder}
           </span>
         )}
-        <span className="ml-auto shrink-0 px-2">
+        <span className="ml-auto shrink-0 pl-1">
           <Icon.Solid
             name="ChevronUp"
             className={classNames('size-1.5 text-gray', {

@@ -1,5 +1,7 @@
-import { forwardRef } from 'react'
+import { forwardRef, useCallback } from 'react'
 import { NumericFormat } from 'react-number-format'
+
+import { useMoneyFormat } from '@/components/core/hooks'
 
 import { InputText } from '../Input.Text/Input.Text'
 
@@ -23,7 +25,6 @@ export const InputMoney = forwardRef<HTMLInputElement, InputMoneyProps>(
     return (
       <NumericFormat
         decimalScale={2}
-        valueIsNumericString
         thousandSeparator={','}
         allowLeadingZeros={false}
         allowNegative={false}

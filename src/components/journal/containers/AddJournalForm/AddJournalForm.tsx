@@ -1,19 +1,27 @@
 import { EntryStatus } from '@prisma/client'
-import classNames from 'classnames'
 import { Trans, useTranslation } from 'next-i18next'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useFieldArray } from 'react-hook-form'
 import { z } from 'zod'
 
-import { JournalsDocument, useAddJournalMutation } from '@/api/graphql'
+import {
+  JournalsDocument,
+  useAccountsQuery,
+  useAddJournalMutation,
+} from '@/api/graphql'
 import { Form } from '@/components/core/containers'
-import { useCurrentBranch, useForm } from '@/components/core/hooks'
-import { ButtonCore, Card, Icon } from '@/components/core/presentationals'
+import {
+  useCurrentBranch,
+  useForm,
+  useMoneyFormat,
+} from '@/components/core/hooks'
+import { ButtonCore, Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
 import { dateSchema } from '@/shared/zod/schemas'
 
 import { useTagsMultiSelect, useLinksMultiSelect } from '../../hooks'
+import { JournalFormEntry } from '../../presentationals'
 
 import { AddJournalEntry } from './AddJournalForm.Entry/AddJournalForm.Entry'
 
@@ -94,8 +102,17 @@ export const AddJournalForm: React.FC = () => {
   const toast = useToaster()
   const tagsMultiSelect = useTagsMultiSelect()
   const linksMultiSelect = useLinksMultiSelect()
+  const { removeFormatting } = useMoneyFormat()
   const [currentBranch] = useCurrentBranch()
-  const [entryIndex, setEntryIndex] = useState(0)
+  const { data: { accounts } = {} } = useAccountsQuery({
+    variables: {
+      input: {
+        branchId: currentBranch?.id ?? '',
+      },
+    },
+    skip: currentBranch == null,
+  })
+  const [activeEntry, setActiveEntry] = useState(0)
   const { setValue, control, watch, ...context } =
     useForm<AddJournalFormValues>({
       schema,
@@ -113,6 +130,21 @@ export const AddJournalForm: React.FC = () => {
     name: 'entries',
     control,
   })
+
+  const handleOnEntrySelect = useCallback(
+    (index: number) => () => setActiveEntry(index),
+    [],
+  )
+
+  const handleOnEntryRemove = useCallback(
+    (index: number) => () => {
+      remove(index)
+      if (index === fields.length - 1) {
+        setActiveEntry(index - 1)
+      }
+    },
+    [fields.length, remove],
+  )
 
   const [addJournal, { loading }] = useAddJournalMutation({
     onCompleted: ({ addJournal }) =>
@@ -146,10 +178,11 @@ export const AddJournalForm: React.FC = () => {
           accrualDate: new Date(accrualDate),
           entries: entries.map(
             ({ transactionDate, debit, credit, ...rest }) => ({
-              transactionDate: new Date(transactionDate),
-              credit: Number(credit),
-              debit: Number(debit),
               ...rest,
+              transactionDate: new Date(transactionDate),
+              credit: Number(removeFormatting(credit)),
+              debit: Number(removeFormatting(debit)),
+              status: 'COMPLETED',
             }),
           ),
           ...rest,
@@ -206,62 +239,36 @@ export const AddJournalForm: React.FC = () => {
         </div>
         <div className="border-mid-gray flex h-80 gap-x-2 border-b">
           <div className="border-mid-gray flex size-full min-w-80 max-w-80 flex-col items-start overflow-scroll border-r">
-            {fields.map(({ id }, index) => (
-              <div
-                key={id}
-                className="border-mid-gray flex w-full max-w-full border-b px-2"
-              >
-                <ButtonCore
-                  onClick={() => setEntryIndex(index)}
-                  className={classNames(
-                    'border-mid-gray hover:text-dark-shades/60 flex h-fit w-full py-2 pr-2 text-xs max-w-full items-start',
-                    { 'font-semibold': index === entryIndex },
-                  )}
-                >
-                  <span className="text-gray min-w-5 text-left">{index}</span>
-                  <div className="flex max-w-full flex-col items-start">
-                    <div className="flex min-h-4 max-w-full items-start truncate">
-                      <span>{watch(`entries.${index}.transactionDate`)}</span>
-                    </div>
-                    <div className="min-h-4 max-w-36 truncate text-left">
-                      {watch(`entries.${index}.accountId`)}
-                    </div>
-                    <div className="text-gray max-w-36 truncate text-left text-xs">
-                      {watch(`entries.${index}.memo`)}
-                    </div>
-                  </div>
-                  <div className="ml-auto flex max-w-24 flex-col items-end truncate pl-5">
-                    <span className="flex items-center gap-x-1">
-                      <span className="max-w-20 truncate">
-                        {watch(`entries.${index}.debit`)}
-                      </span>
-                      <span>D</span>
-                    </span>
-                    <span className="flex items-center gap-x-1">
-                      <span className="max-w-20 truncate">
-                        {watch(`entries.${index}.credit`)}
-                      </span>
-                      <span>C</span>
-                    </span>
-                  </div>
-                </ButtonCore>
-                <ButtonCore
-                  onClick={() => remove(index)}
-                  className="hover:text-light-accent size-full min-w-fit max-w-fit"
-                >
-                  <Icon.Solid name="XMark" />
-                </ButtonCore>
-              </div>
-            ))}
+            {fields.map(({ id }, index) => {
+              const entry = watch(`entries.${index}`)
+
+              return (
+                <JournalFormEntry
+                  key={id}
+                  index={index}
+                  entry={{
+                    ...entry,
+                    account:
+                      accounts?.find(
+                        (account) => account.id === entry.accountId,
+                      )?.name ?? '',
+                  }}
+                  active={index === activeEntry}
+                  onSelect={handleOnEntrySelect(index)}
+                  onRemove={
+                    fields.length > 2 ? handleOnEntryRemove(index) : undefined
+                  }
+                />
+              )
+            })}
             <ButtonCore
               className="text-light-accent hover:text-light-accent/80 hover:bg-mid-gray/20 mb-10 size-fit max-h-fit text-nowrap py-4 text-xs font-medium"
               onClick={() => append(defaultEntryValue)}
-              type="button"
             >
-              Add Entry
+              {t`addJournal.addEntry`}
             </ButtonCore>
           </div>
-          <AddJournalEntry index={entryIndex} key={entryIndex} />
+          <AddJournalEntry index={activeEntry} key={activeEntry} />
         </div>
         <Form.Submit
           className="mt-8 w-full"

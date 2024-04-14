@@ -1,5 +1,4 @@
 import { useTranslation } from 'next-i18next'
-import { useEffect } from 'react'
 
 import { Form } from '@/components/core/containers'
 import { useAccountDropdown } from '@/components/journal/hooks'

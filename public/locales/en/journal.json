@@ -70,6 +70,7 @@
     "entries": "Journal Entries"
   },
   "addJournal": {
+    "addEntry": "Add Entry",
     "label": {
       "note": "Note",
       "status": "Status",
@@ -103,5 +104,9 @@
         "transactionDate": "Enter transaction date"
       }
     }
+  },
+  "entry": {
+    "credit": "C",
+    "debit": "D"
   }
 }

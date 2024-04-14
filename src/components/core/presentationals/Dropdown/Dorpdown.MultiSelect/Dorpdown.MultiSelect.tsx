@@ -149,7 +149,7 @@ export const DropdownMultiSelect = <ItemValue,>({
             {placeholder}
           </span>
         )}
-        <span className="px-2">
+        <span className="pl-1">
           <Icon.Solid
             name="ChevronUp"
             className={classNames('size-1.5 text-gray', {
