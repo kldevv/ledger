@@ -11,12 +11,14 @@ import {
 } from './Dropdown.Select/Dropdown.Select'
 
 import type { FlagIconProps, OutlineIconProps, SolidIconProps } from '..'
+import type { EntryStatus } from '@/api/graphql'
 
 export type DropdownItem<T> = {
   value: T
   outlineIcon?: OutlineIconProps['name']
   solidIcon?: SolidIconProps['name']
   flagIcon?: FlagIconProps['name']
+  status?: EntryStatus
   title: string
   desc?: string
 }

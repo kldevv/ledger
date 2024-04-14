@@ -1,4 +1,5 @@
 export * from './useAccountDropdown/useAccountDropdown'
+export * from './useEntryStatusDropdown/useEntryStatusDropdown'
 export * from './useJournalsTableCol/useJournalsTableCol'
 export * from './useLinksMultiSelect/useLinksMultiSelect'
 export * from './useTagsMultiSelect/useTagsMultiSelect'

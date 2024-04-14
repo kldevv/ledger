@@ -101,12 +101,18 @@
         "credit": "Enter credit amount",
         "accountId": "Select account",
         "memo": "Enter memo (Optional)",
-        "transactionDate": "Enter transaction date"
+        "transactionDate": "Enter transaction date",
+        "status": "Select entry status"
       }
-    }
+    },
+    "submit": "Add New Journal"
   },
   "entry": {
     "credit": "C",
     "debit": "D"
+  },
+  "entryStatus": {
+    "COMPLETED": "Cleared",
+    "PENDING": "Pending"
   }
 }

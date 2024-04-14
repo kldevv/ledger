@@ -182,7 +182,6 @@ export const AddJournalForm: React.FC = () => {
               transactionDate: new Date(transactionDate),
               credit: Number(removeFormatting(credit)),
               debit: Number(removeFormatting(debit)),
-              status: 'COMPLETED',
             }),
           ),
           ...rest,
@@ -203,9 +202,9 @@ export const AddJournalForm: React.FC = () => {
     <Form
       context={{ setValue, control, watch, ...context }}
       onSubmit={handleSubmit}
-      className="w-full"
+      className="w-[45rem]"
     >
-      <Card className="w-[40rem]" loading={currentBranch == null}>
+      <Card className="w-full" loading={currentBranch == null}>
         <div className="flex flex-col gap-y-2">
           <Form.Date<AddJournalFormValues>
             label={t`addJournal.label.accrualDate`}
@@ -237,7 +236,7 @@ export const AddJournalForm: React.FC = () => {
         <div className="border-b-mid-gray mt-14 border-b">
           <h4 className="text-gray mt-6 text-[0.625rem] font-medium">{t`addJournal.label.entries.title`}</h4>
         </div>
-        <div className="border-mid-gray flex h-80 gap-x-2 border-b">
+        <div className="border-mid-gray flex h-96 gap-x-2 border-b">
           <div className="border-mid-gray flex size-full min-w-80 max-w-80 flex-col items-start overflow-scroll border-r">
             {fields.map(({ id }, index) => {
               const entry = watch(`entries.${index}`)

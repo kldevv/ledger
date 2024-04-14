@@ -13,7 +13,7 @@ export const addJournal: MutationResolvers['addJournal'] = async (
     ...rest,
     branchId,
     entries: entries.map(({ debit, credit, memo, ...rest }) => ({
-      amount: debit > 0 ? debit : credit,
+      amount: debit > 0 ? debit : -credit,
       memo: memo ?? '',
       branchId,
       ...rest,

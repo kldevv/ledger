@@ -1,9 +1,13 @@
 import { useTranslation } from 'next-i18next'
 
 import { Form } from '@/components/core/containers'
-import { useAccountDropdown } from '@/components/journal/hooks'
+import {
+  useAccountDropdown,
+  useEntryStatusDropdown,
+} from '@/components/journal/hooks'
 
 import type { AddJournalFormValues } from '../AddJournalForm'
+import type { EntryStatus } from '@prisma/client'
 
 export interface AddJournalEntryProps {
   /**
@@ -15,6 +19,7 @@ export interface AddJournalEntryProps {
 export const AddJournalEntry: React.FC<AddJournalEntryProps> = ({ index }) => {
   const { t } = useTranslation('journal')
   const accountDropdown = useAccountDropdown()
+  const entryStatusDropdown = useEntryStatusDropdown()
 
   return (
     <div className="flex w-full flex-col gap-y-2">
@@ -45,6 +50,12 @@ export const AddJournalEntry: React.FC<AddJournalEntryProps> = ({ index }) => {
         label={t`addJournal.label.entries.memo`}
         name={`entries.${index}.memo` as const}
         placeholder={t`addJournal.placeholder.entries.memo`}
+      />
+      <Form.Dropdown<AddJournalFormValues, EntryStatus>
+        {...entryStatusDropdown}
+        label={t`addJournal.label.entries.status`}
+        name={`entries.${index}.status` as const}
+        placeholder={t`addJournal.placeholder.entries.status`}
       />
     </div>
   )
