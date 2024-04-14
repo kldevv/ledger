@@ -128,5 +128,19 @@
     "header": "Links",
     "link": "Add Link",
     "section": "A link connects <journal>journals</journal> across different <branch>branches</branch>, unlike tags, which are solely used for grouping journals within the same branch."
+  },
+  "error": {
+    "401": {
+      "header": "Unauthorized",
+      "section": "You Don't Have Access to This Page."
+    },
+    "404": {
+      "header": "Not Found",
+      "section": "The Page You Are Looking For Does Not Exist."
+    },
+    "500": {
+      "header": "Internal Error",
+      "section": "It's not you, somethong is wrong with us."
+    }
   }
 }

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 
 import { Breadcrumbs, NavMenu } from '..'
-import { Footer, SideNav } from '../../presentationals'
+import { BaseLayout, Footer, SideNav } from '../../presentationals'
 
 type LayoutProps = {
   /**
@@ -15,7 +15,7 @@ type LayoutProps = {
  */
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="flex h-screen w-screen">
+    <BaseLayout>
       <SideNav className="z-20 min-w-44 max-w-44" />
       <div className="bg-light-shades size-full min-w-96 overflow-scroll">
         <NavMenu />
@@ -35,6 +35,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Footer className="mt-auto" />
         </div>
       </div>
-    </div>
+    </BaseLayout>
   )
 }
