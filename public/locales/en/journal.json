@@ -71,6 +71,10 @@
   },
   "addJournal": {
     "addEntry": "Add Entry",
+    "totalDebit": "Total Debit: {{ debit }}",
+    "totalCredit": "Total Credit: {{ credit }}",
+    "diff": "Difference: {{ diff }}",
+    "status": "Status: {{ status }}",
     "label": {
       "note": "Note",
       "status": "Status",
@@ -109,7 +113,8 @@
   },
   "entry": {
     "credit": "C",
-    "debit": "D"
+    "debit": "D",
+    "error": "E"
   },
   "entryStatus": {
     "COMPLETED": "Cleared",

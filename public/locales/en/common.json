@@ -78,6 +78,12 @@
         "format": "Date must be in the format yyyy/MM/dd.",
         "range": "The year must be 2018 or later.",
         "invalid": "Must be a valid date."
+      },
+      "uuid": {
+        "regex": "Must be a UUID"
+      },
+      "money": {
+        "regex": "Amount must be in the valid number format"
       }
     }
   }

@@ -69,15 +69,24 @@ const schema = z.object({
       /**
        * Entry debit
        */
-      debit: z.string(),
+      debit: z
+        .string()
+        .regex(/^\d{1,3}(?:,\d{3})*(?:\.\d+)?$/, { message: 'money.regex' }),
       /**
        * Entry credit
        */
-      credit: z.string(),
+      credit: z
+        .string()
+        .regex(/^\d{1,3}(?:,\d{3})*(?:\.\d+)?$/, { message: 'money.regex' }),
       /**
        * Entry account
        */
-      accountId: z.string(),
+      accountId: z
+        .string()
+        .regex(
+          /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
+          { message: 'uuid.regex' },
+        ),
       /**
        * Entry status
        */
@@ -102,7 +111,7 @@ export const AddJournalForm: React.FC = () => {
   const toast = useToaster()
   const tagsMultiSelect = useTagsMultiSelect()
   const linksMultiSelect = useLinksMultiSelect()
-  const { removeFormatting } = useMoneyFormat()
+  const { format, removeFormatting } = useMoneyFormat()
   const [currentBranch] = useCurrentBranch()
   const { data: { accounts } = {} } = useAccountsQuery({
     variables: {
@@ -194,6 +203,21 @@ export const AddJournalForm: React.FC = () => {
     })
   }
 
+  const entries = watch('entries')
+
+  const totalDebit = entries.reduce(
+    (acc, cur) => acc + Number(removeFormatting(cur.debit)),
+    0,
+  )
+  const totalCredit = entries.reduce(
+    (acc, cur) => acc + Number(removeFormatting(cur.credit)),
+    0,
+  )
+
+  const status = entries.some((entry) => entry.status === EntryStatus.PENDING)
+    ? EntryStatus.PENDING
+    : EntryStatus.COMPLETED
+
   useEffect(() => {
     if (currentBranch) {
       setValue('tags', [])
@@ -257,6 +281,7 @@ export const AddJournalForm: React.FC = () => {
                       )?.name ?? '',
                   }}
                   active={index === activeEntry}
+                  error={context.formState.errors.entries?.at?.(index) != null}
                   onSelect={handleOnEntrySelect(index)}
                   onRemove={handleOnEntryRemove(index)}
                 />
@@ -270,6 +295,28 @@ export const AddJournalForm: React.FC = () => {
             </ButtonCore>
           </div>
           <AddJournalEntry index={activeEntry} key={activeEntry} />
+        </div>
+        <div className="text-gray flex flex-col text-[0.625rem] leading-4">
+          <span>
+            {t('addJournal.totalDebit', {
+              debit: format(totalDebit.toString()),
+            })}
+          </span>
+          <span>
+            {t('addJournal.totalCredit', {
+              credit: format(totalCredit.toString()),
+            })}
+          </span>
+          <span>
+            {t('addJournal.diff', {
+              diff: format((totalDebit - totalCredit).toString()),
+            })}
+          </span>
+          <span>
+            {t('addJournal.status', {
+              status: t(`entryStatus.${status}`),
+            })}
+          </span>
         </div>
         <Form.Submit
           className="mt-8 w-full"

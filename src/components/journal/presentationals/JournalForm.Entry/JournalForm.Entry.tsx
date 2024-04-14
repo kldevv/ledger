@@ -14,6 +14,10 @@ export interface JournalFormEntryProps {
    */
   active: boolean
   /**
+   * Is error
+   */
+  error: boolean
+  /**
    * On select
    */
   onSelect: () => void
@@ -54,6 +58,7 @@ export const JournalFormEntry: React.FC<JournalFormEntryProps> = ({
   onSelect,
   entry,
   active,
+  error,
 }) => {
   const { t } = useTranslation('journal')
   const { format } = useMoneyFormat()
@@ -67,13 +72,13 @@ export const JournalFormEntry: React.FC<JournalFormEntryProps> = ({
         <span
           className={classNames(
             'min-w-5 text-left',
-            active ? 'text-dark-shades' : 'text-gray',
+            error ? 'text-dark-red' : active ? 'text-dark-shades' : 'text-gray',
             {
               'font-semibold': active,
             },
           )}
         >
-          {index}
+          {error ? t`entry.error` : index}
         </span>
         <div className="flex max-w-full flex-col items-start">
           <div className={'flex min-h-4 max-w-full items-start truncate'}>
