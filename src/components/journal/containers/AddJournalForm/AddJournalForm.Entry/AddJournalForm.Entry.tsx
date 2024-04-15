@@ -12,18 +12,20 @@ import {
 import type { AddJournalFormValues } from '../AddJournalForm'
 import type { EntryStatus } from '@prisma/client'
 
-export interface AddJournalEntryProps {
+export interface AddJournalFormEntryProps {
   /**
    * Entry index
    */
   index: number
 }
 
-export const AddJournalEntry: React.FC<AddJournalEntryProps> = ({ index }) => {
+export const AddJournalFormEntry: React.FC<AddJournalFormEntryProps> = ({
+  index,
+}) => {
   const { t } = useTranslation('journal')
   const [currentBranch] = useCurrentBranch()
   const { setValue } = useFormContext<AddJournalFormValues>()
-  const accountDropdown = useAccountDropdown()
+  const accountDropdown = useAccountDropdown(currentBranch?.id ?? null)
   const entryStatusDropdown = useEntryStatusDropdown()
 
   useEffect(() => {

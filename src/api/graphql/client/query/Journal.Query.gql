@@ -12,7 +12,6 @@ query Journal($input: JournalInput!) {
       id
       name
     }
-    count
     currency
   }
 }

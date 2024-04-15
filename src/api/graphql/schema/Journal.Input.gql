@@ -19,7 +19,27 @@ input AddJournalInput {
 }
 
 input AddJournalEntryInput {
-  memo: String
+  memo: String!
+  transactionDate: DateTime!
+  debit: Float!
+  credit: Float!
+  status: EntryStatus!
+  accountId: String!
+}
+
+input UpdateJournalInput {
+  id: String!
+  branchId: String!
+  note: String!
+  accrualDate: DateTime!
+  tags: [String!]!
+  links: [String!]!
+  entries: [UpdateJournalEntryInput!]!
+}
+
+input UpdateJournalEntryInput {
+  id: String
+  memo: String!
   transactionDate: DateTime!
   debit: Float!
   credit: Float!

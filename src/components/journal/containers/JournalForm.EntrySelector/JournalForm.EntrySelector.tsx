@@ -29,7 +29,7 @@ export interface JournalFormEntrySelectorProps {
 export const JournalFormEntrySelector: React.FC<
   JournalFormEntrySelectorProps
 > = ({ defaultValue, setActiveEntry, activeEntry }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('journal')
   const { fields, append, remove } = useFieldArray<JournalFormaValues>({
     name: 'entries',
     shouldUnregister: false,
@@ -60,7 +60,7 @@ export const JournalFormEntrySelector: React.FC<
           key={id}
           index={index}
           onSelect={handleOnSelect(index)}
-          onRemove={index > 1 ? handleOnRemove(index) : undefined}
+          onRemove={fields.length > 2 ? handleOnRemove(index) : undefined}
           active={activeEntry === index}
         />
       ))}

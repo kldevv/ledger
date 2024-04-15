@@ -120,7 +120,7 @@ export type AddJournalEntryInput = {
   accountId: Scalars['String']['input'];
   credit: Scalars['Float']['input'];
   debit: Scalars['Float']['input'];
-  memo?: InputMaybe<Scalars['String']['input']>;
+  memo: Scalars['String']['input'];
   status: EntryStatus;
   transactionDate: Scalars['DateTime']['input'];
 };
@@ -337,6 +337,7 @@ export type Mutation = {
   updateAccount: Account;
   updateAccountGroup: AccountGroup;
   updateBranch: Branch;
+  updateJournal: Journal;
   updateLink: Link;
   updateTag: Tag;
   updateTransaction: Transaction;
@@ -390,6 +391,11 @@ export type MutationUpdateAccountGroupArgs = {
 
 export type MutationUpdateBranchArgs = {
   input: UpdateBranchInput;
+};
+
+
+export type MutationUpdateJournalArgs = {
+  input: UpdateJournalInput;
 };
 
 
@@ -615,6 +621,26 @@ export type UpdateBranchInput = {
   name: Scalars['String']['input'];
 };
 
+export type UpdateJournalEntryInput = {
+  accountId: Scalars['String']['input'];
+  credit: Scalars['Float']['input'];
+  debit: Scalars['Float']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  memo: Scalars['String']['input'];
+  status: EntryStatus;
+  transactionDate: Scalars['DateTime']['input'];
+};
+
+export type UpdateJournalInput = {
+  accrualDate: Scalars['DateTime']['input'];
+  branchId: Scalars['String']['input'];
+  entries: Array<UpdateJournalEntryInput>;
+  id: Scalars['String']['input'];
+  links: Array<Scalars['String']['input']>;
+  note: Scalars['String']['input'];
+  tags: Array<Scalars['String']['input']>;
+};
+
 export type UpdateLinkInput = {
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -770,6 +796,8 @@ export type ResolversTypes = {
   UpdateAccountGroupInput: UpdateAccountGroupInput;
   UpdateAccountInput: UpdateAccountInput;
   UpdateBranchInput: UpdateBranchInput;
+  UpdateJournalEntryInput: UpdateJournalEntryInput;
+  UpdateJournalInput: UpdateJournalInput;
   UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
@@ -831,6 +859,8 @@ export type ResolversParentTypes = {
   UpdateAccountGroupInput: UpdateAccountGroupInput;
   UpdateAccountInput: UpdateAccountInput;
   UpdateBranchInput: UpdateBranchInput;
+  UpdateJournalEntryInput: UpdateJournalEntryInput;
+  UpdateJournalInput: UpdateJournalInput;
   UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
   UpdateTransactionInput: UpdateTransactionInput;
@@ -977,6 +1007,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   updateAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
   updateAccountGroup?: Resolver<ResolversTypes['AccountGroup'], ParentType, ContextType, RequireFields<MutationUpdateAccountGroupArgs, 'input'>>;
   updateBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationUpdateBranchArgs, 'input'>>;
+  updateJournal?: Resolver<ResolversTypes['Journal'], ParentType, ContextType, RequireFields<MutationUpdateJournalArgs, 'input'>>;
   updateLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationUpdateLinkArgs, 'input'>>;
   updateTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationUpdateTagArgs, 'input'>>;
   updateTransaction?: Resolver<ResolversTypes['Transaction'], ParentType, ContextType, RequireFields<MutationUpdateTransactionArgs, 'input'>>;
@@ -1065,7 +1096,7 @@ export type AccountGroupDataFragment = { __typename?: 'AccountGroup', id: string
 
 export type BranchDataFragment = { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null };
 
-export type EntryDataFragment = { __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } };
+export type EntryDataFragment = { __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, memo: string, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } };
 
 export type JournalDataFragment = { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date };
 
@@ -1137,6 +1168,13 @@ export type UpdateBranchMutationVariables = Exact<{
 
 
 export type UpdateBranchMutation = { __typename?: 'Mutation', updateBranch: { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
+
+export type UpdateJournalMutationVariables = Exact<{
+  input: UpdateJournalInput;
+}>;
+
+
+export type UpdateJournalMutation = { __typename?: 'Mutation', updateJournal: { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date } };
 
 export type UpdateLinkMutationVariables = Exact<{
   input: UpdateLinkInput;
@@ -1213,21 +1251,21 @@ export type EntriesQueryVariables = Exact<{
 }>;
 
 
-export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
+export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, memo: string, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
 
 export type EntryQueryVariables = Exact<{
   input: EntryInput;
 }>;
 
 
-export type EntryQuery = { __typename?: 'Query', entry: { __typename?: 'Entry', memo: string, updatedAt: Date, deletedAt?: Date | null, branchId: string, currency: Currency, id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, journal: { __typename?: 'EntryJournalInfo', accrualDate: Date, id: string, note: string }, account: { __typename?: 'EntryAccountInfo', id: string, name: string } } };
+export type EntryQuery = { __typename?: 'Query', entry: { __typename?: 'Entry', updatedAt: Date, deletedAt?: Date | null, branchId: string, currency: Currency, id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, memo: string, journal: { __typename?: 'EntryJournalInfo', accrualDate: Date, id: string, note: string }, account: { __typename?: 'EntryAccountInfo', id: string, name: string } } };
 
 export type JournalQueryVariables = Exact<{
   input: JournalInput;
 }>;
 
 
-export type JournalQuery = { __typename?: 'Query', journal: { __typename?: 'Journal', branchId: string, updatedAt?: Date | null, deletedAt?: Date | null, count: number, currency: Currency, id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date, links?: Array<{ __typename?: 'JournalLink', id: string, name: string }> | null, tags?: Array<{ __typename?: 'JournalTag', id: string, name: string }> | null } };
+export type JournalQuery = { __typename?: 'Query', journal: { __typename?: 'Journal', branchId: string, updatedAt?: Date | null, deletedAt?: Date | null, currency: Currency, id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date, links?: Array<{ __typename?: 'JournalLink', id: string, name: string }> | null, tags?: Array<{ __typename?: 'JournalTag', id: string, name: string }> | null } };
 
 export type JournalsQueryVariables = Exact<{
   input: JournalsInput;
@@ -1291,7 +1329,7 @@ export type TransactionDetailsQueryVariables = Exact<{
 }>;
 
 
-export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
+export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, memo: string, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
 
 export type TransactionsQueryVariables = Exact<{
   input: TransactionsInput;
@@ -1348,6 +1386,7 @@ export const EntryDataFragmentDoc = gql`
   }
   status
   createdAt
+  memo
 }
     `;
 export const JournalDataFragmentDoc = gql`
@@ -1689,6 +1728,39 @@ export function useUpdateBranchMutation(baseOptions?: Apollo.MutationHookOptions
 export type UpdateBranchMutationHookResult = ReturnType<typeof useUpdateBranchMutation>;
 export type UpdateBranchMutationResult = Apollo.MutationResult<UpdateBranchMutation>;
 export type UpdateBranchMutationOptions = Apollo.BaseMutationOptions<UpdateBranchMutation, UpdateBranchMutationVariables>;
+export const UpdateJournalDocument = gql`
+    mutation UpdateJournal($input: UpdateJournalInput!) {
+  updateJournal(input: $input) {
+    ...JournalData
+  }
+}
+    ${JournalDataFragmentDoc}`;
+export type UpdateJournalMutationFn = Apollo.MutationFunction<UpdateJournalMutation, UpdateJournalMutationVariables>;
+
+/**
+ * __useUpdateJournalMutation__
+ *
+ * To run a mutation, you first call `useUpdateJournalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateJournalMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateJournalMutation, { data, loading, error }] = useUpdateJournalMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateJournalMutation(baseOptions?: Apollo.MutationHookOptions<UpdateJournalMutation, UpdateJournalMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateJournalMutation, UpdateJournalMutationVariables>(UpdateJournalDocument, options);
+      }
+export type UpdateJournalMutationHookResult = ReturnType<typeof useUpdateJournalMutation>;
+export type UpdateJournalMutationResult = Apollo.MutationResult<UpdateJournalMutation>;
+export type UpdateJournalMutationOptions = Apollo.BaseMutationOptions<UpdateJournalMutation, UpdateJournalMutationVariables>;
 export const UpdateLinkDocument = gql`
     mutation UpdateLink($input: UpdateLinkInput!) {
   updateLink(input: $input) {
@@ -2111,7 +2183,6 @@ export const EntryDocument = gql`
     query Entry($input: EntryInput!) {
   entry(input: $input) {
     ...EntryData
-    memo
     updatedAt
     deletedAt
     journal {
@@ -2170,7 +2241,6 @@ export const JournalDocument = gql`
       id
       name
     }
-    count
     currency
   }
 }

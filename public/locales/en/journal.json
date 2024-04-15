@@ -1,48 +1,4 @@
 {
-  "TransactionTable": {
-    "header": {
-      "note": "Note",
-      "date": "Date",
-      "amount": "Amount",
-      "status": "Status",
-      "createdAt": "Create Date"
-    },
-    "link": {
-      "view": "View"
-    }
-  },
-  "TransactionDescriptionList": {
-    "title": {
-      "id": "ID",
-      "accrualDate": "Accrual Date",
-      "note": "Note",
-      "status": "Status",
-      "tags": "Tags",
-      "entryCount": "Number of Entries",
-      "createdAt": "Create Date",
-      "updatedAt": "Update Date"
-    }
-  },
-  "TransactionDetails": {
-    "title": {
-      "entries": "Transaction Entries"
-    }
-  },
-  "AddTransactionForm": {
-    "submit": "Add Transaction",
-    "success": "Your transaction is successfully added"
-  },
-  "UpdateTransactionForm": {
-    "submit": "Update Transaction",
-    "success": "Your transaction is successfully updated"
-  },
-  "TransactionForm": {
-    "label": {
-      "accrualDate": "Accrual Date",
-      "note": "Note",
-      "tags": "Tags"
-    }
-  },
   "journalsTable": {
     "col": {
       "note": "Note",
@@ -80,8 +36,6 @@
       "links": "Links",
       "entries": {
         "title": "Entries",
-        "remove": "Remove",
-        "index": "Index",
         "debit": "Debit",
         "credit": "Credit",
         "accountId": "Account",
@@ -96,7 +50,6 @@
       "tags": "Select tags (Optional)",
       "links": "Select links (Optional)",
       "entries": {
-        "index": "Index",
         "debit": "Enter debit amount",
         "credit": "Enter credit amount",
         "accountId": "Select account",
@@ -106,6 +59,43 @@
       }
     },
     "submit": "Add New Journal"
+  },
+  "editJournal": {
+    "toast": "You have successfully updated the journal \"<b>{{ note }}</b>\".",
+    "label": {
+      "id": "ID",
+      "note": "Note",
+      "status": "Status",
+      "accrualDate": "Accrual Date",
+      "branchId": "Branch ID",
+      "tags": "Tags",
+      "links": "Links",
+      "entries": {
+        "id": "ID",
+        "title": "Entries",
+        "debit": "Debit",
+        "credit": "Credit",
+        "accountId": "Account",
+        "transactionDate": "Transaction Date",
+        "status": "Status",
+        "memo": "Memo"
+      }
+    },
+    "placeholder": {
+      "accrualDate": "Enter accrual date",
+      "note": "Enter note",
+      "tags": "Select tags (Optional)",
+      "links": "Select links (Optional)",
+      "entries": {
+        "debit": "Enter debit amount",
+        "credit": "Enter credit amount",
+        "accountId": "Select account",
+        "memo": "Enter memo (Optional)",
+        "transactionDate": "Enter transaction date",
+        "status": "Select entry status"
+      }
+    },
+    "submit": "Update Journal"
   },
   "entry": {
     "credit": "C",

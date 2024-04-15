@@ -25,4 +25,5 @@ type Mutation {
 
   # Journal
   addJournal(input: AddJournalInput!): Journal!
+  updateJournal(input: UpdateJournalInput!): Journal!
 }

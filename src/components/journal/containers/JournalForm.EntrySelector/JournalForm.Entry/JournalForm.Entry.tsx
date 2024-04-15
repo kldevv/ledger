@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 import { useAccountsQuery } from '@/api/graphql'
-import { useCurrentBranch, useMoneyFormat } from '@/components/core/hooks'
+import { useMoneyFormat } from '@/components/core/hooks'
 import { ButtonCore, Icon } from '@/components/core/presentationals'
 
 export interface JournalFormEntryProps {
@@ -27,6 +27,10 @@ export interface JournalFormEntryProps {
 }
 
 export interface JournalFormaValues {
+  /**
+   * Branch id
+   */
+  branchId: string
   /**
    * Journal entries
    */
@@ -65,16 +69,17 @@ export const JournalFormEntry: React.FC<JournalFormEntryProps> = ({
     formState: { errors },
   } = useFormContext<JournalFormaValues>()
   const { t } = useTranslation('journal')
-  const [currentBranch] = useCurrentBranch()
   const { format } = useMoneyFormat()
+
+  const branchId = watch('branchId')
 
   const { data: { accounts } = {} } = useAccountsQuery({
     variables: {
       input: {
-        branchId: currentBranch?.id ?? '',
+        branchId,
       },
     },
-    skip: currentBranch == null,
+    skip: branchId == null,
   })
 
   const entry = watch(`entries.${index}`)

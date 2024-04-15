@@ -32,11 +32,11 @@ export const JournalFormEntrySummary: React.FC = () => {
   const entries = watch('entries')
 
   const totalDebit = entries.reduce(
-    (acc, cur) => acc + Number(removeFormatting(cur.debit)),
+    (acc, cur) => acc + Number(removeFormatting(cur.debit ?? '0.00')),
     0,
   )
   const totalCredit = entries.reduce(
-    (acc, cur) => acc + Number(removeFormatting(cur.credit)),
+    (acc, cur) => acc + Number(removeFormatting(cur.credit ?? '0.00')),
     0,
   )
 

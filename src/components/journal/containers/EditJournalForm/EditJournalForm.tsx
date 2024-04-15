@@ -1,9 +1,15 @@
 import { EntryStatus } from '@prisma/client'
+import { useRouter } from 'next/router'
 import { Trans, useTranslation } from 'next-i18next'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { z } from 'zod'
 
-import { JournalsDocument, useAddJournalMutation } from '@/api/graphql'
+import {
+  JournalDocument,
+  useEntriesQuery,
+  useJournalQuery,
+  useUpdateJournalMutation,
+} from '@/api/graphql'
 import { Form } from '@/components/core/containers'
 import {
   useCurrentBranch,
@@ -25,9 +31,13 @@ import { useTagsMultiSelect, useLinksMultiSelect } from '../../hooks'
 import { JournalFormEntrySelector } from '../JournalForm.EntrySelector/JournalForm.EntrySelector'
 import { JournalFormEntrySummary } from '../JournalForm.EntrySummary/JournalForm.EntrySummary'
 
-import { AddJournalFormEntry } from './AddJournalForm.Entry/AddJournalForm.Entry'
+import { EditJournalFormEntry } from './EditJournalForm.Entry/EditJournalForm.Entry'
 
 const schema = z.object({
+  /**
+   * Journal id
+   */
+  id: z.string(),
   /**
    * Accrual date
    */
@@ -49,10 +59,22 @@ const schema = z.object({
    */
   links: z.string().array(),
   /**
+   * Journal updated at
+   */
+  updatedAt: z.string(),
+  /**
+   * Journal created at
+   */
+  createdAt: z.string(),
+  /**
    * Journal entries
    */
   entries: z
     .object({
+      /**
+       * Entry id
+       */
+      id: z.string().optional(),
       /**
        * Transaction date
        */
@@ -81,9 +103,9 @@ const schema = z.object({
     .array(),
 })
 
-export type AddJournalFormValues = z.infer<typeof schema>
+export type EditJournalFormValues = z.infer<typeof schema>
 
-const defaultEntryValue: AddJournalFormValues['entries'][number] = {
+const defaultEntryValue: EditJournalFormValues['entries'][number] = {
   transactionDate: formatDate(new Date()),
   memo: '',
   debit: '0.00',
@@ -92,15 +114,40 @@ const defaultEntryValue: AddJournalFormValues['entries'][number] = {
   status: EntryStatus.COMPLETED,
 }
 
-export const AddJournalForm: React.FC = () => {
+export const EditJournalForm: React.FC = () => {
   const { t } = useTranslation('journal')
-  const [currentBranch] = useCurrentBranch()
+  const {
+    query: { id: _id },
+  } = useRouter()
+  const id = Array.isArray(_id) ? _id.at(0) : _id
   const toast = useToaster()
-  const tagsMultiSelect = useTagsMultiSelect(currentBranch?.id ?? null)
   const linksMultiSelect = useLinksMultiSelect()
-  const { removeFormatting } = useMoneyFormat()
+  const { format, removeFormatting } = useMoneyFormat()
   const [activeEntry, setActiveEntry] = useState(0)
-  const { setValue, ...context } = useForm<AddJournalFormValues>({
+
+  const { data: { journal } = {}, loading: journalQueryLoading } =
+    useJournalQuery({
+      variables: {
+        input: {
+          id: id ?? '',
+        },
+      },
+      skip: id == null,
+    })
+
+  const { data: { entries } = {}, loading: entriesQueryLoading } =
+    useEntriesQuery({
+      variables: {
+        input: {
+          journalId: id ?? '',
+        },
+      },
+      skip: id == null,
+    })
+
+  const tagsMultiSelect = useTagsMultiSelect(journal?.branchId ?? null)
+
+  const context = useForm<EditJournalFormValues>({
     schema: schema.superRefine(({ entries }, ctx) => {
       const addIssues = (message: string, index: number) => {
         ctx.addIssue({
@@ -141,32 +188,43 @@ export const AddJournalForm: React.FC = () => {
       }
     }),
     shouldUnregister: false,
-    defaultValues: {
-      accrualDate: formatDate(new Date()),
-      note: '',
-      branchId: '',
-      tags: [],
-      links: [],
-      entries: [defaultEntryValue, defaultEntryValue],
-    },
+    values:
+      journal != null && entries != null
+        ? {
+            ...journal,
+            tags: journal.tags?.map(({ id }) => id) ?? [],
+            links: journal.links?.map(({ id }) => id) ?? [],
+            accrualDate: formatDate(journal.accrualDate),
+            updatedAt: formatDate(journal.updatedAt),
+            createdAt: formatDate(journal.createdAt),
+            entries:
+              entries.map((entry) => ({
+                ...entry,
+                accountId: entry.account.id,
+                transactionDate: formatDate(entry.transactionDate),
+                debit: format(entry.debit.toString()) ?? '',
+                credit: format(entry.credit.toString()) ?? '',
+              })) ?? [],
+          }
+        : undefined,
   })
 
-  const [addJournal, { loading }] = useAddJournalMutation({
-    onCompleted: ({ addJournal }) =>
+  const [editJournal, { loading }] = useUpdateJournalMutation({
+    onCompleted: ({ updateJournal }) =>
       toast(() => (
         <Trans
-          i18nKey={'journal:addJournal.toast'}
+          i18nKey={'journal:editJournal.toast'}
           components={{
             b: <b />,
           }}
-          values={addJournal}
+          values={updateJournal}
         />
       )),
     refetchQueries: [
       {
-        query: JournalsDocument,
+        query: JournalDocument,
         variables: {
-          input: { branchId: currentBranch?.id },
+          input: { id },
         },
       },
     ],
@@ -176,8 +234,8 @@ export const AddJournalForm: React.FC = () => {
     accrualDate,
     entries,
     ...rest
-  }: AddJournalFormValues) => {
-    void addJournal({
+  }: EditJournalFormValues) => {
+    void editJournal({
       variables: {
         input: {
           accrualDate: new Date(accrualDate),
@@ -195,65 +253,60 @@ export const AddJournalForm: React.FC = () => {
     })
   }
 
-  useEffect(() => {
-    if (currentBranch) {
-      setValue('tags', [])
-      setValue('links', [])
-      setValue('branchId', currentBranch?.id)
-    }
-  }, [setValue, currentBranch, context.formState.isSubmitSuccessful])
-
   return (
-    <Form
-      context={{ setValue, ...context }}
-      onSubmit={handleSubmit}
-      className="w-[45rem]"
-    >
-      <Card className="w-full" loading={currentBranch == null}>
+    <Form context={context} onSubmit={handleSubmit} className="w-[45rem]">
+      <Card
+        className="w-full"
+        loading={journalQueryLoading || entriesQueryLoading}
+      >
         <div className="flex flex-col gap-y-2">
-          <Form.Date<AddJournalFormValues>
-            label={t`addJournal.label.accrualDate`}
+          <Form.Static<EditJournalFormValues>
+            label={t`editJournal.label.id`}
+            name="id"
+          />
+          <Form.Date<EditJournalFormValues>
+            label={t`editJournal.label.accrualDate`}
             name="accrualDate"
-            placeholder={t`addJournal.placeholder.accrualDate`}
+            placeholder={t`editJournal.placeholder.accrualDate`}
           />
-          <Form.Input<AddJournalFormValues>
-            label={t`addJournal.label.note`}
+          <Form.Input<EditJournalFormValues>
+            label={t`editJournal.label.note`}
             name="note"
-            placeholder={t`addJournal.placeholder.note`}
+            placeholder={t`editJournal.placeholder.note`}
           />
-          <Form.MultiSelect<AddJournalFormValues, string>
-            label={t`addJournal.label.tags`}
+          <Form.MultiSelect<EditJournalFormValues, string>
+            label={t`editJournal.label.tags`}
             name="tags"
-            placeholder={t`addJournal.placeholder.tags`}
+            placeholder={t`editJournal.placeholder.tags`}
             {...tagsMultiSelect}
           />
-          <Form.MultiSelect<AddJournalFormValues, string>
-            label={t`addJournal.label.links`}
+          <Form.MultiSelect<EditJournalFormValues, string>
+            label={t`editJournal.label.links`}
             name="links"
-            placeholder={t`addJournal.placeholder.links`}
+            placeholder={t`editJournal.placeholder.links`}
             {...linksMultiSelect}
           />
-          <Form.Static<AddJournalFormValues>
-            label={t`addJournal.label.branchId`}
+          <Form.Static<EditJournalFormValues>
+            label={t`editJournal.label.branchId`}
             name="branchId"
           />
         </div>
         <div className="border-b-mid-gray mt-14 border-b">
-          <h4 className="text-gray mt-6 text-[0.625rem] font-medium">{t`addJournal.label.entries.title`}</h4>
+          <h4 className="text-gray mt-6 text-[0.625rem] font-medium">{t`editJournal.label.entries.title`}</h4>
         </div>
-        <div className="border-mid-gray flex h-96 gap-x-2 border-b">
+        <div className="border-mid-gray flex h-[28rem] gap-x-2 border-b">
           <JournalFormEntrySelector
             defaultValue={defaultEntryValue}
             activeEntry={activeEntry}
             setActiveEntry={setActiveEntry}
           />
-          <AddJournalFormEntry index={activeEntry} key={activeEntry} />
+          <EditJournalFormEntry index={activeEntry} key={activeEntry} />
         </div>
         <JournalFormEntrySummary />
         <Form.Submit
           className="mt-8 w-full"
           loading={loading}
-        >{t`addJournal.submit`}</Form.Submit>
+        >{t`editJournal.submit`}</Form.Submit>
       </Card>
     </Form>
   )

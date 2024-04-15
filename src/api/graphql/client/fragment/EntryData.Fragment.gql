@@ -13,4 +13,5 @@ fragment EntryData on Entry {
   }
   status
   createdAt
+  memo
 }

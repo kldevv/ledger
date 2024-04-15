@@ -1,17 +1,15 @@
 import { useMemo } from 'react'
 
 import { useAccountsQuery } from '@/api/graphql'
-import { useCurrentBranch } from '@/components/core/hooks'
 
-export const useAccountDropdown = () => {
-  const [currentBranch] = useCurrentBranch()
+export const useAccountDropdown = (branchId: string | null) => {
   const { data: { accounts } = {}, loading } = useAccountsQuery({
     variables: {
       input: {
-        branchId: currentBranch?.id ?? '',
+        branchId: branchId,
       },
     },
-    skip: currentBranch == null,
+    skip: branchId == null,
   })
 
   return useMemo(
