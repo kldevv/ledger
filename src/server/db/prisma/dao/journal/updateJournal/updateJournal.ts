@@ -33,7 +33,7 @@ export type UpdateJournallEntry = {
   /**
    * Id
    */
-  id?: string
+  id?: string | null
   /**
    * Memo
    */
@@ -61,7 +61,7 @@ export type UpdateJournallEntry = {
   /**
    * Created at
    */
-  createdAt?: Date
+  createdAt?: Date | null
 }
 
 export const updateJournal = async ({
@@ -86,6 +86,7 @@ export const updateJournal = async ({
         connect: links.map((id) => ({ id })),
       },
       entries: {
+        deleteMany: {},
         createMany: {
           data: entries.map(
             ({
@@ -103,11 +104,36 @@ export const updateJournal = async ({
               amount,
               accountId,
               status,
-              createdAt,
-              id,
+              createdAt: createdAt ?? undefined,
+              id: id ?? undefined,
               treasuryBookId: branchId,
             }),
           ),
+        },
+      },
+    },
+    include: {
+      tags: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      links: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      entries: {
+        select: {
+          amount: true,
+          status: true,
+        },
+      },
+      treasuryBook: {
+        select: {
+          currency: true,
         },
       },
     },

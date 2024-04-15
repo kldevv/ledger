@@ -13,8 +13,8 @@ import { useForm } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
-import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 import { nameSchema } from '@/shared/zod/schemas'
+import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 
 import { useCurrencyDropdown } from '../../hooks'
 
@@ -59,27 +59,9 @@ export const EditBranchForm: React.FC = () => {
     },
     skip: id == null,
   })
-  const [updateBranch, { loading }] = useUpdateBranchMutation({
-    onCompleted: ({ updateBranch }) =>
-      toast(() => (
-        <Trans
-          i18nKey={'branch:editBranch.toast'}
-          components={{
-            b: <b />,
-          }}
-          values={{ name: updateBranch.name }}
-        />
-      )),
-    refetchQueries: [
-      {
-        query: BranchesDocument,
-        variables: {
-          input: { userId: '81087108-3748-446a-b033-a85d7c9ace7b' },
-        },
-      },
-    ],
-  })
+
   const context = useForm<EditBranchFormValues>({
+    disableReset: true,
     schema,
     values: {
       id: branch?.id ?? '',
@@ -88,6 +70,29 @@ export const EditBranchForm: React.FC = () => {
       createdAt: formatDate(branch?.createdAt),
       updatedAt: formatDate(branch?.updatedAt),
     },
+  })
+
+  const [updateBranch, { loading }] = useUpdateBranchMutation({
+    onCompleted: ({ updateBranch }) => {
+      context.reset()
+      toast(() => (
+        <Trans
+          i18nKey={'branch:editBranch.toast'}
+          components={{
+            b: <b />,
+          }}
+          values={{ name: updateBranch.name }}
+        />
+      ))
+    },
+    refetchQueries: [
+      {
+        query: BranchesDocument,
+        variables: {
+          input: { userId: '81087108-3748-446a-b033-a85d7c9ace7b' },
+        },
+      },
+    ],
   })
 
   const handleSubmit = ({ id, name, currency }: EditBranchFormValues) => {

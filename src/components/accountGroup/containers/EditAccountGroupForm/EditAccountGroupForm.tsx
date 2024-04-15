@@ -13,8 +13,8 @@ import { useForm } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
-import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 import { nameSchema } from '@/shared/zod/schemas'
+import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 
 import { useAccountingTypeDropdown } from '../../hooks'
 
@@ -66,6 +66,7 @@ export const EditAccountGroupForm: React.FC = () => {
     })
 
   const context = useForm<EditAccountGroupFormValues>({
+    disableReset: true,
     schema,
     values: {
       id: accountGroup?.id ?? '',
@@ -78,7 +79,8 @@ export const EditAccountGroupForm: React.FC = () => {
   })
 
   const [updateAccountGroup, { loading }] = useUpdateAccountGroupMutation({
-    onCompleted: ({ updateAccountGroup }) =>
+    onCompleted: ({ updateAccountGroup }) => {
+      context.reset()
       toast(() => (
         <Trans
           i18nKey={'accountGroup:editAccountGroup.toast'}
@@ -87,7 +89,8 @@ export const EditAccountGroupForm: React.FC = () => {
           }}
           values={{ name: updateAccountGroup.name }}
         />
-      )),
+      ))
+    },
     refetchQueries: [
       {
         query: AccountGroupDocument,

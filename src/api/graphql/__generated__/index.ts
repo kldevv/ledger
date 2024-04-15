@@ -634,6 +634,7 @@ export type UpdateJournalEntryInput = {
 
 export type UpdateJournalInput = {
   accrualDate: Scalars['DateTime']['input'];
+  branchId: Scalars['String']['input'];
   entries: Array<UpdateJournalEntryInput>;
   id: Scalars['String']['input'];
   links: Array<Scalars['String']['input']>;

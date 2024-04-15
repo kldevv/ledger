@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { z } from 'zod'
 
 import {
+  EntriesDocument,
   JournalDocument,
   useEntriesQuery,
   useJournalQuery,
@@ -152,6 +153,7 @@ export const EditJournalForm: React.FC = () => {
   const tagsMultiSelect = useTagsMultiSelect(journal?.branchId ?? null)
 
   const context = useForm<EditJournalFormValues>({
+    disableReset: true,
     schema: schema.superRefine(({ entries }, ctx) => {
       const addIssues = (message: string, index: number) => {
         ctx.addIssue({
@@ -218,7 +220,8 @@ export const EditJournalForm: React.FC = () => {
   })
 
   const [editJournal, { loading }] = useUpdateJournalMutation({
-    onCompleted: ({ updateJournal }) =>
+    onCompleted: ({ updateJournal }) => {
+      context.reset()
       toast(() => (
         <Trans
           i18nKey={'journal:editJournal.toast'}
@@ -227,12 +230,21 @@ export const EditJournalForm: React.FC = () => {
           }}
           values={updateJournal}
         />
-      )),
+      ))
+    },
     refetchQueries: [
       {
         query: JournalDocument,
         variables: {
           input: { id },
+        },
+      },
+      {
+        query: EntriesDocument,
+        variables: {
+          input: {
+            journalId: id,
+          },
         },
       },
     ],
@@ -245,6 +257,7 @@ export const EditJournalForm: React.FC = () => {
     note,
     links,
     tags,
+    branchId,
   }: EditJournalFormValues) => {
     void editJournal({
       variables: {
@@ -253,6 +266,7 @@ export const EditJournalForm: React.FC = () => {
           note,
           links,
           tags,
+          branchId,
           accrualDate: new Date(accrualDate),
           entries: entries.map(
             ({

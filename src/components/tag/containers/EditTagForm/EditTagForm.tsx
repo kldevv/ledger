@@ -13,8 +13,8 @@ import { useForm } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
-import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 import { nameSchema } from '@/shared/zod/schemas'
+import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 
 import { useTagTypeDropdown } from '../../hooks'
 
@@ -65,6 +65,7 @@ export const EditTagForm: React.FC = () => {
   })
 
   const context = useForm<EditTagFormValues>({
+    disableReset: true,
     schema,
     values: {
       id: tag?.id ?? '',
@@ -77,7 +78,8 @@ export const EditTagForm: React.FC = () => {
   })
 
   const [updateTag, { loading }] = useUpdateTagMutation({
-    onCompleted: ({ updateTag }) =>
+    onCompleted: ({ updateTag }) => {
+      context.reset()
       toast(() => (
         <Trans
           i18nKey={'tag:editTag.toast'}
@@ -86,7 +88,8 @@ export const EditTagForm: React.FC = () => {
           }}
           values={{ name: updateTag.name }}
         />
-      )),
+      ))
+    },
     refetchQueries: [
       {
         query: TagDocument,

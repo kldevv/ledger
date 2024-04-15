@@ -63,6 +63,7 @@ export const EditAccountForm: React.FC = () => {
   })
 
   const context = useForm<EditAccountFormValues>({
+    disableReset: true,
     schema,
     values: {
       id: account?.id ?? '',
@@ -75,7 +76,9 @@ export const EditAccountForm: React.FC = () => {
   })
 
   const [updateAccount, { loading }] = useUpdateAccountMutation({
-    onCompleted: ({ updateAccount }) =>
+    onCompleted: ({ updateAccount }) => {
+      context.reset()
+
       toast(() => (
         <Trans
           i18nKey={'account:editAccount.toast'}
@@ -84,7 +87,8 @@ export const EditAccountForm: React.FC = () => {
           }}
           values={{ name: updateAccount.name }}
         />
-      )),
+      ))
+    },
     refetchQueries: [
       {
         query: AccountDocument,

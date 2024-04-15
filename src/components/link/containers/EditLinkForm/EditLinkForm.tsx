@@ -13,8 +13,8 @@ import { useForm } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
-import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 import { nameSchema } from '@/shared/zod/schemas'
+import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 
 import { useLinkTypeDropdown } from '../../hooks'
 
@@ -61,6 +61,7 @@ export const EditLinkForm: React.FC = () => {
   })
 
   const context = useForm<EditLinkFormValues>({
+    disableReset: true,
     schema,
     values: {
       id: link?.id ?? '',
@@ -72,7 +73,8 @@ export const EditLinkForm: React.FC = () => {
   })
 
   const [updateLink, { loading }] = useUpdateLinkMutation({
-    onCompleted: ({ updateLink }) =>
+    onCompleted: ({ updateLink }) => {
+      context.reset()
       toast(() => (
         <Trans
           i18nKey={'link:editLink.toast'}
@@ -81,7 +83,8 @@ export const EditLinkForm: React.FC = () => {
           }}
           values={{ name: updateLink.name }}
         />
-      )),
+      ))
+    },
     refetchQueries: [
       {
         query: LinkDocument,
