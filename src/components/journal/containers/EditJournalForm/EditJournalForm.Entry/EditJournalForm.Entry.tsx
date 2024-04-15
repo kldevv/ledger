@@ -65,6 +65,14 @@ export const EditJournalFormEntry: React.FC<EditJournalFormEntryProps> = ({
         name={`entries.${index}.status` as const}
         placeholder={t`editJournal.placeholder.entries.status`}
       />
+      <Form.Static<EditJournalFormValues>
+        label={t`editJournal.label.entries.createdAt`}
+        name={`entries.${index}.createdAt` as const}
+      />
+      <Form.Static<EditJournalFormValues>
+        label={t`editJournal.label.entries.updatedAt`}
+        name={`entries.${index}.updatedAt` as const}
+      />
     </div>
   )
 }

@@ -623,6 +623,7 @@ export type UpdateBranchInput = {
 
 export type UpdateJournalEntryInput = {
   accountId: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   credit: Scalars['Float']['input'];
   debit: Scalars['Float']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
@@ -633,7 +634,6 @@ export type UpdateJournalEntryInput = {
 
 export type UpdateJournalInput = {
   accrualDate: Scalars['DateTime']['input'];
-  branchId: Scalars['String']['input'];
   entries: Array<UpdateJournalEntryInput>;
   id: Scalars['String']['input'];
   links: Array<Scalars['String']['input']>;
@@ -1096,7 +1096,7 @@ export type AccountGroupDataFragment = { __typename?: 'AccountGroup', id: string
 
 export type BranchDataFragment = { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null };
 
-export type EntryDataFragment = { __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, memo: string, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } };
+export type EntryDataFragment = { __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, updatedAt: Date, memo: string, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } };
 
 export type JournalDataFragment = { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date };
 
@@ -1251,14 +1251,14 @@ export type EntriesQueryVariables = Exact<{
 }>;
 
 
-export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, memo: string, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
+export type EntriesQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, updatedAt: Date, memo: string, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
 
 export type EntryQueryVariables = Exact<{
   input: EntryInput;
 }>;
 
 
-export type EntryQuery = { __typename?: 'Query', entry: { __typename?: 'Entry', updatedAt: Date, deletedAt?: Date | null, branchId: string, currency: Currency, id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, memo: string, journal: { __typename?: 'EntryJournalInfo', accrualDate: Date, id: string, note: string }, account: { __typename?: 'EntryAccountInfo', id: string, name: string } } };
+export type EntryQuery = { __typename?: 'Query', entry: { __typename?: 'Entry', deletedAt?: Date | null, branchId: string, currency: Currency, id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, updatedAt: Date, memo: string, journal: { __typename?: 'EntryJournalInfo', accrualDate: Date, id: string, note: string }, account: { __typename?: 'EntryAccountInfo', id: string, name: string } } };
 
 export type JournalQueryVariables = Exact<{
   input: JournalInput;
@@ -1329,7 +1329,7 @@ export type TransactionDetailsQueryVariables = Exact<{
 }>;
 
 
-export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, memo: string, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
+export type TransactionDetailsQuery = { __typename?: 'Query', transaction?: { __typename?: 'Transaction', updatedAt: Date, id: string, accrualDate: Date, note: string, status?: EntryStatus | null, amount?: number | null, createdAt: Date, treasuryBookId: string, tags?: Array<{ __typename?: 'Tag', id: string, name: string }> | null } | null, entries: Array<{ __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, updatedAt: Date, memo: string, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } }> };
 
 export type TransactionsQueryVariables = Exact<{
   input: TransactionsInput;
@@ -1386,6 +1386,7 @@ export const EntryDataFragmentDoc = gql`
   }
   status
   createdAt
+  updatedAt
   memo
 }
     `;
@@ -2183,7 +2184,6 @@ export const EntryDocument = gql`
     query Entry($input: EntryInput!) {
   entry(input: $input) {
     ...EntryData
-    updatedAt
     deletedAt
     journal {
       accrualDate

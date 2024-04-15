@@ -29,7 +29,6 @@ input AddJournalEntryInput {
 
 input UpdateJournalInput {
   id: String!
-  branchId: String!
   note: String!
   accrualDate: DateTime!
   tags: [String!]!
@@ -45,4 +44,5 @@ input UpdateJournalEntryInput {
   credit: Float!
   status: EntryStatus!
   accountId: String!
+  createdAt: DateTime
 }

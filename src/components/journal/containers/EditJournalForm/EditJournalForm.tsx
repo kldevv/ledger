@@ -11,11 +11,7 @@ import {
   useUpdateJournalMutation,
 } from '@/api/graphql'
 import { Form } from '@/components/core/containers'
-import {
-  useCurrentBranch,
-  useForm,
-  useMoneyFormat,
-} from '@/components/core/hooks'
+import { useForm, useMoneyFormat } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
@@ -99,6 +95,14 @@ const schema = z.object({
        * Entry status
        */
       status: z.nativeEnum(EntryStatus),
+      /**
+       * Updated at
+       */
+      updatedAt: z.string().optional(),
+      /**
+       * Created at
+       */
+      createdAt: z.string().optional(),
     })
     .array(),
 })
@@ -191,7 +195,9 @@ export const EditJournalForm: React.FC = () => {
     values:
       journal != null && entries != null
         ? {
-            ...journal,
+            id: journal.id,
+            branchId: journal.branchId,
+            note: journal.note,
             tags: journal.tags?.map(({ id }) => id) ?? [],
             links: journal.links?.map(({ id }) => id) ?? [],
             accrualDate: formatDate(journal.accrualDate),
@@ -202,6 +208,8 @@ export const EditJournalForm: React.FC = () => {
                 ...entry,
                 accountId: entry.account.id,
                 transactionDate: formatDate(entry.transactionDate),
+                createdAt: formatDate(entry.createdAt),
+                updatedAt: formatDate(entry.updatedAt),
                 debit: format(entry.debit.toString()) ?? '',
                 credit: format(entry.credit.toString()) ?? '',
               })) ?? [],
@@ -233,21 +241,40 @@ export const EditJournalForm: React.FC = () => {
   const handleSubmit = ({
     accrualDate,
     entries,
-    ...rest
+    id,
+    note,
+    links,
+    tags,
   }: EditJournalFormValues) => {
     void editJournal({
       variables: {
         input: {
+          id,
+          note,
+          links,
+          tags,
           accrualDate: new Date(accrualDate),
           entries: entries.map(
-            ({ transactionDate, debit, credit, ...rest }) => ({
-              ...rest,
+            ({
+              transactionDate,
+              debit,
+              credit,
+              createdAt,
+              accountId,
+              memo,
+              id,
+              status,
+            }) => ({
+              accountId,
+              memo,
+              id,
+              status,
+              createdAt: createdAt != null ? new Date(createdAt) : undefined,
               transactionDate: new Date(transactionDate),
               credit: Number(removeFormatting(credit)),
               debit: Number(removeFormatting(debit)),
             }),
           ),
-          ...rest,
         },
       },
     })
@@ -290,11 +317,19 @@ export const EditJournalForm: React.FC = () => {
             label={t`editJournal.label.branchId`}
             name="branchId"
           />
+          <Form.Static<EditJournalFormValues>
+            label={t`editJournal.label.createdAt`}
+            name="createdAt"
+          />
+          <Form.Static<EditJournalFormValues>
+            label={t`editJournal.label.updatedAt`}
+            name="updatedAt"
+          />
         </div>
         <div className="border-b-mid-gray mt-14 border-b">
           <h4 className="text-gray mt-6 text-[0.625rem] font-medium">{t`editJournal.label.entries.title`}</h4>
         </div>
-        <div className="border-mid-gray flex h-[28rem] gap-x-2 border-b">
+        <div className="border-mid-gray flex h-[34rem] gap-x-2 border-b">
           <JournalFormEntrySelector
             defaultValue={defaultEntryValue}
             activeEntry={activeEntry}

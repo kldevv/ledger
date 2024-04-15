@@ -1,7 +1,6 @@
 query Entry($input: EntryInput!) {
   entry(input: $input) {
     ...EntryData
-    updatedAt
     deletedAt
     journal {
       accrualDate

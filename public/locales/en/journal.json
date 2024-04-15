@@ -70,6 +70,8 @@
       "branchId": "Branch ID",
       "tags": "Tags",
       "links": "Links",
+      "createdAt": "Create Date",
+      "updatedAt": "Update Date",
       "entries": {
         "id": "ID",
         "title": "Entries",
@@ -78,7 +80,9 @@
         "accountId": "Account",
         "transactionDate": "Transaction Date",
         "status": "Status",
-        "memo": "Memo"
+        "memo": "Memo",
+        "createdAt": "Create Date",
+        "updatedAt": "Update Date"
       }
     },
     "placeholder": {
