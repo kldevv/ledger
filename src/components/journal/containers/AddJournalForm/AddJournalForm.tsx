@@ -18,7 +18,13 @@ import {
 import { ButtonCore, Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
-import { dateSchema } from '@/shared/zod/schemas'
+import {
+  dateSchema,
+  memoSchema,
+  moneySchema,
+  noteSchema,
+  uuidSchema,
+} from '@/shared/zod/schemas'
 
 import { useTagsMultiSelect, useLinksMultiSelect } from '../../hooks'
 import { JournalFormEntry } from '../../presentationals'
@@ -33,11 +39,7 @@ const schema = z.object({
   /**
    * Journal note
    */
-  note: z
-    .string()
-    .min(5, { message: 'note.min' })
-    .max(50, { message: 'note.max' })
-    .regex(/^[a-zA-Z0-9\s]+$/, { message: 'note.regex' }),
+  note: noteSchema,
   /**
    * Branch id
    */
@@ -62,31 +64,19 @@ const schema = z.object({
       /**
        * Entry memo
        */
-      memo: z
-        .string()
-        .max(50, { message: 'memo.max' })
-        .regex(/^[a-zA-Z0-9\s]*$/, { message: 'memo.regex' }),
+      memo: memoSchema,
       /**
        * Entry debit
        */
-      debit: z
-        .string()
-        .regex(/^\d{1,3}(?:,\d{3})*(?:\.\d+)?$/, { message: 'money.regex' }),
+      debit: moneySchema,
       /**
        * Entry credit
        */
-      credit: z
-        .string()
-        .regex(/^\d{1,3}(?:,\d{3})*(?:\.\d+)?$/, { message: 'money.regex' }),
+      credit: moneySchema,
       /**
        * Entry account
        */
-      accountId: z
-        .string()
-        .regex(
-          /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
-          { message: 'uuid.regex' },
-        ),
+      accountId: uuidSchema,
       /**
        * Entry status
        */
@@ -124,7 +114,45 @@ export const AddJournalForm: React.FC = () => {
   const [activeEntry, setActiveEntry] = useState(0)
   const { setValue, control, watch, ...context } =
     useForm<AddJournalFormValues>({
-      schema,
+      schema: schema.superRefine(({ entries }, ctx) => {
+        const addIssues = (message: string, index: number) => {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message,
+            path: [`entries.${index}.debit`],
+          })
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message,
+            path: [`entries.${index}.credit`],
+          })
+        }
+
+        let totalDebit = 0
+        let totalCredit = 0
+
+        entries.forEach(({ debit: _debit, credit: _credit }, index) => {
+          const debit = Number(removeFormatting(_debit))
+          const credit = Number(removeFormatting(_credit))
+
+          // Either debit or credit must be larger than 0
+          if (debit === 0 && credit === 0) {
+            addIssues('entry.bothZero', index)
+          }
+
+          // Either debit or credit must be 0
+          if (debit > 0 && credit > 0) {
+            addIssues('entry.noneZero', index)
+          }
+
+          totalDebit += debit
+          totalCredit += credit
+        })
+
+        if (totalCredit !== totalDebit) {
+          addIssues('entry.imbalance', entries.length - 1)
+        }
+      }),
       shouldUnregister: false,
       defaultValues: {
         accrualDate: formatDate(new Date()),

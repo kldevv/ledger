@@ -75,6 +75,7 @@
     "totalCredit": "Total Credit: {{ credit }}",
     "diff": "Difference: {{ diff }}",
     "status": "Status: {{ status }}",
+    "toast": "You have successfully added the new journal \"<b>{{ note }}</b>\".",
     "label": {
       "note": "Note",
       "status": "Status",

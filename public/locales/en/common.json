@@ -80,10 +80,15 @@
         "invalid": "Must be a valid date."
       },
       "uuid": {
-        "regex": "Must be a UUID"
+        "regex": "Must be a UUID."
       },
       "money": {
-        "regex": "Amount must be in the valid number format"
+        "regex": "Amount must be in the valid number format."
+      },
+      "entry": {
+        "bothZero": "Either debit or credit must be larger than zero.",
+        "noneZero": "Either debit or credit must be zero.",
+        "imbalance": "Total debit must equal to total credit."
       }
     }
   }

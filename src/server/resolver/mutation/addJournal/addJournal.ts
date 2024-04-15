@@ -8,7 +8,6 @@ export const addJournal: MutationResolvers['addJournal'] = async (
   _,
   { input: { entries, branchId, ...rest } },
 ) => {
-  console.log(entries)
   const journal = await createJournal({
     ...rest,
     branchId,

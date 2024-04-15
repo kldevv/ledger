@@ -11,7 +11,7 @@ import { Form } from '@/components/core/containers'
 import { useCurrentBranch, useForm } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
-import { generateDropdownSchema } from '@/shared/zod/generators'
+import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 import { nameSchema } from '@/shared/zod/schemas'
 
 import { useAccountingTypeDropdown } from '../../hooks'

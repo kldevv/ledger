@@ -13,7 +13,7 @@ import { useForm } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
-import { generateDropdownSchema } from '@/shared/zod/generators'
+import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 import { nameSchema } from '@/shared/zod/schemas'
 
 import { useCurrencyDropdown } from '../../hooks'
