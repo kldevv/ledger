@@ -1,21 +1,16 @@
 import { EntryStatus } from '@prisma/client'
 import { Trans, useTranslation } from 'next-i18next'
-import { useCallback, useEffect, useState } from 'react'
-import { useFieldArray } from 'react-hook-form'
+import { useEffect, useState } from 'react'
 import { z } from 'zod'
 
-import {
-  JournalsDocument,
-  useAccountsQuery,
-  useAddJournalMutation,
-} from '@/api/graphql'
+import { JournalsDocument, useAddJournalMutation } from '@/api/graphql'
 import { Form } from '@/components/core/containers'
 import {
   useCurrentBranch,
   useForm,
   useMoneyFormat,
 } from '@/components/core/hooks'
-import { ButtonCore, Card } from '@/components/core/presentationals'
+import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
 import {
@@ -27,7 +22,8 @@ import {
 } from '@/shared/zod/schemas'
 
 import { useTagsMultiSelect, useLinksMultiSelect } from '../../hooks'
-import { JournalFormEntry } from '../../presentationals'
+import { JournalFormEntrySelector } from '../JournalForm.EntrySelector/JournalForm.EntrySelector'
+import { JournalFormEntrySummary } from '../JournalForm.EntrySummary/JournalForm.EntrySummary'
 
 import { AddJournalEntry } from './AddJournalForm.Entry/AddJournalForm.Entry'
 
@@ -101,91 +97,59 @@ export const AddJournalForm: React.FC = () => {
   const toast = useToaster()
   const tagsMultiSelect = useTagsMultiSelect()
   const linksMultiSelect = useLinksMultiSelect()
-  const { format, removeFormatting } = useMoneyFormat()
+  const { removeFormatting } = useMoneyFormat()
   const [currentBranch] = useCurrentBranch()
-  const { data: { accounts } = {} } = useAccountsQuery({
-    variables: {
-      input: {
-        branchId: currentBranch?.id ?? '',
-      },
-    },
-    skip: currentBranch == null,
-  })
   const [activeEntry, setActiveEntry] = useState(0)
-  const { setValue, control, watch, ...context } =
-    useForm<AddJournalFormValues>({
-      schema: schema.superRefine(({ entries }, ctx) => {
-        const addIssues = (message: string, index: number) => {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message,
-            path: [`entries.${index}.debit`],
-          })
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message,
-            path: [`entries.${index}.credit`],
-          })
-        }
-
-        let totalDebit = 0
-        let totalCredit = 0
-
-        entries.forEach(({ debit: _debit, credit: _credit }, index) => {
-          const debit = Number(removeFormatting(_debit))
-          const credit = Number(removeFormatting(_credit))
-
-          // Either debit or credit must be larger than 0
-          if (debit === 0 && credit === 0) {
-            addIssues('entry.bothZero', index)
-          }
-
-          // Either debit or credit must be 0
-          if (debit > 0 && credit > 0) {
-            addIssues('entry.noneZero', index)
-          }
-
-          totalDebit += debit
-          totalCredit += credit
+  const { setValue, ...context } = useForm<AddJournalFormValues>({
+    schema: schema.superRefine(({ entries }, ctx) => {
+      const addIssues = (message: string, index: number) => {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message,
+          path: [`entries.${index}.debit`],
         })
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message,
+          path: [`entries.${index}.credit`],
+        })
+      }
 
-        if (totalCredit !== totalDebit) {
-          addIssues('entry.imbalance', entries.length - 1)
+      let totalDebit = 0
+      let totalCredit = 0
+
+      entries.forEach(({ debit: _debit, credit: _credit }, index) => {
+        const debit = Number(removeFormatting(_debit))
+        const credit = Number(removeFormatting(_credit))
+
+        // Either debit or credit must be larger than 0
+        if (debit === 0 && credit === 0) {
+          addIssues('entry.bothZero', index)
         }
-      }),
-      shouldUnregister: false,
-      defaultValues: {
-        accrualDate: formatDate(new Date()),
-        note: '',
-        branchId: '',
-        tags: [],
-        links: [],
-        entries: [defaultEntryValue, defaultEntryValue],
-      },
-    })
-  const { fields, append, remove } = useFieldArray<AddJournalFormValues>({
-    name: 'entries',
+
+        // Either debit or credit must be 0
+        if (debit > 0 && credit > 0) {
+          addIssues('entry.noneZero', index)
+        }
+
+        totalDebit += debit
+        totalCredit += credit
+      })
+
+      if (totalCredit !== totalDebit) {
+        addIssues('entry.imbalance', entries.length - 1)
+      }
+    }),
     shouldUnregister: false,
-    control,
-  })
-
-  const handleOnEntrySelect = useCallback(
-    (index: number) => () => setActiveEntry(index),
-    [],
-  )
-
-  const handleOnEntryRemove = useCallback(
-    (index: number) => () => {
-      setActiveEntry((prev) => Math.min(fields.length - 2, prev))
-      remove(index)
+    defaultValues: {
+      accrualDate: formatDate(new Date()),
+      note: '',
+      branchId: '',
+      tags: [],
+      links: [],
+      entries: [defaultEntryValue, defaultEntryValue],
     },
-    [fields.length, remove],
-  )
-
-  const handleOnEntryAppend = useCallback(
-    () => append(defaultEntryValue),
-    [append],
-  )
+  })
 
   const [addJournal, { loading }] = useAddJournalMutation({
     onCompleted: ({ addJournal }) =>
@@ -231,21 +195,6 @@ export const AddJournalForm: React.FC = () => {
     })
   }
 
-  const entries = watch('entries')
-
-  const totalDebit = entries.reduce(
-    (acc, cur) => acc + Number(removeFormatting(cur.debit)),
-    0,
-  )
-  const totalCredit = entries.reduce(
-    (acc, cur) => acc + Number(removeFormatting(cur.credit)),
-    0,
-  )
-
-  const status = entries.some((entry) => entry.status === EntryStatus.PENDING)
-    ? EntryStatus.PENDING
-    : EntryStatus.COMPLETED
-
   useEffect(() => {
     if (currentBranch) {
       setValue('tags', [])
@@ -256,7 +205,7 @@ export const AddJournalForm: React.FC = () => {
 
   return (
     <Form
-      context={{ setValue, control, watch, ...context }}
+      context={{ setValue, ...context }}
       onSubmit={handleSubmit}
       className="w-[45rem]"
     >
@@ -293,59 +242,14 @@ export const AddJournalForm: React.FC = () => {
           <h4 className="text-gray mt-6 text-[0.625rem] font-medium">{t`addJournal.label.entries.title`}</h4>
         </div>
         <div className="border-mid-gray flex h-96 gap-x-2 border-b">
-          <div className="border-mid-gray flex size-full min-w-80 max-w-80 flex-col items-start overflow-scroll border-r">
-            {fields.map(({ id }, index) => {
-              const entry = watch(`entries.${index}`)
-
-              return (
-                <JournalFormEntry
-                  key={id}
-                  index={index}
-                  entry={{
-                    ...entry,
-                    account:
-                      accounts?.find(
-                        (account) => account.id === entry.accountId,
-                      )?.name ?? '',
-                  }}
-                  active={index === activeEntry}
-                  error={context.formState.errors.entries?.at?.(index) != null}
-                  onSelect={handleOnEntrySelect(index)}
-                  onRemove={handleOnEntryRemove(index)}
-                />
-              )
-            })}
-            <ButtonCore
-              className="text-light-accent hover:text-light-accent/80 hover:bg-mid-gray/20 mb-10 size-fit max-h-fit text-nowrap py-4 text-xs font-medium"
-              onClick={handleOnEntryAppend}
-            >
-              {t`addJournal.addEntry`}
-            </ButtonCore>
-          </div>
+          <JournalFormEntrySelector
+            defaultValue={defaultEntryValue}
+            activeEntry={activeEntry}
+            setActiveEntry={setActiveEntry}
+          />
           <AddJournalEntry index={activeEntry} key={activeEntry} />
         </div>
-        <div className="text-gray flex flex-col text-[0.625rem] leading-4">
-          <span>
-            {t('addJournal.totalDebit', {
-              debit: format(totalDebit.toString()),
-            })}
-          </span>
-          <span>
-            {t('addJournal.totalCredit', {
-              credit: format(totalCredit.toString()),
-            })}
-          </span>
-          <span>
-            {t('addJournal.diff', {
-              diff: format((totalDebit - totalCredit).toString()),
-            })}
-          </span>
-          <span>
-            {t('addJournal.status', {
-              status: t(`entryStatus.${status}`),
-            })}
-          </span>
-        </div>
+        <JournalFormEntrySummary />
         <Form.Submit
           className="mt-8 w-full"
           loading={loading}

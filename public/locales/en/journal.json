@@ -70,11 +70,6 @@
     "entries": "Journal Entries"
   },
   "addJournal": {
-    "addEntry": "Add Entry",
-    "totalDebit": "Total Debit: {{ debit }}",
-    "totalCredit": "Total Credit: {{ credit }}",
-    "diff": "Difference: {{ diff }}",
-    "status": "Status: {{ status }}",
     "toast": "You have successfully added the new journal \"<b>{{ note }}</b>\".",
     "label": {
       "note": "Note",
@@ -120,5 +115,12 @@
   "entryStatus": {
     "COMPLETED": "Cleared",
     "PENDING": "Pending"
+  },
+  "journalForm": {
+    "addEntry": "Add Entry",
+    "totalDebit": "Total Debit: {{ debit }}",
+    "totalCredit": "Total Credit: {{ credit }}",
+    "diff": "Difference: {{ diff }}",
+    "status": "Status: {{ status }}"
   }
 }
