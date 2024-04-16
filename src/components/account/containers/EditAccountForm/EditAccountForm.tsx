@@ -118,7 +118,7 @@ export const EditAccountForm: React.FC = () => {
   return (
     <Form context={context} onSubmit={handleSubmit} className="w-fit">
       <Card className="w-80" loading={queryLoading}>
-        <div className="gap-y-1">
+        <div className="flex flex-col gap-y-2">
           <Form.Static<EditAccountFormValues>
             label={t`editAccount.label.id`}
             name="id"

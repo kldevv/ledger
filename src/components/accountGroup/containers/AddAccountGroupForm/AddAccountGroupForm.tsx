@@ -11,8 +11,8 @@ import { Form } from '@/components/core/containers'
 import { useCurrentBranch, useForm } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
-import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 import { nameSchema } from '@/shared/zod/schemas'
+import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 
 import { useAccountingTypeDropdown } from '../../hooks'
 
@@ -92,7 +92,7 @@ export const AddAccountGroupForm: React.FC = () => {
       className="w-fit"
     >
       <Card className="w-80">
-        <div className="gap-y-1">
+        <div className="flex flex-col gap-y-2">
           <Form.Input<AddAccountGroupFormValues>
             label={t`addAccountGroup.label.name`}
             name="name"

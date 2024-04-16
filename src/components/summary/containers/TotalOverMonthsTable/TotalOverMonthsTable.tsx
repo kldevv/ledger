@@ -91,9 +91,10 @@ export const TotalOverMonthsTable: React.FC = () => {
     () =>
       [EntryStatus.COMPLETED, EntryStatus.PENDING].map((status) => ({
         value: status,
-        title: status,
+        title: t(`journal:entryStatus.${status}`),
+        status,
       })),
-    [],
+    [t],
   )
 
   const handleStandardChange = useCallback(

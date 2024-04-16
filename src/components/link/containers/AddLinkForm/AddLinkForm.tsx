@@ -6,8 +6,8 @@ import { Form } from '@/components/core/containers'
 import { useForm } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
 import { useToaster } from '@/hooks'
-import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 import { nameSchema } from '@/shared/zod/schemas'
+import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 
 import { useLinkTypeDropdown } from '../../hooks'
 
@@ -72,7 +72,7 @@ export const AddLinkForm: React.FC = () => {
   return (
     <Form context={context} onSubmit={handleSubmit} className="w-fit">
       <Card className="w-80">
-        <div className="gap-y-1">
+        <div className="flex flex-col gap-y-2">
           <Form.Input<AddLinkFormValues>
             label={t`addLink.label.name`}
             name="name"

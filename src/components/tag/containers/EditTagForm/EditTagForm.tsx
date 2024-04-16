@@ -117,7 +117,7 @@ export const EditTagForm: React.FC = () => {
   return (
     <Form context={context} onSubmit={handleSubmit} className="w-fit">
       <Card className="w-80" loading={queryLoading}>
-        <div className="gap-y-1">
+        <div className="flex flex-col gap-y-2">
           <Form.Static<EditTagFormValues>
             label={t`editTag.label.id`}
             name="id"

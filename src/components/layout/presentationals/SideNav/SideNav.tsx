@@ -1,4 +1,8 @@
 import classNames from 'classnames'
+import Link from 'next/link'
+
+import { Icon } from '@/components/core/presentationals'
+import { route } from '@/shared/route'
 
 import { useSideNavSection } from '../../hooks/useSideNavSection/useSideNavSection'
 
@@ -21,6 +25,14 @@ export const SideNav: React.FC<SideNavProps> = ({ className }) => {
         className,
       )}
     >
+      <div className="ml-4 mt-2 flex">
+        <Link
+          href={route.core.home}
+          className="text-dark-shades flex items-center text-xl font-extrabold leading-4"
+        >
+          Pizzafund <Icon.Solid name="Hashtag" />
+        </Link>
+      </div>
       {section.map(({ title, items, id }) => (
         <SideNavSection items={items} title={title} key={id} />
       ))}
