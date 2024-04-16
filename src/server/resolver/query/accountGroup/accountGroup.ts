@@ -12,7 +12,5 @@ export const accountGroup: QueryResolvers['accountGroup'] = async (
     id,
   })
 
-  if (!accountGroup) return null
-
   return transformAccountGroup(accountGroup)
 }

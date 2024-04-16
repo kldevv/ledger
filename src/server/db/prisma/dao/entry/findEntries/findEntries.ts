@@ -28,19 +28,19 @@ export const findEntries = async ({
   return await prisma.entry.findMany({
     where: {
       accountId,
-      transactionId: journalId,
-      treasuryBookId: branchId,
+      journalId,
+      branchId,
       account: {
-        categoryId: accountGroupId,
+        accountGroupId,
       },
     },
     include: {
-      treasuryBook: {
+      branch: {
         select: {
           currency: true,
         },
       },
-      transaction: {
+      journal: {
         select: {
           note: true,
           accrualDate: true,

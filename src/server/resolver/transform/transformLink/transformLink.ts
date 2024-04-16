@@ -6,11 +6,11 @@ export type TransformLinkArgs = PrismaLink & {
    * Aggregate relation field: count
    */
   _count: {
-    transactions: number
+    journals: number
   }
 }
 
 export const transformLink = (link: TransformLinkArgs): Link => ({
   ...link,
-  count: link._count.transactions,
+  count: link._count.journals,
 })

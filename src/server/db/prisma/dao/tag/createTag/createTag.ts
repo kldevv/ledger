@@ -20,14 +20,14 @@ export interface CreateTagArgs {
 export const createTag = async ({ branchId, name, type }: CreateTagArgs) => {
   return await prisma.tag.create({
     data: {
-      treasuryBookId: branchId,
+      branchId,
       name,
       type,
     },
     include: {
       _count: {
         select: {
-          transactions: true,
+          journals: true,
         },
       },
     },

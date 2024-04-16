@@ -5,13 +5,13 @@ type TransformEntryArgs = PrismaEntry & {
   /**
    * Relation field: treasury book
    */
-  treasuryBook: {
+  branch: {
     currency: Currency
   }
   /**
-   * Relation field: transaction
+   * Relation field: journal
    */
-  transaction: {
+  journal: {
     note: string
     accrualDate: Date
   }
@@ -24,28 +24,26 @@ type TransformEntryArgs = PrismaEntry & {
 }
 
 export const transformEntry = ({
-  transaction,
-  transactionId,
+  journal,
+  journalId,
   account,
   accountId,
   amount,
-  treasuryBookId,
-  treasuryBook,
+  branch,
   ...rest
 }: TransformEntryArgs): Entry => {
   return {
     ...rest,
-    currency: treasuryBook.currency,
+    currency: branch.currency,
     journal: {
-      id: transactionId,
-      note: transaction.note,
-      accrualDate: transaction.accrualDate,
+      id: journalId,
+      note: journal.note,
+      accrualDate: journal.accrualDate,
     },
     account: {
       id: accountId,
       name: account.name,
     },
-    branchId: treasuryBookId,
     // Positve amount is debit, and debit is always positive
     debit: amount > 0 ? amount : 0,
     // Negative amount is credit, and credit is always positive

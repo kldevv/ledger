@@ -17,11 +17,11 @@ export const findAccounts = async ({
 }: FindAccountsArgs) => {
   return await prisma.account.findMany({
     where: {
-      treasuryBookId: branchId,
-      categoryId: accountGroupId,
+      branchId,
+      accountGroupId,
     },
     include: {
-      category: true,
+      accountGroup: true,
       _count: {
         select: {
           entries: true,
@@ -29,7 +29,7 @@ export const findAccounts = async ({
       },
     },
     orderBy: {
-      category: {
+      accountGroup: {
         name: 'asc',
       },
     },

@@ -25,9 +25,9 @@ export const findJournals = async ({
   linkId,
   accountGroupId,
 }: FindJournalsArgs) => {
-  return await prisma.transaction.findMany({
+  return await prisma.journal.findMany({
     where: {
-      treasuryBookId: branchId,
+      branchId,
       links: linkId != null ? { some: { id: linkId } } : undefined,
       tags: tagId != null ? { some: { id: tagId } } : undefined,
       entries:
@@ -35,7 +35,7 @@ export const findJournals = async ({
           ? {
               some: {
                 account: {
-                  categoryId: accountGroupId,
+                  accountGroupId,
                 },
               },
             }
@@ -60,7 +60,7 @@ export const findJournals = async ({
           status: true,
         },
       },
-      treasuryBook: {
+      branch: {
         select: {
           currency: true,
         },

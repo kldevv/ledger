@@ -22,10 +22,10 @@ export const createAccountGroup = async ({
   name,
   type,
 }: CreateAccountGroupArgs) => {
-  return await prisma.category.create({
+  return await prisma.accountGroup.create({
     data: {
       name,
-      treasuryBookId: branchId,
+      branchId,
       type,
     },
     include: {

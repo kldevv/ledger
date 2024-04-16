@@ -8,7 +8,7 @@ export interface FindJournalArgs {
 }
 
 export const findJournal = async ({ id }: FindJournalArgs) => {
-  return await prisma.transaction.findUniqueOrThrow({
+  return await prisma.journal.findUniqueOrThrow({
     where: {
       id,
     },
@@ -31,7 +31,7 @@ export const findJournal = async ({ id }: FindJournalArgs) => {
           status: true,
         },
       },
-      treasuryBook: {
+      branch: {
         select: {
           currency: true,
         },

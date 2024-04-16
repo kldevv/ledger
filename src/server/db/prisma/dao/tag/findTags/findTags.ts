@@ -10,12 +10,12 @@ export interface FindTagsArgs {
 export const findTags = async ({ branchId }: FindTagsArgs) => {
   return await prisma.tag.findMany({
     where: {
-      treasuryBookId: branchId,
+      branchId,
     },
     include: {
       _count: {
         select: {
-          transactions: true,
+          journals: true,
         },
       },
     },

@@ -13,12 +13,12 @@ export const findEntry = async ({ id }: FindEntryArgs) => {
       id,
     },
     include: {
-      treasuryBook: {
+      branch: {
         select: {
           currency: true,
         },
       },
-      transaction: {
+      journal: {
         select: {
           note: true,
           accrualDate: true,

@@ -8,14 +8,14 @@ export interface FindTagArgs {
 }
 
 export const findTag = async ({ id }: FindTagArgs) => {
-  return await prisma.tag.findUnique({
+  return await prisma.tag.findUniqueOrThrow({
     where: {
       id,
     },
     include: {
       _count: {
         select: {
-          transactions: true,
+          journals: true,
         },
       },
     },

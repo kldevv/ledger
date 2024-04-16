@@ -13,7 +13,7 @@ export const findLinks = async ({ userId }: FindLinksArgs) => {
     include: {
       _count: {
         select: {
-          transactions: true,
+          journals: true,
         },
       },
     },

@@ -1,34 +1,26 @@
 type Query {
-  # Report
-  accountBalance(input: AccountBalanceFilter!): [AccountBalance!]!
-  uniqueYears(input: UniqueYearsInput!): [Int!]!
-
-  # Transaction
-  transaction(input: TransactionInput!): Transaction
-  transactions(input: TransactionsInput!): [Transaction!]!
-
   # Link
   links(input: LinksInput!): [Link!]!
-  link(input: LinkInput!): Link
+  link(input: LinkInput!): Link!
 
   # Journal
   journals(input: JournalsInput!): [Journal!]!
   journal(input: JournalInput!): Journal!
 
   # Tag
-  tag(input: TagInput!): Tag
+  tag(input: TagInput!): Tag!
   tags(input: TagsInput!): [Tag!]!
 
   # Branch
   branches(input: BranchesInput!): [Branch!]!
-  branch(input: BranchInput!): Branch
+  branch(input: BranchInput!): Branch!
 
   # Account Group
   accountGroups(input: AccountGroupsInput!): [AccountGroup!]!
-  accountGroup(input: AccountGroupInput!): AccountGroup
+  accountGroup(input: AccountGroupInput!): AccountGroup!
 
   # Account
-  account(input: AccountInput!): Account
+  account(input: AccountInput!): Account!
   accounts(input: AccountsInput!): [Account!]!
 
   # Entry

@@ -72,7 +72,7 @@ export const updateJournal = async ({
   links,
   entries,
 }: UpdateJournallArgs) => {
-  return await prisma.transaction.update({
+  return await prisma.journal.update({
     where: {
       id,
     },
@@ -104,9 +104,9 @@ export const updateJournal = async ({
               amount,
               accountId,
               status,
+              branchId,
               createdAt: createdAt ?? undefined,
               id: id ?? undefined,
-              treasuryBookId: branchId,
             }),
           ),
         },
@@ -131,7 +131,7 @@ export const updateJournal = async ({
           status: true,
         },
       },
-      treasuryBook: {
+      branch: {
         select: {
           currency: true,
         },

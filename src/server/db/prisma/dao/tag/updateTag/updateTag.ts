@@ -29,7 +29,7 @@ export const updateTag = async ({ id, name, type }: UpdateTagArgs) => {
     include: {
       _count: {
         select: {
-          transactions: true,
+          journals: true,
         },
       },
     },

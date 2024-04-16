@@ -1,9 +1,9 @@
 import { EntryStatus } from '@prisma/client'
 
 import type { Journal } from '@/api/graphql'
-import type { Currency, Transaction as PrismaTransaction } from '@prisma/client'
+import type { Currency, Journal as PrismaJournal } from '@prisma/client'
 
-export type TransformJournalArgs = PrismaTransaction & {
+export type TransformJournalArgs = PrismaJournal & {
   /**
    * Relational field: entries
    */
@@ -28,15 +28,15 @@ export type TransformJournalArgs = PrismaTransaction & {
   /**
    * Relational field: branch
    */
-  treasuryBook: {
+  branch: {
     currency: Currency
   }
 }
 
 export const transformJournal = ({
   entries,
-  treasuryBookId,
-  treasuryBook,
+  branchId,
+  branch,
   ...transaction
 }: TransformJournalArgs): Journal => {
   const status = entries.some(({ status }) => status === EntryStatus.PENDING)
@@ -49,8 +49,8 @@ export const transformJournal = ({
 
   return {
     ...transaction,
-    currency: treasuryBook.currency,
-    branchId: treasuryBookId,
+    currency: branch.currency,
+    branchId,
     count: entries.length,
     status,
     amount,

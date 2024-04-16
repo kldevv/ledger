@@ -7,128 +7,129 @@ datasource db {
   url      = env("PRISMA_POSTGRES_DB_URL")
 }
 
-model Category {
-  id             String       @id @default(uuid())
-  type           CategoryType
-  name           String
-  accounts       Account[]
-  treasuryBook   TreasuryBook @relation(fields: [treasuryBookId], references: [id])
-  treasuryBookId String       @map("treasury_book")
-  createdAt      DateTime     @default(now()) @map("created_at")
-  updatedAt      DateTime     @updatedAt @map("updated_at")
-  deletedAt      DateTime?    @map("deleted_at")
+model AccountGroup {
+  id        String         @id @default(uuid())
+  type      AccountingType
+  name      String
+  accounts  Account[]
+  branch    Branch         @relation(fields: [branchId], references: [id])
+  branchId  String         @map("branch_id")
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+  deletedAt DateTime?      @map("deleted_at")
 
-  @@unique([treasuryBookId, name])
-  @@map("categories")
+  @@unique([branchId, name])
+  @@map("account_groups")
 }
 
 model Account {
   id             String       @id @default(uuid())
   name           String
-  category       Category     @relation(fields: [categoryId], references: [id])
-  categoryId     String       @map("category_id")
-  treasuryBook   TreasuryBook @relation(fields: [treasuryBookId], references: [id])
-  treasuryBookId String       @map("treasury_book_id")
+  accountGroup   AccountGroup @relation(fields: [accountGroupId], references: [id])
+  accountGroupId String       @map("account_group_id")
+  branch         Branch       @relation(fields: [branchId], references: [id])
+  branchId       String       @map("branch_id")
   entries        Entry[]
   createdAt      DateTime     @default(now()) @map("created_at")
   updatedAt      DateTime     @updatedAt @map("updated_at")
   deletedAt      DateTime?    @map("deleted_at")
 
-  @@unique([categoryId, name])
+  @@unique([accountGroupId, name])
   @@map("accounts")
 }
 
-model Transaction {
-  id             String       @id @default(uuid())
-  accrualDate    DateTime     @map("accrual_date")
-  note           String
-  treasuryBook   TreasuryBook @relation(fields: [treasuryBookId], references: [id])
-  treasuryBookId String       @map("treasury_book_id")
-  entries        Entry[]
-  tags           Tag[]
-  links          Link[]
-  createdAt      DateTime     @default(now()) @map("created_at")
-  updatedAt      DateTime     @updatedAt @map("updated_at")
-  deletedAt      DateTime?    @map("deleted_at")
+model Journal {
+  id          String    @id @default(uuid())
+  accrualDate DateTime  @map("accrual_date")
+  note        String
+  branch      Branch    @relation(fields: [branchId], references: [id])
+  branchId    String    @map("branch_id")
+  entries     Entry[]
+  tags        Tag[]
+  links       Link[]
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at")
 
-  @@map("transactions")
+  @@map("journals")
 }
 
 model Entry {
-  id              String       @id @default(uuid())
-  transactionDate DateTime     @map("transaction_date")
-  account         Account      @relation(fields: [accountId], references: [id])
-  accountId       String       @map("account_id")
-  treasuryBook    TreasuryBook @relation(fields: [treasuryBookId], references: [id])
-  treasuryBookId  String       @map("treasury_book_id")
+  id              String      @id @default(uuid())
+  transactionDate DateTime    @map("transaction_date")
+  account         Account     @relation(fields: [accountId], references: [id])
+  accountId       String      @map("account_id")
+  branch          Branch      @relation(fields: [branchId], references: [id])
+  branchId        String      @map("branch_id")
   amount          Float
   memo            String
-  transaction     Transaction  @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  transactionId   String       @map("transaction_id")
-  status          EntryStatus  @default(PENDING)
-  createdAt       DateTime     @default(now()) @map("created_at")
-  updatedAt       DateTime     @updatedAt @map("updated_at")
-  deletedAt       DateTime?    @map("deleted_at")
+  journal         Journal     @relation(fields: [journalId], references: [id], onDelete: Cascade)
+  journalId       String      @map("journal_id")
+  status          EntryStatus @default(PENDING)
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+  deletedAt       DateTime?   @map("deleted_at")
 
   @@map("entries")
 }
 
 model Tag {
-  id             String        @id @default(uuid())
-  name           String
-  transactions   Transaction[]
-  treasuryBook   TreasuryBook  @relation(fields: [treasuryBookId], references: [id])
-  treasuryBookId String        @map("treasury_book_id")
-  type           TagType
-  createdAt      DateTime      @default(now()) @map("created_at")
-  updatedAt      DateTime      @updatedAt @map("updated_at")
-  deletedAt      DateTime?     @map("deleted_at")
+  id        String    @id @default(uuid())
+  name      String
+  journals  Journal[]
+  branch    Branch    @relation(fields: [branchId], references: [id])
+  branchId  String    @map("branch_id")
+  type      TagType
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
-  @@unique([treasuryBookId, name])
+  @@unique([branchId, name])
   @@map("tags")
 }
 
 model Link {
-  id           String        @id @default(uuid())
-  name         String
-  transactions Transaction[]
-  type         LinkType
-  userId       String        @map("user_id")
-  createdAt    DateTime      @default(now()) @map("created_at")
-  updatedAt    DateTime      @updatedAt @map("updated_at")
-  deletedAt    DateTime?     @map("deleted_at")
+  id        String    @id @default(uuid())
+  name      String
+  journals  Journal[]
+  type      LinkType
+  userId    String    @map("user_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
+  @@unique([userId, name])
   @@map("links")
 }
 
-model TreasuryBook {
-  id           String        @id @default(uuid())
-  name         String
-  currency     Currency
-  profile      Profile       @relation(fields: [ownerId], references: [id])
-  ownerId      String        @map("owner_id")
-  entries      Entry[]
-  categories   Category[]
-  accounts     Account[]
-  transactions Transaction[]
-  tags         Tag[]
-  createdAt    DateTime      @default(now()) @map("created_at")
-  updatedAt    DateTime      @updatedAt @map("updated_at")
-  deletedAt    DateTime?     @map("deleted_at")
+model Branch {
+  id            String         @id @default(uuid())
+  name          String
+  currency      Currency
+  user          User           @relation(fields: [userId], references: [id])
+  userId        String         @map("user_id")
+  entries       Entry[]
+  accountGroups AccountGroup[]
+  accounts      Account[]
+  journals      Journal[]
+  tags          Tag[]
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+  deletedAt     DateTime?      @map("deleted_at")
 
-  @@unique([ownerId, name])
-  @@map("treasury_book")
+  @@unique([userId, name])
+  @@map("branches")
 }
 
-model Profile {
-  id           String         @id @default(uuid())
-  name         String
-  treasuryBook TreasuryBook[]
-  createdAt    DateTime       @default(now()) @map("created_at")
-  updatedAt    DateTime       @updatedAt @map("updated_at")
-  deletedAt    DateTime?      @map("deleted_at")
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  branches  Branch[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
-  @@map("profiles")
+  @@map("users")
 }
 
 enum EntryStatus {
@@ -136,14 +137,6 @@ enum EntryStatus {
   COMPLETED
 
   @@map("entry_status")
-}
-
-enum CategoryType {
-  ASSETS
-  LIABILITIES
-  EQUITY
-
-  @@map("category_type")
 }
 
 enum TagType {

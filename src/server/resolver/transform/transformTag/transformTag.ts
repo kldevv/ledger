@@ -6,18 +6,13 @@ export type TransformTagArgs = PrismaTag & {
    * Aggregate relation field: count
    */
   _count: {
-    transactions: number
+    journals: number
   }
 }
 
-export const transformTag = ({
-  _count,
-  treasuryBookId,
-  ...tag
-}: TransformTagArgs): Tag => {
+export const transformTag = ({ _count, ...tag }: TransformTagArgs): Tag => {
   return {
     ...tag,
-    branchId: treasuryBookId,
-    count: _count.transactions,
+    count: _count.journals,
   }
 }

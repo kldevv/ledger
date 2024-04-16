@@ -64,11 +64,11 @@ export const createJournal = async ({
   links,
   entries,
 }: CreateJournalArgs) => {
-  return await prisma.transaction.create({
+  return await prisma.journal.create({
     data: {
       accrualDate,
       note,
-      treasuryBookId: branchId,
+      branchId,
       tags: {
         connect: tags.map((id) => ({ id })),
       },
@@ -91,7 +91,7 @@ export const createJournal = async ({
               amount,
               accountId,
               status,
-              treasuryBookId: branchId,
+              branchId,
             }),
           ),
         },
@@ -116,7 +116,7 @@ export const createJournal = async ({
           status: true,
         },
       },
-      treasuryBook: {
+      branch: {
         select: {
           currency: true,
         },

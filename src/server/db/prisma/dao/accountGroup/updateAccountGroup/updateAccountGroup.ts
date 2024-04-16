@@ -22,7 +22,7 @@ export const updateAccountGroup = async ({
   name,
   type,
 }: UpdateAccountGroupArgs) => {
-  return await prisma.category.update({
+  return await prisma.accountGroup.update({
     where: {
       id,
     },

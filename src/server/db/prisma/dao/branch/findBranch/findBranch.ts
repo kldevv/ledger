@@ -8,7 +8,7 @@ export interface FindBranchArgs {
 }
 
 export const findBranch = async ({ id }: FindBranchArgs) => {
-  return await prisma.treasuryBook.findUnique({
+  return await prisma.branch.findUniqueOrThrow({
     where: {
       id,
     },

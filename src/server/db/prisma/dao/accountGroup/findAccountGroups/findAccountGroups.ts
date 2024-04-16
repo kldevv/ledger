@@ -10,9 +10,9 @@ export interface FindAccountGroupsArgs {
 export const findAccountGroups = async ({
   branchId,
 }: FindAccountGroupsArgs) => {
-  return await prisma.category.findMany({
+  return await prisma.accountGroup.findMany({
     where: {
-      treasuryBookId: branchId,
+      branchId,
     },
     include: {
       _count: {

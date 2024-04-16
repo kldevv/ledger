@@ -8,7 +8,7 @@ export interface FindAccountGroupArgs {
 }
 
 export const findAccountGroup = async ({ id }: FindAccountGroupArgs) => {
-  return await prisma.category.findUnique({
+  return await prisma.accountGroup.findUniqueOrThrow({
     where: {
       id,
     },

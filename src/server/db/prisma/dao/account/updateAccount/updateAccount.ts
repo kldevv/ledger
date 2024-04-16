@@ -26,12 +26,12 @@ export const updateAccount = async ({
     },
     data: {
       name,
-      category: {
+      accountGroup: {
         connect: { id: accountGroupId },
       },
     },
     include: {
-      category: true,
+      accountGroup: true,
       _count: {
         select: {
           entries: true,

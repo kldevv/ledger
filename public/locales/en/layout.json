@@ -7,7 +7,7 @@
       "journal": "Journal",
       "branch": "Branch",
       "summary": "Summary",
-      "info": "Information"
+      "help": "Help"
     },
     "item": {
       "home": "Home",

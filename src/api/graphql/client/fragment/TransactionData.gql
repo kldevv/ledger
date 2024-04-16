@@ -1,9 +1,0 @@
-fragment TransactionData on Transaction {
-  id
-  accrualDate
-  note
-  status
-  amount
-  createdAt
-  treasuryBookId
-}

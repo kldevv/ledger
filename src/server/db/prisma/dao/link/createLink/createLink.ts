@@ -23,7 +23,7 @@ export const createLink = async ({ userId, name, type }: CreateLinkArgs) => {
     include: {
       _count: {
         select: {
-          transactions: true,
+          journals: true,
         },
       },
     },

@@ -1,5 +1,5 @@
 import type { AccountGroup } from '@/api/graphql'
-import type { Category as PrismaAccountGroup } from '@prisma/client'
+import type { AccountGroup as PrismaAccountGroup } from '@prisma/client'
 
 type TransformAccountGroupArgs = PrismaAccountGroup & {
   /**
@@ -11,11 +11,9 @@ type TransformAccountGroupArgs = PrismaAccountGroup & {
 }
 
 export const transformAccountGroup = ({
-  treasuryBookId,
   _count,
   ...rest
 }: TransformAccountGroupArgs): AccountGroup => ({
   ...rest,
   count: _count?.accounts,
-  branchId: treasuryBookId,
 })

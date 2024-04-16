@@ -3,7 +3,6 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next'
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { DateTimeResolver } from 'graphql-scalars'
 
-import { PrismaDataSource } from '@/server/db/prisma'
 import logger from '@/server/logger'
 import { resolvers } from '@/server/resolver'
 
@@ -30,8 +29,5 @@ export default startServerAndCreateNextHandler<
     Promise.resolve({
       req,
       res,
-      dataSources: {
-        prisma: new PrismaDataSource(),
-      },
     }),
 })

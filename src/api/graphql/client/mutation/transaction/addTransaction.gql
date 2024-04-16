@@ -1,5 +1,0 @@
-mutation addTransaction($input: AddTransactionInput!) {
-  addTransaction(input: $input) {
-    ...TransactionData
-  }
-}

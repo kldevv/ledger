@@ -22,11 +22,11 @@ export const createBranch = async ({
   name,
   currency,
 }: CreateBranchArgs) => {
-  return await prisma.treasuryBook.create({
+  return await prisma.branch.create({
     data: {
       name,
       currency,
-      ownerId: userId,
+      userId,
     },
   })
 }

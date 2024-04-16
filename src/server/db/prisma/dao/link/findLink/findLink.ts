@@ -8,12 +8,12 @@ export interface FindLinkArgs {
 }
 
 export const findLink = async (where: FindLinkArgs) => {
-  return await prisma.link.findUnique({
+  return await prisma.link.findUniqueOrThrow({
     where,
     include: {
       _count: {
         select: {
-          transactions: true,
+          journals: true,
         },
       },
     },

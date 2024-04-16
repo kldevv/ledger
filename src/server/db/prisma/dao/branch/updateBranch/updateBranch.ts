@@ -22,7 +22,7 @@ export const updateBranch = async ({
   name,
   currency,
 }: UpdateBranchArgs) => {
-  return await prisma.treasuryBook.update({
+  return await prisma.branch.update({
     where: {
       id,
     },

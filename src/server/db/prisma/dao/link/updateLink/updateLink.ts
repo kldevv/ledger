@@ -29,7 +29,7 @@ export const updateLink = async ({ id, name, type }: UpdateLinkArgs) => {
     include: {
       _count: {
         select: {
-          transactions: true,
+          journals: true,
         },
       },
     },

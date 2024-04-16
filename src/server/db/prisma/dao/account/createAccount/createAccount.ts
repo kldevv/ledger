@@ -23,11 +23,11 @@ export const createAccount = async ({
   return await prisma.account.create({
     data: {
       name,
-      treasuryBook: { connect: { id: branchId } },
-      category: { connect: { id: accountGroupId } },
+      branch: { connect: { id: branchId } },
+      accountGroup: { connect: { id: accountGroupId } },
     },
     include: {
-      category: true,
+      accountGroup: true,
       _count: {
         select: {
           entries: true,

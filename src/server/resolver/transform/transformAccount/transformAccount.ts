@@ -1,13 +1,13 @@
 import { transformAccountGroup } from '../transformAccountGroup/transformAccountGroup'
 
 import type { Account } from '@/api/graphql'
-import type { Category, Account as PrismaAccount } from '@prisma/client'
+import type { AccountGroup, Account as PrismaAccount } from '@prisma/client'
 
 type TransformAccountArgs = PrismaAccount & {
   /**
    * Relation field: account group
    */
-  category: Category
+  accountGroup: AccountGroup
   /**
    * Aggregate relation field: count
    */
@@ -17,13 +17,11 @@ type TransformAccountArgs = PrismaAccount & {
 }
 
 export const transformAccount = ({
-  treasuryBookId,
-  category,
+  accountGroup,
   _count,
   ...rest
 }: TransformAccountArgs): Account => ({
   ...rest,
-  group: transformAccountGroup(category),
+  group: transformAccountGroup(accountGroup),
   count: _count.entries,
-  branchId: treasuryBookId,
 })

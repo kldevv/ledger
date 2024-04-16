@@ -8,12 +8,12 @@ export interface FindAccountArgs {
 }
 
 export const findAccount = async ({ id }: FindAccountArgs) => {
-  return await prisma.account.findUnique({
+  return await prisma.account.findUniqueOrThrow({
     where: {
       id,
     },
     include: {
-      category: true,
+      accountGroup: true,
       _count: {
         select: {
           entries: true,

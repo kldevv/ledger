@@ -32,11 +32,11 @@ export type FindTotalOverMonthsReturns = {
   /**
    * ID
    */
-  element_id: string
+  id: string
   /**
    * Name
    */
-  element_name: string
+  name: string
   /**
    * Month
    */
@@ -68,10 +68,10 @@ export const findTotalOverMonths = async ({
         entries e
       JOIN 
         accounts a ON a.id = e.account_id
-      ${createJoinCategoryTableSql(groupByElement)}
-      ${createJoinTransactionTableSql(standard)}
+      ${createJoinAccountGroupsTableStatement(groupByElement)}
+      ${createJoinJournalsTableStatement(standard)}
       WHERE
-        e.treasury_book_id = ${branchId}
+        e.branch_id = ${branchId}
         ${createAndYearFilterSql(standard, year)}
         ${createAndStatusFilterSql(status)}
       GROUP BY
@@ -91,35 +91,35 @@ const createSelectElementAttributes = (element: AccountingElement) => {
   switch (element) {
     case AccountingElement.ACCOUNT:
       return Prisma.sql`
-        a.id as element_id,
-        a.name as element_name
+        a.id as id,
+        a.name as name
       `
     case AccountingElement.ACCOUNT_GROUP:
       return Prisma.sql`
-        c.id as element_id,
-        c.name as element_name
+        c.id as id,
+        c.name as name
       `
     default:
       return Prisma.sql`
-        c.type as element_id,
-        c.type as element_name
+        c.type as id,
+        c.type as name
       `
   }
 }
 
-const createJoinCategoryTableSql = (element: AccountingElement) => {
+const createJoinAccountGroupsTableStatement = (element: AccountingElement) => {
   switch (element) {
     case AccountingElement.ACCOUNT_GROUP:
     case AccountingElement.ACCOUNTING_TYPE:
-      return Prisma.sql`JOIN categories c ON c.id = a.category_id`
+      return Prisma.sql`JOIN account_groups c ON c.id = a.account_group_id`
     default:
       return Prisma.empty
   }
 }
 
-const createJoinTransactionTableSql = (standard: DateStandard) => {
+const createJoinJournalsTableStatement = (standard: DateStandard) => {
   return standard === DateStandard.ACCRUAL
-    ? Prisma.sql`JOIN transactions t ON t.id = e.transaction_id`
+    ? Prisma.sql`JOIN journals t ON t.id = e.journal_id`
     : Prisma.empty
 }
 

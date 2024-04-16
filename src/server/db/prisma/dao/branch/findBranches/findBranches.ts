@@ -8,9 +8,9 @@ export interface FindBranchesArgs {
 }
 
 export const findBranches = async ({ userId }: FindBranchesArgs) => {
-  return await prisma.treasuryBook.findMany({
+  return await prisma.branch.findMany({
     where: {
-      ownerId: userId,
+      userId,
     },
     orderBy: {
       createdAt: 'asc',
