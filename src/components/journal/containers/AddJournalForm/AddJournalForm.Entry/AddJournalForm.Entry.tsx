@@ -1,6 +1,4 @@
 import { useTranslation } from 'next-i18next'
-import { useEffect } from 'react'
-import { useFormContext } from 'react-hook-form'
 
 import { Form } from '@/components/core/containers'
 import { useCurrentBranch } from '@/components/core/hooks'
@@ -24,15 +22,8 @@ export const AddJournalFormEntry: React.FC<AddJournalFormEntryProps> = ({
 }) => {
   const { t } = useTranslation('journal')
   const [currentBranch] = useCurrentBranch()
-  const { setValue } = useFormContext<AddJournalFormValues>()
   const accountDropdown = useAccountDropdown(currentBranch?.id ?? null)
   const entryStatusDropdown = useEntryStatusDropdown()
-
-  useEffect(() => {
-    if (currentBranch) {
-      setValue(`entries.${index}.accountId`, '')
-    }
-  }, [currentBranch, index, setValue])
 
   return (
     <div className="flex w-full flex-col gap-y-2">

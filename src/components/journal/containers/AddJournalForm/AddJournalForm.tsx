@@ -199,6 +199,7 @@ export const AddJournalForm: React.FC = () => {
     if (currentBranch) {
       setValue('tags', [])
       setValue('links', [])
+      setValue('entries', [defaultEntryValue, defaultEntryValue])
       setValue('branchId', currentBranch?.id)
     }
   }, [setValue, currentBranch, context.formState.isSubmitSuccessful])
