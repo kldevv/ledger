@@ -22,7 +22,7 @@ export const BranchSwitch: React.FC = () => {
   } = useBranchesQuery({
     variables: {
       input: {
-        userId: '81087108-3748-446a-b033-a85d7c9ace7b',
+        userId: process.env.NEXT_PUBLIC_USER_ID ?? '',
       },
     },
   })

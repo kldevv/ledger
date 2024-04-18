@@ -12,9 +12,8 @@ import {
   useUpdateJournalMutation,
 } from '@/api/graphql'
 import { Form } from '@/components/core/containers'
-import { useForm, useMoneyFormat } from '@/components/core/hooks'
+import { useForm, useMoneyFormat, useToaster } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
-import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
 import {
   dateSchema,

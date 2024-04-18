@@ -9,9 +9,8 @@ import {
   useUpdateBranchMutation,
 } from '@/api/graphql'
 import { Form } from '@/components/core/containers'
-import { useForm } from '@/components/core/hooks'
+import { useForm, useToaster } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
-import { useToaster } from '@/hooks'
 import { formatDate } from '@/shared/utils'
 import { nameSchema } from '@/shared/zod/schemas'
 import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
@@ -89,7 +88,7 @@ export const EditBranchForm: React.FC = () => {
       {
         query: BranchesDocument,
         variables: {
-          input: { userId: '81087108-3748-446a-b033-a85d7c9ace7b' },
+          input: { userId: process.env.NEXT_PUBLIC_USER_ID ?? '' },
         },
       },
     ],

@@ -3,9 +3,8 @@ import { z } from 'zod'
 
 import { LinkType, LinksDocument, useAddLinkMutation } from '@/api/graphql'
 import { Form } from '@/components/core/containers'
-import { useForm } from '@/components/core/hooks'
+import { useForm, useToaster } from '@/components/core/hooks'
 import { Card } from '@/components/core/presentationals'
-import { useToaster } from '@/hooks'
 import { nameSchema } from '@/shared/zod/schemas'
 import { generateDropdownSchema } from '@/shared/zod/schemas/generators'
 
@@ -51,7 +50,7 @@ export const AddLinkForm: React.FC = () => {
       {
         query: LinksDocument,
         variables: {
-          input: { userId: '81087108-3748-446a-b033-a85d7c9ace7b' },
+          input: { userId: process.env.NEXT_PUBLIC_USER_ID ?? '' },
         },
       },
     ],
@@ -62,7 +61,7 @@ export const AddLinkForm: React.FC = () => {
       variables: {
         input: {
           ...rest,
-          userId: '81087108-3748-446a-b033-a85d7c9ace7b',
+          userId: process.env.NEXT_PUBLIC_USER_ID ?? '',
           type: type ?? LinkType.GENERAL,
         },
       },
