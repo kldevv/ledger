@@ -32,11 +32,11 @@ export type FindTotalOverMonthsReturns = {
   /**
    * ID
    */
-  id: string
+  _id: string
   /**
    * Name
    */
-  name: string
+  _name: string
   /**
    * Month
    */
@@ -75,9 +75,9 @@ export const findTotalOverMonths = async ({
         ${createAndYearFilterSql(standard, year)}
         ${createAndStatusFilterSql(status)}
       GROUP BY
-        month, element_id, element_name
+        month, _id, _name
       ORDER BY
-        element_name, month;
+        _name, month;
     `
 }
 
@@ -91,18 +91,18 @@ const createSelectElementAttributes = (element: AccountingElement) => {
   switch (element) {
     case AccountingElement.ACCOUNT:
       return Prisma.sql`
-        a.id as id,
-        a.name as name
+        a.id as _id,
+        a.name as _name
       `
     case AccountingElement.ACCOUNT_GROUP:
       return Prisma.sql`
-        c.id as id,
-        c.name as name
+        c.id as _id,
+        c.name as _name
       `
     default:
       return Prisma.sql`
-        c.type as id,
-        c.type as name
+        c.type as _id,
+        c.type as _name
       `
   }
 }

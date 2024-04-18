@@ -1,80 +1,71 @@
-import {
-  CategoryType,
-  Currency,
-  PrismaClient,
-  TreasuryBook,
-} from '@prisma/client'
+import { AccountingType, Branch, Currency, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
 const main = async () => {
   /**
-   * Seed profile
+   * Seed user
    */
   console.log('creating profile...')
 
-  const profile = await prisma.profile.create({
+  const user = await prisma.user.create({
     data: {
       name: 'Yoyo',
     },
   })
 
-  console.log(`created profile: ${JSON.stringify(profile)}.`)
+  console.log(`created user: ${JSON.stringify(user)}.`)
 
-  /**
-   * Seed treasury books
-   */
-  const treasuryBooks = new Map<Currency, TreasuryBook>()
+  // Seed branches
+  const branches = new Map<Currency, Branch>()
 
   await Promise.all(
     Object.values(Currency).map(async (currency) => {
       console.log(`creating treasury book for ${currency}...`)
 
-      const treasuryBook = await prisma.treasuryBook.create({
+      const branch = await prisma.branch.create({
         data: {
-          name: `Seed ${currency} Treasury Book`,
-          ownerId: profile.id,
+          name: `Seed ${currency} Branch`,
+          userId: user.id,
           currency: currency,
         },
       })
 
-      treasuryBooks.set(currency, treasuryBook)
+      branches.set(currency, branch)
 
-      console.log(`created treasury book ${JSON.stringify(treasuryBook)}.`)
+      console.log(`created treasury book ${JSON.stringify(branch)}.`)
     }),
   )
 
-  /**
-   * Seed category and account
-   */
+  // Seed account group and account
   await Promise.all(
     Object.values(Currency).map(async (currency) => {
-      const treasuryBook = treasuryBooks.get(currency)
+      const branch = branches.get(currency)
 
       console.log(
         `creating categories and accounts for ${currency} treasury book...`,
       )
 
-      Object.values(CategoryType).map(async (type) => {
-        const category = await prisma.category.create({
+      Object.values(AccountingType).map(async (type) => {
+        const accountGroup = await prisma.accountGroup.create({
           data: {
             name: `Default ${type} Category`,
             type,
-            treasuryBookId: treasuryBook?.id ?? '',
+            branchId: branch?.id ?? '',
           },
         })
 
         await prisma.account.create({
           data: {
             name: `Default ${type} Account`,
-            categoryId: category.id,
-            treasuryBookId: treasuryBook?.id ?? '',
+            accountGroupId: accountGroup.id,
+            branchId: branch?.id ?? '',
           },
         })
       })
 
       console.log(
-        `created categories and accounts for ${currency} treasury book.`,
+        `created account group and accounts for ${currency} treasury book.`,
       )
     }),
   )

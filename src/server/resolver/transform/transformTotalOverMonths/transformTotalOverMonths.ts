@@ -20,12 +20,12 @@ export const transformTotalOverMonths = (
   // Grouping data by id and name
   const groupedData: GroupedData[] = data.reduce((acc: GroupedData[], curr) => {
     let group = acc.find(
-      (item) => item.id === curr.id && item.name === curr.name,
+      (item) => item.id === curr._id && item.name === curr._name,
     )
     if (!group) {
       group = {
-        id: curr.id,
-        name: curr.name,
+        id: curr._id,
+        name: curr._name,
         total: [],
       }
       acc.push(group)
