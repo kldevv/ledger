@@ -208,7 +208,7 @@ export const AddJournalForm: React.FC = () => {
     <Form
       context={{ setValue, ...context }}
       onSubmit={handleSubmit}
-      className="w-[45rem]"
+      className="w-[42rem]"
     >
       <Card className="w-full" loading={currentBranch == null}>
         <div className="flex flex-col gap-y-2">

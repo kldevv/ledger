@@ -21,11 +21,11 @@ export const SideNav: React.FC<SideNavProps> = ({ className }) => {
   return (
     <div
       className={classNames(
-        'border-r-mid-gray flex size-full flex-col gap-y-6 overflow-y-auto border-r px-2 py-4 max-w-52',
+        'border-r-mid-gray flex size-full flex-col border-r px-2 py-4 max-w-52',
         className,
       )}
     >
-      <div className="ml-4 mt-2 flex">
+      <div className="mb-4 ml-4 mt-2 flex">
         <Link
           href={route.core.home}
           className="text-dark-shades flex items-center text-xl font-extrabold leading-4"
@@ -33,9 +33,11 @@ export const SideNav: React.FC<SideNavProps> = ({ className }) => {
           Pizzafund <Icon.Solid name="Hashtag" />
         </Link>
       </div>
-      {section.map(({ title, items, id }) => (
-        <SideNavSection items={items} title={title} key={id} />
-      ))}
+      <div className="flex size-full flex-col gap-y-6 overflow-y-auto">
+        {section.map(({ title, items, id }) => (
+          <SideNavSection items={items} title={title} key={id} />
+        ))}
+      </div>
     </div>
   )
 }

@@ -294,7 +294,7 @@ export const EditJournalForm: React.FC = () => {
   }
 
   return (
-    <Form context={context} onSubmit={handleSubmit} className="w-[45rem]">
+    <Form context={context} onSubmit={handleSubmit} className="w-[42rem]">
       <Card
         className="w-full"
         loading={journalQueryLoading || entriesQueryLoading}
