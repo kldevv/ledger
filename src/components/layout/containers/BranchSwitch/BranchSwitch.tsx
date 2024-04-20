@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
@@ -13,7 +14,9 @@ export type BranchSwitchItem = DropdownItem<string>
 
 export const BranchSwitch: React.FC = () => {
   const [currentBranch, setCurrentBranch] = useCurrentBranch()
+  const { data: session } = useSession()
   const { t } = useTranslation('layout')
+
   const {
     data: { branches } = {},
     loading,
@@ -22,9 +25,10 @@ export const BranchSwitch: React.FC = () => {
   } = useBranchesQuery({
     variables: {
       input: {
-        userId: process.env.NEXT_PUBLIC_USER_ID ?? '',
+        userId: session?.user.id ?? '',
       },
     },
+    skip: session?.user.id == null,
   })
 
   const items = useMemo<BranchSwitchItem[]>(

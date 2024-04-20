@@ -1,12 +1,14 @@
+import { useSession } from 'next-auth/react'
 import { useMemo } from 'react'
 
 import { useLinksQuery } from '@/api/graphql'
 
 export const useLinksMultiSelect = () => {
+  const { data: session } = useSession()
   const { data: { links } = {}, loading } = useLinksQuery({
     variables: {
       input: {
-        userId: process.env.NEXT_PUBLIC_USER_ID ?? '',
+        userId: session?.user.id ?? '',
       },
     },
   })

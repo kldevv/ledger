@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react'
 import { Trans, useTranslation } from 'next-i18next'
 import { z } from 'zod'
 
@@ -25,6 +26,7 @@ export type AddLinkFormValues = z.infer<typeof schema>
 
 export const AddLinkForm: React.FC = () => {
   const { t } = useTranslation('link')
+  const { data: session } = useSession()
   const toast = useToaster()
   const linkTypeDropdown = useLinkTypeDropdown()
   const context = useForm<AddLinkFormValues>({
@@ -50,7 +52,7 @@ export const AddLinkForm: React.FC = () => {
       {
         query: LinksDocument,
         variables: {
-          input: { userId: process.env.NEXT_PUBLIC_USER_ID ?? '' },
+          input: { userId: session?.user.id ?? '' },
         },
       },
     ],
@@ -61,7 +63,7 @@ export const AddLinkForm: React.FC = () => {
       variables: {
         input: {
           ...rest,
-          userId: process.env.NEXT_PUBLIC_USER_ID ?? '',
+          userId: session?.user.id ?? '',
           type: type ?? LinkType.GENERAL,
         },
       },

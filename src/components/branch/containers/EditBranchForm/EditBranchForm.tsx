@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { Trans, useTranslation } from 'next-i18next'
 import { z } from 'zod'
 
@@ -44,6 +45,7 @@ export type EditBranchFormValues = z.infer<typeof schema>
 
 export const EditBranchForm: React.FC = () => {
   const { t } = useTranslation('branch')
+  const { data: session } = useSession()
   const {
     query: { id: _id },
   } = useRouter()
@@ -88,7 +90,7 @@ export const EditBranchForm: React.FC = () => {
       {
         query: BranchesDocument,
         variables: {
-          input: { userId: process.env.NEXT_PUBLIC_USER_ID ?? '' },
+          input: { userId: session?.user.id ?? '' },
         },
       },
     ],

@@ -1,3 +1,5 @@
+import { useSession } from 'next-auth/react'
+
 import { useLinksQuery } from '@/api/graphql'
 import { Card, Table } from '@/components/core/presentationals'
 
@@ -5,12 +7,14 @@ import { useLinksTableCol } from '../../hooks'
 
 export const LinksTable: React.FC = () => {
   const colDefs = useLinksTableCol()
+  const { data: session } = useSession()
   const { data, loading } = useLinksQuery({
     variables: {
       input: {
-        userId: process.env.NEXT_PUBLIC_USER_ID ?? '',
+        userId: session?.user.id ?? '',
       },
     },
+    skip: session?.user.id == null,
   })
 
   return (

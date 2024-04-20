@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react'
 import { Trans, useTranslation } from 'next-i18next'
 import { z } from 'zod'
 
@@ -26,6 +27,7 @@ export type AddBranchFormValues = z.infer<typeof schema>
 export const AddBranchForm: React.FC = () => {
   const { t } = useTranslation('branch')
   const toast = useToaster()
+  const { data: session } = useSession()
   const currencyDropdown = useCurrencyDropdown()
   const [addBranch, { loading }] = useAddBranchMutation({
     onCompleted: ({ addBranch }) =>
@@ -42,7 +44,7 @@ export const AddBranchForm: React.FC = () => {
       {
         query: BranchesDocument,
         variables: {
-          input: { userId: process.env.NEXT_PUBLIC_USER_ID ?? '' },
+          input: { userId: session?.user.id ?? '' },
         },
       },
     ],
@@ -61,7 +63,7 @@ export const AddBranchForm: React.FC = () => {
         input: {
           ...rest,
           currency: currency ?? Currency.USD,
-          userId: process.env.NEXT_PUBLIC_USER_ID ?? '',
+          userId: session?.user.id ?? '',
         },
       },
     })
