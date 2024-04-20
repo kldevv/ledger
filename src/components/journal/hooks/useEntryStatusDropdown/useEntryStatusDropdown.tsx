@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { EntryStatus } from '@/api/graphql'
 
 export const useEntryStatusDropdown = () => {
-  const { t } = useTranslation('journal')
+  const { t } = useTranslation('common')
 
   return useMemo(
     () => ({

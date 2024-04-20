@@ -63,7 +63,7 @@ export const JournalFormEntrySummary: React.FC = () => {
       </span>
       <span>
         {t('journalForm.status', {
-          status: t(`entryStatus.${status}`),
+          status: t(`common:entryStatus.${status}`),
         })}
       </span>
     </div>

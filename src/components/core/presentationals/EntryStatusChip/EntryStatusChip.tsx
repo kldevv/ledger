@@ -36,7 +36,7 @@ export const EntryStatusChip: React.FC<EntryStatusChipProps> = ({ status }) => {
       >
         <div className={classNames('w-1.5 h-1.5', 'rounded-full', coreColor)} />
       </div>
-      {t(`EntryStatusChip.label.${status}`)}
+      {t(`entryStatus.${status}`)}
     </div>
   )
 }

@@ -1,52 +1,7 @@
 {
   "meta": {
     "title": "Pizzafund - Financial Management App",
-    "desc": "Experience financial control with PizzaFunds — your solution for effortless double-entry accounting. Tailor accounts, simplify entries, and more."
-  },
-  "CategoryTypeChip": {
-    "label": {
-      "ASSETS": "Assets",
-      "LIABILITIES": "Liabilities",
-      "EQUITY": "Equity"
-    }
-  },
-  "EntryStatusChip": {
-    "label": {
-      "COMPLETED": "Cleared",
-      "PENDING": "Pending",
-      "undefined": "Unknown"
-    }
-  },
-  "EntryStatusDropdownFilter": {
-    "null": "All Statuses"
-  },
-  "YearDropdownFilter": {
-    "null": "All Years"
-  },
-  "TagTypeDropdownFilter": {
-    "null": "All Types"
-  },
-  "DateTypeRadioGroupFilter": {
-    "ACCRUAL": "Accrual Date",
-    "TRANSACTION": "Transaction Date"
-  },
-  "EntryStatusFromDropdown": {
-    "label": "Status"
-  },
-  "AccountFormDropdown": {
-    "label": "Account"
-  },
-  "CurrencyFormDropdown": {
-    "label": "Currency"
-  },
-  "CategoryTypeFormDropdown": {
-    "label": "Category Type"
-  },
-  "CategoryFormDropdown": {
-    "label": "Category"
-  },
-  "TagTypeFormDropdown": {
-    "label": "Tag Type"
+    "desc": "Experience financial control with Pizzafund — your solution for effortless double-entry accounting. Tailor accounts, simplify entries, and more."
   },
   "dateStandardFilter": {
     "ACCRUAL": "By Accrual Standard",
@@ -57,6 +12,10 @@
   },
   "dropdown": {
     "empty": "No Options Available"
+  },
+  "entryStatus": {
+    "COMPLETED": "Cleared",
+    "PENDING": "Pending"
   },
   "form": {
     "error": {

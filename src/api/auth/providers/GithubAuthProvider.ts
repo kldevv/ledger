@@ -2,7 +2,7 @@ import Github from 'next-auth/providers/github'
 
 import logger from '@/server/logger'
 
-export const GithubAuth = (() => {
+export const GithubAuthProvider = (() => {
   if (process.env.AUTH_GITHUB_ID == null) {
     logger.error('[GithubAuth] Missing AUTH_GITHUB_ID in the environment')
     throw new Error('[GithubAuth] Missing AUTH_GITHUB_ID in the environment')

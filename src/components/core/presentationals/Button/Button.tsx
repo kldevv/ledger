@@ -14,25 +14,31 @@ export interface ButtonProps extends ButtonCoreProps {
    * Is loading?
    */
   loading?: boolean
+  /**
+   * Color
+   */
+  color?: string
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { children, className, disabled = false, loading = false, ...props },
+    { children, className, disabled = false, loading = false, color, ...props },
     ref,
   ) => {
     return (
       <div
         className={classNames(
-          ' text-light-shades w-fit rounded-md text-xs',
-          disabled || loading
-            ? 'bg-light-accent/20'
-            : 'hover:bg-light-accent/80 bg-light-accent',
+          ' w-fit rounded-md text-xs size-full',
+          color != null
+            ? color
+            : disabled || loading
+              ? 'bg-light-accent/20 text-light-shades'
+              : 'hover:bg-light-accent/80 bg-light-accent text-light-shades',
           className,
         )}
       >
         {loading ? (
-          <div className="flex items-center justify-center px-6 py-1.5">
+          <div className="flex size-full items-center justify-center px-6 py-1.5">
             <Spinner className="size-3" />
           </div>
         ) : (

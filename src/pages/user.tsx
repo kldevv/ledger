@@ -6,7 +6,7 @@ import { Layout } from '@/components/layout/containers'
 import { Header } from '@/components/layout/presentationals'
 import { route } from '@/shared/route'
 
-import type { GetServerSideProps } from 'next'
+import type { GetStaticProps } from 'next'
 
 const Page: React.FC = () => {
   const { t } = useTranslation('pages')
@@ -26,15 +26,13 @@ const Page: React.FC = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'en', [
-        'summary',
-        'layout',
         'common',
         'pages',
-        'route',
+        'layout',
       ])),
     },
   }

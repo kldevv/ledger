@@ -7,7 +7,7 @@
       "journal": "Journal",
       "branch": "Branch",
       "summary": "Summary",
-      "help": "Help"
+      "settings": "Settings"
     },
     "item": {
       "home": "Home",
@@ -19,11 +19,13 @@
       "tags": "Tags",
       "branches": "Branches",
       "totalOverMonths": "Total Over Months",
-      "about": "About"
+      "user": "User"
     }
   },
   "branchSwitch": {
     "error": "Something went wrong. Please try again.",
     "retry": "Retry"
-  }
+  },
+  "salutation": "Hi, {{ name }}",
+  "signOut": "Sign Out"
 }

@@ -82,12 +82,12 @@ export const useSideNavSection = (): SideNavSection[] => {
     },
     {
       id: 'b502c7dc-2f2e-4654-ab75-9be6dec137b2',
-      title: t`sideNavSection.title.help`,
+      title: t`sideNavSection.title.settings`,
       items: [
         {
-          href: route.core.about,
-          label: t`sideNavSection.item.about`,
-          icon: 'Language',
+          href: route.core.user,
+          label: t`sideNavSection.item.user`,
+          icon: 'UserCircle',
         },
       ],
     },

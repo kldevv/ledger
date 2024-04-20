@@ -1,10 +1,14 @@
 import NextAuth from 'next-auth'
 
-import { PrismaAdapter } from './adapters/prisma'
-import { GithubAuth } from './providers/github'
+import { route } from '@/shared/route'
 
-export default NextAuth({
-  providers: [GithubAuth],
+import { PrismaAdapter } from './adapters/prisma'
+import { GithubAuthProvider, GoogleAuthProvider } from './providers'
+
+import type { AuthOptions } from 'next-auth'
+
+export const authOptions: AuthOptions = {
+  providers: [GithubAuthProvider, GoogleAuthProvider],
   secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter,
   session: {
@@ -19,4 +23,9 @@ export default NextAuth({
       return session
     },
   },
-})
+  pages: {
+    signIn: route.core.signIn.pathname,
+  },
+} as const
+
+export default NextAuth(authOptions)
