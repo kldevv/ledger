@@ -18,7 +18,7 @@ import {
   memoSchema,
   moneySchema,
   noteSchema,
-  uuidSchema,
+  cuidSchema,
 } from '@/shared/zod/schemas'
 
 import { useTagsMultiSelect, useLinksMultiSelect } from '../../hooks'
@@ -72,7 +72,7 @@ const schema = z.object({
       /**
        * Entry account
        */
-      accountId: uuidSchema,
+      accountId: cuidSchema,
       /**
        * Entry status
        */

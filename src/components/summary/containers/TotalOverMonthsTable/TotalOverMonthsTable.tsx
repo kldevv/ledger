@@ -83,7 +83,7 @@ export const TotalOverMonthsTable: React.FC = () => {
       Array.from({ length: new Date().getFullYear() - 2017 }, (_, index) => ({
         value: index + 2018,
         title: String(index + 2018),
-      })),
+      })).reverse(),
     [],
   )
 

@@ -25,7 +25,7 @@ export const SideNav: React.FC<SideNavProps> = ({ className }) => {
         className,
       )}
     >
-      <div className="mb-4 ml-4 mt-2 flex">
+      <div className="mb-6 ml-4 mt-2 flex">
         <Link
           href={route.core.home}
           className="text-dark-shades flex items-center text-xl font-extrabold leading-4"

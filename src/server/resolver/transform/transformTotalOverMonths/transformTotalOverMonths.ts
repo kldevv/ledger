@@ -40,7 +40,7 @@ export const transformTotalOverMonths = (
 
   // Fill missing months with zeros
   groupedData.forEach((group) => {
-    const monthsWithData = group.total.map((entry) => entry.month)
+    const monthsWithData = group.total.map((entry) => Number(entry.month))
     for (let month = 1; month <= 12; month++) {
       if (!monthsWithData.includes(month)) {
         group.total.push({
