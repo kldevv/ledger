@@ -34,12 +34,10 @@ const Page = () => {
       <div className="text-dark-shades absolute left-4 top-4 flex h-fit items-center text-xl font-extrabold leading-4">
         Pizzafund <Icon.Solid name="Hashtag" />
       </div>
-      <div className="mx-auto mt-48 flex max-w-[30rem] flex-col gap-y-4 px-4">
+      <div className="m-auto flex max-w-[30rem] flex-col gap-y-4 px-4">
         <div className="border-mid-gray mb-4 flex flex-col border-b-2 pb-6">
-          <h1 className="mt-2 text-3xl font-extrabold">Sign In</h1>
-          <p className="mt-3 text-sm font-medium">
-            Using one of the following options
-          </p>
+          <h1 className="mt-2 text-3xl font-extrabold">{t`signIn.header`}</h1>
+          <p className="mt-3 text-sm font-medium">{t`signIn.section`}</p>
         </div>
         <div className="flex flex-col gap-y-4">
           <div className="h-8 w-full">
@@ -56,7 +54,7 @@ const Page = () => {
             >
               <div className="flex w-full items-center">
                 <Icon.Brand name="Invertocat" />
-                <span className="mx-auto">Sign in with Github</span>
+                <span className="mx-auto">{t`signIn.github`}</span>
               </div>
             </Button>
           </div>
@@ -74,15 +72,11 @@ const Page = () => {
             >
               <div className="flex w-full items-center">
                 <Icon.Brand name="Google" />
-                <span className="mx-auto font-semibold">
-                  Sign in with Google
-                </span>
+                <span className="mx-auto font-semibold">{t`signIn.google`}</span>
               </div>
             </Button>
           </div>
-          <p className="text-gray mt-3 text-xs font-normal">
-            Tailor accounts, simplify entries, and more.
-          </p>
+          <p className="text-gray mt-3 text-xs font-normal">{t`signIn.slogan`}</p>
         </div>
       </div>
     </PublicLayout>

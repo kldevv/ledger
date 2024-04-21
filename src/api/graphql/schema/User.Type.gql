@@ -1,0 +1,9 @@
+type User {
+  id: String!
+  email: String
+  name: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  provider: Provider!
+  authType: AuthType!
+}

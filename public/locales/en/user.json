@@ -1,0 +1,15 @@
+{
+  "userDetails": {
+    "provider": "Provider",
+    "authType": "Authentication",
+    "createdAt": "Create Date",
+    "updatedAt": "Update Date",
+    "name": "Name",
+    "id": "ID",
+    "email": "Email"
+  },
+  "provider": {
+    "GOOGLE": "Google",
+    "GITHUB": "GitHub"
+  }
+}

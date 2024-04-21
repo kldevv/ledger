@@ -29,4 +29,7 @@ type Query {
 
   # Summary
   totalOverMonths(input: TotalOverMonthsInput!): [TotalOverMonths!]!
+
+  # User
+  user: User!
 }

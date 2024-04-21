@@ -87,6 +87,13 @@
     "header": "Home",
     "section": "Experience financial control with Pizzafund — your solution for effortless double-entry accounting. Tailor accounts, simplify entries. Learn more in the <about>about</about> page."
   },
+  "signIn": {
+    "header": "Sign In",
+    "section": "Using one of the following options",
+    "slogan": "Tailor accounts, simplify entries, and more.",
+    "google": "Sign in with Google",
+    "github": "Sign in with GitHub"
+  },
   "summary": {
     "totalOverMonths": {
       "header": "Total Over Months",
@@ -142,5 +149,9 @@
       "header": "Internal Error",
       "section": "It's not you, somethong is wrong with us."
     }
+  },
+  "user": {
+    "header": "User",
+    "section": "The user owns multiple <branch>branches</branch> and <links>links</links>, supported by our identity provider, which includes Google and Github authentication."
   }
 }

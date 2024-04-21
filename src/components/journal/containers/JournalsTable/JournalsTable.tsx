@@ -6,7 +6,7 @@ import { useJournalsTableCol } from '@/components/journal/hooks'
 export const JournalsTable: React.FC = () => {
   const [currentBranch] = useCurrentBranch()
   const colDefs = useJournalsTableCol()
-  const { data } = useJournalsQuery({
+  const { data, loading } = useJournalsQuery({
     variables: {
       input: {
         branchId: currentBranch?.id ?? '',
@@ -18,7 +18,11 @@ export const JournalsTable: React.FC = () => {
 
   return (
     <Card>
-      <Table colDefs={colDefs} data={data?.journals ?? []} />
+      <Table
+        colDefs={colDefs}
+        data={data?.journals ?? []}
+        loading={loading || data?.journals == null}
+      />
     </Card>
   )
 }

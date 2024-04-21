@@ -50,3 +50,12 @@ enum LinkType {
   GENERAL
   FX
 }
+
+enum Provider {
+  GITHUB
+  GOOGLE
+}
+
+enum AuthType {
+  OAUTH
+}

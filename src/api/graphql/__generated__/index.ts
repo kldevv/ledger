@@ -133,6 +133,11 @@ export type AddTagInput = {
   type: TagType;
 };
 
+export const AuthType = {
+  OAUTH: 'OAUTH'
+} as const;
+
+export type AuthType = typeof AuthType[keyof typeof AuthType];
 export type Branch = {
   __typename?: 'Branch';
   createdAt: Scalars['DateTime']['output'];
@@ -374,6 +379,12 @@ export type MutationUpdateTagArgs = {
   input: UpdateTagInput;
 };
 
+export const Provider = {
+  GITHUB: 'GITHUB',
+  GOOGLE: 'GOOGLE'
+} as const;
+
+export type Provider = typeof Provider[keyof typeof Provider];
 export type Query = {
   __typename?: 'Query';
   account: Account;
@@ -391,6 +402,7 @@ export type Query = {
   tag: Tag;
   tags: Array<Tag>;
   totalOverMonths: Array<TotalOverMonths>;
+  user: User;
 };
 
 
@@ -563,6 +575,17 @@ export type UpdateTagInput = {
   type: TagType;
 };
 
+export type User = {
+  __typename?: 'User';
+  authType: AuthType;
+  createdAt: Scalars['DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  provider: Provider;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -650,6 +673,7 @@ export type ResolversTypes = {
   AddJournalInput: AddJournalInput;
   AddLinkInput: AddLinkInput;
   AddTagInput: AddTagInput;
+  AuthType: AuthType;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Branch: ResolverTypeWrapper<Branch>;
   BranchInput: BranchInput;
@@ -678,6 +702,7 @@ export type ResolversTypes = {
   LinkType: LinkType;
   LinksInput: LinksInput;
   Mutation: ResolverTypeWrapper<{}>;
+  Provider: Provider;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Tag: ResolverTypeWrapper<Tag>;
@@ -693,6 +718,7 @@ export type ResolversTypes = {
   UpdateJournalInput: UpdateJournalInput;
   UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
+  User: ResolverTypeWrapper<User>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -747,6 +773,7 @@ export type ResolversParentTypes = {
   UpdateJournalInput: UpdateJournalInput;
   UpdateLinkInput: UpdateLinkInput;
   UpdateTagInput: UpdateTagInput;
+  User: User;
 };
 
 export type AccountResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
@@ -896,6 +923,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   tag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<QueryTagArgs, 'input'>>;
   tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<QueryTagsArgs, 'input'>>;
   totalOverMonths?: Resolver<Array<ResolversTypes['TotalOverMonths']>, ParentType, ContextType, RequireFields<QueryTotalOverMonthsArgs, 'input'>>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
 };
 
 export type TagResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']> = {
@@ -917,6 +945,17 @@ export type TotalOverMonthsResolvers<ContextType = ApolloServerContext, ParentTy
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UserResolvers<ContextType = ApolloServerContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  authType?: Resolver<ResolversTypes['AuthType'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  provider?: Resolver<ResolversTypes['Provider'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = ApolloServerContext> = {
   Account?: AccountResolvers<ContextType>;
   AccountGroup?: AccountGroupResolvers<ContextType>;
@@ -934,6 +973,7 @@ export type Resolvers<ContextType = ApolloServerContext> = {
   Query?: QueryResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
   TotalOverMonths?: TotalOverMonthsResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 };
 
 
@@ -1139,6 +1179,11 @@ export type TotalOverMonthsQueryVariables = Exact<{
 
 
 export type TotalOverMonthsQuery = { __typename?: 'Query', totalOverMonths: Array<{ __typename?: 'TotalOverMonths', id: string, name: string, total: Array<{ __typename?: 'DebitAndCredit', debit: number, credit: number }> }> };
+
+export type UserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, name?: string | null, provider: Provider, authType: AuthType, updatedAt: Date, createdAt: Date } };
 
 export const AccountDataFragmentDoc = gql`
     fragment AccountData on Account {
@@ -2251,3 +2296,47 @@ export type TotalOverMonthsQueryHookResult = ReturnType<typeof useTotalOverMonth
 export type TotalOverMonthsLazyQueryHookResult = ReturnType<typeof useTotalOverMonthsLazyQuery>;
 export type TotalOverMonthsSuspenseQueryHookResult = ReturnType<typeof useTotalOverMonthsSuspenseQuery>;
 export type TotalOverMonthsQueryResult = Apollo.QueryResult<TotalOverMonthsQuery, TotalOverMonthsQueryVariables>;
+export const UserDocument = gql`
+    query User {
+  user {
+    id
+    name
+    provider
+    authType
+    updatedAt
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useUserQuery__
+ *
+ * To run a query within a React component, call `useUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserQuery(baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+      }
+export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+        }
+export function useUserSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<UserQuery, UserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+        }
+export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
+export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
+export type UserSuspenseQueryHookResult = ReturnType<typeof useUserSuspenseQuery>;
+export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;

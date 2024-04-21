@@ -28,12 +28,12 @@
     "branchId": "Branch ID",
     "count": "Journal Count",
     "createdAt": "Create Date",
+    "updatedAt": "Update Date",
     "deletedAt": "Delete Date",
     "id": "ID",
     "journals": "Related Journals",
     "name": "Name",
-    "type": "Tag Type",
-    "updatedAt": "Update Date"
+    "type": "Tag Type"
   },
   "tagsTable": {
     "col": {

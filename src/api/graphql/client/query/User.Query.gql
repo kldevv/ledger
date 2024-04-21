@@ -1,0 +1,10 @@
+query User {
+  user {
+    id
+    name
+    provider
+    authType
+    updatedAt
+    createdAt
+  }
+}
