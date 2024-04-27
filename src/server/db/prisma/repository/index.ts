@@ -1,1 +1,1 @@
-export * from './totalOverMonths/totalOverMonths'
+export * from './findTotalOverMonths/findTotalOverMonths'
