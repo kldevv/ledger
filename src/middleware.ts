@@ -4,11 +4,17 @@ import { route } from './shared/route'
 
 import type { Session } from 'next-auth'
 
-const sessionUrl =
-  process.env.NEXTAUTH_URL_INTERNAL ??
-  process.env.NEXTAUTH_URL + '/api/auth/session'
-
+/**
+ * Get active user session
+ *
+ * @param req Next request
+ * @returns Active user session
+ */
 const getSession = async (req: NextRequest) => {
+  const sessionUrl =
+    process.env.NEXTAUTH_URL_INTERNAL ??
+    process.env.NEXTAUTH_URL + '/api/auth/session'
+
   const response = await fetch(sessionUrl, {
     headers: req.headers,
   })
@@ -29,6 +35,12 @@ const getSession = async (req: NextRequest) => {
   return session
 }
 
+/**
+ * Next middleware
+ *
+ * @param req
+ * @returns Next response
+ */
 export const middleware = async (req: NextRequest) => {
   const session = await getSession(req)
 
