@@ -3,7 +3,13 @@ import { Trans, useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 import { z } from 'zod'
 
-import { JournalsDocument, useAddJournalMutation } from '@/api/graphql'
+import {
+  EntriesDocument,
+  JournalsDocument,
+  LinksDocument,
+  TagsDocument,
+  useAddJournalMutation,
+} from '@/api/graphql'
 import { Form } from '@/components/core/containers'
 import {
   useCurrentBranch,
@@ -165,6 +171,24 @@ export const AddJournalForm: React.FC = () => {
     refetchQueries: [
       {
         query: JournalsDocument,
+        variables: {
+          input: { branchId: currentBranch?.id },
+        },
+      },
+      {
+        query: TagsDocument,
+        variables: {
+          input: { branchId: currentBranch?.id },
+        },
+      },
+      {
+        query: LinksDocument,
+        variables: {
+          input: { branchId: currentBranch?.id },
+        },
+      },
+      {
+        query: EntriesDocument,
         variables: {
           input: { branchId: currentBranch?.id },
         },

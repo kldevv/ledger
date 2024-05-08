@@ -7,6 +7,8 @@ import { z } from 'zod'
 import {
   EntriesDocument,
   JournalDocument,
+  LinksDocument,
+  TagsDocument,
   useEntriesQuery,
   useJournalQuery,
   useUpdateJournalMutation,
@@ -235,15 +237,25 @@ export const EditJournalForm: React.FC = () => {
       {
         query: JournalDocument,
         variables: {
-          input: { id },
+          input: { id: journal?.id },
+        },
+      },
+      {
+        query: TagsDocument,
+        variables: {
+          input: { branchId: journal?.branchId },
+        },
+      },
+      {
+        query: LinksDocument,
+        variables: {
+          input: { branchId: journal?.branchId },
         },
       },
       {
         query: EntriesDocument,
         variables: {
-          input: {
-            journalId: id,
-          },
+          input: { branchId: journal?.branchId },
         },
       },
     ],
