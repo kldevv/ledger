@@ -114,7 +114,7 @@ export const EntryDetails: React.FC = () => {
             <TextLink
               intent="table"
               href={{
-                pathname: route.account.details.pathname,
+                pathname: route.journal.details.pathname,
                 query: { id: entry?.journal.id },
               }}
             >
