@@ -80,10 +80,10 @@ export const updateJournal = async ({
       accrualDate,
       note,
       tags: {
-        connect: tags.map((id) => ({ id })),
+        set: tags.map((id) => ({ id })),
       },
       links: {
-        connect: links.map((id) => ({ id })),
+        set: links.map((id) => ({ id })),
       },
       entries: {
         deleteMany: {},
