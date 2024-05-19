@@ -38,3 +38,7 @@ next-env.d.ts
  
 # graphql
 **/__generated__
+
+
+
+compose.private.yaml

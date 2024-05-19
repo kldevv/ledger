@@ -12,7 +12,9 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts",
+    "docker:private": "docker compose --project-name pizzafund-private -f compose.private.yaml",
+    "docker": "docker compose --project-name pizzafund"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
