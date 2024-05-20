@@ -37,7 +37,7 @@ export const AddLinkForm: React.FC = () => {
     },
   })
 
-  const [addLink, { loading }] = useAddLinkMutation({
+  const [addLink, { loading, data }] = useAddLinkMutation({
     onCompleted: ({ addLink }) =>
       toast(() => (
         <Trans
@@ -57,6 +57,8 @@ export const AddLinkForm: React.FC = () => {
       },
     ],
   })
+
+  console.log(data)
 
   const handleSubmit = ({ type, ...rest }: AddLinkFormValues) => {
     void addLink({

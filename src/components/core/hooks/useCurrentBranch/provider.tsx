@@ -7,11 +7,7 @@ import { CurrentBranchContext } from './context'
 
 import type { Branch } from '@/api/graphql'
 
-export interface CurrentBranchProviderProps {
-  children: React.ReactNode
-}
-
-export const CurrentBranchProvider: React.FC<CurrentBranchProviderProps> = ({
+export const CurrentBranchProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const [currentBranch, setCurrentBranch] = useState<Branch>()

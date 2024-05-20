@@ -17,6 +17,8 @@ export const LinksTable: React.FC = () => {
     skip: session?.user.id == null,
   })
 
+  console.log(data)
+
   return (
     <Card>
       <Table colDefs={colDefs} data={data?.links ?? []} loading={loading} />

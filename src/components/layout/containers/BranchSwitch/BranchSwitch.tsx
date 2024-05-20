@@ -17,12 +17,7 @@ export const BranchSwitch: React.FC = () => {
   const { data: session } = useSession()
   const { t } = useTranslation('layout')
 
-  const {
-    data: { branches } = {},
-    loading,
-    error,
-    refetch,
-  } = useBranchesQuery({
+  const { data, loading, error, refetch } = useBranchesQuery({
     variables: {
       input: {
         userId: session?.user.id ?? '',
@@ -33,21 +28,23 @@ export const BranchSwitch: React.FC = () => {
 
   const items = useMemo<BranchSwitchItem[]>(
     () =>
-      branches?.map((branch) => ({
+      data?.branches?.map((branch) => ({
         value: branch.id,
         title: branch.name,
         desc: branch.id,
         flagIcon: currencyToFlagIconName(branch.currency),
       })) ?? [],
-    [branches],
+    [data?.branches],
   )
 
   const handleBranchChange = useCallback(
     (change: UseSelectSelectedItemChange<BranchSwitchItem>) =>
       setCurrentBranch(
-        branches?.find((branch) => branch.id === change.selectedItem.value),
+        data?.branches?.find(
+          (branch) => branch.id === change.selectedItem.value,
+        ),
       ),
-    [branches, setCurrentBranch],
+    [data?.branches, setCurrentBranch],
   )
 
   const handleRetry = useCallback(() => void refetch(), [refetch])
