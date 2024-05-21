@@ -44,7 +44,7 @@ const MultiSelectTemplate = (args: DropdownProps) => {
       <Dropdown.MultiSelect
         items={items}
         value={value}
-        placeholder="Select item"
+        // placeholder="Select item"
         onChange={(change) => {
           setValue(change.selectedItems.map(({ value }) => value))
         }}

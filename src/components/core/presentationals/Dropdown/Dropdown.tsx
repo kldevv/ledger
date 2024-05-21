@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
 
-import { Icon } from '..'
+import { Icon, LoadingBox } from '..'
 
 import { DropdownMultiSelect } from './Dorpdown.MultiSelect/Dorpdown.MultiSelect'
 import { DropdownOptions } from './Dropdown.Options/Dropdown.Options'
@@ -37,9 +37,13 @@ export interface DropdownProps {
    */
   children: React.ReactElement
   /**
-   * Overriding class name
+   * Custom class name
    */
   className?: string
+  /**
+   * Loading?
+   */
+  loading?: boolean
 }
 
 export const Dropdown = <ItemValue,>({
@@ -47,6 +51,7 @@ export const Dropdown = <ItemValue,>({
   error,
   children,
   className,
+  loading = false,
 }: DropdownProps) => {
   return (
     <div className={classNames('w-full', className)}>
@@ -55,9 +60,17 @@ export const Dropdown = <ItemValue,>({
           {label}
         </label>
       )}
-      <div className={'border-mid-gray w-full rounded-md border text-xs'}>
-        {React.isValidElement<DropdownSelectProps<ItemValue>>(children) &&
-          React.cloneElement(children, { className: 'px-2 py-1 rounded-md' })}
+      <div className="flex h-8 w-full items-center">
+        {loading ? (
+          <LoadingBox className="size-full h-6" />
+        ) : (
+          <div className={'border-mid-gray w-full rounded-md border text-xs'}>
+            {React.isValidElement<DropdownSelectProps<ItemValue>>(children) &&
+              React.cloneElement(children, {
+                className: 'px-2 py-1 rounded-md',
+              })}
+          </div>
+        )}
       </div>
       {error != null && (
         <div className="text-dark-red/90 flex text-[0.625rem] leading-4">

@@ -2,7 +2,7 @@ import classNames from 'classnames'
 
 export interface LoadingBoxProps {
   /**
-   * Override default class name
+   * Class name
    */
   className?: string
 }
@@ -10,7 +10,7 @@ export interface LoadingBoxProps {
 export const LoadingBox: React.FC<LoadingBoxProps> = ({ className }) => {
   return (
     <div
-      className={classNames('bg-loading-gray animate-pulse rounded', className)}
+      className={classNames('bg-mid-gray animate-pulse rounded', className)}
     />
   )
 }

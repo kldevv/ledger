@@ -24,7 +24,9 @@
   },
   "branchSwitch": {
     "error": "Something went wrong. Please try again.",
-    "retry": "Retry"
+    "retry": "Retry",
+    "empty": "No branches found.",
+    "link": "Create Now"
   },
   "salutation": "Hi, {{ name }}",
   "signOut": "Sign Out"

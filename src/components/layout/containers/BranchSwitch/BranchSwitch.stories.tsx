@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql'
 
-import { useBranchesQueryMock } from '@/dev/apollo'
+import { mockApollo } from '@/dev/apollo'
 
 import { BranchSwitch } from './BranchSwitch'
 
@@ -16,29 +16,28 @@ type Story = StoryObj<typeof BranchSwitch>
 
 export const Default: Story = {
   parameters: {
-    apolloClient: {
-      mocks: [useBranchesQueryMock],
-    },
+    ...mockApollo({
+      useBranchesQueryMock: {},
+    }),
   },
 }
 
 export const Loading: Story = {
   parameters: {
-    apolloClient: {
-      mocks: [{ ...useBranchesQueryMock, delay: 99999 }],
-    },
+    ...mockApollo({
+      useBranchesQueryMock: {
+        delay: 9999,
+      },
+    }),
   },
 }
 
 export const Error: Story = {
   parameters: {
-    apolloClient: {
-      mocks: [
-        {
-          ...useBranchesQueryMock,
-          error: [new GraphQLError('Storybook mock error')],
-        },
-      ],
-    },
+    ...mockApollo({
+      useBranchesQueryMock: {
+        error: new GraphQLError(''),
+      },
+    }),
   },
 }

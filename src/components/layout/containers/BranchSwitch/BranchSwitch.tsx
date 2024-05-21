@@ -64,47 +64,17 @@ export const BranchSwitch: React.FC = () => {
     )
   }
 
-  if (loading || !currentBranch) {
+  if (!loading && data?.branches.length === 0) {
     return (
-      <div className="text-gray/30 ml-8">
-        <svg
-          version="1.1"
-          id="L4"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          className="size-20"
-          y="0px"
-          viewBox="0 0 100 100"
-          enableBackground="new 0 0 0 0"
+      <div className="text-dark-shades flex w-full items-center gap-x-2 text-xs">
+        <Icon.Outline name="Squares2x2" className="text-gray" />
+        <span>{t`branchSwitch.empty`}</span>
+        <ButtonCore
+          className="text-dark-shades hover:text-gray w-fit font-medium underline"
+          onClick={handleRetry}
         >
-          <circle fill="currentColor" stroke="none" cx="6" cy="50" r="6">
-            <animate
-              attributeName="opacity"
-              dur="1s"
-              values="0;1;0"
-              repeatCount="indefinite"
-              begin="0.1"
-            />
-          </circle>
-          <circle fill="currentColor" stroke="none" cx="26" cy="50" r="6">
-            <animate
-              attributeName="opacity"
-              dur="1s"
-              values="0;1;0"
-              repeatCount="indefinite"
-              begin="0.2"
-            />
-          </circle>
-          <circle fill="currentColor" stroke="none" cx="46" cy="50" r="6">
-            <animate
-              attributeName="opacity"
-              dur="1s"
-              values="0;1;0"
-              repeatCount="indefinite"
-              begin="0.3"
-            />
-          </circle>
-        </svg>
+          {t`branchSwitch.link`}
+        </ButtonCore>
       </div>
     )
   }
@@ -113,7 +83,7 @@ export const BranchSwitch: React.FC = () => {
     <div className="flex items-center gap-x-2">
       <Icon.Outline name="Squares2x2" className="text-gray" />
       <div className="w-60">
-        <Dropdown>
+        <Dropdown loading={loading}>
           <Dropdown.Select
             items={items}
             value={items.find((item) => item.value === currentBranch?.id)}
