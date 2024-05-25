@@ -1,0 +1,7 @@
+.button-text-primary {
+  @apply text-light-accent hover:text-light-accent/60;
+}
+
+.button-text-secondary {
+  @apply text-dark-shades hover:text-dark-shades/60;
+}

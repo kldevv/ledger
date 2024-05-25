@@ -11,7 +11,7 @@ export interface LinkTextProps extends React.PropsWithChildren<LinkProps> {
    */
   variant: 'primary' | 'secondary'
   /**
-   * Classname?
+   * Class name?
    */
   className?: string
 }

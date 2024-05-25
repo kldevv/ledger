@@ -4,7 +4,13 @@ import { useCallback, useMemo } from 'react'
 
 import { useBranchesQuery } from '@/api/graphql'
 import { useCurrentBranch } from '@/components/core/hooks'
-import { ButtonCore, Dropdown, Icon } from '@/components/core/presentationals'
+import {
+  ButtonCore,
+  Dropdown,
+  Icon,
+  Link,
+} from '@/components/core/presentationals'
+import { branch } from '@/shared/route/routes'
 import { currencyToFlagIconName } from '@/shared/utils'
 
 import type { DropdownItem } from '@/components/core/presentationals'
@@ -69,12 +75,13 @@ export const BranchSwitch: React.FC = () => {
       <div className="text-dark-shades flex w-full items-center gap-x-2 text-xs">
         <Icon.Outline name="Squares2x2" className="text-gray" />
         <span>{t`branchSwitch.empty`}</span>
-        <ButtonCore
+        <Link.Text
           className="text-dark-shades hover:text-gray w-fit font-medium underline"
-          onClick={handleRetry}
+          variant="secondary"
+          href={branch.add}
         >
           {t`branchSwitch.link`}
-        </ButtonCore>
+        </Link.Text>
       </div>
     )
   }
