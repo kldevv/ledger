@@ -26,7 +26,7 @@ export const Loading: Story = {
   parameters: {
     ...mockApollo({
       useBranchesQueryMock: {
-        delay: 9999,
+        delay: Infinity,
       },
     }),
   },
