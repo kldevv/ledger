@@ -2,8 +2,9 @@ import '../styles/globals.css'
 
 import type { Preview } from '@storybook/react'
 
-import { CurrentBranchDecorator, SessionDecorator } from '../src/dev/decorators'
 import i18n from './i18next'
+
+import { decorators } from '../src/packages/storybook/config'
 
 const preview: Preview = {
   globals: {
@@ -21,7 +22,7 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [SessionDecorator, CurrentBranchDecorator],
+  decorators,
 }
 
 export default preview

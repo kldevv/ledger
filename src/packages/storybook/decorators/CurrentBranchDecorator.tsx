@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { CurrentBranchContext } from '@/components/core/hooks/useCurrentBranch/context'
 
-import { BranchMock } from '../mocks'
+import { BranchMock } from '../../../dev/mocks'
 
 import type { Branch } from '@/api/graphql'
 import type { Decorator } from '@storybook/react'

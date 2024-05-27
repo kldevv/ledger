@@ -1,9 +1,9 @@
 import { BranchesDocument } from '@/api/graphql'
 
-import { UserIdMock, BranchesMock } from '../../mocks'
+import { UserIdMock, BranchesMock } from '../../../dev/mocks'
 
 import type { BranchesQuery, BranchesQueryVariables } from '@/api/graphql'
-import type { ApolloMock } from '@/dev/apollo/types'
+import type { ApolloMock } from '@/packages/apollo.mock/types'
 
 export const useBranchesQueryMock: ApolloMock<
   BranchesQuery,
@@ -20,7 +20,7 @@ export const useBranchesQueryMock: ApolloMock<
   },
 }
 
-declare module '@/dev/apollo/types' {
+declare module '@/packages/apollo.mock/types' {
   interface ApolloMocks {
     useBranchesQueryMock: Partial<typeof useBranchesQueryMock>
   }

@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql'
 
-import { mockApollo } from '@/dev/apollo'
+import { mockApollo } from '@/packages/apollo.mock'
 
 import { BranchSwitch } from './BranchSwitch'
 
@@ -18,6 +18,18 @@ export const Default: Story = {
   parameters: {
     ...mockApollo({
       useBranchesQueryMock: {},
+    }),
+  },
+}
+
+export const Empty: Story = {
+  parameters: {
+    ...mockApollo({
+      useBranchesQueryMock: {
+        data: {
+          branches: [],
+        },
+      },
     }),
   },
 }

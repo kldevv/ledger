@@ -1,7 +1,7 @@
 import { SessionProvider } from 'next-auth/react'
 import React from 'react'
 
-import { SessionMock } from '../mocks'
+import { SessionMock } from '../../../dev/mocks'
 
 import type { Decorator } from '@storybook/react'
 

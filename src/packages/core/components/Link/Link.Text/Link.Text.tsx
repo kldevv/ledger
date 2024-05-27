@@ -1,7 +1,5 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import Link from 'next/link'
-
-import './Link.Text.css'
 
 import type { LinkProps } from 'next/link'
 
@@ -23,8 +21,13 @@ export const LinkText: React.FC<LinkTextProps> = ({
   ...props
 }) => {
   return (
-    <Link {...props} className={classNames(`link-text-${variant}`, className)}>
+    <Link {...props} className={clsx(linkTextVariant[variant], className)}>
       {children}
     </Link>
   )
 }
+
+const linkTextVariant = {
+  primary: 'text-light-accent hover:text-light-accent/60',
+  secondary: 'text-dark-shades hover:text-dark-shades/60',
+} as const

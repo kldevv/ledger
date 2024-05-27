@@ -1,9 +1,7 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 
 import { LoadingBox } from '../../LoadingBox/LoadingBox'
 import { ButtonCore, type ButtonCoreProps } from '../Button.Core/Button.Core'
-
-import './Button.Text.css'
 
 export interface ButtonTextProps extends Omit<ButtonCoreProps, 'children'> {
   /**
@@ -30,9 +28,14 @@ export const ButtonText: React.FC<ButtonTextProps> = ({
   return (
     <ButtonCore
       {...props}
-      className={classNames(`button-text-${variant}`, className)}
+      className={clsx(linkTextVariant[variant], className)}
     >
       {label}
     </ButtonCore>
   )
 }
+
+const linkTextVariant = {
+  primary: 'text-light-accent hover:text-light-accent/60',
+  secondary: 'text-dark-shades hover:text-dark-shades/60',
+} as const

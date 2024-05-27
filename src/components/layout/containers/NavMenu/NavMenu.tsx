@@ -3,9 +3,8 @@ import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 
 import { ButtonCore } from '@/components/core/presentationals'
+import { BranchSwitch } from '@/packages/layout'
 import { route } from '@/shared/route'
-
-import { BranchSwitch } from '..'
 
 export const NavMenu: React.FC = () => {
   const { t } = useTranslation('layout')

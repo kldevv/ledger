@@ -4,12 +4,8 @@ import { useCallback, useMemo } from 'react'
 
 import { useBranchesQuery } from '@/api/graphql'
 import { useCurrentBranch } from '@/components/core/hooks'
-import {
-  ButtonCore,
-  Dropdown,
-  Icon,
-  Link,
-} from '@/components/core/presentationals'
+import { Dropdown, Icon } from '@/components/core/presentationals'
+import { Button, Link } from '@/packages/core/components'
 import { branch } from '@/shared/route/routes'
 import { currencyToFlagIconName } from '@/shared/utils'
 
@@ -19,9 +15,9 @@ import type { UseSelectSelectedItemChange } from 'downshift'
 export type BranchSwitchItem = DropdownItem<string>
 
 export const BranchSwitch: React.FC = () => {
+  const { t } = useTranslation('layout')
   const [currentBranch, setCurrentBranch] = useCurrentBranch()
   const { data: session } = useSession()
-  const { t } = useTranslation('layout')
 
   const { data, loading, error, refetch } = useBranchesQuery({
     variables: {
@@ -55,51 +51,43 @@ export const BranchSwitch: React.FC = () => {
 
   const handleRetry = useCallback(() => void refetch(), [refetch])
 
-  if (error) {
-    return (
-      <div className="text-dark-red flex w-full items-center gap-x-2 text-xs">
-        <Icon.Solid name="ExclamationCircle" />
-        <span>{t`branchSwitch.error`}</span>
-        <ButtonCore
-          className="text-dark-shades hover:text-gray w-fit font-medium underline"
-          onClick={handleRetry}
-        >
-          {t`branchSwitch.retry`}
-        </ButtonCore>
-      </div>
-    )
-  }
-
-  if (!loading && data?.branches.length === 0) {
-    return (
-      <div className="text-dark-shades flex w-full items-center gap-x-2 text-xs">
-        <Icon.Outline name="Squares2x2" className="text-gray" />
-        <span>{t`branchSwitch.empty`}</span>
-        <Link.Text
-          className="text-dark-shades hover:text-gray w-fit font-medium underline"
-          variant="secondary"
-          href={branch.add}
-        >
-          {t`branchSwitch.link`}
-        </Link.Text>
-      </div>
-    )
-  }
-
   return (
     <div className="flex items-center gap-x-2">
       <Icon.Outline name="Squares2x2" className="text-gray" />
-      <div className="w-60">
-        <Dropdown loading={loading}>
-          <Dropdown.Select
-            items={items}
-            value={items.find((item) => item.value === currentBranch?.id)}
-            onChange={handleBranchChange}
+      {error != null ? (
+        <>
+          <span>{t`branchSwitch.error`}</span>
+          <Button.Text
+            className="w-fit font-normal underline"
+            onClick={handleRetry}
+            variant="secondary"
+            label={t`branchSwitch.retry`}
+          />
+        </>
+      ) : !loading && data?.branches.length === 0 ? (
+        <>
+          <span>{t`branchSwitch.empty`}</span>
+          <Link.Text
+            className="w-fit font-normal underline"
+            variant="secondary"
+            href={branch.add}
           >
-            <Dropdown.Options />
-          </Dropdown.Select>
-        </Dropdown>
-      </div>
+            {t`branchSwitch.link`}
+          </Link.Text>
+        </>
+      ) : (
+        <div className="w-60">
+          <Dropdown loading={loading}>
+            <Dropdown.Select
+              items={items}
+              value={items.find((item) => item.value === currentBranch?.id)}
+              onChange={handleBranchChange}
+            >
+              <Dropdown.Options />
+            </Dropdown.Select>
+          </Dropdown>
+        </div>
+      )}
     </div>
   )
 }

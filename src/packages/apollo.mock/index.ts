@@ -1,6 +1,7 @@
 import * as apolloMocks from './mocks'
 
-import type { ApolloMock, ApolloMocks } from '@/dev/apollo/types'
+import type { ApolloMock, ApolloMocks } from '@/packages/apollo.mock/types'
+import type { MockedResponse } from '@apollo/client/testing'
 
 /**
  * Mock apollo queries and mutations
@@ -22,7 +23,13 @@ export const mockApollo = (mocks: Partial<ApolloMocks>) => {
 /**
  * Build mock shape
  */
-const buildMock = ({ data, delay, error, variables, document }: ApolloMock) => {
+const buildMock = ({
+  data,
+  delay,
+  error,
+  variables,
+  document,
+}: ApolloMock): MockedResponse => {
   return {
     request: {
       query: document,

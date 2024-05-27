@@ -13,7 +13,7 @@ describe('Link.Text', () => {
     const link = screen.getByRole('link')
 
     expect(link).toBeInTheDocument()
-    expect(link).toHaveClass('link-text-primary')
+    expect(link).toHaveClass('text-light-accent hover:text-light-accent/60')
   })
 
   it('renders secondary', () => {
@@ -22,6 +22,6 @@ describe('Link.Text', () => {
     const link = screen.getByRole('link')
 
     expect(link).toBeInTheDocument()
-    expect(link).toHaveClass('link-text-secondary')
+    expect(link).toHaveClass('text-dark-shades hover:text-dark-shades/60')
   })
 })
