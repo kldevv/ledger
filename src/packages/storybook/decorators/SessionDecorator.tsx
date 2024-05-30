@@ -16,3 +16,12 @@ export const SessionDecorator: Decorator = (Story, { parameters }) => {
 
   return <Story />
 }
+
+declare module '@storybook/types' {
+  interface Parameters {
+    /**
+     * Use session decorator? Default is true
+     */
+    session?: boolean
+  }
+}

@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { composeStories } from '@storybook/react'
 import { userEvent } from '@storybook/test'
 import { render, screen } from '@testing-library/react'

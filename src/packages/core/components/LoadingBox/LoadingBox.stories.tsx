@@ -7,6 +7,7 @@ const meta: Meta<typeof LoadingBox> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof LoadingBox>
 
 export const Primary: Story = {

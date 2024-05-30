@@ -1,6 +1,7 @@
 import { InMemoryCache } from '@apollo/client'
 import { MockedProvider } from '@apollo/client/testing'
 
+import type { MockedResponse } from '@apollo/client/testing'
 import type { Decorator } from '@storybook/react'
 
 export const ApolloClientDecorator: Decorator = (Story, { parameters }) => {
@@ -17,4 +18,12 @@ export const ApolloClientDecorator: Decorator = (Story, { parameters }) => {
   }
 
   return <Story />
+}
+
+declare module '@storybook/types' {
+  interface Parameters {
+    apolloClient?: {
+      mocks: MockedResponse<Record<string, unknown>, Record<string, unknown>>[]
+    }
+  }
 }

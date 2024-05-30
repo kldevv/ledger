@@ -7,6 +7,7 @@ const meta: Meta<typeof LoadingSpinner> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof LoadingSpinner>
 
 export const Primary: Story = {
