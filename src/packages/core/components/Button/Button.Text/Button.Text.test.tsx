@@ -6,7 +6,7 @@ import * as stories from './Button.Text.stories'
 const { Primary, Secondary } = composeStories(stories)
 
 describe('Button.Text', () => {
-  it('renders primary', () => {
+  it('render primary', () => {
     render(<Primary />)
 
     const button = screen.getByRole('button')
@@ -15,7 +15,7 @@ describe('Button.Text', () => {
     expect(button).toHaveClass('text-light-accent hover:text-light-accent/60')
   })
 
-  it('renders secondary', () => {
+  it('render secondary', () => {
     render(<Secondary />)
 
     const button = screen.getByRole('button')
