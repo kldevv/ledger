@@ -80,13 +80,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
         <Label t={label} getLabelProps={getLabelProps} />
         <div className="flex h-8 w-full items-center">
           {/* Loading trigger */}
-          {triggerLoading && <LoadingBox className="size-full h-6" />}
+          {triggerLoading && <LoadingBox className="size-full h-5" />}
 
           {/* Input */}
           {!triggerLoading && (
             <div
               className={
-                'border-mid-gray relative w-full rounded-md border text-xs'
+                'border-mid-gray relative h-6 w-full rounded-md border text-xs'
               }
             >
               <DropdownTrigger placeholder={placeholder} />

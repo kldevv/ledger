@@ -26,7 +26,7 @@
     "error": "Something went wrong. Please try again.",
     "retry": "Retry",
     "empty": "No branches found.",
-    "link": "Add Branch"
+    "link": "Add branch"
   },
   "salutation": "Hi, {{ name }}",
   "signOut": "Sign Out"

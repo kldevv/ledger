@@ -1,6 +1,5 @@
 export * from './Button/Button'
 export * from './Card/Card'
-export * from './Chips'
 export * from './DescList/DescList'
 export * from './Dropdown/Dropdown'
 export * from './EntryStatusChip/EntryStatusChip'
