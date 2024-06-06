@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 
-import { Breadcrumbs, NavMenu } from '..'
+import { MenuBar } from '@/packages/layout'
+
+import { Breadcrumbs } from '..'
 import { BaseLayout, Footer, SideNav } from '../../presentationals'
 
 type LayoutProps = {
@@ -18,7 +20,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     <BaseLayout>
       <SideNav className="z-20 min-w-44 max-w-44" />
       <div className="bg-light-shades size-full min-w-96 overflow-scroll">
-        <NavMenu />
+        <MenuBar />
         <div className="flex min-h-full min-w-full max-w-full flex-col px-16">
           <div className="mt-3">
             <Breadcrumbs />

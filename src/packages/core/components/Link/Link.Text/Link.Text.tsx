@@ -21,7 +21,14 @@ export const LinkText: React.FC<LinkTextProps> = ({
   ...props
 }) => {
   return (
-    <Link {...props} className={clsx(linkTextVariant[variant], className)}>
+    <Link
+      {...props}
+      className={clsx(
+        linkTextVariant[variant],
+        'whitespace-nowrap text-nowrap',
+        className,
+      )}
+    >
       {children}
     </Link>
   )

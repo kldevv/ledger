@@ -29,5 +29,5 @@
     "link": "Add branch"
   },
   "salutation": "Hi, {{ name }}",
-  "signOut": "Sign Out"
+  "signOut": "Sign out"
 }

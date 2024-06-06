@@ -49,7 +49,7 @@ export const BranchSwitch: React.FC = () => {
     <div className="flex items-center gap-x-2">
       <Icon name="Squares2x2" className="text-gray size-5" />
       {error != null ? (
-        <div className="flex gap-x-1 text-xs font-normal">
+        <div className="flex gap-x-1 whitespace-nowrap text-xs font-normal">
           <span>{t`branchSwitch.error`}</span>
           <Button.Text
             className="w-fit"
@@ -59,8 +59,8 @@ export const BranchSwitch: React.FC = () => {
           />
         </div>
       ) : !loading && data?.branches.length === 0 ? (
-        <div className="flex gap-x-1 text-xs font-normal">
-          <span>{t`branchSwitch.empty`}</span>
+        <div className="flex gap-x-1 whitespace-nowrap text-xs font-normal">
+          <span className="text-gray">{t`branchSwitch.empty`}</span>
           <Link.Text className="w-fit" variant="primary" href={branch.add}>
             {t`branchSwitch.link`}
           </Link.Text>
