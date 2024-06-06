@@ -31,7 +31,11 @@ describe('DescList', () => {
 
     expect(descListItems).toHaveLength(Loading.args.items?.length ?? 0)
 
-    descListItems.map((item) => {
+    descListItems.map((item, index) => {
+      expect(
+        within(item).getByTestId('desc-list-item-title'),
+      ).toHaveTextContent(Default.args.items?.at(index)?.title ?? '')
+
       expect(within(item).getByTestId('loading-box')).toBeInTheDocument()
     })
   })
