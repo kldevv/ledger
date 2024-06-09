@@ -13,9 +13,9 @@ export const logPrismaQueryEvent = (event: Prisma.QueryEvent) => {
 }
 
 export const logPrismaWarnEvent = (event: Prisma.LogEvent) => {
-  logger.info(loggerMessage.PrismaWarn, { event })
+  logger.warn(loggerMessage.PrismaWarn, { event })
 }
 
 export const logPrismaErrorEvent = (event: Prisma.LogEvent) => {
-  logger.info(loggerMessage.PrismaError, { event })
+  logger.error(loggerMessage.PrismaError, { event })
 }

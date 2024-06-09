@@ -14,3 +14,10 @@ export const PrismaMutationExecuted = `${Prisma} Prisma mutation executed.`
 export const PrismaError = `${Prisma} Prisma recevied errors.`
 
 export const PrismaWarn = `${Prisma} Prisma received warnings.`
+
+/**
+ * Dao log messages
+ */
+const Dao = '[DAO Method]'
+
+export const DaoMutationExecuting = `${Dao} Executing database mutation.`

@@ -29,6 +29,8 @@ const prismaClientSingleton = () => {
     return client
   } catch (error: unknown) {
     logger.error(loggerMessage.PrismaInitFailed, { error })
+
+    throw error
   }
 }
 
