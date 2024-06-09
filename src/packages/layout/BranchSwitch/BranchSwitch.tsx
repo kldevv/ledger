@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
@@ -5,6 +6,7 @@ import { useCallback, useMemo } from 'react'
 import { useBranchesQuery } from '@/api/graphql'
 import { useCurrentBranch } from '@/components/core/hooks'
 import { Button, Dropdown, Icon, Link } from '@/packages/core/components'
+import { route } from '@/shared/route'
 import { branch } from '@/shared/route/routes'
 import { currencyToFlagIconName } from '@/shared/utils'
 
@@ -14,6 +16,7 @@ export const BranchSwitch: React.FC = () => {
   const { t } = useTranslation('layout')
   const [currentBranch, setCurrentBranch] = useCurrentBranch()
   const { data: session } = useSession()
+  const router = useRouter()
 
   const { data, loading, error, refetch } = useBranchesQuery({
     variables: {
@@ -61,9 +64,11 @@ export const BranchSwitch: React.FC = () => {
       ) : !loading && data?.branches.length === 0 ? (
         <div className="flex gap-x-1 whitespace-nowrap text-xs font-normal">
           <span className="text-gray">{t`branchSwitch.empty`}</span>
-          <Link.Text className="w-fit" variant="primary" href={branch.add}>
-            {t`branchSwitch.link`}
-          </Link.Text>
+          {router.route !== route.branch.add.pathname && (
+            <Link.Text className="w-fit" variant="primary" href={branch.add}>
+              {t`branchSwitch.link`}
+            </Link.Text>
+          )}
         </div>
       ) : (
         <div className="w-60">

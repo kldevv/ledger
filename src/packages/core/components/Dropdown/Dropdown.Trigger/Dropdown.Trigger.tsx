@@ -24,6 +24,7 @@ export const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
           'outline outline-light-accent': isOpen,
         },
       )}
+      type="button"
       data-testid="dropdown-trigger"
       {...getToggleButtonProps()}
     >

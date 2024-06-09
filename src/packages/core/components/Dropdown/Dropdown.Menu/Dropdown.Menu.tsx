@@ -26,7 +26,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({ items }) => {
           hidden: !isOpen,
         },
       )}
-      {...getMenuProps?.()}
+      {...getMenuProps()}
       data-testid="dropdown-menu"
     >
       {/* Loading state */}

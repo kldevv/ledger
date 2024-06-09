@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { useSelect } from 'downshift'
 import { useCallback } from 'react'
 
@@ -83,16 +84,17 @@ export const Dropdown: React.FC<DropdownProps> = ({
           {triggerLoading && <LoadingBox className="size-full h-5" />}
 
           {/* Input */}
-          {!triggerLoading && (
-            <div
-              className={
-                'border-mid-gray relative h-6 w-full rounded-md border text-xs'
-              }
-            >
-              <DropdownTrigger placeholder={placeholder} />
-              <DropdownMenu items={items} />
-            </div>
-          )}
+          <div
+            className={clsx(
+              'border-mid-gray relative h-6 w-full rounded-md border text-xs',
+              // downshift need to hold the `ref` regardless
+              // and thus instead of conditionally rendering menu and trigger, we use css to hide the them when trigger is loading
+              { hidden: triggerLoading },
+            )}
+          >
+            <DropdownTrigger placeholder={placeholder} />
+            <DropdownMenu items={items} />
+          </div>
         </div>
         <Error e={error} />
       </div>
