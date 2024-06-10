@@ -1,18 +1,18 @@
 import prisma from '../../../client'
 import { createMutation } from '../../../utils'
 
-export interface DeleteBranchArgs {
+export interface HardDeleteBranchArgs {
   /**
    * Branch id
    */
   id: string
 }
 
-export const deleteBranch = createMutation({
-  mutation: async ({ id }: DeleteBranchArgs) => {
+export const hardDeleteBranch = createMutation({
+  mutation: async ({ id }: HardDeleteBranchArgs) => {
     return await prisma.branch.delete({
       where: { id },
     })
   },
-  name: 'deleteBranch',
+  name: 'hardDeleteBranch',
 })
