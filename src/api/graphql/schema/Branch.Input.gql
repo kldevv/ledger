@@ -17,3 +17,7 @@ input UpdateBranchInput {
   name: String!
   currency: Currency!
 }
+
+input HardDeleteBranchInput {
+  id: String!
+}

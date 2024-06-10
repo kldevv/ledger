@@ -237,6 +237,10 @@ export const EntryStatus = {
 } as const;
 
 export type EntryStatus = typeof EntryStatus[keyof typeof EntryStatus];
+export type HardDeleteBranchInput = {
+  id: Scalars['String']['input'];
+};
+
 export type Journal = {
   __typename?: 'Journal';
   accrualDate: Scalars['DateTime']['output'];
@@ -311,6 +315,7 @@ export type Mutation = {
   addJournal: Journal;
   addLink: Link;
   addTag: Tag;
+  hardDeleteBranch: Branch;
   updateAccount: Account;
   updateAccountGroup: AccountGroup;
   updateBranch: Branch;
@@ -347,6 +352,11 @@ export type MutationAddLinkArgs = {
 
 export type MutationAddTagArgs = {
   input: AddTagInput;
+};
+
+
+export type MutationHardDeleteBranchArgs = {
+  input: HardDeleteBranchInput;
 };
 
 
@@ -691,6 +701,7 @@ export type ResolversTypes = {
   EntryJournalInfo: ResolverTypeWrapper<EntryJournalInfo>;
   EntryStatus: EntryStatus;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  HardDeleteBranchInput: HardDeleteBranchInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Journal: ResolverTypeWrapper<Journal>;
   JournalInput: JournalInput;
@@ -749,6 +760,7 @@ export type ResolversParentTypes = {
   EntryInput: EntryInput;
   EntryJournalInfo: EntryJournalInfo;
   Float: Scalars['Float']['output'];
+  HardDeleteBranchInput: HardDeleteBranchInput;
   Int: Scalars['Int']['output'];
   Journal: Journal;
   JournalInput: JournalInput;
@@ -899,6 +911,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addJournal?: Resolver<ResolversTypes['Journal'], ParentType, ContextType, RequireFields<MutationAddJournalArgs, 'input'>>;
   addLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationAddLinkArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
+  hardDeleteBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationHardDeleteBranchArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
   updateAccountGroup?: Resolver<ResolversTypes['AccountGroup'], ParentType, ContextType, RequireFields<MutationUpdateAccountGroupArgs, 'input'>>;
   updateBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationUpdateBranchArgs, 'input'>>;
@@ -1032,6 +1045,13 @@ export type AddTagMutationVariables = Exact<{
 
 
 export type AddTagMutation = { __typename?: 'Mutation', addTag: { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number } };
+
+export type HardDeleteBranchMutationVariables = Exact<{
+  input: HardDeleteBranchInput;
+}>;
+
+
+export type HardDeleteBranchMutation = { __typename?: 'Mutation', hardDeleteBranch: { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
 
 export type UpdateAccountMutationVariables = Exact<{
   input: UpdateAccountInput;
@@ -1466,6 +1486,39 @@ export function useAddTagMutation(baseOptions?: Apollo.MutationHookOptions<AddTa
 export type AddTagMutationHookResult = ReturnType<typeof useAddTagMutation>;
 export type AddTagMutationResult = Apollo.MutationResult<AddTagMutation>;
 export type AddTagMutationOptions = Apollo.BaseMutationOptions<AddTagMutation, AddTagMutationVariables>;
+export const HardDeleteBranchDocument = gql`
+    mutation HardDeleteBranch($input: HardDeleteBranchInput!) {
+  hardDeleteBranch(input: $input) {
+    ...BranchData
+  }
+}
+    ${BranchDataFragmentDoc}`;
+export type HardDeleteBranchMutationFn = Apollo.MutationFunction<HardDeleteBranchMutation, HardDeleteBranchMutationVariables>;
+
+/**
+ * __useHardDeleteBranchMutation__
+ *
+ * To run a mutation, you first call `useHardDeleteBranchMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useHardDeleteBranchMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [hardDeleteBranchMutation, { data, loading, error }] = useHardDeleteBranchMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useHardDeleteBranchMutation(baseOptions?: Apollo.MutationHookOptions<HardDeleteBranchMutation, HardDeleteBranchMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<HardDeleteBranchMutation, HardDeleteBranchMutationVariables>(HardDeleteBranchDocument, options);
+      }
+export type HardDeleteBranchMutationHookResult = ReturnType<typeof useHardDeleteBranchMutation>;
+export type HardDeleteBranchMutationResult = Apollo.MutationResult<HardDeleteBranchMutation>;
+export type HardDeleteBranchMutationOptions = Apollo.BaseMutationOptions<HardDeleteBranchMutation, HardDeleteBranchMutationVariables>;
 export const UpdateAccountDocument = gql`
     mutation UpdateAccount($input: UpdateAccountInput!) {
   updateAccount(input: $input) {
