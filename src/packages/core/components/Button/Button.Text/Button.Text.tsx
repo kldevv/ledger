@@ -28,14 +28,14 @@ export const ButtonText: React.FC<ButtonTextProps> = ({
   return (
     <ButtonCore
       {...props}
-      className={clsx(linkTextVariant[variant], className)}
+      className={clsx(ButtonTextVariant[variant], className)}
     >
       {label}
     </ButtonCore>
   )
 }
 
-const linkTextVariant = {
+const ButtonTextVariant = {
   primary: 'text-light-accent hover:text-light-accent/60',
   secondary: 'text-dark-shades hover:text-dark-shades/60',
 } as const
