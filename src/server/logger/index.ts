@@ -1,5 +1,17 @@
-export * as loggerMessage from './messages'
+import winston from 'winston'
 
-import { logger } from './logger'
+const { combine, timestamp, prettyPrint } = winston.format
 
-export default logger
+export const logger = winston.createLogger({
+  // Log only if info.level is less than or equal to this level
+  // https://github.com/winstonjs/winston#logging
+  level: 'info',
+
+  // Formatting for info messages
+  // https://github.com/winstonjs/winston#formats
+  format: combine(timestamp(), prettyPrint()),
+  defaultMeta: {
+    env: process.env.NODE_ENV,
+  },
+  transports: [new winston.transports.Console()],
+})

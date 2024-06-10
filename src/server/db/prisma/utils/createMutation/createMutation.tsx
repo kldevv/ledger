@@ -1,4 +1,5 @@
-import logger, { loggerMessage } from '@/server/logger'
+import { logger } from '@/server/logger'
+import { LoggerMessage } from '@/server/logger/messages'
 
 export interface createMutationArgs<TArgs, TData> {
   /**
@@ -23,7 +24,7 @@ export const createMutation = <TArgs, TData>({
   name,
 }: createMutationArgs<TArgs, TData>) => {
   return (args: TArgs) => {
-    logger.info(loggerMessage.DaoMutationExecuting, {
+    logger.info(LoggerMessage.DaoMutationExecuting, {
       args,
       name,
     })
