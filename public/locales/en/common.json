@@ -7,6 +7,8 @@
     "ACCRUAL": "By Accrual Standard",
     "TRANSACTION": "By Transaction (Cash) Standard"
   },
+  "edit": "Edit",
+  "delete": "Delete",
   "table": {
     "empty": "No Data Available"
   },
