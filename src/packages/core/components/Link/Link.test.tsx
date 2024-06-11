@@ -1,7 +1,7 @@
 import { composeStories } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
-import * as stories from './Button.stories'
+import * as stories from './Link.stories'
 
 const { Primary, Secondary, Loading } = composeStories(stories)
 
@@ -9,10 +9,10 @@ describe('Button', () => {
   it('renders primary', () => {
     render(<Primary />)
 
-    const button = screen.getByRole('button')
+    const link = screen.getByRole('link')
 
-    expect(button).toBeInTheDocument()
-    expect(button).toHaveClass(
+    expect(link).toBeInTheDocument()
+    expect(link).toHaveClass(
       'border-2 bg-light-accent hover:bg-light-accent/60 text-light-shades',
     )
   })
@@ -20,10 +20,10 @@ describe('Button', () => {
   it('renders secondary', () => {
     render(<Secondary />)
 
-    const button = screen.getByRole('button')
+    const link = screen.getByRole('link')
 
-    expect(button).toBeInTheDocument()
-    expect(button).toHaveClass(
+    expect(link).toBeInTheDocument()
+    expect(link).toHaveClass(
       'border-2 border-light-accent hover:bg-light-accent/10 text-light-accent',
     )
   })

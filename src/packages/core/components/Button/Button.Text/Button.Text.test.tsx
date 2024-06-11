@@ -6,7 +6,7 @@ import * as stories from './Button.Text.stories'
 const { Primary, Secondary, Loading } = composeStories(stories)
 
 describe('Button.Text', () => {
-  it('render primary', () => {
+  it('renders primary', () => {
     render(<Primary />)
 
     const button = screen.getByRole('button')
@@ -15,7 +15,7 @@ describe('Button.Text', () => {
     expect(button).toHaveClass('text-light-accent hover:text-light-accent/60')
   })
 
-  it('render secondary', () => {
+  it('renders secondary', () => {
     render(<Secondary />)
 
     const button = screen.getByRole('button')
@@ -24,7 +24,7 @@ describe('Button.Text', () => {
     expect(button).toHaveClass('text-dark-shades hover:text-dark-shades/60')
   })
 
-  it('render loading', () => {
+  it('renders loading', () => {
     render(<Loading />)
 
     expect(screen.getByTestId('loading-box')).toBeInTheDocument()

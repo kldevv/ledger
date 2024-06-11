@@ -16,9 +16,6 @@ export interface ButtonCoreProps
   children: React.ReactNode
 }
 
-/**
- * Styleless native HTML button wrapper. Should not be used directly.
- */
 export const ButtonCore = forwardRef<HTMLButtonElement, ButtonCoreProps>(
   (
     { disabled = false, onClick, type = 'button', className, ...props },

@@ -1,24 +1,25 @@
-import { Button } from './Button'
+import { Link } from './Link'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-const meta: Meta<typeof Button> = {
-  component: Button,
+const meta: Meta<typeof Link> = {
+  component: Link,
   args: {
     variant: 'primary',
     className: 'text-sm',
+    href: '',
     children: 'Hello',
   },
   render: (args) => (
     <div className="h-8 w-16">
-      <Button {...args} />
+      <Link {...args} />
     </div>
   ),
 }
 
 export default meta
 
-type Story = StoryObj<typeof Button>
+type Story = StoryObj<typeof Link>
 
 export const Primary: Story = {}
 

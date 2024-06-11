@@ -1,7 +1,6 @@
 import clsx from 'clsx'
-import React from 'react'
 
-import { LoadingBox } from '../LoadingBox/LoadingBox'
+import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner'
 
 import { ButtonCore } from './Button.Core/Button.Core'
 import { ButtonText } from './Button.Text/Button.Text'
@@ -17,22 +16,18 @@ export interface ButtonProps extends ButtonCoreProps {
 
 export const Button: React.FC<ButtonProps> & {
   Text: typeof ButtonText
-} = ({ className, variant, loading = false, ...props }) => {
-  if (loading) {
-    return <LoadingBox className="size-full" />
-  }
-
-  return (
-    <ButtonCore
-      {...props}
-      className={clsx(
-        ButtonVariant[variant],
-        'rounded-md px-3 py-1',
-        className,
-      )}
-    />
-  )
-}
+} = ({ className, variant, loading = false, children, ...props }) => (
+  <ButtonCore
+    {...props}
+    className={clsx(
+      ButtonVariant[variant],
+      'flex size-full items-center justify-center rounded-md px-3 py-1',
+      className,
+    )}
+  >
+    {loading ? <LoadingSpinner className="size-3" /> : children}
+  </ButtonCore>
+)
 
 Button.Text = ButtonText
 
