@@ -1,5 +1,5 @@
-query Branches($input: BranchesInput!) {
-  branches(input: $input) {
+query Branches {
+  branches {
     ...BranchData
   }
 }

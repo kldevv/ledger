@@ -12,7 +12,7 @@ describe('PageHeader', () => {
     expect(
       screen.getByRole('heading', { level: 1, name: Default.args.header }),
     ).toBeInTheDocument()
-    expect(screen.getByText(Default.args.desc ?? '')).toBeInTheDocument()
+    expect(screen.getByText(/Description/)).toBeInTheDocument()
   })
 
   it('renders children - represented by two buttons', () => {

@@ -4,9 +4,14 @@ import type { QueryResolvers } from '@/api/graphql'
 
 export const branches: QueryResolvers['branches'] = async (
   _,
-  { input: { userId } },
+  __,
+  { session },
 ) => {
+  if (session?.user.id == null) {
+    return []
+  }
+
   return await findBranches({
-    userId,
+    userId: session?.user.id,
   })
 }

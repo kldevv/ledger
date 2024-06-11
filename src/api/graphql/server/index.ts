@@ -5,7 +5,7 @@ import { DateTimeResolver } from 'graphql-scalars'
 import { getServerSession } from 'next-auth/next'
 
 import { authOptions } from '@/api/auth'
-import logger from '@/server/logger'
+import { logger } from '@/server/logger'
 import { resolvers } from '@/server/resolver'
 
 import type { ApolloServerContext } from './context'

@@ -6,7 +6,7 @@ export interface PageHeaderProps extends React.PropsWithChildren {
   /**
    * Description
    */
-  desc: string
+  desc: React.ReactNode
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = ({

@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 
-import logger, { loggerMessage } from '@/server/logger'
+import { logger } from '@/server/logger'
+import { LoggerMessage } from '@/server/logger/messages'
 
 import {
   logPrismaErrorEvent,
@@ -12,7 +13,7 @@ import { prismaOptions } from './options'
 import type { Prisma } from '@prisma/client'
 
 const prismaClientSingleton = () => {
-  logger.info(loggerMessage.PrismaIniting)
+  logger.info(LoggerMessage.PrismaIniting)
 
   try {
     const client = new PrismaClient<
@@ -24,11 +25,11 @@ const prismaClientSingleton = () => {
     client.$on('error', logPrismaErrorEvent)
     client.$on('warn', logPrismaWarnEvent)
 
-    logger.error(loggerMessage.PrismaInitSucceeded)
+    logger.error(LoggerMessage.PrismaInitSucceeded)
 
     return client
   } catch (error: unknown) {
-    logger.error(loggerMessage.PrismaInitFailed, { error })
+    logger.error(LoggerMessage.PrismaInitFailed, { error })
 
     throw error
   }
