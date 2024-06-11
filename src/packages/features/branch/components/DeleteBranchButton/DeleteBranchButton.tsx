@@ -1,7 +1,11 @@
 import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 
-import { BranchDocument, useDeleteBranchMutation } from '@/api/graphql'
+import {
+  BranchDocument,
+  BranchesDocument,
+  useDeleteBranchMutation,
+} from '@/api/graphql'
 import { Button } from '@/packages/core/components'
 
 export interface DeleteBranchButtonProps {
@@ -32,6 +36,12 @@ export const DeleteBranchButton: React.FC<DeleteBranchButtonProps> = ({
         query: BranchDocument,
         variables: {
           input: { id },
+        },
+      },
+      {
+        query: BranchesDocument,
+        variables: {
+          input: { active: true },
         },
       },
     ],

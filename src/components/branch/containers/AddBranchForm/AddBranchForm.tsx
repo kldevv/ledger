@@ -44,7 +44,7 @@ export const AddBranchForm: React.FC = () => {
       {
         query: BranchesDocument,
         variables: {
-          input: { userId: session?.user.id ?? '' },
+          input: { active: true },
         },
       },
     ],
