@@ -40,7 +40,7 @@ export const BranchDetails: React.FC = () => {
             }}
           />
         }
-      ></PageHeader>
+      />
       <BranchDescList branch={data?.branch} loading={loading} />
     </div>
   )

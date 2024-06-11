@@ -15,7 +15,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   children,
 }) => {
   return (
-    <div className="flex w-full items-center">
+    <div className="mb-6 flex w-full items-center">
       <div className="flex flex-col pr-6">
         <h1 className="whitespace-nowrap text-3xl font-extrabold">{header}</h1>
         <p className="text-gray mt-3 max-w-[50rem] text-base">{desc}</p>

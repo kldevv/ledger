@@ -1,7 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { useBranchQuery } from '@/api/graphql'
 import {
   Card,
   DescList,

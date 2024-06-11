@@ -1,41 +1,15 @@
-import { useRouter } from 'next/router'
-import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { BranchDetails } from '@/components/branch/containers'
-import { TextLink } from '@/components/core/presentationals'
 import { Layout } from '@/components/layout/containers'
-import { Header } from '@/components/layout/presentationals'
-import { route } from '@/shared/route'
+import { BranchDetails } from '@/packages/features/branch/components'
 
 import type { GetServerSideProps } from 'next'
 
-const Page: React.FC = () => {
-  const { t } = useTranslation('pages')
-  const { query } = useRouter()
-
-  return (
-    <Layout>
-      <Header
-        header={t`branch.details.header`}
-        section={
-          <Trans
-            i18nKey={'pages:branch.details.section'}
-            components={{
-              accountGroup: <TextLink href={route.accountGroup.home} />,
-              account: <TextLink href={route.account.home} />,
-            }}
-          />
-        }
-        link={{
-          href: { pathname: route.branch.edit.pathname, query },
-          label: t`branch.details.link`,
-        }}
-      />
-      <BranchDetails />
-    </Layout>
-  )
-}
+const BranchDetailsPage: React.FC = () => (
+  <Layout>
+    <BranchDetails />
+  </Layout>
+)
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
@@ -51,4 +25,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   }
 }
 
-export default Page
+export default BranchDetailsPage
