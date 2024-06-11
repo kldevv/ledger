@@ -14,6 +14,7 @@ type Mutation {
   # Branch
   addBranch(input: AddBranchInput!): Branch!
   updateBranch(input: UpdateBranchInput!): Branch!
+  deleteBranch(input: DeleteBranchInput!): Branch!
   hardDeleteBranch(input: HardDeleteBranchInput!): Branch!
 
   # Account Group

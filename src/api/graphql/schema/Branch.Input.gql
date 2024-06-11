@@ -17,3 +17,7 @@ input UpdateBranchInput {
 input HardDeleteBranchInput {
   id: String!
 }
+
+input DeleteBranchInput {
+  id: String!
+}

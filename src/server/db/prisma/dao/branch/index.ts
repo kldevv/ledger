@@ -1,4 +1,5 @@
 export * from './createBranch/createBranch'
+export * from './deleteBranch/deleteBranch'
 export * from './findBranch/findBranch'
 export * from './findBranches/findBranches'
 export * from './hardDeleteBranch/hardDeleteBranch'

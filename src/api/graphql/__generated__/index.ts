@@ -186,6 +186,10 @@ export type DebitAndCredit = {
   debit: Scalars['Float']['output'];
 };
 
+export type DeleteBranchInput = {
+  id: Scalars['String']['input'];
+};
+
 export type EntriesInput = {
   accountGroupId?: InputMaybe<Scalars['String']['input']>;
   accountId?: InputMaybe<Scalars['String']['input']>;
@@ -311,6 +315,7 @@ export type Mutation = {
   addJournal: Journal;
   addLink: Link;
   addTag: Tag;
+  deleteBranch: Branch;
   hardDeleteBranch: Branch;
   updateAccount: Account;
   updateAccountGroup: AccountGroup;
@@ -348,6 +353,11 @@ export type MutationAddLinkArgs = {
 
 export type MutationAddTagArgs = {
   input: AddTagInput;
+};
+
+
+export type MutationDeleteBranchArgs = {
+  input: DeleteBranchInput;
 };
 
 
@@ -684,6 +694,7 @@ export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   DateType: DateType;
   DebitAndCredit: ResolverTypeWrapper<DebitAndCredit>;
+  DeleteBranchInput: DeleteBranchInput;
   EntriesInput: EntriesInput;
   Entry: ResolverTypeWrapper<Entry>;
   EntryAccountInfo: ResolverTypeWrapper<EntryAccountInfo>;
@@ -743,6 +754,7 @@ export type ResolversParentTypes = {
   BranchInput: BranchInput;
   DateTime: Scalars['DateTime']['output'];
   DebitAndCredit: DebitAndCredit;
+  DeleteBranchInput: DeleteBranchInput;
   EntriesInput: EntriesInput;
   Entry: Entry;
   EntryAccountInfo: EntryAccountInfo;
@@ -900,6 +912,7 @@ export type MutationResolvers<ContextType = ApolloServerContext, ParentType exte
   addJournal?: Resolver<ResolversTypes['Journal'], ParentType, ContextType, RequireFields<MutationAddJournalArgs, 'input'>>;
   addLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationAddLinkArgs, 'input'>>;
   addTag?: Resolver<ResolversTypes['Tag'], ParentType, ContextType, RequireFields<MutationAddTagArgs, 'input'>>;
+  deleteBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationDeleteBranchArgs, 'input'>>;
   hardDeleteBranch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<MutationHardDeleteBranchArgs, 'input'>>;
   updateAccount?: Resolver<ResolversTypes['Account'], ParentType, ContextType, RequireFields<MutationUpdateAccountArgs, 'input'>>;
   updateAccountGroup?: Resolver<ResolversTypes['AccountGroup'], ParentType, ContextType, RequireFields<MutationUpdateAccountGroupArgs, 'input'>>;
@@ -1034,6 +1047,13 @@ export type AddTagMutationVariables = Exact<{
 
 
 export type AddTagMutation = { __typename?: 'Mutation', addTag: { __typename?: 'Tag', id: string, name: string, createdAt: Date, type: TagType, count: number } };
+
+export type DeleteBranchMutationVariables = Exact<{
+  input: DeleteBranchInput;
+}>;
+
+
+export type DeleteBranchMutation = { __typename?: 'Mutation', deleteBranch: { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
 
 export type HardDeleteBranchMutationVariables = Exact<{
   input: HardDeleteBranchInput;
@@ -1473,6 +1493,39 @@ export function useAddTagMutation(baseOptions?: Apollo.MutationHookOptions<AddTa
 export type AddTagMutationHookResult = ReturnType<typeof useAddTagMutation>;
 export type AddTagMutationResult = Apollo.MutationResult<AddTagMutation>;
 export type AddTagMutationOptions = Apollo.BaseMutationOptions<AddTagMutation, AddTagMutationVariables>;
+export const DeleteBranchDocument = gql`
+    mutation deleteBranch($input: DeleteBranchInput!) {
+  deleteBranch(input: $input) {
+    ...BranchData
+  }
+}
+    ${BranchDataFragmentDoc}`;
+export type DeleteBranchMutationFn = Apollo.MutationFunction<DeleteBranchMutation, DeleteBranchMutationVariables>;
+
+/**
+ * __useDeleteBranchMutation__
+ *
+ * To run a mutation, you first call `useDeleteBranchMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteBranchMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteBranchMutation, { data, loading, error }] = useDeleteBranchMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteBranchMutation(baseOptions?: Apollo.MutationHookOptions<DeleteBranchMutation, DeleteBranchMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteBranchMutation, DeleteBranchMutationVariables>(DeleteBranchDocument, options);
+      }
+export type DeleteBranchMutationHookResult = ReturnType<typeof useDeleteBranchMutation>;
+export type DeleteBranchMutationResult = Apollo.MutationResult<DeleteBranchMutation>;
+export type DeleteBranchMutationOptions = Apollo.BaseMutationOptions<DeleteBranchMutation, DeleteBranchMutationVariables>;
 export const HardDeleteBranchDocument = gql`
     mutation HardDeleteBranch($input: HardDeleteBranchInput!) {
   hardDeleteBranch(input: $input) {

@@ -1,0 +1,5 @@
+mutation deleteBranch($input: DeleteBranchInput!) {
+  deleteBranch(input: $input) {
+    ...BranchData
+  }
+}
