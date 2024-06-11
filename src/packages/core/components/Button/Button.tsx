@@ -30,7 +30,7 @@ export const Button: React.FC<ButtonProps> & {
         'rounded-md px-3 py-1',
         className,
       )}
-    ></ButtonCore>
+    />
   )
 }
 
