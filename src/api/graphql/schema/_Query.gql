@@ -12,7 +12,7 @@ type Query {
   tags(input: TagsInput!): [Tag!]!
 
   # Branch
-  branches: [Branch!]!
+  branches(input: BranchesInput!): [Branch!]!
   branch(input: BranchInput!): Branch!
 
   # Account Group

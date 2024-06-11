@@ -153,6 +153,10 @@ export type BranchInput = {
   id: Scalars['String']['input'];
 };
 
+export type BranchesInput = {
+  active: Scalars['Boolean']['input'];
+};
+
 export const CategoryType = {
   ASSETS: 'ASSETS',
   EQUITY: 'EQUITY',
@@ -447,6 +451,11 @@ export type QueryBranchArgs = {
 };
 
 
+export type QueryBranchesArgs = {
+  input: BranchesInput;
+};
+
+
 export type QueryEntriesArgs = {
   input: EntriesInput;
 };
@@ -688,6 +697,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Branch: ResolverTypeWrapper<Branch>;
   BranchInput: BranchInput;
+  BranchesInput: BranchesInput;
   CategoryType: CategoryType;
   Currency: Currency;
   DateStandard: DateStandard;
@@ -752,6 +762,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   Branch: Branch;
   BranchInput: BranchInput;
+  BranchesInput: BranchesInput;
   DateTime: Scalars['DateTime']['output'];
   DebitAndCredit: DebitAndCredit;
   DeleteBranchInput: DeleteBranchInput;
@@ -928,7 +939,7 @@ export type QueryResolvers<ContextType = ApolloServerContext, ParentType extends
   accountGroups?: Resolver<Array<ResolversTypes['AccountGroup']>, ParentType, ContextType, RequireFields<QueryAccountGroupsArgs, 'input'>>;
   accounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryAccountsArgs, 'input'>>;
   branch?: Resolver<ResolversTypes['Branch'], ParentType, ContextType, RequireFields<QueryBranchArgs, 'input'>>;
-  branches?: Resolver<Array<ResolversTypes['Branch']>, ParentType, ContextType>;
+  branches?: Resolver<Array<ResolversTypes['Branch']>, ParentType, ContextType, RequireFields<QueryBranchesArgs, 'input'>>;
   entries?: Resolver<Array<ResolversTypes['Entry']>, ParentType, ContextType, RequireFields<QueryEntriesArgs, 'input'>>;
   entry?: Resolver<ResolversTypes['Entry'], ParentType, ContextType, RequireFields<QueryEntryArgs, 'input'>>;
   journal?: Resolver<ResolversTypes['Journal'], ParentType, ContextType, RequireFields<QueryJournalArgs, 'input'>>;
@@ -1139,7 +1150,9 @@ export type BranchQueryVariables = Exact<{
 
 export type BranchQuery = { __typename?: 'Query', branch: { __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null } };
 
-export type BranchesQueryVariables = Exact<{ [key: string]: never; }>;
+export type BranchesQueryVariables = Exact<{
+  input: BranchesInput;
+}>;
 
 
 export type BranchesQuery = { __typename?: 'Query', branches: Array<{ __typename?: 'Branch', id: string, name: string, userId: string, currency: Currency, createdAt: Date, updatedAt: Date, deletedAt?: Date | null }> };
@@ -1964,8 +1977,8 @@ export type BranchLazyQueryHookResult = ReturnType<typeof useBranchLazyQuery>;
 export type BranchSuspenseQueryHookResult = ReturnType<typeof useBranchSuspenseQuery>;
 export type BranchQueryResult = Apollo.QueryResult<BranchQuery, BranchQueryVariables>;
 export const BranchesDocument = gql`
-    query Branches {
-  branches {
+    query Branches($input: BranchesInput!) {
+  branches(input: $input) {
     ...BranchData
   }
 }
@@ -1983,10 +1996,11 @@ export const BranchesDocument = gql`
  * @example
  * const { data, loading, error } = useBranchesQuery({
  *   variables: {
+ *      input: // value for 'input'
  *   },
  * });
  */
-export function useBranchesQuery(baseOptions?: Apollo.QueryHookOptions<BranchesQuery, BranchesQueryVariables>) {
+export function useBranchesQuery(baseOptions: Apollo.QueryHookOptions<BranchesQuery, BranchesQueryVariables> & ({ variables: BranchesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<BranchesQuery, BranchesQueryVariables>(BranchesDocument, options);
       }

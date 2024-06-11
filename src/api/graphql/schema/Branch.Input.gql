@@ -2,6 +2,10 @@ input BranchInput {
   id: String!
 }
 
+input BranchesInput {
+  active: Boolean!
+}
+
 input AddBranchInput {
   userId: String!
   name: String!

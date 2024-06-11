@@ -1,5 +1,4 @@
-import { useSession } from 'next-auth/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useBranchesQuery } from '@/api/graphql'
 
@@ -11,19 +10,18 @@ export const CurrentBranchProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const [currentBranch, setCurrentBranch] = useState<Branch>()
-  const { data: session } = useSession()
 
-  useBranchesQuery({
+  const { data } = useBranchesQuery({
     variables: {
       input: {
-        userId: session?.user.id ?? '',
+        active: true,
       },
     },
-    onCompleted: (data) => {
-      setCurrentBranch(data.branches?.at(0))
-    },
-    skip: session?.user.id == null,
   })
+
+  useEffect(() => {
+    setCurrentBranch(data?.branches?.at(0))
+  }, [data?.branches])
 
   return (
     <CurrentBranchContext.Provider value={[currentBranch, setCurrentBranch]}>

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo } from 'react'
 
@@ -15,16 +14,14 @@ import type { DropdownItem } from '@/packages/core/components'
 export const BranchSwitch: React.FC = () => {
   const { t } = useTranslation('layout')
   const [currentBranch, setCurrentBranch] = useCurrentBranch()
-  const { data: session } = useSession()
   const router = useRouter()
 
   const { data, loading, error, refetch } = useBranchesQuery({
     variables: {
       input: {
-        userId: session?.user.id ?? '',
+        active: true,
       },
     },
-    skip: session?.user.id == null,
   })
 
   const items = useMemo<DropdownItem[]>(

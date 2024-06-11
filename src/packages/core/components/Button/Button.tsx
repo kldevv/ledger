@@ -21,11 +21,11 @@ export const Button: React.FC<ButtonProps> & {
     {...props}
     className={clsx(
       ButtonVariant[variant],
-      'flex size-full items-center justify-center rounded-md px-3 py-1',
+      'flex size-full min-h-full items-center justify-center rounded-md px-3 py-1',
       className,
     )}
   >
-    {loading ? <LoadingSpinner className="size-3" /> : children}
+    {loading ? <LoadingSpinner className="size-4" /> : children}
   </ButtonCore>
 )
 
