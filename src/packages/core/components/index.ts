@@ -1,5 +1,6 @@
 export * from './Banner/Banner'
 export * from './Button/Button'
+export * from './Card/Card'
 export * from './DescList/DescList'
 export * from './Dropdown'
 export * from './Error/Error'

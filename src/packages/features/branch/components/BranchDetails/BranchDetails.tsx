@@ -10,7 +10,7 @@ import { route } from '@/shared/route'
 import { BranchDescList, DeleteBranchButton } from '..'
 
 export const BranchDetails: React.FC = () => {
-  const { t } = useTranslation('pages')
+  const { t } = useTranslation('branch')
   const [currentBranch] = useCurrentBranch()
   const { query } = useRouter()
 
@@ -28,10 +28,10 @@ export const BranchDetails: React.FC = () => {
   return (
     <div>
       <PageHeader
-        header={t`branch.details.header`}
+        header={t`branchDetails.header`}
         desc={
           <Trans
-            i18nKey={'pages:branch.details.section'}
+            i18nKey={'branch:branchDetails.desc'}
             components={{
               accountGroup: (
                 <Link.Text variant="primary" href={route.accountGroup.home} />
@@ -45,6 +45,7 @@ export const BranchDetails: React.FC = () => {
       >
         {!loading && id != null && data?.branch.deletedAt == null && (
           <div className="flex w-40 items-center gap-x-1 text-sm">
+            {/* Cannot delete current branch */}
             {currentBranch?.id !== id && (
               <DeleteBranchButton id={id} className="flex-1" />
             )}
@@ -59,7 +60,7 @@ export const BranchDetails: React.FC = () => {
         )}
       </PageHeader>
       {data?.branch.deletedAt != null && (
-        <Banner title="This branch has been removed." className="mb-6" />
+        <Banner title={t`branchDetails.deleted`} className="mb-6" />
       )}
       <BranchDescList branch={data?.branch} loading={loading} />
     </div>

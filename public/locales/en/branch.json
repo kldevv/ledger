@@ -40,12 +40,17 @@
     "EUR": "Euro (€)",
     "RMB": "Renminbi (¥)"
   },
-  "branchDetails": {
+  "branchDescList": {
     "id": "ID",
     "name": "Name",
     "currency": "Currency",
     "createdAt": "Create Date",
     "updatedAt": "Update Date",
     "deletedAt": "Delete Date"
+  },
+  "branchDetails": {
+    "header": "Branch Details",
+    "desc": "A branch, comprising <accountGroup>account groups</accountGroup> and individual <account>accounts</account>, acts as the transactional hub in a single currency.",
+    "deleted": "This branch has been deleted."
   }
 }

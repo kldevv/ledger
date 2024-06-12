@@ -1,16 +1,12 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import {
-  Card,
-  DescList,
-  FormattedDate,
-  type DescListItem,
-} from '@/components/core/presentationals'
-import { Icon } from '@/packages/core/components'
+import { FormattedDate } from '@/components/core/presentationals'
+import { Card, DescList, Icon } from '@/packages/core/components'
 import { currencyToFlagIconName } from '@/shared/utils'
 
 import type { Branch } from '@/api/graphql'
+import type { DescListItem } from '@/packages/core/components'
 
 export interface BranchDescListProps {
   /**
@@ -32,15 +28,15 @@ export const BranchDescList: React.FC<BranchDescListProps> = ({
   const descItems = useMemo<DescListItem[]>(
     () => [
       {
-        title: t`branchDetails.id`,
+        title: t`branchDescList.id`,
         desc: branch?.id,
       },
       {
-        title: t`branchDetails.name`,
+        title: t`branchDescList.name`,
         desc: branch?.name,
       },
       {
-        title: t`branchDetails.currency`,
+        title: t`branchDescList.currency`,
         desc: branch ? (
           <div className="flex items-center gap-x-1">
             <Icon name={currencyToFlagIconName(branch.currency)} />
@@ -49,16 +45,17 @@ export const BranchDescList: React.FC<BranchDescListProps> = ({
         ) : null,
       },
       {
-        title: t`branchDetails.createdAt`,
+        title: t`branchDescList.createdAt`,
         desc: <FormattedDate dateTime={branch?.createdAt} />,
       },
       {
-        title: t`branchDetails.updatedAt`,
+        title: t`branchDescList.updatedAt`,
         desc: <FormattedDate dateTime={branch?.updatedAt} />,
       },
       {
-        title: t`branchDetails.deletedAt`,
+        title: t`branchDescList.deletedAt`,
         desc: <FormattedDate dateTime={branch?.deletedAt} />,
+        hide: branch?.deletedAt == null,
       },
     ],
     [t, branch],
