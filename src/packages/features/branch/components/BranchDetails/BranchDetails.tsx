@@ -3,7 +3,7 @@ import { Trans, useTranslation } from 'next-i18next'
 
 import { useBranchQuery } from '@/api/graphql'
 import { useCurrentBranch } from '@/components/core/hooks'
-import { Link } from '@/packages/core/components'
+import { Banner, Link } from '@/packages/core/components'
 import { PageHeader } from '@/packages/layout'
 import { route } from '@/shared/route'
 
@@ -58,6 +58,9 @@ export const BranchDetails: React.FC = () => {
           </div>
         )}
       </PageHeader>
+      {data?.branch.deletedAt != null && (
+        <Banner title="This branch has been removed." className="mb-6" />
+      )}
       <BranchDescList branch={data?.branch} loading={loading} />
     </div>
   )
