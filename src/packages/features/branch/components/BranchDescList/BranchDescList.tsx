@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { FormattedDate } from '@/components/core/presentationals'
 import { Card, DescList, Icon } from '@/packages/core/components'
+import { useDate } from '@/packages/core/hooks'
 import { currencyToFlagIconName } from '@/shared/utils'
 
 import type { Branch } from '@/api/graphql'
@@ -21,9 +21,10 @@ export interface BranchDescListProps {
 
 export const BranchDescList: React.FC<BranchDescListProps> = ({
   branch,
-  loading = false,
+  loading,
 }) => {
   const { t } = useTranslation('branch')
+  const { format } = useDate()
 
   const descItems = useMemo<DescListItem[]>(
     () => [
@@ -46,19 +47,19 @@ export const BranchDescList: React.FC<BranchDescListProps> = ({
       },
       {
         title: t`branchDescList.createdAt`,
-        desc: <FormattedDate dateTime={branch?.createdAt} />,
+        desc: branch?.createdAt ? format(branch?.createdAt) : null,
       },
       {
         title: t`branchDescList.updatedAt`,
-        desc: <FormattedDate dateTime={branch?.updatedAt} />,
+        desc: branch?.createdAt ? format(branch?.updatedAt) : null,
       },
       {
         title: t`branchDescList.deletedAt`,
-        desc: <FormattedDate dateTime={branch?.deletedAt} />,
+        desc: branch?.deletedAt ? format(branch?.deletedAt) : null,
         hide: branch?.deletedAt == null,
       },
     ],
-    [t, branch],
+    [t, branch, format],
   )
 
   return (

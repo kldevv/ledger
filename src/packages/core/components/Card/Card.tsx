@@ -24,7 +24,10 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={clsx('shadow-mid-gray rounded-lg bg-white shadow', className)}
+      className={clsx(
+        'shadow-mid-gray min-w-max rounded-lg bg-white shadow',
+        className,
+      )}
       data-testid="card"
     >
       <div className="w-full items-center p-6">
