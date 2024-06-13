@@ -37,14 +37,7 @@ export const CurrencyData: Record<
   },
 }
 
-export interface UseCurrencyProps {
-  /**
-   * Currency
-   */
-  currency: Currency
-}
-
-export const useCurrency = ({ currency }: UseCurrencyProps) => {
+export const useCurrency = () => {
   const format = useCallback(
     (num: number | string | null) =>
       numericFormatter(String(num ?? 0), {
@@ -58,7 +51,7 @@ export const useCurrency = ({ currency }: UseCurrencyProps) => {
   )
 
   return {
-    data: CurrencyData[currency],
+    getData: (currency: Currency) => CurrencyData[currency],
     format,
   }
 }

@@ -1,15 +1,15 @@
 {
-  "branchesTable": {
+  "activeBranchesTable": {
     "col": {
       "name": "Name",
       "currency": "Currency",
       "createdAt": "Create Date",
-      "details": "Details",
-      "on": "On",
-      "switch": "Switch"
+      "details": "Details"
     },
     "switch": "Switch",
-    "view": "View"
+    "view": "View",
+    "current": "Current",
+    "title": "All Branches"
   },
   "editBranch": {
     "label": {
@@ -52,5 +52,10 @@
     "header": "Branch Details",
     "desc": "A branch, comprising <accountGroup>account groups</accountGroup> and individual <account>accounts</account>, acts as the transactional hub in a single currency.",
     "deleted": "This branch has been deleted."
+  },
+  "branchTables": {
+    "header": "Branches",
+    "link": "Add Branch",
+    "desc": "A branch, comprising <accountGroup>account groups</accountGroup> and individual <account>accounts</account>, acts as the transactional hub in a single currency."
   }
 }

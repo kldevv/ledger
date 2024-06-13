@@ -44,7 +44,7 @@ export const BranchDetails: React.FC = () => {
         }
       >
         {!loading && id != null && data?.branch.deletedAt == null && (
-          <div className="flex w-40 items-center gap-x-1 text-sm">
+          <div className="flex w-40 items-center gap-x-1 text-sm font-medium">
             {/* Cannot delete current branch */}
             {currentBranch?.id !== id && (
               <DeleteBranchButton id={id} className="flex-1" />
