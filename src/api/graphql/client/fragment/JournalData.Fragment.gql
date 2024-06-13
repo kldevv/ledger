@@ -5,4 +5,5 @@ fragment JournalData on Journal {
   status
   amount
   createdAt
+  count
 }

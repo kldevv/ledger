@@ -1011,7 +1011,7 @@ export type BranchDataFragment = { __typename?: 'Branch', id: string, name: stri
 
 export type EntryDataFragment = { __typename?: 'Entry', id: string, transactionDate: Date, debit: number, credit: number, status: EntryStatus, createdAt: Date, updatedAt: Date, memo: string, account: { __typename?: 'EntryAccountInfo', id: string, name: string }, journal: { __typename?: 'EntryJournalInfo', id: string, note: string } };
 
-export type JournalDataFragment = { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date };
+export type JournalDataFragment = { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date, count: number };
 
 export type LinkDataFragment = { __typename?: 'Link', id: string, name: string, userId: string, type: LinkType, count: number, createdAt: Date, updatedAt: Date, deletedAt?: Date | null };
 
@@ -1043,7 +1043,7 @@ export type AddJournalMutationVariables = Exact<{
 }>;
 
 
-export type AddJournalMutation = { __typename?: 'Mutation', addJournal: { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date } };
+export type AddJournalMutation = { __typename?: 'Mutation', addJournal: { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date, count: number } };
 
 export type AddLinkMutationVariables = Exact<{
   input: AddLinkInput;
@@ -1099,7 +1099,7 @@ export type UpdateJournalMutationVariables = Exact<{
 }>;
 
 
-export type UpdateJournalMutation = { __typename?: 'Mutation', updateJournal: { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date } };
+export type UpdateJournalMutation = { __typename?: 'Mutation', updateJournal: { __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date, count: number } };
 
 export type UpdateLinkMutationVariables = Exact<{
   input: UpdateLinkInput;
@@ -1176,14 +1176,14 @@ export type JournalQueryVariables = Exact<{
 }>;
 
 
-export type JournalQuery = { __typename?: 'Query', journal: { __typename?: 'Journal', branchId: string, updatedAt?: Date | null, deletedAt?: Date | null, currency: Currency, id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date, links?: Array<{ __typename?: 'JournalLink', id: string, name: string }> | null, tags?: Array<{ __typename?: 'JournalTag', id: string, name: string }> | null } };
+export type JournalQuery = { __typename?: 'Query', journal: { __typename?: 'Journal', branchId: string, updatedAt?: Date | null, deletedAt?: Date | null, currency: Currency, id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date, count: number, links?: Array<{ __typename?: 'JournalLink', id: string, name: string }> | null, tags?: Array<{ __typename?: 'JournalTag', id: string, name: string }> | null } };
 
 export type JournalsQueryVariables = Exact<{
   input: JournalsInput;
 }>;
 
 
-export type JournalsQuery = { __typename?: 'Query', journals: Array<{ __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date }> };
+export type JournalsQuery = { __typename?: 'Query', journals: Array<{ __typename?: 'Journal', id: string, accrualDate: Date, note: string, status: EntryStatus, amount: number, createdAt: Date, count: number }> };
 
 export type LinkQueryVariables = Exact<{
   input: LinkInput;
@@ -1285,6 +1285,7 @@ export const JournalDataFragmentDoc = gql`
   status
   amount
   createdAt
+  count
 }
     `;
 export const LinkDataFragmentDoc = gql`

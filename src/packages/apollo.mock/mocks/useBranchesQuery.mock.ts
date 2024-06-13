@@ -1,6 +1,6 @@
 import { BranchesDocument } from '@/api/graphql'
 
-import { UserIdMock, BranchesMock } from '../../../dev/mocks'
+import { BranchesMock } from '../../../dev/mocks'
 
 import type { BranchesQuery, BranchesQueryVariables } from '@/api/graphql'
 import type { ApolloMock } from '@/packages/apollo.mock/types'
@@ -12,7 +12,7 @@ export const useBranchesQueryMock: ApolloMock<
   document: BranchesDocument,
   variables: {
     input: {
-      userId: UserIdMock,
+      active: false,
     },
   },
   data: {

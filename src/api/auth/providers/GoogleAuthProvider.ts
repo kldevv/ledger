@@ -1,6 +1,6 @@
 import Google from 'next-auth/providers/google'
 
-import logger from '@/server/logger'
+import { logger } from '@/server/logger'
 
 export const GoogleAuthProvider = (() => {
   if (process.env.AUTH_GOOGLE_ID == null) {

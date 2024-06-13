@@ -1,12 +1,4 @@
 {
-  "AccountBalanceTableColumn": {
-    "header": {
-      "account": "Account",
-      "balance": "Balance",
-      "type": "Type",
-      "category": "Account Group"
-    }
-  },
   "accountingElement": {
     "ACCOUNT": "Account",
     "ACCOUNT_GROUP": "Account Group",
