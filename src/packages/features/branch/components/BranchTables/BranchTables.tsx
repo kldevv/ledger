@@ -29,10 +29,9 @@ export const BranchTables: React.FC = () => {
         }
       >
         <div className="flex w-40 items-center gap-x-1 text-sm font-medium">
-          <Link
-            href={route.branch.add}
-            variant="primary"
-          >{t`branchTables.link`}</Link>
+          <Link href={route.branch.add} variant="primary">
+            {t`branchTables.link`}
+          </Link>
         </div>
       </PageHeader>
       <div className="flex flex-col gap-y-8">

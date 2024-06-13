@@ -5,7 +5,7 @@ import { BranchTables } from '@/packages/features/branch/components'
 
 import type { GetServerSideProps } from 'next'
 
-const Page: React.FC = () => (
+const BranchesPage: React.FC = () => (
   <Layout>
     <BranchTables />
   </Layout>
@@ -25,4 +25,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   }
 }
 
-export default Page
+export default BranchesPage
