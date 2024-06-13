@@ -5,6 +5,7 @@ import { PageHeader } from '@/packages/layout'
 import { route } from '@/shared/route'
 
 import { ActiveBranchesTable } from '../ActiveBranchesTable/ActiveBranchesTable'
+import { InactiveBranchesTable } from '../InactiveBranchesTable/InactiveBranchesTable'
 
 export const BranchTables: React.FC = () => {
   const { t } = useTranslation('branch')
@@ -34,7 +35,10 @@ export const BranchTables: React.FC = () => {
           >{t`branchTables.link`}</Link>
         </div>
       </PageHeader>
-      <ActiveBranchesTable />
+      <div className="flex flex-col gap-y-8">
+        <ActiveBranchesTable />
+        <InactiveBranchesTable />
+      </div>
     </div>
   )
 }

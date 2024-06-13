@@ -11,6 +11,17 @@
     "current": "Current",
     "title": "All Branches"
   },
+  "inactiveBranchesTable": {
+    "title": "Deleted Branches",
+    "view": "View",
+    "col": {
+      "name": "Name",
+      "currency": "Currency",
+      "createdAt": "Create Date",
+      "deletedAt": "Delete Date",
+      "details": "Details"
+    }
+  },
   "editBranch": {
     "label": {
       "id": "ID",

@@ -1,55 +1,29 @@
 import { createColumnHelper } from '@tanstack/react-table'
 import { useTranslation } from 'next-i18next'
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 
-import { useCurrentBranch } from '@/components/core/hooks'
-import { Button, Icon, InfoBubble, Link } from '@/packages/core/components'
+import { Icon, InfoBubble, Link } from '@/packages/core/components'
 import { useCurrency, useDate } from '@/packages/core/hooks'
 import { route } from '@/shared/route'
 
-import type { Branch, BranchesQuery } from '@/api/graphql'
+import type { BranchesQuery } from '@/api/graphql'
 
 const columnHelper = createColumnHelper<BranchesQuery['branches'][number]>()
 
-export const useActiveBranchesTable = () => {
+export const useInactiveBranchesTable = () => {
   const { t } = useTranslation('branch')
-  const [currentBranch, setCurrentBranch] = useCurrentBranch()
   const { format } = useDate()
   const { getData } = useCurrency()
 
-  const handleOnBranchSwitch = useCallback(
-    (branch: Branch) => () => setCurrentBranch(branch),
-    [setCurrentBranch],
-  )
-
   return useMemo(
     () => [
-      columnHelper.accessor((value) => value, {
-        header: '',
-        id: 'select',
-        enableSorting: false,
-        cell: ({ getValue }) =>
-          getValue().id !== currentBranch?.id ? (
-            <Button
-              onClick={handleOnBranchSwitch(getValue())}
-              className="w-fit text-[0.625rem] font-medium"
-              variant="secondary"
-            >{t`activeBranchesTable.switch`}</Button>
-          ) : (
-            <InfoBubble>
-              <span className="text-dark-shades py-1 text-[0.625rem] font-semibold">
-                {t`activeBranchesTable.current`}
-              </span>
-            </InfoBubble>
-          ),
-      }),
       columnHelper.accessor(
         ({ id, name }) => ({
           id,
           name,
         }),
         {
-          header: t`activeBranchesTable.col.name`,
+          header: t`inactiveBranchesTable.col.name`,
           cell: ({ getValue }) => (
             <Link.Text
               href={{
@@ -66,7 +40,7 @@ export const useActiveBranchesTable = () => {
         },
       ),
       columnHelper.accessor('currency', {
-        header: t`activeBranchesTable.col.currency`,
+        header: t`inactiveBranchesTable.col.currency`,
         cell: ({ getValue }) => (
           <InfoBubble>
             <span className="text-dark-shades mr-2 text-xs font-medium leading-6">
@@ -77,11 +51,19 @@ export const useActiveBranchesTable = () => {
         ),
       }),
       columnHelper.accessor('createdAt', {
-        header: t`activeBranchesTable.col.createdAt`,
+        header: t`inactiveBranchesTable.col.createdAt`,
         cell: ({ getValue }) => format(getValue()),
       }),
+      columnHelper.accessor('deletedAt', {
+        header: t`inactiveBranchesTable.col.deletedAt`,
+        cell: ({ getValue }) => {
+          const date = getValue()
+
+          return date != null ? format(date) : null
+        },
+      }),
       columnHelper.accessor('id', {
-        header: t`activeBranchesTable.col.details`,
+        header: t`inactiveBranchesTable.col.details`,
         cell: ({ getValue }) => (
           <Link.Text
             href={{
@@ -91,10 +73,10 @@ export const useActiveBranchesTable = () => {
               },
             }}
             variant="primary"
-          >{t`activeBranchesTable.view`}</Link.Text>
+          >{t`inactiveBranchesTable.view`}</Link.Text>
         ),
       }),
     ],
-    [currentBranch?.id, format, getData, handleOnBranchSwitch, t],
+    [format, getData, t],
   )
 }
